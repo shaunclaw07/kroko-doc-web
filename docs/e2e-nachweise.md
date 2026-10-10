@@ -22,7 +22,9 @@ schreibt jetzt sechs SVGs — je drei Tests für die neuen Lebewesen kommen aus 
 
 **Nachtrag 11.10.2026, dritte Fassung** (Spannung ist jetzt die Biss-Wahrscheinlichkeit, siehe
 Abschnitt 5b): frischer Klon von `main` — 32 Commits, 82 Dateien, `pnpm gate` grün mit
-**171 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,19 s** (Arbeitsbaum 2,42 s). Ausgeliefert:
+**171 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,19 s** (Arbeitsbaum 2,42 s).
+Zweiter Lauf desselben Baus in einem zweiten Klon: 2,36 s — die Bauzeit streut um einige Prozent,
+belastbar sind die Tests (171), nicht die Sekunden. Ausgeliefert:
 das Bündel der Live-Seite trägt denselben Namen wie der Klonbau und enthält die neue Schwelle
 (`is-tense` bei 30 %), die alte Konstante `0,18` ist verschwunden.
 
