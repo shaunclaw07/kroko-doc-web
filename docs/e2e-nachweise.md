@@ -7,7 +7,7 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | Kommando | Ergebnis |
 |---|---|
 | `pnpm typecheck` (`tsc --noEmit`) | keine Fehler (Ausgabe `TSC_OK`) |
-| `pnpm test:run` (`vitest run`) | **146 Tests in 15 Dateien bestanden** |
+| `pnpm test:run` (`vitest run`) | **155 Tests in 16 Dateien bestanden** |
 | `pnpm build` | 2 Seiten gebaut in 2,49 s; `dist/index.html`, `dist/statistik/index.html` |
 | Produktionsbau über `pnpm preview` (Port 4399) | siehe Abschnitt 4b — alle vier Routen `200`, kein externer Verweis |
 
@@ -69,12 +69,15 @@ Zahnfleischlinie exakt; das Stylesheet nutzt −7 Grad.
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
 |---|---|---|
 | `Math.lgamma` fehlt in Node 26 | `node -e "console.log(typeof Math.lgamma)"` → `undefined` | bestätigt; die Statistik nutzt deshalb eine eigene Lanczos-Näherung |
+| „Vibrationen am Handy klappen nicht" (Nutzer, 10.10.2026) | Codeweg gelesen: der Controller rief `navigator.vibrate` selbst auf, ohne Prüfung, mit 12 ms | bestätigt; konnte der Browser es nicht (Safari auf iOS), passierte **still** nichts. Jetzt eigener Port mit `isSupported()`, 24 ms + `[120, 50, 220]`, abgeblendeter Schalter mit Begründung (Commit `44bc169`) |
+| Alte Seitenadresse nach der Umbenennung (10.10.2026) | Gegenprobe per HTTP gegen beide Adressen | Repo-Adresse `301 → /zahn-agent`, **Seiten-Adresse `404`** — GitHub leitet Projektseiten nicht um; Lesezeichen müssen neu gesetzt werden |
 | Die Klangmaschine liest nur `window.AudioContext` | `sed -n '66,92p' src/infrastructure/audio/webAudioEngine.ts` | bestätigt; daraufhin Rückfall auf `webkitAudioContext` ergänzt (altes iOS) und mit drei Tests belegt |
 
 ## 7. Offene Punkte (ehrlich benannt)
 
 - **Kein echter Browser im Baum verfügbar** (kein Chrome, kein Playwright). Verhalten ist
   damit in jsdom und über gerenderte Standbilder belegt, nicht in einem Browser.
-- Kein Deployment, keine Domain, kein Service Worker.
+- ~~Kein Deployment, keine Domain, kein Service Worker.~~ → erledigt am 10.10.2026: veröffentlicht über GitHub Pages, Basis-Pfad `/zahn-agent` (siehe README).
+- **Vibration ist nicht in einem echten Browser geprüft** — im Baum gibt es kein Gerät. Belegt ist der Codeweg (Controller- und Adapter-Tests), nicht das Gefühl am Handy.
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
 - ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.
