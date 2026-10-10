@@ -26,7 +26,7 @@ pnpm gate           # typecheck + tests
 
 ```bash
 cd /opt/data/cache/scratch/kroko-render
-node --input-type=module -e "const {buildCrocodile}=await import('/opt/data/home/projects/zahn-agent/src/presentation/game/crocodile.ts'); const {writeFileSync}=await import('node:fs'); writeFileSync('croc.svg', buildCrocodile(10));"
+node --input-type=module -e "const {buildCrocodile}=await import('/opt/data/home/projects/zahn_agent/src/presentation/game/crocodile.ts'); const {writeFileSync}=await import('node:fs'); writeFileSync('croc.svg', buildCrocodile(10));"
 uv run --with cairosvg python render_croc.py croc.svg offen.png offen
 uv run --with cairosvg python render_croc.py croc.svg geschnappt.png geschnappt
 ```

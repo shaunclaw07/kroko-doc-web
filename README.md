@@ -34,8 +34,8 @@ frei, 10.10.2026): `pnpm install` läuft durch, 156 Tests grün, Bau fertig in 2
 ### Die drei Befehle
 
 ```bash
-git clone git@github.com:shaunclaw07/zahn-agent.git
-cd zahn-agent
+git clone git@github.com:shaunclaw07/zahn_agent.git
+cd zahn_agent
 pnpm install
 pnpm dev
 ```
@@ -170,8 +170,9 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 
 ## Daten und Datenschutz
 
-- Alle Runden liegen im **`localStorage`** des Browsers (`zahn-agent:rounds:v1`, `zahn-agent:settings:v1`) — kein Server, keine
-  Konten, keine Telemetrie.
+- Alle Runden liegen im **`localStorage`** des Browsers (`zahn_agent:rounds:v1`, `zahn_agent:settings:v1`) — kein Server, keine
+  Konten, keine Telemetrie. Runden und Einstellungen aus Fassungen mit früherem Namen (`zahn-agent:…`,
+  `kroko-doc-web:…`) werden beim ersten Laden einmalig übernommen.
 - **Zurücksetzen:** Statistikseite → „Protokoll löschen" (löscht nur das Rundenprotokoll).
 - **Sichern/umbenennen:** CSV exportieren; die Datei kannst du wieder importieren oder dem
   Python-Werkzeug `../kroko-doc/kroko_analyse.py` geben.
@@ -180,11 +181,11 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 
 ## Auf GitHub Pages
 
-Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn-agent/>**
+Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn_agent/>**
 
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) baut bei jedem Push auf `main` und
   liefert `dist/` aus. Dort läuft `pnpm gate` mit — eine rote Suite verhindert die Veröffentlichung.
-- Der Bau läuft mit `ASTRO_BASE=/zahn-agent`, weil Projektseiten unter
+- Der Bau läuft mit `ASTRO_BASE=/zahn_agent`, weil Projektseiten unter
   `https://<konto>.github.io/<repo>/` liegen. **Lokal ändert das nichts**: ohne die
   Umgebungsvariable bleibt die Adresse `http://localhost:4321`.
 - Deshalb gehen interne Verweise im Code über `import.meta.env.BASE_URL` und nie absolut mit
@@ -209,7 +210,7 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn-agent/>**
 
 - Das Spielprinzip stammt vom Spielzeug *Crocodile Dentist* (Hasbro, 1990, hierzulande als
   *Kroko Doc* bekannt). Diese App ist eine eigenständige Umsetzung ohne Marken- oder
-  Gestaltungsübernahme, und der Projektname **Zahn Agent** ist davon unabhängig gewählt; Zahlen und Mechanik beruhen
+  Gestaltungsübernahme, und der Projektname **Zahn Agent** ist davon unabhängig gewählt (technisch `zahn_agent`); Zahlen und Mechanik beruhen
   auf öffentlich beschriebenen Analysen (make Magazin 1/2023, Wikipedia).
 - **Nicht geprüft in einem echten Browser:** Im Baum steht kein Chrome zur Verfügung. Belegt ist
   das Verhalten in jsdom (Bedienungs- und Statistiksonde) sowie über gerenderte Standbilder der

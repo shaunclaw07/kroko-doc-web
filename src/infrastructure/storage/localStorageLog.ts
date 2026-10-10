@@ -1,9 +1,14 @@
 import type { RoundRecord } from '../../core/domain/records';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 
-export const STORAGE_KEY = 'zahn-agent:rounds:v1';
-/** Schlüssel der früheren Fassung — wird beim Lesen einmalig übernommen. */
-export const LEGACY_STORAGE_KEY = 'kroko-doc-web:rounds:v1';
+export const STORAGE_KEY = 'zahn_agent:rounds:v1';
+/**
+ * Schlüssel der früheren Fassungen, jüngster zuerst — beim Lesen wird der erste
+ * gefundene einmalig unter dem neuen Namen abgelegt, damit keine Runden verloren gehen.
+ */
+export const LEGACY_STORAGE_KEYS = ['zahn-agent:rounds:v1', 'kroko-doc-web:rounds:v1'] as const;
+/** Nur der jüngste frühere Schlüssel (Tests, Doku). */
+export const LEGACY_STORAGE_KEY: string = LEGACY_STORAGE_KEYS[0];
 
 /** Minimale Storage-Schnittstelle — window.localStorage in echt, ein Objekt in Tests. */
 export interface StorageLike {
@@ -62,13 +67,16 @@ export class LocalStorageRoundLog implements RoundLogPort {
       if (current !== null) {
         return current;
       }
-      // Einmalige Übernahme aus der früheren Fassung (anderer Name, gleiche Daten):
+      // Einmalige Übernahme aus einer früheren Fassung (anderer Name, gleiche Daten):
       // wer schon Runden gespielt hat, verliert sie beim Umbenennen nicht.
-      const legacy = this.storage.getItem(LEGACY_STORAGE_KEY);
-      if (legacy !== null) {
-        this.storage.setItem(STORAGE_KEY, legacy);
+      for (const key of LEGACY_STORAGE_KEYS) {
+        const older = this.storage.getItem(key);
+        if (older !== null) {
+          this.storage.setItem(STORAGE_KEY, older);
+          return older;
+        }
       }
-      return legacy;
+      return null;
     } catch {
       return null;
     }

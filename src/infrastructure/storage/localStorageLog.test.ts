@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { LEGACY_STORAGE_KEY, LocalStorageRoundLog, STORAGE_KEY, type StorageLike } from './localStorageLog';
+import {
+  LEGACY_STORAGE_KEY,
+  LEGACY_STORAGE_KEYS,
+  LocalStorageRoundLog,
+  STORAGE_KEY,
+  type StorageLike,
+} from './localStorageLog';
 import { createRoundRecord } from '../../core/domain/sessionLog';
 
 class FakeStorage implements StorageLike {
@@ -57,6 +63,24 @@ describe('LocalStorageRoundLog', () => {
     expect(new LocalStorageRoundLog(storage).load()).toEqual([record]);
     // einmal übernommen, danach liegt alles unter dem neuen Namen
     expect(storage.map.has(STORAGE_KEY)).toBe(true);
+  });
+
+  it('holt Runden auch aus der ältesten Fassung (Kette der früheren Namen)', () => {
+    const storage = new FakeStorage();
+    storage.map.set(LEGACY_STORAGE_KEYS[1], JSON.stringify([record]));
+    expect(new LocalStorageRoundLog(storage).load()).toEqual([record]);
+    expect(storage.map.has(STORAGE_KEY)).toBe(true);
+  });
+
+  it('nimmt bei mehreren früheren Fassungen die jüngere', () => {
+    const storage = new FakeStorage();
+    const juenger = createRoundRecord({
+      round: 7, playedAt: '2026-10-11T00:10:00.000Z', mode: 'classic', teeth: 12, players: 1,
+      loserTooth: 2, pressIndex: 1, liveCount: 1, pressOrder: [2],
+    });
+    storage.map.set(LEGACY_STORAGE_KEYS[0], JSON.stringify([juenger]));
+    storage.map.set(LEGACY_STORAGE_KEYS[1], JSON.stringify([record]));
+    expect(new LocalStorageRoundLog(storage).load()).toEqual([juenger]);
   });
 
   it('arbeitet ohne Storage weiter (privater Modus)', () => {

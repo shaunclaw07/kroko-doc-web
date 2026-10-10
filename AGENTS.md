@@ -1,6 +1,6 @@
 # AGENTS.md
 
-**Zahn Agent** (bis 10.10.2026 hieß das Projekt `kroko-doc-web`) — das Zahn-Zufallsspiel um
+**Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
 bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf,
@@ -124,20 +124,20 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 
 ## Basis-Pfad (lokal vs. GitHub Pages)
 
-Lokal liegt die Seite unter `/`, veröffentlicht unter `/zahn-agent/`. Deshalb gilt für jeden
+Lokal liegt die Seite unter `/`, veröffentlicht unter `/zahn_agent/`. Deshalb gilt für jeden
 internen Verweis (Link, Icon, Manifest, Laufzeit-Abruf):
 
 - **Immer `import.meta.env.BASE_URL` verwenden**, nie absolut mit `"/"` — ein hartes `href="/statistik"`
   funktioniert nur lokal und ergibt auf Pages einen Fehler 404.
 - Der Basis-Pfad kommt aus `ASTRO_BASE` und wird in `astro.config.mjs` auf einen Schluss-Schrägstrich
-  normalisiert (sonst entsteht `/zahn-agentstatistik`).
-- Beide Bauvarianten prüfen: `pnpm build` (lokal) und `ASTRO_BASE=/zahn-agent pnpm build` (Pages),
+  normalisiert (sonst entsteht `/zahn_agentstatistik`).
+- Beide Bauvarianten prüfen: `pnpm build` (lokal) und `ASTRO_BASE=/zahn_agent pnpm build` (Pages),
   danach im erzeugten `dist/index.html` nachsehen, welche Adressen drinstehen.
 
 ## Veröffentlichen
 
 Jeder Push auf `main` löst [`.github/workflows/pages.yml`](.github/workflows/pages.yml) aus:
-installieren → `pnpm gate` → bauen mit `ASTRO_BASE=/zahn-agent` → ausliefern auf
-<https://shaunclaw07.github.io/zahn-agent/>. Schlägt `pnpm gate` fehl, wird **nicht**
+installieren → `pnpm gate` → bauen mit `ASTRO_BASE=/zahn_agent` → ausliefern auf
+<https://shaunclaw07.github.io/zahn_agent/>. Schlägt `pnpm gate` fehl, wird **nicht**
 veröffentlicht — lokal grün muss also vor dem Push stehen. Manuell anstoßen geht über
 `workflow_dispatch` (Actions → „Seite veroeffentlichen" → Run workflow).

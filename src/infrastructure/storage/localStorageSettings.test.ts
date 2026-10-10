@@ -3,6 +3,7 @@ import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
 import {
   DEFAULT_SETTINGS,
   LEGACY_SETTINGS_KEY,
+  LEGACY_SETTINGS_KEYS,
   SETTINGS_KEY,
   loadSettings,
   saveSettings,
@@ -60,6 +61,13 @@ describe('Einstellungen', () => {
     expect(back.creature).toBe('wolf');
     expect(back.teethOverride).toBe(6);
     // und legt sie unter dem neuen Namen ab, damit sie nicht nochmal gelesen werden müssen
+    expect(storage.getItem(SETTINGS_KEY)).not.toBeNull();
+  });
+
+  it('holt Einstellungen auch aus der ältesten Fassung', () => {
+    const storage = new MemoryStorage();
+    storage.setItem(LEGACY_SETTINGS_KEYS[1], JSON.stringify({ ...DEFAULT_SETTINGS, players: 3 }));
+    expect(loadSettings(storage).players).toBe(3);
     expect(storage.getItem(SETTINGS_KEY)).not.toBeNull();
   });
 

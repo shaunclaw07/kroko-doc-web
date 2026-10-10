@@ -1,5 +1,5 @@
 {
-  "name": "zahn-agent",
+  "name": "zahn_agent",
   "private": true,
   "type": "module",
   "version": "0.1.0",

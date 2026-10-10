@@ -77,7 +77,7 @@ Zahnfleischlinie exakt; das Stylesheet nutzt −7 Grad.
 
 - **Kein echter Browser im Baum verfügbar** (kein Chrome, kein Playwright). Verhalten ist
   damit in jsdom und über gerenderte Standbilder belegt, nicht in einem Browser.
-- ~~Kein Deployment, keine Domain, kein Service Worker.~~ → erledigt am 10.10.2026: veröffentlicht über GitHub Pages, Basis-Pfad `/zahn-agent` (siehe README).
+- ~~Kein Deployment, keine Domain, kein Service Worker.~~ → erledigt am 10.10.2026: veröffentlicht über GitHub Pages, Basis-Pfad `/zahn_agent` (siehe README).
 - **Vibration ist nicht in einem echten Browser geprüft** — im Baum gibt es kein Gerät. Belegt ist der Codeweg (Controller- und Adapter-Tests), nicht das Gefühl am Handy.
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
 - ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.

@@ -9,9 +9,11 @@ import type { StorageLike } from './localStorageLog';
 
 export type { StorageLike };
 
-export const SETTINGS_KEY = 'zahn-agent:settings:v1';
-/** Schlüssel der früheren Fassung — wird beim Lesen einmalig übernommen. */
-export const LEGACY_SETTINGS_KEY = 'kroko-doc-web:settings:v1';
+export const SETTINGS_KEY = 'zahn_agent:settings:v1';
+/** Schlüssel der früheren Fassungen, jüngster zuerst (siehe localStorageLog). */
+export const LEGACY_SETTINGS_KEYS = ['zahn-agent:settings:v1', 'kroko-doc-web:settings:v1'] as const;
+/** Nur der jüngste frühere Schlüssel (Tests, Doku). */
+export const LEGACY_SETTINGS_KEY: string = LEGACY_SETTINGS_KEYS[0];
 
 export interface GameSettings {
   mode: RandomMode;
@@ -43,11 +45,14 @@ export function loadSettings(storage: StorageLike | null): GameSettings {
   try {
     let raw = storage.getItem(SETTINGS_KEY);
     if (!raw) {
-      // Einmalige Übernahme der Einstellungen aus der früheren Fassung.
-      const legacy = storage.getItem(LEGACY_SETTINGS_KEY);
-      if (legacy) {
-        raw = legacy;
-        storage.setItem(SETTINGS_KEY, legacy);
+      // Einmalige Übernahme der Einstellungen aus einer früheren Fassung.
+      for (const key of LEGACY_SETTINGS_KEYS) {
+        const older = storage.getItem(key);
+        if (older) {
+          raw = older;
+          storage.setItem(SETTINGS_KEY, older);
+          break;
+        }
       }
     }
     if (!raw) {
