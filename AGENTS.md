@@ -100,3 +100,15 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 - Umrisse in einer dunkleren Variante der Füllfarbe (z. B. `#5aa164` auf `#8ed492`), keine schwarzen Linien.
 - Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
   über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.
+
+## Basis-Pfad (lokal vs. GitHub Pages)
+
+Lokal liegt die Seite unter `/`, veröffentlicht unter `/kroko-doc-web/`. Deshalb gilt für jeden
+internen Verweis (Link, Icon, Manifest, Laufzeit-Abruf):
+
+- **Immer `import.meta.env.BASE_URL` verwenden**, nie absolut mit `"/"` — ein hartes `href="/statistik"`
+  funktioniert nur lokal und ergibt auf Pages einen Fehler 404.
+- Der Basis-Pfad kommt aus `ASTRO_BASE` und wird in `astro.config.mjs` auf einen Schluss-Schrägstrich
+  normalisiert (sonst entsteht `/kroko-doc-webstatistik`).
+- Beide Bauvarianten prüfen: `pnpm build` (lokal) und `ASTRO_BASE=/kroko-doc-web pnpm build` (Pages),
+  danach im erzeugten `dist/index.html` nachsehen, welche Adressen drinstehen.

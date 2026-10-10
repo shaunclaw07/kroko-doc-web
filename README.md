@@ -177,6 +177,19 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 - CSV-Kopf (bewusst deutsch, weil es die Schnittstelle zum Analyse-Werkzeug ist):
   `runde;reihenfolge;verlierer_zahn;modus;zaehne;lebewesen;…`
 
+## Auf GitHub Pages
+
+Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/kroko-doc-web/>**
+
+- [`.github/workflows/pages.yml`](.github/workflows/pages.yml) baut bei jedem Push auf `main` und
+  liefert `dist/` aus. Dort läuft `pnpm gate` mit — eine rote Suite verhindert die Veröffentlichung.
+- Der Bau läuft mit `ASTRO_BASE=/kroko-doc-web`, weil Projektseiten unter
+  `https://<konto>.github.io/<repo>/` liegen. **Lokal ändert das nichts**: ohne die
+  Umgebungsvariable bleibt die Adresse `http://localhost:4321`.
+- Deshalb gehen interne Verweise im Code über `import.meta.env.BASE_URL` und nie absolut mit
+  `"/"` — sonst läuft die Seite nur an einer der beiden Adressen.
+- `dist/` ist nicht im Repo; veröffentlicht wird nur, was der Workflow baut.
+
 ## Wenn etwas klemmt
 
 | Symptom | Ursache | Lösung |

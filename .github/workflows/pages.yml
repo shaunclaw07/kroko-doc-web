@@ -1,0 +1,55 @@
+# Veröffentlicht die statische Seite auf GitHub Pages.
+# Der Bau läuft mit ASTRO_BASE=/kroko-doc-web, weil Projektseiten unter
+# https://<konto>.github.io/<repo>/ liegen. Lokal bleibt es bei "/".
+name: Seite veroeffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          # Festgenagelt, statt über packageManager in package.json: pnpm 12 hängt dadurch
+          # ein zweites Dokument an pnpm-lock.yaml (lockfileVersion doppelt).
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Abhaengigkeiten
+        run: pnpm install --frozen-lockfile
+      - name: Typen und Tests
+        run: pnpm gate
+      - name: Bauen (mit Basis-Pfad)
+        run: pnpm build
+        env:
+          ASTRO_BASE: /kroko-doc-web
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  ausliefern:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.ausliefern.outputs.page_url }}
+    steps:
+      - id: ausliefern
+        uses: actions/deploy-pages@v4
