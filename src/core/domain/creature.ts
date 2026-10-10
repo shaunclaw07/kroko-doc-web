@@ -51,6 +51,36 @@ export const CREATURES: readonly CreatureDefinition[] = [
     realTeeth: 32,
     note: 'Schneide-, Eck- und Backenzähne, 1–3 scharfe Zähne — das Zahnarzt-Gefühl.',
   },
+  {
+    id: 'shark',
+    name: 'Hai',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Ein Hai trägt Hunderte Zähne in Reihen — die Notiz ist ein Spaßfakt, keine Spielzahl.
+    realTeeth: 300,
+    note: 'Reihen runder Raubtierzähne: der Biss kommt selten, dann sitzt er.',
+  },
+  {
+    id: 'mouse',
+    name: 'Maus',
+    teeth: 6,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Echte Maus: vier Nagezähne plus zwölf Backenzähne.
+    realTeeth: 16,
+    note: 'Nur sechs Zähne — die kürzeste Runde, also schnell viel Spannung.',
+  },
+  {
+    id: 'vampire',
+    name: 'Vampir',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Der Witz: ein Vampir hat ein menschliches Gebiss — mit zwei langen Eckzähnen.
+    realTeeth: 32,
+    note: 'Zwei lange Eckzähne, meist sind genau die scharf.',
+  },
 ];
 
 export function listCreatures(): readonly CreatureDefinition[] {

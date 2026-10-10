@@ -16,6 +16,10 @@ grün mit **163 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,21 s** in ei
 (im Arbeitsbaum 2,58 s). Die Zeilen oben sind der
 Stand vom 10.10. und bleiben stehen.
 
+**Nachtrag 11.10.2026, später** (Hai, Maus und Vampir ergänzt): `pnpm gate` grün mit
+**166 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,26 s (Arbeitsbaum). Die Zeichnungs-Sonde
+schreibt jetzt sechs SVGs — je drei Tests für die neuen Lebewesen kommen aus derselben Sonde.
+
 ## 2. Bedienungssonde (jsdom)
 
 `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts` — 8 Tests, u. a.:
@@ -72,7 +76,7 @@ uv run --with cairosvg python scripts/artwork-png.py \
 ```
 
 Beide Schritte liegen im Baum (Sonde + `scripts/artwork-png.py`); kein Scratch-Verzeichnis, kein
-fester Pfad. Am Bild geprüft (Krokodil, Wolf, Mensch — je „offen" und „geschnappt"): offenes Maul
+fester Pfad. Am Bild geprüft (Krokodil, Wolf, Mensch, Hai, Maus und Vampir — je „offen" und „geschnappt"): offenes Maul
 mit runden weißen Zähnen auf rosenrotem Rachen, geschlossener Oberkiefer auf dem Unterkiefer ohne
 Rachen, gedrückte Zähne sitzen im Kiefer.
 
@@ -96,6 +100,7 @@ verschiedenen Zuständen heißt „es wird nichts gezeichnet".
 | Alte Seitenadresse nach der Umbenennung (10.10.2026) | Gegenprobe per HTTP gegen beide Adressen | Repo-Adresse `301 → /zahn-agent`, **Seiten-Adresse `404`** — GitHub leitet Projektseiten nicht um; Lesezeichen müssen neu gesetzt werden |
 | Umbenennung auf `zahn_agent` (11.10.2026) | Gegenprobe per HTTP gegen beide Adressen | neue Adresse `/zahn_agent/` = **200** (Titel „Zahn Agent", Verweise alle unter dem neuen Pfad, 0 externe Ressourcen), alte Adresse `/zahn-agent/` = **404**, Repo-Adresse `301 → /zahn_agent`; Daten früherer Namen werden beim Laden übernommen (Kette `zahn-agent:…` → `kroko-doc-web:…`, zwei Tests) |
 | „Update die Dokus" (Nutzer, 11.10.2026) | Rezepte wirklich gefahren und Zahlen gegen den Baum geprüft (`grep`, Vitest, `pnpm build`) | **vier echte Fehler:** (1) das Zeichen-Rezept zeigte auf `presentation/game/crocodile.ts` (seit der Zeichnungs-Schicht verschwunden) und das Rasterskript auf `projects/kroko-doc-web` mit Klassen der alten Dreh-Mechanik — es lief mit Exit 0 durch und tat **nichts**; (2) `# http://127.0.0.1:4321` in AGENTS.md und `docs/workflow.md` widersprach der Messung (`localhost` → 200, `127.0.0.1` → keine Antwort, für dev **und** preview); (3) `docs/testing.md` nannte 15 statt 16 Testdateien, eine Tabellenzeile war zerrissen und nannte ein altes Maximum von 20; (4) `docs/architecture.md` nannte als Zahn-Grenze `4..16` statt `4..12`. Alles korrigiert, das Rezept durch Sonde + Rasterer ersetzt und am Bild geprüft |
+| „Kannst du weitere Skins machen? Hai, Maus und Vampir" (Nutzer, 11.10.2026) | Zeichnungen gerendert und **angesehen** (Sonde + `scripts/artwork-png.py`) | **Der erste Entwurf war unbrauchbar:** bei allen dreien war der Zahnring so groß, dass kein Platz fürs Gesicht blieb — beim Vampir lag die Haarkappe über dem halben Maul und die Augen auf den Zähnen, bei der Maus verschwanden die Ohren im Kopf und die Schnurrhaare liefen über die Augen, beim Hai hingen die Flossen wie Ohren und die Kiemenschlitze lagen unsichtbar unter dem Kieferband. Zweiter Entwurf: kleinere Ringe (Hai `rx 200`, Maus `rx 175`, Vampir `rx 186`), Ohren als eigene Kreise im Umriss; danach nachgezogen (Flossen-Highlight als Linie, Schnurrhaare in den Fellstreifen neben dem Maul, Umhangkragen mit Mittelkerbe). Der Trefferflächen-Test (≥ 44 px für 4–12 Zähne) bleibt für alle sechs Lebewesen grün |
 | Die Klangmaschine liest nur `window.AudioContext` | `sed -n '66,92p' src/infrastructure/audio/webAudioEngine.ts` | bestätigt; daraufhin Rückfall auf `webkitAudioContext` ergänzt (altes iOS) und mit drei Tests belegt |
 
 ## 7. Offene Punkte (ehrlich benannt)

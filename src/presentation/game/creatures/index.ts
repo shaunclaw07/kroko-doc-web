@@ -2,6 +2,9 @@ import { getCreature, listCreatures } from '../../../core/domain/creature';
 import { createCreatureView } from './factory';
 import { crocodileArtwork } from './crocodile';
 import { humanArtwork } from './human';
+import { mouseArtwork } from './mouse';
+import { sharkArtwork } from './shark';
+import { vampireArtwork } from './vampire';
 import { wolfArtwork } from './wolf';
 import type { CreatureArtwork, CreatureView } from './types';
 
@@ -16,6 +19,9 @@ export const ARTWORKS: Readonly<Record<string, CreatureArtwork>> = {
   crocodile: crocodileArtwork,
   wolf: wolfArtwork,
   human: humanArtwork,
+  shark: sharkArtwork,
+  mouse: mouseArtwork,
+  vampire: vampireArtwork,
 };
 
 /**

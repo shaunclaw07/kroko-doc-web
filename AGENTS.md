@@ -3,7 +3,7 @@
 **Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
-bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf,
+bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir,
 Mensch), Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
 auswertet und ehrlich sagt, wenn die Daten für eine Aussage zu dünn sind.
 

@@ -3,10 +3,10 @@
 Das Zahn-Zufallsspiel um das Krokodil — Spielprinzip des Spielzeugs *Crocodile Dentist*
 (bekannt als *Kroko Doc*) als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
 Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
-Krokodil, Wolf, Mensch. Mit Ton, Herzschlag, Totenstille vor dem Biss, Screen-Shake und
+Krokodil, Wolf, Mensch, Hai, Maus und Vampir. Mit Ton, Herzschlag, Totenstille vor dem Biss, Screen-Shake und
 einer Statistikseite, die eure eigenen Runden auswertet.
 
-![Drei Gebisse: Krokodil, Wolf und Mensch, oben mit offenem Maul, unten zugeschnappt](docs/bilder/gebisse.png)
+![Sechs Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus und Vampir](docs/bilder/gebisse.png)
 
 **Warum es dieses Spiel gibt.** Ein Familienmitglied hat gefragt, ob man vorher berechnen
 kann, welcher Zahn das Maul schließt. Antwort: nein — das Spielzeug ist ein mechanischer
@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 163 Tests grün, Bau fertig in 2,21 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 166 Tests grün, Bau fertig in 2,26 s.
 
 ### Die drei Befehle
 
@@ -66,7 +66,7 @@ pnpm preview    # serviert dist/ auf http://localhost:4321
    nächste Zahn oder die Totenstille und der **Biss** samt Screen-Shake und Vibration.
 2. **Einstellungen** (Knopf oben): 1–4 Spieler, Modus (`original` = 1–3 Zähne gleichzeitig
    scharf wie das echte Spielzeug, `classic` = genau einer), Ton und Vibration an/aus.
-3. **Gebiss** (Knopf oben): Lebewesen wählen (Krokodil, Wolf, Mensch) und die **Zahnzahl**
+3. **Gebiss** (Knopf oben): Lebewesen wählen (Krokodil, Wolf, Mensch, Hai, Maus, Vampir) und die **Zahnzahl**
    einstellen — `−` / `+` oder „Standard" für das tiergerechte Gebiss (Krokodil 10, Wolf 12,
    Mensch 12; erlaubt sind 4 bis 12).
 4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". Der
@@ -91,7 +91,7 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **163 Tests in 17 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **166 Tests in 17 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
@@ -135,10 +135,10 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **163 in 17 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **166 in 17 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,21 s | `pnpm build` in einem frischen Klon |
+| Produktionsbau | 2 Seiten, 2,26 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
