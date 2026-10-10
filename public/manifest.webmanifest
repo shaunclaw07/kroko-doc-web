@@ -1,6 +1,6 @@
 {
-  "name": "Kroko Doc Web",
-  "short_name": "Kroko Doc",
+  "name": "Zahn Agent",
+  "short_name": "Zahn Agent",
   "description": "Zahn-Zufallsspiel mit Spannung: tippe Zähne an, bis das Maul zuschnappt.",
   "start_url": "./",
   "display": "standalone",

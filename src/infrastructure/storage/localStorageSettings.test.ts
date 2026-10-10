@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
-import { DEFAULT_SETTINGS, loadSettings, saveSettings, type StorageLike } from './localStorageSettings';
+import {
+  DEFAULT_SETTINGS,
+  LEGACY_SETTINGS_KEY,
+  SETTINGS_KEY,
+  loadSettings,
+  saveSettings,
+  type StorageLike,
+} from './localStorageSettings';
 
 class MemoryStorage implements StorageLike {
   private readonly map = new Map<string, string>();
@@ -33,7 +40,7 @@ describe('Einstellungen', () => {
   it('verwirft eine unmögliche Zahnzahl und nimmt dann den Tier-Standard', () => {
     const storage = new MemoryStorage();
     for (const bad of [3, MAX_TEETH + 1, 7.5, Number.NaN]) {
-      storage.setItem('kroko-doc-web:settings:v1', JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: bad }));
+      storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: bad }));
       expect(loadSettings(storage).teethOverride, String(bad)).toBeNull();
     }
   });
@@ -41,14 +48,24 @@ describe('Einstellungen', () => {
   it('nimmt die äußersten erlaubten Zahnzahlen an', () => {
     const storage = new MemoryStorage();
     for (const good of [MIN_TEETH, MAX_TEETH]) {
-      storage.setItem('kroko-doc-web:settings:v1', JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: good }));
+      storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: good }));
       expect(loadSettings(storage).teethOverride, String(good)).toBe(good);
     }
   });
 
+  it('übernimmt die Einstellungen der früheren Fassung unter dem neuen Schlüssel', () => {
+    const storage = new MemoryStorage();
+    storage.setItem(LEGACY_SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, creature: 'wolf', teethOverride: 6 }));
+    const back = loadSettings(storage);
+    expect(back.creature).toBe('wolf');
+    expect(back.teethOverride).toBe(6);
+    // und legt sie unter dem neuen Namen ab, damit sie nicht nochmal gelesen werden müssen
+    expect(storage.getItem(SETTINGS_KEY)).not.toBeNull();
+  });
+
   it('macht aus einem unbekannten Lebewesen das Krokodil', () => {
     const storage = new MemoryStorage();
-    storage.setItem('kroko-doc-web:settings:v1', JSON.stringify({ ...DEFAULT_SETTINGS, creature: 'drache' }));
+    storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, creature: 'drache' }));
     expect(loadSettings(storage).creature).toBe('crocodile');
   });
 });

@@ -1,7 +1,9 @@
 import type { RoundRecord } from '../../core/domain/records';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 
-export const STORAGE_KEY = 'kroko-doc-web:rounds:v1';
+export const STORAGE_KEY = 'zahn-agent:rounds:v1';
+/** Schlüssel der früheren Fassung — wird beim Lesen einmalig übernommen. */
+export const LEGACY_STORAGE_KEY = 'kroko-doc-web:rounds:v1';
 
 /** Minimale Storage-Schnittstelle — window.localStorage in echt, ein Objekt in Tests. */
 export interface StorageLike {
@@ -56,7 +58,17 @@ export class LocalStorageRoundLog implements RoundLogPort {
       return null;
     }
     try {
-      return this.storage.getItem(STORAGE_KEY);
+      const current = this.storage.getItem(STORAGE_KEY);
+      if (current !== null) {
+        return current;
+      }
+      // Einmalige Übernahme aus der früheren Fassung (anderer Name, gleiche Daten):
+      // wer schon Runden gespielt hat, verliert sie beim Umbenennen nicht.
+      const legacy = this.storage.getItem(LEGACY_STORAGE_KEY);
+      if (legacy !== null) {
+        this.storage.setItem(STORAGE_KEY, legacy);
+      }
+      return legacy;
     } catch {
       return null;
     }

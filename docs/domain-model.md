@@ -16,7 +16,7 @@
 
 | Modus | Verhalten | Herkunft |
 |---|---|---|
-| `original` | 1–3 Zähne gleichzeitig scharf; pro Druck also 10 %, 20 % oder 30 % Trefferchance, unbekannt zu Rundenbeginn | Teardown des echten Kroko Doc (make Magazin 1/2023) |
+| `original` | 1–3 Zähne gleichzeitig scharf; pro Druck also 10 %, 20 % oder 30 % Trefferchance, unbekannt zu Rundenbeginn | Teardown des Original-Spielzeugs (make Magazin 1/2023) |
 | `classic` | genau 1 Zahn von n | klassisches Kinder-Roulette |
 
 Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet in

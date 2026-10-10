@@ -31,7 +31,7 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 |---|---|
 | `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:4321/` | `200` |
 | `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:4321/statistik` | `200` |
-| `grep -c 'Kroko Doc Web' dist/index.html` | `2` |
+| `grep -c 'Zahn Agent' dist/index.html` | `2` |
 | `grep -o 'croc-mount' dist/index.html` | Treffer vorhanden |
 | `ls dist` | `_astro`, `favicon.svg`, `index.html`, `manifest.webmanifest`, `statistik` |
 

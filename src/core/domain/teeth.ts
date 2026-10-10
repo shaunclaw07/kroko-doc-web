@@ -4,7 +4,7 @@ export type ToothId = number;
 /**
  * Zufallsmodell des Spiels:
  *  - `original`: beim Öffnen werden 1 bis 3 Zähne gleichzeitig scharf gestellt
- *    (so arbeitet der echte Kroko Doc, make Magazin 1/2023).
+ *    (so arbeitet das Original, make Magazin 1/2023).
  *  - `classic`: genau ein Zahn von n ist scharf.
  */
 export type RandomMode = 'original' | 'classic';

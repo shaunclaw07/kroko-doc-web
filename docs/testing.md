@@ -41,7 +41,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Elemente an und belegt Zuschnappen, Tonfolge und Protokoll. Aufruf:
    `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts`
 2. **Bau- und Auslieferungssonde** — `pnpm build` und Prüfung der erzeugten Seiten:
-   `grep -c 'Kroko Doc Web' dist/index.html`, `grep -o 'croc-mount' dist/index.html`,
+   `grep -c 'Zahn Agent' dist/index.html`, `grep -o 'croc-mount' dist/index.html`,
    `ls dist` (erwartet: `index.html`, `statistik/index.html`, `favicon.svg`, `manifest.webmanifest`, `_astro/`).
 3. **Zeichnungssonde** — das SVG wird ohne Browser gerendert und angesehen:
    `node --input-type=module -e "…buildCrocodile(10)…" > croc.svg`, dann

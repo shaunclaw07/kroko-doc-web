@@ -7,7 +7,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
 ---
 
 <Base
-  title="Kroko Doc Web — Zahn für Zahn zum Nervenkitzel"
+  title="Zahn Agent — Zahn für Zahn zum Nervenkitzel"
   description="Tippe die Zähne des Krokodils an. Ein Druck ist zu viel — dann schnappt das Maul zu. Mit Statistik, wer wirklich verliert."
 >
   <main class="app">
@@ -21,7 +21,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
           <circle cx="47" cy="23" r="2.4" fill="#10171b"></circle>
         </svg>
         <span>
-          Kroko Doc Web
+          Zahn Agent
           <small>Zahn für Zahn zum Nervenkitzel</small>
         </span>
       </div>
@@ -46,7 +46,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
           <button type="button" data-mode="classic" aria-pressed="false">genau 1</button>
         </div>
       </div>
-      <p class="muted small">„1–3 scharf" ist das Verhalten des echten Kroko Doc: ein Bumerang im Inneren steht mit bis zu drei Zähnen in Kontakt.</p>
+      <p class="muted small">„1–3 scharf" ist das Verhalten des Originals: ein Bumerang im Inneren steht mit bis zu drei Zähnen in Kontakt.</p>
       <div class="row" role="group" aria-label="Lebewesen">
         <span class="muted small">Gebiss</span>
         <button type="button" class="picker" id="creature-open" aria-haspopup="dialog">
@@ -166,7 +166,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       wer ihn gedrückt hat, verliert die Runde.
     </p>
     <p>
-      <strong>Warum es keinen sicheren Zahn gibt:</strong> Im echten Kroko Doc dreht beim Öffnen ein
+      <strong>Warum es keinen sicheren Zahn gibt:</strong> Beim Original dreht beim Öffnen ein
       Nockenrad einen bumerangförmigen Hebel, der mit <strong>1 bis 3 Zähnen gleichzeitig</strong> in
       Kontakt steht (make Magazin 1/2023, Teardown). Die Trefferchance pro Druck ist damit 10 %,
       20 % oder 30 % — unbekannt zu Rundenbeginn. Genau so rechnet diese App im Modus „1–3 scharf".

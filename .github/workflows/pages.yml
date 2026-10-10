@@ -1,5 +1,5 @@
 # Veröffentlicht die statische Seite auf GitHub Pages.
-# Der Bau läuft mit ASTRO_BASE=/kroko-doc-web, weil Projektseiten unter
+# Der Bau läuft mit ASTRO_BASE=/zahn-agent, weil Projektseiten unter
 # https://<konto>.github.io/<repo>/ liegen. Lokal bleibt es bei "/".
 name: Seite veroeffentlichen
 
@@ -39,7 +39,7 @@ jobs:
       - name: Bauen (mit Basis-Pfad)
         run: pnpm build
         env:
-          ASTRO_BASE: /kroko-doc-web
+          ASTRO_BASE: /zahn-agent
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { LocalStorageRoundLog, STORAGE_KEY, type StorageLike } from './localStorageLog';
+import { LEGACY_STORAGE_KEY, LocalStorageRoundLog, STORAGE_KEY, type StorageLike } from './localStorageLog';
 import { createRoundRecord } from '../../core/domain/sessionLog';
 
 class FakeStorage implements StorageLike {
@@ -49,6 +49,14 @@ describe('LocalStorageRoundLog', () => {
     const storage = new FakeStorage();
     storage.map.set(STORAGE_KEY, '{kaputt');
     expect(new LocalStorageRoundLog(storage).load()).toEqual([]);
+  });
+
+  it('übernimmt Runden der früheren Fassung unter dem neuen Schlüssel', () => {
+    const storage = new FakeStorage();
+    storage.map.set(LEGACY_STORAGE_KEY, JSON.stringify([record]));
+    expect(new LocalStorageRoundLog(storage).load()).toEqual([record]);
+    // einmal übernommen, danach liegt alles unter dem neuen Namen
+    expect(storage.map.has(STORAGE_KEY)).toBe(true);
   });
 
   it('arbeitet ohne Storage weiter (privater Modus)', () => {

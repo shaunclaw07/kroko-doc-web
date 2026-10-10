@@ -1,7 +1,7 @@
-# Kroko Doc Web
+# Zahn Agent
 
-Das Zahn-Zufallsspiel um das Krokodil (bekannt als **Kroko Doc** / *Crocodile Dentist*)
-als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
+Das Zahn-Zufallsspiel um das Krokodil — Spielprinzip des Spielzeugs *Crocodile Dentist*
+(bekannt als *Kroko Doc*) als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
 Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
 Krokodil, Wolf, Mensch. Mit Ton, Herzschlag, Totenstille vor dem Biss, Screen-Shake und
 einer Statistikseite, die eure eigenen Runden auswertet.
@@ -34,8 +34,8 @@ frei, 10.10.2026): `pnpm install` läuft durch, 146 Tests grün, Bau fertig in 1
 ### Die drei Befehle
 
 ```bash
-git clone git@github.com:shaunclaw07/kroko-doc-web.git
-cd kroko-doc-web
+git clone git@github.com:shaunclaw07/zahn-agent.git
+cd zahn-agent
 pnpm install
 pnpm dev
 ```
@@ -169,7 +169,7 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 
 ## Daten und Datenschutz
 
-- Alle Runden liegen im **`localStorage`** des Browsers (`krokoDoc.*`) — kein Server, keine
+- Alle Runden liegen im **`localStorage`** des Browsers (`zahn-agent:rounds:v1`, `zahn-agent:settings:v1`) — kein Server, keine
   Konten, keine Telemetrie.
 - **Zurücksetzen:** Statistikseite → „Protokoll löschen" (löscht nur das Rundenprotokoll).
 - **Sichern/umbenennen:** CSV exportieren; die Datei kannst du wieder importieren oder dem
@@ -179,11 +179,11 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 
 ## Auf GitHub Pages
 
-Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/kroko-doc-web/>**
+Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn-agent/>**
 
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) baut bei jedem Push auf `main` und
   liefert `dist/` aus. Dort läuft `pnpm gate` mit — eine rote Suite verhindert die Veröffentlichung.
-- Der Bau läuft mit `ASTRO_BASE=/kroko-doc-web`, weil Projektseiten unter
+- Der Bau läuft mit `ASTRO_BASE=/zahn-agent`, weil Projektseiten unter
   `https://<konto>.github.io/<repo>/` liegen. **Lokal ändert das nichts**: ohne die
   Umgebungsvariable bleibt die Adresse `http://localhost:4321`.
 - Deshalb gehen interne Verweise im Code über `import.meta.env.BASE_URL` und nie absolut mit
@@ -204,8 +204,9 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/kroko-doc-web/>*
 
 ## Herkunft und Grenzen
 
-- Das Spielprinzip stammt vom Spielzeug *Kroko Doc* (Hasbro, 1990). Diese App ist eine
-  eigenständige Umsetzung ohne Marken- oder Gestaltungsübernahme; Zahlen und Mechanik beruhen
+- Das Spielprinzip stammt vom Spielzeug *Crocodile Dentist* (Hasbro, 1990, hierzulande als
+  *Kroko Doc* bekannt). Diese App ist eine eigenständige Umsetzung ohne Marken- oder
+  Gestaltungsübernahme, und der Projektname **Zahn Agent** ist davon unabhängig gewählt; Zahlen und Mechanik beruhen
   auf öffentlich beschriebenen Analysen (make Magazin 1/2023, Wikipedia).
 - **Nicht geprüft in einem echten Browser:** Im Baum steht kein Chrome zur Verfügung. Belegt ist
   das Verhalten in jsdom (Bedienungs- und Statistiksonde) sowie über gerenderte Standbilder der
