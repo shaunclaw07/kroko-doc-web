@@ -49,7 +49,7 @@ zeigt deutsche Texte statt der englischen Kernmeldungen.
 
 ## Warum diese Trennung hier wirklich Geld spart
 
-- Die Dramaturgie (Spannungspegel, Totenstille, Zucken) ist **reine Rechnung** in
+- Die Dramaturgie (Spannung, Totenstille, Zucken) ist **reine Rechnung** in
   `core/domain/tension.ts`. Damit ist der Nervenkitzel prüfbar, obwohl er sich in Ton und
   Bild abspielt.
 - Die Entscheidung „schnappt dieser Druck zu?" bleibt im Kern (`playPress`). Die Bedienung

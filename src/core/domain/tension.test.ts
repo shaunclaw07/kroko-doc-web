@@ -7,36 +7,75 @@ import {
   heartbeatInterval,
   planPressDrama,
   silenceDuration,
-  tensionAfterPress,
+  tensionForPress,
   twitchChance,
 } from './tension';
 import { SeededRandom } from '../../infrastructure/testing/seededRandom';
 import { ScriptedRandom } from '../../infrastructure/testing/scriptedRandom';
 
-describe('tensionAfterPress', () => {
+/**
+ * Die Spannung ist kein aufaddierter Pegel mehr, sondern die **Biss-Wahrscheinlichkeit des
+ * nächsten Drucks** — bedingt darauf, dass die Runde bis hierher überlebt hat. Sie kommt aus
+ * derselben Verteilung wie die Statistik (`probabilities.ts`) und ist damit dieselbe Wahrheit
+ * wie die Zahlen in Doku und Python-Referenz.
+ */
+describe('tensionForPress', () => {
+  const krokodil = { mode: 'original' as const, liveTeethMin: 1, liveTeethMax: 3 };
+
+  it('nennt die Biss-Wahrscheinlichkeit je Druck (Krokodil: 10 Zähne, 1–3 scharf)', () => {
+    // Nachgerechnet aus P(J = j) / P(J ≥ j) — dieselben Werte stehen in docs/domain-model.md.
+    const erwartet = [20.0, 21.3, 22.8, 24.6, 26.8, 29.7, 33.8, 40.7, 55.0, 100.0];
+    erwartet.forEach((prozent, index) => {
+      const wert = tensionForPress({ pressIndex: index + 1, teeth: 10, ...krokodil });
+      expect(wert * 100).toBeCloseTo(prozent, 1);
+    });
+  });
+
+  it('ist beim letzten Zahn genau 1 — dort schnappt es garantiert', () => {
+    expect(tensionForPress({ pressIndex: 10, teeth: 10, ...krokodil })).toBe(1);
+  });
+
   it('steigt mit jedem Druck und bleibt in 0..1', () => {
-    let tension = 0;
-    let previous = tension;
+    let previous = 0;
     for (let pressIndex = 1; pressIndex <= 10; pressIndex += 1) {
-      tension = tensionAfterPress({ current: tension, pressIndex, remaining: 11 - pressIndex, teeth: 10 });
-      // Streng steigend, bis der Pegel bei 1 sättigt — danach bleibt er oben.
-      if (previous < 1) {
-        expect(tension).toBeGreaterThan(previous);
-      }
+      const tension = tensionForPress({ pressIndex, teeth: 10, ...krokodil });
+      expect(tension).toBeGreaterThan(previous);
       expect(tension).toBeLessThanOrEqual(1);
       previous = tension;
     }
-    expect(tension).toBe(1);
   });
 
-  it('sättigt bei 1, statt darüber zu wachsen', () => {
-    expect(tensionAfterPress({ current: 0.99, pressIndex: 9, remaining: 1, teeth: 10 })).toBe(1);
+  it('sättigt nicht schon in der ersten Hälfte — der Balken hat bis zum Schluss Weg', () => {
+    // Der alte Pegel stand bei 10 Zähnen ab dem 4. Druck auf 100 %.
+    expect(tensionForPress({ pressIndex: 4, teeth: 10, ...krokodil })).toBeLessThan(0.3);
+    expect(tensionForPress({ pressIndex: 8, teeth: 10, ...krokodil })).toBeLessThan(0.5);
   });
 
-  it('steigt stärker, wenn nur noch wenige Zähne übrig sind', () => {
-    const early = tensionAfterPress({ current: 0.2, pressIndex: 1, remaining: 9, teeth: 10 });
-    const late = tensionAfterPress({ current: 0.2, pressIndex: 1, remaining: 2, teeth: 10 });
-    expect(late).toBeGreaterThan(early);
+  it('steigt bei wenigen Zähnen schneller (Maus: 6 Zähne, 1–2 scharf)', () => {
+    const maus = { mode: 'original' as const, liveTeethMin: 1, liveTeethMax: 2 };
+    const erwartet = [25.0, 28.9, 34.4, 42.9, 58.3, 100.0];
+    erwartet.forEach((prozent, index) => {
+      const wert = tensionForPress({ pressIndex: index + 1, teeth: 6, ...maus });
+      expect(wert * 100).toBeCloseTo(prozent, 1);
+    });
+    // Vierter Druck: Maus deutlich gefährlicher als der Wolf.
+    const wolf = tensionForPress({ pressIndex: 4, teeth: 12, mode: 'original', liveTeethMin: 1, liveTeethMax: 2 });
+    const maus4 = tensionForPress({ pressIndex: 4, teeth: 6, ...maus });
+    expect(maus4).toBeGreaterThan(wolf);
+  });
+
+  it('rechnet im Modus classic mit genau einem scharfen Zahn (1 ÷ übrige Zähne)', () => {
+    const classic = { mode: 'classic' as const, liveTeethMin: 1, liveTeethMax: 3 };
+    expect(tensionForPress({ pressIndex: 1, teeth: 10, ...classic })).toBeCloseTo(0.1, 3);
+    expect(tensionForPress({ pressIndex: 9, teeth: 10, ...classic })).toBeCloseTo(0.5, 3);
+    expect(tensionForPress({ pressIndex: 10, teeth: 10, ...classic })).toBe(1);
+  });
+
+  it('verrät nichts über die verdeckten scharfen Zähne — nur Modell und Zählstand zählen', () => {
+    // Gleicher Zählstand, gleiches Ergebnis — unabhängig davon, welche Zähne scharf sind.
+    expect(tensionForPress({ pressIndex: 5, teeth: 10, ...krokodil })).toBe(
+      tensionForPress({ pressIndex: 5, teeth: 10, ...krokodil }),
+    );
   });
 });
 
@@ -91,7 +130,14 @@ describe('heartbeatInterval', () => {
 });
 
 describe('planPressDrama', () => {
-  const base = { tension: 0.3, pressIndex: 3, remaining: 6, teeth: 10 };
+  const base = {
+    pressIndex: 3,
+    remaining: 7,
+    teeth: 10,
+    mode: 'original' as const,
+    liveTeethMin: 1,
+    liveTeethMax: 3,
+  };
 
   it('zuckt bei einem scharfen Zahn nie — der Biss kommt sofort', () => {
     for (let seed = 0; seed < 200; seed += 1) {
@@ -110,6 +156,12 @@ describe('planPressDrama', () => {
 
   it('setzt die Spannung nach dem Biss auf 1', () => {
     expect(planPressDrama({ ...base, willSnap: true, rng: new ScriptedRandom([0.5]) }).tensionAfter).toBe(1);
+  });
+
+  it('stellt nach einem harmlosen Druck die Gefahr des nächsten Drucks ein', () => {
+    const drama = planPressDrama({ ...base, willSnap: false, rng: new ScriptedRandom([0.99]) });
+    const naechster = tensionForPress({ pressIndex: base.pressIndex + 1, teeth: 10, mode: 'original', liveTeethMin: 1, liveTeethMax: 3 });
+    expect(drama.tensionAfter).toBe(naechster);
   });
 
   it('zuckt nur bei harmlosen Drücken und nur bei niedrigem Zufallswert', () => {

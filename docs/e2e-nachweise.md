@@ -91,6 +91,28 @@ sieben Dateien exakt 4675 Bytes. Ursache: das eingebettete Stylesheet brachte Br
 Rasterer filtert Layout-Eigenschaften seitdem heraus. Gemerkt: gleiche Dateigröße bei
 verschiedenen Zuständen heißt „es wird nichts gezeichnet".
 
+## 5b. Spannungsanzeige — neue Fassung am 11.10.2026
+
+Die Anzeige über dem Maul war ein aufaddierter Pegel (`+0,18 + 0,35 × Knappheit + 0,02 × Position`)
+und stand bei 10 Zähnen **ab dem 4. Druck auf 100 %** — für zwei Drittel der Runde ohne Aussage.
+Jetzt ist sie die **Biss-Wahrscheinlichkeit des nächsten Drucks**, gerechnet aus derselben Verteilung
+wie die Statistik (`probabilities.ts`).
+
+- **Rot zuerst:** die neue Erwartung in `src/core/domain/tension.test.ts` geschrieben, bevor es die
+  Funktion gab → `vitest run src/core/domain/tension.test.ts` ergab **10 failed | 11 passed (21)**.
+- **Grün danach:** `pnpm gate` → **171 Tests in 17 Dateien** (vorher 166; die Datei hat jetzt 21 statt
+  16 Tests), `tsc` fehlerfrei, `pnpm build` 2 Seiten.
+- **Kurven geprüft (nicht geschätzt):** die Testkurve fürs Krokodil `20,0 · 21,3 · 22,8 · 24,6 · 26,8 ·
+  29,7 · 33,8 · 40,7 · 55,0 · 100,0 %` und für die Maus `25,0 · 28,9 · 34,4 · 42,9 · 58,3 · 100 %`
+  wurde von der Kernfunktion genau so geliefert; im Modus `classic` ist es `1 ÷ übrige Zähne`.
+- **Kein Durchreichen mehr:** `playPress` bekommt keinen Pegel mehr, die Spannung kommt aus dem
+  Modell der Runde (`round.liveTeethMin/Max`, öffentliche Größen — nie die verdeckten scharfen Zähne).
+- **Folgen für die Oberfläche (nachgezogen):** der Balken startet nicht mehr bei null (Krokodil 20 %,
+  Wolf 12 %), und die Marke „es wird ernst" (`is-tense`) liegt statt bei 15 % bei 30 %, damit sie
+  nicht bei jedem Lebewesen sofort brennt.
+- **Ehrlicher Vorbehalt:** Herzschlag, Klang und Beben folgen jetzt der echten Gefahr und steigen
+  dadurch **später und steiler** als vorher (vorher war der Puls ab Druck 3 „auf Anschlag").
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

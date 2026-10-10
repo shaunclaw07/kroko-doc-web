@@ -6,7 +6,7 @@ import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from '../../core/domain/round';
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
-import { heartbeatInterval } from '../../core/domain/tension';
+import { heartbeatInterval, tensionForPress } from '../../core/domain/tension';
 import { createRoundRecord, nextRoundNumber } from '../../core/domain/sessionLog';
 import { type RandomMode } from '../../core/domain/teeth';
 import { playPress } from '../../core/use-cases/playPress';
@@ -120,7 +120,7 @@ export class GameController {
     }
     this.busy = true;
     this.deps.sound.unlock();
-    const outcome = playPress({ state: this.round, tooth: toothId, tension: this.tension, rng: this.deps.rng });
+    const outcome = playPress({ state: this.round, tooth: toothId, rng: this.deps.rng });
     this.round = outcome.state;
     this.tension = outcome.drama.tensionAfter;
     this.deps.sound.setTension(this.tension);
@@ -274,7 +274,8 @@ export class GameController {
     this.clearHeartbeat();
     this.clearBiter();
     this.round = this.newRound();
-    this.tension = 0;
+    // Schon der erste Druck hat eine Gefahr — der Balken startet nicht bei null.
+    this.tension = this.tensionOfNextPress();
     this.busy = false;
     const mountPoint = this.doc.getElementById('croc-mount');
     if (mountPoint) {
@@ -328,11 +329,22 @@ export class GameController {
     meter?.style.setProperty('width', `${Math.round(this.tension * 100)}%`);
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));
     this.stage?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
-    this.stage?.classList.toggle('is-tense', this.tension > 0.15 && this.round.status === 'open');
+    this.stage?.classList.toggle('is-tense', this.tension > 0.3 && this.round.status === 'open');
     if (this.stage) {
       this.stage.dataset.status = this.round.status;
       this.stage.dataset.tension = this.tension.toFixed(2);
     }
+  }
+
+  /** Gefahr des nächsten Drucks — dieselbe Rechnung wie im Kern, nur für die Anzeige. */
+  private tensionOfNextPress(): number {
+    return tensionForPress({
+      pressIndex: this.round.pressOrder.length + 1,
+      teeth: this.round.teeth,
+      mode: this.round.mode,
+      liveTeethMin: this.round.liveTeethMin,
+      liveTeethMax: this.round.liveTeethMax,
+    });
   }
 
   private setText(id: string, text: string): void {

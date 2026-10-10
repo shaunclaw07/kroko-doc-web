@@ -19,16 +19,18 @@ export interface PressOutcome {
 export function playPress(args: {
   state: RoundState;
   tooth: ToothId;
-  tension: number;
   rng: RandomSource;
 }): PressOutcome {
   const willSnap = args.state.live.includes(args.tooth);
   const drama = planPressDrama({
-    tension: args.tension,
     willSnap,
     pressIndex: args.state.pressOrder.length + 1,
     remaining: args.state.teeth - args.state.pressOrder.length,
     teeth: args.state.teeth,
+    // Die Spannung kommt aus dem Modell der Runde — es wird kein Pegel durchgereicht.
+    mode: args.state.mode,
+    liveTeethMin: args.state.liveTeethMin,
+    liveTeethMax: args.state.liveTeethMax,
     rng: args.rng,
   });
   const state = pressTooth(args.state, args.tooth);

@@ -10,7 +10,7 @@
 | **Runde** | Von der offenen Maulstellung bis zum Zuschnappen. Endet spätestens beim n-ten Druck. |
 | **Position** | Nummer des Drucks, bei dem es schnappte (1-basiert) — die eigentlich aussagekräftige Größe. |
 | **Verlierer** | Der Spieler, der den scharfen Zahn gedrückt hat (`(position - 1) mod spieler + 1`). |
-| **Spannungspegel** | 0..1; wächst je Druck und je knapper die Zähne werden. |
+| **Spannung** | 0..1; die **Biss-Wahrscheinlichkeit des nächsten Drucks**. Beim letzten Zahn genau 1. |
 
 ## Zufallsmodelle
 
@@ -42,8 +42,18 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
 
 | Größe | Verhalten |
 |---|---|
-| Spannungspegel | `+0,18 + 0,35 × Knappheit + 0,02 × Position`, gedeckelt bei 1 |
+| Spannung | `P(J = i) / P(J ≥ i)` aus der Verteilung in `probabilities.ts` — die Biss-Wahrscheinlichkeit des nächsten Drucks. **Kein aufaddierter Pegel:** sie sättigt nicht, sondern steigt monoton bis zum letzten Zahn auf 1. |
 | Zucken | Grundchance 12 %, wächst mit der Spannung, **0** beim letzten Zahn |
 | Totenstille | nur vor dem Biss, 400–900 ms (länger, je knapper die Zähne) |
 | Herzschlag | 900 ms bei Spannung 0 bis 380 ms bei Spannung 1 |
 | Beschleunigung | Bildschirmbeben, Vibration, Maul-„Lunge" nach vorn |
+
+Wenn die Spannung eine Wahrscheinlichkeit ist, kann die Anzeige nicht lügen — und sie steht
+nirgends vorzeitig auf 100 %. Gemessene Kurven (Krokodil 10 Zähne, 1–3 scharf):
+`20,0 · 21,3 · 22,8 · 24,6 · 26,8 · 29,7 · 33,8 · 40,7 · 55,0 · 100,0 %` — Maus (6 Zähne, 1–2
+scharf): `25,0 · 28,9 · 34,4 · 42,9 · 58,3 · 100 %`. Im Modus `classic` (genau ein scharfer Zahn)
+ist sie schlicht `1 ÷ übrige Zähne`: `10, 11,1, 12,5 … 50, 100 %`.
+
+Zwei Folgen für die Anzeige: Der Balken **startet nicht bei null** (der erste Druck hat schon eine
+Gefahr, beim Krokodil 20 %), und die „es wird ernst"-Marke (`is-tense`) liegt bei 30 %, damit sie
+nicht bei jedem Lebewesen sofort brennt (Wolf 12 %, Krokodil 20 % beim ersten Druck).

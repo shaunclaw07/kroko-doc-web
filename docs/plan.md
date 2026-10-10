@@ -28,7 +28,10 @@ eingebaute Seite: nach 100 Runden sieht man, ob das eigene Krokodil zufällig is
 ## 2. Spannungslayer (das eigentlich Schwierige)
 
 Nervenkitzel entsteht nicht durch Zufall, sondern durch **Zeit und Ton**:
-1. Spannungspegel 0..1 steigt mit jedem Druck und mit der Runde.
+1. Spannungspegel 0..1 steigt mit jedem Druck und mit der Runde. **Umgesetzt am 11.10.2026
+   anders als geplant:** nicht als aufaddierter Pegel, sondern als **Biss-Wahrscheinlichkeit des
+   nächsten Drucks** aus `probabilities.ts` — der alte Pegel stand bei 10 Zähnen schon ab dem
+   4. Druck auf 100 % und sagte damit nichts mehr (siehe `docs/domain-model.md`).
 2. Herzschlag (zwei tiefe Sinus-Stöße) wird schneller und lauter.
 3. Knarren/Quietschen der Feder, Tonhöhe steigt mit dem Pegel.
 4. **Fakeouts**: mit ~12 % Chance zuckt das Maul beim Druck (sichtbar, hörbar) und

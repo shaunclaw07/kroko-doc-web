@@ -40,6 +40,9 @@ export interface RoundState {
   readonly status: 'open' | 'snapped';
   /** Gedrückte Zähne in der Reihenfolge des Drückens. */
   readonly pressOrder: readonly ToothId[];
+  /** Grenzen gleichzeitig scharfer Zähne aus dem Katalog — die Spannung rechnet damit. */
+  readonly liveTeethMin: number;
+  readonly liveTeethMax: number;
   /** Scharfe Zähne — die Bedienung darf sie nie anzeigen, solange die Runde läuft. */
   readonly live: readonly ToothId[];
   readonly loser: LoserInfo | null;
@@ -106,6 +109,8 @@ export function openRound(config: RoundConfig, deps: RoundDeps): RoundState {
     players: config.players,
     status: 'open',
     pressOrder: [],
+    liveTeethMin: gebiss.min,
+    liveTeethMax: gebiss.max,
     live: [...live].sort((a, b) => a - b),
     loser: null,
   };
