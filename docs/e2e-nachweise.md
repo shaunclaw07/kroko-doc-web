@@ -17,7 +17,7 @@ grün mit **163 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,21 s** in ei
 Stand vom 10.10. und bleiben stehen.
 
 **Nachtrag 11.10.2026, später** (Hai, Maus und Vampir ergänzt): `pnpm gate` grün mit
-**166 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,26 s (Arbeitsbaum). Die Zeichnungs-Sonde
+**166 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,09 s im frischen Klon (Arbeitsbaum 2,26 s). Die Zeichnungs-Sonde
 schreibt jetzt sechs SVGs — je drei Tests für die neuen Lebewesen kommen aus derselben Sonde.
 
 ## 2. Bedienungssonde (jsdom)
