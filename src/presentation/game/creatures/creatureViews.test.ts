@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { CREATURES, getCreature } from '../../../core/domain/creature';
+import { MAX_TEETH, MIN_TEETH } from '../../../core/domain/teeth';
+import { MIN_TAP_TARGET_PX, maxTapFriendlyTeeth, tapTargetPx } from './geometry';
 import { ARTWORKS, creatureView, listCreatureViews } from './index';
+import { ARTWORKS as ALL_ARTWORKS } from './index';
 
 /**
  * Vertrag der Zeichen-Schicht: jedes Lebewesen im Katalog muss eine Zeichnung haben, die
@@ -32,7 +35,18 @@ describe('Zeichnungen der Lebewesen', () => {
   it('enthält alle Bühnen-Ebenen in der erwarteten Reihenfolge', () => {
     for (const creature of CREATURES) {
       const markup = creatureView(creature.id).render();
-      const order = ['creature__body', 'mouth__hole', 'mouth__inner', 'jaw__upper', 'class="teeth"', 'jaw__lower', 'creature__face', 'creature__biter'];
+      const order = [
+        'creature__body',
+        'mouth__hole',
+        'mouth__inner',
+        'jaw__shell',
+        'jaw__upper',
+        'teeth--upper',
+        'class="teeth"',
+        'jaw__lower',
+        'creature__face',
+        'creature__biter',
+      ];
       let cursor = -1;
       for (const layer of order) {
         const position = markup.indexOf(layer);
@@ -85,9 +99,9 @@ describe('Zeichnungen der Lebewesen', () => {
     }
   });
 
-  it('zeichnet auch abweichende Zahnzahlen sauber (4 bis 20)', () => {
+  it('zeichnet auch abweichende Zahnzahlen sauber', () => {
     for (const creature of CREATURES) {
-      for (const count of [4, 6, 10, 12, 16, 20]) {
+      for (const count of [MIN_TEETH, 6, 10, MAX_TEETH]) {
         const view = creatureView(creature.id, count);
         const ids = toothIds(view.render());
         expect(ids, `${creature.id}/${count}`).toHaveLength(count);
@@ -104,7 +118,7 @@ describe('Zeichnungen der Lebewesen', () => {
 
   it('macht Zähne bei vielen Zähnen schmaler, damit sie sich nicht überdecken', () => {
     const wide = creatureView('crocodile', 6).render();
-    const narrow = creatureView('crocodile', 20).render();
+    const narrow = creatureView('crocodile', MAX_TEETH).render();
     const widthOf = (markup: string): number => {
       const first = markup.match(/class="tooth__shape" d="M (-?[\d.]+)/)?.[1] ?? '0';
       return Math.abs(Number(first)) * 2;
@@ -116,6 +130,31 @@ describe('Zeichnungen der Lebewesen', () => {
     for (const creature of CREATURES) {
       expect(creatureView(creature.id).teeth, creature.id).toBe(creature.teeth);
     }
+  });
+
+  it('gibt jedem Zahn auf dem Handy eine Trefferfläche von mindestens 44 Pixeln', () => {
+    // Ein 358 px breites Handy ist der enge Fall; die Zähne sitzen auf einem Ring um das
+    // ganze Maul, damit sich diese Größe auf mehr Zähne verteilen lässt.
+    for (const creature of CREATURES) {
+      const ring = ALL_ARTWORKS[creature.id]?.ring;
+      expect(ring, creature.id).toBeTruthy();
+      if (!ring) continue;
+      for (let count = MIN_TEETH; count <= MAX_TEETH; count += 1) {
+        expect(tapTargetPx(count, ring), `${creature.id}/${count}`).toBeGreaterThanOrEqual(MIN_TAP_TARGET_PX);
+      }
+    }
+  });
+
+  it('belegt, wo die Grenze liegt (die Obergrenze ist gemessen, nicht geschätzt)', () => {
+    const crocodile = ALL_ARTWORKS['crocodile'];
+    const human = ALL_ARTWORKS['human'];
+    expect(crocodile && human).toBeTruthy();
+    if (!crocodile || !human) return;
+    // Das Krokodil hat den größten Ring und verkraftet mehr Zähne als die Obergrenze erlaubt.
+    expect(maxTapFriendlyTeeth(crocodile.ring)).toBeGreaterThanOrEqual(MAX_TEETH);
+    // Beim Menschen ist bei 16 Zähnen Schluss — genau deshalb steht die Grenze bei 12.
+    expect(maxTapFriendlyTeeth(human.ring)).toBeLessThan(16);
+    expect(tapTargetPx(16, human.ring)).toBeLessThan(MIN_TAP_TARGET_PX);
   });
 
   it('wirft bei einem unbekannten Lebewesen, statt etwas anderes zu zeichnen', () => {

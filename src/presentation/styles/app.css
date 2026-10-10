@@ -297,13 +297,12 @@ button:focus-visible,
 }
 
 /* Die ruhende obere Zahnreihe stört das geschlossene Maul nicht. */
-/* Ruhende obere Zahnreihe: keine Trefferfläche, kein Fokus, verschwindet beim Zuschnappen. */
-.rest-tooth {
-  transition: opacity 120ms ease;
-  pointer-events: none;
+/* Beim Zuschnappen fährt der Oberkiefer über die obere Zahnreihe — sie verschwindet darunter. */
+.teeth--upper {
+  transition: opacity 90ms ease-out;
 }
 
-.creature.is-snapped .rest-tooth {
+.creature.is-snapped .teeth--upper {
   opacity: 0;
 }
 

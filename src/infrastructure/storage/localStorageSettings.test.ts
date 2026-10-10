@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
 import { DEFAULT_SETTINGS, loadSettings, saveSettings, type StorageLike } from './localStorageSettings';
 
 class MemoryStorage implements StorageLike {
@@ -23,15 +24,15 @@ describe('Einstellungen', () => {
 
   it('speichert und liest Lebewesen und Zahnzahl', () => {
     const storage = new MemoryStorage();
-    saveSettings(storage, { ...DEFAULT_SETTINGS, creature: 'wolf', teethOverride: 16 });
+    saveSettings(storage, { ...DEFAULT_SETTINGS, creature: 'wolf', teethOverride: 12 });
     const back = loadSettings(storage);
     expect(back.creature).toBe('wolf');
-    expect(back.teethOverride).toBe(16);
+    expect(back.teethOverride).toBe(12);
   });
 
   it('verwirft eine unmögliche Zahnzahl und nimmt dann den Tier-Standard', () => {
     const storage = new MemoryStorage();
-    for (const bad of [3, 21, 7.5, Number.NaN]) {
+    for (const bad of [3, MAX_TEETH + 1, 7.5, Number.NaN]) {
       storage.setItem('kroko-doc-web:settings:v1', JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: bad }));
       expect(loadSettings(storage).teethOverride, String(bad)).toBeNull();
     }
@@ -39,7 +40,7 @@ describe('Einstellungen', () => {
 
   it('nimmt die äußersten erlaubten Zahnzahlen an', () => {
     const storage = new MemoryStorage();
-    for (const good of [4, 20]) {
+    for (const good of [MIN_TEETH, MAX_TEETH]) {
       storage.setItem('kroko-doc-web:settings:v1', JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: good }));
       expect(loadSettings(storage).teethOverride, String(good)).toBe(good);
     }

@@ -28,14 +28,6 @@ export const crocodileArtwork: CreatureArtwork = {
     '<ellipse cx="262" cy="66" rx="7" ry="4" fill="#6f9c78"/>' +
     '<ellipse cx="366" cy="66" rx="7" ry="4" fill="#6f9c78"/>' +
     '<path d="M 320 46 C 300 62 296 84 306 100" fill="none" stroke="#2c4a36" stroke-width="5" stroke-linecap="round"/>',
-  upperTeeth: {
-    ratio: 0.9,
-    fromDeg: 208,
-    toDeg: 332,
-    inset: 4,
-    fill: '#f2efe2',
-    stroke: '#c2bba4',
-  },
   face:
     '<ellipse cx="165" cy="132" rx="36" ry="30" fill="#f0e6c8" stroke="#22402c" stroke-width="3"/>' +
     '<ellipse cx="475" cy="132" rx="36" ry="30" fill="#f0e6c8" stroke="#22402c" stroke-width="3"/>' +
@@ -51,6 +43,6 @@ export const crocodileArtwork: CreatureArtwork = {
       width: index % 2 === 0 ? 30 : 27,
     })),
   shellFactor: 0.62,
-  ring: { cx: 320, cy: 265, rx: 240, ry: 160, fromDeg: 18, toDeg: 162 },
+  ring: { cx: 320, cy: 265, rx: 240, ry: 160, fromDeg: 90, toDeg: 450, fullCircle: true },
   label: 'Krokodil mit zehn Zähnen, Blick von vorne oben in das offene Maul',
 };

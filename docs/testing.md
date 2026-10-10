@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 15 |
-| Tests | 144 |
+| Tests | 146 |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,49 s |
 
@@ -31,7 +31,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/core/use-cases/playPress.test.ts` | Dramaturgie ohne Verrat des Geheimnisses |
 | `src/infrastructure/audio/webAudioEngine.test.ts` | Klänge synthetisch, stumm schaltet Knoten ab, Spannung ändert das Tempo, ohne Audio-Kontext keine Ausnahme, `webkitAudioContext`-Rückfall |
 | `src/infrastructure/storage/localStorageLog.test.ts` | Ablage, kaputtes JSON, privater Modus |
-| `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, abweichende Zahnzahlen 4–20 |
+| `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (4–12) bleibt die Trefferfläche bei 358 px Bühnenbreite ≥ 44 px | | Zeichnungsvertrag: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, abweichende Zahnzahlen 4–20 |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns |
 

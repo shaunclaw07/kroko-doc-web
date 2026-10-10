@@ -2,6 +2,51 @@ import type { RingGeometry, ToothSpec } from './types';
 
 export const VIEWBOX = { width: 640, height: 460 } as const;
 
+/** Bogenlänge der Ellipse (Näherung nach Ramanujan) — Grundlage der Trefferflächen. */
+export function arcLength(ring: RingGeometry): number {
+  const a = ring.rx;
+  const b = ring.ry;
+  const h = ((a - b) / (a + b)) ** 2;
+  const span = ring.fullCircle ? 1 : (ring.toDeg - ring.fromDeg) / 360;
+  return Math.PI * (a + b) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h))) * span;
+}
+
+/** Abstand zweier Nachbarzähne auf dem Ring (SVG-Einheiten). */
+export function toothSpacing(count: number, ring: RingGeometry): number {
+  return count > 1 ? arcLength(ring) / count : arcLength(ring);
+}
+
+/**
+ * Trefferfläche je Zahn: halber Zahnabstand, damit sich zwei Zähne nicht überdecken,
+ * nach oben begrenzt (ein 4-Zähne-Maul braucht keine meterlangen Flächen).
+ */
+export function hitRadius(count: number, ring: RingGeometry): number {
+  return Math.max(14, Math.min(48, toothSpacing(count, ring) * 0.5));
+}
+
+/** Trefferfläche in CSS-Pixeln bei gegebener Bühnenbreite (Handy: rund 358 px). */
+export function tapTargetPx(count: number, ring: RingGeometry, stageWidthPx = 358): number {
+  return 2 * hitRadius(count, ring) * (stageWidthPx / VIEWBOX.width);
+}
+
+/** Kleinste Kantenlänge, die ein Finger treffen soll (Apple/Google-Richtwert). */
+export const MIN_TAP_TARGET_PX = 44;
+
+/** Höchste Zahnzahl, bei der jedes Tippziel noch MIN_TAP_TARGET_PX groß ist. */
+export function maxTapFriendlyTeeth(ring: RingGeometry, stageWidthPx = 358): number {
+  let best = 1;
+  for (let count = 2; count <= MAX_TEETH_HARD; count += 1) {
+    if (tapTargetPx(count, ring, stageWidthPx) < MIN_TAP_TARGET_PX) {
+      break;
+    }
+    best = count;
+  }
+  return best;
+}
+
+/** Harte Obergrenze der Zeichnung (die Fachgrenze steht in core/domain/teeth.ts). */
+export const MAX_TEETH_HARD = 20;
+
 /**
  * Zähne an die Zahnzahl anpassen: bei vielen Zähnen werden sie schmaler (sonst
  * überlappen sie), bei wenigen etwas kräftiger. Die Länge bleibt fast unverändert.
@@ -10,13 +55,6 @@ export function teethScale(count: number): { width: number; length: number } {
   const width = Math.max(0.5, Math.min(1.35, 12 / count));
   const length = Math.max(0.85, Math.min(1.15, Math.sqrt(12 / count)));
   return { width, length };
-}
-
-/** Trefferfläche je Zahn: so groß wie der Abstand es zulässt, damit sich nichts überdeckt. */
-export function hitRadius(count: number, ring: RingGeometry): number {
-  const arc = Math.PI * ((ring.rx + ring.ry) / 2) * ((ring.toDeg - ring.fromDeg) / 180);
-  const spacing = count > 1 ? arc / (count - 1) : arc;
-  return Math.max(13, Math.min(30, spacing * 0.62));
 }
 
 export function scaleToothSpec(spec: ToothSpec, scale: { width: number; length: number }): ToothSpec {
@@ -82,7 +120,10 @@ export function toothPlacements(
   const fallback: ToothPlacement['spec'] = { kind: 'cone', length: 60, width: 30 };
   for (let index = 0; index < count; index += 1) {
     const t = count === 1 ? 0.5 : index / (count - 1);
-    const deg = ring.fromDeg + (ring.toDeg - ring.fromDeg) * t;
+    // Voller Ring: die Zähne verteilen sich gleichmäßig um das ganze Maul (oben und unten),
+    // damit jedem Zahn ein großes Tippziel bleibt.
+    const span = ring.fullCircle ? 360 * ((count - 1) / count) : ring.toDeg - ring.fromDeg;
+    const deg = ring.fromDeg + span * t;
     const point = arcPoint(ring.cx, ring.cy, ring.rx, ring.ry, deg);
     const dx = ring.cx - point.x;
     const dy = ring.cy - point.y;

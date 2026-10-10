@@ -178,11 +178,11 @@ describe('GameController in der Bühne', () => {
   });
 
   it('übernimmt eine eingestellte Zahnzahl in Bühne, Anzeige und Protokoll', () => {
-    const { log } = build([9], { creature: 'crocodile', teethOverride: 16 });
-    expect(document.querySelectorAll('.tooth')).toHaveLength(16);
-    expect(document.getElementById('hud-remaining')?.textContent).toBe('16');
+    const { log } = build([9], { creature: 'crocodile', teethOverride: 12 });
+    expect(document.querySelectorAll('.tooth')).toHaveLength(12);
+    expect(document.getElementById('hud-remaining')?.textContent).toBe('12');
     click(9);
-    expect(log.records[0]?.teeth).toBe(16);
+    expect(log.records[0]?.teeth).toBe(12);
     expect(log.records[0]?.creature).toBe('crocodile');
   });
 

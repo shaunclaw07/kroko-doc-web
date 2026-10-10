@@ -24,14 +24,6 @@ export const wolfArtwork: CreatureArtwork = {
   upperExtra:
     '<ellipse cx="320" cy="88" rx="34" ry="24" fill="#2b2724"/>' +
     '<ellipse cx="308" cy="80" rx="10" ry="6" fill="#5c554e"/>',
-  upperTeeth: {
-    ratio: 0.85,
-    fromDeg: 208,
-    toDeg: 332,
-    inset: 3,
-    fill: '#f4f1e6',
-    stroke: '#c2bba4',
-  },
   face:
     '<path d="M 132 112 L 78 12 L 206 78 Z" fill="#6b665e" stroke="#3d3a34" stroke-width="4"/>' +
     '<path d="M 508 112 L 562 12 L 434 78 Z" fill="#6b665e" stroke="#3d3a34" stroke-width="4"/>' +
@@ -53,6 +45,6 @@ export const wolfArtwork: CreatureArtwork = {
       return { kind: 'flat' as const, length: 45, width: 27 };
     }),
   shellFactor: 0.55,
-  ring: { cx: 320, cy: 268, rx: 205, ry: 152, fromDeg: 16, toDeg: 164 },
+  ring: { cx: 320, cy: 268, rx: 205, ry: 152, fromDeg: 90, toDeg: 450, fullCircle: true },
   label: 'Wolf mit zwölf Zähnen, Blick von vorne oben in das offene Maul',
 };

@@ -21,9 +21,11 @@ das eigene Krokodil ehrlich zufällig ist.
 - **Drei Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12 Zähne, 1–2 — vier
   große Fangzähne), Mensch (12 Zähne, 1–3). Jedes Gebiss zeichnet sich selbst: Blick von vorne
   oben in den Rachen, eigenes Zahnprofil, eigene Kopfform.
-- **Zahnzahl einstellbar:** 4 bis 20 drückbare Zähne, standardmäßig so viele, wie das Tier
-  vorsieht. Ab etwa 20 wird es auf dem Handy unbrauchbar (Zähne und Trefferflächen überlappen),
-  deshalb ist dort Schluss. Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
+- **Zahnzahl einstellbar:** 4 bis 12 drückbare Zähne, standardmäßig so viele, wie das Tier
+  vorsieht. Die Zähne sitzen auf einem Ring **um das ganze Maul** (obere und untere Reihe), damit
+  jedem Zahn auf einem 358 px breiten Handy eine Trefferfläche von mindestens 44 × 44 Pixeln
+  bleibt — bei 16 Zähnen wären es nur noch 38 px, deshalb ist bei 12 Schluss. Ein Test rechnet
+  das für jedes Lebewesen nach. Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
   Zähnen 5,42 erwartete Drücke statt 4,69).
 - **Erweiterbar:** ein neues Lebewesen ist ein Katalogeintrag plus eine Zeichnungsdatei — ein
   Test erzwingt, dass Zahnzahl, Zahnformen und Ebenen zusammenpassen.
@@ -52,7 +54,7 @@ pnpm build          # statische Ausgabe nach dist/
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **144 in 15 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **146 in 15 Dateien**, alle grün | `pnpm test:run` |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,49 s | `pnpm build` |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |

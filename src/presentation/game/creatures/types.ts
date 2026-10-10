@@ -18,8 +18,13 @@ export interface RingGeometry {
   ry: number;
   /** Erster drückbarer Zahn (rechte Seite des Unterkiefers). */
   fromDeg: number;
-  /** Letzter drückbarer Zahn (linke Seite des Unterkiefers). */
+  /** Letzter drückbarer Zahn bei Teilbogen; bei fullCircle wird gleichmäßig verteilt. */
   toDeg: number;
+  /**
+   * Zähne rund um das ganze Maul verteilen (oben und unten). Verdoppelt den Platz je Zahn
+   * und damit die Trefferfläche auf dem Handy.
+   */
+  fullCircle?: boolean;
 }
 
 /** Zahnfleisch- bzw. Lippenband auf dem Ring. */
@@ -28,21 +33,6 @@ export interface BandSpec {
   thickness: number;
   fromDeg: number;
   toDeg: number;
-  fill: string;
-  stroke?: string;
-}
-
-/** Ruhende (nicht drückbare) Zahnreihe am Oberkiefer. */
-export interface UpperTeethSpec {
-  /**
-   * Wie viele obere Zähne je drückbarem Zahn entstehen (0,9 = etwas weniger als unten).
-   * Die Anzahl wird aus der eingestellten Zahnzahl berechnet, damit sie mitwächst.
-   */
-  ratio: number;
-  fromDeg: number;
-  toDeg: number;
-  /** Zusätzlicher Abstand von der Zahnfleischkante nach innen. */
-  inset: number;
   fill: string;
   stroke?: string;
 }
@@ -76,8 +66,6 @@ export interface CreatureArtwork {
   upperExtra?: string;
   /** Zusätzliche Zeichnung am Unterkiefer (Lippe, Kinn) — bleibt liegen. */
   lowerExtra?: string;
-  /** Ruhende obere Zahnreihe. */
-  upperTeeth?: UpperTeethSpec;
   /** Ruhige Teile über dem Maul: Augen, Ohren, Nüstern. */
   face: string;
   /**

@@ -12,11 +12,14 @@ export type RandomMode = 'original' | 'classic';
 export const DEFAULT_TEETH = 10;
 export const MIN_TEETH = 4;
 /**
- * Obergrenze drückbarer Zähne. Ein echtes Gebiss hat 32–42 Zähne; als Spiel sind mehr als
- * 20 auf einem Handy nicht mehr treffsicher zu bedienen (Zähne und Trefferflächen würden
- * einander überlappen). Deshalb: spielbar bis 20, echte Zahnzahl nur als Notiz im Katalog.
+ * Obergrenze drückbarer Zähne. Sie ist gemessen, nicht geschätzt: die Trefferfläche
+ * eines Zahns muss auf einem 358 px breiten Handy mindestens 44 × 44 CSS-Pixel groß sein
+ * (Richtwert für Finger). Die Zähne sitzen auf einem Ring um das ganze Maul; aus dessen
+ * Umfang folgt, wie viele Zähne sich diese Größe teilen können.
+ * Bei 12 Zähnen sind es 51–63 px, bei 16 nur noch 38 px — deshalb Schluss bei 12.
+ * Der Test in creatureViews.test.ts rechnet das für jedes Lebewesen nach.
  */
-export const MAX_TEETH = 20;
+export const MAX_TEETH = 12;
 export const MAX_PLAYERS = 4;
 export const DEFAULT_PLAYERS = 1;
 export const DEFAULT_MODE: RandomMode = 'original';

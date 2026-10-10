@@ -7,6 +7,7 @@ import {
   teethScale,
   toothPath,
   toothPlacements,
+  toothSpacing,
   toothTip,
   type ToothPlacement,
 } from './geometry';
@@ -16,8 +17,6 @@ import type {
   CreatureView,
   RingGeometry,
   ToothAnchor,
-  ToothSpec,
-  UpperTeethSpec,
 } from './types';
 
 function n(value: number): string {
@@ -59,31 +58,20 @@ function shellMarkup(ring: RingGeometry, shell: BandSpec): string {
   return `<path class="jaw__shell" d="${d}" fill="${shell.fill}"${stroke}/>`;
 }
 
+/** Zähne oberhalb der Maulmitte gehören zum Oberkiefer und fahren beim Biss mit. */
+function splitByJaw(placements: readonly ToothPlacement[], ring: RingGeometry): { upper: ToothPlacement[]; lower: ToothPlacement[] } {
+  const upper: ToothPlacement[] = [];
+  const lower: ToothPlacement[] = [];
+  for (const placement of placements) {
+    (placement.y < ring.cy ? upper : lower).push(placement);
+  }
+  return { upper, lower };
+}
+
 function bandMarkup(ring: RingGeometry, band: BandSpec, className: string): string {
   const d = bandPath(ring.cx, ring.cy, ring.rx, ring.ry, band.thickness, band.fromDeg, band.toDeg);
   const stroke = band.stroke ? ` stroke="${band.stroke}"` : '';
   return `<path class="${className}" d="${d}" fill="${band.fill}"${stroke}/>`;
-}
-
-function restingTeethMarkup(
-  ring: RingGeometry,
-  upper: BandSpec,
-  spec: UpperTeethSpec,
-  profile: (count: number) => ToothSpec[],
-  count: number,
-): string {
-  const inset = upper.thickness + spec.inset;
-  const inner: RingGeometry = {
-    ...ring,
-    rx: Math.max(10, ring.rx - inset),
-    ry: Math.max(10, ring.ry - inset),
-    fromDeg: spec.fromDeg,
-    toDeg: spec.toDeg,
-  };
-  const scale = teethScale(count);
-  const specs = profile(count).map((entry) => scaleToothSpec(entry, scale));
-  const placements = toothPlacements(count, inner, specs);
-  return teethMarkup(placements, false, hitRadius(count, inner));
 }
 
 /**
@@ -99,7 +87,7 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
   const specs = art.teethProfile(creature.teeth).map((entry) => scaleToothSpec(entry, scale));
   const placements = toothPlacements(creature.teeth, art.ring, specs);
   const hit = hitRadius(creature.teeth, art.ring);
-  const restingCount = Math.max(4, Math.min(24, Math.round(creature.teeth * (art.upperTeeth?.ratio ?? 0.9))));
+  const jaws = splitByJaw(placements, art.ring);
   const closeShift = Math.max(0, 2 * art.ring.ry - art.upper.thickness - art.lower.thickness);
   // Die Schnauze fährt nur einen Teil des Weges mit: ganz gefahren verschwände sie unter
   // dem Kopf, halb gefahren liest sie sich als zufahrender Kiefer.
@@ -121,9 +109,10 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
       `<g class="mouth__inner">${art.inner}</g>`,
       `<g class="jaw__shell">${art.upperShell ? shellMarkup(art.ring, art.upperShell) : ''}` +
         `${art.upperExtra ?? ''}</g>`,
+      // Oberkiefer: Band und die Zähne der oberen Maulhälfte — beide fahren beim Biss mit.
       `<g class="jaw__upper">${bandMarkup(art.ring, art.upper, 'jaw__band jaw__band--upper')}` +
-        `${art.upperTeeth ? restingTeethMarkup(art.ring, art.upper, art.upperTeeth, art.teethProfile, restingCount) : ''}</g>`,
-      `<g class="teeth">${teethMarkup(placements, true, hit)}</g>`,
+        `<g class="teeth teeth--upper">${teethMarkup(jaws.upper, true, hit)}</g></g>`,
+      `<g class="teeth">${teethMarkup(jaws.lower, true, hit)}</g>`,
       `<g class="jaw__lower">${art.lowerExtra ?? ''}${bandMarkup(art.ring, art.lower, 'jaw__band jaw__band--lower')}</g>`,
       `<g class="creature__face">${art.face}</g>`,
       '<g class="creature__biter" opacity="0">',

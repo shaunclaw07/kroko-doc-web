@@ -23,14 +23,6 @@ export const humanArtwork: CreatureArtwork = {
     '<ellipse cx="320" cy="90" rx="38" ry="22" fill="#e8b48f" stroke="#cf9873" stroke-width="3"/>' +
     '<ellipse cx="302" cy="98" rx="11" ry="7" fill="#8d5a44"/>' +
     '<ellipse cx="338" cy="98" rx="11" ry="7" fill="#8d5a44"/>',
-  upperTeeth: {
-    ratio: 0.85,
-    fromDeg: 206,
-    toDeg: 334,
-    inset: 3,
-    fill: '#f6f3ea',
-    stroke: '#cdc6b4',
-  },
   face:
     '<path d="M 130 126 C 154 110 190 110 214 126" fill="none" stroke="#7a5238" stroke-width="7" stroke-linecap="round"/>' +
     '<path d="M 426 126 C 450 110 486 110 510 126" fill="none" stroke="#7a5238" stroke-width="7" stroke-linecap="round"/>' +
@@ -50,6 +42,6 @@ export const humanArtwork: CreatureArtwork = {
       return { kind: 'flat' as const, length: 47, width: 32 };
     }),
   shellFactor: 0.55,
-  ring: { cx: 320, cy: 270, rx: 190, ry: 155, fromDeg: 14, toDeg: 166 },
+  ring: { cx: 320, cy: 270, rx: 190, ry: 155, fromDeg: 90, toDeg: 450, fullCircle: true },
   label: 'Mensch mit zwölf Zähnen, Blick von vorne oben in das offene Maul',
 };
