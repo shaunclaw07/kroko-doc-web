@@ -29,7 +29,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Arbeiten im Baum (Befehle, Zeichnung prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
 | Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) |
 | Warum das Spiel so ist (Charter) | [`README.md`](README.md) |
-| Plan, Annahmen, offene Punkte | [`.scratch/kroko-doc-web/plan.md`](.scratch/kroko-doc-web/plan.md) |
+| Plan, Annahmen, offene Punkte | [`docs/plan.md`](docs/plan.md) |
 | Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | `../kroko-doc/README.md` |
 
 ## Befehle
