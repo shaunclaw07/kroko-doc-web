@@ -19,6 +19,7 @@ const FOLDER_LAYER: Readonly<Record<string, Layer>> = {
   'infrastructure/audio': 'infrastructure',
   'infrastructure/random': 'infrastructure',
   'infrastructure/storage': 'infrastructure',
+  'infrastructure/haptics': 'infrastructure',
   'infrastructure/testing': 'infrastructure',
   'presentation/game': 'presentation',
   'presentation/game/creatures': 'presentation',

@@ -1,3 +1,4 @@
+import type { HapticsPort } from '../../core/ports/haptics';
 import type { SoundPort } from '../../core/ports/sound';
 import type { LiveTeethSelector } from '../../core/ports/liveTeeth';
 import type { RandomSource } from '../../core/ports/random';
@@ -17,6 +18,8 @@ export interface GameDeps {
   /** Standard ist die gleichverteilte Auswahl; Tests geben eine feste Auswahl vor. */
   selector?: LiveTeethSelector;
   sound: SoundPort;
+  /** Tast-Rückmeldung. Standard ist keine — so bleiben Tests und Umgebungen ohne Vibration ruhig. */
+  haptics?: HapticsPort;
   log: RoundLogPort;
   settings: GameSettings;
   onSettingsChange: (settings: GameSettings) => void;
@@ -24,6 +27,10 @@ export interface GameDeps {
   /** Für Tests und Vorschauen austauschbar; Standard sind echte Timer. */
   wait?: (ms: number, run: () => void) => void;
 }
+
+/** Tast-Rückmeldung: kurz vor dem Biss, dann drei Stöße für das Zuschnappen (an/aus/… in ms). */
+const PRE_BITE_VIBRATION_MS = 24;
+const BITE_VIBRATION_PATTERN = [120, 50, 220] as const;
 
 function defaultWait(ms: number, run: () => void): void {
   window.setTimeout(run, ms);
@@ -124,7 +131,7 @@ export class GameController {
       // Vor dem Biss wird es still: erst der Druck, dann Totenstille, dann CHOMP.
       this.deps.sound.stopAll();
       if (this.deps.settings.vibration) {
-        this.vibrate(12);
+        this.vibrate(PRE_BITE_VIBRATION_MS);
       }
       this.wait(outcome.drama.silenceMs, () => this.snap(toothId));
       return;
@@ -145,7 +152,7 @@ export class GameController {
     this.clearHeartbeat();
     this.deps.sound.play('snap', 1);
     if (this.deps.settings.vibration) {
-      this.vibrate([90, 40, 130]);
+      this.vibrate(BITE_VIBRATION_PATTERN);
     }
     this.art?.classList.add('is-snapped');
     this.art?.classList.add('is-lunging');
@@ -208,13 +215,10 @@ export class GameController {
     return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  private vibrate(pattern: number | number[]): void {
-    const nav = navigator as Navigator & { vibrate?: (pattern: number | number[]) => boolean };
-    try {
-      nav.vibrate?.(pattern);
-    } catch {
-      // Vibration ist ein Extra — wenn der Browser nicht will, bleibt es weg.
-    }
+  private vibrate(pattern: number | readonly number[]): void {
+    // Der Port kapselt die Browser-Schnittstelle: hier steht kein navigator-Zugriff mehr,
+    // damit die Bedienung auch ohne Vibration (iOS-Safari, Tests) prüfbar bleibt.
+    this.deps.haptics?.vibrate(pattern);
   }
 
   private startHeartbeat(): void {

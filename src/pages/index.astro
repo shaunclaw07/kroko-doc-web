@@ -65,6 +65,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       </div>
       <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton, Herzschlag und Knarren</label>
       <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Vibration (mobil)</label>
+      <p class="muted small" id="vibration-hint" hidden></p>
       <div class="row">
         <button type="button" class="button--primary" id="new-round">Neue Runde</button>
         <button type="button" class="button--ghost" id="rules-open">Regeln &amp; Herkunft</button>
@@ -195,6 +196,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     import { GameController } from '../presentation/game/gameController';
     import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
+    import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
     import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
     import { getCreature } from '../core/domain/creature';
@@ -203,11 +205,13 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     const storage = browserStorage();
     const settings = loadSettings(storage);
     const sound = new WebAudioEngine({ muted: !settings.sound });
+    const haptics = new BrowserHaptics();
     const log = new LocalStorageRoundLog(storage);
 
     const controller = new GameController({
       rng: new CryptoRandom(),
       sound,
+      haptics,
       log,
       settings,
       document,
@@ -221,6 +225,18 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     const vibrationBox = document.getElementById('opt-vibration') as HTMLInputElement | null;
     if (soundBox) soundBox.checked = settings.sound;
     if (vibrationBox) vibrationBox.checked = settings.vibration;
+    // Ehrlich statt still: kann der Browser nicht vibrieren (Safari auf iOS), sagen wir es
+    // und schalten den Griff ab — sonst sucht man den Fehler beim Handy oder im Spiel.
+    if (vibrationBox && !haptics.isSupported()) {
+      vibrationBox.checked = false;
+      vibrationBox.disabled = true;
+      const hint = document.getElementById('vibration-hint');
+      if (hint) {
+        hint.hidden = false;
+        hint.textContent =
+          'Dieser Browser kann nicht vibrieren (z. B. Safari auf dem iPhone — dort fehlt die Schnittstelle). Ton und Wackeln bleiben.';
+      }
+    }
     document.querySelectorAll<HTMLButtonElement>('#opt-players [data-players]').forEach((button) => {
       button.setAttribute('aria-pressed', String(Number(button.dataset.players) === settings.players));
       button.addEventListener('click', () => {

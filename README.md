@@ -120,7 +120,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   und `classic` (genau ein scharfer Zahn).
 - **Nervenkitzel:** synthetisierte Klänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
   mit der Spannung steigt, Knarren, Fakeout-Zucken des Mauls, Totenstille vor dem Biss,
-  Screen-Shake, Vibration, „Nur noch ein Zahn — der ist garantiert scharf!".
+  Screen-Shake, Vibration (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
   Autokorrelation (Mustersuche) und exportiert/importiert CSV im Format des Analyse-Werkzeugs.
@@ -199,6 +199,8 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn-agent/>**
 | „Verbindung fehlgeschlagen" im Browser | Server hört nur auf `localhost` (IPv6) | `localhost` statt `127.0.0.1` verwenden, oder `pnpm dev --host 127.0.0.1` |
 | Port 4321 belegt | anderer Server läuft | `pnpm dev --port 4322`, dann `http://localhost:4322` |
 | Kein Ton | Browser erlaubt Audio erst nach einer Nutzeraktion | einmal ins Maul tippen; Ton in den Einstellungen muss an sein |
+| **Handy vibriert nicht** | Safari auf iOS kennt die Vibrations-Schnittstelle des Browsers überhaupt nicht — dort ist sie nicht nachrüstbar | Der Schalter ist dann **abgeblendet** und die Einstellungen sagen es im Klartext. Auf Android: Systemeinstellung „Vibration/Touch-Feedback" prüfen, Energiesparmodus und Stummschaltung können sie unterdrücken |
+| Vibration sehr schwach | manche Geräte setzen kurze Stöße unter ~20 ms nicht um | die App nutzt 24 ms vor dem Biss und drei Stöße (120/50/220 ms) beim Biss |
 | Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node 20.3+ installieren (Astro 5: `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
 | `pnpm install` scheitert an einem Firmennetz/Proxy | Registry nicht erreichbar | `pnpm config set registry https://registry.npmjs.org/` |
 

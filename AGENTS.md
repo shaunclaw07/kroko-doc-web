@@ -55,6 +55,18 @@ src/presentation/      die Bedienung: Spielsteuerung, Statistikseite, Astro-Seit
 src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, Fabrik
 ```
 
+## Rückmeldung an den Nutzer (Ton, Vibration)
+
+- **Browser-Schnittstellen nie direkt in der Bedienung:** Ton läuft über `SoundPort`, Vibration über
+  `HapticsPort` (`core/ports/haptics.ts`), umgesetzt in `infrastructure/`. Der Controller ruft
+  `this.deps.haptics?.vibrate(...)` — ein `navigator`-Zugriff steht dort nicht.
+- **Was der Browser nicht kann, wird gesagt:** `isSupported()` entscheidet, ob der Schalter bedienbar
+  ist. Safari auf iOS kennt keine Vibration — dann ist der Griff abgeblendet und es steht ein Satz
+  dabei. Ein Schalter, der still nichts tut, ist ein Fehler und kostet den Nutzer eine Fehlersuche.
+- **Muster sind Absicht:** 24 ms kurz vor dem Biss, dann `[120, 50, 220]` für das Zuschnappen
+  (`BITE_VIBRATION_PATTERN`). Kurze Stöße unter ~20 ms setzen manche Geräte gar nicht um.
+- Vibration ist ein Extra: Fehler daraus werden geschluckt, das Spiel darf davon nie anhalten.
+
 ## Vier Fallen, die Zeit kosten
 
 - **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,

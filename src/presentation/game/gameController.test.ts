@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GameController } from './gameController';
+import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics';
 import { RecordingSound } from '../../infrastructure/testing/recordingSound';
 import { ScriptedRandom } from '../../infrastructure/testing/scriptedRandom';
 import type { LiveTeethSelector } from '../../core/ports/liveTeeth';
@@ -48,18 +49,21 @@ function settings(overrides: Partial<GameSettings> = {}): GameSettings {
   return { mode: 'original', players: 1, sound: true, vibration: false, creature: 'crocodile', teethOverride: null, ...overrides };
 }
 
-function build(live: number[], overrides: Partial<GameSettings> = {}): {
+function build(live: number[], overrides: Partial<GameSettings> = {}, hapticsSupported = true): {
   controller: GameController;
   sound: RecordingSound;
   log: MemoryLog;
+  haptics: RecordingHaptics;
 } {
   document.body.innerHTML = DOM;
   const sound = new RecordingSound();
   const log = new MemoryLog();
+  const haptics = new RecordingHaptics(hapticsSupported);
   const controller = new GameController({
     rng: new ScriptedRandom([0.5]),
     selector: new FixedLiveTeethSelector(live),
     sound,
+    haptics,
     log,
     settings: settings(overrides),
     onSettingsChange: () => undefined,
@@ -67,7 +71,7 @@ function build(live: number[], overrides: Partial<GameSettings> = {}): {
     wait: (_ms, run) => run(),
   });
   controller.mount();
-  return { controller, sound, log };
+  return { controller, sound, log, haptics };
 }
 
 function click(toothId: number): void {
@@ -79,6 +83,25 @@ function click(toothId: number): void {
 describe('GameController in der Bühne', () => {
   beforeEach(() => {
     document.body.innerHTML = '';
+  });
+
+  it('vibriert beim Zuschnappen: einmal kurz vorher, dann drei Stöße', () => {
+    const { haptics } = build([9], { vibration: true });
+    click(9);
+    expect(haptics.patterns).toEqual([24, [120, 50, 220]]);
+  });
+
+  it('vibriert gar nicht, wenn Vibration abgeschaltet ist', () => {
+    const { haptics } = build([9], { vibration: false });
+    click(9);
+    expect(haptics.patterns).toEqual([]);
+  });
+
+  it('läuft ohne Vibrations-Schnittstelle fehlerfrei durch (Safari auf iOS)', () => {
+    const { haptics } = build([9], { vibration: true }, false);
+    expect(() => click(9)).not.toThrow();
+    expect(haptics.patterns).toEqual([]);
+    expect(document.getElementById('result-text')?.textContent).toBeTruthy();
   });
 
   it('baut das Krokodil mit zehn Zähnen und zehn Trefferflächen auf', () => {
