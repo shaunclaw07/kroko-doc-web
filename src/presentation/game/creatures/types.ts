@@ -42,6 +42,11 @@ export interface BandSpec {
  * Reihenfolge: Hinterkopf, Maulöffnung, Rachen, Oberkiefer, Zähne, Unterkiefer, Gesicht.
  */
 export interface CreatureArtwork {
+  /**
+   * Kopfumriss als Pfad — dient als Beschnitt. Ohne ihn ragen die Zahnfleischbänder beim
+   * Zuschnappen neben dem Kopf heraus, weil der Oberkiefer über den Kopf hinausfährt.
+   */
+  silhouette: string;
   /** Kopf/Fell/Schnauzenkontur hinter allem — füllt beim Zuschnappen die Maulfläche. */
   body: string;
   /**

@@ -74,14 +74,29 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
    `realTeeth`, `note`).
 2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen: `body`, `holeFill`,
+   `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
+   keine Bänder neben dem Kopf hängen),
    `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
    `upperTeeth` (Verhältnis, nicht Anzahl), `face`, `ring`, `teethProfile(count)`.
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
 Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
 Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
-Bühne, und dass auch abweichende Zahnzahlen (4–20) sauber gezeichnet werden. Zeichnung ohne
+Bühne, und dass auch abweichende Zahnzahlen (4–12) sauber gezeichnet werden. Zeichnung ohne
 Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
 
 ## Aufgaben-Tracking
 
 Im **Hermes-`todo`-Board** (Chat-Kanban), nicht in GitHub Issues.
+
+## Freundliche Zeichnung (für Kinder)
+
+Das Spiel ist für ein Kind gedacht: keine schwarzen Rachen, keine Spaltpupillen, keine
+riesigen Fangzähne. Regeln für neue Kunstwerke:
+
+- Rachen in warmem Rosenrot, nicht dunkel — es muss wie ein offener Mund aussehen, nicht wie ein Loch.
+- Zähne cremefarben, **rund** (Kegel mit runder Spitze), Umriss weich (`#dcd2b8`), niemals schneeweiß auf schwarz.
+- Zahnfleisch ist die **hellste** Stufe im Maul, damit die Zähne davor lesbar bleiben.
+- Augen: weiße Linsen mit großer runder Pupille und Glanzpunkt, dazu rosa Wangen.
+- Umrisse in einer dunkleren Variante der Füllfarbe (z. B. `#5aa164` auf `#8ed492`), keine schwarzen Linien.
+- Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
+  über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.

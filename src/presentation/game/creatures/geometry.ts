@@ -168,10 +168,16 @@ export function toothPath(spec: ToothSpec): string {
       'Z',
     ].join(' ');
   }
+  // Kegel mit runder Spitze — spitz wirkende Zähne sind für ein Kinderspiel zu gruselig.
+  const tipR = Math.max(3, half * 0.42);
+  const cap = -length + tipR;
   return [
     `M ${-half} 0`,
-    `C ${-half} ${(-length * 0.45).toFixed(1)} ${(-half * 0.52).toFixed(1)} ${(-length * 0.82).toFixed(1)} 0 ${(-length).toFixed(1)}`,
-    `C ${(half * 0.52).toFixed(1)} ${(-length * 0.82).toFixed(1)} ${half} ${(-length * 0.45).toFixed(1)} ${half} 0`,
+    `L ${-half} ${(cap * 0.52).toFixed(1)}`,
+    `C ${(-half * 0.94).toFixed(1)} ${(cap * 0.8).toFixed(1)} ${(-half * 0.62).toFixed(1)} ${cap.toFixed(1)} ${(-tipR).toFixed(1)} ${cap.toFixed(1)}`,
+    `A ${tipR.toFixed(1)} ${tipR.toFixed(1)} 0 0 1 ${tipR.toFixed(1)} ${cap.toFixed(1)}`,
+    `C ${(half * 0.62).toFixed(1)} ${cap.toFixed(1)} ${(half * 0.94).toFixed(1)} ${(cap * 0.8).toFixed(1)} ${half} ${(cap * 0.52).toFixed(1)}`,
+    `L ${half} 0`,
     'Z',
   ].join(' ');
 }

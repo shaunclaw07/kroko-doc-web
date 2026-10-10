@@ -105,6 +105,10 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
         `style="--close-shift: ${n(closeShift)}px; --shell-shift: ${n(shellShift)}px" ` +
         `role="img" aria-label="${art.label}">`,
       `<g class="creature__body">${art.body}</g>`,
+      // Maul, Zähne und Gesicht werden auf den Kopfumriss beschnitten: beim Zuschnappen fährt
+      // der Oberkiefer über den Kopf hinaus — ohne Beschnitt hingen rosa Bänder neben dem Kopf.
+      `<defs><clipPath id="creature-clip"><path d="${art.silhouette}"/></clipPath></defs>`,
+      '<g clip-path="url(#creature-clip)">',
       `<g class="mouth__hole">${holeMarkup}</g>`,
       `<g class="mouth__inner">${art.inner}</g>`,
       `<g class="jaw__shell">${art.upperShell ? shellMarkup(art.ring, art.upperShell) : ''}` +
@@ -115,6 +119,7 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
       `<g class="teeth">${teethMarkup(jaws.lower, true, hit)}</g>`,
       `<g class="jaw__lower">${art.lowerExtra ?? ''}${bandMarkup(art.ring, art.lower, 'jaw__band jaw__band--lower')}</g>`,
       `<g class="creature__face">${art.face}</g>`,
+      '</g>',
       '<g class="creature__biter" opacity="0">',
       '<circle class="creature__biter-ring" r="30"/>',
       '<circle class="creature__biter-ring creature__biter-ring--outer" r="46"/>',
