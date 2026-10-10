@@ -76,7 +76,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Sechs Fallen, die Zeit kosten
+## Sieben Fallen, die Zeit kosten
 
 - **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
   das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
@@ -90,6 +90,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
 - **Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s** — der
   Werkzeugaufruf wandert dann in den Hintergrund und man sieht die Ausgabe nicht mehr.
+- **Eine Kennzahl, die aufaddiert wird, sättigt — und sagt dann nichts mehr.** Die Spannung war
+  `+0,18 + 0,35 × Knappheit + 0,02 × Position` und stand bei 10 Zähnen ab dem 4. Druck auf 100 %.
+  Regel: Anzeigewerte aus dem Modell **ableiten** (`probabilities.ts`), nicht den Zustand
+  hochzählen. Dann bleibt die Zahl eine Aussage (Biss-Wahrscheinlichkeit des nächsten Drucks,
+  genau 1 beim letzten Zahn) und der Kern hat eine Wahrheit weniger.
 - **Rezepte in der Doku sind ungeprüfter Code.** Ein Befehl, der auf eine verschwundene Datei
   zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
   Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
