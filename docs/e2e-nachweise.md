@@ -20,6 +20,12 @@ Stand vom 10.10. und bleiben stehen.
 **166 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,09 s im frischen Klon (Arbeitsbaum 2,26 s). Die Zeichnungs-Sonde
 schreibt jetzt sechs SVGs — je drei Tests für die neuen Lebewesen kommen aus derselben Sonde.
 
+**Nachtrag 11.10.2026, dritte Fassung** (Spannung ist jetzt die Biss-Wahrscheinlichkeit, siehe
+Abschnitt 5b): frischer Klon von `main` — 32 Commits, 82 Dateien, `pnpm gate` grün mit
+**171 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,19 s** (Arbeitsbaum 2,42 s). Ausgeliefert:
+das Bündel der Live-Seite trägt denselben Namen wie der Klonbau und enthält die neue Schwelle
+(`is-tense` bei 30 %), die alte Konstante `0,18` ist verschwunden.
+
 ## 2. Bedienungssonde (jsdom)
 
 `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts` — 8 Tests, u. a.:
