@@ -27,6 +27,9 @@ das eigene Krokodil ehrlich zufällig ist.
   bleibt — bei 16 Zähnen wären es nur noch 38 px, deshalb ist bei 12 Schluss. Ein Test rechnet
   das für jedes Lebewesen nach. Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
   Zähnen 5,42 erwartete Drücke statt 4,69).
+- **Kindgerecht gezeichnet:** warme Farben, runde Zähne, große runde Augen mit Glanzpunkt,
+  rosa Wangen und weiche Umrisse; der Rachen ist rosenrot statt schwarz. Maul, Zähne und
+  Gesicht werden auf den Kopfumriss beschnitten, damit beim Zuschnappen nichts daneben hängt.
 - **Erweiterbar:** ein neues Lebewesen ist ein Katalogeintrag plus eine Zeichnungsdatei — ein
   Test erzwingt, dass Zahnzahl, Zahnformen und Ebenen zusammenpassen.
 - **Zwei Zufallsmodelle:** `original` (1–3 Zähne gleichzeitig scharf, wie das echte Spielzeug)
