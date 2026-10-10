@@ -7,7 +7,7 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | Kommando | Ergebnis |
 |---|---|
 | `pnpm typecheck` (`tsc --noEmit`) | keine Fehler (Ausgabe `TSC_OK`) |
-| `pnpm test:run` (`vitest run`) | **156 Tests in 16 Dateien bestanden** |
+| `pnpm test:run` (`vitest run`) | **157 Tests in 16 Dateien bestanden** |
 | `pnpm build` | 2 Seiten gebaut in 2,49 s; `dist/index.html`, `dist/statistik/index.html` |
 | Produktionsbau über `pnpm preview` (Port 4399) | siehe Abschnitt 4b — alle vier Routen `200`, kein externer Verweis |
 
