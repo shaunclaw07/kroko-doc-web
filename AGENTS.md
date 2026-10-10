@@ -76,7 +76,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Sieben Fallen, die Zeit kosten
+## Acht Fallen, die Zeit kosten
 
 - **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
   das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
@@ -85,11 +85,16 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Niemals `git add -A`** — explizite Pfade. Vor dem Commit `git status --short | grep '^ D'`.
 - **Die Zeichnung hat zwei Wahrheiten:** Formen, Farben und Zahnprofile stehen in
   `presentation/game/creatures/<tier>.ts`, nur Zustände im CSS (`is-pressed`, `is-snapped`,
-  `is-live`, `is-twitching`). Geometrie (Ring, Schließweg, Trefferflächen) wird berechnet,
+  `is-live`, `is-twitching`, `is-pressing`, `is-settling`, `is-clenching`). Geometrie (Ring,
+  Schließweg, Trefferflächen) wird berechnet,
   nicht gesetzt — wer einen Wert hart einträgt, umgeht die Prüfung.
 - **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
 - **Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s** — der
   Werkzeugaufruf wandert dann in den Hintergrund und man sieht die Ausgabe nicht mehr.
+- **Eine Zufallsebene darf nichts über den Ausgang verraten.** Die Pause vor der Auflösung wird
+  **unabhängig vom Ausgang** gezogen (`pressBeatMs` bekommt `willSnap` gar nicht gereicht), damit
+  die Stille kein Signal ist. Der Test vergleicht beide Ausgänge bei gleichem Startwert — so eine
+  Regel ist beweisbar, nicht nur behauptet.
 - **Eine Kennzahl, die aufaddiert wird, sättigt — und sagt dann nichts mehr.** Die Spannung war
   `+0,18 + 0,35 × Knappheit + 0,02 × Position` und stand bei 10 Zähnen ab dem 4. Druck auf 100 %.
   Regel: Anzeigewerte aus dem Modell **ableiten** (`probabilities.ts`), nicht den Zustand

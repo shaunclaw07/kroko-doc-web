@@ -121,6 +121,33 @@ wie die Statistik (`probabilities.ts`).
 - **Ehrlicher Vorbehalt:** Herzschlag, Klang und Beben folgen jetzt der echten Gefahr und steigen
   dadurch **später und steiler** als vorher (vorher war der Puls ab Druck 3 „auf Anschlag").
 
+## 5c. Der Druck wird spannend — Pause, Feder und Riss (11.10.2026)
+
+Der harmlose Druck löste sofort auf (Tipp-Klang, 25 ms Vibration, nichts weiter), und die
+Totenstille von 400–900 ms gab es **nur vor einem Biss** — sie war damit ein verlässliches Signal
+für den Ausgang. Umbau: die Pause kommt bei **jedem** Druck, ihre Länge wird unabhängig vom Ausgang
+gezogen, und zwischen Pause und Urteil liegt ein fester Riss.
+
+- **Rot zuerst:** die neuen Erwartungen in `src/core/domain/tension.test.ts` geschrieben, bevor es
+  die Funktionen gab → `vitest run src/core/domain/tension.test.ts` ergab **10 failed | 11 passed
+  (21)**; der Lauf über alles zeigte danach **4 failed | 170 passed (174)** an genau den Stellen,
+  die noch den alten Pegel reichten.
+- **Grün danach:** `pnpm gate` → **174 Tests in 17 Dateien**, `tsc` fehlerfrei, `pnpm build`
+  2 Seiten in 2,20 s (Arbeitsbaum).
+- **Unabhängigkeit geprüft (der Kern der Ehrlichkeit):** `planPressDrama` liefert bei gleichem
+  Startwert dieselbe Pause, ob der Zahn scharf ist oder nicht — für 200 Startwerte geprüft. Dass der
+  Ausgang in der Rechnung gar nicht vorkommt, prüft ein zweiter Test am Quelltext von `pressBeatMs`.
+- **Standbild der neuen Pose:** `scripts/artwork-png.py <svg> <png> pause` (Endpose aus den
+  Keyframes in `app.css`). Beurteilt am Bild: Pupillen zusammengezogen in den Augen, zwei Zähne
+  eingesenkt, Zeichnung intakt. **Nicht belegbar ohne Gerät:** wie sich der Weg dorthin anfühlt —
+  Standbilder zeigen die Endpose, nie die Bewegung.
+- **Rundendauer gerechnet, nicht geschätzt:** Pausenzeit je Runde Krokodil 1,38 s (3,97 erwartete
+  Drücke), Wolf 1,84 s (5,42), Maus 1,04 s (2,92) — rund 350 ms je Druck zusätzlich, dazu die
+  Erleichterung.
+- **Grenze der Vibrationsschnittstelle:** feines, stufenloses Zittern gibt `navigator.vibrate`
+  nicht her — deshalb bleibt die Pause haptisch still (der Biss knallt gegen die Stille), und die
+  Erleichterung ist ein einzelner Impuls zwischen 12 und 25 ms.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
@@ -132,6 +159,7 @@ wie die Statistik (`probabilities.ts`).
 | „Update die Dokus" (Nutzer, 11.10.2026) | Rezepte wirklich gefahren und Zahlen gegen den Baum geprüft (`grep`, Vitest, `pnpm build`) | **vier echte Fehler:** (1) das Zeichen-Rezept zeigte auf `presentation/game/crocodile.ts` (seit der Zeichnungs-Schicht verschwunden) und das Rasterskript auf `projects/kroko-doc-web` mit Klassen der alten Dreh-Mechanik — es lief mit Exit 0 durch und tat **nichts**; (2) `# http://127.0.0.1:4321` in AGENTS.md und `docs/workflow.md` widersprach der Messung (`localhost` → 200, `127.0.0.1` → keine Antwort, für dev **und** preview); (3) `docs/testing.md` nannte 15 statt 16 Testdateien, eine Tabellenzeile war zerrissen und nannte ein altes Maximum von 20; (4) `docs/architecture.md` nannte als Zahn-Grenze `4..16` statt `4..12`. Alles korrigiert, das Rezept durch Sonde + Rasterer ersetzt und am Bild geprüft |
 | „Kannst du weitere Skins machen? Hai, Maus und Vampir" (Nutzer, 11.10.2026) | Zeichnungen gerendert und **angesehen** (Sonde + `scripts/artwork-png.py`) | **Der erste Entwurf war unbrauchbar:** bei allen dreien war der Zahnring so groß, dass kein Platz fürs Gesicht blieb — beim Vampir lag die Haarkappe über dem halben Maul und die Augen auf den Zähnen, bei der Maus verschwanden die Ohren im Kopf und die Schnurrhaare liefen über die Augen, beim Hai hingen die Flossen wie Ohren und die Kiemenschlitze lagen unsichtbar unter dem Kieferband. Zweiter Entwurf: kleinere Ringe (Hai `rx 200`, Maus `rx 175`, Vampir `rx 186`), Ohren als eigene Kreise im Umriss; danach nachgezogen (Flossen-Highlight als Linie, Schnurrhaare in den Fellstreifen neben dem Maul, Umhangkragen mit Mittelkerbe). Der Trefferflächen-Test (≥ 44 px für 4–12 Zähne) bleibt für alle sechs Lebewesen grün |
 | Die Klangmaschine liest nur `window.AudioContext` | `sed -n '66,92p' src/infrastructure/audio/webAudioEngine.ts` | bestätigt; daraufhin Rückfall auf `webkitAudioContext` ergänzt (altes iOS) und mit drei Tests belegt |
+| „Der Druck soll spannender werden" (Nutzer, 11.10.2026) | Standbild der neuen Pose gerastert und angesehen | **Eigener Werkzeugfehler gefunden:** der Rasterer setzte die Pose zusätzlich über die Klasse `is-pressing`, und weil cairosvg `transform-origin` nicht kennt, skalierte es die Pupillen-Regel um den Bildursprung — die Pupillen wanderten aus den Augen. Die Pose kommt jetzt vollständig aus Attributen (Verschiebung um den Kreismittelpunkt), das Bild stimmt. **Kein App-Fehler**, nur des Werkzeugs |
 
 ## 7. Offene Punkte (ehrlich benannt)
 

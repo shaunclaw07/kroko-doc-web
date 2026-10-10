@@ -36,8 +36,8 @@ export const crocodileArtwork: CreatureArtwork = {
   face:
     '<ellipse cx="165" cy="132" rx="38" ry="33" fill="#ffffff" stroke="#5aa164" stroke-width="3"/>' +
     '<ellipse cx="475" cy="132" rx="38" ry="33" fill="#ffffff" stroke="#5aa164" stroke-width="3"/>' +
-    '<circle cx="167" cy="136" r="17" fill="#4a3521"/>' +
-    '<circle cx="477" cy="136" r="17" fill="#4a3521"/>' +
+    '<circle cx="167" cy="136" r="17" fill="#4a3521" class="pupil"/>' +
+    '<circle cx="477" cy="136" r="17" fill="#4a3521" class="pupil"/>' +
     '<circle cx="161" cy="128" r="6" fill="#ffffff"/>' +
     '<circle cx="471" cy="128" r="6" fill="#ffffff"/>' +
     '<path d="M 135 96 C 152 84 180 84 197 96" fill="none" stroke="#5aa164" stroke-width="5" stroke-linecap="round"/>' +

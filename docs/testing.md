@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 17 |
-| Tests | 171 (17 Dateien) |
+| Tests | 174 (17 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,19 s |
 
@@ -26,7 +26,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/core/domain/liveTeeth.test.ts` | Zufallsmodell: 1–3 scharfe Zähne, Gleichverteilung über 9000 Züge, keine Doppelten, Reproduzierbarkeit |
 | `src/core/domain/round.test.ts` | Zugregeln, Verlierer, Spielerreihenfolge, Unveränderlichkeit, Fehlercodes |
 | `src/core/domain/probabilities.test.ts` | Verteilung, Erwartungswert, Überlebenskurve, Spielerchancen gegen die Python-Referenz (`../kroko-doc`) |
-| `src/core/domain/tension.test.ts` | Spannung als Biss-Wahrscheinlichkeit (Kurven für Krokodil/Maus/classic), Zucken, Totenstille, Herzschlag, Reproduzierbarkeit |
+| `src/core/domain/tension.test.ts` | Spannung als Biss-Wahrscheinlichkeit (Kurven für Krokodil/Maus/classic), Pause (Fenster, Mittelwert, **Unabhängigkeit vom Ausgang**), Erleichterung, Zucken, Herzschlag, Reproduzierbarkeit |
 | `src/core/domain/sessionLog.test.ts` | CSV-Format, Kurzformat-Import, fehlerhafte Zeilen |
 | `src/core/domain/statistics.test.ts` | Chi²-Verteilung gegen Tabellenwerte (χ²=3,841/df=1 → 0,050; 19,023/df=9 → 0,025), Wilson-Intervall, Autokorrelation |
 | `src/core/use-cases/playPress.test.ts` | Dramaturgie ohne Verrat des Geheimnisses |

@@ -52,8 +52,8 @@ export const sharkArtwork: CreatureArtwork = {
     '<path d="M 474 224 C 480 250 481 276 475 300" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
     '<ellipse cx="196" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
     '<ellipse cx="444" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
-    '<circle cx="198" cy="156" r="15" fill="#2f4557"/>' +
-    '<circle cx="446" cy="156" r="15" fill="#2f4557"/>' +
+    '<circle cx="198" cy="156" r="15" fill="#2f4557" class="pupil"/>' +
+    '<circle cx="446" cy="156" r="15" fill="#2f4557" class="pupil"/>' +
     '<circle cx="192" cy="149" r="6" fill="#ffffff"/>' +
     '<circle cx="440" cy="149" r="6" fill="#ffffff"/>' +
     '<path d="M 162 116 C 180 102 212 102 230 116" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +

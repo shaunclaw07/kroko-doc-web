@@ -735,3 +735,74 @@ textarea {
     transition: none !important;
   }
 }
+
+
+/* --- Die Pause vor der Auflösung (der Kern liefert die Dauer als --press-beat) ------ */
+
+/* Der Zahn fährt in die Wurzel: schnell ansetzend, dann zäh — die Feder, nicht der Klick. */
+.tooth.is-pressed .tooth__shape,
+.tooth[aria-pressed="true"] .tooth__shape {
+  transition: transform var(--press-beat, 160ms) cubic-bezier(0.15, 0.85, 0.3, 1), fill 0.15s ease;
+}
+
+/* Der Oberkiefer knarrt einen Millimeter auf. */
+.creature.is-pressing .jaw__upper {
+  animation: jaw-crack var(--press-beat, 300ms) ease-out forwards;
+}
+
+@keyframes jaw-crack {
+  0% { transform: translateY(0); }
+  60% { transform: translateY(-4px); }
+  100% { transform: translateY(-3px); }
+}
+
+/* Das Tier hält den Atem an: Kopf zum Spieler geneigt, Pupillen zusammengezogen. */
+.creature.is-pressing .creature__face {
+  animation: hold-breath var(--press-beat, 300ms) ease-in-out forwards;
+  transform-origin: 320px 232px; /* Drehpunkt: Maulmitte */
+}
+
+@keyframes hold-breath {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(0, 7px) rotate(-1.4deg); }
+}
+
+.pupil {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 200ms ease-out;
+}
+
+.creature.is-pressing .pupil {
+  transform: scale(0.74);
+}
+
+/* Die Feder kommt zur Ruhe — wie lange, hängt an der erlebten Pause (--relief). */
+.creature.is-settling .jaw__upper {
+  animation: settle-jaw calc(180ms + 280ms * var(--relief, 0)) ease-out;
+}
+
+@keyframes settle-jaw {
+  0% { transform: translateY(-3px); }
+  65% { transform: translateY(1.5px); }
+  100% { transform: translateY(0); }
+}
+
+.creature.is-settling .creature__face {
+  animation: settle-face calc(180ms + 280ms * var(--relief, 0)) ease-out;
+}
+
+@keyframes settle-face {
+  0% { transform: translate(0, 7px) rotate(-1.4deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Zweite Stufe des Bisses: der Kiefer zieht nach — die Feder klemmt. */
+.creature.is-clenching .jaw__upper {
+  animation: jaw-latch 170ms ease-in-out;
+}
+
+@keyframes jaw-latch {
+  0%, 100% { transform: translateY(var(--close-shift, 0px)); }
+  45% { transform: translateY(calc(var(--close-shift, 0px) + 3px)); }
+}

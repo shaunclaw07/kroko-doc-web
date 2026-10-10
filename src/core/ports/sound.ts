@@ -5,6 +5,8 @@ export type SoundName =
   | 'heartbeat' // Herzschlag, wird mit der Spannung schneller
   | 'twitch' // Fakeout: Maul zuckt, schnappt aber nicht zu
   | 'snap' // das Zuschnappen
+  | 'breath' // Atem des Tieres in der Pause vor der Auflösung
+  | 'settle' // die Feder kommt zur Ruhe (harmloser Ausgang)
   | 'win' // Runde überlebt
   | 'lose'; // Verlierer-Moment
 

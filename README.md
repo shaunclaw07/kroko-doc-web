@@ -3,7 +3,7 @@
 Das Zahn-Zufallsspiel um das Krokodil — Spielprinzip des Spielzeugs *Crocodile Dentist*
 (bekannt als *Kroko Doc*) als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
 Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
-Krokodil, Wolf, Mensch, Hai, Maus und Vampir. Mit Ton, Herzschlag, Totenstille vor dem Biss, Screen-Shake und
+Krokodil, Wolf, Mensch, Hai, Maus und Vampir. Mit Ton, Herzschlag, einer Pause vor jeder Auflösung, Screen-Shake und
 einer Statistikseite, die eure eigenen Runden auswertet.
 
 ![Sechs Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus und Vampir](docs/bilder/gebisse.png)
@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 171 Tests grün, Bau fertig in 2,19 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 174 Tests grün, Bau fertig in 2,19 s.
 
 ### Die drei Befehle
 
@@ -63,7 +63,7 @@ pnpm preview    # serviert dist/ auf http://localhost:4321
 
 1. **Spielen:** auf einen Zahn im Maul tippen. Beim Tippen hörst du einen Klang, der
    Herzschlag wird schneller, gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
-   nächste Zahn oder die Totenstille und der **Biss** samt Screen-Shake und Vibration.
+   nächste Zahn — erst nach einer Pause, die nichts über den Ausgang verrät — oder der **Biss** samt Screen-Shake und Vibration.
 2. **Einstellungen** (Knopf oben): 1–4 Spieler, Modus (`original` = 1–3 Zähne gleichzeitig
    scharf wie das echte Spielzeug, `classic` = genau einer), Ton und Vibration an/aus.
 3. **Gebiss** (Knopf oben): Lebewesen wählen (Krokodil, Wolf, Mensch, Hai, Maus, Vampir) und die **Zahnzahl**
@@ -91,7 +91,7 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **171 Tests in 17 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **174 Tests in 17 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
@@ -120,7 +120,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 - **Zwei Zufallsmodelle:** `original` (1–3 Zähne gleichzeitig scharf, wie das echte Spielzeug)
   und `classic` (genau ein scharfer Zahn).
 - **Nervenkitzel:** synthetisierte Klänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
-  mit der Spannung steigt (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Knarren, Fakeout-Zucken des Mauls, Totenstille vor dem Biss,
+  mit der Spannung steigt (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Knarren, Fakeout-Zucken des Mauls, eine Feder, die den Zahn in die Wurzel zieht, und die Pause vor jedem Urteil (ihre Länge sagt nichts über den Ausgang),
   Screen-Shake, Vibration bei jedem Zahndruck und beim Biss (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
@@ -135,7 +135,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **171 in 17 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **174 in 17 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,19 s | `pnpm build` in einem frischen Klon |

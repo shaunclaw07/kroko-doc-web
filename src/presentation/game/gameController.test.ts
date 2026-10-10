@@ -85,18 +85,25 @@ describe('GameController in der Bühne', () => {
     document.body.innerHTML = '';
   });
 
-  it('vibriert bei jedem Zahndruck kurz und beim Zuschnappen in drei Stößen', () => {
+  it('fühlt sich bei jedem Druck an: Tipp beim Drücken, weicher Stoß bei der Erleichterung, Muster beim Biss', () => {
     const { haptics } = build([9], { vibration: true });
     click(1);
-    expect(haptics.patterns).toEqual([25]);
+    // Erst der feste Tipp des Drückens, danach der Stoß der Erleichterung (12–25 ms).
+    expect(haptics.patterns[0]).toBe(25);
+    expect(haptics.patterns).toHaveLength(2);
+    expect(haptics.patterns[1]).toBeGreaterThanOrEqual(12);
+    expect(haptics.patterns[1]).toBeLessThanOrEqual(25);
     click(9);
-    expect(haptics.patterns).toEqual([25, 25, [120, 50, 220]]);
+    // Beim Biss: Tipp beim Drücken, dann das volle Muster — keine Erleichterung dazwischen.
+    expect(haptics.patterns[2]).toBe(25);
+    expect(haptics.patterns[3]).toEqual([120, 50, 220]);
   });
 
-  it('gibt beim Druck auf einen harmlosen Zahn nur einen kurzen Tipp', () => {
+  it('gibt beim Druck auf einen harmlosen Zahn einen kurzen Tipp und danach die Erleichterung', () => {
     const { haptics } = build([4, 7], { vibration: true });
     click(1);
-    expect(haptics.patterns).toEqual([25]);
+    expect(haptics.patterns[0]).toBe(25);
+    expect(haptics.patterns).toHaveLength(2);
     expect(document.querySelector('.tooth[data-tooth="1"]')?.classList.contains('is-pressed')).toBe(true);
   });
 

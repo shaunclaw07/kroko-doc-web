@@ -127,6 +127,12 @@ export class WebAudioEngine implements SoundPort {
         case 'snap':
           this.playSnap(context, now, level);
           break;
+        case 'breath':
+          this.playBreath(context, now, level);
+          break;
+        case 'settle':
+          this.playSettle(context, now, level);
+          break;
         case 'win':
           this.playWin(context, now, level);
           break;
@@ -328,6 +334,39 @@ export class WebAudioEngine implements SoundPort {
     thud.connect(thudGain);
     thudGain.connect(context.destination);
     this.startSource(thud, now, 0.12);
+  }
+
+  /** breath: langer, weicher Atemzug — Rauschen mit träger Hüllkurve füllt die Pause aus. */
+  private playBreath(context: AudioContextLike, now: number, level: number): void {
+    const duration = 0.45 + level * 0.25;
+    const source = context.createBufferSource();
+    source.buffer = this.createNoiseBuffer(context, duration);
+    source.playbackRate.setValueAtTime(0.5 + level * 0.3, now);
+    const gain = context.createGain();
+    const peak = 0.06 + this.tension * 0.1;
+    gain.gain.setValueAtTime(SILENCE, now);
+    gain.gain.linearRampToValueAtTime(peak, now + duration * 0.35); // einatmen
+    gain.gain.linearRampToValueAtTime(peak * 0.5, now + duration * 0.75);
+    gain.gain.exponentialRampToValueAtTime(SILENCE, now + duration); // ausatmen
+    source.connect(gain);
+    gain.connect(context.destination);
+    this.startSource(source, now, duration);
+  }
+
+  /** settle: die Feder kommt zur Ruhe — leiser Klick mit kurzem, tiefem Nachklang. */
+  private playSettle(context: AudioContextLike, now: number, level: number): void {
+    const duration = 0.06;
+    const source = context.createBufferSource();
+    source.buffer = this.createNoiseBuffer(context, duration);
+    source.playbackRate.setValueAtTime(0.9 + level * 0.4, now);
+    const gain = context.createGain();
+    gain.gain.setValueAtTime(0.1 + level * 0.16, now);
+    gain.gain.exponentialRampToValueAtTime(SILENCE, now + duration);
+    source.connect(gain);
+    gain.connect(context.destination);
+    this.startSource(source, now, duration);
+    // Das tiefe, kurze Zurücksinken des Kiefers darunter.
+    this.thump(context, now + 0.01, 96 + level * 24, 0.12 + level * 0.2, 0.16 + level * 0.1);
   }
 
   /** win: helle, aufsteigende Dreiklangsfolge (C5-E5-G5). */

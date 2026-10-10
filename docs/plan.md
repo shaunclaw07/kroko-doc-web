@@ -36,7 +36,10 @@ Nervenkitzel entsteht nicht durch Zufall, sondern durch **Zeit und Ton**:
 3. Knarren/Quietschen der Feder, Tonhöhe steigt mit dem Pegel.
 4. **Fakeouts**: mit ~12 % Chance zuckt das Maul beim Druck (sichtbar, hörbar) und
    schnappt *nicht* zu — Pegel springt stark hoch.
-5. **Totenstille vor dem Biss**: 400–900 ms alle Töne aus (einzelner Atemzug),
+5. **Totenstille vor dem Biss**: 400–900 ms alle Töne aus (einzelner Atemzug). **Umgesetzt am
+   11.10.2026 anders:** die Totenstille war ein Verräter (sie kam *nur* vor dem Biss). Jetzt gibt
+   es die Pause bei jedem Druck, ihre Länge wird unabhängig vom Ausgang gezogen, und dazwischen
+   liegt der feste 60-ms-Riss —
    dann CHOMP (Rauschburst + Pitch-Drop) + Screenshake + Vibration.
 6. Wenn nur noch ein Zahn übrig ist: garantiert scharf → höchste Spannung, Text
    „Der letzte Zahn ist immer scharf".

@@ -48,8 +48,8 @@ export const mouseArtwork: CreatureArtwork = {
     '<path d="M 498 262 C 528 272 556 282 580 292" fill="none" stroke="#a9a1b6" stroke-width="4" stroke-linecap="round"/>' +
     '<ellipse cx="168" cy="170" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
     '<ellipse cx="472" cy="170" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
-    '<circle cx="170" cy="173" r="13" fill="#3d3450"/>' +
-    '<circle cx="474" cy="173" r="13" fill="#3d3450"/>' +
+    '<circle cx="170" cy="173" r="13" fill="#3d3450" class="pupil"/>' +
+    '<circle cx="474" cy="173" r="13" fill="#3d3450" class="pupil"/>' +
     '<circle cx="165" cy="167" r="5" fill="#ffffff"/>' +
     '<circle cx="469" cy="167" r="5" fill="#ffffff"/>' +
     '<ellipse cx="132" cy="230" rx="20" ry="13" fill="#f2a8b6" opacity="0.5"/>' +

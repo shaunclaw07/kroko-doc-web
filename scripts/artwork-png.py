@@ -24,7 +24,14 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parents[1]
 CSS = PROJECT / "src/presentation/styles/app.css"
 TOKENS = (".creature", ".jaw", ".tooth", ".mouth")
-STATES = ("offen", "gedrueckt", "geschnappt")
+STATES = ("offen", "gedrueckt", "geschnappt", "pause")
+# Endpose der Pause: sie steht als Keyframe-Ende in app.css (jaw-crack, hold-breath, -.pupil).
+# Ein Standbild zeigt nur diese Endpose, nie die Bewegung — bei CSS-Änderung hier mitziehen.
+PAUSE_JAW_SHIFT = -3.0
+PAUSE_FACE_SHIFT = 7.0
+PAUSE_FACE_TURN = -1.4
+PAUSE_PUPIL_SCALE = 0.74
+STAGE_CENTER = (320.0, 232.0)
 STAGE_FILL = "#101c22"
 STAGE_FALLBACK = (640, 420)
 
@@ -91,6 +98,34 @@ def apply_state(svg: str, state: str) -> str:
             f'<g class="jaw__shell" transform="translate(0 {shift(svg, "shell-shift")})">',
             1,
         )
+    elif state == "pause":
+        # Alles zusammen: gedrückter Zahn, knarrender Kiefer, angehaltener Atem.
+        svg = apply_state(svg, "gedrueckt")
+        # Bewusst OHNE die Klasse `is-pressing`: cairosvg kennt `transform-origin` nicht und
+        # würde die Pupillen-Regel um den Bildursprung skalieren. Die Pose kommt deshalb
+        # vollständig aus Attributen — dieselben Werte wie im Keyframe-Ende von app.css.
+        svg = svg.replace(
+            '<g class="jaw__upper">',
+            f'<g class="jaw__upper" transform="translate(0 {PAUSE_JAW_SHIFT})">',
+            1,
+        )
+        cx, cy = STAGE_CENTER
+        svg = svg.replace(
+            '<g class="creature__face">',
+            f'<g class="creature__face" transform="translate(0 {PAUSE_FACE_SHIFT}) '
+            f'rotate({PAUSE_FACE_TURN} {cx} {cy})">',
+            1,
+        )
+
+        def shrink(match: re.Match[str]) -> str:
+            x, y = float(match.group(1)), float(match.group(2))
+            dx, dy = x * (1 - PAUSE_PUPIL_SCALE), y * (1 - PAUSE_PUPIL_SCALE)
+            return (
+                f'{match.group(0)[:-2]} transform="translate({dx:.1f} {dy:.1f}) '
+                f'scale({PAUSE_PUPIL_SCALE})"/>'
+            )
+
+        svg = re.sub(r'<circle cx="([\d.]+)" cy="([\d.]+)"[^>]*class="pupil"/>', shrink, svg)
     elif state == "gedrueckt":
         for tooth_id in ("1", "2"):
             svg = svg.replace(

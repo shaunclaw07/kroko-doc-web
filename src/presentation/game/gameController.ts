@@ -6,7 +6,7 @@ import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from '../../core/domain/round';
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
-import { heartbeatInterval, tensionForPress } from '../../core/domain/tension';
+import { VERDICT_GAP_MS, heartbeatInterval, tensionForPress, type PressDrama } from '../../core/domain/tension';
 import { createRoundRecord, nextRoundNumber } from '../../core/domain/sessionLog';
 import { type RandomMode } from '../../core/domain/teeth';
 import { playPress } from '../../core/use-cases/playPress';
@@ -31,6 +31,10 @@ export interface GameDeps {
 /** Tast-Rückmeldung: ein kurzer Tipp bei jedem Zahndruck, drei Stöße beim Zuschnappen (ms). */
 const TAP_VIBRATION_MS = 25;
 const BITE_VIBRATION_PATTERN = [120, 50, 220] as const;
+/** Kürzester Stoß bei der Erleichterung (ms) — wächst mit der erlebten Pause. */
+const RELIEF_VIBRATION_MIN_MS = 12;
+/** Zweite Stufe des Bisses: der Kiefer zieht nach (ms). */
+const BITE_LATCH_MS = 120;
 
 function defaultWait(ms: number, run: () => void): void {
   window.setTimeout(run, ms);
@@ -127,22 +131,59 @@ export class GameController {
     this.markPressed(toothId);
     this.render();
 
-    // Jeder Druck wird gefühlt — direkt aus der Fingerberührung heraus, ohne Verzögerung.
-    // Das ist zugleich die ehrlichste Probe, ob das Gerät vibrationen zulässt.
+    // Sofort spürbar: der Druck wird gefühlt, direkt aus der Fingerberührung heraus, ohne
+    // Verzögerung. Das ist zugleich die ehrlichste Probe, ob das Gerät Vibration zulässt.
     if (this.deps.settings.vibration) {
       this.vibrate(TAP_VIBRATION_MS);
     }
 
-    if (outcome.snapped) {
-      // Vor dem Biss wird es still: erst der Druck, dann Totenstille, dann CHOMP.
-      this.deps.sound.stopAll();
-      this.wait(outcome.drama.silenceMs, () => this.snap(toothId));
-      return;
-    }
-
+    // Die Pause: sie kommt bei jedem Druck, und ihre Länge sagt nichts über den Ausgang.
+    // Der Herzschlag tritt zurück, das Tier hält den Atem an — dann reißt es ab.
+    this.clearHeartbeat();
+    this.startPressBeat(outcome.drama.beatMs);
     this.deps.sound.play('tap', this.tension);
     this.deps.sound.play('creak', this.tension);
-    if (outcome.drama.twitch) {
+    this.deps.sound.play('breath', this.tension);
+    this.wait(outcome.drama.beatMs, () => {
+      // Der Riss: alles reißt ab. Die Lücke ist für beide Ausgänge gleich — 60 ms nichts.
+      // Die Pose der Pause bleibt dabei stehen, erst das Urteil löst sie auf.
+      this.deps.sound.stopAll();
+      this.wait(VERDICT_GAP_MS, () => {
+        if (outcome.snapped) {
+          this.snap(toothId);
+          return;
+        }
+        this.settle(toothId, outcome.drama);
+      });
+    });
+  }
+
+  /** Zeigt die Pause im Bild: der Zahn sinkt, der Kiefer knarrt, das Tier hält den Atem an. */
+  private startPressBeat(beatMs: number): void {
+    this.stage?.style.setProperty('--press-beat', `${Math.max(1, Math.round(beatMs))}ms`);
+    this.art?.classList.add('is-pressing');
+  }
+
+  private endPressBeat(): void {
+    this.art?.classList.remove('is-pressing');
+  }
+
+  /**
+   * Harmloser Ausgang: die Feder kommt zur Ruhe. Die Erleichterung wächst mit der Pause — die hat
+   * der Spieler selbst erlebt, sie verrät also nichts.
+   */
+  private settle(toothId: number, drama: PressDrama): void {
+    this.endPressBeat();
+    this.stage?.style.setProperty('--relief', drama.reliefLevel.toFixed(2));
+    this.art?.classList.add('is-settling');
+    this.wait(420, () => this.art?.classList.remove('is-settling'));
+    this.deps.sound.play('settle', drama.reliefLevel);
+    if (this.deps.settings.vibration) {
+      const stoß = RELIEF_VIBRATION_MIN_MS + Math.round((TAP_VIBRATION_MS - RELIEF_VIBRATION_MIN_MS) * drama.reliefLevel);
+      this.vibrate(stoß);
+    }
+    // Das Zucken ist ein eigener Schreck — es kommt nach der Erleichterung.
+    if (drama.twitch) {
       this.deps.sound.play('twitch', this.tension);
       this.twitch(toothId);
     }
@@ -152,6 +193,7 @@ export class GameController {
 
   private snap(toothId: number): void {
     this.busy = false;
+    this.endPressBeat();
     this.clearHeartbeat();
     this.deps.sound.play('snap', 1);
     if (this.deps.settings.vibration) {
@@ -165,6 +207,11 @@ export class GameController {
     this.render();
     this.recordRound();
     this.showResult();
+    // Zweite Stufe: der Kiefer zieht nach — das Maul wirkt wie eine Feder, nicht wie ein Sprung.
+    this.wait(BITE_LATCH_MS, () => {
+      this.art?.classList.add('is-clenching');
+      this.shake(0.45);
+    });
   }
 
   private twitch(toothId: number): void {

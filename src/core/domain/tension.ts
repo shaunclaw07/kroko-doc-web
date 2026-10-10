@@ -9,9 +9,11 @@ import type { RandomMode } from './teeth';
 
 /** Grundchance, dass das Maul zuckt, ohne zuzuschnappen. */
 export const TWITCH_BASE_CHANCE = 0.12;
-/** Kürzeste und längste "Totenstille" vor einer Entscheidung (Millisekunden). */
-export const SILENCE_MIN_MS = 400;
-export const SILENCE_MAX_MS = 900;
+/** Kürzeste und längste Pause vor der Auflösung eines Drucks (Millisekunden). */
+export const BEAT_MIN_MS = 120;
+export const BEAT_MAX_MS = 700;
+/** Feste Lücke zwischen Pause und Auflösung — für **beide** Ausgänge gleich, also kein Verräter. */
+export const VERDICT_GAP_MS = 60;
 /** Herzschlag-Abstand an den Enden des Spannungsbereichs (Millisekunden). */
 export const HEARTBEAT_SLOW_MS = 900;
 export const HEARTBEAT_FAST_MS = 380;
@@ -50,28 +52,36 @@ export function tensionForPress(args: {
   return fromPressOn > 0 ? clamp01(atPress / fromPressOn) : 1;
 }
 
+/**
+ * Länge der Pause vor der Auflösung, in Millisekunden.
+ *
+ * Die Länge hängt **nur** an der Spannung und am Zufall — den Ausgang des Drucks bekommt sie gar
+ * nicht gereicht. Damit kann sie ihn nicht verraten: die Stille vor einem Biss ist nicht länger
+ * als die vor einem harmlosen Druck, sie ist ein Bluff. Der Wachstumsexponent sorgt dafür, dass
+ * die Pause früh meist kurz ausfällt und erst im späten Spiel bis ans Ende des Fensters reicht.
+ */
+export function pressBeatMs(args: { tension: number; rng: RandomSource }): number {
+  const level = clamp01(args.tension);
+  const u = clamp01(args.rng.next());
+  const exponent = 3 - 2 * level;
+  return Math.round(BEAT_MIN_MS + (BEAT_MAX_MS - BEAT_MIN_MS) * Math.pow(u, exponent));
+}
+
+/**
+ * Stärke der Erleichterung 0..1 nach einem harmlosen Druck — abgeleitet aus der erlebten Pause.
+ * Die Pause hat der Spieler selbst erlebt, sie verrät also nichts; eine lange Pause darf deshalb
+ * hörbarer ausatmen als eine kurze.
+ */
+export function reliefLevel(beatMs: number): number {
+  return clamp01((beatMs - BEAT_MIN_MS) / (BEAT_MAX_MS - BEAT_MIN_MS));
+}
+
 /** Chance auf ein Zucken: nur bei harmlosen Drücken und nie beim letzten Zahn. */
 export function twitchChance(args: { tension: number; remaining: number }): number {
   if (args.remaining <= 1) {
     return 0;
   }
   return clamp01(TWITCH_BASE_CHANCE * (0.6 + 0.9 * clamp01(args.tension)));
-}
-
-/** Länge der Totenstille: vor dem Biss lang und länger, je weniger Zähne übrig sind. */
-export function silenceDuration(args: {
-  willSnap: boolean;
-  remaining: number;
-  teeth: number;
-  rng: RandomSource;
-}): number {
-  if (!args.willSnap) {
-    return 0;
-  }
-  const scarcity = args.teeth > 1 ? 1 - (args.remaining - 1) / (args.teeth - 1) : 1;
-  const base = SILENCE_MIN_MS + (SILENCE_MAX_MS - SILENCE_MIN_MS) * (0.4 + 0.6 * scarcity);
-  const jitter = args.rng.next() * 60 - 30;
-  return Math.round(Math.max(SILENCE_MIN_MS, Math.min(SILENCE_MAX_MS + 30, base + jitter)));
 }
 
 /** Herzschlag-Abstand in Millisekunden — höhere Spannung, schnellerer Puls. */
@@ -83,9 +93,11 @@ export function heartbeatInterval(tension: number): number {
 export interface PressDrama {
   /** Maul zuckt sichtbar, schnappt aber nicht zu. */
   twitch: boolean;
-  /** Wartezeit vor der Entscheidung (0 = sofort). */
-  silenceMs: number;
-  /** Stärke des Bildschirmbebens 0..1. */
+  /** Pause vor der Auflösung in Millisekunden — bei jedem Druck, unabhängig vom Ausgang. */
+  beatMs: number;
+  /** Stärke der Erleichterung 0..1 (nur beim harmlosen Druck, sonst 0). */
+  reliefLevel: number;
+  /** Stärke des Bildschirmbebens 0..1 (Pause nicht eingerechnet). */
   shakeLevel: number;
   /** Biss-Wahrscheinlichkeit des nächsten Drucks 0..1 (1, wenn es zugeschnappt ist). */
   tensionAfter: number;
@@ -111,10 +123,13 @@ export function planPressDrama(args: {
   // Vor dem Druck zählt die Gefahr dieses Drucks (Zucken, Erschütterung), danach die des nächsten.
   const tension = tensionForPress({ pressIndex: args.pressIndex, ...model });
   const tensionAfter = args.willSnap ? 1 : tensionForPress({ pressIndex: args.pressIndex + 1, ...model });
+  // Die Pause wird zuerst gezogen — aus Spannung und Zufall. Erst danach zählt der Ausgang.
+  const beatMs = pressBeatMs({ tension, rng: args.rng });
   if (args.willSnap) {
     return {
       twitch: false,
-      silenceMs: silenceDuration(args),
+      beatMs,
+      reliefLevel: 0,
       shakeLevel: clamp01(0.75 + 0.25 * tension),
       tensionAfter: 1,
     };
@@ -124,7 +139,8 @@ export function planPressDrama(args: {
   const twitch = args.rng.next() < twitchChance({ tension, remaining: args.remaining });
   return {
     twitch,
-    silenceMs: 0,
+    beatMs,
+    reliefLevel: reliefLevel(beatMs),
     shakeLevel: twitch ? clamp01(0.35 + 0.4 * tensionAfter) : 0,
     tensionAfter,
   };

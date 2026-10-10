@@ -47,8 +47,8 @@ export const vampireArtwork: CreatureArtwork = {
     '<path d="M 450 158 C 468 146 500 146 518 158" fill="none" stroke="#4a3b5c" stroke-width="5" stroke-linecap="round"/>' +
     '<ellipse cx="152" cy="178" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
     '<ellipse cx="488" cy="178" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
-    '<circle cx="154" cy="181" r="14" fill="#a8562f"/>' +
-    '<circle cx="490" cy="181" r="14" fill="#a8562f"/>' +
+    '<circle cx="154" cy="181" r="14" fill="#a8562f" class="pupil"/>' +
+    '<circle cx="490" cy="181" r="14" fill="#a8562f" class="pupil"/>' +
     '<circle cx="154" cy="181" r="7" fill="#3a2d49"/>' +
     '<circle cx="490" cy="181" r="7" fill="#3a2d49"/>' +
     '<circle cx="149" cy="175" r="5" fill="#ffffff"/>' +

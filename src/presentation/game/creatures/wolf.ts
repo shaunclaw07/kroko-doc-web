@@ -36,7 +36,7 @@ export const wolfArtwork: CreatureArtwork = {
     '<path d="M 518 88 L 542 38 L 476 78 Z" fill="#f6c1c9"/>' +
     '<ellipse cx="150" cy="150" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
     '<ellipse cx="490" cy="150" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
-    '<circle cx="152" cy="153" r="16" fill="#b07a3a"/><circle cx="492" cy="153" r="16" fill="#b07a3a"/>' +
+    '<circle cx="152" cy="153" r="16" fill="#b07a3a" class="pupil"/><circle cx="492" cy="153" r="16" fill="#b07a3a" class="pupil"/>' +
     '<circle cx="146" cy="146" r="6" fill="#ffffff"/><circle cx="486" cy="146" r="6" fill="#ffffff"/>' +
     '<path d="M 118 114 C 136 102 164 102 182 114" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +
     '<path d="M 458 114 C 476 102 504 102 522 114" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +

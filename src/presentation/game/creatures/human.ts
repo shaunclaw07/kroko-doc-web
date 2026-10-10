@@ -32,7 +32,7 @@ export const humanArtwork: CreatureArtwork = {
     '<path d="M 426 126 C 450 112 486 112 510 126" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
     '<ellipse cx="172" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
     '<ellipse cx="468" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
-    '<circle cx="174" cy="161" r="15" fill="#5b86a8"/><circle cx="470" cy="161" r="15" fill="#5b86a8"/>' +
+    '<circle cx="174" cy="161" r="15" fill="#5b86a8" class="pupil"/><circle cx="470" cy="161" r="15" fill="#5b86a8" class="pupil"/>' +
     '<circle cx="168" cy="154" r="6" fill="#ffffff"/><circle cx="464" cy="154" r="6" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
