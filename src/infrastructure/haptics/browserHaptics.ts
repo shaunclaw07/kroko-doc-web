@@ -26,15 +26,14 @@ export class BrowserHaptics implements HapticsPort {
     return this.vibrateFunction !== null;
   }
 
-  vibrate(pattern: number | readonly number[]): boolean {
+  vibrate(pattern: number | readonly number[]): void {
     if (!this.vibrateFunction) {
-      return false;
+      return;
     }
     try {
-      return this.vibrateFunction(typeof pattern === 'number' ? pattern : [...pattern]) === true;
+      this.vibrateFunction(typeof pattern === 'number' ? pattern : [...pattern]);
     } catch {
       // Rückmeldung ist ein Extra — sie darf das Spiel nie anhalten.
-      return false;
     }
   }
 }

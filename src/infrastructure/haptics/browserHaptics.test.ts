@@ -45,10 +45,4 @@ describe('BrowserHaptics', () => {
     expect(() => haptics.vibrate(50)).not.toThrow();
   });
 
-  it('meldet zurück, ob der Browser die Vibration angenommen hat', () => {
-    const { nav } = navigatorWith(() => false);
-    expect(new BrowserHaptics(nav).vibrate(50)).toBe(false);
-    expect(new BrowserHaptics(navigatorWith(() => true).nav).vibrate(50)).toBe(true);
-    expect(new BrowserHaptics(navigatorWithout()).vibrate(50)).toBe(false);
-  });
 });

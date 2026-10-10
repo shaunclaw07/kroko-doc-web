@@ -72,8 +72,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   keine Berechtigung (Chrome hat deshalb *keine* Website-Einstellung dafür) und nur „sticky user
   activation" — ein einziger früherer Fingertipp genügt. Zurückhalten können sie der Stumm- bzw.
   Nicht-stören-Modus und eine abgeschaltete Systemvibration. Safari auf iOS kennt sie nicht.
-  Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — dafür ist der
-  Prüfknopf „Vibration testen" da.
+  Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
+  Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
 ## Vier Fallen, die Zeit kosten
 

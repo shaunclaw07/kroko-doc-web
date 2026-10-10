@@ -66,7 +66,6 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton, Herzschlag und Knarren</label>
       <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Vibration (mobil)</label>
       <p class="muted small" id="vibration-hint" hidden></p>
-      <button type="button" class="button--ghost button--small" id="vibration-test" hidden>Vibration testen</button>
       <div class="row">
         <button type="button" class="button--primary" id="new-round">Neue Runde</button>
         <button type="button" class="button--ghost" id="rules-open">Regeln &amp; Herkunft</button>
@@ -226,40 +225,17 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     const vibrationBox = document.getElementById('opt-vibration') as HTMLInputElement | null;
     if (soundBox) soundBox.checked = settings.sound;
     if (vibrationBox) vibrationBox.checked = settings.vibration;
-    // Ehrlich statt still: kann der Browser nicht vibrieren (Safari auf iOS), sagen wir es
-    // und schalten den Griff ab — sonst sucht man den Fehler beim Handy oder im Spiel.
+    // Ehrlich statt still: kann der Browser nicht vibrieren (Safari auf iOS), sagen wir es und
+    // schalten den Griff ab — sonst sucht man den Fehler beim Handy oder im Spiel.
     const vibrationHint = document.getElementById('vibration-hint');
-    const vibrationTest = document.getElementById('vibration-test') as HTMLButtonElement | null;
-    const sayVibration = (text: string): void => {
+    if (vibrationBox && !haptics.isSupported()) {
+      vibrationBox.checked = false;
+      vibrationBox.disabled = true;
       if (vibrationHint) {
         vibrationHint.hidden = false;
-        vibrationHint.textContent = text;
+        vibrationHint.textContent =
+          'Dieser Browser kann nicht vibrieren (z. B. Safari auf dem iPhone — dort fehlt die Schnittstelle). Ton und Wackeln bleiben.';
       }
-    };
-    if (!haptics.isSupported()) {
-      // Ehrlich statt still: Safari auf iOS kennt die Schnittstelle überhaupt nicht.
-      if (vibrationBox) {
-        vibrationBox.checked = false;
-        vibrationBox.disabled = true;
-      }
-      sayVibration(
-        'Dieser Browser kann nicht vibrieren (z. B. Safari auf dem iPhone — dort fehlt die Schnittstelle). Ton und Wackeln bleiben.',
-      );
-    } else if (vibrationTest) {
-      // Prüfknopf: gibt weiter, was der Browser wirklich geantwortet hat — damit lässt sich in
-      // fünf Sekunden klären, ob das Gerät still bleibt oder das Spiel.
-      sayVibration(
-        'Für Vibration fragt Chrome nicht um Erlaubnis — es gibt keine Website-Einstellung dafür. Entscheidend sind Töne/Vibration und der Stumm- bzw. Nicht-stören-Modus des Handys. „Vibration testen" zeigt, was dein Gerät daraus macht.',
-      );
-      vibrationTest.hidden = false;
-      vibrationTest.addEventListener('click', () => {
-        const accepted = haptics.vibrate([80, 60, 80, 60, 220]);
-        sayVibration(
-          accepted
-            ? 'Der Browser hat die Vibration angenommen. Bleibt das Handy jetzt still, unterdrückt sie das System: Töne und Vibration (Intensität nicht auf 0) sowie Stumm- und Nicht-stören-Modus.'
-            : 'Der Browser hat die Vibration abgelehnt (ohne vorherige Berührung oder wenn die Seite nicht sichtbar ist).',
-        );
-      });
     }
     document.querySelectorAll<HTMLButtonElement>('#opt-players [data-players]').forEach((button) => {
       button.setAttribute('aria-pressed', String(Number(button.dataset.players) === settings.players));

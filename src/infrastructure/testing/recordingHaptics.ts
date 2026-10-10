@@ -10,11 +10,10 @@ export class RecordingHaptics implements HapticsPort {
     return this.supported;
   }
 
-  vibrate(pattern: number | readonly number[]): boolean {
+  vibrate(pattern: number | readonly number[]): void {
     if (!this.supported) {
-      return false;
+      return;
     }
     this.patterns.push(typeof pattern === 'number' ? pattern : [...pattern]);
-    return true;
   }
 }
