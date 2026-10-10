@@ -4,10 +4,10 @@
 
 ```
 core/domain      Fachregeln in Reinform: Zähne, Runde, Zufallsmodell, Spannung, Statistik
-core/ports       Nähte nach außen: RandomSource, LiveTeethSelector, RoundLogPort, SoundPort
+core/ports       Nähte nach außen: RandomSource, LiveTeethSelector, RoundLogPort, SoundPort, HapticsPort
 core/use-cases   Abläufe: playPress (ein Druck samt Dramaturgie)
 contract         Außenvertrag der Bedienung: Rundenprotokoll (RoundRecord, CSV-Format)
-infrastructure   Adapter: crypto-Zufall, Web-Audio, localStorage, Testattrappen
+infrastructure   Adapter: crypto-Zufall, Web-Audio, Vibration, localStorage, Testattrappen
 presentation     Bedienung: Spielsteuerung, SVG-Zeichnung, Statistikansicht, Seiten
 ```
 
@@ -41,7 +41,7 @@ Der Kern wirft `DomainError` mit `code`:
 | `tooth-out-of-range` | Zahn außerhalb 1..n oder keine ganze Zahl |
 | `tooth-already-pressed` | derselbe Zahn zweimal in einer Runde |
 | `round-finished` | Druck nach dem Zuschnappen |
-| `invalid-tooth-count` | Zahnzahl außerhalb 4..16 oder keine ganze Zahl |
+| `invalid-tooth-count` | Zahnzahl außerhalb 4..12 oder keine ganze Zahl |
 | `invalid-player-count` | Spielerzahl außerhalb 1..4 |
 
 Die Bedienung fängt Verstöße ab, bevor sie entstehen (sie prüft den Zustand selbst), und

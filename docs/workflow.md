@@ -3,7 +3,7 @@
 ## Befehle
 
 ```bash
-pnpm dev            # http://127.0.0.1:4321
+pnpm dev            # http://localhost:4321 (127.0.0.1 hört nicht)
 pnpm build          # statisch nach dist/
 pnpm typecheck      # tsc --noEmit
 pnpm test:run       # vitest run
@@ -25,14 +25,21 @@ pnpm gate           # typecheck + tests
 ## Zeichnung prüfen (ohne Browser)
 
 ```bash
-cd /opt/data/cache/scratch/kroko-render
-node --input-type=module -e "const {buildCrocodile}=await import('/opt/data/home/projects/zahn_agent/src/presentation/game/crocodile.ts'); const {writeFileSync}=await import('node:fs'); writeFileSync('croc.svg', buildCrocodile(10));"
-uv run --with cairosvg python render_croc.py croc.svg offen.png offen
-uv run --with cairosvg python render_croc.py croc.svg geschnappt.png geschnappt
+pnpm vitest run src/render-probe.test.ts                     # je Lebewesen ein SVG
+uv run --with cairosvg python scripts/artwork-png.py \
+  "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
 ```
 
-Rechnerische Kontrolle des Schließwinkels: Der Oberkiefer trifft bei **6,49 Grad** genau auf
-die Zahnfleischlinie; im Stylesheet stehen 7 Grad, damit der Biss satt wirkt.
+Beide Schritte liegen im Baum — kein Scratch-Verzeichnis, kein fester Pfad. Den Zustand setzt
+der Rasterer wie das Stylesheet (Klassen `is-pressed`/`is-snapped`), den Schließweg als
+Attribut mit dem Wert, den die App selbst ins SVG schreibt.
+
+Rechnerische Kontrolle der Schließung: Der Oberkiefer fährt beim Zuschnappen um
+`2·ry − Banddicke oben − Banddicke unten` **nach unten** (`--close-shift`, Krokodil 232,0 ·
+Mensch 226,0 · Wolf 222,0 SVG-Einheiten); die Schnauze fährt einen Anteil davon mit
+(`--shell-shift`, Krokodil 143,8). Beide Werte werden gerechnet und stehen im SVG — im Code
+gibt es keinen festen Winkel und keinen festen Weg. Der Zahnring schließt genau, wenn sich die
+Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 
 ## Eine Fähigkeit ergänzen
 
@@ -59,4 +66,4 @@ die Zahnfleischlinie; im Stylesheet stehen 7 Grad, damit der Biss satt wirkt.
 - Vite/Astro-Entwicklungsserver im Hintergrund: Prozess über `readlink /proc/<pid>/exe`
   identifizieren, nicht über den Namen.
 - `astro dev` läuft weiter und hält Port 4321 — vor einem neuen Lauf prüfen
-  (`curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:4321/`).
+  (`curl -s -o /dev/null -w "%{http_code}" http://localhost:4321/`).

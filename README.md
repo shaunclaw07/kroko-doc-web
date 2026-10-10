@@ -29,12 +29,12 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 10.10.2026): `pnpm install` läuft durch, 159 Tests grün, Bau fertig in 2,49 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 163 Tests grün, Bau fertig in 2,49 s.
 
 ### Die drei Befehle
 
 ```bash
-git clone git@github.com:shaunclaw07/zahn_agent.git
+git clone git@github.com:shaunclaw07/zahn_agent.git   # ohne SSH-Schlüssel: https://github.com/shaunclaw07/zahn_agent.git
 cd zahn_agent
 pnpm install
 pnpm dev
@@ -52,7 +52,7 @@ sofort neu — du kannst also direkt im Browser daneben probieren.
 ### Ohne Entwicklungsserver (so wie es ausgeliefert wird)
 
 ```bash
-pnpm build      # statische Seite nach dist/  (fertig in ca. 1,8 s)
+pnpm build      # statische Seite nach dist/  (fertig in ca. 2,6 s)
 pnpm preview    # serviert dist/ auf http://localhost:4321
 ```
 
@@ -91,7 +91,8 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **159 Tests in 16 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **163 Tests in 17 Dateien**, alle grün |
+| `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
 
@@ -134,8 +135,8 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **159 in 16 Dateien**, alle grün | `pnpm test:run` |
-| Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `webAudioEngine`-Muster; Test in `gameController.test.ts` |
+| Tests | **163 in 17 Dateien**, alle grün | `pnpm test:run` |
+| Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,49 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
@@ -151,12 +152,13 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 ```
 src/core/domain/       Fachregeln: Zähne, Runde, Wahrscheinlichkeiten, Spannung, Statistik
-src/core/ports/        Nähte: RandomSource, LiveTeethSelector, RoundLogPort, SoundPort
+src/core/ports/        Nähte: RandomSource, LiveTeethSelector, RoundLogPort, SoundPort, HapticsPort
 src/core/use-cases/    playPress — ein Druck samt Dramaturgie
 src/contract/          Außenvertrag (Rundenprotokoll, CSV-Format)
-src/infrastructure/    crypto-Zufall, Web-Audio-Klänge, localStorage, Testattrappen
+src/infrastructure/    crypto-Zufall, Web-Audio-Klänge, Vibration, localStorage, Testattrappen
 src/presentation/      Spielsteuerung, Statistikansicht, Astro-Seiten
   game/creatures/      je Lebewesen ein Zeichnungsmodul + Fabrik + Registry
+scripts/               artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
 ```
 
 Der Kern kennt weder Browser noch Uhr: Zufall kommt über einen Port herein, die Zeit über
@@ -212,9 +214,11 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn_agent/>**
   *Kroko Doc* bekannt). Diese App ist eine eigenständige Umsetzung ohne Marken- oder
   Gestaltungsübernahme, und der Projektname **Zahn Agent** ist davon unabhängig gewählt (technisch `zahn_agent`); Zahlen und Mechanik beruhen
   auf öffentlich beschriebenen Analysen (make Magazin 1/2023, Wikipedia).
-- **Nicht geprüft in einem echten Browser:** Im Baum steht kein Chrome zur Verfügung. Belegt ist
-  das Verhalten in jsdom (Bedienungs- und Statistiksonde) sowie über gerenderte Standbilder der
-  Zeichnung. Ein Browser-Durchlauf auf eurem Gerät ist der nächste sinnvolle Schritt.
+- **Am Gerät bestätigt, im Baum nur mittelbar:** Der Durchlauf am Handy des Nutzers hat die
+  Vibration bestätigt (25 ms bei jedem Zahndruck, drei Stöße beim Biss) — im Baum steht kein
+  Browser. Das übrige Verhalten ist in jsdom (Bedienungs- und Statistiksonde) und über gerenderte
+  Standbilder der Zeichnung belegt (`pnpm vitest run src/render-probe.test.ts`, dann
+  `scripts/artwork-png.py`); das Gefühl am Gerät in allen Feinheiten prüft nur ein Mensch.
 - Veröffentlicht wird über GitHub Pages (siehe oben, ausgeliefert wird nur der gebaute Stand);
   einen eigenen Server gibt es nicht, und die Spieldaten bleiben im `localStorage` des Browsers.
 

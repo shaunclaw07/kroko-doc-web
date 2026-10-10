@@ -36,21 +36,22 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 ## Befehle
 
 ```bash
-pnpm dev          # Astro-Entwicklungsserver auf http://127.0.0.1:4321
+pnpm dev          # Astro-Entwicklungsserver auf http://localhost:4321 (127.0.0.1 hört nicht!)
 pnpm build        # statische Ausgabe nach dist/
 pnpm typecheck    # tsc --noEmit  — Teil des Gates
 pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # beides nacheinander
+pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 ```
 
-## Die Karte in vier Zeilen
+## Die Karte in sieben Zeilen
 
 ```
 src/core/domain/       Fachregeln in Reinform — kein DOM, keine Uhr, keine Pakete
-src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, SoundPort)
+src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, SoundPort, HapticsPort)
 src/core/use-cases/    ein Use Case je Datei (playPress)
 src/contract/          der Außenvertrag der Bedienung (nur Typen und Formate)
-src/infrastructure/    die Adapter: crypto-Zufall, Web-Audio, localStorage, Testattrappen
+src/infrastructure/    die Adapter: crypto-Zufall, Web-Audio, Vibration, localStorage, Testattrappen
 src/presentation/      die Bedienung: Spielsteuerung, Statistikseite, Astro-Seiten
 src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, Fabrik
 ```
@@ -75,7 +76,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Vier Fallen, die Zeit kosten
+## Sechs Fallen, die Zeit kosten
 
 - **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
   das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
@@ -89,6 +90,10 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
 - **Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s** — der
   Werkzeugaufruf wandert dann in den Hintergrund und man sieht die Ausgabe nicht mehr.
+- **Rezepte in der Doku sind ungeprüfter Code.** Ein Befehl, der auf eine verschwundene Datei
+  zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
+  Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
+  fahren und die **Ausgabe ansehen**, nicht nur den Exit-Code.
 
 ## Ein neues Lebewesen ergänzen
 

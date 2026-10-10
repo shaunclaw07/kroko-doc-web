@@ -1,8 +1,10 @@
 # Plan: Zahn-Zufallsspiel als Webapp
 
 > **Hinweis (10.10.2026).** Dies ist der ursprüngliche Plan der Erstfassung; er bleibt im
-> Wortlaut stehen. Das Projekt heißt seit dem 10.10.2026 **Zahn Agent** (vorher
-> `kroko-doc-web`) und liegt unter diesem Namen auf GitHub.
+> Wortlaut stehen. Das Projekt heißt seit dem 10.10.2026 **Zahn Agent** (technisch seit dem
+> 11.10.2026 `zahn_agent`; vorher `kroko-doc-web`, am 10.10. kurz `zahn-agent`) und liegt unter
+> diesem Namen auf GitHub. Die Rezepte in dieser Datei sind Stand des Plans — gültig sind README,
+> AGENTS.md und `docs/workflow.md`.
 
 Ziel: Ein Browser-Spiel, das den Nervenkitzel des echten Kroko Doc hat — im Allein-
 und Hot-Seat-Modus, mobil zuerst, offline-fähig, ohne externe Assets. Zusätzlich
