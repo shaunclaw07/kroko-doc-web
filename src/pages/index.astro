@@ -248,12 +248,15 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     } else if (vibrationTest) {
       // Prüfknopf: gibt weiter, was der Browser wirklich geantwortet hat — damit lässt sich in
       // fünf Sekunden klären, ob das Gerät still bleibt oder das Spiel.
+      sayVibration(
+        'Chrome fragt dafür nicht um Erlaubnis: für Vibration gibt es keine Website-Einstellung. Es hängt an Töne/Vibration und am Stumm- bzw. Nicht-stören-Modus des Handys. „Vibration testen" zeigt, was dein Gerät daraus macht.',
+      );
       vibrationTest.hidden = false;
       vibrationTest.addEventListener('click', () => {
         const accepted = haptics.vibrate([80, 60, 80, 60, 220]);
         sayVibration(
           accepted
-            ? 'Der Browser hat die Vibration angenommen. Bleibt das Handy jetzt still, unterdrückt sie das System — Einstellungen → Töne und Vibration, oder der Energiesparmodus.'
+            ? 'Der Browser hat die Vibration angenommen. Bleibt das Handy jetzt still, unterdrückt sie das System: Töne und Vibration (Intensität nicht auf 0), Stumm- oder Nicht-stören-Modus und Energiesparmodus.'
             : 'Der Browser hat die Vibration abgelehnt (ohne vorherige Berührung oder wenn die Seite nicht sichtbar ist).',
         );
       });
