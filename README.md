@@ -120,7 +120,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   und `classic` (genau ein scharfer Zahn).
 - **Nervenkitzel:** synthetisierte Klänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
   mit der Spannung steigt, Knarren, Fakeout-Zucken des Mauls, Totenstille vor dem Biss,
-  Screen-Shake, Vibration (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
+  Screen-Shake, Vibration bei jedem Zahndruck und beim Biss (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
   Autokorrelation (Mustersuche) und exportiert/importiert CSV im Format des Analyse-Werkzeugs.
@@ -135,7 +135,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | Größe | Wert | Herkunft |
 |---|---|---|
 | Tests | **156 in 16 Dateien**, alle grün | `pnpm test:run` |
-| Vibration | Port mit `isSupported()`, Muster 24 ms + [120, 50, 220] | `webAudioEngine`-Muster; Test in `gameController.test.ts` |
+| Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `webAudioEngine`-Muster; Test in `gameController.test.ts` |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,26 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
@@ -201,7 +201,7 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn-agent/>**
 | Port 4321 belegt | anderer Server läuft | `pnpm dev --port 4322`, dann `http://localhost:4322` |
 | Kein Ton | Browser erlaubt Audio erst nach einer Nutzeraktion | einmal ins Maul tippen; Ton in den Einstellungen muss an sein |
 | **Handy vibriert nicht** | Auf Android kann es das Gerät unterdrücken: die Vibration braucht **keine** Berechtigung, Chrome hat deshalb **keine** Website-Einstellung dafür. Laut MDN halten Stumm-/Nicht-stören-Modus und eine abgeschaltete Systemvibration sie zurück; auf iOS/Safari gibt es die Schnittstelle gar nicht | Der Schalter ist dann **abgeblendet** und die Einstellungen sagen es im Klartext. Auf Android: **„Vibration testen"** in den Einstellungen drücken — der Knopf sagt, ob der Browser den Auftrag angenommen hat; bleibt es dann still, ist die Vibration im System aus (Einstellungen → Töne und Vibration). Belegte Ursachen laut [MDN, `Navigator.vibrate`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate): Stumm- bzw. Nicht-stören-Modus und eine abgeschaltete Systemvibration |
-| Vibration sehr schwach | manche Geräte setzen kurze Stöße unter ~20 ms nicht um | die App nutzt 24 ms vor dem Biss und drei Stöße (120/50/220 ms) beim Biss |
+| Vibration sehr schwach | manche Geräte setzen kurze Stöße unter ~20 ms nicht um | die App nutzt 25 ms bei **jedem Zahndruck** und drei Stöße (120/50/220 ms) beim Biss |
 | Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node 20.3+ installieren (Astro 5: `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
 | `pnpm install` scheitert an einem Firmennetz/Proxy | Registry nicht erreichbar | `pnpm config set registry https://registry.npmjs.org/` |
 

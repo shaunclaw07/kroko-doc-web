@@ -28,8 +28,8 @@ export interface GameDeps {
   wait?: (ms: number, run: () => void) => void;
 }
 
-/** Tast-Rückmeldung: kurz vor dem Biss, dann drei Stöße für das Zuschnappen (an/aus/… in ms). */
-const PRE_BITE_VIBRATION_MS = 24;
+/** Tast-Rückmeldung: ein kurzer Tipp bei jedem Zahndruck, drei Stöße beim Zuschnappen (ms). */
+const TAP_VIBRATION_MS = 25;
 const BITE_VIBRATION_PATTERN = [120, 50, 220] as const;
 
 function defaultWait(ms: number, run: () => void): void {
@@ -127,12 +127,15 @@ export class GameController {
     this.markPressed(toothId);
     this.render();
 
+    // Jeder Druck wird gefühlt — direkt aus der Fingerberührung heraus, ohne Verzögerung.
+    // Das ist zugleich die ehrlichste Probe, ob das Gerät vibrationen zulässt.
+    if (this.deps.settings.vibration) {
+      this.vibrate(TAP_VIBRATION_MS);
+    }
+
     if (outcome.snapped) {
       // Vor dem Biss wird es still: erst der Druck, dann Totenstille, dann CHOMP.
       this.deps.sound.stopAll();
-      if (this.deps.settings.vibration) {
-        this.vibrate(PRE_BITE_VIBRATION_MS);
-      }
       this.wait(outcome.drama.silenceMs, () => this.snap(toothId));
       return;
     }
