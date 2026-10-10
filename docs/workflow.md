@@ -15,9 +15,11 @@ pnpm gate           # typecheck + tests
 - Node 26, pnpm 12, Astro 5, vitest 3, jsdom 30 als Testumgebung.
 - **Keine externen Schriften, Bilder, CDNs.** Die Zeichnung ist SVG-Markup, die Klänge sind
   synthetisiert (Web Audio).
-- `pnpm` blockiert Installationsskripte: `package.json` → `pnpm.onlyBuiltDependencies`
-  führt `esbuild` und `sharp` auf. Neue native Abhängigkeiten dort eintragen, sonst fehlt
-  später ein Binary.
+- `pnpm` blockiert Installationsskripte. **pnpm 12 liest das `pnpm`-Feld in `package.json`
+  nicht mehr** — die Erlaubnis steht als Zuordnung `allowBuilds` in `pnpm-workspace.yaml`
+  (hier `esbuild: true`, `sharp: true`). Neue native Abhängigkeiten dort eintragen, sonst
+  bricht `pnpm install` mit `ERR_PNPM_IGNORED_BUILDS` ab. Die Form nicht raten:
+  `pnpm approve-builds --all` schreibt sie selbst.
 - Tests mit DOM brauchen den Kopfkommentar `// @vitest-environment jsdom` in der Testdatei.
 
 ## Zeichnung prüfen (ohne Browser)
