@@ -210,7 +210,8 @@ Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/kroko-doc-web/>*
 - **Nicht geprüft in einem echten Browser:** Im Baum steht kein Chrome zur Verfügung. Belegt ist
   das Verhalten in jsdom (Bedienungs- und Statistiksonde) sowie über gerenderte Standbilder der
   Zeichnung. Ein Browser-Durchlauf auf eurem Gerät ist der nächste sinnvolle Schritt.
-- Kein Deployment, kein Server, keine Konten — die Daten bleiben im `localStorage` des Browsers.
+- Veröffentlicht wird über GitHub Pages (siehe oben, ausgeliefert wird nur der gebaute Stand);
+  einen eigenen Server gibt es nicht, und die Spieldaten bleiben im `localStorage` des Browsers.
 
 ## Änderungen selbst hochladen
 

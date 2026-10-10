@@ -112,3 +112,11 @@ internen Verweis (Link, Icon, Manifest, Laufzeit-Abruf):
   normalisiert (sonst entsteht `/kroko-doc-webstatistik`).
 - Beide Bauvarianten prüfen: `pnpm build` (lokal) und `ASTRO_BASE=/kroko-doc-web pnpm build` (Pages),
   danach im erzeugten `dist/index.html` nachsehen, welche Adressen drinstehen.
+
+## Veröffentlichen
+
+Jeder Push auf `main` löst [`.github/workflows/pages.yml`](.github/workflows/pages.yml) aus:
+installieren → `pnpm gate` → bauen mit `ASTRO_BASE=/kroko-doc-web` → ausliefern auf
+<https://shaunclaw07.github.io/kroko-doc-web/>. Schlägt `pnpm gate` fehl, wird **nicht**
+veröffentlicht — lokal grün muss also vor dem Push stehen. Manuell anstoßen geht über
+`workflow_dispatch` (Actions → „Seite veroeffentlichen" → Run workflow).
