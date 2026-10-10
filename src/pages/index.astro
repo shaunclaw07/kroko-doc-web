@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Kroko Doc Web — Zahn für Zahn zum Nervenkitzel"
+  description="Tippe die Zähne des Krokodils an. Ein Druck ist zu viel — dann schnappt das Maul zu. Mit Statistik, wer wirklich verliert."
+>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M4 30c8-8 22-10 34-7l16 5-16 5C26 37 12 36 4 30z" fill="#2f6b4f"></path>
+          <path d="M6 40c12-5 24-5 36-2l14 4-14 4C30 48 16 47 6 40z" fill="#1c4531"></path>
+          <path d="M18 34l4 9 4-9zM32 33l4 9 4-9zM46 34l4 8 4-9z" fill="#fbf7e8"></path>
+          <circle cx="46" cy="22" r="5.5" fill="#f7f4e6"></circle>
+          <circle cx="47" cy="23" r="2.4" fill="#10171b"></circle>
+        </svg>
+        <span>
+          Kroko Doc Web
+          <small>Zahn für Zahn zum Nervenkitzel</small>
+        </span>
+      </div>
+      <a class="button" href="/statistik">Statistik</a>
+    </header>
+
+    <section class="card" id="setup" aria-label="Einstellungen">
+      <h2>Einstellungen</h2>
+      <div class="row" role="group" aria-label="Spielerzahl">
+        <span class="muted small">Spieler</span>
+        <div class="segmented" id="opt-players">
+          <button type="button" data-players="1" aria-pressed="true">1</button>
+          <button type="button" data-players="2" aria-pressed="false">2</button>
+          <button type="button" data-players="3" aria-pressed="false">3</button>
+          <button type="button" data-players="4" aria-pressed="false">4</button>
+        </div>
+      </div>
+      <div class="row" role="group" aria-label="Zufallsmodell">
+        <span class="muted small">Zähne</span>
+        <div class="segmented" id="opt-mode">
+          <button type="button" data-mode="original" aria-pressed="true">1–3 scharf</button>
+          <button type="button" data-mode="classic" aria-pressed="false">genau 1</button>
+        </div>
+      </div>
+      <p class="muted small">„1–3 scharf" ist das Verhalten des echten Kroko Doc: ein Bumerang im Inneren steht mit bis zu drei Zähnen in Kontakt.</p>
+      <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton, Herzschlag und Knarren</label>
+      <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Vibration (mobil)</label>
+      <div class="row">
+        <button type="button" class="button--primary" id="new-round">Neue Runde</button>
+        <button type="button" class="button--ghost" id="rules-open">Regeln &amp; Herkunft</button>
+      </div>
+    </section>
+
+    <section class="stage" id="stage" data-status="open" aria-label="Spielbühne">
+      <div id="croc-mount"></div>
+    </section>
+
+    <section class="hud" aria-label="Spielstand">
+      <div class="stat">
+        <div class="stat__label">Runde</div>
+        <div class="stat__value" id="hud-round">1</div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Zähne übrig</div>
+        <div class="stat__value" id="hud-remaining">10</div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Drücke</div>
+        <div class="stat__value" id="hud-presses">0</div>
+      </div>
+    </section>
+
+    <div class="tension-meter" role="img" aria-label="Spannungspegel">
+      <div class="tension-meter__fill" id="hud-meter"></div>
+    </div>
+
+    <div class="turn">
+      <span class="turn__dot" aria-hidden="true"></span>
+      <span id="hud-turn">Du bist dran (1 Spieler)</span>
+      <span class="spacer"></span>
+      <span class="muted small" id="hud-tension">0 %</span>
+    </div>
+
+    <p class="alarm hidden" id="hud-warning" role="status"></p>
+
+    <p class="muted small">
+      Tippen (oder Tab + Enter) drückt einen Zahn. Ein Zahn ist der Falsche — dann schnappt das Maul zu.
+    </p>
+  </main>
+
+  <div class="fab">
+    <a href="/statistik" aria-label="Statistik öffnen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>
+      </svg>
+      Statistik
+    </a>
+  </div>
+
+  <dialog class="sheet" id="result-sheet" aria-labelledby="result-title">
+    <div class="sheet__grip" aria-hidden="true"></div>
+    <h2 id="result-title">Zugeschnappt!</h2>
+    <p id="result-text"></p>
+    <div class="sheet__actions">
+      <button type="button" class="button--primary" id="result-again">Noch eine Runde</button>
+      <a class="button" href="/statistik">Zur Statistik</a>
+      <button type="button" class="button--ghost" data-close-sheet>Schließen</button>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="rules-sheet" aria-labelledby="rules-title">
+    <div class="sheet__grip" aria-hidden="true"></div>
+    <h2 id="rules-title">Regeln &amp; Herkunft</h2>
+    <p>
+      Reihum drückt jede Person einen Zahn. Der erste scharfe Zahn lässt das Maul zuschnappen —
+      wer ihn gedrückt hat, verliert die Runde.
+    </p>
+    <p>
+      <strong>Warum es keinen sicheren Zahn gibt:</strong> Im echten Kroko Doc dreht beim Öffnen ein
+      Nockenrad einen bumerangförmigen Hebel, der mit <strong>1 bis 3 Zähnen gleichzeitig</strong> in
+      Kontakt steht (make Magazin 1/2023, Teardown). Die Trefferchance pro Druck ist damit 10 %,
+      20 % oder 30 % — unbekannt zu Rundenbeginn. Genau so rechnet diese App im Modus „1–3 scharf".
+    </p>
+    <p>
+      <strong>Rechenwerte (10 Zähne, zufällige Reihenfolge):</strong> P(Biss beim 1. Druck) = 20 %,
+      erwartete Drücke bis zum Biss = 3,97; bei 4 Spielern verliert der Startspieler zu 33,9 %,
+      danach 28,3 % / 20,7 % / 17,0 %. Wer bis zum letzten Zahn überlebt, verliert garantiert.
+    </p>
+    <p class="muted small">
+      Diese App ist ein eigenständiges Spiel, kein Produkt von Hasbro. Die Statistikseite wertet eure
+      eigenen Runden aus und sagt ehrlich, wenn die Daten für eine Aussage zu dünn sind.
+    </p>
+    <div class="sheet__actions">
+      <button type="button" class="button--primary" data-close-sheet>Verstanden</button>
+    </div>
+  </dialog>
+
+  <script>
+    import { GameController } from '../presentation/game/gameController';
+    import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
+    import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
+    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
+
+    const storage = browserStorage();
+    const settings = loadSettings(storage);
+    const sound = new WebAudioEngine({ muted: !settings.sound });
+    const log = new LocalStorageRoundLog(storage);
+
+    const controller = new GameController({
+      rng: new CryptoRandom(),
+      sound,
+      log,
+      settings,
+      document,
+      onSettingsChange: (next: GameSettings) => saveSettings(storage, next),
+    });
+
+    controller.mount();
+
+    // Schalter und Segmente mit den gespeicherten Einstellungen abgleichen
+    const soundBox = document.getElementById('opt-sound') as HTMLInputElement | null;
+    const vibrationBox = document.getElementById('opt-vibration') as HTMLInputElement | null;
+    if (soundBox) soundBox.checked = settings.sound;
+    if (vibrationBox) vibrationBox.checked = settings.vibration;
+    document.querySelectorAll<HTMLButtonElement>('#opt-players [data-players]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(Number(button.dataset.players) === settings.players));
+      button.addEventListener('click', () => {
+        document.querySelectorAll('#opt-players [data-players]').forEach((other) => other.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+        controller.applySettings({ ...settings, players: Number(button.dataset.players ?? '1') });
+      });
+    });
+    document.querySelectorAll<HTMLButtonElement>('#opt-mode [data-mode]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.mode === settings.mode));
+      button.addEventListener('click', () => {
+        document.querySelectorAll('#opt-mode [data-mode]').forEach((other) => other.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+        controller.applySettings({ ...settings, mode: button.dataset.mode === 'classic' ? 'classic' : 'original' });
+      });
+    });
+    soundBox?.addEventListener('change', () => controller.applySettings({ ...settings, sound: soundBox.checked }));
+    vibrationBox?.addEventListener('change', () => controller.applySettings({ ...settings, vibration: vibrationBox.checked }));
+
+    document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());
+    document.getElementById('rules-open')?.addEventListener('click', () => {
+      (document.getElementById('rules-sheet') as HTMLDialogElement | null)?.showModal();
+    });
+    document.querySelectorAll('[data-close-sheet]').forEach((button) => {
+      button.addEventListener('click', () => {
+        button.closest('dialog')?.close();
+      });
+    });
+
+    // Browser geben Ton erst nach einer Nutzergeste frei.
+    document.addEventListener('pointerdown', () => sound.unlock(), { once: true });
+    document.addEventListener('keydown', () => sound.unlock(), { once: true });
+  </script>
+</Base>

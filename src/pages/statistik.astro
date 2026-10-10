@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Statistik — Kroko Doc Web"
+  description="Eigene Kroko-Doc-Runden auswerten: Verteilung der Zähne, Chi2-Test gegen das Zugmodell, Export als CSV."
+>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M4 30c8-8 22-10 34-7l16 5-16 5C26 37 12 36 4 30z" fill="#2f6b4f"></path>
+          <path d="M6 40c12-5 24-5 36-2l14 4-14 4C30 48 16 47 6 40z" fill="#1c4531"></path>
+          <path d="M18 34l4 9 4-9zM32 33l4 9 4-9zM46 34l4 8 4-9z" fill="#fbf7e8"></path>
+          <circle cx="46" cy="22" r="5.5" fill="#f7f4e6"></circle>
+          <circle cx="47" cy="23" r="2.4" fill="#10171b"></circle>
+        </svg>
+        <span>
+          Statistik
+          <small>Ist euer Krokodil ehrlich zufällig?</small>
+        </span>
+      </div>
+      <a class="button" href="/">Spielen</a>
+    </header>
+
+    <section class="card">
+      <h2>Eure Runden</h2>
+      <div id="report-mount">
+        <p class="muted">Noch keine Runden protokolliert. Spielt ein paar Runden, dann füllt sich diese Seite.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Daten</h2>
+      <p class="muted small">
+        Export im Format des Analyse-Werkzeugs (<code>runde;reihenfolge;verlierer_zahn</code> plus Zusatzspalten).
+        Import liest auch das Kurzformat mit drei Spalten.
+      </p>
+      <div class="row">
+        <button type="button" class="button--primary" id="export-csv">CSV exportieren</button>
+        <button type="button" class="button--ghost" id="toggle-import">CSV importieren</button>
+        <button type="button" class="button--danger" id="clear-log">Protokoll löschen</button>
+      </div>
+      <div id="import-area" class="hidden" style="margin-top: 0.8rem">
+        <label class="small muted" for="import-text">CSV einfügen</label>
+        <textarea id="import-text" spellcheck="false" placeholder="runde;reihenfolge;verlierer_zahn&#10;1;3-7-1-2-9;1"></textarea>
+        <div class="row">
+          <button type="button" class="button--primary" id="import-run">Importieren</button>
+          <span class="small muted" id="import-status"></span>
+        </div>
+      </div>
+      <p class="small muted" id="data-status" role="status"></p>
+    </section>
+  </main>
+
+  <script>
+    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { fromCsv, toCsv } from '../core/domain/sessionLog';
+    import { renderReport } from '../presentation/stats/statsView';
+    import { MIN_SAMPLE_FOR_VERDICT } from '../presentation/stats/statsView';
+
+    const log = new LocalStorageRoundLog(browserStorage());
+    const mountPoint = document.getElementById('report-mount');
+    const status = document.getElementById('data-status');
+
+    function refresh(): void {
+      const records = log.load();
+      if (mountPoint) {
+        renderReport(mountPoint, records);
+      }
+      if (status) {
+        status.textContent =
+          records.length >= MIN_SAMPLE_FOR_VERDICT
+            ? `${records.length} Runden ausgewertet.`
+            : `${records.length} von ${MIN_SAMPLE_FOR_VERDICT} Runden für eine belastbare Aussage.`;
+      }
+    }
+
+    document.getElementById('export-csv')?.addEventListener('click', () => {
+      const csv = toCsv(log.load());
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `kroko-doc-runden-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      if (status) status.textContent = 'CSV exportiert.';
+    });
+
+    document.getElementById('toggle-import')?.addEventListener('click', () => {
+      document.getElementById('import-area')?.classList.toggle('hidden');
+    });
+
+    document.getElementById('import-run')?.addEventListener('click', () => {
+      const field = document.getElementById('import-text') as HTMLTextAreaElement | null;
+      const hint = document.getElementById('import-status');
+      if (!field) return;
+      const imported = fromCsv(field.value);
+      if (imported.length === 0) {
+        if (hint) hint.textContent = 'Keine gültigen Zeilen gefunden.';
+        return;
+      }
+      // Import hängt an und zählt die Rundennummern fortlaufend weiter.
+      const existing = log.load();
+      const start = existing.reduce((max, record) => Math.max(max, record.round), 0);
+      const merged = [...existing, ...imported.map((record, index) => ({ ...record, round: start + index + 1 }))];
+      log.save(merged);
+      if (hint) hint.textContent = `${imported.length} Runden importiert.`;
+      refresh();
+    });
+
+    document.getElementById('clear-log')?.addEventListener('click', () => {
+      if (confirm('Wirklich alle protokollierten Runden löschen?')) {
+        log.clear();
+        refresh();
+      }
+    });
+
+    refresh();
+  </script>
+</Base>
