@@ -25,7 +25,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
           <small>Zahn für Zahn zum Nervenkitzel</small>
         </span>
       </div>
-      <a class="button" href="/statistik">Statistik</a>
+      <a class="button" href={`${import.meta.env.BASE_URL}statistik`}>Statistik</a>
     </header>
 
     <section class="card" id="setup" aria-label="Einstellungen">
@@ -109,7 +109,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
   </main>
 
   <div class="fab">
-    <a href="/statistik" aria-label="Statistik öffnen">
+    <a href={`${import.meta.env.BASE_URL}statistik`} aria-label="Statistik öffnen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>
       </svg>
@@ -123,7 +123,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     <p id="result-text"></p>
     <div class="sheet__actions">
       <button type="button" class="button--primary" id="result-again">Noch eine Runde</button>
-      <a class="button" href="/statistik">Zur Statistik</a>
+      <a class="button" href={`${import.meta.env.BASE_URL}statistik`}>Zur Statistik</a>
       <button type="button" class="button--ghost" data-close-sheet>Schließen</button>
     </div>
   </dialog>
