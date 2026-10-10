@@ -12,7 +12,8 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | Produktionsbau über `pnpm preview` (Port 4399) | siehe Abschnitt 4b — alle vier Routen `200`, kein externer Verweis |
 
 **Nachtrag 11.10.2026** (nach der Umbenennung und der neuen Zeichnungs-Sonde): `pnpm gate`
-grün mit **163 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,58 s. Die Zeilen oben sind der
+grün mit **163 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,21 s** in einem frischen Klon
+(im Arbeitsbaum 2,58 s). Die Zeilen oben sind der
 Stand vom 10.10. und bleiben stehen.
 
 ## 2. Bedienungssonde (jsdom)

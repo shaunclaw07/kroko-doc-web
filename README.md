@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 163 Tests grün, Bau fertig in 2,49 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 163 Tests grün, Bau fertig in 2,21 s.
 
 ### Die drei Befehle
 
@@ -52,7 +52,7 @@ sofort neu — du kannst also direkt im Browser daneben probieren.
 ### Ohne Entwicklungsserver (so wie es ausgeliefert wird)
 
 ```bash
-pnpm build      # statische Seite nach dist/  (fertig in ca. 2,6 s)
+pnpm build      # statische Seite nach dist/  (fertig in ca. 2,5 s)
 pnpm preview    # serviert dist/ auf http://localhost:4321
 ```
 
@@ -138,7 +138,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | Tests | **163 in 17 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,49 s | `pnpm build` in einem frischen Klon |
+| Produktionsbau | 2 Seiten, 2,21 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
