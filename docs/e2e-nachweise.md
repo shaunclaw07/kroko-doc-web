@@ -9,6 +9,7 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | `pnpm typecheck` (`tsc --noEmit`) | keine Fehler (Ausgabe `TSC_OK`) |
 | `pnpm test:run` (`vitest run`) | **104 Tests in 12 Dateien bestanden** |
 | `pnpm build` | 2 Seiten gebaut in 2,49 s; `dist/index.html`, `dist/statistik/index.html` |
+| Produktionsbau über `pnpm preview` (Port 4399) | siehe Abschnitt 4b — alle vier Routen `200`, kein externer Verweis |
 
 ## 2. Bedienungssonde (jsdom)
 
@@ -33,6 +34,25 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | `grep -c 'Kroko Doc Web' dist/index.html` | `2` |
 | `grep -o 'croc-mount' dist/index.html` | Treffer vorhanden |
 | `ls dist` | `_astro`, `favicon.svg`, `index.html`, `manifest.webmanifest`, `statistik` |
+
+## 4b. Vorschau des Produktionsbaus über HTTP
+
+Der Prüfer startete `pnpm preview` (Port 4399); **dieser Server hört nur auf IPv6**
+(`http://localhost:4399` → 200, `http://127.0.0.1:4399` → Verbindung verweigert).
+Alle Prüfungen liefen deshalb über `localhost`.
+
+| Prüfung | Ergebnis |
+|---|---|
+| `GET /` | `200` |
+| `GET /statistik` | `200` |
+| `GET /manifest.webmanifest` | `200` |
+| `GET /favicon.svg` | `200` |
+| Pflicht-Markup Startseite (`#croc-mount`, `#stage`, `#hud-remaining`, `#hud-warning`, `#result-sheet`, `#rules-sheet`, Manifest-Verweis) | je 1 Treffer |
+| Pflicht-Markup Statistikseite (`#report-mount`, `#export-csv`, `#import-text`) | je 1 Treffer |
+| Externe Ressourcen in beiden Seiten (`https?://`) | **0 Treffer** |
+| Bundles (`index.css`, Start-JS, Statistik-JS) | je `200` |
+| Start-JS enthält die Steuerung (`croc__biter`) | 1 Treffer |
+| Netzverweise im Start-JS | **0 Treffer** |
 
 ## 5. Zeichnungssonde (ohne Browser gerendert)
 
