@@ -1,19 +1,103 @@
 # Kroko Doc Web
 
-Das Zahn-Zufallsspiel um das Krokodil (bekannt als **Kroko Doc** / *Crocodile
-Dentist*) als Webapp: Zahn für Zahn antippen — ein Zahn ist der falsche, dann
-schnappt das Maul zu. Man schaut **von vorne oben in das offene Maul** und kann
-zwischen Gebissen wählen: Krokodil, Wolf, Mensch. Mit Ton, Herzschlag,
-Totenstille vor dem Biss und einer Statistikseite, die eure eigenen Runden
-auswertet.
+Das Zahn-Zufallsspiel um das Krokodil (bekannt als **Kroko Doc** / *Crocodile Dentist*)
+als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
+Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
+Krokodil, Wolf, Mensch. Mit Ton, Herzschlag, Totenstille vor dem Biss, Screen-Shake und
+einer Statistikseite, die eure eigenen Runden auswertet.
 
-**Warum es dieses Spiel gibt.** Ein Familienmitglied hat gefragt, ob man
-vorher berechnen kann, welcher Zahn das Maul schließt. Antwort: nein — das
-Spielzeug ist ein mechanischer Zufallsgenerator, und ein Teardown zeigt, dass
-sogar **1 bis 3 Zähne gleichzeitig** scharf sind (make Magazin 1/2023). Also
-haben wir erst gerechnet (`../kroko-doc`, Python-Werkzeug mit Chi²-Tests) und
-dann das Spiel mit dieser Rechnung im Bauch gebaut — inklusive der Frage, ob
-das eigene Krokodil ehrlich zufällig ist.
+![Drei Gebisse: Krokodil, Wolf und Mensch, oben mit offenem Maul, unten zugeschnappt](docs/bilder/gebisse.png)
+
+**Warum es dieses Spiel gibt.** Ein Familienmitglied hat gefragt, ob man vorher berechnen
+kann, welcher Zahn das Maul schließt. Antwort: nein — das Spielzeug ist ein mechanischer
+Zufallsgenerator, und ein Teardown zeigt, dass sogar **1 bis 3 Zähne gleichzeitig** scharf
+sind (make Magazin 1/2023). Also haben wir erst gerechnet (`../kroko-doc`, Python-Werkzeug
+mit Chi²-Tests) und dann das Spiel mit dieser Rechnung im Bauch gebaut — inklusive der
+Frage, ob das eigene Krokodil ehrlich zufällig ist.
+
+---
+
+## In fünf Minuten lokal starten
+
+### Was du brauchst
+
+| Voraussetzung | Prüfen mit | Nötig |
+|---|---|---|
+| Node.js **20.3 oder neuer** | `node -v` | ja (Astro 5 verlangt `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
+| pnpm **9 oder neuer** | `pnpm -v` | ja — oder ein Befehl: `corepack enable` |
+| Internet | — | **nur einmal** für `git clone` und `pnpm install` |
+| Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
+
+Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
+frei, 10.10.2026): `pnpm install` läuft durch, 146 Tests grün, Bau fertig in 1,77 s.
+
+### Die drei Befehle
+
+```bash
+git clone git@github.com:shaunclaw07/kroko-doc-web.git
+cd kroko-doc-web
+pnpm install
+pnpm dev
+```
+
+Dann im Browser öffnen: **<http://localhost:4321>**
+
+> **Wichtig:** `localhost` verwenden, **nicht** `127.0.0.1`. Astro hört standardmäßig nur auf
+> `localhost` (IPv6); über `127.0.0.1` bekommst du „Verbindung fehlgeschlagen". Wenn du
+> lieber die IPv4-Adresse willst: `pnpm dev --host 127.0.0.1` (beides geprüft).
+
+**Beenden:** `Strg + C` im Terminal. Der Entwicklungsserver lädt Änderungen an den Dateien
+sofort neu — du kannst also direkt im Browser daneben probieren.
+
+### Ohne Entwicklungsserver (so wie es ausgeliefert wird)
+
+```bash
+pnpm build      # statische Seite nach dist/  (fertig in ca. 1,8 s)
+pnpm preview    # serviert dist/ auf http://localhost:4321
+```
+
+`dist/` ist eine reine statische Seite: du kannst sie zur Not auch mit
+`python3 -m http.server` in `dist/` ausliefern. Es gibt keinen Server-Anteil.
+
+### So probierst du es aus
+
+1. **Spielen:** auf einen Zahn im Maul tippen. Beim Tippen hörst du einen Klang, der
+   Herzschlag wird schneller, gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
+   nächste Zahn oder die Totenstille und der **Biss** samt Screen-Shake und Vibration.
+2. **Einstellungen** (Knopf oben): 1–4 Spieler, Modus (`original` = 1–3 Zähne gleichzeitig
+   scharf wie das echte Spielzeug, `classic` = genau einer), Ton und Vibration an/aus.
+3. **Gebiss** (Knopf oben): Lebewesen wählen (Krokodil, Wolf, Mensch) und die **Zahnzahl**
+   einstellen — `−` / `+` oder „Standard" für das tiergerechte Gebiss (Krokodil 10, Wolf 12,
+   Mensch 12; erlaubt sind 4 bis 12).
+4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". Der
+   Tipp auf „Runde" im Kopfbereich startet immer eine neue Runde.
+5. **Statistik** (Knopf oben): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
+   gegen das Zugmodell, Wilson-Intervalle, Mustersuche (Autokorrelation), Rohdaten,
+   CSV-Export/-Import und **„Protokoll löschen"** zum Zurücksetzen.
+6. **Regeln & Herkunft**: warum es keinen sicheren Zahn gibt (und warum mehrere Lebewesen).
+
+Zwei Eigenheiten, die normal sind: **Ton kommt erst nach dem ersten Tipp** (Browser erlauben
+Audio erst nach einer Nutzeraktion) und **die Daten liegen in diesem einen Browser** — ein
+anderer Browser oder ein privates Fenster hat seine eigene Statistik.
+
+---
+
+## Alle Befehle
+
+| Befehl | Was er tut | Erwartetes Ergebnis |
+|---|---|---|
+| `pnpm install` | Abhängigkeiten holen (nur Entwicklungs-Werkzeuge, keine Laufzeit-Pakete) | `Done in …` ohne Fehler |
+| `pnpm dev` | Entwicklungsserver mit Sofort-Aktualisierung | <http://localhost:4321> → HTTP 200 |
+| `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
+| `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
+| `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
+| `pnpm test:run` | Tests einmalig | **146 Tests in 15 Dateien**, alle grün |
+| `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
+| `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
+
+Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --port 4322`.
+
+---
 
 ## Was es kann
 
@@ -44,14 +128,7 @@ das eigene Krokodil ehrlich zufällig ist.
   die Daten zu dünn sind.
 - **Kein Netz nötig:** keine externen Schriften, Bilder, CDNs; alles lokal, mobil zuerst.
 
-## Loslegen
-
-```bash
-pnpm install
-pnpm dev            # http://127.0.0.1:4321
-pnpm gate           # typecheck + tests
-pnpm build          # statische Ausgabe nach dist/
-```
+---
 
 ## Zahlen, die belegt sind
 
@@ -59,12 +136,15 @@ pnpm build          # statische Ausgabe nach dist/
 |---|---|---|
 | Tests | **146 in 15 Dateien**, alle grün | `pnpm test:run` |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,49 s | `pnpm build` |
+| Produktionsbau | 2 Seiten, 1,77 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
 | Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
+| Trefferfläche je Zahn | 51–63 px bei 12 Zähnen, 38 px bei 16 | Test in `creatureViews.test.ts` bei 358 px Bühnenbreite |
+
+---
 
 ## Aufbau
 
@@ -78,8 +158,36 @@ src/presentation/      Spielsteuerung, Statistikansicht, Astro-Seiten
   game/creatures/      je Lebewesen ein Zeichnungsmodul + Fabrik + Registry
 ```
 
+Der Kern kennt weder Browser noch Uhr: Zufall kommt über einen Port herein, die Zeit über
+eine injizierte Quelle. Das ist der Grund, warum die Fachlogik in jsdom und im Terminal
+prüfbar ist.
+
 Regeln für Arbeit am Baum: [`AGENTS.md`](AGENTS.md) und [`docs/`](docs/).
 Nachweise der Prüfläufe: [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md).
+Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
+[`docs/language-guidelines.md`](docs/language-guidelines.md).
+
+## Daten und Datenschutz
+
+- Alle Runden liegen im **`localStorage`** des Browsers (`krokoDoc.*`) — kein Server, keine
+  Konten, keine Telemetrie.
+- **Zurücksetzen:** Statistikseite → „Protokoll löschen" (löscht nur das Rundenprotokoll).
+- **Sichern/umbenennen:** CSV exportieren; die Datei kannst du wieder importieren oder dem
+  Python-Werkzeug `../kroko-doc/kroko_analyse.py` geben.
+- CSV-Kopf (bewusst deutsch, weil es die Schnittstelle zum Analyse-Werkzeug ist):
+  `runde;reihenfolge;verlierer_zahn;modus;zaehne;lebewesen;…`
+
+## Wenn etwas klemmt
+
+| Symptom | Ursache | Lösung |
+|---|---|---|
+| `pnpm: command not found` | pnpm fehlt | `corepack enable` (kommt mit Node) oder `npm i -g pnpm` |
+| `ERR_PNPM_IGNORED_BUILDS` bzw. „Ignored build scripts" | pnpm führt Installationsskripte nicht mehr ungefragt aus | `pnpm approve-builds --all` — erlaubt `esbuild` und `sharp`, schreibt es in `pnpm-workspace.yaml` |
+| „Verbindung fehlgeschlagen" im Browser | Server hört nur auf `localhost` (IPv6) | `localhost` statt `127.0.0.1` verwenden, oder `pnpm dev --host 127.0.0.1` |
+| Port 4321 belegt | anderer Server läuft | `pnpm dev --port 4322`, dann `http://localhost:4322` |
+| Kein Ton | Browser erlaubt Audio erst nach einer Nutzeraktion | einmal ins Maul tippen; Ton in den Einstellungen muss an sein |
+| Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node 20.3+ installieren (Astro 5: `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
+| `pnpm install` scheitert an einem Firmennetz/Proxy | Registry nicht erreichbar | `pnpm config set registry https://registry.npmjs.org/` |
 
 ## Herkunft und Grenzen
 
@@ -90,3 +198,14 @@ Nachweise der Prüfläufe: [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md).
   das Verhalten in jsdom (Bedienungs- und Statistiksonde) sowie über gerenderte Standbilder der
   Zeichnung. Ein Browser-Durchlauf auf eurem Gerät ist der nächste sinnvolle Schritt.
 - Kein Deployment, kein Server, keine Konten — die Daten bleiben im `localStorage` des Browsers.
+
+## Änderungen selbst hochladen
+
+```bash
+git add <datei>            # nie `git add -A` — das löscht versehentlich Dateien mit
+git commit -m "…"
+git push                   # Hauptzweig ist `main`, direkte Commits
+```
+
+Vor jedem Commit: `pnpm gate` (Typen + Tests). Architekturtests
+(`src/architecture.test.ts`) dürfen nie rot sein — sie erzwingen die Schichtentrennung.
