@@ -7,9 +7,9 @@ import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from 
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
 import { heartbeatInterval } from '../../core/domain/tension';
 import { createRoundRecord, nextRoundNumber } from '../../core/domain/sessionLog';
-import { DEFAULT_TEETH, type RandomMode } from '../../core/domain/teeth';
+import { type RandomMode } from '../../core/domain/teeth';
 import { playPress } from '../../core/use-cases/playPress';
-import { buildCrocodile, toothAnchor } from './crocodile';
+import { creatureView, type CreatureView } from './creatures';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
 
 export interface GameDeps {
@@ -43,7 +43,8 @@ export class GameController {
   private busy = false;
   private heartbeatTimer: number | null = null;
   private stage: HTMLElement | null = null;
-  private croc: SVGElement | null = null;
+  private view: CreatureView | null = null;
+  private art: SVGElement | null = null;
   private readonly records: RoundRecord[];
 
   constructor(deps: GameDeps) {
@@ -57,20 +58,31 @@ export class GameController {
 
   private newRound(): RoundState {
     return openRound(
-      { teeth: DEFAULT_TEETH, mode: this.deps.settings.mode, players: this.deps.settings.players },
+      {
+        creatureId: this.deps.settings.creature,
+        teeth: this.deps.settings.teethOverride ?? undefined,
+        mode: this.deps.settings.mode,
+        players: this.deps.settings.players,
+      },
       { rng: this.deps.rng, selector: this.selector },
     );
+  }
+
+  /** Zeichnet das gewählte Lebewesen und verbindet seine Zähne. */
+  private buildStage(mountPoint: HTMLElement): void {
+    this.view = creatureView(this.round.creatureId, this.round.teeth);
+    mountPoint.innerHTML = this.view.render();
+    this.art = this.doc.querySelector('.creature');
+    this.wireTeeth();
   }
 
   /** Baut Bühne und Zähne auf und verbindet alle Bedienelemente. */
   mount(): void {
     const mountPoint = this.doc.getElementById('croc-mount');
     if (mountPoint) {
-      mountPoint.innerHTML = buildCrocodile(this.round.teeth);
+      this.buildStage(mountPoint);
     }
     this.stage = this.doc.getElementById('stage');
-    this.croc = this.doc.querySelector('.croc');
-    this.wireTeeth();
     this.doc.getElementById('new-round')?.addEventListener('click', () => this.resetRound());
     this.render();
     this.startHeartbeat();
@@ -135,8 +147,8 @@ export class GameController {
     if (this.deps.settings.vibration) {
       this.vibrate([90, 40, 130]);
     }
-    this.croc?.classList.add('is-snapped');
-    this.croc?.classList.add('is-lunging');
+    this.art?.classList.add('is-snapped');
+    this.art?.classList.add('is-lunging');
     this.tooth(toothId)?.classList.add('is-live');
     this.markBiter(toothId);
     this.shake(1);
@@ -146,9 +158,9 @@ export class GameController {
   }
 
   private twitch(toothId: number): void {
-    this.croc?.classList.add('is-twitching');
+    this.art?.classList.add('is-twitching');
     this.shake(0.45);
-    this.wait(320, () => this.croc?.classList.remove('is-twitching'));
+    this.wait(320, () => this.art?.classList.remove('is-twitching'));
     const tooth = this.tooth(toothId);
     tooth?.classList.add('is-live');
     this.wait(260, () => {
@@ -160,13 +172,13 @@ export class GameController {
 
   /** Zeigt Ring und Beschriftung an der Stelle des scharfen Zahns. */
   private markBiter(toothId: number): void {
-    const group = this.doc.querySelector<SVGGElement>('.croc__biter');
+    const group = this.doc.querySelector<SVGGElement>('.creature__biter');
     if (!group) {
       return;
     }
-    const anchor = toothAnchor(toothId, this.round.teeth);
+    const anchor = this.view?.toothAnchor(toothId) ?? { x: 0, y: 0 };
     group.setAttribute('transform', `translate(${anchor.x.toFixed(1)} ${anchor.y.toFixed(1)})`);
-    const label = group.querySelector('.croc__biter-label');
+    const label = group.querySelector('.creature__biter-label');
     if (label) {
       label.textContent = `Zahn ${toothId}`;
     }
@@ -174,7 +186,7 @@ export class GameController {
   }
 
   private clearBiter(): void {
-    this.doc.querySelector('.croc__biter')?.setAttribute('opacity', '0');
+    this.doc.querySelector('.creature__biter')?.setAttribute('opacity', '0');
   }
 
   private markPressed(toothId: number): void {
@@ -237,6 +249,7 @@ export class GameController {
         round: nextRoundNumber(this.records),
         playedAt: new Date().toISOString(),
         mode: this.round.mode,
+        creature: this.round.creatureId,
         teeth: this.round.teeth,
         players: this.round.players,
         loserTooth: loser.tooth,
@@ -258,10 +271,8 @@ export class GameController {
     this.busy = false;
     const mountPoint = this.doc.getElementById('croc-mount');
     if (mountPoint) {
-      mountPoint.innerHTML = buildCrocodile(this.round.teeth);
+      this.buildStage(mountPoint);
     }
-    this.croc = this.doc.querySelector('.croc');
-    this.wireTeeth();
     this.deps.sound.setTension(0);
     this.render();
     this.startHeartbeat();
@@ -271,10 +282,12 @@ export class GameController {
   applySettings(settings: GameSettings): void {
     const modeChanged = settings.mode !== this.deps.settings.mode;
     const playersChanged = settings.players !== this.deps.settings.players;
+    const creatureChanged = settings.creature !== this.deps.settings.creature;
+    const teethChanged = settings.teethOverride !== this.deps.settings.teethOverride;
     Object.assign(this.deps.settings, settings);
     this.deps.onSettingsChange(settings);
     this.deps.sound.setMuted(!settings.sound);
-    if (modeChanged || playersChanged) {
+    if (modeChanged || playersChanged || creatureChanged || teethChanged) {
       this.resetRound();
     } else if (!settings.sound) {
       this.clearHeartbeat();

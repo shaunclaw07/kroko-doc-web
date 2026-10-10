@@ -1,3 +1,4 @@
+import type { CreatureDefinition } from './creature';
 import { MAX_LIVE_TEETH, type RandomMode } from './teeth';
 
 /** Gewichte über mögliche Anzahlen gleichzeitig scharfer Zähne. */
@@ -5,15 +6,27 @@ export type KWeights = Readonly<Record<number, number>>;
 
 export const DEFAULT_K_WEIGHTS: KWeights = { 1: 1 / 3, 2: 1 / 3, 3: 1 / 3 };
 
-export function modeKWeights(mode: RandomMode): KWeights {
+/**
+ * Gewichte über die Anzahl gleichzeitig scharfer Zähne.
+ * Die Grenzen kommen aus dem Gebiss des Lebewesens (Krokodil 1–3, Wolf 1–2 …).
+ */
+export function modeKWeights(mode: RandomMode, min = 1, max = MAX_LIVE_TEETH): KWeights {
   if (mode === 'classic') {
     return { 1: 1 };
   }
+  const lowest = Math.max(1, Math.floor(min));
+  const highest = Math.max(lowest, Math.floor(max));
   const weights: Record<number, number> = {};
-  for (let k = 1; k <= MAX_LIVE_TEETH; k += 1) {
-    weights[k] = 1 / MAX_LIVE_TEETH;
+  const span = highest - lowest + 1;
+  for (let k = lowest; k <= highest; k += 1) {
+    weights[k] = 1 / span;
   }
   return weights;
+}
+
+/** Gewichte für ein Lebewesen aus dem Katalog. */
+export function creatureKWeights(creature: CreatureDefinition, mode: RandomMode): KWeights {
+  return modeKWeights(mode, creature.liveTeethMin, creature.liveTeethMax);
 }
 
 /** Binomialkoeffizient (iterativ, exakt für die hier vorkommenden kleinen n). */

@@ -45,7 +45,7 @@ const DOM = `
 `;
 
 function settings(overrides: Partial<GameSettings> = {}): GameSettings {
-  return { mode: 'original', players: 1, sound: true, vibration: false, ...overrides };
+  return { mode: 'original', players: 1, sound: true, vibration: false, creature: 'crocodile', teethOverride: null, ...overrides };
 }
 
 function build(live: number[], overrides: Partial<GameSettings> = {}): {
@@ -106,10 +106,10 @@ describe('GameController in der Bühne', () => {
     click(2);
     click(4);
     expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
-    expect(document.querySelector('.croc')?.classList.contains('is-snapped')).toBe(true);
-    const biter = document.querySelector('.croc__biter');
+    expect(document.querySelector('.creature')?.classList.contains('is-snapped')).toBe(true);
+    const biter = document.querySelector('.creature__biter');
     expect(biter?.getAttribute('opacity')).toBe('1');
-    expect(biter?.querySelector('.croc__biter-label')?.textContent).toBe('Zahn 4');
+    expect(biter?.querySelector('.creature__biter-label')?.textContent).toBe('Zahn 4');
     expect(sound.names()).toContain('snap');
     expect(sound.stopAllCalls).toBeGreaterThan(0);
     expect(log.saves).toBe(1);
@@ -137,7 +137,7 @@ describe('GameController in der Bühne', () => {
     expect(log.records).toHaveLength(1);
     controller.resetRound();
     expect(document.getElementById('stage')?.dataset.status).toBe('open');
-    expect(document.querySelector('.croc__biter')?.getAttribute('opacity')).toBe('0');
+    expect(document.querySelector('.creature__biter')?.getAttribute('opacity')).toBe('0');
     expect(document.querySelectorAll('.tooth.is-pressed')).toHaveLength(0);
     expect(document.getElementById('hud-remaining')?.textContent).toBe('10');
   });
@@ -158,6 +158,32 @@ describe('GameController in der Bühne', () => {
     controller.resetRound();
     click(2);
     expect(log.records.map((record) => record.round)).toEqual([1, 2]);
+  });
+
+  it('wechselt das Lebewesen, zeichnet dessen Gebiss und protokolliert es', () => {
+    const { controller, log } = build([9], { creature: 'crocodile' });
+    expect(document.querySelectorAll('.tooth')).toHaveLength(10);
+
+    controller.applySettings({ ...settings(), creature: 'wolf' });
+    expect(document.querySelectorAll('.tooth')).toHaveLength(12);
+    expect(document.querySelector('.creature')?.getAttribute('data-creature')).toBe('wolf');
+    // Den Schließweg setzt die Zeichnung selbst; er muss zum Gebiss passen und > 0 sein.
+    const style = document.querySelector('.creature')?.getAttribute('style') ?? '';
+    const shift = Number(style.match(/--close-shift:\s*([\d.]+)px/)?.[1] ?? '0');
+    expect(shift).toBeGreaterThan(60);
+
+    click(9);
+    expect(log.records[0]?.creature).toBe('wolf');
+    expect(log.records[0]?.teeth).toBe(12);
+  });
+
+  it('übernimmt eine eingestellte Zahnzahl in Bühne, Anzeige und Protokoll', () => {
+    const { log } = build([9], { creature: 'crocodile', teethOverride: 16 });
+    expect(document.querySelectorAll('.tooth')).toHaveLength(16);
+    expect(document.getElementById('hud-remaining')?.textContent).toBe('16');
+    click(9);
+    expect(log.records[0]?.teeth).toBe(16);
+    expect(log.records[0]?.creature).toBe('crocodile');
   });
 
   it('meldet den Spannungspegel nach außen (Bühne und Ton)', () => {

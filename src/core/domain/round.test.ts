@@ -95,3 +95,39 @@ describe('Spannungsregeln', () => {
     expect(() => pressTooth(round, 10)).not.toThrow();
   });
 });
+
+describe('Gebiss des Lebewesens', () => {
+  const deps = () => ({ rng: new SeededRandom(1), selector: new FixedLiveTeethSelector([2]) });
+
+  it('nimmt Zahnzahl und Grenzen aus dem Katalog, wenn nur das Lebewesen genannt ist', () => {
+    const wolf = openRound({ creatureId: 'wolf', mode: 'original', players: 2 }, deps());
+    expect(wolf.creatureId).toBe('wolf');
+    expect(wolf.teeth).toBe(12);
+
+    const crocodile = openRound({ mode: 'original', players: 2 }, deps());
+    expect(crocodile.creatureId).toBe('crocodile');
+    expect(crocodile.teeth).toBe(10);
+  });
+
+  it('reicht die Grenzen des Gebisses an die Auswahl weiter', () => {
+    let seen: { min: number; max: number; teeth: number } | null = null;
+    const spy: LiveTeethSelector = {
+      select(request) {
+        seen = { min: request.min, max: request.max, teeth: request.teeth };
+        return [1];
+      },
+    };
+    openRound({ creatureId: 'wolf', mode: 'original', players: 2 }, { rng: new SeededRandom(1), selector: spy });
+    expect(seen).toEqual({ min: 1, max: 2, teeth: 12 });
+  });
+
+  it('wirft bei unbekanntem Lebewesen, statt still etwas anderes zu spielen', () => {
+    expect(() => openRound({ creatureId: 'drache', mode: 'original', players: 2 }, deps())).toThrow(DomainError);
+  });
+
+  it('lässt eine abweichende Zahnzahl weiterhin zu (Tests, Sonderfälle)', () => {
+    const custom = openRound({ creatureId: 'wolf', teeth: 6, mode: 'original', players: 1 }, deps());
+    expect(custom.teeth).toBe(6);
+    expect(custom.creatureId).toBe('wolf');
+  });
+});

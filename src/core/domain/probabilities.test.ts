@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { getCreature } from './creature';
+import { creatureKWeights } from './probabilities';
 import {
   DEFAULT_K_WEIGHTS,
   binomial,
@@ -86,5 +88,45 @@ describe('binomial', () => {
     expect(binomial(10, 3)).toBe(120);
     expect(binomial(0, 0)).toBe(1);
     expect(binomial(5, 6)).toBe(0);
+  });
+});
+
+describe('Grenzen des Gebisses', () => {
+  it('verteilt die Gewichte nur über die erlaubten Anzahlen', () => {
+    const wolf = modeKWeights('original', 1, 2);
+    expect(Object.keys(wolf).map(Number).sort()).toEqual([1, 2]);
+    expect(wolf[1]).toBeCloseTo(0.5, 12);
+    expect(wolf[2]).toBeCloseTo(0.5, 12);
+  });
+
+  it('lässt classic unabhängig von den Grenzen bei genau einem Zahn', () => {
+    expect(modeKWeights('classic', 1, 3)).toEqual({ 1: 1 });
+  });
+
+  it('bleibt bei den Voreinstellungen unverändert (Krokodil 1–3)', () => {
+    expect(modeKWeights('original')).toEqual(DEFAULT_K_WEIGHTS);
+  });
+
+  it('gibt für das Krokodil dieselben Gewichte wie die Voreinstellung zurück', () => {
+    expect(creatureKWeights(getCreature('crocodile'), 'original')).toEqual(DEFAULT_K_WEIGHTS);
+    expect(creatureKWeights(getCreature('wolf'), 'original')).toEqual({ 1: 0.5, 2: 0.5 });
+  });
+
+  it('verschiebt die Druckverteilung des Wolfes gegenüber dem Krokodil', () => {
+    const crocodile = pressPositionDistribution(12, creatureKWeights(getCreature('crocodile'), 'original'));
+    const wolf = pressPositionDistribution(12, creatureKWeights(getCreature('wolf'), 'original'));
+    expect(crocodile).not.toEqual(wolf);
+    // Referenzwerte (12 Zähne, unabhängig nachgerechnet):
+    // Krokodil 1-3 scharfe Zähne: P(1. Druck) = 1/6, E[Drücke] = 4,694444
+    // Wolf 1-2 scharfe Zähne:      P(1. Druck) = 1/8, E[Drücke] = 5,416667
+    expect(crocodile[0]).toBeCloseTo(1 / 6, 12);
+    expect(expectedPresses(crocodile)).toBeCloseTo(4.694444444444445, 12);
+    expect(wolf[0]).toBeCloseTo(0.125, 12);
+    expect(expectedPresses(wolf)).toBeCloseTo(5.416666666666667, 12);
+    // Der Wolf beißt seltener früh zu — die Runde dauert länger, mehr Spannung.
+    expect(wolf[0] ?? 1).toBeLessThan(crocodile[0] ?? 0);
+    expect(expectedPresses(wolf)).toBeGreaterThan(expectedPresses(crocodile));
+    // Dafür ist der letzte Zahn beim Wolf häufiger der scharfe (höhere Endspannung).
+    expect(wolf[wolf.length - 1] ?? 0).toBeGreaterThan(crocodile[crocodile.length - 1] ?? 0);
   });
 });

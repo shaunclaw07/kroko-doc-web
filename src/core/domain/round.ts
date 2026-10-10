@@ -1,12 +1,19 @@
 import type { LiveTeethSelector } from '../ports/liveTeeth';
 import type { RandomSource } from '../ports/random';
+import { DEFAULT_CREATURE_ID, getCreature } from './creature';
 import { DomainError } from './errors';
 import { isValidPlayerCount, isValidToothCount, type RandomMode, type ToothId } from './teeth';
 
 export interface RoundConfig {
-  teeth: number;
+  /** Gebiss des Lebewesens; ohne Angabe gilt das Krokodil. */
+  creatureId?: string;
+  /** Abweichende Zahnzahl (nur für Tests und Sonderfälle). */
+  teeth?: number;
   mode: RandomMode;
   players: number;
+  /** Abweichende Grenzen für gleichzeitig scharfe Zähne (nur für Tests). */
+  liveTeethMin?: number;
+  liveTeethMax?: number;
 }
 
 export interface RoundDeps {
@@ -25,6 +32,8 @@ export interface LoserInfo {
 }
 
 export interface RoundState {
+  /** Gebiss der Runde (Kennung aus dem Katalog). */
+  readonly creatureId: string;
   readonly teeth: number;
   readonly mode: RandomMode;
   readonly players: number;
@@ -36,9 +45,27 @@ export interface RoundState {
   readonly loser: LoserInfo | null;
 }
 
-function assertConfig(config: RoundConfig): void {
-  if (!isValidToothCount(config.teeth)) {
-    throw new DomainError('invalid-tooth-count', `tooth count ${config.teeth} is not allowed`);
+interface Gebiss {
+  creatureId: string;
+  teeth: number;
+  min: number;
+  max: number;
+}
+
+/** Zahnzahl und Grenzen kommen aus dem Katalog des Lebewesens. */
+function resolveGebiss(config: RoundConfig): Gebiss {
+  const creature = getCreature(config.creatureId ?? DEFAULT_CREATURE_ID);
+  return {
+    creatureId: creature.id,
+    teeth: config.teeth ?? creature.teeth,
+    min: config.liveTeethMin ?? creature.liveTeethMin,
+    max: config.liveTeethMax ?? creature.liveTeethMax,
+  };
+}
+
+function assertConfig(config: RoundConfig, teeth: number): void {
+  if (!isValidToothCount(teeth)) {
+    throw new DomainError('invalid-tooth-count', `tooth count ${teeth} is not allowed`);
   }
   if (!isValidPlayerCount(config.players)) {
     throw new DomainError('invalid-player-count', `player count ${config.players} is not allowed`);
@@ -63,10 +90,18 @@ function playerFor(pressIndex: number, players: number): number {
 
 /** Öffnet eine Runde: zieht die scharfen Zähne, noch ist kein Zahn gedrückt. */
 export function openRound(config: RoundConfig, deps: RoundDeps): RoundState {
-  assertConfig(config);
-  const live = deps.selector.select(deps.rng, config.teeth, config.mode);
+  const gebiss = resolveGebiss(config);
+  assertConfig(config, gebiss.teeth);
+  const live = deps.selector.select({
+    rng: deps.rng,
+    teeth: gebiss.teeth,
+    mode: config.mode,
+    min: gebiss.min,
+    max: gebiss.max,
+  });
   return {
-    teeth: config.teeth,
+    creatureId: gebiss.creatureId,
+    teeth: gebiss.teeth,
     mode: config.mode,
     players: config.players,
     status: 'open',

@@ -1,5 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import { DEFAULT_CREATURE_ID, listCreatures } from '../core/domain/creature';
+
+const creatures = listCreatures();
+const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) ?? creatures[0];
 ---
 
 <Base
@@ -43,6 +47,22 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
       <p class="muted small">„1–3 scharf" ist das Verhalten des echten Kroko Doc: ein Bumerang im Inneren steht mit bis zu drei Zähnen in Kontakt.</p>
+      <div class="row" role="group" aria-label="Lebewesen">
+        <span class="muted small">Gebiss</span>
+        <button type="button" class="picker" id="creature-open" aria-haspopup="dialog">
+          <span class="picker__name" id="creature-name">{first?.name}</span>
+          <span class="muted small" id="creature-teeth">{first?.teeth} Zähne</span>
+        </button>
+      </div>
+      <div class="row" role="group" aria-label="Zahl der Zähne">
+        <span class="muted small">Zähne</span>
+        <div class="stepper">
+          <button type="button" id="teeth-minus" aria-label="Ein Zahn weniger">−</button>
+          <output id="teeth-value">{first?.teeth}</output>
+          <button type="button" id="teeth-plus" aria-label="Ein Zahn mehr">+</button>
+        </div>
+        <button type="button" class="button--ghost button--small" id="teeth-reset">Standard</button>
+      </div>
       <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton, Herzschlag und Knarren</label>
       <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Vibration (mobil)</label>
       <div class="row">
@@ -108,6 +128,36 @@ import Base from '../layouts/Base.astro';
     </div>
   </dialog>
 
+  <dialog class="sheet" id="creature-sheet" aria-labelledby="creature-title">
+    <div class="sheet__grip" aria-hidden="true"></div>
+    <h2 id="creature-title">Lebewesen wählen</h2>
+    <p class="muted small">
+      Jedes Gebiss bringt eigene Zähne mit — und eigene Grenzen dafür, wie viele gleichzeitig
+      scharf sein können. Das ändert die Wahrscheinlichkeiten, nicht die Ehrlichkeit.
+    </p>
+    <div class="row" role="group" aria-label="Zahl der Zähne im Auswahlblatt">
+      <span class="muted small">Zähne: {first?.teeth} (Standard)</span>
+      <span class="muted small" id="teeth-hint"></span>
+    </div>
+    <ul class="creature-list" id="creature-list">
+      {creatures.map((creature) => (
+        <li>
+          <button type="button" data-creature={creature.id} aria-pressed={creature.id === DEFAULT_CREATURE_ID}>
+            <span class="creature-list__head">
+              <strong>{creature.name}</strong>
+              <span class="muted small">{creature.teeth} drückbare Zähne · 1–{creature.liveTeethMax} gleichzeitig scharf</span>
+            </span>
+            <span class="creature-list__note">{creature.note}</span>
+            <span class="muted small">Echtes Gebiss: {creature.realTeeth} Zähne.</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <div class="sheet__actions">
+      <button type="button" class="button--ghost" data-close-sheet>Schließen</button>
+    </div>
+  </dialog>
+
   <dialog class="sheet" id="rules-sheet" aria-labelledby="rules-title">
     <div class="sheet__grip" aria-hidden="true"></div>
     <h2 id="rules-title">Regeln &amp; Herkunft</h2>
@@ -126,6 +176,12 @@ import Base from '../layouts/Base.astro';
       erwartete Drücke bis zum Biss = 3,97; bei 4 Spielern verliert der Startspieler zu 33,9 %,
       danach 28,3 % / 20,7 % / 17,0 %. Wer bis zum letzten Zahn überlebt, verliert garantiert.
     </p>
+    <p>
+      <strong>Warum mehrere Lebewesen:</strong> Krokodil, Wolf und Mensch haben unterschiedliche
+      Gebisse. Der Wolf hat zwei große Fangzähne, dafür nur <strong>1–2 gleichzeitig scharfe
+      Zähne</strong>: sein Biss kommt seltener, dann sitzt er (erwartete Drücke bei 12 Zähnen
+      5,42 statt 4,69). Jedes weitere Tier ist ein Katalog-Eintrag plus eine Zeichnung.
+    </p>
     <p class="muted small">
       Diese App ist ein eigenständiges Spiel, kein Produkt von Hasbro. Die Statistikseite wertet eure
       eigenen Runden aus und sagt ehrlich, wenn die Daten für eine Aussage zu dünn sind.
@@ -141,6 +197,8 @@ import Base from '../layouts/Base.astro';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
+    import { getCreature } from '../core/domain/creature';
+    import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
 
     const storage = browserStorage();
     const settings = loadSettings(storage);
@@ -181,6 +239,59 @@ import Base from '../layouts/Base.astro';
     });
     soundBox?.addEventListener('change', () => controller.applySettings({ ...settings, sound: soundBox.checked }));
     vibrationBox?.addEventListener('change', () => controller.applySettings({ ...settings, vibration: vibrationBox.checked }));
+
+    const creatureName = document.getElementById('creature-name');
+    const creatureTeeth = document.getElementById('creature-teeth');
+    const creatureSheet = document.getElementById('creature-sheet') as HTMLDialogElement | null;
+    const teethValue = document.getElementById('teeth-value');
+    const teethHint = document.getElementById('teeth-hint');
+
+    /** Zahnzahl, die gerade gilt: eigener Wert oder das tiergerechte Gebiss. */
+    function effectiveTeeth(): number {
+      return settings.teethOverride ?? getCreature(settings.creature).teeth;
+    }
+
+    function paintCreature(): void {
+      const creature = getCreature(settings.creature);
+      const teeth = effectiveTeeth();
+      if (creatureName) creatureName.textContent = creature.name;
+      if (creatureTeeth) creatureTeeth.textContent = `${teeth} Zähne`;
+      if (teethValue) teethValue.textContent = String(teeth);
+      if (teethHint) {
+        teethHint.textContent =
+          settings.teethOverride === null
+            ? `Standard für ${creature.name}`
+            : `abweichend (Standard ${creature.teeth}), spielbar ${MIN_TEETH}–${MAX_TEETH}`;
+      }
+      document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.creature === settings.creature));
+      });
+    }
+
+    function setTeeth(next: number): void {
+      const clamped = Math.max(MIN_TEETH, Math.min(MAX_TEETH, next));
+      const standard = getCreature(settings.creature).teeth;
+      controller.applySettings({ ...settings, teethOverride: clamped === standard ? null : clamped });
+      paintCreature();
+    }
+
+    paintCreature();
+    document.getElementById('teeth-minus')?.addEventListener('click', () => setTeeth(effectiveTeeth() - 1));
+    document.getElementById('teeth-plus')?.addEventListener('click', () => setTeeth(effectiveTeeth() + 1));
+    document.getElementById('teeth-reset')?.addEventListener('click', () => {
+      controller.applySettings({ ...settings, teethOverride: null });
+      paintCreature();
+    });
+    document.getElementById('creature-open')?.addEventListener('click', () => creatureSheet?.showModal());
+    document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.creature ?? settings.creature;
+        // Beim Wechsel gilt wieder das Gebiss des gewählten Tieres.
+        controller.applySettings({ ...settings, creature: id, teethOverride: null });
+        paintCreature();
+        creatureSheet?.close();
+      });
+    });
 
     document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());
     document.getElementById('rules-open')?.addEventListener('click', () => {

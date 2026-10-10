@@ -3,7 +3,8 @@ export type DomainErrorCode =
   | 'tooth-already-pressed'
   | 'round-finished'
   | 'invalid-tooth-count'
-  | 'invalid-player-count';
+  | 'invalid-player-count'
+  | 'unknown-creature';
 
 /** Regelverstoß im Kern. Die Bedienung fängt ihn und zeigt eine eigene Meldung. */
 export class DomainError extends Error {

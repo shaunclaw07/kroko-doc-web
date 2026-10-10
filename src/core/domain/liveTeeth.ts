@@ -1,4 +1,4 @@
-import type { LiveTeethSelector } from '../ports/liveTeeth';
+import type { LiveTeethRequest, LiveTeethSelector } from '../ports/liveTeeth';
 import type { RandomSource } from '../ports/random';
 import { MAX_LIVE_TEETH, type RandomMode } from './teeth';
 
@@ -18,12 +18,22 @@ export function sampleDistinct(rng: RandomSource, population: number, k: number)
 }
 
 /**
- * Standardauswahl scharfer Zähne: im Originalmodell 1 bis 3 gleichverteilt,
- * im klassischen Modell genau einer.
+ * Standardauswahl scharfer Zähne: im Originalmodell eine Anzahl zwischen min und max
+ * (je nach Gebiss), im klassischen Modell genau einer. MAX_LIVE_TEETH bleibt die
+ * harte Obergrenze — kein Gebiss dieser Spielzeug-Reihe hat mehr als drei.
  */
 export class UniformLiveTeethSelector implements LiveTeethSelector {
-  select(rng: RandomSource, teeth: number, mode: RandomMode): number[] {
-    const count = mode === 'classic' ? 1 : 1 + rng.uniformInt(MAX_LIVE_TEETH);
+  select({ rng, teeth, mode, min, max }: LiveTeethRequest): number[] {
+    const lowest = Math.max(1, Math.min(min, teeth, MAX_LIVE_TEETH));
+    const highest = Math.max(lowest, Math.min(max, teeth, MAX_LIVE_TEETH));
+    const count = mode === 'classic' ? 1 : lowest + rng.uniformInt(highest - lowest + 1);
     return sampleDistinct(rng, teeth, count);
   }
 }
+
+/** Bequemer Aufruf für Aufrufer, die nur die harten Grenzen brauchen. */
+export function defaultLimits(): { min: number; max: number } {
+  return { min: 1, max: MAX_LIVE_TEETH };
+}
+
+export type { LiveTeethRequest, LiveTeethSelector, RandomMode, RandomSource };

@@ -6,6 +6,8 @@ export interface RoundRecord {
   round: number;
   /** Zeitpunkt der Runde (ISO 8601). */
   playedAt: string;
+  /** Gebiss, mit dem gespielt wurde (Kennung aus dem Katalog). */
+  creature: string;
   teeth: number;
   mode: RandomMode;
   players: number;
@@ -21,4 +23,4 @@ export interface RoundRecord {
 
 /** Spaltenköpfe des Austauschformats; die ersten drei sind mit dem Analyse-Werkzeug identisch. */
 export const CSV_HEADER =
-  'runde;reihenfolge;verlierer_zahn;modus;zaehne;spieler;druck_nummer;scharfe_zaehne;zeitpunkt';
+  'runde;reihenfolge;verlierer_zahn;modus;zaehne;spieler;druck_nummer;scharfe_zaehne;lebewesen;zeitpunkt';

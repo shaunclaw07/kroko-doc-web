@@ -21,6 +21,7 @@ const FOLDER_LAYER: Readonly<Record<string, Layer>> = {
   'infrastructure/storage': 'infrastructure',
   'infrastructure/testing': 'infrastructure',
   'presentation/game': 'presentation',
+  'presentation/game/creatures': 'presentation',
   'presentation/stats': 'presentation',
 };
 

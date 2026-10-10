@@ -1,5 +1,13 @@
-import { DEFAULT_MODE, DEFAULT_PLAYERS, type RandomMode } from '../../core/domain/teeth';
+import { DEFAULT_CREATURE_ID, isKnownCreature } from '../../core/domain/creature';
+import {
+  DEFAULT_MODE,
+  DEFAULT_PLAYERS,
+  isValidToothCount,
+  type RandomMode,
+} from '../../core/domain/teeth';
 import type { StorageLike } from './localStorageLog';
+
+export type { StorageLike };
 
 export const SETTINGS_KEY = 'kroko-doc-web:settings:v1';
 
@@ -8,6 +16,13 @@ export interface GameSettings {
   players: number;
   sound: boolean;
   vibration: boolean;
+  /** Gewähltes Lebewesen (Kennung aus dem Katalog). */
+  creature: string;
+  /**
+   * Abweichende Zahl drückbarer Zähne. `null` heißt: so viele Zähne, wie das Lebewesen
+   * im Katalog vorsieht (Krokodil 10, Wolf 12, Mensch 12).
+   */
+  teethOverride: number | null;
 }
 
 export const DEFAULT_SETTINGS: GameSettings = {
@@ -15,6 +30,8 @@ export const DEFAULT_SETTINGS: GameSettings = {
   players: DEFAULT_PLAYERS,
   sound: true,
   vibration: true,
+  creature: DEFAULT_CREATURE_ID,
+  teethOverride: null,
 };
 
 export function loadSettings(storage: StorageLike | null): GameSettings {
@@ -37,6 +54,15 @@ export function loadSettings(storage: StorageLike | null): GameSettings {
       players: Math.min(4, Math.max(1, players)),
       sound: candidate.sound !== false,
       vibration: candidate.vibration !== false,
+      // Ein unbekanntes Lebewesen (alte Fassung, Tippfehler) wird zum Krokodil.
+      creature: isKnownCreature(String(candidate.creature ?? ''))
+        ? String(candidate.creature)
+        : DEFAULT_CREATURE_ID,
+      // Nur gültige Zahnzahlen übernehmen; alles andere fällt auf den Tier-Standard zurück.
+      teethOverride:
+        typeof candidate.teethOverride === 'number' && isValidToothCount(candidate.teethOverride)
+          ? candidate.teethOverride
+          : null,
     };
   } catch {
     return { ...DEFAULT_SETTINGS };

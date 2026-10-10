@@ -1,4 +1,6 @@
+import { DEFAULT_CREATURE_ID, getCreature } from './creature';
 import {
+  creatureKWeights,
   expectedPresses as modelExpectedPresses,
   modeKWeights,
   pressPositionDistribution,
@@ -232,7 +234,14 @@ const AUTOCORRELATION_LAGS: readonly number[] = [1, 2, 3, 4, 5, 6];
  * ehrlicher als eine Aussage auf zu duennem Datenfundament.
  */
 export function analyseSession(
-  rounds: readonly { mode: RandomMode; teeth: number; loserTooth: number; pressIndex: number }[],
+  rounds: readonly {
+    mode: RandomMode;
+    teeth: number;
+    loserTooth: number;
+    pressIndex: number;
+    /** Gebiss der Runde; fehlt es (Altdaten), gilt das Krokodil. */
+    creature?: string;
+  }[],
   minSample = DEFAULT_MIN_SAMPLE,
 ): SessionReport {
   const sample = rounds.length;
@@ -246,7 +255,8 @@ export function analyseSession(
   const countsByTooth = countBy(loserTeeth, teeth);
   const countsByPressIndex = countBy(pressIndices, teeth);
 
-  const model = pressPositionDistribution(teeth, modeKWeights(mode));
+  const creature = getCreature(rounds[0]?.creature ?? DEFAULT_CREATURE_ID);
+  const model = pressPositionDistribution(teeth, creatureKWeights(creature, mode));
 
   const toothTest = enough ? chiSquareGoodnessOfFit(countsByTooth, 'uniform') : null;
   const pressIndexTest = enough ? chiSquareGoodnessOfFit(countsByPressIndex, 'uniform') : null;
