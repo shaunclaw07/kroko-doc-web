@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 10.10.2026): `pnpm install` läuft durch, 157 Tests grün, Bau fertig in 2,12 s.
+frei, 10.10.2026): `pnpm install` läuft durch, 156 Tests grün, Bau fertig in 2,11 s.
 
 ### Die drei Befehle
 
@@ -91,7 +91,7 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **157 Tests in 16 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **156 Tests in 16 Dateien**, alle grün |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
 
@@ -134,10 +134,10 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **157 in 16 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **156 in 16 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `webAudioEngine`-Muster; Test in `gameController.test.ts` |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,12 s | `pnpm build` in einem frischen Klon |
+| Produktionsbau | 2 Seiten, 2,11 s | `pnpm build` in einem frischen Klon |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
