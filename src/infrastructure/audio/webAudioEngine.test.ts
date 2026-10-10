@@ -1,7 +1,40 @@
-import { describe, expect, it } from 'vitest';
-import { WebAudioEngine } from './webAudioEngine';
+import { afterEach, describe, expect, it } from 'vitest';
+import { WebAudioEngine, createBrowserAudioContext } from './webAudioEngine';
 import type { WebAudioEngineOptions } from './webAudioEngine';
 import { FakeAudioContext } from '../testing/fakeAudioContext';
+
+describe('createBrowserAudioContext', () => {
+  const scope = globalThis as { AudioContext?: unknown; webkitAudioContext?: unknown };
+  const before = scope.AudioContext;
+  const beforeWebkit = scope.webkitAudioContext;
+
+  afterEach(() => {
+    scope.AudioContext = before;
+    scope.webkitAudioContext = beforeWebkit;
+  });
+
+  it('nimmt den unpräfixierten AudioContext', () => {
+    scope.webkitAudioContext = undefined;
+    scope.AudioContext = FakeAudioContext;
+    expect(createBrowserAudioContext()).toBeInstanceOf(FakeAudioContext);
+  });
+
+  it('fällt auf webkitAudioContext zurück (altes iOS, manche WebViews)', () => {
+    scope.AudioContext = undefined;
+    scope.webkitAudioContext = FakeAudioContext;
+    expect(createBrowserAudioContext()).toBeInstanceOf(FakeAudioContext);
+  });
+
+  it('liefert null, wenn der Konstruktor wirft', () => {
+    scope.webkitAudioContext = undefined;
+    scope.AudioContext = class {
+      constructor() {
+        throw new Error('kein Audio erlaubt');
+      }
+    };
+    expect(createBrowserAudioContext()).toBeNull();
+  });
+});
 
 /** Baut eine Engine auf einem frischen Fake-Kontext — so gehören alle Logs zu diesem Klang. */
 function makeEngine(options: WebAudioEngineOptions = {}): { engine: WebAudioEngine; audio: FakeAudioContext } {

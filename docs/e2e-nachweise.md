@@ -7,7 +7,7 @@ Alle Nachweise stammen aus ausgeführten Kommandos (Oktober 2026).
 | Kommando | Ergebnis |
 |---|---|
 | `pnpm typecheck` (`tsc --noEmit`) | keine Fehler (Ausgabe `TSC_OK`) |
-| `pnpm test:run` (`vitest run`) | **101 Tests in 12 Dateien bestanden**, 4,10 s |
+| `pnpm test:run` (`vitest run`) | **104 Tests in 12 Dateien bestanden** |
 | `pnpm build` | 2 Seiten gebaut in 2,49 s; `dist/index.html`, `dist/statistik/index.html` |
 
 ## 2. Bedienungssonde (jsdom)
@@ -44,7 +44,14 @@ gedrückte Zähne sitzen im Kiefer.
 Rechnerische Kontrolle: bei −6,49 Grad trifft die Unterkante des Oberkiefers die
 Zahnfleischlinie exakt; das Stylesheet nutzt −7 Grad.
 
-## 6. Offene Punkte (ehrlich benannt)
+## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
+
+| Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
+|---|---|---|
+| `Math.lgamma` fehlt in Node 26 | `node -e "console.log(typeof Math.lgamma)"` → `undefined` | bestätigt; die Statistik nutzt deshalb eine eigene Lanczos-Näherung |
+| Die Klangmaschine liest nur `window.AudioContext` | `sed -n '66,92p' src/infrastructure/audio/webAudioEngine.ts` | bestätigt; daraufhin Rückfall auf `webkitAudioContext` ergänzt (altes iOS) und mit drei Tests belegt |
+
+## 7. Offene Punkte (ehrlich benannt)
 
 - **Kein echter Browser im Baum verfügbar** (kein Chrome, kein Playwright). Verhalten ist
   damit in jsdom und über gerenderte Standbilder belegt, nicht in einem Browser.

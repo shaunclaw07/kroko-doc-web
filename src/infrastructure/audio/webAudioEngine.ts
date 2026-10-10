@@ -67,13 +67,15 @@ export interface WebAudioEngineOptions {
  * Liefert null, wenn es keinen Browser-Audio-Kontext gibt.
  */
 export function createBrowserAudioContext(): AudioContextLike | null {
-  if (typeof window === 'undefined') return null;
-  const ctor = window.AudioContext;
+  // Einziger Cast im Modul: der Browser-eigene AudioContext erfüllt die strukturelle
+  // Schnittstelle zur Laufzeit, ist ohne DOM-Kontext aber nicht so deklariert. Über
+  // globalThis, damit derselbe Zugriff auch das webkit-Präfix erfassen kann (altes iOS
+  // und manche WebViews liefern nur window.webkitAudioContext).
+  const scope = globalThis as { AudioContext?: new () => AudioContextLike; webkitAudioContext?: new () => AudioContextLike };
+  const ctor = scope.AudioContext ?? scope.webkitAudioContext;
   if (typeof ctor !== 'function') return null;
   try {
-    // Der Browser-eigene AudioContext erfüllt die strukturelle Schnittstelle zur Laufzeit,
-    // ist ohne DOM-Nodes-Kontext aber nicht direkt als AudioContextLike deklariert.
-    return new ctor() as unknown as AudioContextLike;
+    return new ctor();
   } catch {
     return null;
   }
