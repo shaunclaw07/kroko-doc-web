@@ -66,6 +66,12 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Muster sind Absicht:** 24 ms kurz vor dem Biss, dann `[120, 50, 220]` für das Zuschnappen
   (`BITE_VIBRATION_PATTERN`). Kurze Stöße unter ~20 ms setzen manche Geräte gar nicht um.
 - Vibration ist ein Extra: Fehler daraus werden geschluckt, das Spiel darf davon nie anhalten.
+- **Belegte Grenzen der Schnittstelle** (MDN, `Navigator.vibrate`, Stand 30.11.2025): sie verlangt
+  keine Berechtigung (Chrome hat deshalb *keine* Website-Einstellung dafür) und nur „sticky user
+  activation" — ein einziger früherer Fingertipp genügt. Zurückhalten können sie der Stumm- bzw.
+  Nicht-stören-Modus und eine abgeschaltete Systemvibration. Safari auf iOS kennt sie nicht.
+  Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — dafür ist der
+  Prüfknopf „Vibration testen" da.
 
 ## Vier Fallen, die Zeit kosten
 
