@@ -40,7 +40,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
     liveTeethMin: 1,
     liveTeethMax: 2,
     realTeeth: 42,
-    note: 'Zwei lange Fangzähne und vier breite Backenzähne, aber nur 1–2 scharfe Zähne: der Biss kommt selten, dann sitzt er.',
+    note: 'Zwei lange Fangzähne und drei breite Schneidezähne, aber nur 1–2 scharfe Zähne: der Biss kommt selten, dann sitzt er.',
   },
   {
     id: 'human',
@@ -99,7 +99,27 @@ export const CREATURES: readonly CreatureDefinition[] = [
     liveTeethMax: 2,
     // 30 Zähne (I 3/3, C 1/1, P 3/2, M 1/1) — weniger als der Wolf, dafür zwei lange Fangzähne.
     realTeeth: 30,
-    note: 'Mähne, zwei lange Fangzähne und vier breite Backenzähne: der König beißt selten zu, dann aber richtig.',
+    note: 'Mähne, zwei lange Fangzähne und drei breite Schneidezähne: der König beißt selten zu, dann aber richtig.',
+  },
+  {
+    id: 'panther',
+    name: 'Panther',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Schwarzer Panther = melanistische Form des Leoparden, 30 Zähne (I 3/3, C 1/1, P 3/2, M 1/1).
+    realTeeth: 30,
+    note: 'Vier Fangzähne, je einer oben und unten links und rechts: die Raubkatze beißt selten zu, dann aber richtig.',
+  },
+  {
+    id: 'sabertooth',
+    name: 'Säbelzahntiger',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Smilodon hatte 26 bis 28 Zähne — der untere Wert steht hier, die Spanne in der Notiz.
+    realTeeth: 26,
+    note: 'Zwei Säbel oben und zwei kurze Eckzähne unten: der längste Zahn im Spiel ist fast doppelt so lang wie der Fangzahn des Löwen.',
   },
 ];
 

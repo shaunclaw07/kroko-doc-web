@@ -59,13 +59,13 @@ export const pandaArtwork: CreatureArtwork = {
     '<circle cx="462" cy="172" r="5" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
-      // Panda: breite Mahlzaehne aussen, zwei kraeftige flache Zaehne an der Maulmitte,
-      // dazwischen zwei kurze Eckzaehne -- ein Baer behaelt sie, ein Bambusfresser zeigt sie kaum.
-      const front = Math.floor(count / 2);
-      if (index === front - 1 || index === front) {
+      // Zwei kraeftige flache Zaehne in der Mitte des Unterkiefers (Zahn 0 ist die Ringmitte
+      // unten), zwei kurze Eckzaehne gespiegelt daneben (i <-> count - i), alles andere breite
+      // Mahlzaehne -- ein Baer behaelt die Eckzaehne, ein Bambusfresser zeigt sie kaum.
+      if (index === 0 || index === 1 || index === count - 1) {
         return { kind: 'flat' as const, length: 48, width: 46 };
       }
-      if (index === 2 || index === count - 3) {
+      if (index === 2 || index === count - 2) {
         return { kind: 'cone' as const, length: 50, width: 34 };
       }
       return { kind: 'square' as const, length: 44, width: 44 };

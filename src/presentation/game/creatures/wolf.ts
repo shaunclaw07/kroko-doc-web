@@ -44,12 +44,17 @@ export const wolfArtwork: CreatureArtwork = {
     '<ellipse cx="528" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
-      // Wolf: oben vier breite Backenzaehne, links und rechts je ein langer Fangzahn,
-      // dazwischen und unten flache Schneidezaehne.
-      if (index <= 1 || index >= count - 2) {
+      // Wolf: drei breite Schneidezaehne in der Mitte des Unterkiefers, links und rechts je ein
+      // langer Fangzahn, dazwischen und oben flache Schneidezaehne.
+      // Gespiegelt wird ueber die Ringmitte: der Zwilling von Index i ist count - i (Zahn 0 sitzt
+      // genau in der Ringmitte unten, Zahn count/2 oben -- deshalb nicht count - 1 - i).
+      // Drei breite Schneidezaehne in der Mitte des Unterkiefers, die zwei langen Fangzaehne
+      // daneben. Jede Gruppe ist in sich symmetrisch, sonst sitzt ein Zahn hoeher als sein
+      // Gegenueber.
+      if (index === 0 || index === 1 || index === count - 1) {
         return { kind: 'square' as const, length: 46, width: 44 };
       }
-      if (index === 2 || index === count - 3) {
+      if (index === 2 || index === count - 2) {
         return { kind: 'cone' as const, length: 72, width: 38 };
       }
       return { kind: 'flat' as const, length: 44, width: 33 };

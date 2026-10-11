@@ -86,12 +86,18 @@ export const lionArtwork: CreatureArtwork = {
     '<circle cx="462" cy="148" r="6" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
-      // Loewe: oben vier breite Backenzaehne, links und rechts je ein langer Fangzahn (wie beim
-      // Wolf), dazwischen und unten flache Schneidezaehne -- nur 30 echte Zaehne, aber die beissen zu.
-      if (index <= 1 || index >= count - 2) {
+      // Loewe: drei breite Schneidezaehne in der Mitte des Unterkiefers, links und rechts je ein
+      // langer Fangzahn (wie beim Wolf), dazwischen und oben flache Zaehne -- nur 30 echte Zaehne,
+      // aber die beissen zu.
+      // Gespiegelt wird ueber die Ringmitte: der Zwilling von Index i ist count - i (Zahn 0 sitzt
+      // genau in der Ringmitte unten, Zahn count/2 oben -- deshalb nicht count - 1 - i).
+      // Drei breite Schneidezaehne in der Mitte des Unterkiefers, die zwei langen Fangzaehne
+      // daneben. Jede Gruppe ist in sich symmetrisch, sonst sitzt ein Zahn hoeher als sein
+      // Gegenueber.
+      if (index === 0 || index === 1 || index === count - 1) {
         return { kind: 'square' as const, length: 46, width: 48 };
       }
-      if (index === 2 || index === count - 3) {
+      if (index === 2 || index === count - 2) {
         return { kind: 'cone' as const, length: 74, width: 40 };
       }
       return { kind: 'flat' as const, length: 40, width: 30 };

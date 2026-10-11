@@ -5,6 +5,8 @@ import { humanArtwork } from './human';
 import { lionArtwork } from './lion';
 import { mouseArtwork } from './mouse';
 import { pandaArtwork } from './panda';
+import { pantherArtwork } from './panther';
+import { sabertoothArtwork } from './sabertooth';
 import { sharkArtwork } from './shark';
 import { vampireArtwork } from './vampire';
 import { wolfArtwork } from './wolf';
@@ -26,6 +28,8 @@ export const ARTWORKS: Readonly<Record<string, CreatureArtwork>> = {
   vampire: vampireArtwork,
   panda: pandaArtwork,
   lion: lionArtwork,
+  panther: pantherArtwork,
+  sabertooth: sabertoothArtwork,
 };
 
 /**

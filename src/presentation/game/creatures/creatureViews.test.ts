@@ -162,11 +162,12 @@ describe('Zeichnungen der Lebewesen', () => {
       }
     }
     // Belegter Stand (11.10.2026, gerechnet mit dieser Geometrie): bei 12 Zähnen reicht der Abstand
-    // auf 285 px bei sieben der acht Lebewesen nicht — nur das Krokodil hat einen so großen Ring,
+    // auf 285 px bei neun der zehn Lebewesen nicht — nur das Krokodil hat einen so großen Ring,
     // dass es die Vorgabe überall schafft. Bei 11 Zähnen bleiben nur die zwei engsten Ringe übrig
     // (Maus und Vampir). Panda und Löwe kamen am 11.10.2026 dazu: der Panda-Ring stand zuerst auf
     // rx 195 und fiel damit auch bei 11 Zähnen unter die Vorgabe; er ist auf die Breite des
-    // Löwen-Rings (200) gebracht worden, damit die Ausnahme nicht ohne Not wächst.
+    // Löwen-Rings (200) gebracht worden, damit die Ausnahme nicht ohne Not wächst. Panther und
+    // Säbelzahntiger tragen denselben Ring (rx 200) und stehen deshalb ebenfalls in der Liste.
     expect(knapp).toEqual([
       'wolf/12',
       'human/12',
@@ -177,6 +178,8 @@ describe('Zeichnungen der Lebewesen', () => {
       'vampire/12',
       'panda/12',
       'lion/12',
+      'panther/12',
+      'sabertooth/12',
     ]);
   });
 

@@ -5,15 +5,15 @@ Reihenfolge nennt das README in der Bildunterschrift):
 
     pnpm vitest run src/render-probe.test.ts          # schreibt je Lebewesen ein SVG
     uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \\
-        crocodile wolf human shark mouse vampire panda lion
+        crocodile wolf human shark mouse vampire panda lion panther sabertooth
 
 Zwei Fallen stecken darin, beide hier geloest:
 
   * **Doppelte Beschnitt-Kennungen.** Jedes Zeichnungs-SVG bringt `clipPath id="creature-clip"`
-    mit. Achtmal dieselbe Kennung im selben Dokument heisst: alle acht Tiere werden mit dem
+    mit. Zehnmal dieselbe Kennung im selben Dokument heisst: alle zehn Tiere werden mit dem
     Kopfumriss des **ersten** zugeschnitten. Die Kennung bekommt deshalb je Kachel den Namen des
     Lebewesens.
-  * **Der Stil stand achtmal im Dokument.** Die Farbregeln kommen aus dem Stylesheet
+  * **Der Stil stand zehnmal im Dokument.** Die Farbregeln kommen aus dem Stylesheet
     (`artwork-png.py` zieht sie heraus). Sie werden einmal an den Anfang gesetzt und aus den
     Kacheln entfernt.
 
@@ -24,15 +24,30 @@ Umrechnung existiert nur einmal im Baum.
 from __future__ import annotations
 
 import importlib.util
+import math
 import sys
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
-# Vier Spalten mal zwei Zeilen; die Kachelgroesse haelt das Seitenverhaeltnis der Buehne
-# (640 x 460) ein, damit nichts verzerrt wird.
-COLUMNS = 4
-TILE_WIDTH = 492
-TILE_HEIGHT = round(TILE_WIDTH * 460 / 640)
+# Zielbreite des Bildes (bisher vier Kacheln zu 492 px). Die Spaltenzahl wird aus der Anzahl der
+# Lebewesen **gerechnet**, damit keine leere Kachel im Bild steht: die kleinste Teilerzahl ab der
+# Wurzel (10 -> 5 Spalten zu 2 Zeilen, 8 -> 4 zu 2, 12 -> 4 zu 3). Ist die Zahl prim (7), bleibt
+# es bei der Wurzel und die letzte Zeile hat Luecken -- besser als ein Streifen leerer Kacheln.
+TARGET_WIDTH = 1968
+# Seitenverhaeltnis der Buehne (640 x 460) einhalten, damit nichts verzerrt wird.
+ASPECT = 460 / 640
+
+
+def layout(count: int) -> tuple[int, int, int]:
+    """Spalten, Kachelbreite und Kachelhoehe fuer `count` Lebewesen."""
+    columns = math.isqrt(count)
+    if columns * columns < count:
+        columns += 1
+    teilbar = [wert for wert in range(columns, count) if count % wert == 0]
+    if teilbar:
+        columns = teilbar[0]
+    tile_width = round(TARGET_WIDTH / columns)
+    return columns, tile_width, round(tile_width * ASPECT)
 
 
 def load_artwork_png():  # noqa: ANN201 - Rueckgabe ist das geladene Modul
@@ -54,7 +69,9 @@ def svg_dir() -> Path:
     return Path(os.environ.get("TMPDIR") or tempfile.gettempdir()) / "zahn_agent-artwork"
 
 
-def tile(markup: str, creature: str, index: int) -> tuple[str, str]:
+def tile(
+    markup: str, creature: str, index: int, columns: int, tile_width: int, tile_height: int
+) -> tuple[str, str]:
     """Eine Kachel: eigene Beschnitt-Kennung, eigene Lage, ohne den zweiten Stilblock."""
     markup = markup.replace("creature-clip", f"creature-clip-{creature}")
     style_start = markup.find("<style>")
@@ -62,13 +79,13 @@ def tile(markup: str, creature: str, index: int) -> tuple[str, str]:
     style = markup[style_start : style_end + len("</style>")] if style_start >= 0 else ""
     markup = markup.replace(style, "") if style else markup
 
-    column = index % COLUMNS
-    row = index // COLUMNS
-    x = column * TILE_WIDTH
-    y = row * TILE_HEIGHT
+    column = index % columns
+    row = index // columns
+    x = column * tile_width
+    y = row * tile_height
     sized = markup.replace(
         "<svg ",
-        f'<svg x="{x}" y="{y}" width="{TILE_WIDTH}" height="{TILE_HEIGHT}" ',
+        f'<svg x="{x}" y="{y}" width="{tile_width}" height="{tile_height}" ',
         1,
     )
     return sized, style
@@ -90,15 +107,16 @@ def main() -> int:
         print(f"(gesucht in {source_dir})")
         return 2
 
-    rows = (len(creatures) + COLUMNS - 1) // COLUMNS
-    width = TILE_WIDTH * min(len(creatures), COLUMNS)
-    height = TILE_HEIGHT * rows
+    columns, tile_width, tile_height = layout(len(creatures))
+    rows = (len(creatures) + columns - 1) // columns
+    width = tile_width * min(len(creatures), columns)
+    height = tile_height * rows
 
     tiles: list[str] = []
     head_style = ""
     for index, name in enumerate(creatures):
         markup = art.prepare((source_dir / f"{name}.svg").read_text(encoding="utf-8"), "offen")
-        sized, style = tile(markup, name, index)
+        sized, style = tile(markup, name, index, columns, tile_width, tile_height)
         tiles.append(sized)
         if index == 0:
             head_style = style

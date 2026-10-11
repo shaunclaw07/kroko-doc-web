@@ -29,7 +29,7 @@ pnpm vitest run src/render-probe.test.ts                     # je Lebewesen ein 
 uv run --with cairosvg python scripts/artwork-png.py \
   "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-  crocodile wolf human shark mouse vampire panda lion         # README-Bild aus allen acht
+  crocodile wolf human shark mouse vampire panda lion panther sabertooth  # README-Bild aus allen zehn
 ```
 
 Beide Schritte liegen im Baum — kein Scratch-Verzeichnis, kein fester Pfad. Den Zustand setzt
@@ -38,8 +38,8 @@ Attribut mit dem Wert, den die App selbst ins SVG schreibt.
 
 Rechnerische Kontrolle der Schließung: Der Oberkiefer fährt beim Zuschnappen um
 `2·ry − Banddicke oben − Banddicke unten` **nach unten** (`--close-shift`, Krokodil 232,0 ·
-Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Panda 220,0 SVG-Einheiten); die Schnauze fährt einen
-Anteil davon mit
+Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · Panther 220,0 · Panda 220,0
+SVG-Einheiten); die Schnauze fährt einen Anteil davon mit
 (`--shell-shift`, Krokodil 143,8). Beide Werte werden gerechnet und stehen im SVG — im Code
 gibt es keinen festen Winkel und keinen festen Weg. Der Zahnring schließt genau, wenn sich die
 Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
@@ -52,7 +52,7 @@ python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
 ```
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit
-`ALTE_WERTE="196|2,29 s|Drei Gebisse"` findet er zusätzlich noch stehende alte Werte. Der zweite
+`ALTE_WERTE="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne"` findet er zusätzlich noch stehende alte Werte. Der zweite
 hält jede in Backticks genannte Pfadangabe gegen das Dateisystem — eine Doku, die auf eine
 verschwundene Datei zeigt, fällt durch keine Zahlenprüfung auf.
 

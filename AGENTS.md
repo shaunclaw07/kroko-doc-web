@@ -3,7 +3,7 @@
 **Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
-bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe),
+bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther, Säbelzahntiger),
 Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
 auswertet und ehrlich sagt, wenn die Daten für eine Aussage zu dünn sind.
 
@@ -43,7 +43,7 @@ pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # beides nacheinander
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-  crocodile wolf human shark mouse vampire panda lion   # README-Bild der Gebisse
+  crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 ```
 
 ## Die Karte in sieben Zeilen

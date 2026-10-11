@@ -344,3 +344,66 @@ Panda-Ring weitet dafür von `rx 195` auf `200` — bei 11 Zähnen fiel die Tref
 `51a9a95`, Läufe `38162562843` und `38162818232` grün) und auf der veröffentlichten Seite gemessen:
 acht Kacheln in Katalogreihenfolge, acht sichtbare Kopfbilder mit acht eigenen Beschnitten
 (`scripts/pruefen-tiere.py`).
+
+## Nachtrag 11.10.2026 (spät): Panther und Säbelzahntiger
+
+Auftrag: „Was könnte man noch für Models hinzufügen? Ich würde gern noch einen Panther noch haben
+wollen. Hast du noch andere coole Ideen?"
+
+**Sparring mit dem Auftraggeber** (drei Fragen in einem Aufruf, jede mit Empfehlung):
+
+1. *Welcher Panther?* → **Schwarzer Panther** (melanistische Form des Leoparden: schwarzes Fell,
+   gelbe Augen) — nicht der gefleckte Leopard.
+2. *Wie viele Zähne und wie viele Fangzähne?* → **12 Zähne, 1–2 scharf, vier Fangzähne** (je einer
+   oben und unten, links und rechts). Das ist der Unterschied zum Löwen, der zwei hat.
+3. *Was zusätzlich?* → **Säbelzahntiger**. Nicht gewählt (notiert, nicht gebaut): Wildschwein,
+   Biber, Faultier. Ideen mit noch **unbelegter** Zahl: Elefant und Piranha.
+
+**Fakten (nachgeschlagen, nicht geschätzt):**
+
+- **Panther/Leopard: 30 Zähne**, Zahnformel I 3/3 · C 1/1 · P 3/2 · M 1/1. Belegt über den
+  Arabischen Leoparden (Feldführer *Mammals of AlUla*: „the dental formula of the Arabian Leopard is
+  'I 3/3, C 1/1, P 3/2, M 1/1'") und *Mammalian Species* zum Löwen („Dental formula is
+  i 3/3, c 1/1, p 3/2, m 1/1, total 30"). Der **schwarze Panther** ist die melanistische Form
+  desselben Tieres (de.wikipedia, *Leopard*: „Der Leopard (Panthera pardus), auch Panther").
+- **Raubkatzen haben vier dolchartige Eckzähne** — „Alle Raubtiere besitzen vier dolchartige
+  Eckzähne, die als Fangzähne zum Ergreifen und Töten der Beute [dienen]". Deshalb zeichnet der
+  Panther **vier** Fangzähne, nicht zwei.
+- **Säbelzahntiger (Smilodon): 26–28 Zähne**, die Säbel ragten „bis zu 20 cm aus dem Kiefer"
+  (de.wikipedia, *Smilodon*); die Art starb vor rund 12.000 Jahren aus.
+
+**Entscheidungen (mit Grund):**
+
+1. **Hinten anhängen** — die acht abgenommenen Zeichnungen samt ihrer Kachelposition bleiben
+   unangetastet (… Vampir, Panda, Löwe, **Panther**, **Säbelzahntiger**).
+2. **Der Panther unterscheidet sich durch die Zahl der Fangzähne**, nicht durch die Spielwerte
+   (12 Zähne, 1–2 scharf wie der Löwe). Vier Kegel: zwei im Oberkiefer (links, rechts), zwei im
+   Unterkiefer — anatomisch richtig und im Bild sofort zu sehen.
+3. **Der Säbelzahntiger bekommt zwei sehr lange Zähne**, aber innerhalb der Kopfsilhouette — was
+   darüber hinausragt, würde der Beschnitt beim Zuschnappen abschneiden.
+4. **Kein Kern, keine Dramaturgie, kein Protokoll** — zwei Katalogeinträge und zwei Zeichenmodule.
+
+**Ergebnis (11.10.2026, spät):**
+
+- Zwei Katalogeinträge (`panther`, `sabertooth`), zwei Zeichnungsmodule, eine Zeile je Modul in
+  `ARTWORKS`. Gate **234 Tests in 19 Dateien** (vorher 232).
+- **Im erzeugten SVG gemessen** (nicht geschätzt): Panther 12 Zähne (4 Kegel · 2 quadratische ·
+  6 flache) · Schließweg 220,0 · Schnauzenweg 121,0 · Trefferradius 46,0 (exakt 41,01 px auf 285 px
+  Bühne, im Markup gerundet 40,97 px). Säbelzahntiger 12 Zähne (4 Kegel · 2 quadratische ·
+  6 flache) · 222,0 · 122,1 · 46,0. Beide sitzen auf dem Ring des Löwen (`rx 200`, `ry 150`).
+- **Ein Fehler in drei alten Zeichnungen gefunden und behoben:** Wolf, Löwe und Panda spiegelten
+  über `count - 1 - i` statt über `count - i`. In diesem Ring sitzt Zahn 0 aber **genau in der Mitte
+  unten** und Zahn `count/2` in der Mitte oben — beide sind ihre **eigenen** Zwillinge, keine
+  Nachbarn. Folge: ein Fangzahn saß auf Index 2, sein Gegenüber auf 9 (also eine Stufe tiefer), und
+  die breite Reihe am Unterkiefer war um einen Platz verschoben (4 Zähne an 0, 1, 10, 11).
+  Jetzt: **3 breite Schneidezähne** in der Mitte (0, 1, `count - 1`), die beiden langen Fangzähne
+  gespiegelt daneben (2, `count - 2`). Der Wortlaut in den Katalog-Notizen und im README ist an die
+  Zeichnung angepasst („drei breite Schneidezähne" statt „vier breite Backenzähne") — im Markup
+  gezählt: Wolf und Löwe 2 Kegel · 3 quadratische · 7 flache.
+- **Galerie auf zehn Kacheln:** `docs/bilder/gebisse.png`, 1970 × 566, 5 Spalten mal 2 Zeilen. Die
+  Spaltenzahl rechnet `scripts/galerie.py` jetzt aus der Anzahl der Lebewesen (kleinste Teilerzahl
+  ab der Wurzel), damit keine leere Kachel im Bild steht.
+- **Angesehen, nicht angenommen:** Panther in drei Fassungen (graue Fellringe wieder entfernt, die
+  Schnauze als sichtbare Fläche, sonst schwebt die Nase), Säbelzahntiger (Säbel bleiben im Umriss,
+  beim Zuschnappen hängt nichts daneben), Löwe und Wolf (Maul jetzt spiegelbildlich), Galerie
+  (zehn Kacheln, jede vollständig) und beide neuen im Zustand „geschnappt".

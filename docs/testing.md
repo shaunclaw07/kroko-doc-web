@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 232 (19 Dateien) |
+| Tests | 234 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–2,5 s (Maschinenstreuung) |
 
@@ -63,7 +63,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Das README-Bild der Gebisse entsteht aus denselben SVGs — als Skript im Baum, nicht von Hand:
    ```bash
    uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-     crocodile wolf human shark mouse vampire panda lion    # Reihenfolge = Katalogreihenfolge
+     crocodile wolf human shark mouse vampire panda lion panther sabertooth  # Reihenfolge = Katalogreihenfolge
    ```
 4. **Symbolsonde** — das App-Symbol entsteht aus der Zeichnung und wird angesehen:
    ```bash
@@ -102,8 +102,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
    zählt dieselben Kennungen im ausgelieferten Bündel:
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
-   die veröffentlichte Seite). Erwartet: acht Kacheln in Katalogreihenfolge, acht sichtbare
-   Kopfbilder, acht eigene Beschnitte, kein Tiername fehlt (Exit 0).
+   die veröffentlichte Seite). Erwartet: zehn Kacheln in Katalogreihenfolge, zehn sichtbare
+   Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0).
 
 ## Zwei Regeln für Zeitgeber in Sonden
 
