@@ -265,3 +265,6 @@ Entscheidungen nehmen." — umgesetzt:
   in **einer** Umleitung erreicht — keine Schleife. Nebenwirkung geprüft: die anderen proxied
   Subdomains antworten weiter `200` über `https` und leiten `http` nun ebenfalls um; die
   DNS-only-Wildcard `*.schaflabs.com` löst unverändert direkt auf `192.168.0.240` auf.
+  Auch der alte Lesezeichen-Link endet damit auf `https`: `https://shaunclaw07.github.io/zahn_agent/`
+  → zwei Umleitungen → `https://zahn-agent.schaflabs.com/` **200** (Titel „Zahn Agent — Zahn für Zahn
+  zum Nervenkitzel"), gemessen 12:12 Uhr.
