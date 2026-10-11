@@ -20,6 +20,10 @@ Stand vom 10.10. und bleiben stehen.
 **166 Tests in 17 Dateien**, `pnpm build` 2 Seiten in 2,09 s im frischen Klon (Arbeitsbaum 2,26 s). Die Zeichnungs-Sonde
 schreibt jetzt sechs SVGs — je drei Tests für die neuen Lebewesen kommen aus derselben Sonde.
 
+**Nachtrag 11.10.2026, fünfte Fassung** (die Anzeige bekam Worte: Fortschritt, Gefahr, Erklärung,
+siehe Abschnitt 5d): frischer Klon von `main` — 38 Commits, 85 Dateien, `pnpm gate` grün mit
+**196 Tests in 18 Dateien**, `pnpm build` 2 Seiten in **2,29 s**.
+
 **Nachtrag 11.10.2026, vierte Fassung** (der Druck wurde spannend: Pause, Feder und Riss, siehe
 Abschnitt 5c): frischer Klon von `main` — 36 Commits, 82 Dateien, `pnpm gate` grün mit
 **174 Tests in 17 Dateien**, `pnpm build` 2 Seiten in **2,18 s**.
