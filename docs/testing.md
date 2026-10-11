@@ -71,8 +71,11 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    gerechnet) und nachgesehen, ob in ihrer Mitte wirklich der eigene Zahn liegt:
    `pnpm dev --host`, dann
    `uv run --with playwright python scripts/pruefen-trefferflaeche.py` (misst bei 320/360/390 px Blick
-   und prüft mit `document.elementFromPoint`, dass keine Dekoration den Tipp abfängt). Erwartet:
-   44,15 px bei 320 px, und bei **jedem** Zahn der eigene Zahn in der Mitte. Der rechnerische Teil
+   und prüft mit `document.elementFromPoint`, dass keine Dekoration den Tipp abfängt; mit einer
+   Adresse als Argument läuft dieselbe Sonde gegen die veröffentlichte Seite:
+   `… pruefen-trefferflaeche.py https://zahn-agent.schaflabs.com`). Erwartet:
+   44,15 px bei 320 px, und bei **jedem** Zahn der eigene Zahn in der Mitte; die Tippprobe am Ende
+   muss für Zahn 2, 1 und 10 „registriert" melden. Der rechnerische Teil
    (44 px auf der schmalsten Bühne, und wo der Zahnabstand die Grenze ist) steht in
    `creatureViews.test.ts`.
 

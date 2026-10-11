@@ -9,10 +9,11 @@ liefern. Das belegt, dass die größeren Flächen einander nicht überdecken und
 Druck stehlen.
 """
 import json
+import sys
 
 from playwright.sync_api import sync_playwright
 
-BASIS = "http://localhost:4321"
+BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 BREITEN = [320, 360, 390]
 
 MESSEN = """
@@ -73,21 +74,29 @@ with sync_playwright() as p:
         bericht(f"{breite} px, 12 Zähne", seite.evaluate(MESSEN))
         seite.close()
 
-    # Tippprobe: in der Mitte eines Treffers drücken und nachsehen, welcher Zahn es wurde
+    # Tippprobe: in der Mitte eines Treffers drücken und nachsehen, welcher Zahn es wurde.
+    # Zahn 2 und 10 sind die kritischen: dort lag früher das untere Zahnfleischband über der
+    # Trefferfläche, und ein Tipp in ihrer Mitte tat nichts.
     seite = browser.new_page(viewport={"width": 320, "height": 844})
-    seite.goto(f"{BASIS}/", wait_until="load")
-    seite.wait_for_timeout(300)
-    stelle = seite.evaluate("""() => {
-      const hit = document.querySelector('.tooth__hit');
-      const r = hit.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2, zahn: hit.closest('.tooth').dataset.tooth };
-    }""")
-    seite.mouse.click(stelle["x"], stelle["y"])
-    seite.wait_for_timeout(120)
-    gedrueckt = seite.evaluate("""() => {
-      const p = document.querySelector('.tooth.is-pressed') || document.querySelector('.tooth[aria-pressed="true"]');
-      return p ? p.dataset.tooth : null;
-    }""")
-    print(f"Tippprobe bei 320 px: Ziel Zahn {stelle['zahn']} → gedrückt: {gedrueckt} "
-          f"({'richtig' if gedrueckt == stelle['zahn'] else 'FALSCH'})")
+    for ziel in ["2", "1", "10"]:
+        seite.goto(f"{BASIS}/", wait_until="load")
+        seite.wait_for_timeout(250)
+        stelle = seite.evaluate(
+            """(zahn) => {
+              const tooth = document.querySelector(`.tooth[data-tooth="${zahn}"]`);
+              if (!tooth) return null;
+              const r = tooth.querySelector('.tooth__hit').getBoundingClientRect();
+              return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+            }""",
+            ziel,
+        )
+        if stelle is None:
+            print(f"Tippprobe: Zahn {ziel} gibt es nicht")
+            continue
+        vorher = seite.inner_text("#hud-presses")
+        seite.mouse.click(stelle["x"], stelle["y"])
+        seite.wait_for_timeout(150)
+        nachher = seite.inner_text("#hud-presses")
+        print(f"Tippprobe bei 320 px: Zahn {ziel} in der Mitte gedrückt "
+              f"{vorher} → {nachher} ({'registriert' if nachher != vorher else 'TOT'})")
     browser.close()
