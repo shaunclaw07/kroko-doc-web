@@ -868,6 +868,44 @@ ueberarbeiten?" Geworden sind es **Stehkragen und Monokel**, dazu die überarbei
 Die Lehren stehen in `AGENTS.md` („Was über den Umriss hinausragen soll, gehört in die
 Körperebene", „Stehkragen in `body`, Monokel in `face`").
 
+## 5r. Der Säbelzahntiger wird gefleckt — und bekommt Katzentier-Ohren (11.10.2026, nachts)
+
+Auftrag des Auftraggebers: „Kannst du den Geparden auch nochmal überarbeiteten? Die Ohren ähneln der
+Maus Ohren. Vielleicht kannst du auch noch andere Besonderheiten hinzufügen." — **Einen Geparden gibt
+es im Spiel nicht** (die zehn sind Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther,
+Säbelzahntiger). Nachgefragt statt geraten: gemeint war der **Säbelzahntiger** — sandfarben, und
+seine Ohren trugen tatsächlich die Mäuse-Rezeptur.
+
+**Vorher im Bild nachgewiesen:** im Vierervergleich der Köpfe (Maus, Panther, Säbelzahntiger, Löwe)
+waren die Ohren von Maus und Säbelzahntiger nicht zu unterscheiden — beide ein Kreis r 44 mit rosa
+Innenkreis r 20. Der freie Fellstreifen am Außenrand lag bei y 240 bei x 90…119 (gemessen im
+gerasterten PNG, Maßstab 2).
+
+**Neu:**
+
+- **Ohren** als Ellipsen 30 × 28 (statt Kreise 44 × 44), Mitte y 78 statt 60, **dunkle Innenfläche**
+  `#b78243` statt Rosa. Gemessen: Ohr-Innenfläche `(150,78)` = `(183,130,67)`, Ohrfell `(150,56)` =
+  `(217,163,92)`.
+- **Vierzehn Fellflecken** als Rosetten (dunkler Ring, heller Kern), im freien Fell verteilt statt auf
+  einer Linie — gleich große Ringe auf gleicher Höhe waren im Bild eine Perlenkette. Prüfung im
+  gerasterten Bild: Kern an der Position vorhanden, und der Ring über **72 Winkelgrade** abgetastet.
+  Ergebnis: **alle vierzehn** nachgewiesen; vier davon zu 58–66 von 72 Grad — sie liegen am Fellrand,
+  wo der Kopfumriss den Ring anschneidet.
+- **Katzennase** als abgerundetes Dreieck (Nasenspiegel) statt Ellipse, mit dunklem Nasenrücken.
+  Gemessen: Nasenspiegel `(320,105)` = `(125,76,34)`.
+
+**Zwei verworfene Anläufe**, beide nicht am Code, sondern an der Messung bzw. im Bild erkannt:
+
+1. Ein Fleck **auf dem Ohr** war im gerasterten Bild nicht zu finden: die Ohrenfläche wird in der
+   Körperebene **nach** den Flecken gezeichnet und deckte ihn zu. Vierzehn sichtbare statt sechzehn
+   halb unsichtbarer Flecken.
+2. Flecken auf der **Stirn** mit r 12 und r 8 liefen über die Schnauzenkante: der Ring war nur zu 40
+   bzw. 51 von 72 Grad sichtbar, weil der freie Fellstreifen dort nur rund 26 px breit ist (Kopfrand
+   bei x 212, Schnauzenkante bei x 238). Jetzt r 6 bei `(226,82)`/`(414,82)` — Ring 72/72.
+
+Gate **234 Tests in 19 Dateien** grün · beide Zustände gerastert und angesehen · Galerie neu
+(10 Kacheln, 1970 × 566) · Kachel angesehen: Flecken und Ohren sind auch bei 152 px zu erkennen.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

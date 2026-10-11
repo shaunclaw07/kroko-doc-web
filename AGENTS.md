@@ -292,6 +292,21 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   abgeschnitten, und der Kopf soll seine Innenkante verdecken); ein Monokel sitzt *auf* dem Auge und
   bleibt innerhalb des Umrisses, gehört also über die Mundebene. Dieselbe Überlegung wie bei Hut
   (`body`) und Haaren (`face`) des Menschen.
+- **Gleiche Rezeptur, gleiches Tier.** Ein Kreis mit rosa Innenkreis *ist* die Maus: der
+  Säbelzahntiger trug dieselbe Form (Kreis r 44, rosa Kreis r 20), nur etwas kleiner — im
+  Vierervergleich der Köpfe (Maus, Panther, Säbelzahntiger, Löwe) war er nicht zu unterscheiden, und
+  der Auftraggeber hat genau das gelesen. Köpfe unterscheiden sich über **Größe, Form und
+  Innenfarbe zusammen**: kleinere ovale Ohren (30 × 28) mit **dunkler** Innenfläche (`#b78243`) sind
+  Katzentier, große runde Kreise mit Rosa sind Maus. Maus und Löwe dürfen `#e8a0ae` behalten,
+  solange Form und Größe deutlich abweichen.
+- **Ein Fleck gehört dorthin, wo Fell ist — und er muss dort auch wirklich gezeichnet werden.**
+  Die Smilodon-Flecken sitzen als vierzehn Rosetten (Ring mit hellem Kern) nur im freien
+  Fellstreifen; im gerasterten Bild geprüft: Kern an der Position da, Ring über 72 Winkelgrade
+  abgetastet (alle vierzehn nachgewiesen, die vier am Fellrand zu 58–66 von 72 Grad, weil der
+  Kopfumriss sie anschneidet). Zwei Anläufe waren vorher falsch: **auf dem Ohr** (die Ohrenfläche
+  wird in der Körperebene *nach* den Flecken gezeichnet und deckte ihn zu — im Bild nicht zu finden)
+  und **auf der Stirn mit r 12/r 8** (der freie Fellstreifen ist dort nur rund 26 px breit, der Ring
+  lief über die Schnauzenkante; jetzt r 6).
 - **Die Doku-Prüfung nie mit `>/dev/null` laufen lassen.** `scripts/doku-pruefen.sh` meldet Treffer
   alter Werte und **zählt sie nicht als Fund**, solange `ALTE_WERTE_STRIKT=1` fehlt — der Exit-Code
   bleibt 0. So blieb „232 Tests grün" in der Startanleitung stehen, während dieselbe Datei zweimal

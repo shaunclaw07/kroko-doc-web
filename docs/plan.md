@@ -457,3 +457,13 @@ wollen. Hast du noch andere coole Ideen?"
   Gegenprobe: das Unterschieds-Rechteck der Rasterungen ist x 24…616, y 111…396 — nur Kragen, Ohren,
   Monokel; die Maulmitte unten blieb Pixel für Pixel gleich. Nebenbei die Maßstabsangabe korrigiert:
   der Rasterer skaliert **genau 2 ohne Versatz**, meine frühere Näherung war um die Kontur verschoben.
+- **Der Säbelzahntiger wird überarbeitet (Wunsch des Nutzers, 11.10.2026 nachts).** „Kannst du den
+  Geparden auch nochmal überarbeiteten? Die Ohren ähneln der Maus Ohren. Vielleicht kannst du auch
+  noch andere Besonderheiten hinzufügen." **Einen Geparden gibt es im Spiel nicht** — nachgefragt
+  statt geraten, gemeint war der **Säbelzahntiger** (sandfarben, und seine Ohren trugen tatsächlich
+  die Mäuse-Rezeptur: Kreis r 44 mit rosa Innenkreis r 20). Neu: **kleinere ovale Ohren** (30 × 28)
+  mit **dunkler** Innenfläche `#b78243`, **vierzehn Fellflecken** als Rosetten und eine **Katzennase**
+  als abgerundetes Dreieck. Zwei verworfene Anläufe, beide an der Messung erkannt: ein Fleck **auf
+  dem Ohr** wird von der Ohrenfläche zugedeckt, Flecken auf der **Stirn** liefen mit r 12/r 8 über die
+  Schnauzenkante (Ring nur 40 bzw. 51 von 72 Grad sichtbar) — jetzt r 6 mit 72/72. Gate 234/19 grün,
+  Galerie neu, beide Zustände angesehen. Nachweis §5r, Regel in `AGENTS.md`.

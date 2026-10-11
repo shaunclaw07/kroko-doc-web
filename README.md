@@ -130,7 +130,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   (12, 1–2 — Mähne aus Fellbüscheln, zwei lange Fangzähne und drei breite Schneidezähne),
   Panther (12, 1–2 — der melanistische Leopard: schwarzes Fell, gelbe Augen, **vier** Fangzähne,
   je einer oben und unten links und rechts), Säbelzahntiger (12, 1–2 — Smilodon mit zwei Säbeln
-  oben, beim echten Tier bis 20 cm lang). Jedes
+  oben, beim echten Tier bis 20 cm lang, geflecktem Fell und kleinen dunklen Ohren). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
