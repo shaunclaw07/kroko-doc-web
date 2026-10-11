@@ -264,6 +264,10 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   ist dort unsichtbar, nur die Spitze steht heraus. Dazu **Schnurrhaare** in dem schmalen
   Fellstreifen neben dem Maul (auf fast schwarzem Fell brauchen sie einen mittleren Grauton).
   Wer ein neues Tier zeichnet: erst die **Silhouette** unverwechselbar machen, dann das Fell.
+- **Zubehör gehört in die Körperebene.** Ein Hut (oder eine Brille) ragt über den Kopfumriss hinaus —
+  der Gesichtsbereich wird aber auf die Silhouette beschnitten (`factory.ts`, `mouthLayers`), dort
+  wäre die Krone abgeschnitten. Der Panther trägt seinen Filzhut deshalb in `body`. In die Silhouette
+  gehört er nur, wenn ein Maulteil ihn erreicht; dann gilt die Gleichsinnigkeit (Falle oben).
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.

@@ -767,6 +767,18 @@ sie meldete `FEHLER`, obwohl die Seite vollständig war. Der Vergleich läuft je
 Groß-/Kleinschreibung, die Liste folgt dem Katalog, und die Sonde liest zusätzlich die Notiz des
 Panthers.
 
+**Der Hut** (Antwort des Nutzers auf die Frage „Hut oder Brille?", 11.10.2026): ein rostroter Filzhut
+mit Krempe, Krone, Band und Glanzkante, zwischen den Ohren. Er liegt in der **Körperebene**
+(`body`), denn der Gesichtsbereich ist auf die Silhouette beschnitten (Kopf + Ohren) und die Krone
+ragt darüber hinaus — sie wäre dort abgeschnitten. Der Hut reicht bis y 94, das Maul beginnt bei
+y 120; er muss deshalb nicht in die Silhouette aufgenommen werden. Farbwahl gegen die anderen
+Lebewesen geprüft: Gold trägt die Löwenmähne, Blau der Hai, Violett der Vampir, Braun und Hauttöne
+der Mensch. Gemessen im gerasterten PNG: Krone `(320,30)` = `(181,83,63)`, Hutband `(320,58)` =
+`(124,50,39)`, Krempe beidseitig `(240,74)` / `(400,74)` = `(162,71,58)`; Ohren `(140,90)` /
+`(500,90)` = `(90,90,102)` und Augen `(170,166)` / `(470,166)` = `(74,51,32)` unverändert
+symmetrisch. Beide Zustände gerastert und angesehen (Krone vollständig, im Zuschnappen sitzt der Hut
+ruhig), Galerie neu gebaut (1970 × 566, zehn Kacheln), Gate 234 Tests in 19 Dateien grün.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

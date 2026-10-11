@@ -11,8 +11,9 @@ import type { CreatureArtwork } from './types';
  * neben den Schneidezaehnen. Gespiegelt wird ueber den Index: der Zwilling von i ist count - i,
  * fuer 12 Zaehne sind das die Paare (1, 11) und (5, 7).
  *
- * Die Ohren stehen als eigene Kreise im Umriss (wie bei Maus, Panda und Loewe): alles ausserhalb
- * des Kopfumrisses wird weggeschnitten.
+ * Die **spitzen** Ohren sind Teil des Umrisses (wie die runden Ohren von Maus, Panda und Loewe):
+ * alles ausserhalb des Kopfumrisses wird weggeschnitten. Der Hut liegt dagegen in der
+ * Koerperebene, weil seine Krone ueber den Umriss hinausragt.
  *
  * Die Augen tragen einen **gelben** Irisring statt des hellblauen des Spielzeugs -- Kulleraugen
  * bleiben es, aber ein schwarzer Panther mit blauen Augen waere ein anderer Kopf. Die Pupille
@@ -42,6 +43,26 @@ const OHR_RECHTS = 'M 444 150 C 456 116 486 70 512 30 C 524 60 532 120 522 168 Z
 const OHR_LINKS_INNEN = 'M 134 118 C 130 96 132 62 140 40 C 152 62 164 84 170 96 Z';
 const OHR_RECHTS_INNEN = 'M 470 96 C 476 84 488 62 500 40 C 508 62 510 96 506 118 Z';
 
+/**
+ * **Der Hut** (Wahl des Auftraggebers, 11.10.2026, auf die Frage nach einem Hut oder einer
+ * Brille: "Hut"). Ein weicher Filzhut zwischen den Ohren: die Krempe folgt der Kopfwoelbung
+ * (Kopfmitte y 58), die Krone steht darueber frei.
+ *
+ * Er liegt in der **Koerperebene** (`body`) und **nicht** im Gesichtsbereich. Der Gesichtsbereich
+ * wird auf die Silhouette beschnitten (Kopf + Ohren, siehe `factory.ts`, `mouthLayers`), und weil
+ * die Krone ueber den Kopfumriss hinausragt, waere sie dort abgeschnitten. In die Silhouette
+ * gehoert er auch nicht: kein Maulteil reicht bis zur Krone (das Maul beginnt bei y 120, der Hut
+ * endet bei y 94), und jeder weitere Teilpfad im Beschnitt traegt die Gefahr der Gegenlaeufigkeit.
+ *
+ * Die Farbe ist bewusst **Rostrot**: Gold traegt die Maehne des Loewen, Blau der Hai, Violett der
+ * Vampir, Braun und Hauttöne der Mensch -- ein weiterer Braunton haette auf dem schwarzen Fell wie
+ * Fell gewirkt.
+ */
+const HUT_KREMPE =
+  'M 224 74 C 224 61 268 54 320 54 C 372 54 416 61 416 74 C 416 87 372 94 320 94 C 268 94 224 87 224 74 Z';
+const HUT_KRONE = 'M 256 70 C 252 40 282 16 320 16 C 358 16 388 40 384 70 Z';
+const HUT_BAND = 'M 258 64 C 284 52 356 52 382 64';
+
 export const pantherArtwork: CreatureArtwork = {
   silhouette: `${KOPF} ${OHR_LINKS} ${OHR_RECHTS}`,
   body:
@@ -61,7 +82,12 @@ export const pantherArtwork: CreatureArtwork = {
     // Wangen im Fellstreifen zwischen Maul und Kopfrand; bei y 300 ist er breit genug
     // (gemessen: der Maulrand liegt dort bei x 124, der Kopfrand bei x 92).
     '<ellipse cx="106" cy="300" rx="15" ry="10" fill="#f2a8b6" opacity="0.5"/>' +
-    '<ellipse cx="534" cy="300" rx="15" ry="10" fill="#f2a8b6" opacity="0.5"/>',
+    '<ellipse cx="534" cy="300" rx="15" ry="10" fill="#f2a8b6" opacity="0.5"/>' +
+    // Der Hut zuletzt: er liegt ueber Kopf und Ohren (Begruendung oben bei HUT_KREMPE).
+    `<path d="${HUT_KREMPE}" fill="#a2473a" stroke="#2b2b33" stroke-width="3"/>` +
+    `<path d="${HUT_KRONE}" fill="#b5533f" stroke="#2b2b33" stroke-width="3"/>` +
+    `<path d="${HUT_BAND}" fill="none" stroke="#7c3227" stroke-width="11"/>` +
+    '<path d="M 272 44 C 284 30 300 22 316 18" fill="none" stroke="#cf7a63" stroke-width="6" stroke-linecap="round"/>',
   holeFill: '#e58c99',
   inner:
     '<ellipse cx="320" cy="258" rx="122" ry="68" fill="#ef9fab"/>' +
