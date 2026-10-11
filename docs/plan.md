@@ -331,3 +331,16 @@ Wolf und Hai sich auch nur so unterscheiden.
 5. **Das README-Bild wird neu erzeugt** (bisher sechs Gebisse, jetzt acht) und bekommt ein Skript
    im Baum (`scripts/galerie.py`): es war beim letzten Mal von Hand in einem Arbeitsverzeichnis
    gebaut worden — ein Bild, das niemand reproduzieren kann, ist kein Nachweis.
+
+**Ergebnis (11.10.2026, nachts): erledigt und am lebenden Gegenstand belegt.** Drei Fassungen
+gerendert und angesehen; gefunden und behoben: die Löwen-Brauen lagen **auf** den Ohren (entfernt),
+die Wangen lagen auf dem Zahnfleisch und in der zweiten Fassung **außerhalb** des Kopfumrisses (der
+Löwe bekommt keine Wangen — dort ist keine Fellfläche frei, Grund als Kommentar im Modul; der Panda
+bekommt sie ins Gesicht, wo das Maul sie deckt), und die Panda-Linse ließ den Augenfleck wie eine
+**Brille** wirken (kleiner, ohne Linsenrand). Gemessen im erzeugten SVG: Panda Schließweg 220,0 ·
+Schnauzenweg 121,0 · Trefferfläche 40,97 px auf 285 px Bühne; Löwe 222,0 · 122,1 · 40,97 px. Der
+Panda-Ring weitet dafür von `rx 195` auf `200` — bei 11 Zähnen fiel die Trefferfläche sonst unter die
+44-px-Vorgabe. Gate **232 Tests in 19 Dateien** (vorher 230). Veröffentlicht (Commits `71d1524`,
+`51a9a95`, Läufe `38162562843` und `38162818232` grün) und auf der veröffentlichten Seite gemessen:
+acht Kacheln in Katalogreihenfolge, acht sichtbare Kopfbilder mit acht eigenen Beschnitten
+(`scripts/pruefen-tiere.py`).
