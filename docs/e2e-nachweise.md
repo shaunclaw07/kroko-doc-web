@@ -858,6 +858,12 @@ ueberarbeiten?" Geworden sind es **Stehkragen und Monokel**, dazu die überarbei
 - Beide Zustände gerastert und angesehen · Gate **234 Tests in 19 Dateien** grün · Galerie neu
   (10 Kacheln, 1970 × 566) · im Kachelformat (152 px) sind Kragen, Ohrspitzen und Monokel noch
   erkennbar (im Bild geprüft).
+- **Live geprüft** (veröffentlichte Seite, echter Chromium): die Vampir-Kachel ist 152 px breit und
+  enthält 3 Pfade mit der Kragenfarbe `#4a3b5c` (zwei Flügel + Haare, dieselbe Farbe), 2 Elemente mit
+  der Monokelfarbe `#8f86a3` (Ring + Kette) und beide Innenohren `#f6c1c9`; das Blatt hat weiter
+  10 Kacheln, `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` sagt
+  **`ERGEBNIS: in Ordnung`**. Kachel angesehen: Kragen, Ohrspitzen und Monokel sind auch bei 152 px
+  zu erkennen.
 
 Die Lehren stehen in `AGENTS.md` („Was über den Umriss hinausragen soll, gehört in die
 Körperebene", „Stehkragen in `body`, Monokel in `face`").
