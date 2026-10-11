@@ -29,6 +29,33 @@ const HUT_KREMPE =
 const HUT_KRONE = 'M 244 64 C 240 34 276 6 320 6 C 364 6 400 34 396 64 Z';
 const HUT_BAND = 'M 246 58 C 278 45 362 45 394 58';
 
+/**
+ * **Die Haare** unter dem Hut. Der Kopf war kahl -- ausser den Brauen gab es nichts, was am
+ * Menschen an Haare erinnerte (der Auftraggeber: "kann man ggf noch ein weiteres Accessoire was
+ * das Modell noch menschlicher wirken laesst", 11.10.2026). Zwei **Schlaeferlocken**, die unter
+ * der Krempe hervorschauen, machen den Kopf auf einen Blick menschlich.
+ *
+ * Sie liegen im **Gesichtsbereich** (`face`) -- und das ist der Unterschied zum Hut. Die erste
+ * Fassung stand in der Koerperebene, und im gerasterten Bild war unter der Krempe nichts zu sehen:
+ * die *Schnauzenflaeche* des Mundes (`upperShell`, Fuellung `#f7cdaa` -- dieselbe Hautfarbe) wird
+ * in der **Mundebene** gezeichnet, also **nach** der Koerperebene, und deckt dort alles zu
+ * (mit einer Farbkarte gemessen: unter der Krempe lag bis y 110 nur Haut). Der Hut dagegen darf
+ * nicht ins Gesicht: seine Krone ragte sonst ueber den Kopfumriss hinaus, und der Gesichtsbereich
+ * wird auf die Silhouette beschnitten.
+ *
+ * Die **Oberkante** folgt genau der Unterkante der Krempe, damit diese nicht angeschnitten wird.
+ * Die Locken bleiben **aussen** (x 202…276 und 364…438): in der Mitte sitzt die Nase
+ * (`upperExtra`, x 282…358, y 68…112, Nasenloecher bei y 98), und eine durchgehende Franse hat sie
+ * in der ersten Fassung zugedeckt -- im Bild gesehen. Nach unten enden die Locken bei y 116, die
+ * Braue links endet bei x 214 (gemessen im gerenderten Bild: Nasenloecher (302,98) und (338,98)
+ * unveraendert `(192,138,106)`).
+ * Farbe wie die Brauen (`#c79b73`), damit Kopf und Brauen dieselbe Haarfarbe tragen.
+ */
+const HAAR_LOCKE_LINKS =
+  'M 202 66 C 202 78 250 86 276 88 C 268 106 248 118 232 116 C 216 110 206 86 202 66 Z';
+const HAAR_LOCKE_RECHTS =
+  'M 438 66 C 438 78 390 86 364 88 C 372 106 392 118 408 116 C 424 110 434 86 438 66 Z';
+
 export const humanArtwork: CreatureArtwork = {
   silhouette: SILHOUETTE,
   body:
@@ -57,6 +84,10 @@ export const humanArtwork: CreatureArtwork = {
   face:
     '<path d="M 130 126 C 154 112 190 112 214 126" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
     '<path d="M 426 126 C 450 112 486 112 510 126" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
+    // Die Schlaeferlocken im Gesichtsbereich, hinter den Brauen -- sie liegen ueber der
+    // Schnauzenflaeche des Mundes (Begruendung oben bei HAAR_LOCKE_LINKS).
+    `<path d="${HAAR_LOCKE_LINKS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
+    `<path d="${HAAR_LOCKE_RECHTS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
     '<ellipse cx="172" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
     '<ellipse cx="468" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
     '<circle cx="174" cy="161" r="15" fill="#5b86a8" class="pupil"/><circle cx="470" cy="161" r="15" fill="#5b86a8" class="pupil"/>' +

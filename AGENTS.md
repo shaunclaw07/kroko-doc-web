@@ -273,6 +273,13 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   Ich hatte den Hut auf den Panther gesetzt (der Satz nannte beide), und der Nutzer musste
   widersprechen. Bei „dem einen"/„dem anderen" in einer Nachricht mit **zwei** genannten Wesen:
   nachfragen, statt zu raten.
+- **Was über der Schnauzenfläche liegen soll, gehört in den Gesichtsbereich.** Die Schnauzenfläche
+  (`upperShell`) wird in der **Mundebene** über die Körperebene gemalt — beim Menschen in derselben
+  Hautfarbe. Zubehör in `body` verschwindet darunter: die erste Haarfassung war im gerasterten Bild
+  unsichtbar (mit einer Farbkarte gemessen lag unter der Krempe bis y 110 nur Haut), obwohl der Pfad
+  korrekt im SVG stand. Der Hut bleibt trotzdem in `body`, weil seine Krone über den Umriss
+  hinausragt und der Gesichtsbereich beschnitten wird. Also: **Hut in `body`, Haare in `face`** —
+  je nachdem, was die Form braucht, und immer im gerasterten Bild nachsehen.
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.

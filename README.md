@@ -121,7 +121,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
 - **Zehn Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
-  Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
+  Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut und Schläferlocken), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne),
   Panda (12, 1–2 — breite Mahlzähne statt Reißzähne, schwarze Ohren und Augenflecken), Löwe
   (12, 1–2 — Mähne aus Fellbüscheln, zwei lange Fangzähne und drei breite Schneidezähne),

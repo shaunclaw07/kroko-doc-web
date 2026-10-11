@@ -781,6 +781,22 @@ Panther: an denselben Stellen `(16,28,34)` = Hintergrund (kein Rest), Nase `(320
 entfernt, Menschenkrone vollständig, im Zuschnappen unverändert —, Galerie neu gebaut, Gate 234 Tests
 in 19 Dateien grün.
 
+**Die Schläferlocken** (Wunsch des Nutzers: „kann man ggf noch ein weiteres Accessoire was das Modell
+noch menschlicher wirken lässt", 11.10.2026): zwei Locken unter der Krempe, in der Farbe der Brauen
+(`#c79b73`). Die erste Fassung lag in der **Körperebene** und war **im gerasterten Bild unsichtbar**,
+obwohl der Pfad im SVG stand — die Schnauzenfläche des Mundes (`upperShell`, Füllung `#f7cdaa`, also
+dieselbe Hautfarbe) wird in der **Mundebene** über die Körperebene gemalt; mit einer Farbkarte
+gemessen lag unter der Krempe bis y 110 nur Haut. Zweite Fassung im Gesichtsbereich, Oberkante auf
+der Unterkante der Krempe: Locken sichtbar (`(232,112)` und `(408,112)` = `(199,155,115)`,
+symmetrisch), Nase frei (Nasenlöcher `(302,98)` / `(338,98)` = `(192,138,106)`), Braue `(172,116)`
+und Auge `(172,158)` = Weiß unverändert.
+
+**Nebenbei ein Messfehler, der beinahe falsche Schlüsse erzeugt hätte:** der Rasterer legt den
+**viewBox `0 0 640 460`** zugrunde (PNG 1280 × 920), nicht 640 × 640. Meine „×2"-Proben saßen nur
+zufällig fast richtig; die belastbare Abbildung lautet `X = 118 + (x − 62) · 2,0194` und
+`Y = 10 + (y − 6) · 2,0091`, bestimmt aus dem Umriss der Zeichnung im PNG. Wer Pixelproben macht,
+leitet den Maßstab erst aus dem Bild ab.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

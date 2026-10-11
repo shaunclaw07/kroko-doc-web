@@ -428,3 +428,12 @@ wollen. Hast du noch andere coole Ideen?"
   wäre sie abgeschnitten. Beide Zustände beider Zeichnungen gerastert und angesehen (Pantherhut
   restlos entfernt, Menschenkrone vollständig), Galerie neu gebaut, Gate grün. **Lehre:** bei „dem
   einen" in einer Nachricht mit zwei genannten Wesen nachfragen, statt zu raten.
+- **Die Schläferlocken (Wunsch des Nutzers, 11.10.2026).** „kann man ggf noch ein weiteres
+  Accessoire was das Modell noch menschlicher wirken lässt" — der Kopf war kahl, nur die Brauen
+  deuteten Haare an. Zwei Locken unter der Krempe, in der Farbe der Brauen (`#c79b73`). Die erste
+  Fassung lag in der **Körperebene** und war im Bild **unsichtbar**: die Schnauzenfläche des Mundes
+  (`upperShell`, dieselbe Hautfarbe) wird in der Mundebene darüber gemalt — mit einer Farbkarte
+  gemessen. Jetzt im **Gesichtsbereich**, die Oberkante auf der Unterkante der Krempe, und die
+  **Nase in der Mitte frei** gelassen (eine durchgehende Franse hatte sie zugedeckt — im Bild
+  gesehen, mit Pixelproben belegt). Die Regeln stehen in `AGENTS.md`; im Nachweis zusätzlich die
+  richtige Abbildung des Rasters (viewBox `0 0 640 460`, nicht 640 × 640).
