@@ -239,7 +239,7 @@ Entscheidungen nehmen." — umgesetzt:
 | „Der Druck soll spannender werden" (Nutzer, 11.10.2026) | Standbild der neuen Pose gerastert und angesehen | **Eigener Werkzeugfehler gefunden:** der Rasterer setzte die Pose zusätzlich über die Klasse `is-pressing`, und weil cairosvg `transform-origin` nicht kennt, skalierte es die Pupillen-Regel um den Bildursprung — die Pupillen wanderten aus den Augen. Die Pose kommt jetzt vollständig aus Attributen (Verschiebung um den Kreismittelpunkt), das Bild stimmt. **Kein App-Fehler**, nur des Werkzeugs |
 | „Kümmere dich um die offenen Punkte, nutze den `grill-me`-Skill und entscheide selbst" (Nutzer, 11.10.2026) | Acht Fragen des Selbst-Sparrings, jede mit nachgeschlagener Tatsache (`records.ts`, `round.ts`, `tension.ts` gelesen), die Varianten gerendert und angesehen | **Zwei Dinge gebaut, sechs bewusst gelassen, eines abgesagt.** Gebaut: die **Mut**-Zeile im Ergebnis (5e). **Abgesagt:** das „Weitergeben" — verschiebt die Zugreihenfolge des Kerns und ist nur am Tisch mit 2+ Spielern beurteilbar. **Gelassen:** sattgelbes Grün (gegengerendert: fällt als Fremdkörper aus der Familie der sechs), vierte Falte (freie Zone über dem Maul ist 60 px hoch und mit Nasenlöchern belegt), höhere Augen (2 % der Bildhöhe), Kiemengröße (abgenommen), 60-%-Schwelle (abgesprochen — rot ist damit immer ein Biss, ein *überstandener* roter Druck unmöglich), „geschlossener Blick" (über alle sechs gleich) |
 
-| Eigene Domain `zahn-agent.schaflabs.com` (11.10.2026, Nutzerauftrag) | Record per Cloudflare-MCP angelegt und **nachgelesen**, Auflösung gegen zwei fremde Resolver (Cloudflare-DoH, Google-DoH), Seite durch den Proxy mit `curl --resolve` abgerufen, Pages-Konfiguration über die GitHub-API gelesen | **In drei Schritten belegt.** (1) *Vorher:* kein Record für den Namen, die Auflösung fiel auf die Homelab-Wildcard `*.schaflabs.com` (`192.168.0.240`). (2) *Nach dem Anlegen:* `zahn-agent.schaflabs.com` CNAME `shaunclaw07.github.io`, proxied; DoH Cloudflare `104.21.7.11` / `172.67.155.91`, DoH Google `188.114.96.0` / `188.114.97.0`; Abruf durch den Proxy **404** („Site not found · GitHub Pages"), in der API `cname: null` … (3) *Nach `public/CNAME`, Domain per Pages-API und Workflow ohne `ASTRO_BASE`* (Lauf `40be479` grün): Wurzel **200** (Titel „Zahn Agent — Zahn für Zahn zum Nervenkitzel"), `/statistik/` **200**, `/_astro/…css` **200**, `manifest.webmanifest` **200**, `favicon.svg` **200**, Verweise alle auf der Wurzel (`/statistik`, `/_astro/…`, `/favicon.svg`); alte Projektadresse **301 → zahn-agent.schaflabs.com**. Gate lokal **18 Dateien / 206 Tests grün**; beide Bauvarianten nachgemessen: ohne `ASTRO_BASE` → `/statistik`, mit `ASTRO_BASE=/zahn_agent` → `/zahn_agent/statistik`. **Ein offener Punkt bleibt** (Unterpfade kommen über `http` zurück, siehe §7) |
+| Eigene Domain `zahn-agent.schaflabs.com` (11.10.2026, Nutzerauftrag) | Record per Cloudflare-MCP angelegt und **nachgelesen**, Auflösung gegen zwei fremde Resolver (Cloudflare-DoH, Google-DoH), Seite durch den Proxy mit `curl --resolve` abgerufen, Pages-Konfiguration über die GitHub-API gelesen | **In drei Schritten belegt.** (1) *Vorher:* kein Record für den Namen, die Auflösung fiel auf die Homelab-Wildcard `*.schaflabs.com` (`192.168.0.240`). (2) *Nach dem Anlegen:* `zahn-agent.schaflabs.com` CNAME `shaunclaw07.github.io`, proxied; DoH Cloudflare `104.21.7.11` / `172.67.155.91`, DoH Google `188.114.96.0` / `188.114.97.0`; Abruf durch den Proxy **404** („Site not found · GitHub Pages"), in der API `cname: null` … (3) *Nach `public/CNAME`, Domain per Pages-API und Workflow ohne `ASTRO_BASE`* (Lauf `40be479` grün): Wurzel **200** (Titel „Zahn Agent — Zahn für Zahn zum Nervenkitzel"), `/statistik/` **200**, `/_astro/…css` **200**, `manifest.webmanifest` **200**, `favicon.svg` **200**, Verweise alle auf der Wurzel (`/statistik`, `/_astro/…`, `/favicon.svg`); alte Projektadresse **301 → zahn-agent.schaflabs.com**. Gate lokal **18 Dateien / 206 Tests grün**; beide Bauvarianten nachgemessen: ohne `ASTRO_BASE` → `/statistik`, mit `ASTRO_BASE=/zahn_agent` → `/zahn_agent/statistik`. Unterpfade kamen zunächst über `http` zurück — am selben Tag in Cloudflare behoben und gegengeprüft (siehe §7) |
 
 ## 7. Offene Punkte (ehrlich benannt)
 
@@ -253,12 +253,15 @@ Entscheidungen nehmen." — umgesetzt:
   Mut auf der Statistikseite (umgesetzt); „Weitergeben" bleibt abgesagt. Offen bleibt allein der
   Blick des Spielers auf die neue Grün-Fassung und die Frage, ob die fünf anderen Lebewesen in einer
   eigenen Runde ebenfalls satter werden sollen — jetzt fällt das Krokodil bewusst aus der Reihe.
-- **Die eigene Domain liefert Unterpfade über `http` zurück** (11.10.2026 gemessen):
-  `https://zahn-agent.schaflabs.com/statistik` → `301`, `Location: http://zahn-agent.schaflabs.com/statistik/`.
-  Die Wurzel ist nicht betroffen (`200`), und der Weg zurück über `https` funktioniert. Die Ursache
-  liegt außerhalb des Repos: GitHub erzeugt die Umleitung mit dem Schema, das es empfängt, und die
-  Zone steht auf `ssl: flexible` bei `always_use_https: off`. **Folge für den Nutzer:** die
-  Statistikseite läuft nach dem Klick auf einem **anderen Origin** (`http` statt `https`) und zeigt
-  die eigenen Runden nicht — das Rundenprotokoll hängt im `localStorage` am Origin. Behoben ist das
-  erst in Cloudflare („Always Use HTTPS" oder eine Umleitungsregel für `zahn-agent.schaflabs.com`);
-  das Repo kann es nicht lösen.
+- ~~Die eigene Domain liefert Unterpfade über `http` zurück.~~ → **behoben am 11.10.2026.**
+  Gemessen war `https://zahn-agent.schaflabs.com/statistik` → `301` mit
+  `Location: http://zahn-agent.schaflabs.com/statistik/`: GitHub erzeugt seine Verzeichnis-Umleitung
+  mit dem Schema, das es empfängt, und die Zone stand auf `ssl: flexible` bei
+  `always_use_https: off`. Dadurch wäre die Statistikseite auf einem **anderen Origin** gelandet
+  (`http` statt `https`) — mit leerem Rundenprotokoll, weil das `localStorage` am Origin hängt.
+  In Cloudflare „Always Use HTTPS" eingeschaltet; **Gegenprobe danach:** `https://…/statistik` →
+  `200` nach zwei Umleitungen, Endadresse `https://zahn-agent.schaflabs.com/statistik/` (Titel
+  „Statistik — Zahn Agent"), `http://…` → `301` auf `https`, aus einer `http`-Adresse wird das Ziel
+  in **einer** Umleitung erreicht — keine Schleife. Nebenwirkung geprüft: die anderen proxied
+  Subdomains antworten weiter `200` über `https` und leiten `http` nun ebenfalls um; die
+  DNS-only-Wildcard `*.schaflabs.com` löst unverändert direkt auf `192.168.0.240` auf.
