@@ -169,3 +169,86 @@ describe('Zeichnungen der Lebewesen', () => {
     expect(view.teeth).toBe(creature.teeth);
   });
 });
+
+/**
+ * Die Kopfbilder tragen die Auswahl-Kacheln. Zwei Fallen stecken darin, beide hier festgehalten:
+ * (1) keine Klasse, die die Steuerung abfragt (`.creature`, `.tooth`, `.creature__biter`) — sonst
+ * greift `document.querySelector('.creature')` die Kachel statt der Bühne ab; (2) je Kopfbild eine
+ * **eigene** Beschnitt-Kennung, weil doppelte Kennungen die Bühne mit dem Kopfumriss der Kachel
+ * zuschneiden würden.
+ */
+describe('Kopfbilder für die Auswahl', () => {
+  function clipIds(markup: string): string[] {
+    return [...markup.matchAll(/clipPath id="([^"]+)"/g)].map((match) => match[1] ?? '');
+  }
+
+  it('zeichnet das Kopfbild ohne alles Bedienbare', () => {
+    for (const creature of CREATURES) {
+      const markup = creatureView(creature.id).portrait('kachel');
+      expect(markup, creature.id).toMatch(/^<svg/);
+      expect(markup, creature.id).toContain('class="creature-portrait"');
+      expect(markup, creature.id).not.toContain('class="creature"');
+      expect(markup, creature.id).not.toMatch(/class="tooth"/);
+      expect(markup, creature.id).not.toContain('tooth__hit');
+      expect(markup, creature.id).not.toContain('data-tooth');
+      expect(markup, creature.id).not.toContain('tabindex');
+      expect(markup, creature.id).not.toContain('creature__biter');
+      expect(markup, creature.id).not.toMatch(/undefined|NaN|null/);
+      // Alle Zähne sind da, aber als reine Zeichnung.
+      expect(markup.match(/rest-tooth/g), creature.id).toHaveLength(creature.teeth);
+    }
+  });
+
+  it('gibt jedem Kopfbild eine eigene Beschnitt-Kennung', () => {
+    const tile = creatureView('crocodile').portrait('kachel');
+    const preview = creatureView('crocodile').portrait('wahl');
+    const other = creatureView('wolf').portrait('kachel');
+    expect(clipIds(tile)).toHaveLength(1);
+    expect(clipIds(preview)).not.toEqual(clipIds(tile));
+    expect(clipIds(other)).not.toEqual(clipIds(tile));
+    // Und die Kennung der Bühne ist von beiden verschieden.
+    const stage = clipIds(creatureView('crocodile').render());
+    expect(stage).toHaveLength(1);
+    expect(clipIds(tile)).not.toEqual(stage);
+    expect(clipIds(preview)).not.toEqual(stage);
+  });
+
+  it('zeigt dieselbe Zeichnung wie die Bühne — gleiche Ebenen, gleiche Reihenfolge', () => {
+    for (const creature of CREATURES) {
+      const view = creatureView(creature.id);
+      const markup = view.portrait('kachel');
+      let cursor = -1;
+      for (const layer of [
+        'creature__body',
+        'mouth__hole',
+        'mouth__inner',
+        'jaw__shell',
+        'jaw__upper',
+        'teeth--upper',
+        'class="teeth"',
+        'jaw__lower',
+        'creature__face',
+      ]) {
+        const position = markup.indexOf(layer);
+        expect(position, `${creature.id}: ${layer}`).toBeGreaterThan(cursor);
+        cursor = position;
+      }
+      // Gleicher Ausschnitt, gleiche Zahl gezeichneter Zähne, gleiche Zahnformen.
+      expect(markup, creature.id).toContain(`viewBox="0 0 ${view.viewBox.width} ${view.viewBox.height}"`);
+      expect(markup.match(/tooth__shape/g), creature.id).toHaveLength(creature.teeth);
+      expect(markup.match(/tooth__glow/g), creature.id).toBeNull();
+      expect(view.portrait('kachel'), creature.id).toBe(view.portrait('kachel'));
+    }
+  });
+
+  it('zeichnet die Zahnformen für abweichende Zahnzahlen genau wie die Bühne', () => {
+    for (const creature of CREATURES) {
+      for (const count of [MIN_TEETH, MAX_TEETH]) {
+        const view = creatureView(creature.id, count);
+        const shapes = (markup: string): string[] =>
+          [...markup.matchAll(/class="tooth__shape" d="([^"]+)"/g)].map((match) => match[1] ?? '');
+        expect(shapes(view.portrait('kachel')), `${creature.id}/${count}`).toEqual(shapes(view.render()));
+      }
+    }
+  });
+});

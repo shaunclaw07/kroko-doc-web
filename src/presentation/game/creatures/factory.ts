@@ -99,32 +99,56 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
     `<ellipse class="mouth__hole-shape" cx="${art.ring.cx}" cy="${art.ring.cy}" ` +
     `rx="${n(art.ring.rx - holeInset)}" ry="${n(art.ring.ry - holeInset)}" fill="${art.holeFill}"/>`;
 
-  const render = (): string =>
+  /**
+   * Maul, Zähne und Gesicht in fester Ebenenreihenfolge — dieselbe Zeichnung trägt Bühne und
+   * Kopfbild. `pressable` schaltet die drückbaren Zähne an (Trefferfläche, Rolle, `data-tooth`);
+   * im Kopfbild sind die Zähne reine Zeichnung (`rest-tooth`) — sonst griffe die Steuerung die
+   * Kachel statt der Bühne ab.
+   */
+  const mouthLayers = (clipId: string, pressable: boolean): string =>
     [
-      `<svg class="creature" data-creature="${creature.id}" viewBox="0 0 ${VIEWBOX.width} ${VIEWBOX.height}" ` +
-        `style="--close-shift: ${n(closeShift)}px; --shell-shift: ${n(shellShift)}px" ` +
-        `role="img" aria-label="${art.label}">`,
-      `<g class="creature__body">${art.body}</g>`,
-      // Maul, Zähne und Gesicht werden auf den Kopfumriss beschnitten: beim Zuschnappen fährt
-      // der Oberkiefer über den Kopf hinaus — ohne Beschnitt hingen rosa Bänder neben dem Kopf.
-      `<defs><clipPath id="creature-clip"><path d="${art.silhouette}"/></clipPath></defs>`,
-      '<g clip-path="url(#creature-clip)">',
+      `<defs><clipPath id="${clipId}"><path d="${art.silhouette}"/></clipPath></defs>`,
+      `<g clip-path="url(#${clipId})">`,
       `<g class="mouth__hole">${holeMarkup}</g>`,
       `<g class="mouth__inner">${art.inner}</g>`,
       `<g class="jaw__shell">${art.upperShell ? shellMarkup(art.ring, art.upperShell) : ''}` +
         `${art.upperExtra ?? ''}</g>`,
       // Oberkiefer: Band und die Zähne der oberen Maulhälfte — beide fahren beim Biss mit.
       `<g class="jaw__upper">${bandMarkup(art.ring, art.upper, 'jaw__band jaw__band--upper')}` +
-        `<g class="teeth teeth--upper">${teethMarkup(jaws.upper, true, hit)}</g></g>`,
-      `<g class="teeth">${teethMarkup(jaws.lower, true, hit)}</g>`,
+        `<g class="teeth teeth--upper">${teethMarkup(jaws.upper, pressable, hit)}</g></g>`,
+      `<g class="teeth">${teethMarkup(jaws.lower, pressable, hit)}</g>`,
       `<g class="jaw__lower">${art.lowerExtra ?? ''}${bandMarkup(art.ring, art.lower, 'jaw__band jaw__band--lower')}</g>`,
       `<g class="creature__face">${art.face}</g>`,
       '</g>',
+    ].join('');
+
+  const render = (): string =>
+    [
+      `<svg class="creature" data-creature="${creature.id}" viewBox="0 0 ${VIEWBOX.width} ${VIEWBOX.height}" ` +
+        `style="--close-shift: ${n(closeShift)}px; --shell-shift: ${n(shellShift)}px" ` +
+        `role="img" aria-label="${art.label}">`,
+      `<g class="creature__body">${art.body}</g>`,
+      mouthLayers('creature-clip', true),
       '<g class="creature__biter" opacity="0">',
       '<circle class="creature__biter-ring" r="30"/>',
       '<circle class="creature__biter-ring creature__biter-ring--outer" r="46"/>',
       '<text class="creature__biter-label" x="0" y="-34" text-anchor="middle"></text>',
       '</g>',
+      '</svg>',
+    ].join('');
+
+  /**
+   * Kopfbild für die Auswahl-Kacheln: dieselbe Zeichnung, ohne alles Bedienbare. Der Zusatz
+   * `suffix` hält die Beschnitt-Kennung eindeutig — zwei Kopfbilder desselben Tieres (Kachel und
+   * Vorschau) und die Bühne stehen gleichzeitig im Dokument, und eine doppelte Kennung ließe die
+   * Bühne mit dem Kopfumriss der ersten Kachel zuschneiden.
+   */
+  const portrait = (suffix: string): string =>
+    [
+      `<svg class="creature-portrait" viewBox="0 0 ${VIEWBOX.width} ${VIEWBOX.height}" ` +
+        'role="img" aria-hidden="true" focusable="false">',
+      `<g class="creature__body">${art.body}</g>`,
+      mouthLayers(`creature-clip-${creature.id}-${suffix}`, false),
       '</svg>',
     ].join('');
 
@@ -135,6 +159,7 @@ export function createCreatureView(creature: CreatureDefinition, art: CreatureAr
     viewBox: { ...VIEWBOX },
     closeShift,
     render,
+    portrait,
     toothAnchor(toothId: number): ToothAnchor {
       const placement = placements.find((entry) => entry.id === toothId);
       return placement ? toothTip(placement) : { x: art.ring.cx, y: art.ring.cy };

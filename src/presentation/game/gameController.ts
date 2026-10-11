@@ -379,12 +379,7 @@ export class GameController {
     // Die Zeile unter dem Balken: links der Fortschritt, rechts die Gefahr — beide mit Wort.
     this.setText('hud-progress', `${pressIndex} von ${this.round.teeth} gedrückt`);
     this.setText('hud-tension', `Bissgefahr ${Math.round(this.tension * 100)} %`);
-    this.setText(
-      'hud-turn',
-      this.round.status === 'snapped'
-        ? 'Maul zu'
-        : `${playerName(currentPlayer, this.round.players)} ist dran (${this.round.players} Spieler)`,
-    );
+    this.setText('hud-turn', this.turnSentence(currentPlayer));
     const warn = this.doc.getElementById('hud-warning');
     if (warn) {
       const tension = isFinalToothTension(this.round);
@@ -423,6 +418,18 @@ export class GameController {
     hint.classList.remove('hidden');
     hint.addEventListener('click', () => hint.classList.add('hidden'), { once: true });
     this.wait(4000, () => hint.classList.add('hidden'));
+  }
+
+  /**
+   * Zugzeile. Bei einem Spieler heißt es „Du bist dran“ — die erste Fassung klebte „ ist dran“ an
+   * `playerName()` und schrieb damit „Du ist dran“. Bei mehreren Spielern genügt der Name: die
+   * Spielerzahl steht in den Einstellungen, sie muss nicht in jedem Zug wiederholt werden.
+   */
+  private turnSentence(player: number): string {
+    if (this.round.status === 'snapped') {
+      return 'Maul zu';
+    }
+    return this.round.players === 1 ? 'Du bist dran' : `${playerName(player, this.round.players)} ist dran`;
   }
 
   /** Gefahr des nächsten Drucks — dieselbe Rechnung wie im Kern, nur für die Anzeige. */

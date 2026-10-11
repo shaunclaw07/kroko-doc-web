@@ -61,20 +61,27 @@ pnpm preview    # serviert dist/ auf http://localhost:4321
 
 ### So probierst du es aus
 
+Die Startseite zeigt **nur das Spiel**: das Tier, „Zähne übrig" und den Balken. Alles Einstellbare
+liegt hinter dem **Zahnrad** oben rechts — beim Spielen lenkt nichts davon ab.
+
 1. **Spielen:** auf einen Zahn im Maul tippen. Beim Tippen hörst du einen Klang, der
    Herzschlag wird schneller, gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
    nächste Zahn — erst nach einer Pause, die nichts über den Ausgang verrät — oder der **Biss** samt Screen-Shake und Vibration.
-2. **Einstellungen** (Knopf oben): 1–4 Spieler, Modus (`original` = 1–3 Zähne gleichzeitig
-   scharf wie das echte Spielzeug, `classic` = genau einer), Ton und Vibration an/aus.
-3. **Gebiss** (Knopf oben): Lebewesen wählen (Krokodil, Wolf, Mensch, Hai, Maus, Vampir) und die **Zahnzahl**
-   einstellen — `−` / `+` oder „Standard" für das tiergerechte Gebiss (Krokodil 10, Wolf 12,
-   Mensch 12; erlaubt sind 4 bis 12).
-4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". Der
-   Tipp auf „Runde" im Kopfbereich startet immer eine neue Runde.
-5. **Statistik** (Knopf oben): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
+2. **Zahnrad** (Knopf oben rechts): 1–4 Spieler, welches Tier, wie viele Zähne, wie gefährlich
+   („wie das Spielzeug" = 1–3 Zähne gleichzeitig gefährlich, „nur ein Zahn" = genau einer), Ton
+   und Wackeln an/aus, „Neue Runde", die Regeln und der Weg zur Statistikseite.
+3. **Tier wählen:** im Zahnrad auf die Tier-Zeile tippen — sechs **Bild-Kacheln** (Krokodil, Wolf,
+   Mensch, Hai, Maus, Vampir) mit dem Kopf aus der eigenen Zeichnung. Ein Tipp zeigt die Kurzinfo
+   zum Tier, „Damit spielen" übernimmt es. Die **Zahnzahl** stellst du mit `−` / `+` ein
+   („Standard" nimmt wieder das tiergerechte Gebiss: Krokodil 10, Wolf 12, Mensch 12; erlaubt
+   sind 4 bis 12).
+4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". „Neue Runde"
+   im Zahnrad startet jederzeit eine frische Runde.
+5. **Statistik für Große** (im Zahnrad): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
    gegen das Zugmodell, Wilson-Intervalle, Mustersuche (Autokorrelation), Rohdaten,
    CSV-Export/-Import und **„Protokoll löschen"** zum Zurücksetzen.
-6. **Regeln & Herkunft**: warum es keinen sicheren Zahn gibt (und warum mehrere Lebewesen).
+6. **Regeln** (im Zahnrad): zuerst die Kind-Regeln, darunter eingeklappt „Für Große: warum es keinen
+   sicheren Zahn gibt" (und warum mehrere Lebewesen).
 
 Zwei Eigenheiten, die normal sind: **Ton kommt erst nach dem ersten Tipp** (Browser erlauben
 Audio erst nach einer Nutzeraktion) und **die Daten liegen in diesem einen Browser** — ein
@@ -105,6 +112,10 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 ## Was es kann
 
 - **Spielen:** 1–4 Spieler im Hot-Seat, Maul schnappt zu, Verlierer wird benannt.
+- **Für Kinder gebaut:** die Startseite zeigt Tier und Spielstand — sonst nichts. Alles Einstellbare
+  liegt hinter dem Zahnrad; die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
+  Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
+  (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
 - **Sechs Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — vier große
   Fangzähne), Mensch (12, 1–3), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne). Jedes
@@ -121,11 +132,13 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   rosenrot statt schwarz, das Zahnfleisch die hellste Stufe. Das Krokodil trägt das satte Grün des
   Originals (und fällt damit bewusst aus der Reihe der fünf weichen Lebewesen), seine
   Schnauzenfalten sind Rillen mit Grat. Maul, Zähne und Gesicht werden auf den Kopfumriss
-  beschnitten, damit beim Zuschnappen nichts daneben hängt.
+  beschnitten, damit beim Zuschnappen nichts daneben hängt. **Dieselbe Zeichnung trägt auch die
+  Auswahl-Kacheln** (`portrait()`): der Kopf des Tieres als Bild, ohne Bedienteile — kein
+  zusätzliches Asset.
 - **Erweiterbar:** ein neues Lebewesen ist ein Katalogeintrag plus eine Zeichnungsdatei — ein
   Test erzwingt, dass Zahnzahl, Zahnformen und Ebenen zusammenpassen.
-- **Zwei Zufallsmodelle:** `original` (1–3 Zähne gleichzeitig scharf, wie das echte Spielzeug)
-  und `classic` (genau ein scharfer Zahn).
+- **Zwei Zufallsmodelle:** `original` (1–3 Zähne gleichzeitig scharf, wie das echte Spielzeug —
+  in der Oberfläche „wie das Spielzeug") und `classic` (genau ein scharfer Zahn — „nur ein Zahn").
 - **Nervenkitzel:** synthetisierte Klänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
   mit der Spannung steigt (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Knarren, Fakeout-Zucken des Mauls, eine Feder, die den Zahn in die Wurzel zieht, und die Pause vor jedem Urteil (ihre Länge sagt nichts über den Ausgang),
   Screen-Shake, Vibration bei jedem Zahndruck und beim Biss (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
@@ -133,8 +146,8 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   **Farbe** ist die Bissgefahr des nächsten Drucks („Bissgefahr 34 %") — er atmet im Takt des
   Herzschlags, glüht ab 30 % und wird ab 50 % rot — einen Druck vor dem letzten, sodass ein roter
   Druck auch gutgehen kann. Beim ersten Druck einer Sitzung
-  erklärt er sich einmal selbst; nachlesen kann man ihn im Blatt „Regeln & Herkunft" und auf der
-  Statistikseite (dort steht die ganze Kurve).
+  erklärt er sich einmal selbst; nachlesen kann man ihn im Blatt „Regeln" (dort eingeklappt unter
+  „Für Große") und auf der Statistikseite (dort steht die ganze Kurve).
 - **Der Mut der Runde:** das Ergebnis nennt die höchste Bissgefahr, bei der ein Druck noch harmlos
   blieb („Dein mutigster Druck: 55 % Bissgefahr — und der Zahn war harmlos."). Das gibt dem Balken
   einen Zweck: die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird.
@@ -152,7 +165,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **206 in 18 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **212 in 18 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–2,5 s (Maschinenstreuung) | `pnpm build`, Arbeitsbaum und frischer Klon |

@@ -148,6 +148,58 @@ Fragen des Sparrings, jede mit nachgeschlagener Tatsache und Entscheidung:
 8. **Der „geschlossene Blick" aller sechs?** Tatsache: über alle sechs gleich und nie beanstandet.
    **Entscheidung: nicht anfassen.**
 
+## Nachtrag 11.10.2026 (abends): die Oberfläche wird kinderfreundlich
+
+Auftrag: „Kannst du das User-Interface von Zahn Agent bisschen kinderfreundlicher machen? Es gibt viele
+Elemente die ablenken. Die Auswahl der Modelle ist auch schwer ohne vielleicht ein Icon von dem
+passenden Bild."
+
+**Befund am laufenden Gegenstand** (Screenshot der Seite bei 390 × 844, Krokodil, frische Sitzung):
+Das Spielfeld begann erst nach rund einer Bildschirmhöhe Einstellungen — das Tier war beim Öffnen
+nicht zu sehen. Der Weg zur Statistik stand **zweimal** (Knopf in der Kopfzeile *und* schwebender
+Knopf), und der schwebende Knopf lag über dem Maul. Techniksprache im Kinderblick: „1–3 scharf",
+„Bumerang im Inneren", „Zufallsmodell", „Drücke", „Vibration (mobil)". Die Gebiss-Auswahl war eine
+Textliste ohne Bild, mit drei Textebenen je Eintrag.
+
+**Zwei Fehler, die dabei auffielen (gemessen, nicht vermutet):**
+
+1. `--line` und `--surface-2` werden in `app.css` benutzt (`.picker`, `.stepper button`,
+   `.creature-list button`), sind aber **nirgends definiert** — die Deklarationen sind damit ungültig,
+   Rahmen und Flächen fielen still auf `currentColor` bzw. „durchsichtig" zurück.
+2. Die Zugzeile wird von der Steuerung überschrieben und lautet dann **„Du ist dran"**
+   (`playerName()` liefert „Du", der Satz klebt „ ist dran" daran). In der Vorlage stand das richtige
+   „Du bist dran" — der erste `render()`-Lauf hat es ersetzt.
+
+**Sparring (`grill-me`, gemeinsam mit dem Auftraggeber), vier Fragen, je mit Empfehlung:**
+
+1. **Start = Spiel?** *Empfehlung: ja, alles andere hinter ein Zahnrad.* → **Angenommen.** Start zeigt
+   Tier und Spielstand; Einstellungen, Ton, Zahnzahl, Regeln und der Weg zur Statistik liegen in einem
+   Blatt hinter dem Zahnrad.
+2. **Gebiss-Auswahl mit Bildern?** *Empfehlung: 2er-Raster mit Kopf-Bild + Name, Details erst nach
+   Antippen.* → **Angenommen.** Die Bilder sind die **echte Zeichnung** des jeweiligen Tieres
+   (`portrait()`), kein Extra-Asset — es bleibt bei „keine externen Bilder".
+3. **Techniksprache?** *Empfehlung: Kind-Worte im Spiel, Erklärung ins Regeln-Blatt unter „Für Große".*
+   → **Angenommen.** Aus „1–3 scharf" / „genau 1" werden „wie das Spielzeug" / „nur ein Zahn", die
+   Bumerang- und Rechenwerte wandern in das eingeklappte Blatt „Für Große".
+4. **Anzeigen unter dem Tier?** *Empfehlung: nur „Zähne übrig" groß, Balken und die zwei benannten
+   Sätze klein darunter.* → **Angenommen.** „Runde" und „Drücke" werden zu einer ruhigen Nebenzeile
+   (bleiben im DOM — die Bedienungssonde prüft sie weiter).
+
+**Abgesagt / bewusst nicht getan:**
+
+- **Keine Änderung an der Spielmechanik** (Kern, Dramaturgie, Ehrlichkeitsregeln, Protokoll) — das ist
+  eine Oberflächenrunde. Die zwei benannten Anzeigewerte bleiben wörtlich, weil sie die Ehrlichkeitsregel
+  tragen („x von n gedrückt" · „Bissgefahr n %").
+- **Statistikseite unverändert.** Sie ist die Seite für Große; sie wird nur noch aus dem Zahnrad-Blatt
+  verlinkt (statt aus der Kopfzeile) — der schwebende Knopf über dem Maul entfällt.
+- **Kein neues Spiel-Element** (kein Ton-Schalter im Spielbild, keine Fortschrittsbelohnung): was nicht
+  geprüft werden kann, wird nicht heimlich gebaut.
+
+**Nachweis:** Bild-Kacheln ohne Störklassen (`.creature`/`.tooth`/`.creature__biter` sind verboten, sonst
+greift die Steuerung die Kachel statt der Bühne ab); der Beschnitt braucht je Kachel eine **eigene**
+`clipPath`-Kennung, weil doppelte Kennungen sonst das Spielfeld mit dem Kopfumriss der ersten Kachel
+beschneiden. Beides wird in `creatureViews.test.ts` festgehalten.
+
 ## Nachtrag 11.10.2026 (später): die Entscheidungen des Auftraggebers
 
 „Das neue Grün gefällt mir. Den Rest kannst du einfach deine empfohlenen Entscheidungen nehmen."

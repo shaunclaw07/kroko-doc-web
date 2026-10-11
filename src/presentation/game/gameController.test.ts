@@ -305,6 +305,22 @@ describe('GameController in der Bühne', () => {
     expect(document.getElementById('hud-tension')?.textContent).toMatch(/^Bissgefahr \d+ %$/);
   });
 
+  it('nennt den Zug in richtiger Sprache — „Du bist dran“, nicht „Du ist dran“', () => {
+    build([4]);
+    expect(document.getElementById('hud-turn')?.textContent).toBe('Du bist dran');
+    click(1);
+    expect(document.getElementById('hud-turn')?.textContent).toBe('Du bist dran');
+  });
+
+  it('nennt bei mehreren Spielern den Namen dessen, der dran ist', () => {
+    build([9], { players: 2 });
+    expect(document.getElementById('hud-turn')?.textContent).toBe('Spieler 1 ist dran');
+    click(1);
+    expect(document.getElementById('hud-turn')?.textContent).toBe('Spieler 2 ist dran');
+    click(9);
+    expect(document.getElementById('hud-turn')?.textContent).toBe('Maul zu');
+  });
+
   it('füllt den Balken mit dem Fortschritt, nicht mit der Gefahr', () => {
     // Beim Krokodil steht die Gefahr nach dem ersten Druck bei 20 %, der Fortschritt bei 10 %.
     build([9]);

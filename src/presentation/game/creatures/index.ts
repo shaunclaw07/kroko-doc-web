@@ -43,6 +43,14 @@ export function listCreatureViews(): CreatureView[] {
   return listCreatures().map((creature) => creatureView(creature.id));
 }
 
+/**
+ * Kopfbild eines Lebewesens (für Kacheln und Vorschauen). `suffix` hält die Beschnitt-Kennung
+ * eindeutig: beide Blätter und die Bühne stehen gleichzeitig im Dokument.
+ */
+export function creaturePortrait(id: string, suffix: string): string {
+  return creatureView(id).portrait(suffix);
+}
+
 /** Erlaubter Bereich drückbarer Zähne (für die Oberfläche). */
 export { MAX_TEETH, MIN_TEETH } from '../../../core/domain/teeth';
 

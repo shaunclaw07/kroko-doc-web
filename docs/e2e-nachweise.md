@@ -223,6 +223,60 @@ Entscheidungen nehmen." — umgesetzt:
 | **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in AGENTS.md |
 | **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | in `docs/plan.md` begründet |
 
+## 5g. Kinderfreundliche Oberfläche (11.10.2026)
+
+Auftrag: „Kannst du das User-Interface von Zahn Agent bisschen kinderfreundlicher machen? Es gibt
+viele Elemente die ablenken. Die Auswahl der Modelle ist auch schwer ohne vielleicht ein Icon von
+dem passenden Bild." Sparring (`grill-me`) mit dem Auftraggeber, vier Fragen, alle Empfehlungen
+angenommen — Entscheidungen in `docs/plan.md`.
+
+**Befund am laufenden Gegenstand** (erster Browser-Screenshot der Seite, 390 × 844): das Spielfeld
+begann nach rund einer Bildschirmhöhe Einstellungen, das Tier war beim Öffnen nicht zu sehen; „Statistik"
+stand zweimal (Kopfzeile + schwebender Knopf über dem Maul); die Gebiss-Auswahl war eine Textliste
+ohne Bild mit drei Textebenen je Eintrag.
+
+| Prüfung | Ergebnis |
+|---|---|
+| `pnpm typecheck` | keine Fehler |
+| `pnpm test:run` | **212 Tests in 18 Dateien**, alle grün (vorher 206) |
+| `pnpm build` | 2 Seiten in **2,25 s**, `dist/index.html`, `dist/statistik/index.html` |
+| `dist/index.html` | 7 Kopfbilder, 6 Kachel-Knöpfe (`data-creature`), 7 `clipPath`-Kennungen, **0** `class="fab"`, 1 × `id="settings-open"` |
+| gebautes CSS | enthält `--line: rgba(255, 255, 255, .14)` und `stat--big` |
+
+**Zwei echte Fehler, im Browser bzw. am Markup belegt und behoben:**
+
+1. **`--line` und `--surface-2` waren nie definiert.** `.picker`, `.stepper button` und die alte
+   Listenkachel lasen sie; die Deklarationen waren damit ungültig und Rahmen/Flächen fielen still auf
+   `currentColor` bzw. durchsichtig zurück. **Vorher/nachher gemessen** (`getComputedStyle`):
+   `.picker` `borderColor` von `rgb(244, 236, 216)` (currentColor) auf `rgba(255, 255, 255, 0.14)`,
+   `backgroundColor` von `rgba(0, 0, 0, 0)` auf `rgba(255, 255, 255, 0.06)`.
+2. **Die Zugzeile hieß „Du ist dran".** `playerName()` liefert für einen Spieler „Du", der Satz klebte
+   „ ist dran" daran; im Markup stand vorher das richtige „Du bist dran", der erste `render()`-Lauf hat
+   es ersetzt. Jetzt `turnSentence()` — zwei neue Bedienungs-Tests („Du bist dran", bei zwei Spielern
+   „Spieler 2 ist dran", nach dem Biss „Maul zu"). Im Browser nachgemessen: `#hud-turn` = „Du bist dran".
+
+**Erste Prüfung in einem echten Browser** (bisher gab es keinen, siehe Abschnitt 7). Chromium
+153.0.8010.12 (`uv run --with playwright`), Seite vom laufenden `pnpm dev` geladen:
+
+| Messung | Ergebnis | Warum wichtig |
+|---|---|---|
+| `document.querySelectorAll('.creature')` | **1** | die 6 Kacheln dürfen der Steuerung nicht in die Quere kommen |
+| `document.querySelectorAll('.tooth')` | **10** | Kacheln enthalten keine bedienbaren Zähne |
+| `.creature-portrait` | **7** | 6 Kacheln + 1 Vorschau im Einstellungsblatt |
+| doppelte `id` im Dokument | **0** | 7 Kopfbilder, 7 eindeutige Beschnitt-Kennungen |
+| `getComputedStyle` des Bühnen-`g[clip-path]` | `url("#creature-clip")` | die Bühne wird weiter beschnitten (nicht von einer Kachel) |
+| Dokumenthöhe / Sichtfeld | **615 px** / **844 px** | das ganze Spiel steht ohne Scrollen auf dem Schirm |
+| Kachelgröße | **172 × 162 px**, Name 16 px | Trefferflächen weit über 44 px |
+| Elemente im ersten Blick | 10 Textzeilen (Kopfzeile, Tier, Spielstand, Balken, ein Hinweis) | vorher rund das Doppelte |
+
+Angesehen (Screenshots, `390 × 844` und `620 × 900`): Startbildschirm, Einstellungsblatt (mit
+Kopf-Vorschau des Tieres), Tier-Auswahl (6 Kacheln, gewählte grün umrandet), Tierinfo nach Antippen
+(Hai: „12 Zähne — bei jedem Tipp sind 1–2 davon gefährlich"), Regeln mit aufgeklapptem „Für Große".
+
+**Nicht in einem Browser prüfbar geblieben:** Klänge und Vibration (dafür fehlt ein Gerät) und wie
+sich die Bild-Kacheln auf einem echten Tablet anfühlen — die Größen sind gerechnet und gemessen, das
+Gefühl beurteilt der Spieler.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
@@ -243,10 +297,16 @@ Entscheidungen nehmen." — umgesetzt:
 
 ## 7. Offene Punkte (ehrlich benannt)
 
-- **Kein echter Browser im Baum verfügbar** (kein Chrome, kein Playwright). Verhalten ist
-  damit in jsdom und über gerenderte Standbilder belegt, nicht in einem Browser.
+- ~~**Kein echter Browser im Baum verfügbar** (kein Chrome, kein Playwright). Verhalten ist damit in
+  jsdom und über gerenderte Standbilder belegt, nicht in einem Browser.~~ → **seit 11.10.2026 anders:**
+  für die Oberflächenrunde (§5g) wurde Chromium 153.0.8010.12 nachinstalliert
+  (`uv run --with playwright playwright install chromium`, Ablage `/opt/hermes/.playwright/`). Die
+  Sonde lädt die Seite vom laufenden `pnpm dev` und misst im echten Layout (Klassen, Kennungen,
+  `getComputedStyle`, Kachelgrößen, Dokumenthöhe) — **das Werkzeug `browser_exec` findet diesen
+  Chromium nicht**, ein eigenes Skript über `uv` schon. Klänge und Vibration bleiben ohne Gerät
+  unbelegt; Klänge laufen auch in diesem Chromium nicht ohne Nutzergeste.
 - ~~Kein Deployment, keine Domain, kein Service Worker.~~ → erledigt am 10.10.2026: veröffentlicht über GitHub Pages, Basis-Pfad `/zahn_agent` (siehe README).
-- ~~Vibration ist nicht in einem echten Browser geprüft~~ → am **11.10.2026 am Gerät bestätigt**: der Nutzer hat die Seite am Handy gespielt und die Vibration gespürt (25 ms bei jedem Zahndruck, drei Stöße beim Biss). Der Codeweg bleibt durch Controller- und Adapter-Tests belegt — ein Browser im Baum fehlt weiterhin (erster Punkt).
+- ~~Vibration ist nicht in einem echten Browser geprüft~~ → am **11.10.2026 am Gerät bestätigt**: der Nutzer hat die Seite am Handy gespielt und die Vibration gespürt (25 ms bei jedem Zahndruck, drei Stöße beim Biss). Der Codeweg bleibt durch Controller- und Adapter-Tests belegt; seit 11.10.2026 gibt es zusätzlich einen Chromium im Baum (erster Punkt), aber **kein Gerät** — die Vibration selbst bleibt am Gerät zu prüfen.
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
 - ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.
 - **Entschieden am 11.10.2026:** das satte Grün (umgesetzt), die Rotglut bei 50 % (umgesetzt), der

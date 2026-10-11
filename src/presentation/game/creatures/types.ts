@@ -98,6 +98,12 @@ export interface CreatureView {
   readonly closeShift: number;
   /** Fertiges SVG-Markup der Bühne. */
   render(): string;
+  /**
+   * Kopfbild desselben Tieres für Kacheln und Vorschauen: reine Zeichnung, ohne bedienbare Zähne.
+   * `suffix` macht die Beschnitt-Kennung eindeutig, weil mehrere Kopfbilder und die Bühne
+   * gleichzeitig im Dokument stehen.
+   */
+  portrait(suffix: string): string;
   /** Spitze eines Zahns — Anker für die Bissmarkierung. */
   toothAnchor(toothId: number): ToothAnchor;
 }
