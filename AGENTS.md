@@ -81,7 +81,15 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Elf Fallen, die Zeit kosten
+## Zwölf Fallen, die Zeit kosten
+
+- **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
+  gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
+  dabei **alle** offenen Blätter schließt (`dialog.sheet[open]`), macht genau das Blatt zu, in dem der
+  Nutzer gerade stellt (gemeldet: „wenn ich auf das Minus klicke, schließt sich das Modal"). Geschlossen
+  wird nur, was der Neustart wirklich wegräumen soll (das Ergebnis-Blatt). Und beim Schließen den
+  **Rückfall** für Umgebungen ohne `dialog.close` mitnehmen: jsdom kennt die Schnittstelle nicht, ein
+  Aufruf ohne Prüfung wirft dort.
 
 - **Eine Kachel darf keine Klasse tragen, die die Steuerung abfragt.** Die Kopfbilder der
   Tier-Auswahl stehen **vor** der Bühne im Dokument. Trüge eine Kachel `.creature` oder `.tooth`,

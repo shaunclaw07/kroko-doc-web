@@ -263,7 +263,7 @@ ohne Bild mit drei Textebenen je Eintrag.
 | `document.querySelectorAll('.creature')` | **1** | die 6 Kacheln dürfen der Steuerung nicht in die Quere kommen |
 | `document.querySelectorAll('.tooth')` | **10** | Kacheln enthalten keine bedienbaren Zähne |
 | `.creature-portrait` | **7** | 6 Kacheln + 1 Vorschau im Einstellungsblatt |
-| doppelte `id` im Dokument | **0** | 7 Kopfbilder, 7 eindeutige Beschnitt-Kennungen |
+| doppelte `id` im Dokument | **0** | 7 Kopfbilder, 8 Beschnitt-Kennungen im geladenen DOM (die Bühne fügt ihre eigene `creature-clip` beim Mounten hinzu), alle eindeutig |
 | `getComputedStyle` des Bühnen-`g[clip-path]` | `url("#creature-clip")` | die Bühne wird weiter beschnitten (nicht von einer Kachel) |
 | Dokumenthöhe / Sichtfeld | **615 px** / **844 px** | das ganze Spiel steht ohne Scrollen auf dem Schirm |
 | Kachelgröße | **172 × 162 px**, Name 16 px | Trefferflächen weit über 44 px |
@@ -276,6 +276,45 @@ Kopf-Vorschau des Tieres), Tier-Auswahl (6 Kacheln, gewählte grün umrandet), T
 **Nicht in einem Browser prüfbar geblieben:** Klänge und Vibration (dafür fehlt ein Gerät) und wie
 sich die Bild-Kacheln auf einem echten Tablet anfühlen — die Größen sind gerechnet und gemessen, das
 Gefühl beurteilt der Spieler.
+
+## 5h. Gemeldeter Fehler: die Zahnzahl ließ sich nicht einstellen (11.10.2026)
+
+**Meldung des Nutzers:** „Man kann die Anzahl der Zähne nicht mehr einstellen. Immer wenn ich auf das
+Minus klicke dann schließt sich das Modal."
+
+- **Ursache (eigener Regressionsfehler aus §5g):** `resetRound()` schloss **alle** offenen Blätter
+  (`dialog.sheet[open]`). Solange die Einstellungen in der Seite selbst standen, fiel das nie auf —
+  seit sie in einem Blatt liegen, schloss jeder Tipp auf `−`/`+` (und jede Umstellung von Spielerzahl
+  und Modus) genau das Blatt, in dem man gerade stellt.
+- **Reparatur:** `resetRound()` schließt nur noch das **Ergebnis**-Blatt (dort ist es gewollt: „Noch
+  eine Runde" räumt es weg). Neu ist `closeSheet(sheet)` mit Rückfall für Umgebungen **ohne**
+  `dialog.close` — jsdom kennt die Schnittstelle nicht (`typeof el.close === 'undefined'`, gemessen),
+  ältere Browser ebenso wenig; ohne den Rückfall wirft der Aufruf dort.
+- **Rot-Beweis:** die zwei neuen Bedienungs-Tests gegen den **alten** Steuerungsstand gefahren
+  (`git stash push -- src/presentation/game/gameController.ts`) → `Tests 2 failed | 25 passed (27)`,
+  danach mit der Reparatur `27 passed`. Die Tests nagen also am Fehler, nicht am Zufall.
+- **Beleg im echten Chromium** (Klickweg der Meldung, 390 × 844):
+
+| Klick | `blattOffen` | `#teeth-value` | Zähne auf der Bühne | Kurztext am Tier |
+|---|---|---|---|---|
+| — | true | 10 | 10 | 10 Zähne |
+| `−` ×1 | **true** | 9 | 9 | 9 Zähne |
+| `−` ×2 | **true** | 8 | 8 | 8 Zähne |
+| `−` ×3 | **true** | 7 | 7 | 7 Zähne |
+| `+` ×2 | **true** | 9 | 9 | 9 Zähne |
+| Modus „nur ein Zahn" | **true** | 9 | 9 | 9 Zähne |
+| „Standard" | **true** | 10 | 10 | 10 Zähne |
+
+  Keine Seitenfehler. Das Blatt bleibt in jedem Fall offen, und die Bühne zieht hinter dem Blatt mit.
+- **Gate:** `pnpm typecheck` ohne Fehler, **214 Tests in 18 Dateien** grün (vorher 212).
+- **Nachtrag zum Prüfbericht des unabhängigen Prüfers (§5g):** er bestätigte sechs von sieben
+  Behauptungen und widerlegte eine — zu Recht: „nur ein sichtbarer Verweis auf die Statistikseite"
+  war falsch formuliert. Es sind weiter **zwei** (`<a href="/statistik">` im Zahnrad-Blatt und im
+  Ergebnis-Blatt, keiner im `<header>`). Beseitigt ist der **doppelte Dauerweg** (Kopfzeile plus
+  schwebender Knopf); der Weg im Ergebnis-Blatt kommt erst nach einer Runde und war nie gemeint.
+  Der Prüfer maß außerdem nach, dass im geladenen DOM **8** `clipPath`-Kennungen stehen (die Bühne
+  fügt ihre eigene `creature-clip` beim Mounten hinzu) statt der 7 im gebauten HTML — die Zeile in
+  §5g ist entsprechend berichtigt.
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

@@ -54,6 +54,7 @@ const DOM = `
   <span id="hud-progress"></span><p id="hud-meter-hint" class="hidden"></p>
   <div id="hud-meter"></div>
   <button id="new-round" type="button">Neue Runde</button>
+  <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
   <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
 `;
 
@@ -240,6 +241,30 @@ describe('GameController in der Bühne', () => {
     expect(document.querySelector('.creature__biter')?.getAttribute('opacity')).toBe('0');
     expect(document.querySelectorAll('.tooth.is-pressed')).toHaveLength(0);
     expect(document.getElementById('hud-remaining')?.textContent).toBe('10');
+  });
+
+  it('lässt das Einstellungsblatt offen, während dort gestellt wird', () => {
+    // Gemeldeter Fehler (11.10.2026): jeder Tipp auf „−" schloss das Blatt, weil die neue Runde
+    // alle Blätter zumachte — man konnte die Zahnzahl nicht mehr einstellen.
+    const { controller } = build([4]);
+    const sheet = document.getElementById('settings-sheet') as HTMLDialogElement;
+    sheet.setAttribute('open', '');
+    controller.applySettings({ ...settings(), teethOverride: 12 });
+    expect(sheet.hasAttribute('open')).toBe(true);
+    expect(document.getElementById('hud-remaining')?.textContent).toBe('12');
+    // Ein zweiter Tipp: das Blatt steht weiter und die neue Runde gilt.
+    controller.applySettings({ ...settings(), teethOverride: 11 });
+    expect(sheet.hasAttribute('open')).toBe(true);
+    expect(document.getElementById('hud-remaining')?.textContent).toBe('11');
+  });
+
+  it('schließt das Ergebnis-Blatt bei einer neuen Runde', () => {
+    const { controller } = build([3]);
+    click(3);
+    const result = document.getElementById('result-sheet');
+    expect(result?.hasAttribute('open')).toBe(true);
+    controller.resetRound();
+    expect(result?.hasAttribute('open')).toBe(false);
   });
 
   it('warnt, wenn nur noch ein Zahn übrig ist — der ist garantiert scharf', () => {

@@ -343,7 +343,10 @@ export class GameController {
     this.deps.sound.setTension(0);
     this.render();
     this.startHeartbeat();
-    this.closeSheets();
+    // Nur das **Ergebnis**-Blatt schließen: eine Änderung im Einstellungsblatt startet die Runde
+    // zwar neu, das Blatt muss aber offen bleiben — sonst schließt jeder Tipp auf „−“ das Blatt,
+    // in dem man gerade stellt (gemeldeter Fehler vom 11.10.2026).
+    this.closeSheet(this.doc.getElementById('result-sheet') as HTMLDialogElement | null);
   }
 
   applySettings(settings: GameSettings): void {
@@ -515,7 +518,18 @@ export class GameController {
     }
   }
 
-  closeSheets(): void {
-    this.doc.querySelectorAll<HTMLDialogElement>('dialog.sheet[open]').forEach((sheet) => sheet.close());
+  /**
+   * Ein Blatt schließen. Über den Rückfall für Umgebungen ohne `dialog.close` (jsdom kennt die
+   * Schnittstelle nicht, ältere Browser ebenso wenig) — sonst wirft der Aufruf dort eine Ausnahme.
+   */
+  private closeSheet(sheet: HTMLDialogElement | null): void {
+    if (!sheet) {
+      return;
+    }
+    if (typeof sheet.close === 'function') {
+      sheet.close();
+    } else {
+      sheet.removeAttribute('open');
+    }
   }
 }
