@@ -83,7 +83,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Zwanzig Fallen, die Zeit kosten
+## Einundzwanzig Fallen, die Zeit kosten
+
+- **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
+  ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
+  des anderen Ohrs spiegelt, kehrt damit auch die **Laufrichtung** des Pfades um. Im
+  Überlappungsbereich von Kopf und Ohr heben sich die Windungen dann auf und alles dort wird
+  weggeschnitten — dem Panther fehlte im ersten Entwurf das rechte Auge (im gerasterten PNG
+  gemessen: Pixel (470,166) war Fellfarbe statt Weiß, links dagegen korrekt). Teilpfade einer
+  Silhouette immer **gleichsinnig** laufen lassen: die Spiegelung notiert man rückwärts durchlaufen
+  (letzten Punkt zuerst). Die runden Ohren der anderen Tiere sind Bogensegmente in gleicher
+  Richtung — deshalb fiel die Falle dort nie auf.
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -248,6 +258,12 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 - Rachen in warmem Rosenrot, nicht dunkel — es muss wie ein offener Mund aussehen, nicht wie ein Loch.
 - Zähne cremefarben, **rund** (Kegel mit runder Spitze), Umriss weich (`#dcd2b8`), niemals schneeweiß auf schwarz.
 - Zahnfleisch ist die **hellste** Stufe im Maul, damit die Zähne davor lesbar bleiben.
+- **Eine Katze erkennt man an den Ohren, nicht am Fell.** Der Panther trug zuerst die runden Ohren
+  des Pandas und las damit wie eine **schwarze Maus** (gemeldet vom Auftraggeber, 11.10.2026).
+  Katzenohren sind Dreiecke mit runder Spitze, nach außen gekippt; der Fuß liegt im Kopfumriss und
+  ist dort unsichtbar, nur die Spitze steht heraus. Dazu **Schnurrhaare** in dem schmalen
+  Fellstreifen neben dem Maul (auf fast schwarzem Fell brauchen sie einen mittleren Grauton).
+  Wer ein neues Tier zeichnet: erst die **Silhouette** unverwechselbar machen, dann das Fell.
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.

@@ -407,3 +407,12 @@ wollen. Hast du noch andere coole Ideen?"
   Schnauze als sichtbare Fläche, sonst schwebt die Nase), Säbelzahntiger (Säbel bleiben im Umriss,
   beim Zuschnappen hängt nichts daneben), Löwe und Wolf (Maul jetzt spiegelbildlich), Galerie
   (zehn Kacheln, jede vollständig) und beide neuen im Zustand „geschnappt".
+- **Nachbesserung auf Zuruf (Nutzer, 11.10.2026): „Der Panther sieht eher wie eine schwarze
+  Maus."** Bestätigt und behoben. Ursache 1: er trug die **runden** Ohren des Pandas — Katzenohren
+  sind Dreiecke. Ursache 2, erst beim Nachmessen gefunden: die erste Dreiecksfassung spiegelte den
+  rechten Ohrpfad einfach, und weil die Silhouette ein `clipPath` mit **Nonzero**-Regel ist, hob die
+  umgekehrte Laufrichtung die Füllung im Überlappungsbereich von Kopf und Ohr auf — dem Panther
+  fehlte das **rechte Auge** (im PNG gemessen: (470,166) = Fellfarbe statt Weiß; links korrekt).
+  Jetzt laufen beide Ohren gleichsinnig (das rechte rückwärts notiert), die Ohren sind kleiner, und
+  dazu kamen Schnurrhaare im Fellstreifen neben dem Maul. Beide Fassungen gerastert und angesehen,
+  die Falle steht in `AGENTS.md`.

@@ -701,6 +701,56 @@ aus der Seite — `Mähne, zwei lange Fangzähne und vier breite Backenzähne: d
 dann aber richtig.` Die Notiz liegt in einem **nachgeladenen** Bündel (`localStorageSettings.*.js`);
 der bloße Abruf der Index-Seite sieht sie nicht — wer den Text prüfen will, muss ihn lesen lassen.
 
+## 5o. Panther und Säbelzahntiger — und zwei Fehler, die erst das Bauen zeigte (11.10.2026, spät)
+
+| Was gefordert war | Wie es geprüft wurde | Ergebnis |
+|---|---|---|
+| „Was könnte man noch für Models hinzufügen? Ich würde gern noch einen Panther noch haben wollen. Hast du noch andere coole Ideen?" (Nutzer, 11.10.2026) | **Drei** Sparring-Fragen in einem Aufruf, jede mit Empfehlung; die echten Zahnzahlen **nachgeschlagen** (nicht geschätzt); zwei Zeichnungsmodule, Katalog und Registry durch das Gate; Zeichnungen gerastert und **angesehen** (Zustände „offen" und „geschnappt"); Galerie neu gebaut und angesehen | **Schwarzer Panther und Säbelzahntiger gebaut.** Panther: 12 Zähne, 1–2 scharf, **vier** Fangzähne (je einer oben und unten) — der Unterschied zum Löwen mit zwei. Säbelzahntiger: zwei Säbel oben, im Ring der längste Zahn des Spiels. |
+| „Der Panther sieht eher wie eine schwarze Maus. Kann man das noch bisschen besser machen. …" (Nutzer, 11.10.2026) | Nicht geschätzt, sondern **gemessen**: Pixelproben im gerasterten PNG (`uv run --with pillow`), danach Silhouette und `clipPath` gelesen | **Bestätigt, zwei Ursachen, beide behoben** — siehe unten. |
+| „… vielleicht könnte man dem einen hut anziehen oder eine Brille" (Nutzer, 11.10.2026) | Beim Menschen nachgesehen: er trägt **keinen** Hut und keine Brille (`human.ts`, nur Brauen und blaue Pupillen) | Als **Vorschlag** aufgenommen und dem Nutzer zurückgegeben: mit spitzen Ohren und Schnurrhaaren ist der Kopf als Katze erkennbar, ein Hut wäre das einzige Kleidungsstück im ganzen Katalog. Entscheidung liegt beim Nutzer. |
+
+**Fakten (nachgeschlagen):** Panther/Leopard **30 Zähne** (I 3/3 · C 1/1 · P 3/2 · M 1/1) — belegt
+über den Arabischen Leoparden (Feldführer *Mammals of AlUla*: „the dental formula of the Arabian
+Leopard is 'I 3/3, C 1/1, P 3/2, M 1/1'") und *Mammalian Species* zum Löwen („total 30"); der
+schwarze Panther ist die melanistische Form desselben Tieres (de.wikipedia, *Leopard*). Raubkatzen
+tragen **vier** dolchartige Eckzähne — deshalb zeichnet der Panther vier, nicht zwei. Smilodon:
+**26–28 Zähne**, Säbel „bis zu 20 cm aus dem Kiefer" (de.wikipedia, *Smilodon*).
+
+**Im erzeugten SVG gemessen** (nicht geschätzt):
+
+| Lebewesen | Zähne | Kegel · quadratisch · flach | Schließweg | Schnauzenweg | Trefferradius |
+|---|---|---|---|---|---|
+| Panther | 12 | 4 · 2 · 6 | 220,0 | 121,0 | 46,0 (41,01 px exakt auf 285 px) |
+| Säbelzahntiger | 12 | 4 · 2 · 6 | 222,0 | 122,1 | 46,0 |
+
+**Fehler 1 — die alten Mäuler waren nicht gespiegelt.** Wolf, Löwe und Panda spiegelten über
+`count - 1 - i` statt über `count - i`. In diesem Ring sitzt Zahn 0 **genau in der Mitte unten** und
+Zahn `count/2` in der Mitte oben — beide sind ihre **eigenen** Zwillinge, keine Nachbarn. Folge: ein
+Fangzahn saß auf Index 2, sein Gegenüber auf 9 (eine Stufe tiefer), und die breite Reihe am
+Unterkiefer war um einen Platz verschoben (4 Zähne an 0, 1, 10, 11). Jetzt: **drei** breite
+Schneidezähne in der Mitte (0, 1, `count - 1`) und der Fangzahn-Zwilling auf `count - 2`. Der
+Wortlaut in den Katalog-Notizen und im README ist an die Zeichnung angepasst („drei breite
+Schneidezähne" statt „vier breite Backenzähne") — im Markup gezählt: Wolf und Löwe 2 Kegel ·
+3 quadratische · 7 flache.
+
+**Fehler 2 — ein gespiegelter Teilpfad schneidet Löcher ins Gesicht.** Zum Panther: er trug zuerst
+die **runden** Ohren des Pandas und las damit wie eine schwarze Maus (das war die Rückmeldung). Die
+erste Dreiecksfassung spiegelte den rechten Ohrpfad einfach mit — und weil die Silhouette ein
+`clipPath` ist (Nonzero-Regel), kehrte die Spiegelung die **Laufrichtung** um: im Überlappungsbereich
+von Kopf und rechtem Ohr hoben sich die Windungen auf, dort wurde alles weggeschnitten. Dem Panther
+fehlte damit das **rechte Auge**. Gemessen im gerasterten PNG (Pixelprobe, Maßstab 2):
+`(470,166)` = `(62,62,70)` Fellfarbe, links `(170,166)` = `(74,51,32)` Pupille und `(150,166)` =
+Weiß. Nach dem Umbau (beide Ohren gleichsinnig, das rechte rückwärts notiert, Ohren kleiner):
+`(470,166)` = `(74,51,32)`, `(490,166)` = `(255,255,255)` — beide Seiten gleich. Dazu kamen
+Schnurrhaare im Fellstreifen neben dem Maul (Maulrand dort bei x 120, Kopfrand bei x 88…96 — mehr
+als rund 30 px Länge gibt der Streifen nicht her). Die Falle steht in `AGENTS.md`.
+
+**Galerie:** `docs/bilder/gebisse.png` auf **zehn** Kacheln — 1970 × 566, 5 Spalten mal 2 Zeilen.
+Die Spaltenzahl rechnet `scripts/galerie.py` aus der Anzahl der Lebewesen (kleinste Teilerzahl ab
+der Wurzel), damit keine leere Kachel im Bild steht; für acht Kacheln ergibt das weiterhin
+492 px Breite wie zuvor. Angesehen: zehn Kacheln in Katalogreihenfolge, jede vollständig, Panther
+und Säbelzahntiger im Stil der acht vorhandenen.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

@@ -20,8 +20,27 @@ import type { CreatureArtwork } from './types';
  */
 const KOPF =
   'M 320 58 C 452 58 552 116 566 238 C 576 344 508 434 320 448 C 132 434 64 344 74 238 C 88 116 188 58 320 58 Z';
-const OHR_LINKS = 'M 150 30 A 50 50 0 1 0 150 130 A 50 50 0 1 0 150 30 Z';
-const OHR_RECHTS = 'M 490 30 A 50 50 0 1 0 490 130 A 50 50 0 1 0 490 30 Z';
+/**
+ * **Spitze Ohren.** Sie sind der Unterschied, den man auf einen Blick sieht: mit den runden
+ * Ohren des Pandas las der Kopf wie eine schwarze Maus (Rueckmeldung des Auftraggebers:
+ * "Der Panther sieht eher wie eine schwarze Maus"). Eine Katze erkennt man an den Dreiecken,
+ * nicht am Fell. Der Fuss des Dreiecks liegt **im** Kopfumriss und ist dort unsichtbar (gleiche
+ * Fellfarbe), nur die Spitze steht heraus -- wie bei den runden Ohren der anderen Tiere.
+ *
+ * **Beide Ohren laufen gleichsinnig.** Sie sind Teil der Silhouette, und die Silhouette ist ein
+ * `clipPath`; dort gilt die Nonzero-Regel: laeuft ein Teilpfad **gegen** den Kopf, hebt er die
+ * Fuellung im Ueberlappungsbereich auf. Die erste Fassung spiegelte die Koordinaten des rechten
+ * Ohrs einfach -- das kehrt die Laufrichtung um, und im Ueberlappungsbereich von Kopf und
+ * rechtem Ohr wurde alles weggeschnitten (im Bild fehlte dem Panther das rechte Auge, gemessen:
+ * Pixel (470,166) = Fellfarbe statt Weiss). Deshalb ist das rechte Ohr hier in **umgekehrter
+ * Reihenfolge** notiert: dieselben Punkte, aber rueckwaerts durchlaufen.
+ */
+const OHR_LINKS = 'M 118 168 C 108 120 116 60 128 30 C 154 70 184 116 196 150 Z';
+const OHR_RECHTS = 'M 444 150 C 456 116 486 70 512 30 C 524 60 532 120 522 168 Z';
+// Innenraum: kleine Dreiecke, ganz im oberen Teil -- weiter unten laege die hellere Flaeche
+// sichtbar im Fell des Kopfes.
+const OHR_LINKS_INNEN = 'M 134 118 C 130 96 132 62 140 40 C 152 62 164 84 170 96 Z';
+const OHR_RECHTS_INNEN = 'M 470 96 C 476 84 488 62 500 40 C 508 62 510 96 506 118 Z';
 
 export const pantherArtwork: CreatureArtwork = {
   silhouette: `${KOPF} ${OHR_LINKS} ${OHR_RECHTS}`,
@@ -34,11 +53,11 @@ export const pantherArtwork: CreatureArtwork = {
     '<path d="M 150 316 C 196 358 444 358 490 316" fill="none" stroke="#4c4c57" stroke-width="5" stroke-linecap="round"/>' +
     '<path d="M 128 206 C 112 254 116 318 138 366" fill="none" stroke="#4c4c57" stroke-width="6" stroke-linecap="round"/>' +
     '<path d="M 512 206 C 528 254 524 318 502 366" fill="none" stroke="#4c4c57" stroke-width="6" stroke-linecap="round"/>' +
-    // Runde Ohren -- die Innenflaeche ist nur eine Stufe heller, sonst leuchteten sie wie Lampen.
-    '<circle cx="150" cy="80" r="50" fill="#3e3e46" stroke="#2b2b33" stroke-width="3"/>' +
-    '<circle cx="490" cy="80" r="50" fill="#3e3e46" stroke="#2b2b33" stroke-width="3"/>' +
-    '<circle cx="150" cy="84" r="22" fill="#5a5a66"/>' +
-    '<circle cx="490" cy="84" r="22" fill="#5a5a66"/>' +
+    // Spitze Katzenohren: Fell wie der Kopf, innen eine Stufe heller.
+    `<path d="${OHR_LINKS}" fill="#3e3e46" stroke="#2b2b33" stroke-width="3"/>` +
+    `<path d="${OHR_RECHTS}" fill="#3e3e46" stroke="#2b2b33" stroke-width="3"/>` +
+    `<path d="${OHR_LINKS_INNEN}" fill="#5a5a66"/>` +
+    `<path d="${OHR_RECHTS_INNEN}" fill="#5a5a66"/>` +
     // Wangen im Fellstreifen zwischen Maul und Kopfrand; bei y 300 ist er breit genug
     // (gemessen: der Maulrand liegt dort bei x 124, der Kopfrand bei x 92).
     '<ellipse cx="106" cy="300" rx="15" ry="10" fill="#f2a8b6" opacity="0.5"/>' +
@@ -62,6 +81,17 @@ export const pantherArtwork: CreatureArtwork = {
   lowerExtra:
     '<path d="M 214 428 C 250 450 390 450 426 428" fill="none" stroke="#33333c" stroke-width="5" stroke-linecap="round"/>',
   face:
+    // Schnurrhaare im Fellstreifen neben dem Maul. Der Streifen ist schmal (gemessen: der
+    // Maulrand liegt dort bei x 120, der Kopfrand bei x 88..96) -- mehr als rund 30 px Laenge
+    // gibt er nicht her. Auf dem fast schwarzen Fell brauchen sie einen mittleren Grauton.
+    '<g stroke="#6d6d7a" stroke-width="4" stroke-linecap="round">' +
+    '<path d="M 118 254 L 88 244"/>' +
+    '<path d="M 120 274 L 86 274"/>' +
+    '<path d="M 118 294 L 88 304"/>' +
+    '<path d="M 522 254 L 552 244"/>' +
+    '<path d="M 520 274 L 554 274"/>' +
+    '<path d="M 522 294 L 552 304"/>' +
+    '</g>' +
     // Kulleraugen mit gelbem Irisring. Die Pupille ist rund und dunkelbraun -- nie schwarz,
     // nie ein Schlitz (Regel fuer Kinder).
     '<ellipse cx="170" cy="166" rx="33" ry="28" fill="#ffffff"/>' +
