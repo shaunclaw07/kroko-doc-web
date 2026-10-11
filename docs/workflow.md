@@ -41,6 +41,22 @@ Mensch 226,0 · Wolf 222,0 SVG-Einheiten); die Schnauze fährt einen Anteil davo
 gibt es keinen festen Winkel und keinen festen Weg. Der Zahnring schließt genau, wenn sich die
 Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 
+## Doku prüfen (nach jeder Änderung an Doku, Zahlen oder Rezepten)
+
+```bash
+bash scripts/doku-pruefen.sh README.md AGENTS.md docs/*.md
+python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
+```
+
+Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit
+`ALTE_WERTE="196|2,29 s|Drei Gebisse"` findet er zusätzlich noch stehende alte Werte. Der zweite
+hält jede in Backticks genannte Pfadangabe gegen das Dateisystem — eine Doku, die auf eine
+verschwundene Datei zeigt, fällt durch keine Zahlenprüfung auf.
+
+Beides sind **Prüfhilfen, kein Gate**: Exit 1 heißt „es steht noch etwas drin", die Ausgabe ist eine
+Kandidatenliste, und jeder Treffer wird angesehen, bevor er als Fehler gilt (Kommentarzeilen in
+Bash-Blöcken sind zum Beispiel korrekt).
+
 ## Eine Fähigkeit ergänzen
 
 1. Regel oder Rechnung in `core/domain/` — **eine** Datei, **eine** Verantwortung.

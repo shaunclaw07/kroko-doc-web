@@ -43,6 +43,7 @@ Der Kern wirft `DomainError` mit `code`:
 | `round-finished` | Druck nach dem Zuschnappen |
 | `invalid-tooth-count` | Zahnzahl außerhalb 4..12 oder keine ganze Zahl |
 | `invalid-player-count` | Spielerzahl außerhalb 1..4 |
+| `unknown-creature` | Gebiss-Kennung, die nicht im Katalog steht (`getCreature`) |
 
 Die Bedienung fängt Verstöße ab, bevor sie entstehen (sie prüft den Zustand selbst), und
 zeigt deutsche Texte statt der englischen Kernmeldungen.

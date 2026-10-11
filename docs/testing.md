@@ -15,7 +15,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Testdateien | 18 |
 | Tests | 206 (18 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
-| Produktionsbau | `pnpm build` → 2 Seiten, 2,08–2,54 s (Maschinenstreuung) |
+| Produktionsbau | `pnpm build` → 2 Seiten, 2,1–2,5 s (Maschinenstreuung) |
 
 ## Was wo geprüft wird
 

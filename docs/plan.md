@@ -103,7 +103,8 @@ anderes, weil der Balken sonst nicht zu deuten war:
   wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser; genau daran scheiterte ein neuer
   Spieler.
 - Beide Werte sind **benannt** („6 von 10 gedrückt" · „Bissgefahr 34 %"), der Balken atmet im Takt des
-  Herzschlags (`--beat-ms`), glüht ab 30 % und wird ab 60 % rot.
+  Herzschlags (`--beat-ms`), glüht ab 30 % und wird ab 60 % rot. *(Am selben Tag später auf 50 %
+  gesenkt — siehe den Nachtrag „die Entscheidungen des Auftraggebers" unten.)*
 - Ein **Hinweis** erklärt ihn einmal je Sitzung (beim ersten Druck, über den `SessionMarkPort`).
 - Erklärt wird er außerdem im Blatt „Regeln & Herkunft" und auf der Statistikseite als Kurve
   („Wie gefährlich ist der nächste Druck?").
@@ -142,6 +143,8 @@ Fragen des Sparrings, jede mit nachgeschlagener Tatsache und Entscheidung:
    55,0 % beim neunten) — rot fällt also immer mit dem Biss zusammen, ein *überstandener* roter Druck
    ist unmöglich. Bei 50 % wäre der Mut bis ins Rote möglich. **Entscheidung: bleibt bei 60 %** —
    die Zahl ist abgesprochen; die Option ist hier mit neuer Begründung notiert.
+   *→ Am selben Tag umentschieden: der Auftraggeber hat die Schwelle auf **50 %** gesetzt (Nachtrag
+   „die Entscheidungen des Auftraggebers" unten). Der Wortlaut oben bleibt als damaliger Stand.*
 8. **Der „geschlossene Blick" aller sechs?** Tatsache: über alle sechs gleich und nie beanstandet.
    **Entscheidung: nicht anfassen.**
 

@@ -160,7 +160,8 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   *über* einer Ebene lagen statt *außen* am Kopf. Gegen die Ringellipse rechnen (`ring.rx`/`ring.ry` um
   `ring.cx`/`ring.cy`): was zum Kopf gehört, muss **außerhalb** liegen — und trotzdem Abstand zur
   Silhouette, zu Augen, Ohren und Flossen halten (der Hai hat dafür nur eine Zone von rund 40 px).
-- Umrisse in einer dunkleren Variante der Füllfarbe (z. B. `#5aa164` auf `#8ed492`), keine schwarzen Linien.
+- Umrisse in einer dunkleren Variante der Füllfarbe (beim Krokodil `#5f8f1e` auf `#8fce33`), keine
+  schwarzen Linien.
 - Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
   über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.
 
