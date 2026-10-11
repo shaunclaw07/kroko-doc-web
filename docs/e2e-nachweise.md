@@ -508,6 +508,66 @@ Trefferkreis. Nachgemessen: Tipp in der Mitte von Zahn 2 und 10 registriert (0 �
 (Pixel und Eigentum am Zentrum), `ueberdeckung.py` (wer liegt oben), `wirkung.py` (registriert der
 Tipp). Gate: **230 Tests in 19 Dateien**, `tsc` fehlerfrei.
 
+## 5m. Einstellungsblatt auf Tablets — es klebte links und nutzte die Breite nicht (11.10.2026, abends)
+
+Auftrag: „Kannst du das settings Modal auch für Tablets auf die maximale breite optimieren". Auf dem
+Handy ist `width: 100%` die volle Breite; ab 640 px deckelte `max-width: 620px` das Blatt, und weil
+der Dialog mit `inset: auto 0 0 0` und `margin: 0` ausgerichtet ist, blieb der Platz **links**
+ungenutzt (rechts wird dabei überstimmt — das Blatt sitzt nicht mittig).
+
+**Eine Sonde, zwei Adressen** (`uv run --with playwright python scripts/pruefen-blattbreite.py
+<adresse>`; veröffentlichte Seite gegen lokalen Bau):
+
+```
+--- vorher (veroeffentlichte Seite) ---
+ 768 x 1024 | Blatt  620.0 px, x =   0.0, Luft rechts 148.0 | 1 Spalte(n) | Inhalt 821 px in Sicht 821 px | ✕ sichtbar: True
+        Auffällig: Tablet: Blatt klebt am Rand (links 0, rechts 148)
+        Auffällig: Tablet: 1 Spalte statt mindestens 2
+        Auffällig: Tablet: 620 px — die Breite wird nicht genutzt
+1024 x 768  | Blatt  620.0 px, x =   0.0, Luft rechts 404.0 | 1 Spalte(n) | Inhalt 821 px in Sicht 630 px | ✕ sichtbar: True
+1180 x 820  | Blatt  620.0 px, x =   0.0, Luft rechts 560.0 | 1 Spalte(n) | Inhalt 821 px in Sicht 672 px | ✕ sichtbar: True
+        Auffällig: Inhalt 821 px in 672 px — das Blatt scrollt
+1366 x 1024 | Blatt  620.0 px, x =   0.0, Luft rechts 746.0 | 1 Spalte(n) | Inhalt 821 px in Sicht 821 px | ✕ sichtbar: True
+
+Auffälligkeiten: 17
+Exit=1
+
+--- nachher (lokaler Bau) ---
+ 320 x 720  | Blatt  320.0 px, x =   0.0, Luft rechts   0.0 | 1 Spalte(n) | Inhalt 845 px in Sicht 590 px | ✕ sichtbar: True
+ 390 x 844  | Blatt  390.0 px, x =   0.0, Luft rechts   0.0 | 1 Spalte(n) | Inhalt 821 px in Sicht 692 px | ✕ sichtbar: True
+ 768 x 1024 | Blatt  720.0 px, x =  24.0, Luft rechts  24.0 | 2 Spalte(n) | Inhalt 587 px in Sicht 587 px | ✕ sichtbar: True
+ 820 x 1180 | Blatt  772.0 px, x =  24.0, Luft rechts  24.0 | 2 Spalte(n) | Inhalt 587 px in Sicht 587 px | ✕ sichtbar: True
+1024 x 768  | Blatt  976.0 px, x =  24.0, Luft rechts  24.0 | 3 Spalte(n) | Inhalt 549 px in Sicht 549 px | ✕ sichtbar: True
+1180 x 820  | Blatt 1132.0 px, x =  24.0, Luft rechts  24.0 | 3 Spalte(n) | Inhalt 525 px in Sicht 525 px | ✕ sichtbar: True
+1366 x 1024 | Blatt 1318.0 px, x =  24.0, Luft rechts  24.0 | 4 Spalte(n) | Inhalt 472 px in Sicht 472 px | ✕ sichtbar: True
+
+Auffälligkeiten: 0
+Exit=0
+```
+
+Das Handy bleibt unverändert (320/390/620 px: randlos, eine Spalte, ✕ im Kopf erreichbar). Auf dem
+Tablet steht das Blatt 24 px von jeder Kante, **scrollt nicht mehr** (der Inhalt schrumpft durch die
+Spalten von 821 auf 472–587 px statt vorher teilweise abgeschnitten zu sein), und das ✕ bleibt ohne
+Scrollen sichtbar (§5i). Die anderen drei Blätter (Tierwahl, Regeln, Ergebnis) bleiben schmal
+(620 px) — eine Regelzeile über 1100 px wäre schlechter zu lesen —, stehen aber jetzt **mittig**
+statt am linken Rand. Angesehen (Bilder, 768 × 1024, 1180 × 820, 1366 × 1024, 390 × 844): Raster
+sauber, kein Text abgeschnitten, kein Kind ragt aus dem Blatt (`kinderRaus` = 0 in allen acht Fällen).
+
+**Umsetzung** (`presentation/styles/app.css`, Block `@media (min-width: 640px)`):
+`inset: auto auto 1.5rem 50%` + `transform: translateX(-50%)` + `width: min(100% - 3rem, 620px)` für
+alle Blätter; das Einstellungsblatt trägt zusätzlich die Klasse `sheet--columns`
+(`pages/index.astro`) und wird `display: grid` mit `repeat(auto-fit, minmax(17rem, 1fr))` — zwei bis
+vier Spalten nach **Breite**, nicht nach Geräteklasse. Blattkopf, Fußknöpfe, Fußwege und Hinweiszeilen
+laufen über `grid-column: 1 / -1`; die Segment-Schalter bekommen `align-self: start`, sonst ziehen sie
+als leere dunkle Spur über die ganze Spalte, während die Knöpfe links kleben.
+
+**Zwei Fallen beim Bauen.** (1) Die erste Fassung schrieb `.sheet--columns { width: … }` — das verlor
+gegen `dialog.sheet` aus demselben Block (Spezifität 0-1-1 gegen 0-1-0) und das Blatt blieb still bei
+620 px, obwohl es schon zweispaltig stellte. Erst `dialog.sheet.sheet--columns` greift. (2) Die erste
+Bildprobe überschrieb ihre eigenen „vorher"-Bilder (Dateiname im Skript fest verdrahtet) — zwei
+identische Bilder, obwohl sich die Lage geändert hatte. Belastbar war die Zahlentabelle, nicht der
+Bildvergleich.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

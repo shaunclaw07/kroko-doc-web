@@ -880,6 +880,50 @@ dialog.sheet::backdrop {
   margin-top: 0.9rem;
 }
 
+/*
+ * Tablets und größer: das Blatt nutzt die Breite.
+ * Auf dem Handy ist `width: 100%` die volle Breite. Ab 640 px deckelte `max-width: 620px` das
+ * Blatt, und weil der Dialog mit `inset: auto 0 0 0` und `margin: 0` sitzt, klebte es danach am
+ * **linken** Rand — gemessen bei 1180 × 820: 0 px Luft links, 560 px rechts, 821 px Inhalt in
+ * einer Spalte in einem 672 px hohen Sichtfenster. Deshalb: mittig, höchstens 1,5 rem an die
+ * Ränder, und die Felder des Einstellungsblattes laufen in zwei bis vier Spalten. Maß ist die
+ * Spaltenbreite, nicht die Geräteklasse: `auto-fit` gibt so viele Spalten, wie hineinpassen.
+ */
+@media (min-width: 640px) {
+  dialog.sheet {
+    inset: auto auto 1.5rem 50%;
+    transform: translateX(-50%);
+    width: min(100% - 3rem, 620px);
+    max-width: none;
+    border-radius: 20px;
+  }
+
+  /* Das Einstellungsblatt stellt in Spalten — es ist das einzige Blatt, das breiter sein darf.
+     Der Selektor muss `dialog.sheet` aus dem Block darüber schlagen (gleiche Spezifität reicht
+     nicht: `dialog.sheet` wäre 0-1-1, `.sheet--columns` nur 0-1-0 — dann bliebe es bei 620 px). */
+  dialog.sheet.sheet--columns {
+    width: calc(100% - 3rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    column-gap: 1.6rem;
+    align-content: start;
+  }
+
+  /* Kopf, Hinweiszeilen, Knöpfe und die Fußwege laufen über die ganze Breite. */
+  dialog.sheet.sheet--columns > .sheet__head,
+  dialog.sheet.sheet--columns > .sheet__actions,
+  dialog.sheet.sheet--columns > .sheet-link,
+  dialog.sheet.sheet--columns > .muted {
+    grid-column: 1 / -1;
+  }
+
+  /* Die Segment-Schalter ziehen sich sonst als leere dunkle Spur über die ganze Spalte,
+     während die Knöpfe links kleben. Sie sollen so breit sein wie ihr Inhalt. */
+  dialog.sheet.sheet--columns .segmented {
+    align-self: start;
+  }
+}
+
 /* --- Statistik --- */
 .bars {
   display: grid;

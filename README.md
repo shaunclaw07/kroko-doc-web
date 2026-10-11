@@ -76,7 +76,8 @@ liegt hinter dem **Zahnrad** oben rechts — beim Spielen lenkt nichts davon ab.
    („Standard" nimmt wieder das tiergerechte Gebiss: Krokodil 10, Wolf 12, Mensch 12; erlaubt
    sind **1 bis 12**). Bei **einem** Zahn ist dieser Zahn der scharfe — der erste Tipp schließt
    das Maul. Der Weg zurück ins Spiel ist „Fertig" unten im Blatt oder ein Tipp neben das Blatt;
-   das ✕ oben geht immer.
+   das ✕ oben geht immer. Auf einem **Tablet** steht das Blatt mittig und nutzt die Breite: die
+   Felder laufen dann in zwei bis vier Spalten, ganz ohne Scrollen.
 4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". „Neue Runde"
    im Zahnrad startet jederzeit eine frische Runde.
 5. **Statistik für Große** (im Zahnrad): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und

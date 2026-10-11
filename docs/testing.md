@@ -79,6 +79,14 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    (44 px auf der schmalsten Bühne, und wo der Zahnabstand die Grenze ist) steht in
    `creatureViews.test.ts`.
 
+6. **Blatt-Sonde** — nutzt das Einstellungsblatt die Breite des Geräts? Gemessen wird das geöffnete
+   Blatt bei acht Blickbreiten von 320 bis 1366 px: Lage (klebt es am Rand?), Breite, Spaltenzahl,
+   ob der Inhalt ins Sichtfenster passt, ob das ✕ ohne Scrollen erreichbar ist und ob ein Kind aus
+   dem Blatt ragt. `uv run --with playwright python scripts/pruefen-blattbreite.py` (mit einer
+   Adresse als Argument gegen die veröffentlichte Seite). Erwartet: unter 640 px randlos in einer
+   Spalte, ab 640 px mittig mit 2–4 Spalten und **ohne** Scrollen, und **0 Auffälligkeiten**
+   (Exit 0). Die veröffentlichte Fassung vor dem 11.10.2026 ergab 17 Auffälligkeiten (§5m).
+
 ## Zwei Regeln für Zeitgeber in Sonden
 
 - **Jede Steuerung wird abgehängt:** `dispose()` nach jedem Fall (`afterEach`). Sonst feuert der
