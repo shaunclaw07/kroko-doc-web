@@ -280,6 +280,19 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   korrekt im SVG stand. Der Hut bleibt trotzdem in `body`, weil seine Krone über den Umriss
   hinausragt und der Gesichtsbereich beschnitten wird. Also: **Hut in `body`, Haare in `face`** —
   je nachdem, was die Form braucht, und immer im gerasterten Bild nachsehen.
+- **Die Doku-Prüfung nie mit `>/dev/null` laufen lassen.** `scripts/doku-pruefen.sh` meldet Treffer
+  alter Werte und **zählt sie nicht als Fund**, solange `ALTE_WERTE_STRIKT=1` fehlt — der Exit-Code
+  bleibt 0. So blieb „232 Tests grün" in der Startanleitung stehen, während dieselbe Datei zweimal
+  korrekt 234 nannte; gefunden hat es erst ein unabhängiger Prüfer. Scharf prüfen (`ALTE_WERTE_STRIKT=1`)
+  heißt: nur über die **Zahlendoku** (`README.md`, `docs/testing.md`). Über `AGENTS.md`,
+  `docs/workflow.md` und die Aufzeichnungen wird **meldend** geprüft — dort stehen alte Zahlen
+  absichtlich (als Lehre, im Aufruf-Beispiel, im Plan) und würden falschen Alarm auslösen.
+- **`getBoundingClientRect` an einem gedrehten SVG-Element ist kein Maß für eine Fläche.** Die
+  Trefferbox sitzt auf dem Zahnring und ist gedreht; der Browser liefert das **Achsen-Rechteck**
+  (Kante an Kante, 52,48 px), nicht die Trefferfläche. Die 44,15 px im README sind gerechnet
+  (2 · Trefferradius 49,4 px · Skala 286/640) — die Zahl stimmte, die angegebene Herkunft nicht.
+  Wer eine Fläche behauptet, nennt die Rechnung; wer eine Messung behauptet, nennt das Werkzeug,
+  das sie wirklich liefert.
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.

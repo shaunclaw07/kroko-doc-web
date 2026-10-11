@@ -437,3 +437,12 @@ wollen. Hast du noch andere coole Ideen?"
   **Nase in der Mitte frei** gelassen (eine durchgehende Franse hatte sie zugedeckt — im Bild
   gesehen, mit Pixelproben belegt). Die Regeln stehen in `AGENTS.md`; im Nachweis zusätzlich die
   richtige Abbildung des Rasters (viewBox `0 0 640 460`, nicht 640 × 640).
+- **Unabhängige Fremdprüfung (Stand `16a54ad`, Audit `sa-0-2a78f337`): acht Punkte bestätigt,
+  drei Doku-Fehler gefunden.** Bestätigt unter anderem: 10 Kennungen ohne Waise, 234 Tests in
+  19 Dateien, die Galerie **byte-identisch** zum Nachbau, und die **Wahrscheinlichkeiten mit eigener
+  Kombinatorik nachgerechnet**. Gefunden: „232 Tests" stand noch in der Startanleitung (alter Wert);
+  das Bauzeit-Fenster „2,1–2,5 s" war zu eng (gemessen 2,68 · 2,86 · 2,88 · 2,98 s → jetzt 2,1–3,0 s);
+  die Herkunft der Trefferflächen-Zahl war falsch (`getBoundingClientRect` an der gedrehten Box
+  liefert das Achsen-Rechteck 52,48 px, die 44,15 px sind gerechnet). Alle drei behoben; die Regeln
+  stehen in `AGENTS.md` („Doku-Prüfung nie mit `>/dev/null`", „`getBoundingClientRect` … kein Maß
+  für eine Fläche"), die Prüfung selbst in `docs/e2e-nachweise.md` §5p.

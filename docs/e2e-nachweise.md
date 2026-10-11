@@ -797,6 +797,42 @@ zufällig fast richtig; die belastbare Abbildung lautet `X = 118 + (x − 62) ·
 `Y = 10 + (y − 6) · 2,0091`, bestimmt aus dem Umriss der Zeichnung im PNG. Wer Pixelproben macht,
 leitet den Maßstab erst aus dem Bild ab.
 
+## 5p. Unabhängige Fremdprüfung: acht Punkte bestätigt, drei Doku-Fehler gefunden (11.10.2026, Stand `16a54ad`)
+
+Ein Prüfer mit **eigener Methode** (die Repo-Skripte höchstens als Gegenprobe, sonst eigene Sonden
+und eigene Rechnung) hat Katalog, Zeichnungen, Pixel, Rechenwerte und Doku gegengerechnet —
+read-only, im echten Chromium und im erzeugten SVG. Auftrag: nichts behaupten, was nicht selbst
+nachgerechnet wurde; zu jeder Feststellung Befehl und Kernzahl nennen.
+
+**Bestätigt (acht Punkte):** 10 Kennungen in Katalog und Zeichnungs-Registry, keine Waise ·
+**234 Tests in 19 Dateien**, Gate grün · Galerie **byte-identisch** zum Nachbau (md5
+`6a4074e15ccb65006ec873df30910e87`, 1970 × 566) · Rasterung ohne Browser für alle zehn Tiere in
+beiden Zuständen (offen vs. geschnappt 33–38 % verschiedene Bildpunkte) · Standard-Zahnzahlen
+10/12/12/12/6/12/12/12/12 · **die Wahrscheinlichkeiten mit eigener Kombinatorik nachgerechnet**
+(`C(n−j,k−1)/C(n,k)`: 20,0 % · 3,972222 · 4,694444 · 33,9/28,3/20,7/17,0 % · 3,3333 %) ·
+Schließwege 232/226/222/222/222/220/220 im erzeugten SVG · Sonde und Tier-Auswahl der
+veröffentlichten Seite (10 Kacheln, 152 px, Katalogreihenfolge).
+
+**Gefunden und behoben:**
+
+1. **„232 Tests grün" stand noch in der Startanleitung** (`README.md` Zeile 32) — dieselbe Datei
+   nennt sonst zweimal 234, gemessen sind 234. Stehengebliebener alter Wert, korrigiert. Ursache auf
+   meiner Seite: die Doku-Prüfung lief mit `>/dev/null`, und `scripts/doku-pruefen.sh` **meldet**
+   alte Werte, **zählt sie aber nicht als Fund** — der Exit-Code blieb 0. Der Schalter
+   `ALTE_WERTE_STRIKT=1` macht sie in der **Zahlendoku** (`README.md`, `docs/testing.md`) jetzt zum
+   Fehler; über Regeln und Aufzeichnungen wird weiter meldend geprüft, weil dort alte Zahlen
+   absichtlich zitiert werden.
+2. **Das Bauzeit-Fenster „2,1–2,5 s" war zu eng:** der Prüfer maß 2,68 s und 2,86 s, ich danach
+   2,88 s und 2,98 s. Fenster auf **2,1–3,0 s** geweitet und die Einzelwerte mitgenannt
+   (`README.md`, `docs/testing.md`).
+3. **Die Trefferfläche:** die Zahlen (44,15 / 50,1 / 54,7 px) stimmen, die angegebene **Herkunft**
+   war falsch. `getBoundingClientRect` eines `.tooth__hit` liefert das **Achsen-Rechteck** der auf
+   dem Ring gedrehten Box — gemessen 52,48 px — und ist damit kein Maß für die Trefferfläche; die
+   44,15 px sind gerechnet (2 · Trefferradius 49,4 px · Skala 286/640). Herkunft richtiggestellt.
+
+Beide Lehren stehen in `AGENTS.md`. Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
+(Audit-Kennung `sa-0-2a78f337`).
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

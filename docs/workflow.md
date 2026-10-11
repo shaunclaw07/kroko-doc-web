@@ -47,18 +47,26 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 ## Doku prüfen (nach jeder Änderung an Doku, Zahlen oder Rezepten)
 
 ```bash
-bash scripts/doku-pruefen.sh README.md AGENTS.md docs/*.md
+# Zahlendoku scharf: hier ist jeder alte Wert ein Fehler
+ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s"
+ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
+# Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
+ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/plan.md docs/e2e-nachweise.md
 python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
 ```
 
-Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit
-`ALTE_WERTE="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne"` findet er zusätzlich noch stehende alte Werte. Der zweite
-hält jede in Backticks genannte Pfadangabe gegen das Dateisystem — eine Doku, die auf eine
-verschwundene Datei zeigt, fällt durch keine Zahlenprüfung auf.
+Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
+zusätzlich noch stehende alte Werte. **`ALTE_WERTE_STRIKT=1` macht Treffer zum Fund (Exit 1)** — das
+gehört nur über die **Zahlendoku** (`README.md`, `docs/testing.md`): in `AGENTS.md`, in diesem Rezept
+und in den Aufzeichnungen stehen alte Zahlen absichtlich (als Lehre, im Aufruf-Beispiel, im Plan) und
+würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer nur und der Exit-Code
+bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
+nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
+Pfadangabe gegen das Dateisystem — eine Doku, die auf eine verschwundene Datei zeigt, fällt durch
+keine Zahlenprüfung auf.
 
-Beides sind **Prüfhilfen, kein Gate**: Exit 1 heißt „es steht noch etwas drin", die Ausgabe ist eine
-Kandidatenliste, und jeder Treffer wird angesehen, bevor er als Fehler gilt (Kommentarzeilen in
-Bash-Blöcken sind zum Beispiel korrekt).
+Ein Treffer **außerhalb der Zahlendoku** ist eine Kandidatenliste, kein Fehler: die Ausgabe wird
+angesehen und eingeordnet (Kommentarzeilen in Bash-Blöcken sind zum Beispiel korrekt).
 
 ## Vor der Planung: das Sparring (`grill-me`)
 

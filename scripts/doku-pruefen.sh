@@ -4,6 +4,15 @@
 # Aufruf:
 #   bash scripts/doku-pruefen.sh README.md AGENTS.md [weitere.md ...]
 #   ALTE_WERTE="754|86 Kriterien|v9" bash scripts/doku-pruefen.sh README.md
+#   ALTE_WERTE="..." ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md AGENTS.md
+#
+# ALTE_WERTE_STRIKT: ohne die Variable werden Treffer alter Werte nur GEMELDET und zaehlen nicht als
+# Fund (der Exit-Code bleibt 0). Mit ALTE_WERTE_STRIKT=1 werden sie zum Fund (Exit 1) -- das gehoert
+# ueber die ZAHLENDOKU (README.md, docs/testing.md). Ueber AGENTS.md, docs/workflow.md und die
+# Aufzeichnungen (docs/plan.md, docs/e2e-nachweise.md) NICHT: dort stehen alte Zahlen absichtlich
+# (als Lehre, im Aufruf-Beispiel, im Plan) und wuerden falschen Alarm ausloesen. Genau so blieb
+# "232 Tests" in der Startanleitung stehen, waehrend dieselbe Datei zweimal 234 nannte -- aufgefallen
+# ist es erst einem unabhaengigen Pruefer, weil der Aufruf mit >/dev/null nur den Exit-Code ansah.
 #
 # Exit 0 = sauber, 1 = mindestens ein Fund. Prueft in EINEM Lauf:
 #   - Zaun-Paritaet (ungerade = ein Code-Zaun verrutscht)
@@ -50,7 +59,14 @@ for datei in "$@"; do
 
   if [ -n "${ALTE_WERTE:-}" ]; then
     treffer=$(grep -nE "$ALTE_WERTE" "$datei" || true)
-    if [ -n "$treffer" ]; then echo "  ALTE WERTE (einordnen: lebende Doku vs. Aufzeichnung):"; echo "$treffer" | sed 's/^/    /'; fi
+    if [ -n "$treffer" ]; then
+      if [ "${ALTE_WERTE_STRIKT:-0}" = "1" ]; then
+        echo "  FEHLER: alte Werte in lebender Doku (ALTE_WERTE_STRIKT=1):"; fehler=1
+      else
+        echo "  ALTE WERTE (einordnen: lebende Doku vs. Aufzeichnung):"
+      fi
+      echo "$treffer" | sed 's/^/    /'
+    fi
   fi
 done
 exit $fehler

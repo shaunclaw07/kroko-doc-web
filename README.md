@@ -29,7 +29,9 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 232 Tests grün, Bau fertig in 2,12 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 234 Tests grün, Bau fertig in 2,1–3,0 s
+(Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
+im Arbeitsbaum).
 
 ### Die drei Befehle
 
@@ -188,14 +190,14 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | Tests | **234 in 19 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,1–2,5 s (Maschinenstreuung) | `pnpm build`, Arbeitsbaum und frischer Klon |
+| Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |
 | Spannungsbalken | = Biss-Wahrscheinlichkeit des nächsten Drucks (Krokodil: 20,0 → 100 %) | `core/domain/tension.ts`, Kurve im Test festgenagelt |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
 | Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · Panther 220,0 · Panda 220,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
-| Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | im Browser gemessen (`getBoundingClientRect` eines `.tooth__hit`); Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
+| Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | **gerechnet**: 2 · Trefferradius 49,4 px · Skala (286/640) = 44,15 px. `getBoundingClientRect` eines `.tooth__hit` ist dafür **kein** Maß — die Trefferbox ist auf dem Ring gedreht, und der Browser liefert ihr Achsen-Rechteck (52,48 px, gemessen). Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
 | Tier-Auswahl der veröffentlichten Seite | **10 Kacheln** in Katalogreihenfolge (… Panther, Säbelzahntiger), 10 sichtbare Kopfbilder mit 10 **eigenen** Beschnitten, 152 px Kachelbild, dazu die Notizen von Löwe und Panther im Blatt | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 11.10.2026 |
 
 ---
