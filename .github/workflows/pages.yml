@@ -1,6 +1,7 @@
 # Veröffentlicht die statische Seite auf GitHub Pages.
-# Der Bau läuft mit ASTRO_BASE=/zahn_agent, weil Projektseiten unter
-# https://<konto>.github.io/<repo>/ liegen. Lokal bleibt es bei "/".
+# Ausgeliefert wird unter der eigenen Domain https://zahn-agent.schaflabs.com/ — die liegt auf
+# der Wurzel, deshalb baut der Workflow ohne ASTRO_BASE (Basis-Pfad "/"). Die Domain gehört dem
+# Repo über public/CNAME; der DNS-Eintrag liegt bei Cloudflare (schaflabs.com).
 name: Seite veroeffentlichen
 
 on:
@@ -36,10 +37,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Typen und Tests
         run: pnpm gate
-      - name: Bauen (mit Basis-Pfad)
+      - name: Bauen
         run: pnpm build
-        env:
-          ASTRO_BASE: /zahn_agent
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

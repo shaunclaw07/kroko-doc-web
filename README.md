@@ -202,15 +202,16 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 
 ## Auf GitHub Pages
 
-Die Seite ist veröffentlicht: **<https://shaunclaw07.github.io/zahn_agent/>**
+Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
 
 - [`.github/workflows/pages.yml`](.github/workflows/pages.yml) baut bei jedem Push auf `main` und
   liefert `dist/` aus. Dort läuft `pnpm gate` mit — eine rote Suite verhindert die Veröffentlichung.
-- Der Bau läuft mit `ASTRO_BASE=/zahn_agent`, weil Projektseiten unter
-  `https://<konto>.github.io/<repo>/` liegen. **Lokal ändert das nichts**: ohne die
-  Umgebungsvariable bleibt die Adresse `http://localhost:4321`.
-- Deshalb gehen interne Verweise im Code über `import.meta.env.BASE_URL` und nie absolut mit
-  `"/"` — sonst läuft die Seite nur an einer der beiden Adressen.
+- Die Domain gehört dem Repo über `public/CNAME`; der DNS-Eintrag liegt bei Cloudflare
+  (`zahn-agent.schaflabs.com` als CNAME auf `shaunclaw07.github.io`). Weil die Seite damit auf
+  der Wurzel liegt, baut der Workflow **ohne** `ASTRO_BASE` — Basis-Pfad `/`.
+- Interne Verweise im Code gehen trotzdem über `import.meta.env.BASE_URL` und nie absolut mit
+  `"/"` — das hält die Seite heil, falls sie je wieder unter einem Unterpfad laufen soll.
+- Die alte Projektadresse `https://shaunclaw07.github.io/zahn_agent/` leitet auf die Domain um.
 - `dist/` ist nicht im Repo; veröffentlicht wird nur, was der Workflow baut.
 
 ## Wenn etwas klemmt

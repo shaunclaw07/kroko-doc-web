@@ -165,22 +165,26 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 - Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
   über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.
 
-## Basis-Pfad (lokal vs. GitHub Pages)
+## Basis-Pfad (lokal vs. eigene Domain)
 
-Lokal liegt die Seite unter `/`, veröffentlicht unter `/zahn_agent/`. Deshalb gilt für jeden
-internen Verweis (Link, Icon, Manifest, Laufzeit-Abruf):
+Die Seite liegt lokal **und** veröffentlicht unter `/`: lokal `http://localhost:4321`,
+veröffentlicht unter <https://zahn-agent.schaflabs.com/> (eigene Domain; bis zum 11.10.2026
+Projektseite unter `/zahn_agent/`). Deshalb gilt für jeden internen Verweis (Link, Icon,
+Manifest, Laufzeit-Abruf):
 
-- **Immer `import.meta.env.BASE_URL` verwenden**, nie absolut mit `"/"` — ein hartes `href="/statistik"`
-  funktioniert nur lokal und ergibt auf Pages einen Fehler 404.
-- Der Basis-Pfad kommt aus `ASTRO_BASE` und wird in `astro.config.mjs` auf einen Schluss-Schrägstrich
-  normalisiert (sonst entsteht `/zahn_agentstatistik`).
-- Beide Bauvarianten prüfen: `pnpm build` (lokal) und `ASTRO_BASE=/zahn_agent pnpm build` (Pages),
-  danach im erzeugten `dist/index.html` nachsehen, welche Adressen drinstehen.
+- **Immer `import.meta.env.BASE_URL` verwenden**, nie absolut mit `"/"` — das hält die Seite
+  auch dann heil, wenn sie doch wieder unter einem Unterpfad läuft.
+- `ASTRO_BASE` ist der **Notausgang** für einen Unterpfad und wird in `astro.config.mjs` auf einen
+  Schluss-Schrägstrich normalisiert (sonst entsteht `/zahn_agentstatistik`); ohne die Variable
+  ist der Basis-Pfad `/`, und genau so baut der Workflow.
+- Nach Änderungen an Verweisen `pnpm build` fahren und im erzeugten `dist/index.html` **nachsehen**,
+  welche Adressen drinstehen (erwartet: `/statistik`, `/_astro/…`, `/favicon.svg`).
 
 ## Veröffentlichen
 
 Jeder Push auf `main` löst [`.github/workflows/pages.yml`](.github/workflows/pages.yml) aus:
-installieren → `pnpm gate` → bauen mit `ASTRO_BASE=/zahn_agent` → ausliefern auf
-<https://shaunclaw07.github.io/zahn_agent/>. Schlägt `pnpm gate` fehl, wird **nicht**
+installieren → `pnpm gate` → `pnpm build` → ausliefern auf <https://zahn-agent.schaflabs.com/>.
+Die Domain gehört dem Repo über `public/CNAME`; der DNS-Eintrag liegt bei Cloudflare
+(`schaflabs.com`) als CNAME auf `shaunclaw07.github.io`. Schlägt `pnpm gate` fehl, wird **nicht**
 veröffentlicht — lokal grün muss also vor dem Push stehen. Manuell anstoßen geht über
 `workflow_dispatch` (Actions → „Seite veroeffentlichen" → Run workflow).
