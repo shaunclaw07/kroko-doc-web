@@ -91,16 +91,28 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       </div>
     </section>
 
-    <div class="tension-meter" role="img" aria-label="Spannungspegel">
+    <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr. -->
+    <div
+      class="tension-meter"
+      role="img"
+      aria-label="Fortschritt der Runde und Bissgefahr des nächsten Drucks"
+    >
       <div class="tension-meter__fill" id="hud-meter"></div>
+    </div>
+    <div class="meter-legend">
+      <span id="hud-progress">0 von 10 gedrückt</span>
+      <span id="hud-tension">Bissgefahr 0 %</span>
     </div>
 
     <div class="turn">
       <span class="turn__dot" aria-hidden="true"></span>
       <span id="hud-turn">Du bist dran (1 Spieler)</span>
-      <span class="spacer"></span>
-      <span class="muted small" id="hud-tension">0 %</span>
     </div>
+
+    <p class="meter-hint hidden" id="hud-meter-hint">
+      Die Bissgefahr steigt mit jedem Druck — ganz rechts beißt es sicher. Antippen blendet diesen
+      Hinweis weg.
+    </p>
 
     <p class="alarm hidden" id="hud-warning" role="status"></p>
 
@@ -185,6 +197,13 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       Raubtierzähnen, die Maus nur <strong>sechs</strong> Nagezähne (die kürzeste Runde) und der
       Vampir zwei lange Eckzähne. Jedes weitere Tier ist ein Katalog-Eintrag plus eine Zeichnung.
     </p>
+    <p>
+      <strong>Was der Balken zeigt:</strong> Er trägt zwei Aussagen. Die <strong>Füllung</strong> ist
+      der Fortschritt — wie viele Zähne schon gedrückt sind. Die <strong>Farbe</strong> ist die Gefahr:
+      die Wahrscheinlichkeit, dass der nächste Druck das Maul zuschnappen lässt (im Spiel steht sie
+      als Zahl dabei). Sie wächst mit jedem Druck, wird spät gold und vor dem letzten Zahn rot —
+      der letzte Zahn ist garantiert scharf. Der Balken atmet im Takt des Herzschlags.
+    </p>
     <p class="muted small">
       Diese App ist ein eigenständiges Spiel, kein Produkt von Hasbro. Die Statistikseite wertet eure
       eigenen Runden aus und sagt ehrlich, wenn die Daten für eine Aussage zu dünn sind.
@@ -200,6 +219,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
     import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
     import { getCreature } from '../core/domain/creature';
     import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
@@ -216,6 +236,7 @@ const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) 
       haptics,
       log,
       settings,
+      session: browserSessionMarks(),
       document,
       onSettingsChange: (next: GameSettings) => saveSettings(storage, next),
     });

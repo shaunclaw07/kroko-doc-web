@@ -32,6 +32,15 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <section class="card">
+      <h2>Wie gefährlich ist der nächste Druck?</h2>
+      <p class="muted small">
+        Der Balken im Spiel trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe ist
+        die Bissgefahr. Hier steht die Rechnung hinter der Farbe — für das eingestellte Gebiss.
+      </p>
+      <div id="danger-mount"></div>
+    </section>
+
+    <section class="card">
       <h2>Daten</h2>
       <p class="muted small">
         Export im Format des Analyse-Werkzeugs (<code>runde;reihenfolge;verlierer_zahn</code> plus Zusatzspalten).
@@ -57,10 +66,28 @@ import Base from '../layouts/Base.astro';
   <script>
     import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { fromCsv, toCsv } from '../core/domain/sessionLog';
-    import { renderReport } from '../presentation/stats/statsView';
+    import { renderDangerCurve, renderReport } from '../presentation/stats/statsView';
+    import { getCreature } from '../core/domain/creature';
+    import { loadSettings } from '../infrastructure/storage/localStorageSettings';
+    import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
     import { MIN_SAMPLE_FOR_VERDICT } from '../presentation/stats/statsView';
 
     const log = new LocalStorageRoundLog(browserStorage());
+
+    // Die Gefahr-Kurve zeigt das eingestellte Gebiss — dieselbe Einstellung wie im Spiel.
+    const settings = loadSettings(browserStorage());
+    const creature = getCreature(settings.creature);
+    const teeth = Math.min(MAX_TEETH, Math.max(MIN_TEETH, settings.teethOverride ?? creature.teeth));
+    const dangerMount = document.getElementById('danger-mount');
+    if (dangerMount) {
+      renderDangerCurve(dangerMount, {
+        creatureName: creature.name,
+        teeth,
+        mode: settings.mode,
+        liveTeethMin: creature.liveTeethMin,
+        liveTeethMax: creature.liveTeethMax,
+      });
+    }
     const mountPoint = document.getElementById('report-mount');
     const status = document.getElementById('data-status');
 

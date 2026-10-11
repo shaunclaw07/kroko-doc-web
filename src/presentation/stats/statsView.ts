@@ -1,4 +1,6 @@
 import type { RoundRecord } from '../../contract/sessionLog';
+import type { RandomMode } from '../../core/domain/teeth';
+import { HIGH_DANGER, tensionForPress } from '../../core/domain/tension';
 import { DEFAULT_K_WEIGHTS, expectedPresses, modeKWeights, pressPositionDistribution } from '../../core/domain/probabilities';
 import { analyseSession, verdict, type ChiSquareResult, type SessionReport } from '../../core/domain/statistics';
 
@@ -124,4 +126,59 @@ export function renderReport(target: HTMLElement, records: readonly RoundRecord[
   }
   const report = analyseSession(records, MIN_SAMPLE_FOR_VERDICT);
   target.innerHTML = reportHtml(report, records);
+}
+
+/** Wofür die Kurve gerechnet wird: das eingestellte Gebiss. */
+export interface DangerCurveArgs {
+  creatureName: string;
+  teeth: number;
+  mode: RandomMode;
+  liveTeethMin: number;
+  liveTeethMax: number;
+}
+
+/** Die Bissgefahr je Druck — dieselbe Zahl, die der Balken im Spiel zeigt. */
+export function dangerCurvePoints(args: DangerCurveArgs): number[] {
+  return Array.from({ length: args.teeth }, (_, index) =>
+    tensionForPress({
+      pressIndex: index + 1,
+      teeth: args.teeth,
+      mode: args.mode,
+      liveTeethMin: args.liveTeethMin,
+      liveTeethMax: args.liveTeethMax,
+    }),
+  );
+}
+
+/**
+ * Die Kurve als Balken. Die letzte Zahl ist zwangsläufig 100 % — kein Rechenfehler, sondern der
+ * Grund, warum die letzte Runde dem gehört, der sie bis zum Schluss trägt.
+ */
+export function dangerCurveHtml(args: DangerCurveArgs): string {
+  const points = dangerCurvePoints(args);
+  const rows = points
+    .map((danger, index) => {
+      const hot = danger >= HIGH_DANGER ? ' bar__fill--hot' : '';
+      const last = index === points.length - 1 ? ' <span class="muted">(garantiert scharf)</span>' : '';
+      return [
+        '<div class="bar">',
+        `<span class="small muted">${index + 1}</span>`,
+        `<span class="bar__track"><span class="bar__fill${hot}" style="width:${(danger * 100).toFixed(1)}%"></span></span>`,
+        `<span class="small">${percent(danger)}${last}</span>`,
+        '</div>',
+      ].join('');
+    })
+    .join('');
+  return [
+    `<p><strong>${escapeHtml(args.creatureName)}, ${args.teeth} Zähne</strong> — so gefährlich ist jeder Druck: `,
+    `von ${percent(points[0] ?? 0)} beim ersten bis 100 % beim letzten.</p>`,
+    `<div class="bars">${rows}</div>`,
+    '<p class="muted small">Der Balken im Spiel zeigt genau diese Zahl. Sie ist aus dem Modell gerechnet, ',
+    'nicht aus euren Runden — deshalb stimmt sie auch beim ersten Spiel.</p>',
+  ].join('');
+}
+
+/** Die Kurve auf die Seite bringen. */
+export function renderDangerCurve(target: HTMLElement, args: DangerCurveArgs): void {
+  target.innerHTML = dangerCurveHtml(args);
 }

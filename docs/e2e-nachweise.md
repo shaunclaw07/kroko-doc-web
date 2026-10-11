@@ -152,6 +152,38 @@ gezogen, und zwischen Pause und Urteil liegt ein fester Riss.
   nicht her — deshalb bleibt die Pause haptisch still (der Biss knallt gegen die Stille), und die
   Erleichterung ist ein einzelner Impuls zwischen 12 und 25 ms.
 
+## 5d. Die Anzeige bekommt Worte — Fortschritt, Gefahr, Erklärung (11.10.2026)
+
+Befund am echten Markup: die drei Werte über dem Balken trugen deutsche Beschriftungen („Runde",
+„Zähne übrig", „Drücke"), der **Balken selbst hatte keine** — nur ein `aria-label`, das ein
+Sehender nie liest — und der Prozentwert stand nackt als „0 %" neben „Du bist dran". Dazu der
+Widerspruch im Bild: der Balken sah aus wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser.
+
+- **Rot zuerst:** die neuen Kernregeln (`pressProgress`, `isHighDanger`) als Tests geschrieben →
+  `vitest run src/core/domain/tension.test.ts` ergab **4 failed** (fehlende Exporte). Danach fielen
+  die neuen Erwartungen der Bedienung (2) und der Statistikseite (1) — jede aus einem echten Grund:
+  eine falsche eigene Erwartung (der 9. Druck liegt bei 55,0 %, nicht über 60 %), die Test-Attrappe,
+  die den 4-Sekunden-Hinweis im selben Moment wieder wegräumte, und falsch gezählte heiße Balken.
+- **Bau rot — der wichtigste Fund:** `pnpm build` brach ab, weil `statistik.astro` `browserStorage`
+  aus `localStorageSettings` importierte; die Funktion liegt in `localStorageLog`. `tsc` und die
+  Tests sahen das **nicht** (der Import ist zur Laufzeit falsch verdrahtet, nicht typisiert).
+  **Ein grünes Gate ist kein grüner Bau.**
+- **Grün danach:** `pnpm gate` → **196 Tests in 18 Dateien**, `tsc` fehlerfrei, `pnpm build`
+  2 Seiten.
+- **Im gebauten Ergebnis nachgesehen:** `dist/index.html` trägt `meter-legend`, `hud-progress`,
+  `hud-tension` und `hud-meter-hint`; das Bündel trägt „Bissgefahr" und den Fortschrittstext; das
+  CSS enthält `meter-breath`, `is-danger` und `meter-legend`; die Statistikseite trägt
+  `danger-mount` und die Überschrift der Kurve.
+- **Gemessene Folge der 60-%-Schwelle:** kein Gebiss erreicht 60 % vor dem letzten Druck (Krokodil
+  40,7 % beim achten, 55,0 % beim neunten) → rot wird es erst beim allerletzten Zahn. Der
+  Stolperdraht in `statsView.test.ts` hält diese Folge fest.
+- **Produktfehler gefunden und behoben:** vor dem ersten Druck stand „Bissgefahr 0 %", obwohl der
+  erste Druck beim Krokodil 20 % gefährlich ist. Die Anzeige leitet die Gefahr jetzt bei jedem
+  Render aus der Runde ab (`tensionOfNextPress`), nicht nur nach einem Druck.
+- **Was kein Test zeigen kann:** wie der Balken auf dem Handy wirkt. jsdom kennt kein Layout und im
+  Arbeitsbaum gibt es keinen Browser — die Bildregeln sind über das gebaute CSS und das Verhalten
+  über die DOM-Tests belegt; das Aussehen beurteilt der Spieler.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

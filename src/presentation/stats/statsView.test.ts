@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import { MIN_SAMPLE_FOR_VERDICT, renderReport } from './statsView';
+import { MIN_SAMPLE_FOR_VERDICT, renderReport, dangerCurveHtml, dangerCurvePoints, renderDangerCurve } from './statsView';
 import { createRoundRecord } from '../../core/domain/sessionLog';
 import type { RoundRecord } from '../../contract/sessionLog';
 
@@ -65,5 +65,54 @@ describe('renderReport', () => {
     const target = mount();
     renderReport(target, records(12));
     expect(target.querySelector('.report')?.textContent).toContain('Runde 12');
+  });
+});
+
+describe('dangerCurveHtml', () => {
+  const args = { creatureName: 'Krokodil', teeth: 10, mode: 'original' as const, liveTeethMin: 1, liveTeethMax: 3 };
+
+  it('rechnet die Gefahr je Druck wie der Balken im Spiel', () => {
+    const points = dangerCurvePoints(args);
+    expect(points).toHaveLength(10);
+    expect(points[0]).toBeCloseTo(0.2, 3);
+    expect(points[9]).toBe(1);
+    points.forEach((value, index) => {
+      if (index > 0) {
+        expect(value).toBeGreaterThan(points[index - 1] ?? 0);
+      }
+    });
+  });
+
+  it('zeigt eine Zeile je Zahn und markiert den letzten', () => {
+    const html = dangerCurveHtml(args);
+    expect(html.match(/class="bar"/g)).toHaveLength(10);
+    expect(html).toContain('garantiert scharf');
+    expect(html).toContain('20.0 %');
+    expect(html).toContain('100.0 %');
+  });
+
+  it('faerbt erst den letzten Druck heiss — 60 % wird vorher in keinem Gebiss erreicht', () => {
+    // Diese Zeile ist ein Stolperdraht: sie haelt die Folge der Schwelle fest. Wird HIGH_DANGER
+    // gesenkt, faellt sie — und dann muss die Entscheidung bewusst neu fallen.
+    expect(dangerCurveHtml(args).match(/bar__fill--hot/g)).toHaveLength(1);
+    const mouse = dangerCurveHtml({ ...args, creatureName: 'Maus', teeth: 6, liveTeethMin: 1, liveTeethMax: 2 });
+    expect(mouse.match(/bar__fill--hot/g)).toHaveLength(1);
+    // Der zweithoechste Wert des Krokodils (9. Druck) liegt bei 55,0 % — knapp darunter.
+    expect(dangerCurvePoints(args)[8]).toBeCloseTo(0.55, 3);
+  });
+
+  it('rechnet im Modus classic mit 1 geteilt durch die uebrigen Zaehne', () => {
+    expect(dangerCurvePoints({ ...args, mode: 'classic' })[0]).toBeCloseTo(0.1, 3);
+  });
+
+  it('ueberlebt eine Zahnzahl ohne Zaehne', () => {
+    expect(dangerCurvePoints({ ...args, teeth: 0 })).toEqual([]);
+    expect(() => dangerCurveHtml({ ...args, teeth: 0 })).not.toThrow();
+  });
+
+  it('bringt die Kurve in ein Element', () => {
+    document.body.innerHTML = '<div id="mount"></div>';
+    renderDangerCurve(document.getElementById('mount') as HTMLElement, args);
+    expect(document.getElementById('mount')?.querySelectorAll('.bar')).toHaveLength(10);
   });
 });

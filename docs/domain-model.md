@@ -59,3 +59,22 @@ ist sie schlicht `1 ÷ übrige Zähne`: `10, 11,1, 12,5 … 50, 100 %`.
 Zwei Folgen für die Anzeige: Der Balken **startet nicht bei null** (der erste Druck hat schon eine
 Gefahr, beim Krokodil 20 %), und die „es wird ernst"-Marke (`is-tense`) liegt bei 30 %, damit sie
 nicht bei jedem Lebewesen sofort brennt (Wolf 12 %, Krokodil 20 % beim ersten Druck).
+
+### Was der Balken zeigt (11.10.2026)
+
+Er trägt **zwei** Aussagen, jede mit Wort daneben:
+
+- **Füllung = Fortschritt:** `gedrückte ÷ Zähne` (`pressProgress`). Vorher trug die Füllung die
+  Gefahr — der Balken sah damit aus wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser. Das
+  war die Ursache der Verwirrung: man konnte die Anzeige nicht deuten.
+- **Farbe = Gefahr:** die Bissgefahr des nächsten Drucks (`tensionForPress`). Ab 30 %
+  (`isTense`, `TENSE_LEVEL`) glüht er, ab 60 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
+- Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken atmet
+  im Takt des Herzschlags (`--beat-ms`, dieselbe Zahl wie der Puls).
+- **Gemessene Folge der 60-%-Schwelle:** sie wird in *keinem* Gebiss vor dem letzten Druck erreicht
+  (Krokodil: 40,7 % beim achten, 55,0 % beim neunten). Rot wird es also erst beim allerletzten
+  Zahn. Wer früher Rot will, senkt `HIGH_DANGER` — der Stolperdraht in `statsView.test.ts` hält die
+  Folge fest und fällt dann bewusst.
+- Der Hinweis, der den Balken erklärt, kommt **einmal je Sitzung** (beim ersten Druck) über den
+  `SessionMarkPort`; ohne diesen Port kommt er gar nicht.
+- Die Statistikseite zeigt dieselbe Rechnung als Kurve („Wie gefährlich ist der nächste Druck?").

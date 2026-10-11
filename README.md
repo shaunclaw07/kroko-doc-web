@@ -91,7 +91,7 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **174 Tests in 17 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **196 Tests in 18 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
@@ -122,6 +122,11 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 - **Nervenkitzel:** synthetisierte Klänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
   mit der Spannung steigt (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Knarren, Fakeout-Zucken des Mauls, eine Feder, die den Zahn in die Wurzel zieht, und die Pause vor jedem Urteil (ihre Länge sagt nichts über den Ausgang),
   Screen-Shake, Vibration bei jedem Zahndruck und beim Biss (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
+- **Der Balken sagt zwei Dinge:** die **Füllung** ist der Fortschritt („6 von 10 gedrückt"), die
+  **Farbe** ist die Bissgefahr des nächsten Drucks („Bissgefahr 34 %") — er atmet im Takt des
+  Herzschlags, glüht ab 30 % und wird vor dem letzten Zahn rot. Beim ersten Druck einer Sitzung
+  erklärt er sich einmal selbst; nachlesen kann man ihn im Blatt „Regeln & Herkunft" und auf der
+  Statistikseite (dort steht die ganze Kurve).
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
   Autokorrelation (Mustersuche) und exportiert/importiert CSV im Format des Analyse-Werkzeugs.
@@ -135,7 +140,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **174 in 17 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **196 in 18 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,18 s | `pnpm build` in einem frischen Klon |

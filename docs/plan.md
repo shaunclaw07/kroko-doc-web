@@ -92,3 +92,23 @@ Fallen), keine externen Fonts/CDNs, keine Emojis (SVG-Icons).
 - Hot-Seat 1–4 Spieler, kein Netzwerk-Multiplayer.
 - Beide Zufallsmodelle umschaltbar, Standard `original`.
 - Optik: eigene SVG-Krokodil-Zeichnung, dunkler „Jahrmarkt bei Nacht"-Look.
+
+## Nachtrag 11.10.2026: die Anzeige (nach dem Sparring im `grill-me`-Stil)
+
+Geplant war ein **Gefahrenbalken**: ein Wert, der mit der Spannung wächst. Umgesetzt ist etwas
+anderes, weil der Balken sonst nicht zu deuten war:
+
+- Die **Füllung** ist der **Fortschritt** (`gedrückte ÷ Zähne`), die **Farbe** die **Gefahr**
+  (Bissgefahr des nächsten Drucks). Vorher trug die Füllung die Gefahr — der Balken sah damit aus
+  wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser; genau daran scheiterte ein neuer
+  Spieler.
+- Beide Werte sind **benannt** („6 von 10 gedrückt" · „Bissgefahr 34 %"), der Balken atmet im Takt des
+  Herzschlags (`--beat-ms`), glüht ab 30 % und wird ab 60 % rot.
+- Ein **Hinweis** erklärt ihn einmal je Sitzung (beim ersten Druck, über den `SessionMarkPort`).
+- Erklärt wird er außerdem im Blatt „Regeln & Herkunft" und auf der Statistikseite als Kurve
+  („Wie gefährlich ist der nächste Druck?").
+
+**Offen und bewusst nicht gebaut:** der Balken ist lesbar, aber nicht **taktisch**. Im Modell ist
+jeder Zahn gleich wahrscheinlich — es gibt keine Entscheidung, die er stützen könnte. Taktisch würde
+er erst mit einer Mechanik (z. B. einmal pro Runde weitergeben); das wäre ein Eingriff in Kern,
+Protokoll und Statistik und ist eine eigene Runde.

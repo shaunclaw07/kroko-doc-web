@@ -3,8 +3,8 @@
 **Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
-bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir,
-Mensch), Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
+bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir),
+Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
 auswertet und ehrlich sagt, wenn die Daten für eine Aussage zu dünn sind.
 
 Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in `/docs/`.
@@ -58,6 +58,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 ## Rückmeldung an den Nutzer (Ton, Vibration)
 
+- **Anzeigen werden benannt.** Jede Zahl bekommt ihr Substantiv („Bissgefahr 34 %", „6 von 10
+  gedrückt"). Ein Wert ohne Wort ist keine Aussage: der Balken sah jahrelang aus wie eine
+  Fortschrittsanzeige, war aber ein Gefahrenmesser — und ein neuer Spieler konnte ihn deshalb nicht
+  deuten. Füllung und Farbe dürfen **zwei verschiedene** Dinge sagen, aber beide müssen benannt sein.
+
 - **Browser-Schnittstellen nie direkt in der Bedienung:** Ton läuft über `SoundPort`, Vibration über
   `HapticsPort` (`core/ports/haptics.ts`), umgesetzt in `infrastructure/`. Der Controller ruft
   `this.deps.haptics?.vibrate(...)` — ein `navigator`-Zugriff steht dort nicht.
@@ -76,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Acht Fallen, die Zeit kosten
+## Neun Fallen, die Zeit kosten
 
 - **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
   das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
@@ -100,6 +105,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Regel: Anzeigewerte aus dem Modell **ableiten** (`probabilities.ts`), nicht den Zustand
   hochzählen. Dann bleibt die Zahl eine Aussage (Biss-Wahrscheinlichkeit des nächsten Drucks,
   genau 1 beim letzten Zahn) und der Kern hat eine Wahrheit weniger.
+- **Eine Test-Attrappe, die alle Wartezeiten sofort ausführt, verschluckt jeden langen Hinweis.**
+  Die Attrappe der Bedienung komprimiert den Drama-Takt (`ms < 1000` läuft sofort), damit Tests
+  nicht 700 ms warten müssen. Ein 4-Sekunden-Hinweis wurde dadurch im selben Moment gezeigt und
+  wieder versteckt — der Test fiel aus einem Grund, der nichts mit dem Produkt zu tun hatte.
+  Wer lange Wartezeiten prüft, reicht eine eigene Uhr herein und führt die Rückrufe selbst aus.
 - **Rezepte in der Doku sind ungeprüfter Code.** Ein Befehl, der auf eine verschwundene Datei
   zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
   Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich

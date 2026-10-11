@@ -4,9 +4,14 @@ import {
   BEAT_MIN_MS,
   HEARTBEAT_FAST_MS,
   HEARTBEAT_SLOW_MS,
+  HIGH_DANGER,
   heartbeatInterval,
+  TENSE_LEVEL,
+  isHighDanger,
+  isTense,
   planPressDrama,
   pressBeatMs,
+  pressProgress,
   reliefLevel,
   tensionForPress,
   twitchChance,
@@ -215,5 +220,48 @@ describe('planPressDrama', () => {
     const a = planPressDrama({ ...base, willSnap: false, rng: new SeededRandom(99) });
     const b = planPressDrama({ ...base, willSnap: false, rng: new SeededRandom(99) });
     expect(a).toEqual(b);
+  });
+});
+
+/** Die Füllung des Balkens: wie weit die Runde durch ist (nicht wie gefährlich sie ist). */
+describe('pressProgress', () => {
+  it('nennt den Anteil gedrückter Zähne', () => {
+    expect(pressProgress({ pressed: 0, teeth: 10 })).toBe(0);
+    expect(pressProgress({ pressed: 6, teeth: 10 })).toBeCloseTo(0.6, 5);
+    expect(pressProgress({ pressed: 10, teeth: 10 })).toBe(1);
+  });
+
+  it('bleibt in 0..1, auch bei unsinnigen Eingaben', () => {
+    expect(pressProgress({ pressed: 12, teeth: 10 })).toBe(1);
+    expect(pressProgress({ pressed: -3, teeth: 10 })).toBe(0);
+    expect(pressProgress({ pressed: 3, teeth: 0 })).toBe(0);
+  });
+});
+
+/** Ab wann der Balken rot wird — eine Kernregel, kein Wert im Stylesheet. */
+describe('isHighDanger', () => {
+  it('greift ab der vereinbarten Schwelle', () => {
+    expect(isHighDanger(HIGH_DANGER - 0.01)).toBe(false);
+    expect(isHighDanger(HIGH_DANGER)).toBe(true);
+    expect(isHighDanger(1)).toBe(true);
+  });
+
+  it('brennt nicht schon beim ersten Druck', () => {
+    expect(isHighDanger(tensionForPress({ pressIndex: 1, teeth: 10, ...KROKODIL }))).toBe(false);
+  });
+
+  it('wird beim Krokodil erst beim allerletzten Zahn rot', () => {
+    // 40,7 % beim achten, 55,0 % beim neunten, 100 % beim zehnten Druck.
+    expect(isHighDanger(tensionForPress({ pressIndex: 8, teeth: 10, ...KROKODIL }))).toBe(false);
+    expect(isHighDanger(tensionForPress({ pressIndex: 9, teeth: 10, ...KROKODIL }))).toBe(false);
+    expect(isHighDanger(tensionForPress({ pressIndex: 10, teeth: 10, ...KROKODIL }))).toBe(true);
+  });
+});
+
+/** Die Bühne spannt sich früher an als der Balken rot wird. */
+describe('isTense', () => {
+  it('greift knapp über der Schwelle', () => {
+    expect(isTense(TENSE_LEVEL)).toBe(false);
+    expect(isTense(TENSE_LEVEL + 0.01)).toBe(true);
   });
 });

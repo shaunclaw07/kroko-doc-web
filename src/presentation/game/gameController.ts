@@ -6,7 +6,16 @@ import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from '../../core/domain/round';
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
-import { VERDICT_GAP_MS, heartbeatInterval, tensionForPress, type PressDrama } from '../../core/domain/tension';
+import {
+  VERDICT_GAP_MS,
+  heartbeatInterval,
+  isHighDanger,
+  isTense,
+  pressProgress,
+  tensionForPress,
+  type PressDrama,
+} from '../../core/domain/tension';
+import { METER_HINT_KEY, type SessionMarkPort } from '../../core/ports/sessionMark';
 import { createRoundRecord, nextRoundNumber } from '../../core/domain/sessionLog';
 import { type RandomMode } from '../../core/domain/teeth';
 import { playPress } from '../../core/use-cases/playPress';
@@ -20,6 +29,8 @@ export interface GameDeps {
   sound: SoundPort;
   /** Tast-Rückmeldung. Standard ist keine — so bleiben Tests und Umgebungen ohne Vibration ruhig. */
   haptics?: HapticsPort;
+  /** Merkt sich den Balken-Hinweis für die Sitzung. Ohne diesen Port kommt kein Hinweis. */
+  session?: SessionMarkPort;
   log: RoundLogPort;
   settings: GameSettings;
   onSettingsChange: (settings: GameSettings) => void;
@@ -353,13 +364,20 @@ export class GameController {
   }
 
   private render(): void {
+    // Die Gefahr des **nächsten** Drucks — und zwar auch vor dem ersten. Sonst stünde am
+    // Rundenbeginn 0 %, obwohl der erste Druck bereits gefährlich ist.
+    if (this.round.status === 'open') {
+      this.tension = this.tensionOfNextPress();
+    }
     const remaining = remainingTeeth(this.round);
     const pressIndex = this.round.pressOrder.length;
     const currentPlayer = (pressIndex % this.round.players) + 1;
     this.setText('hud-remaining', String(remaining));
     this.setText('hud-presses', String(pressIndex));
     this.setText('hud-round', String(this.records.length + 1));
-    this.setText('hud-tension', `${Math.round(this.tension * 100)} %`);
+    // Die Zeile unter dem Balken: links der Fortschritt, rechts die Gefahr — beide mit Wort.
+    this.setText('hud-progress', `${pressIndex} von ${this.round.teeth} gedrückt`);
+    this.setText('hud-tension', `Bissgefahr ${Math.round(this.tension * 100)} %`);
     this.setText(
       'hud-turn',
       this.round.status === 'snapped'
@@ -373,14 +391,37 @@ export class GameController {
       warn.textContent = tension ? 'Nur noch ein Zahn — der ist garantiert scharf!' : '';
     }
     const meter = this.doc.getElementById('hud-meter');
-    meter?.style.setProperty('width', `${Math.round(this.tension * 100)}%`);
+    // Die Füllung ist der Fortschritt, nicht die Gefahr — die Gefahr trägt die Farbe.
+    const progress = pressProgress({ pressed: pressIndex, teeth: this.round.teeth });
+    meter?.style.setProperty('width', `${Math.round(progress * 100)}%`);
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));
     this.stage?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
-    this.stage?.classList.toggle('is-tense', this.tension > 0.3 && this.round.status === 'open');
+    this.stage?.classList.toggle('is-tense', isTense(this.tension) && this.round.status === 'open');
+    this.stage?.classList.toggle('is-danger', isHighDanger(this.tension));
     if (this.stage) {
       this.stage.dataset.status = this.round.status;
       this.stage.dataset.tension = this.tension.toFixed(2);
     }
+    if (pressIndex >= 1) {
+      this.revealMeterHint();
+    }
+  }
+
+  /**
+   * Erklärt den Balken genau einmal je Sitzung — beim ersten Druck. Danach nie wieder: ein Hinweis,
+   * der in jeder Runde neu auftaucht, ist keine Hilfe mehr, sondern eine Zumutung. Antippen blendet
+   * ihn sofort weg.
+   */
+  private revealMeterHint(): void {
+    const marks = this.deps.session;
+    const hint = this.doc.getElementById('hud-meter-hint');
+    if (!marks || !hint || marks.has(METER_HINT_KEY)) {
+      return;
+    }
+    marks.mark(METER_HINT_KEY);
+    hint.classList.remove('hidden');
+    hint.addEventListener('click', () => hint.classList.add('hidden'), { once: true });
+    this.wait(4000, () => hint.classList.add('hidden'));
   }
 
   /** Gefahr des nächsten Drucks — dieselbe Rechnung wie im Kern, nur für die Anzeige. */

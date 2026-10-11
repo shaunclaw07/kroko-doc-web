@@ -8,6 +8,7 @@ import type { LiveTeethSelector } from '../../core/ports/liveTeeth';
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { SessionMarkPort } from '../../core/ports/sessionMark';
 
 /**
  * Prüfsonde der Bedienung: sie drückt im echten DOM (jsdom) Zähne, bis das Maul
@@ -36,10 +37,21 @@ class MemoryLog implements RoundLogPort {
   }
 }
 
+class MemoryMarks implements SessionMarkPort {
+  private readonly seen = new Set<string>();
+  has(key: string): boolean {
+    return this.seen.has(key);
+  }
+  mark(key: string): void {
+    this.seen.add(key);
+  }
+}
+
 const DOM = `
   <div id="stage"><div id="croc-mount"></div></div>
   <span id="hud-round"></span><span id="hud-remaining"></span><span id="hud-presses"></span>
   <span id="hud-tension"></span><span id="hud-turn"></span><span id="hud-warning"></span>
+  <span id="hud-progress"></span><p id="hud-meter-hint" class="hidden"></p>
   <div id="hud-meter"></div>
   <button id="new-round" type="button">Neue Runde</button>
   <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
@@ -49,7 +61,24 @@ function settings(overrides: Partial<GameSettings> = {}): GameSettings {
   return { mode: 'original', players: 1, sound: true, vibration: false, creature: 'crocodile', teethOverride: null, ...overrides };
 }
 
-function build(live: number[], overrides: Partial<GameSettings> = {}, hapticsSupported = true): {
+/**
+ * Die Attrappe komprimiert den **Drama-Takt**: Pause und Urteil laufen sofort, damit ein Test nicht
+ * auf 700 ms warten muss. Lange Wartezeiten (der Balken-Hinweis) bleiben dagegen stehen — wer sie
+ * prüfen will, reicht eine eigene Uhr herein.
+ */
+function compressedWait(ms: number, run: () => void): void {
+  if (ms < 1000) {
+    run();
+  }
+}
+
+function build(
+  live: number[],
+  overrides: Partial<GameSettings> = {},
+  hapticsSupported = true,
+  session?: SessionMarkPort,
+  waitOverride: (ms: number, run: () => void) => void = compressedWait,
+): {
   controller: GameController;
   sound: RecordingSound;
   log: MemoryLog;
@@ -66,9 +95,10 @@ function build(live: number[], overrides: Partial<GameSettings> = {}, hapticsSup
     haptics,
     log,
     settings: settings(overrides),
+    session,
     onSettingsChange: () => undefined,
     document,
-    wait: (_ms, run) => run(),
+    wait: waitOverride,
   });
   controller.mount();
   return { controller, sound, log, haptics };
@@ -233,5 +263,74 @@ describe('GameController in der Bühne', () => {
     expect(sound.tensions.length).toBeGreaterThan(0);
     const meter = document.getElementById('hud-meter') as HTMLElement | null;
     expect(meter?.style.width).not.toBe('');
+  });
+
+  it('beschriftet Fortschritt und Gefahr mit Worten', () => {
+    build([9]);
+    expect(document.getElementById('hud-progress')?.textContent).toBe('0 von 10 gedrückt');
+    expect(document.getElementById('hud-tension')?.textContent).toBe('Bissgefahr 20 %');
+    click(1);
+    expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 10 gedrückt');
+    expect(document.getElementById('hud-tension')?.textContent).toMatch(/^Bissgefahr \d+ %$/);
+  });
+
+  it('füllt den Balken mit dem Fortschritt, nicht mit der Gefahr', () => {
+    // Beim Krokodil steht die Gefahr nach dem ersten Druck bei 20 %, der Fortschritt bei 10 %.
+    build([9]);
+    click(1);
+    const meter = document.getElementById('hud-meter') as HTMLElement;
+    expect(meter.style.width).toBe('10%');
+    expect(document.getElementById('stage')?.dataset.tension).toBe('0.21');
+  });
+
+  it('wird erst rot, wenn der letzte Zahn ansteht', () => {
+    build([10]);
+    const stage = document.getElementById('stage');
+    for (const id of [1, 2, 3, 4, 5, 6, 7, 8]) {
+      click(id);
+    }
+    expect(stage?.classList.contains('is-danger')).toBe(false);
+    click(9);
+    expect(stage?.classList.contains('is-danger')).toBe(true);
+  });
+
+  it('erklärt den Balken genau einmal je Sitzung', () => {
+    const session = new MemoryMarks();
+    build([9], {}, true, session);
+    const hint = document.getElementById('hud-meter-hint');
+    expect(hint?.classList.contains('hidden')).toBe(true);
+    click(1);
+    expect(hint?.classList.contains('hidden')).toBe(false);
+    click(2);
+    expect(hint?.classList.contains('hidden')).toBe(false);
+    // Neue Runde in derselben Sitzung: der Hinweis bleibt weg.
+    (document.getElementById('new-round') as HTMLButtonElement).click();
+    click(1);
+    expect(session.has('hint:meter')).toBe(true);
+  });
+
+  it('nimmt den Hinweis nach einigen Sekunden selbst zurück', () => {
+    const pending: Array<() => void> = [];
+    build([9], {}, true, new MemoryMarks(), (ms, run) => {
+      if (ms >= 1000) {
+        pending.push(run);
+        return;
+      }
+      run();
+    });
+    click(1);
+    const hint = document.getElementById('hud-meter-hint');
+    expect(hint?.classList.contains('hidden')).toBe(false);
+    expect(pending.length).toBe(1);
+    pending.forEach((run) => run());
+    expect(hint?.classList.contains('hidden')).toBe(true);
+  });
+
+  it('blendet den Hinweis beim Antippen aus', () => {
+    build([9], {}, true, new MemoryMarks());
+    click(1);
+    const hint = document.getElementById('hud-meter-hint');
+    hint?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(hint?.classList.contains('hidden')).toBe(true);
   });
 });

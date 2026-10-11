@@ -14,6 +14,13 @@ export const BEAT_MIN_MS = 120;
 export const BEAT_MAX_MS = 700;
 /** Feste Lücke zwischen Pause und Auflösung — für **beide** Ausgänge gleich, also kein Verräter. */
 export const VERDICT_GAP_MS = 60;
+
+/**
+ * Ab dieser Bissgefahr gilt der nächste Druck als hoch gefährlich — der Balken wird rot.
+ * Der Wert steht hier und nicht im Stylesheet, damit Anzeige und Kern dieselbe Regel benutzen
+ * und die Schwelle geprüft ist.
+ */
+export const HIGH_DANGER = 0.6;
 /** Herzschlag-Abstand an den Enden des Spannungsbereichs (Millisekunden). */
 export const HEARTBEAT_SLOW_MS = 900;
 export const HEARTBEAT_FAST_MS = 380;
@@ -88,6 +95,30 @@ export function twitchChance(args: { tension: number; remaining: number }): numb
 export function heartbeatInterval(tension: number): number {
   const level = clamp01(tension);
   return Math.round(HEARTBEAT_SLOW_MS - (HEARTBEAT_SLOW_MS - HEARTBEAT_FAST_MS) * level);
+}
+
+/**
+ * Anteil der Runde, der schon gedrückt ist, 0..1 — die **Füllung** des Balkens. Bewusst getrennt
+ * von der Spannung: die Füllung sagt „wie weit", die Farbe sagt „wie gefährlich".
+ */
+export function pressProgress(args: { pressed: number; teeth: number }): number {
+  if (args.teeth <= 0) {
+    return 0;
+  }
+  return clamp01(args.pressed / args.teeth);
+}
+
+/** Ist der nächste Druck hoch gefährlich? (Anzeige: rote Füllung.) */
+export function isHighDanger(tension: number): boolean {
+  return clamp01(tension) >= HIGH_DANGER;
+}
+
+/** Ab dieser Gefahr spannt sich die Bühne an (Bild zieht zu, Balken glüht). */
+export const TENSE_LEVEL = 0.3;
+
+/** Ist die Bühne angespannt? */
+export function isTense(tension: number): boolean {
+  return clamp01(tension) > TENSE_LEVEL;
 }
 
 export interface PressDrama {
