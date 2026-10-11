@@ -27,7 +27,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Architektur (Schichten, Importregel, Schicht-Tabelle, Fehlerarten) | [`docs/architecture.md`](docs/architecture.md) |
 | Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | [`docs/domain-model.md`](docs/domain-model.md) |
 | Tests & Nachweise (Gate, Testzahlen, Sonden, Mindeststichprobe) | [`docs/testing.md`](docs/testing.md) |
-| Arbeiten im Baum (Befehle, Zeichnung prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
+| Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
 | Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) |
 | Warum das Spiel so ist (Charter) | [`README.md`](README.md) |
 | Plan, Annahmen, offene Punkte | [`docs/plan.md`](docs/plan.md) |

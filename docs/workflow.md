@@ -57,6 +57,25 @@ Beides sind **Prüfhilfen, kein Gate**: Exit 1 heißt „es steht noch etwas dri
 Kandidatenliste, und jeder Treffer wird angesehen, bevor er als Fehler gilt (Kommentarzeilen in
 Bash-Blöcken sind zum Beispiel korrekt).
 
+## Vor der Planung: das Sparring (`grill-me`)
+
+**Kein Plan ohne Sparring.** Bevor etwas geplant oder gebaut wird, wird die Idee gegrillt — allein
+oder gemeinsam mit dem Nutzer, aber immer **vor** der Planungsphase:
+
+- **Zusammen (der Normalfall):** eine Frage nach der anderen, jede mit einer **Empfehlung**; die
+  Antwort des Nutzers entscheidet. Mehrere Fragen auf einmal sind verwirrend.
+- **Allein** (wenn der Nutzer die Entscheidungen abgibt — „entscheide nach deinem Ermessen"): dieselben
+  Fragen, aber jede Antwort mit einer **nachgeschlagenen Tatsache** aus dem Baum statt einer Vermutung.
+  Die Entscheidungen samt Grund gehören anschließend in `docs/plan.md`; Abgesagtes mit Begründung —
+  eine Absage ist ein Ergebnis, kein Versäumnis.
+- **Fakten werden nachgeschlagen, nicht gefragt.** Was im Baum steht (Zahlen, Verträge, Grenzen,
+  Protokollfelder), wird gelesen; gefragt wird nur, was eine **Entscheidung** ist.
+- Erst danach beginnt die Planungsphase: Plan in `docs/plan.md`, dann umsetzen.
+
+Warum als eigener Schritt: in einer Runde wurden so acht Fragen entschieden — zwei Dinge gebaut, sechs
+begründet gelassen und eines (das „Weitergeben") **vor** dem Bau abgesagt, statt nachher einen
+fertigen Umbau zu verwerfen.
+
 ## Eine Fähigkeit ergänzen
 
 1. Regel oder Rechnung in `core/domain/` — **eine** Datei, **eine** Verantwortung.
