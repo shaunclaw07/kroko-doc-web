@@ -436,15 +436,40 @@ const base = import.meta.env.BASE_URL;
      * das Zielelement: `event.target` ist bei einem Dialog auch der Innenabstand, so schlösse ein
      * Tipp daneben im Blatt selbst. Ohne das bliebe für den Rückweg nur die Escape-Taste.
      */
+    const daneben = (sheet: HTMLDialogElement, event: MouseEvent) => {
+      const box = sheet.getBoundingClientRect();
+      return (
+        event.clientX < box.left ||
+        event.clientX > box.right ||
+        event.clientY < box.top ||
+        event.clientY > box.bottom
+      );
+    };
+
     document.querySelectorAll<HTMLDialogElement>('dialog.sheet').forEach((sheet) => {
       sheet.addEventListener('click', (event) => {
-        const box = sheet.getBoundingClientRect();
-        const daneben =
-          event.clientX < box.left ||
-          event.clientX > box.right ||
-          event.clientY < box.top ||
-          event.clientY > box.bottom;
-        if (daneben) {
+        if (daneben(sheet, event)) {
+          sheet.close();
+        }
+      });
+    });
+
+    /**
+     * Zweiter Weg für denselben Rückweg: nicht jede Umgebung stellt einen Klick auf den Rand dem
+     * Dialog zu (dann liefe er am Blatt vorbei und niemand reagierte — das Blatt wäre nicht mehr
+     * zu schließen, gemeldet am 11.10.2026 für ein Tablet). Deshalb entscheidet zusätzlich das
+     * Dokument. Die Knöpfe, die ein Blatt **öffnen**, sind ausgenommen: sonst schlösse der Tipp,
+     * der das Blatt gerade geöffnet hat, es im selben Moment wieder.
+     */
+    const oeffnet = (target: EventTarget | null) =>
+      target instanceof Element && target.closest('#settings-open, #creature-open, #rules-open') !== null;
+
+    document.addEventListener('click', (event) => {
+      if (oeffnet(event.target)) {
+        return;
+      }
+      document.querySelectorAll<HTMLDialogElement>('dialog.sheet[open]').forEach((sheet) => {
+        if (daneben(sheet, event)) {
           sheet.close();
         }
       });

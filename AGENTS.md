@@ -81,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Achtzehn Fallen, die Zeit kosten
+## Neunzehn Fallen, die Zeit kosten
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -194,6 +194,15 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   — `.sheet--columns { width: … }` wurde von `dialog.sheet` aus demselben Block überstimmt (0-1-1
   gegen 0-1-0) und die Breite blieb still bei 620 px, obwohl die Spalten schon griffen. Zwei Regeln
   mit demselben Ziel im selben Block immer gegeneinander prüfen.
+- **Kein `transform` auf einem modalen `dialog`, wenn dort ein Knopf erreichbar bleiben muss.** Die
+  Mitte des Blattes kam aus `left: 50%` + `translateX(-50%)`; gemeldet wurde, dass sich das
+  Einstellungsblatt auf einem Tablet **nicht mehr schließen** ließ (hier mit Chromium, Taps und
+  mobiler Ansicht nicht reproduzierbar, WebKit/Firefox auf dem Rechner nicht installierbar). Ein
+  `transform` ist die Stelle, an der ein Browser Fläche und Zeichnung unterschiedlich rechnen kann —
+  dann trifft der Tipp nicht das gezeichnete ✕. Mitten ohne Umrechnung: `inset: auto 0 1.5rem 0`
+  plus `margin: 0 auto`. Und einen Rückweg **nie** von einer einzigen Zustellung abhängig machen:
+  „Tipp neben das Blatt" entscheidet jetzt auch am Dokument, nicht nur am Dialog
+  (`event.target` ist dort der Dialog; die öffnenden Knöpfe sind ausgenommen).
 
 ## Ein neues Lebewesen ergänzen
 

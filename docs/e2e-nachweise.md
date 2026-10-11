@@ -568,6 +568,29 @@ Bildprobe überschrieb ihre eigenen „vorher"-Bilder (Dateiname im Skript fest 
 identische Bilder, obwohl sich die Lage geändert hatte. Belastbar war die Zahlentabelle, nicht der
 Bildvergleich.
 
+**Nachtrag (11.10.2026, später): der Ausgang.** Gemeldet: „Auf dem Tablet kann man den settings
+Dialog nicht mehr schließen." Hier **nicht** reproduzierbar — Chromium mit Maus, mit echten Taps und
+in der mobilen Ansicht (`is_mobile`), bei 820 × 1180, 1024 × 768, 1180 × 820 und in kurzen Fenstern
+(1024 × 600, 1180 × 550, 1366 × 500): alle vier Wege schlossen das Blatt. WebKit und Firefox sind auf
+diesem Rechner **nicht** installierbar (`playwright install webkit|firefox` scheitert an fehlenden
+Systembibliotheken) — die Umgebung des Nutzers ließ sich also nicht nachstellen. Zwei Stellen der
+eigenen Änderung waren aber unnötig fragil und sind entfernt:
+
+- Die Mitte kam aus `left: 50%` + `transform: translateX(-50%)`. Ein `transform` auf einem modalen
+  `dialog` ist genau die Stelle, an der ein Browser Fläche und Zeichnung unterschiedlich rechnen
+  kann — dann liegt das gezeichnete ✕ nicht dort, wo der Tipp ankommt. Jetzt `inset: auto 0 1.5rem 0`
+  mit `margin: 0 auto`: zwei automatische Außenabstände teilen den Rest. Gemessen weiterhin exakt
+  mittig (Abweichung von der Fenstermitte **0 px**) und dieselben Breiten und Spalten (820 → 772/2,
+  1024 → 976/3, 1180 → 1132/3, 1366 → 1318/4).
+- Der Rückweg „Tipp neben das Blatt" hing daran, dass die Umgebung den Klick dem Dialog zustellt
+  (`event.target` ist dort der Dialog selbst). Zusätzlich entscheidet jetzt das Dokument; die Knöpfe,
+  die ein Blatt **öffnen** (`#settings-open`, `#creature-open`, `#rules-open`), sind ausgenommen,
+  sonst schlösse der öffnende Tipp das Blatt im selben Moment wieder.
+
+Nachgemessen (`/opt/data/cache/scratch/modal/ausgang2.py`, 6 Größen × Maus/Tap/mobile Ansicht):
+nach dem Öffnen offen, Tipp **im** Blatt schließt nicht, Tipp über dem Blatt schließt, ✕ schließt,
+„Fertig" schließt, Tipp in die Lücke schließt. Am Handy (390 px) unverändert.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
