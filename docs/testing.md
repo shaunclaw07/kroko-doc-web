@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 225 (19 Dateien) |
+| Tests | 228 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–2,5 s (Maschinenstreuung) |
 
@@ -66,6 +66,15 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    ```
    Danach die gerasterten Bilder ansehen (das Kopfmaul muss zu sein, der Kopf innerhalb der
    Kachel). Ohne `ICON_NEU=1` prüft `src/icon.test.ts` nur, dass die Dateien zur Zeichnung passen.
+
+## Zwei Regeln für Zeitgeber in Sonden
+
+- **Jede Steuerung wird abgehängt:** `dispose()` nach jedem Fall (`afterEach`). Sonst feuert der
+  Herzschlag in die schon abgebaute Umgebung (`ReferenceError: window is not defined`) und das Gate
+  wird flakig — ohne dass ein Test fachlich rot ist. Der Mechanismus ist in
+  `scratch/heartbeat-falle/mechanismus.cjs` nachgestellt (Jsdom-Zeitgeber nach entferntem Global).
+- **Eigene Uhr statt echter Millisekunden:** `vi.useFakeTimers()` + `vi.advanceTimersByTime(...)`,
+  wenn ein Test den Herzschlag selbst prüfen will.
 
 ## Zahlen nur aus Kommandos
 

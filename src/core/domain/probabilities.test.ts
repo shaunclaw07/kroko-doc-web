@@ -29,6 +29,24 @@ describe('pressPositionDistribution', () => {
     expect(Math.abs(sum - 1)).toBeLessThan(1e-12);
   });
 
+  it('kappt die Zahl scharfer Zähne auf die Zahnzahl (kleine Gebisse)', () => {
+    // Die Auswahl der scharfen Zähne kappt ihre Anzahl auf die Zahnzahl (`liveTeeth.ts`) — das
+    // Modell muss dasselbe tun. Vorher fiel jedes k über der Zahnzahl weg: bei einem Ein-Zahn-Gebiss
+    // (seit 11.10.2026 möglich) zeigte die Statistik „Erwartet 0,33" statt 1.
+    const eins = pressPositionDistribution(1, DEFAULT_K_WEIGHTS);
+    expect(eins).toEqual([1]);
+    expect(expectedPresses(eins)).toBeCloseTo(1, 12);
+
+    for (const zaehne of [2, 3]) {
+      const dist = pressPositionDistribution(zaehne, DEFAULT_K_WEIGHTS);
+      expect(dist.reduce((a, b) => a + b, 0), `${zaehne} Zähne`).toBeCloseTo(1, 12);
+    }
+    // Bei zwei Zähnen schnappt es meistens schon beim ersten Druck: zwei der drei Modellfälle
+    // (zwei und drei scharfe Zähne) werden auf zwei gekappt.
+    const zwei = pressPositionDistribution(2, DEFAULT_K_WEIGHTS);
+    expect(zwei[0]!).toBeGreaterThan(zwei[1]!);
+  });
+
   it('klassisch (genau ein scharfer Zahn) ist über alle Drücke gleichverteilt', () => {
     const dist = pressPositionDistribution(10, modeKWeights('classic'));
     dist.forEach((value) => expect(Math.abs(value - 0.1)).toBeLessThan(1e-12));

@@ -410,6 +410,45 @@ Symbol-Sonde erzeugt das SVG und hält die ausgelieferte Datei Zeichen für Zeic
 (Android maskiert rund, iOS legt ein Squircle darüber), entscheidet das Gerät — hier sind Schutzzone
 und Kantenlängen gerechnet und die Bilder begutachtet, das Gerät fehlt weiterhin.
 
+## 5k. Fremde Prüfung „nur ein Zahn": acht von acht bestätigt, zwei Defekte gefunden (11.10.2026)
+
+Ein zweiter Prüfer hat den Ein-Zahn-Umbau **ohne Tastatur am lebenden Gegenstand** nachgeprüft
+(Chromium gegen <https://zahn-agent.schaflabs.com/>) und jede Behauptung einzeln beurteilt. Methode:
+echtes Maus-Klick über `page.mouse.click`, `getBoundingClientRect`, `elementFromPoint`,
+`localStorage`, `git show e488f81:src/core/domain/teeth.ts` — keine Wiederholung der Tests.
+
+**Bestätigt:** (1) 9× „−" → 1 Zahn, erster Tipp schnappt zu, in beiden Modellen; (2) auch nach
+„Neue Runde"; (3) 4 und 12 Zähne unversehrt (die Bühne zeichnet genau 4 bzw. 12 Zähne, die Runde
+bleibt offen); (4) das ✕ im Blattkopf schließt auch nach dem Scrollen bis zum Anschlag
+(44 × 44 px, echtes Maus-Klick); (5) ein Tipp weit neben das Blatt schließt es, ein Tipp **im** Blatt
+nicht (an der Geometrie geprüft); (6) Einzahl „Zahn übrig" bei 1, sonst Mehrzahl; (7) Trefferfläche
+53,4 × 53,4 px bei 1 Zahn — mit der Einschränkung, dass sie bei 320 px Gerätebreite auf 42,9 px
+fällt (knapp unter 44); (8) `git show e488f81:src/core/domain/teeth.ts` → `MIN_TEETH = 4` ✓.
+
+**Zwei Defekte, die meine Tests nicht sahen — beide sofort behoben:**
+
+- **Die Statistik log bei kleinen Gebissen.** Mit einem einzigen Zahn zeigte der Bericht
+  „Erwartet (Modell) 0,33" und einen Modellbalken von 33 %, während die beobachteten Drücke (1,00)
+  und die Gefahr-Kurve (100 %) recht hatten. Ursache: `pressPositionDistribution` ließ jedes `k`
+  über der Zahnzahl ganz wegfallen, statt es — wie die Auswahl der scharfen Zähne
+  (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — auf die Zahnzahl zu kappen. Behoben in
+  `src/core/domain/probabilities.ts`; festgehalten in `probabilities.test.ts` und
+  `statistics.test.ts`. Für Gebisse ab 3 Zähnen ändert sich nichts.
+- **Das Gate war flakig.** In 1 von 7 Läufen endete `pnpm test:run` mit Code 1 wegen eines
+  unbehandelten `ReferenceError: window is not defined` (jsdom, `gameController.ts:296`). Ursache:
+  der Herzschlag hing am **globalen** `window`; nach dem Abbau der Testumgebung läuft der Zeitgeber
+  weiter und findet kein Fenster mehr. Behoben: `this.doc.defaultView` statt `window` (auch als
+  Vorgabe der Wartefunktion), `dispose()` in der Steuerung, `afterEach` in der Sonde. Der Mechanismus
+  ist deterministisch nachgestellt (`scratch/heartbeat-falle/mechanismus.cjs`: alte Fassung →
+  `ReferenceError`, neue → fehlerfrei). Eigene Läufe: 8 × grün. **Die Flake-Häufigkeit selbst konnte
+  ich in 12 Läufen der alten Fassung nicht reproduzieren** (lastabhängig) — belegt ist der
+  Mechanismus, nicht die Quote.
+
+**Heil geblieben (ebenfalls geprüft):** Statistikseite mit Ein-Zahn-Protokoll (kein `NaN`, CSV-Export,
+ein Balken „100 % (garantiert scharf)"), Vorschaulinie der Tier-Auswahl, die Zahnzahl überlebt das
+Neuladen (`localStorage`), und im Bau wie live keine Reste der alten Regel („Beim echten Spielzeug
+sind" 0×, `dialog.sheet[open]` 0×).
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

@@ -48,10 +48,6 @@ const RELIEF_VIBRATION_MIN_MS = 12;
 /** Zweite Stufe des Bisses: der Kiefer zieht nach (ms). */
 const BITE_LATCH_MS = 120;
 
-function defaultWait(ms: number, run: () => void): void {
-  window.setTimeout(run, ms);
-}
-
 function playerName(player: number, players: number): string {
   return players === 1 ? 'Du' : `Spieler ${player}`;
 }
@@ -61,6 +57,8 @@ export class GameController {
   private readonly deps: GameDeps;
   private readonly selector: LiveTeethSelector;
   private readonly wait: (ms: number, run: () => void) => void;
+  /** Nach `dispose()` rührt die Steuerung sich nicht mehr — späte Zeitgeber laufen ins Leere. */
+  private disposed = false;
   private round: RoundState;
   private tension = 0;
   private busy = false;
@@ -73,7 +71,7 @@ export class GameController {
   constructor(deps: GameDeps) {
     this.deps = deps;
     this.doc = deps.document;
-    this.wait = deps.wait ?? defaultWait;
+    this.wait = deps.wait ?? ((ms, run) => void this.win()?.setTimeout(run, ms));
     this.selector = deps.selector ?? new UniformLiveTeethSelector();
     this.records = deps.log.load();
     this.round = this.newRound();
@@ -285,24 +283,46 @@ export class GameController {
 
   private startHeartbeat(): void {
     this.clearHeartbeat();
-    if (!this.deps.settings.sound || this.round.status !== 'open') {
+    if (this.disposed || !this.deps.settings.sound || this.round.status !== 'open') {
+      return;
+    }
+    const fenster = this.win();
+    if (!fenster) {
       return;
     }
     const beat = (): void => {
-      if (this.round.status !== 'open' || this.busy) {
+      if (this.disposed || this.round.status !== 'open' || this.busy) {
         return;
       }
       this.deps.sound.play('heartbeat', this.tension);
-      this.heartbeatTimer = window.setTimeout(beat, heartbeatInterval(this.tension));
+      this.heartbeatTimer = fenster.setTimeout(beat, heartbeatInterval(this.tension));
     };
-    this.heartbeatTimer = window.setTimeout(beat, heartbeatInterval(this.tension));
+    this.heartbeatTimer = fenster.setTimeout(beat, heartbeatInterval(this.tension));
   }
 
   private clearHeartbeat(): void {
     if (this.heartbeatTimer !== null) {
-      window.clearTimeout(this.heartbeatTimer);
+      this.win()?.clearTimeout(this.heartbeatTimer);
       this.heartbeatTimer = null;
     }
+  }
+
+  /**
+   * Das Fenster des Dokuments. Bewusst **nie** das globale `window`: nach dem Abbau der
+   * Testumgebung gibt es das nicht mehr, ein spät feuernder Zeitgeber endete dann als
+   * unbehandelter Fehler und machte das Gate unzuverlässig (gemessen: 1 von 7 Läufen).
+   */
+  private win(): (Window & typeof globalThis) | null {
+    return this.doc.defaultView ?? null;
+  }
+
+  /**
+   * Die Steuerung abhängen: der Herzschlag endet, späte Zeitgeber rühren nichts mehr an. Der Test
+   * ruft das nach jedem Fall auf — nur so bleibt kein Zeitgeber über das Testende hinaus offen.
+   */
+  dispose(): void {
+    this.clearHeartbeat();
+    this.disposed = true;
   }
 
   private recordRound(): void {

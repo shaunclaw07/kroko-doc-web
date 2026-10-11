@@ -254,3 +254,20 @@ geschlossenen Mund als Icon nützen?"
   erzeugt werden — das ist gewollt und steht in AGENTS.md.
 - **Die Bühne bleibt unangetastet:** im Spiel ist das Maul offen und jeder Zahn bedienbar; das Symbol
   ist ein Standbild derselben Zeichnung, kein neuer Spielzustand.
+
+## Nachtrag 11.10.2026 (spät, dritter Teil): was der fremde Prüfer gefunden hat
+
+Die unabhängige Prüfung des Ein-Zahn-Umbaus hat **acht von acht** Behauptungen bestätigt — und
+zwei Defekte gefunden, die meine eigenen Tests nicht sahen:
+
+- **Die Statistik log bei einem Zahn** („Erwartet (Modell) 0,33" statt 1): das Modell ließ jedes
+  `k` über der Zahnzahl wegfallen, statt es — wie die Zahn-Auswahl — auf die Zahnzahl zu kappen.
+  Behoben mit Tests genau an der neuen Grenze (`probabilities.test.ts`, `statistics.test.ts`).
+- **Das Gate war flakig** (1 von 7 Läufen rot, ohne fachlichen Fehler): der Herzschlag hing am
+  globalen `window`; ein spät feuernder Zeitgeber nach dem Abbau der Testumgebung starb als
+  unbehandelter `ReferenceError`. Behoben (`dispose()`, Fenster des Dokuments, `afterEach` in der
+  Sonde), Mechanismus deterministisch nachgestellt.
+
+Beide Funde bestätigen eine Regel: eine Änderung an einer **Grenze** — hier die kleinste
+Zahnzahl — muss an dieser Grenze geprüft werden, nicht nur in der Mitte des Bereichs. Die Belege
+stehen in `docs/e2e-nachweise.md` §5k.

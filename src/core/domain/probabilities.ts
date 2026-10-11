@@ -53,23 +53,29 @@ function normalized(kWeights: KWeights): Array<[number, number]> {
 /**
  * Verteilung der Druck-Nummer, bei der das Maul zuschnappt.
  * P(J = j | k scharfe Zähne) = C(n-j, k-1) / C(n, k), gemittelt über k.
+ *
+ * `k` wird dabei auf die Zahnzahl **gekappt** — genau wie die Auswahl der scharfen Zähne es tut
+ * (`liveTeeth.ts`: `Math.min(min, teeth, MAX_LIVE_TEETH)`). Vorher fiel jedes k über der Zahnzahl
+ * ganz weg; bei einem Ein-Zahn-Gebiss (seit 11.10.2026 möglich) zeigte die Statistik dadurch
+ * „Erwartet 0,33" statt 1 — gefunden vom fremden Prüfer, nicht von den Tests.
  */
 export function pressPositionDistribution(teeth: number, kWeights: KWeights = DEFAULT_K_WEIGHTS): number[] {
   const dist = new Array<number>(teeth).fill(0);
   for (const [k, weight] of normalized(kWeights)) {
-    if (k > teeth) {
+    const live = Math.min(k, teeth);
+    if (live < 1) {
       continue;
     }
-    const total = binomial(teeth, k);
+    const total = binomial(teeth, live);
     if (total === 0) {
       continue;
     }
     for (let j = 1; j <= teeth; j += 1) {
       const rest = teeth - j;
-      if (rest < k - 1) {
+      if (rest < live - 1) {
         continue;
       }
-      dist[j - 1] = (dist[j - 1] ?? 0) + (weight * binomial(rest, k - 1)) / total;
+      dist[j - 1] = (dist[j - 1] ?? 0) + (weight * binomial(rest, live - 1)) / total;
     }
   }
   return dist;

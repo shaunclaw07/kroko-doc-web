@@ -196,6 +196,16 @@ describe('analyseSession', () => {
     expect(report.observedPresses).toBe(0);
     expect(report.toothTest).toBeNull();
   });
+
+  it('bleibt bei einem Ein-Zahn-Gebiss ehrlich: erwartet genau einen Druck', () => {
+    // Fremder Prüfer (11.10.2026): mit einem einzigen Zahn zeigte der Bericht „Erwartet (Modell)
+    // 0,33" und einen Modellbalken von 33 %, obwohl die beobachteten Drücke 1,00 und die
+    // Gefahr-Kurve 100 % waren. Ursache: das Modell ließ jedes k über der Zahnzahl wegfallen,
+    // statt es — wie die Auswahl der scharfen Zähne — auf die Zahnzahl zu kappen.
+    const report = analyseSession(buildRounds(1, 'original', 3, 1, 1), 1);
+    expect(report.observedPresses).toBeCloseTo(1, 12);
+    expect(report.expectedPresses).toBeCloseTo(1, 12);
+  });
 });
 
 describe('verdict', () => {

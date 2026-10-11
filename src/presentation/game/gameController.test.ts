@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GameController } from './gameController';
 import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics';
 import { RecordingSound } from '../../infrastructure/testing/recordingSound';
@@ -74,6 +74,13 @@ function compressedWait(ms: number, run: () => void): void {
   }
 }
 
+/**
+ * Weggeworfene Steuerungen: der Herzschlag eines jeden Falls wird nach dem Test abgehängt. Ohne das
+ * feuerte ein offener Zeitgeber in die schon abgebaute Umgebung („window is not defined") und das
+ * Gate schlug gelegentlich ohne echten Fehler fehl — gemessen: 1 von 7 Läufen (11.10.2026).
+ */
+const gebaut: GameController[] = [];
+
 function build(
   live: number[],
   overrides: Partial<GameSettings> = {},
@@ -103,6 +110,7 @@ function build(
     wait: waitOverride,
   });
   controller.mount();
+  gebaut.push(controller);
   return { controller, sound, log, haptics };
 }
 
@@ -115,6 +123,32 @@ function click(toothId: number): void {
 describe('GameController in der Bühne', () => {
   beforeEach(() => {
     document.body.innerHTML = '';
+  });
+
+  afterEach(() => {
+    for (const controller of gebaut.splice(0)) {
+      controller.dispose();
+    }
+  });
+
+  it('hängt den Herzschlag ab: nach dispose() schlägt nichts mehr', () => {
+    // Der Herzschlag war der einzige Zeitgeber am globalen `window` — er feuerte nach dem Testende
+    // in eine abgebaute Umgebung („window is not defined") und machte das Gate gelegentlich rot.
+    vi.useFakeTimers();
+    try {
+      const { controller, sound } = build([2]);
+      const schlaege = (): number => sound.names().filter((name) => name === 'heartbeat').length;
+      const leer = schlaege();
+      vi.advanceTimersByTime(3000);
+      expect(schlaege(), 'ohne Herzschlag wäre der Test sinnlos').toBeGreaterThan(leer);
+
+      controller.dispose();
+      const beimAbhängen = schlaege();
+      vi.advanceTimersByTime(10000);
+      expect(schlaege(), 'nach dispose() darf kein Schlag mehr kommen').toBe(beimAbhängen);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('fühlt sich bei jedem Druck an: Tipp beim Drücken, weicher Stoß bei der Erleichterung, Muster beim Biss', () => {

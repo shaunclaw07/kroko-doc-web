@@ -81,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Dreizehn Fallen, die Zeit kosten
+## Fünfzehn Fallen, die Zeit kosten
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -145,6 +145,24 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
   Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
   fahren und die **Ausgabe ansehen**, nicht nur den Exit-Code.
+
+- **Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt.** Der Herzschlag hing an
+  `window.setTimeout`. Die Testumgebung baut am Ende ab und entfernt das globale Fenster, die
+  Zeitgeber der Umgebung laufen aber weiter: der späte Schlag stirbt als **unbehandelter
+  `ReferenceError: window is not defined`** (Jsdom-Zeitgeber nach entferntem Global, nachgestellt in
+  `scratch/heartbeat-falle/mechanismus.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
+  fachlich rot war — gemessen vom fremden Prüfer: 1 von 7 Läufen. Deshalb: `this.doc.defaultView`
+  statt `window` (auch als Vorgabe der Wartefunktion), und `dispose()` in der Steuerung, das die
+  Sonde nach **jedem** Fall aufruft. Wer den Herzschlag selbst prüfen will, reicht eine eigene Uhr
+  herein (`vi.useFakeTimers()`) statt auf echte Millisekunden zu warten.
+
+- **Ein Modell, das Sonderfälle wegfallen lässt, lügt bei kleinen Zahlen.** Die Vorhersage der
+  Zuschnapp-Position ließ jedes `k` über der Zahnzahl ganz weg (`if (k > teeth) continue`). Solange
+  das kleinste Gebiss 4 Zähne hatte, fiel das nie auf; seit „1 Zahn" möglich ist, zeigte die
+  Statistik „Erwartet (Modell) 0,33" und einen Balken von 33 %, während Beobachtung und Gefahr-Kurve
+  100 % sagten. Die Auswahl der scharfen Zähne **kappt** auf die Zahnzahl
+  (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — das Modell muss dasselbe tun. Gefunden hat das der
+  fremde Prüfer, nicht die Tests: prüfe jede Regel auch am **Rand** ihrer neuen Grenze.
 
 ## Ein neues Lebewesen ergänzen
 
