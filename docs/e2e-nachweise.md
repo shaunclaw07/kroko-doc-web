@@ -792,10 +792,12 @@ symmetrisch), Nase frei (Nasenlöcher `(302,98)` / `(338,98)` = `(192,138,106)`)
 und Auge `(172,158)` = Weiß unverändert.
 
 **Nebenbei ein Messfehler, der beinahe falsche Schlüsse erzeugt hätte:** der Rasterer legt den
-**viewBox `0 0 640 460`** zugrunde (PNG 1280 × 920), nicht 640 × 640. Meine „×2"-Proben saßen nur
-zufällig fast richtig; die belastbare Abbildung lautet `X = 118 + (x − 62) · 2,0194` und
-`Y = 10 + (y − 6) · 2,0091`, bestimmt aus dem Umriss der Zeichnung im PNG. Wer Pixelproben macht,
-leitet den Maßstab erst aus dem Bild ab.
+**viewBox `0 0 640 460`** zugrunde (PNG 1280 × 920), nicht 640 × 640. Der Maßstab ist **genau 2, ohne
+Versatz** (`output_width=1280` bei viewBox 640 × 460, also `X = 2x`, `Y = 2y`). Meine erste Fassung
+hatte den sichtbaren Umriss samt 3-px-Kontur als Bezug genommen und daraus eine um wenige Pixel
+verschobene Näherung (`X = 118 + (x − 62) · 2,0194`) abgeleitet — die Werte saßen zufällig fast
+richtig. Wer Pixelproben macht, liest den Maßstab **an der Rastervorschrift** ab (`output_width` und
+viewBox), nicht an der Zeichnung.
 
 ## 5p. Unabhängige Fremdprüfung: acht Punkte bestätigt, drei Doku-Fehler gefunden (11.10.2026, Stand `16a54ad`)
 
@@ -832,6 +834,33 @@ veröffentlichten Seite (10 Kacheln, 152 px, Katalogreihenfolge).
 
 Beide Lehren stehen in `AGENTS.md`. Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
 (Audit-Kennung `sa-0-2a78f337`).
+
+## 5q. Der Vampir bekommt Accessoires — und die Ohren durften endlich hinausragen (11.10.2026, spät)
+
+Wunsch des Auftraggebers: „Der Vampir braucht auch noch Accessoires, kannst du das Model auch nochmal
+ueberarbeiten?" Geworden sind es **Stehkragen und Monokel**, dazu die überarbeiteten Ohren.
+
+**Gemessen im gerasterten Bild** (PNG 1280 × 920, Maßstab genau 2: `X = 2x`, `Y = 2y`):
+
+- **Vorher, der Fehler:** die Ohrspitzen lagen im Gesichtsbereich und wurden vom Beschnitt
+  abgeschnitten. Beleg: der Kopfumriss lag bei y 116 bei x 110, die Ohrspitze bei x 52 — **58 px
+  Ohren waren weg.** Im Bild gesehen, dann nachgemessen.
+- **Nachher:** die Ohrspitzen liegen bei `(60,148)` (Konturfarbe `(193,174,209)`) und `(580,148)`.
+  Die Kragenflügel sind über die ganze Kopfseite sichtbar, Breite je Höhe gemessen: y 240: 34 px
+  (x 25…58) · y 280: 33 px (x 26…58) · y 320: 29 px (x 35…63) · y 360: 22 px (x 54…75). Die erste
+  Kragenfassung war bei y 200 nur 18 px breit und sah wie eine Flosse aus (im Bild verworfen), die
+  zweite stand zu weit ab (Außenkante x 12) und wirkte wie ein Flügel.
+- **Monokel:** Ring `(118,178)` = `(143,134,163)` · Glas über dem Augenweiß `(152,178)` =
+  `(251,252,253)` · Kettengewicht `(92,241)` = `(143,134,163)`.
+- **Nichts anderes verändert** (Gegenprobe): das Unterschieds-Rechteck zwischen dem
+  Zuschnapp-Zustand vorher und nachher ist **x 24…616, y 111…396** — genau Kragen, Ohren und
+  Monokel; die Maulmitte unten `(320,430)` ist in beiden Rasterungen `(106,27,41)`.
+- Beide Zustände gerastert und angesehen · Gate **234 Tests in 19 Dateien** grün · Galerie neu
+  (10 Kacheln, 1970 × 566) · im Kachelformat (152 px) sind Kragen, Ohrspitzen und Monokel noch
+  erkennbar (im Bild geprüft).
+
+Die Lehren stehen in `AGENTS.md` („Was über den Umriss hinausragen soll, gehört in die
+Körperebene", „Stehkragen in `body`, Monokel in `face`").
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

@@ -446,3 +446,14 @@ wollen. Hast du noch andere coole Ideen?"
   liefert das Achsen-Rechteck 52,48 px, die 44,15 px sind gerechnet). Alle drei behoben; die Regeln
   stehen in `AGENTS.md` („Doku-Prüfung nie mit `>/dev/null`", „`getBoundingClientRect` … kein Maß
   für eine Fläche"), die Prüfung selbst in `docs/e2e-nachweise.md` §5p.
+- **Der Vampir bekommt Accessoires (Wunsch des Nutzers, 11.10.2026 spät).** „Der Vampir braucht auch
+  noch Accessoires, kannst du das Model auch nochmal ueberarbeiten?" — **Stehkragen** (zwei Flügel in
+  der Körperebene, die den Kopf rahmen; in der Gesichtsebene würde der Beschnitt sie abschneiden)
+  und **Monokel** am linken Auge (Gesichtsebene, über der Mundebene). Dazu die **Ohren**: sie standen
+  im Gesichtsbereich, und gemessen im gerasterten Bild fehlten ihre Spitzen — der Umriss lag bei
+  y 116 bei x 110, die Spitze bei x 52, also **58 px abgeschnitten**. Jetzt in der Körperebene, mit
+  breiter Basis (die erste Nadelfassung sah wie ein Horn aus). Der Kragen brauchte drei Anläufe
+  (Flosse → zu weit ab → Band mit rund 35 px Abstand zum Umriss, Breiten je Höhe gemessen).
+  Gegenprobe: das Unterschieds-Rechteck der Rasterungen ist x 24…616, y 111…396 — nur Kragen, Ohren,
+  Monokel; die Maulmitte unten blieb Pixel für Pixel gleich. Nebenbei die Maßstabsangabe korrigiert:
+  der Rasterer skaliert **genau 2 ohne Versatz**, meine frühere Näherung war um die Kontur verschoben.

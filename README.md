@@ -124,7 +124,8 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
 - **Zehn Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
   Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut und Schläferlocken), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
-  Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne),
+  Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne, mit
+  Stehkragen und Monokel),
   Panda (12, 1–2 — breite Mahlzähne statt Reißzähne, schwarze Ohren und Augenflecken), Löwe
   (12, 1–2 — Mähne aus Fellbüscheln, zwei lange Fangzähne und drei breite Schneidezähne),
   Panther (12, 1–2 — der melanistische Leopard: schwarzes Fell, gelbe Augen, **vier** Fangzähne,

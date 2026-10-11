@@ -280,6 +280,18 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   korrekt im SVG stand. Der Hut bleibt trotzdem in `body`, weil seine Krone über den Umriss
   hinausragt und der Gesichtsbereich beschnitten wird. Also: **Hut in `body`, Haare in `face`** —
   je nachdem, was die Form braucht, und immer im gerasterten Bild nachsehen.
+- **Was über den Umriss hinausragen soll, gehört in die Körperebene — sonst schneidet der Beschnitt
+  es ab.** Die Ohren des Vampirs standen im Gesichtsbereich, und im gerasterten Bild fehlten ihre
+  Spitzen: die Spitze lag bei x 52, der Umriss bei y 116 aber erst bei x 110 — **58 px Ohren** schnitt
+  die Kontur weg. Gemessen, nicht am Code gesehen. Die **Gegenprobe ist billig**: das
+  Unterschieds-Rechteck zweier Rasterungen darf nur die geänderten Bereiche umfassen (der
+  Zuschnapp-Zustand des Vampirs änderte sich nur in x 24…616, y 111…396 — Kragen, Ohren, Monokel —,
+  die Maulmitte unten `(320,430)` blieb Pixel für Pixel gleich `(106,27,41)`).
+- **Der Stehkragen liegt in `body`, das Monokel in `face` — je nachdem, wer obenauf gehört.** Ein
+  Kragen, den man *hinter* dem Kopf trägt, muss in der Körperebene stehen (im Beschnitt wäre er
+  abgeschnitten, und der Kopf soll seine Innenkante verdecken); ein Monokel sitzt *auf* dem Auge und
+  bleibt innerhalb des Umrisses, gehört also über die Mundebene. Dieselbe Überlegung wie bei Hut
+  (`body`) und Haaren (`face`) des Menschen.
 - **Die Doku-Prüfung nie mit `>/dev/null` laufen lassen.** `scripts/doku-pruefen.sh` meldet Treffer
   alter Werte und **zählt sie nicht als Fund**, solange `ALTE_WERTE_STRIKT=1` fehlt — der Exit-Code
   bleibt 0. So blieb „232 Tests grün" in der Startanleitung stehen, während dieselbe Datei zweimal
