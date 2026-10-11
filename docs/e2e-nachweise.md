@@ -198,9 +198,11 @@ Beispiel aus einem Bedienungs-Test: schnappt es beim dritten Druck, war Druck 2 
 | Nachweis | Ergebnis |
 |---|---|
 | vier Kern-Tests (`tension.test.ts`) | `survivedDanger`: 0 vor dem ersten Druck, 55,0 % beim Krokodil-Schnapp im zehnten Druck, `1÷9` im Modus classic, ≤ 1 |
-| zwei Bedienungs-Tests (`gameController.test.ts`) | der Ergebnistext enthält „mutigster Druck … 21 %"; mit zwei Spielern wird der Spieler benannt (Druck 2 → „Spieler 2", reihum) |
+| zwei Bedienungs-Tests (`gameController.test.ts`) | der Ergebnistext enthält „mutigster Druck … 21 %"; mit zwei Spielern wird der Spieler benannt (Druck 2 → „Spieler 2“, reihum) |
+| echter Ergebnistext (einmalige Sonde, danach entfernt) | „Zahn 7 hat zugeschnappt — der 5. Druck dieser Runde. Insgesamt 1 Zahn war scharf (7). **Mutigster Druck: Spieler 1 bei 25 % Bissgefahr — und der Zahn war harmlos.** Damit ist 1 Runde protokolliert.“ (drei Spieler, Drücke 1,2,5,6,7 — Druck 4 kam reihum von Spieler 1, die Gefahr stand dort bei 24,6 %) |
 | Rot-Beweis | vorher genau sechs rote Tests — die neuen, keine alten |
-| Gate + Bau | 202 Tests in 18 Dateien, `tsc` fehlerfrei, `pnpm build` → 2 Seiten in 2,08 s |
+| siebter Test (`gameController.test.ts`) | beim ersten Protokolleintrag die Einzahl: „Damit ist 1 Runde protokolliert.“ — vorher stand dort „1 Runden“, aufgefallen beim Ausgeben des **echten** Satzes aus einer einmaligen Sonde |
+| Gate + Bau | 203 Tests in 18 Dateien, `tsc` fehlerfrei, `pnpm build` → 2 Seiten in 2,40 s |
 
 Warum **nicht** mehr: das „Weitergeben" (Zug abgeben statt drücken) hätte den Balken zur echten
 Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus `pressOrder` ableitet

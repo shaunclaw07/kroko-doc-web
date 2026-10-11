@@ -462,13 +462,13 @@ export class GameController {
       return '';
     }
     if (this.round.players === 1) {
-      return ` Dein mutigster Druck: ${percent} % Bissgefahr - und der Zahn war harmlos.`;
+      return ` Dein mutigster Druck: ${percent} % Bissgefahr — und der Zahn war harmlos.`;
     }
     // Der letzte harmlose Druck kam reihum von diesem Spieler.
     const player = ((pressIndex - 2) % this.round.players) + 1;
     return (
       ` Mutigster Druck: ${playerName(player, this.round.players)} bei ${percent} % Bissgefahr` +
-      ' - und der Zahn war harmlos.'
+      ' — und der Zahn war harmlos.'
     );
   }
 
@@ -491,9 +491,11 @@ export class GameController {
       const liveWord = loser.liveCount === 1 ? 'Zahn war scharf' : 'Zähne waren scharf';
       text.textContent =
         `Zahn ${loser.tooth} hat zugeschnappt — der ${loser.pressIndex}. Druck dieser Runde. ` +
-        `Insgesamt ${loser.liveCount} ${liveWord} (${live}). ` +
-        `Damit sind ${this.records.length} Runden protokolliert.` +
-        this.mutSentence(loser.pressIndex);
+        `Insgesamt ${loser.liveCount} ${liveWord} (${live}).` +
+        this.mutSentence(loser.pressIndex) +
+        (this.records.length === 1
+          ? ' Damit ist 1 Runde protokolliert.'
+          : ` Damit sind ${this.records.length} Runden protokolliert.`);
     }
     this.deps.sound.play(this.round.players === 1 ? 'lose' : 'win', 0.8);
     if (sheet) {

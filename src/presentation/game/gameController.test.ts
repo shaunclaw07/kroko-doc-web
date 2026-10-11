@@ -199,6 +199,15 @@ describe('GameController in der Bühne', () => {
     expect(document.getElementById('result-title')?.textContent).toContain('Spieler 2');
   });
 
+  it('schreibt beim ersten Protokolleintrag die Einzahl', () => {
+    build([4]);
+    click(1);
+    click(4);
+    const text = document.getElementById('result-text')?.textContent ?? '';
+    expect(text).toContain('Damit ist 1 Runde protokolliert.');
+    expect(text).not.toContain('1 Runden');
+  });
+
   it('nennt im Ergebnis den Mut: die hoechste ueberstandene Bissgefahr', () => {
     build([4]);
     click(1);
