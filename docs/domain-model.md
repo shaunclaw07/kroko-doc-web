@@ -68,16 +68,22 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
   Gefahr — der Balken sah damit aus wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser. Das
   war die Ursache der Verwirrung: man konnte die Anzeige nicht deuten.
 - **Farbe = Gefahr:** die Bissgefahr des nächsten Drucks (`tensionForPress`). Ab 30 %
-  (`isTense`, `TENSE_LEVEL`) glüht er, ab 60 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
+  (`isTense`, `TENSE_LEVEL`) glüht er, ab 50 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
+  *Warum 50 und nicht 60:* bei 60 % erreichte **kein** Gebiss die Schwelle vor dem letzten Druck —
+  rot fiel also immer mit dem Biss zusammen, ein *überstandener* roter Druck war unmöglich. Bei
+  50 % kann der Mut bis ins Rote reichen.
 - **Der Balken hat einen Zweck:** die höchste überstandene Gefahr ist der **Mut** der Runde
   (`survivedDanger` = die Gefahr des letzten Drucks, der harmlos blieb). Weil die Gefahr mit jedem
   Druck steigt, ist dieser Wert zugleich das Maximum. Er steht als Satz im Ergebnis.
 - Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken atmet
   im Takt des Herzschlags (`--beat-ms`, dieselbe Zahl wie der Puls).
-- **Gemessene Folge der 60-%-Schwelle:** sie wird in *keinem* Gebiss vor dem letzten Druck erreicht
-  (Krokodil: 40,7 % beim achten, 55,0 % beim neunten). Rot wird es also erst beim allerletzten
-  Zahn. Wer früher Rot will, senkt `HIGH_DANGER` — der Stolperdraht in `statsView.test.ts` hält die
-  Folge fest und fällt dann bewusst.
+- **Gemessene Folge der 50-%-Schwelle:** der vorletzte Krokodil-Druck (55,0 %) ist rot, der achte
+  (40,7 %) noch nicht. Rot kommt damit einen Druck früher als bei 60 % — und *kann* überstanden
+  werden. Zwei Stolperdrähte halten diese Folge fest (`statsView.test.ts`, `gameController.test.ts`
+  „wird rot, wenn noch zwei Zähne anstehen"); als die Schwelle fiel, fielen beide — und wurden
+  bewusst neu gefasst.
+- **Mut auf der Statistikseite:** `bravestRound` nennt die Runde mit der höchsten überstandenen
+  Gefahr; die Seite zeigt sie als Kachel „Mutigste Runde" samt Satz mit Rundennummer und Gebiss.
 - Der Hinweis, der den Balken erklärt, kommt **einmal je Sitzung** (beim ersten Druck) über den
   `SessionMarkPort`; ohne diesen Port kommt er gar nicht.
 - Die Statistikseite zeigt dieselbe Rechnung als Kurve („Wie gefährlich ist der nächste Druck?").

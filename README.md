@@ -131,6 +131,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   blieb („Dein mutigster Druck: 55 % Bissgefahr — und der Zahn war harmlos."). Das gibt dem Balken
   einen Zweck: die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird.
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
+  die **mutigste Runde** („Mutigste Runde“, `bravestRound`),
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
   Autokorrelation (Mustersuche) und exportiert/importiert CSV im Format des Analyse-Werkzeugs.
 - **Ehrlich:** unter 100 Runden gibt es keine Signifikanz-Aussage, sondern den Hinweis, dass

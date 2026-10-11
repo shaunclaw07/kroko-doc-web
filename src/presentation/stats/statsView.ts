@@ -2,7 +2,8 @@ import type { RoundRecord } from '../../contract/sessionLog';
 import type { RandomMode } from '../../core/domain/teeth';
 import { HIGH_DANGER, tensionForPress } from '../../core/domain/tension';
 import { DEFAULT_K_WEIGHTS, expectedPresses, modeKWeights, pressPositionDistribution } from '../../core/domain/probabilities';
-import { analyseSession, verdict, type ChiSquareResult, type SessionReport } from '../../core/domain/statistics';
+import { analyseSession, bravestRound, verdict, type ChiSquareResult, type SessionReport } from '../../core/domain/statistics';
+import { getCreature } from '../../core/domain/creature';
 
 /** Unter dieser Rundenzahl gibt es bewusst keine Signifikanz-Aussage. */
 export const MIN_SAMPLE_FOR_VERDICT = 100;
@@ -74,6 +75,7 @@ function reportHtml(report: SessionReport, records: readonly RoundRecord[]): str
   const weights = modeKWeights(mode);
   const model = pressPositionDistribution(report.teeth, weights);
   const enough = report.rounds >= MIN_SAMPLE_FOR_VERDICT;
+  const brave = bravestRound(records);
   return [
     '<div class="hud">',
     `<div class="stat"><div class="stat__label">Runden</div><div class="stat__value">${report.rounds}</div></div>`,
@@ -90,8 +92,17 @@ function reportHtml(report: SessionReport, records: readonly RoundRecord[]): str
     `<div class="stat"><div class="stat__label">Häufigster Zahn</div><div class="stat__value">${
       report.mostLikelyTooth ?? '—'
     }</div></div>`,
+    `<div class="stat"><div class="stat__label">Mutigste Runde</div><div class="stat__value">${
+      brave ? `${Math.round(brave.danger * 100)} %` : '—'
+    }</div></div>`,
     '</div>',
     `<p>${escapeHtml(verdict(report, MIN_SAMPLE_FOR_VERDICT))}</p>`,
+    brave
+      ? `<p class="small">Mutigste Runde: ${Math.round(brave.danger * 100)} % Bissgefahr in Runde ${
+          brave.round
+        } (${escapeHtml(getCreature(brave.creature).name)}) — die höchste Gefahr, die überstanden wurde. ` +
+        'Ein einzelner Wert ist kein statistischer Befund, sondern eine Geschichte.</p>'
+      : '',
     enough ? '' : '<p class="small muted">Für statistische Aussagen fehlen Runden — die Tests bleiben deshalb aus.</p>',
     '<h3 class="small muted">Verlierer-Zahn (Häufigkeit)</h3>',
     `<div class="bars">${bars(report.countsByTooth, report.rounds)}</div>`,

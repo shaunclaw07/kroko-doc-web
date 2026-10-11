@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { bravestRound } from './statistics';
 import { DEFAULT_K_WEIGHTS, binomial, pressPositionDistribution } from './probabilities';
 import type { RandomMode } from './teeth';
 import {
@@ -215,5 +216,28 @@ describe('verdict', () => {
     const text = verdict(report, 30);
     expect(text.length).toBeGreaterThan(0);
     expect(text).toContain('Zugmodell');
+  });
+});
+
+describe('bravestRound', () => {
+  const krokodil = (round: number, pressIndex: number) => ({
+    round, playedAt: '2026-10-11T10:00:00.000Z', creature: 'crocodile', teeth: 10,
+    mode: 'original' as const, players: 1, loserTooth: 1 as const, pressIndex, liveCount: 1,
+    pressOrder: [1, 2, 3],
+  });
+
+  it('nennt nichts, wenn nichts protokolliert ist', () => {
+    expect(bravestRound([])).toBeNull();
+  });
+
+  it('nimmt die hoechste ueberstandene Gefahr', () => {
+    // Schnappt es beim 10. Druck, war Druck 9 mit 55,0 % der mutigste; beim 2. Druck nur 20,0 %.
+    const best = bravestRound([krokodil(1, 2), krokodil(2, 10)]);
+    expect(best?.round).toBe(2);
+    expect(best?.danger).toBeCloseTo(0.55, 3);
+  });
+
+  it('uebergeht Runden, in denen schon der erste Druck schnappte', () => {
+    expect(bravestRound([krokodil(3, 1)])).toBeNull();
   });
 });

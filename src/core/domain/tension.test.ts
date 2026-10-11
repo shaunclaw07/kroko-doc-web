@@ -274,10 +274,12 @@ describe('isHighDanger', () => {
     expect(isHighDanger(tensionForPress({ pressIndex: 1, teeth: 10, ...KROKODIL }))).toBe(false);
   });
 
-  it('wird beim Krokodil erst beim allerletzten Zahn rot', () => {
-    // 40,7 % beim achten, 55,0 % beim neunten, 100 % beim zehnten Druck.
+  it('wird beim Krokodil ab dem vorletzten Zahn rot', () => {
+    // 40,7 % beim achten, 55,0 % beim neunten, 100 % beim zehnten Druck. Die Schwelle liegt bei
+    // 50 %, damit ein roter Druck ueberlebt werden kann — sonst waere jeder rote Druck ein Biss und
+    // der Mut koennte nie ins Rote reichen.
     expect(isHighDanger(tensionForPress({ pressIndex: 8, teeth: 10, ...KROKODIL }))).toBe(false);
-    expect(isHighDanger(tensionForPress({ pressIndex: 9, teeth: 10, ...KROKODIL }))).toBe(false);
+    expect(isHighDanger(tensionForPress({ pressIndex: 9, teeth: 10, ...KROKODIL }))).toBe(true);
     expect(isHighDanger(tensionForPress({ pressIndex: 10, teeth: 10, ...KROKODIL }))).toBe(true);
   });
 });

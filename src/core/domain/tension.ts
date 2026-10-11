@@ -20,7 +20,7 @@ export const VERDICT_GAP_MS = 60;
  * Der Wert steht hier und nicht im Stylesheet, damit Anzeige und Kern dieselbe Regel benutzen
  * und die Schwelle geprüft ist.
  */
-export const HIGH_DANGER = 0.6;
+export const HIGH_DANGER = 0.5;
 /** Herzschlag-Abstand an den Enden des Spannungsbereichs (Millisekunden). */
 export const HEARTBEAT_SLOW_MS = 900;
 export const HEARTBEAT_FAST_MS = 380;

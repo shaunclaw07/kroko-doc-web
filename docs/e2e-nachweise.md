@@ -178,9 +178,10 @@ Widerspruch im Bild: der Balken sah aus wie eine Fortschrittsanzeige, war aber e
   `hud-tension` und `hud-meter-hint`; das Bündel trägt „Bissgefahr" und den Fortschrittstext; das
   CSS enthält `meter-breath`, `is-danger` und `meter-legend`; die Statistikseite trägt
   `danger-mount` und die Überschrift der Kurve.
-- **Gemessene Folge der 60-%-Schwelle:** kein Gebiss erreicht 60 % vor dem letzten Druck (Krokodil
-  40,7 % beim achten, 55,0 % beim neunten) → rot wird es erst beim allerletzten Zahn. Der
-  Stolperdraht in `statsView.test.ts` hält diese Folge fest.
+- **Gemessene Folge der neuen 50-%-Schwelle (11.10.2026):** der vorletzte Krokodil-Druck (55,0 %)
+  ist rot, der achte (40,7 %) noch nicht. Rot kommt einen Druck frueher als bei 60 % — und kann
+  ueberstanden werden; bei 60 % war jeder rote Druck ein Biss. Beide Stolperdraehte
+  (`statsView.test.ts`, `gameController.test.ts`) fielen beim Senken und wurden neu gefasst.
 - **Produktfehler gefunden und behoben:** vor dem ersten Druck stand „Bissgefahr 0 %", obwohl der
   erste Druck beim Krokodil 20 % gefährlich ist. Die Anzeige leitet die Gefahr jetzt bei jedem
   Render aus der Runde ab (`tensionOfNextPress`), nicht nur nach einem Druck.
@@ -209,6 +210,19 @@ Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus
 (`round.ts`), und seine Wirkung ist nur an einem echten Tisch mit zwei oder mehr Spielern
 beurteilbar. Abgesagt, begründet in `docs/plan.md` und als zehnte Falle in AGENTS.md.
 
+## 5f. Entscheidungen des Auftraggebers umgesetzt (11.10.2026)
+
+Der Nutzer: „Das neue Grün gefällt mir. Den Rest kannst du einfach deine empfohlenen
+Entscheidungen nehmen." — umgesetzt:
+
+| Entscheidung | Umsetzung | Nachweis |
+|---|---|---|
+| **Sattes Spielzeug-Grün** (die gegengerenderte Variante) | Krokodil-Farben `#8fce33` / `#a8dd4f` / `#5f8f1e`; Schnauzenband bleibt gleich der Körperfarbe | gerendert und angesehen (Dreier-Vergleich Original / weich / satt im Bericht); 18 Treffer der neuen Werte, 0 der alten |
+| **Rotglut bei 50 %** statt 60 % | `HIGH_DANGER = 0.5` — der vorletzte Krokodil-Druck (55,0 %) ist rot und **kann überstanden** werden, der Mut reicht bis ins Rote | zwei Stolperdrähte fielen bewusst und wurden neu gefasst (`tension.test.ts`, `statsView.test.ts`, `gameController.test.ts`) |
+| **Mut auf die Statistikseite** | `bravestRound` (Kern) + Kachel „Mutigste Runde" und ein Satz in `statsView.ts` | drei neue Kern-Tests: leer → null, höchste überstandene Gefahr gewinnt, Runden mit Schnapp beim ersten Druck zählen nicht |
+| **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in AGENTS.md |
+| **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | in `docs/plan.md` begründet |
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
@@ -233,7 +247,7 @@ beurteilbar. Abgesagt, begründet in `docs/plan.md` und als zehnte Falle in AGEN
 - ~~Vibration ist nicht in einem echten Browser geprüft~~ → am **11.10.2026 am Gerät bestätigt**: der Nutzer hat die Seite am Handy gespielt und die Vibration gespürt (25 ms bei jedem Zahndruck, drei Stöße beim Biss). Der Codeweg bleibt durch Controller- und Adapter-Tests belegt — ein Browser im Baum fehlt weiterhin (erster Punkt).
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
 - ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.
-- **Vom Auftraggeber zu entscheiden** (Wahl, kein Fehler): die **satte Spielzeug-Grün-Variante** des
-  Krokodils (Gegenbild im Bericht vom 11.10.2026), die **Rotglut-Schwelle** (`HIGH_DANGER` 0,6 hält
-  den Mut im Goldenen; 0,5 ließe einen roten, überstandenen Druck zu) und das **„Weitergeben"**
-  (abgesagt mit Begründung — als Feature nur mit 2+ Spielern prüfbar).
+- **Entschieden am 11.10.2026:** das satte Grün (umgesetzt), die Rotglut bei 50 % (umgesetzt), der
+  Mut auf der Statistikseite (umgesetzt); „Weitergeben" bleibt abgesagt. Offen bleibt allein der
+  Blick des Spielers auf die neue Grün-Fassung und die Frage, ob die fünf anderen Lebewesen in einer
+  eigenen Runde ebenfalls satter werden sollen — jetzt fällt das Krokodil bewusst aus der Reihe.

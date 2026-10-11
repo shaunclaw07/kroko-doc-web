@@ -5,12 +5,48 @@ import {
   modeKWeights,
   pressPositionDistribution,
 } from './probabilities';
+import type { RoundRecord } from './records';
 import { DEFAULT_MODE, DEFAULT_TEETH, type RandomMode } from './teeth';
+import { survivedDanger } from './tension';
 
 /**
  * Reine Statistik-Helfer fuer die Auswertungsseite: keine DOM-Zugriffe, keine
  * Uhr, kein Zustand — alles ist eine Funktion der Eingaben.
  */
+
+/** Die mutigste Runde im Protokoll: die hoechste Bissgefahr, die ueberstanden wurde. */
+export interface BravestRound {
+  /** Laufende Nummer der Runde (wie im Protokoll). */
+  round: number;
+  /** Gebiss dieser Runde (Kennung aus dem Katalog). */
+  creature: string;
+  /** Bissgefahr des letzten harmlosen Drucks, 0..1. */
+  danger: number;
+}
+
+/**
+ * Sucht die Runde mit der hoechsten ueberstandenen Bissgefahr (`survivedDanger`). Die Zahl kommt aus
+ * derselben Modellkurve wie der Balken: sie sagt, **was jemand gewagt hat**, nicht ob er Glueck
+ * hatte. Runden, in denen schon der erste Druck schnappte, haben nichts ueberstanden und zaehlen
+ * nicht; sind alle so, gibt es kein Ergebnis (dann zeigt die Seite einen Strich).
+ */
+export function bravestRound(records: readonly RoundRecord[]): BravestRound | null {
+  let best: BravestRound | null = null;
+  for (const record of records) {
+    const creature = getCreature(record.creature);
+    const danger = survivedDanger({
+      pressIndex: record.pressIndex,
+      teeth: record.teeth,
+      mode: record.mode,
+      liveTeethMin: creature.liveTeethMin,
+      liveTeethMax: creature.liveTeethMax,
+    });
+    if (danger > 0 && (best === null || danger > best.danger)) {
+      best = { round: record.round, creature: record.creature, danger };
+    }
+  }
+  return best;
+}
 
 export interface ChiSquareResult {
   chiSquare: number;

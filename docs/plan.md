@@ -144,3 +144,22 @@ Fragen des Sparrings, jede mit nachgeschlagener Tatsache und Entscheidung:
    die Zahl ist abgesprochen; die Option ist hier mit neuer Begründung notiert.
 8. **Der „geschlossene Blick" aller sechs?** Tatsache: über alle sechs gleich und nie beanstandet.
    **Entscheidung: nicht anfassen.**
+
+## Nachtrag 11.10.2026 (später): die Entscheidungen des Auftraggebers
+
+„Das neue Grün gefällt mir. Den Rest kannst du einfach deine empfohlenen Entscheidungen nehmen."
+
+- **Sattes Spielzeug-Grün angenommen.** Das Krokodil bekommt `#8fce33` mit den Abtönungen `#a8dd4f`
+  und `#5f8f1e`; das Schnauzenband bleibt gleich der Körperfarbe. Damit fällt es **bewusst** aus der
+  Reihe der fünf weichen Lebewesen — die Gegenprobe hatte genau das gezeigt. Ob sie nachziehen, ist
+  eine eigene Runde: ihre Farben wurden in ihren eigenen Runden abgenommen.
+- **Rotglut auf 50 %.** Meine Empfehlung: bei 60 % erreichte *kein* Gebiss die Schwelle vor dem
+  letzten Druck — rot war damit immer ein Biss, ein *überstandener* roter Druck unmöglich. Bei 50 %
+  ist der vorletzte Krokodil-Druck (55,0 %) rot **und** überstehbar, der Mut kann also bis ins Rote
+  reichen. Beide Stolperdrähte sind gefallen und bewusst neu gefasst („Der Stolperdraht hat getan,
+  wofür er da ist").
+- **Mut auf die Statistikseite** (`bravestRound`, Kachel „Mutigste Runde" plus Satz mit Rundennummer
+  und Gebiss) — damit wird der Mut über Runden hinweg eine Jagd und nicht nur ein Satz am Ende.
+- **„Weitergeben" bleibt abgesagt** (Bedingung unverändert: echter Tisch, zwei oder mehr Spieler).
+- **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** bleiben wie in der Runde davor
+  entschieden.

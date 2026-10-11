@@ -314,14 +314,17 @@ describe('GameController in der Bühne', () => {
     expect(document.getElementById('stage')?.dataset.tension).toBe('0.21');
   });
 
-  it('wird erst rot, wenn der letzte Zahn ansteht', () => {
+  it('wird rot, wenn noch zwei Zaehne anstehen — nicht erst beim allerletzten', () => {
+    // Der Stolperdraht der Schwelle. Mit HIGH_DANGER = 0.6 wurde es erst beim letzten Zahn rot
+    // (und damit nie bei einem ueberstandenen Druck); seit 0.5 einen Druck frueher, weil 55,0 %
+    // erreicht werden. Faellt dieser Test, hat jemand die Schwelle wieder angefasst.
     build([10]);
     const stage = document.getElementById('stage');
-    for (const id of [1, 2, 3, 4, 5, 6, 7, 8]) {
+    for (const id of [1, 2, 3, 4, 5, 6, 7]) {
       click(id);
     }
     expect(stage?.classList.contains('is-danger')).toBe(false);
-    click(9);
+    click(8);
     expect(stage?.classList.contains('is-danger')).toBe(true);
   });
 

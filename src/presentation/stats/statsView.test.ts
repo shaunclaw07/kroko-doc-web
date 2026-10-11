@@ -91,12 +91,12 @@ describe('dangerCurveHtml', () => {
     expect(html).toContain('100.0 %');
   });
 
-  it('faerbt erst den letzten Druck heiss — 60 % wird vorher in keinem Gebiss erreicht', () => {
-    // Diese Zeile ist ein Stolperdraht: sie haelt die Folge der Schwelle fest. Wird HIGH_DANGER
-    // gesenkt, faellt sie — und dann muss die Entscheidung bewusst neu fallen.
-    expect(dangerCurveHtml(args).match(/bar__fill--hot/g)).toHaveLength(1);
+  it('faerbt ab 50 % heiss — der vorletzte Krokodil-Druck ist rot, der achte noch nicht', () => {
+    // Diese Zeile ist der Stolperdraht der Schwelle. Bei 60 % war nur der letzte Druck rot (und
+    // damit nie ein ueberstandener); bei 50 % ist es zusaetzlich der vorletzte (55,0 %).
+    expect(dangerCurveHtml(args).match(/bar__fill--hot/g)).toHaveLength(2);
     const mouse = dangerCurveHtml({ ...args, creatureName: 'Maus', teeth: 6, liveTeethMin: 1, liveTeethMax: 2 });
-    expect(mouse.match(/bar__fill--hot/g)).toHaveLength(1);
+    expect(mouse.match(/bar__fill--hot/g)).toHaveLength(2);
     // Der zweithoechste Wert des Krokodils (9. Druck) liegt bei 55,0 % — knapp darunter.
     expect(dangerCurvePoints(args)[8]).toBeCloseTo(0.55, 3);
   });
