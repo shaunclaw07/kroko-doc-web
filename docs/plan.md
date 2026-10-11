@@ -311,7 +311,7 @@ Wolf und Hai sich auch nur so unterscheiden.
   Familie" (de.wikipedia, *Großer Panda*). Das Profil zeigt deshalb **breite Mahlzähne**.
 - **Löwe: 30 Zähne**, Zahnformel I 3/3 · C 1/1 · P 3/2 · M 1/1 (lionalert.org, *Lion Physiology*;
   University of the Free State, *Predator Species: Lion*). Weniger Zähne als der Wolf (42), dafür
-  vier kräftige Fangzähne.
+  zwei lange Fangzähne.
 
 **Entscheidungen (mit Grund):**
 
@@ -325,7 +325,7 @@ Wolf und Hai sich auch nur so unterscheiden.
 3. **Löwe: die Mähne trägt die Silhouette.** Kopf und Mähne sind **ein** Pfad — die Mähne liegt
    außerhalb des Zahnrings (das ist die Fläche, die das Zahnfleischband beim Zuschnappen deckt) und
    **innerhalb** des Beschnitts, sonst hinge sie beim Zuschnappen neben dem Kopf. Bernsteinfarbenes
-   Fell, braune Mähne, vier kräftige Fangzähne, runde Ohren statt Wolfsspitzen.
+   Fell, braune Mähne, zwei lange Fangzähne und vier breite Backenzähne, runde Ohren statt Wolfsspitzen.
 4. **Nichts an Kern, Dramaturgie und Protokoll.** Zwei Katalogeinträge und zwei Kunstwerk-Module —
    die Kacheln der Auswahl entstehen aus `creaturePortrait()` und sind damit automatisch dabei.
 5. **Das README-Bild wird neu erzeugt** (bisher sechs Gebisse, jetzt acht) und bekommt ein Skript
@@ -338,7 +338,7 @@ die Wangen lagen auf dem Zahnfleisch und in der zweiten Fassung **außerhalb** d
 Löwe bekommt keine Wangen — dort ist keine Fellfläche frei, Grund als Kommentar im Modul; der Panda
 bekommt sie ins Gesicht, wo das Maul sie deckt), und die Panda-Linse ließ den Augenfleck wie eine
 **Brille** wirken (kleiner, ohne Linsenrand). Gemessen im erzeugten SVG: Panda Schließweg 220,0 ·
-Schnauzenweg 121,0 · Trefferfläche 40,97 px auf 285 px Bühne; Löwe 222,0 · 122,1 · 40,97 px. Der
+Schnauzenweg 121,0 · Trefferfläche 41,01 px auf 285 px Bühne; Löwe 222,0 · 122,1 · 41,01 px. Der
 Panda-Ring weitet dafür von `rx 195` auf `200` — bei 11 Zähnen fiel die Trefferfläche sonst unter die
 44-px-Vorgabe. Gate **232 Tests in 19 Dateien** (vorher 230). Veröffentlicht (Commits `71d1524`,
 `51a9a95`, Läufe `38162562843` und `38162818232` grün) und auf der veröffentlichten Seite gemessen:

@@ -86,8 +86,8 @@ export const lionArtwork: CreatureArtwork = {
     '<circle cx="462" cy="148" r="6" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
-      // Loewe: vier kraeftige Fangzaehne wie beim Wolf, dazwischen kleine Schneidezaehne,
-      // aussen breite Backenzaehne -- nur 30 echte Zaehne, aber die beissen zu.
+      // Loewe: oben vier breite Backenzaehne, links und rechts je ein langer Fangzahn (wie beim
+      // Wolf), dazwischen und unten flache Schneidezaehne -- nur 30 echte Zaehne, aber die beissen zu.
       if (index <= 1 || index >= count - 2) {
         return { kind: 'square' as const, length: 46, width: 48 };
       }

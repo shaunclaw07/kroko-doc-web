@@ -76,7 +76,8 @@ export interface CreatureArtwork {
   /**
    * Zahnprofil als Funktion der eingestellten Zahnzahl (Standard des Tieres, vom Nutzer
    * änderbar). So bleibt ein Gebiss auch bei 6 oder 20 Zähnen stimmig: der Wolf behält
-   * seine vier Fangzähne, der Mensch seine Schneide-, Eck- und Backenzähne.
+   * seine zwei langen Fangzähne und die vier breiten Backenzähne, der Mensch seine
+   * Schneide-, Eck- und Backenzähne.
    */
   teethProfile: (count: number) => ToothSpec[];
   ring: RingGeometry;

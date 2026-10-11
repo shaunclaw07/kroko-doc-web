@@ -40,7 +40,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
     liveTeethMin: 1,
     liveTeethMax: 2,
     realTeeth: 42,
-    note: 'Vier große Fangzähne, aber nur 1–2 scharfe Zähne: der Biss kommt selten, dann sitzt er.',
+    note: 'Zwei lange Fangzähne und vier breite Backenzähne, aber nur 1–2 scharfe Zähne: der Biss kommt selten, dann sitzt er.',
   },
   {
     id: 'human',
@@ -97,9 +97,9 @@ export const CREATURES: readonly CreatureDefinition[] = [
     teeth: 12,
     liveTeethMin: 1,
     liveTeethMax: 2,
-    // 30 Zähne (I 3/3, C 1/1, P 3/2, M 1/1) — weniger als der Wolf, dafür vier große Fangzähne.
+    // 30 Zähne (I 3/3, C 1/1, P 3/2, M 1/1) — weniger als der Wolf, dafür zwei lange Fangzähne.
     realTeeth: 30,
-    note: 'Mähne und vier große Fangzähne: der König beißt selten zu, dann aber richtig.',
+    note: 'Mähne, zwei lange Fangzähne und vier breite Backenzähne: der König beißt selten zu, dann aber richtig.',
   },
 ];
 

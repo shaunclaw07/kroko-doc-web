@@ -44,7 +44,8 @@ export const wolfArtwork: CreatureArtwork = {
     '<ellipse cx="528" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
-      // Wolf: aussen runde Backenzaehne, vier mittelgrosse Fangzaehne, dazwischen Schneidezaehne.
+      // Wolf: oben vier breite Backenzaehne, links und rechts je ein langer Fangzahn,
+      // dazwischen und unten flache Schneidezaehne.
       if (index <= 1 || index >= count - 2) {
         return { kind: 'square' as const, length: 46, width: 44 };
       }

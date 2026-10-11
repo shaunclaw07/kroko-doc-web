@@ -120,11 +120,11 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   liegt hinter dem Zahnrad; die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
   Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
-- **Acht Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — vier große
-  Fangzähne), Mensch (12, 1–3), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
+- **Acht Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
+  Fangzähne, vier breite Backenzähne), Mensch (12, 1–3), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne),
   Panda (12, 1–2 — breite Mahlzähne statt Reißzähne, schwarze Ohren und Augenflecken), Löwe
-  (12, 1–2 — Mähne aus Fellbüscheln, vier kräftige Fangzähne). Jedes
+  (12, 1–2 — Mähne aus Fellbüscheln, zwei lange Fangzähne und vier breite Backenzähne). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der

@@ -133,9 +133,12 @@ describe('Zeichnungen der Lebewesen', () => {
   });
 
   it('gibt jedem Zahn auf der schmalsten Bühne 44 Pixel — bis an die Grenze des Zahnabstands', () => {
-    // Der enge Fall ist ein 320-px-Gerät: dort ist die Bühne 288 px breit, der Maßstab fällt auf
-    // 0,45 (gemessen im Browser am 11.10.2026). Zuvor galt die Vorgabe nur für 358 px — auf einem
-    // 320-px-Gerät waren es 43,2 px. Zwei Regeln greifen: die Vorgabe und der halbe Zahnabstand,
+    // Der enge Fall ist ein 320-px-Gerät: dort ist die Bühne gemessen 286 px breit, der gezeichnete
+    // Maßstab entspricht aber nur 285,8 px (die Zeichnung ist im Kasten höhenbegrenzt). Gerechnet
+    // wird mit 285 px — zwei Pixel Reserve, damit die Vorgabe nicht an der Rundung hängt, und
+    // dieselbe Zahl, die `MIN_STAGE_WIDTH_PX` in `geometry.ts` nennt. Zuvor galt die Vorgabe nur für
+    // 358 px — auf einem 320-px-Gerät waren es 43,2 px. Zwei Regeln greifen: die Vorgabe und der
+    // halbe Zahnabstand,
     // damit sich zwei Trefferflächen nicht überdecken. Wo beide zusammen nicht gehen, gewinnt der
     // Abstand — mehr wäre ein Tippziel, das dem Nachbarn den Druck stiehlt.
     // Der Grenzfall: ein halber Zahnabstand von rechnerisch genau 44 px (Mensch bei 11 Zähnen) darf
