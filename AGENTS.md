@@ -143,6 +143,11 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 - Zähne cremefarben, **rund** (Kegel mit runder Spitze), Umriss weich (`#dcd2b8`), niemals schneeweiß auf schwarz.
 - Zahnfleisch ist die **hellste** Stufe im Maul, damit die Zähne davor lesbar bleiben.
 - Augen: weiße Linsen mit großer runder Pupille und Glanzpunkt, dazu rosa Wangen.
+- **Jedes Element gehört auf die Fläche, für die es gezeichnet ist.** „Sichtbar über dem Kieferband"
+  ist **keine** Platzierung: der Hai trug seine sechs Kiemenschlitze mitten im offenen Maul, weil sie nur
+  *über* einer Ebene lagen statt *außen* am Kopf. Gegen die Ringellipse rechnen (`ring.rx`/`ring.ry` um
+  `ring.cx`/`ring.cy`): was zum Kopf gehört, muss **außerhalb** liegen — und trotzdem Abstand zur
+  Silhouette, zu Augen, Ohren und Flossen halten (der Hai hat dafür nur eine Zone von rund 40 px).
 - Umrisse in einer dunkleren Variante der Füllfarbe (z. B. `#5aa164` auf `#8ed492`), keine schwarzen Linien.
 - Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
   über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.
