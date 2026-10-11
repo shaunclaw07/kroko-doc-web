@@ -7,6 +7,28 @@ import type { CreatureArtwork } from './types';
 const SILHOUETTE =
   'M 320 40 C 452 40 566 108 578 224 C 588 320 540 412 320 444 C 100 412 52 320 62 224 C 74 108 188 40 320 40 Z';
 
+/**
+ * **Der Hut.** Der Auftraggeber waehlte ihn am 11.10.2026 auf die Frage „Hut oder Brille?" mit
+ * "Hut" -- gemeint war der **Mensch**, nicht der Panther (die Nachricht nannte beide; der Hut lag
+ * zuerst falsch und wurde hierher umgesetzt). Ein weicher Filzhut: die Krempe folgt der
+ * Kopfwoelbung (Kopfmitte y 40), die Krone steht darueber frei.
+ *
+ * Er liegt in der **Koerperebene** (`body`) und **nicht** im Gesichtsbereich: der wird auf die
+ * Silhouette beschnitten (siehe `factory.ts`, `mouthLayers`), und die Krone ragt ueber den
+ * Kopfumriss hinaus -- dort waere sie abgeschnitten. In die Silhouette gehoert er auch nicht: kein
+ * Maulteil reicht bis zur Krempe (das Maul beginnt bei y 112, die Brauen liegen bei y 112, der Hut
+ * endet bei y 80).
+ *
+ * **Rostrot** -- Gold traegt die Maehne des Loewen, Blau der Hai, Violett der Vampir, Gruen das
+ * Krokodil. Braun waere am Menschen nicht zu unterscheiden: er hat keine gezeichneten Haare, nur
+ * Brauen in `#c79b73`. Der Umriss ist `#8a3a2c` statt des harten `#2b2b33` -- der Mensch ist die
+ * weichste Zeichnung im Katalog.
+ */
+const HUT_KREMPE =
+  'M 202 66 C 202 54 256 46 320 46 C 384 46 438 54 438 66 C 438 78 384 86 320 86 C 256 86 202 78 202 66 Z';
+const HUT_KRONE = 'M 244 64 C 240 34 276 6 320 6 C 364 6 400 34 396 64 Z';
+const HUT_BAND = 'M 246 58 C 278 45 362 45 394 58';
+
 export const humanArtwork: CreatureArtwork = {
   silhouette: SILHOUETTE,
   body:
@@ -14,7 +36,12 @@ export const humanArtwork: CreatureArtwork = {
     'C 100 412 52 320 62 224 C 74 108 188 40 320 40 Z" fill="#f7cdaa" stroke="#d9a186" stroke-width="3"/>' +
     '<path d="M 150 306 C 190 352 450 352 490 306" fill="none" stroke="#edc6a4" stroke-width="5" stroke-linecap="round"/>' +
     '<ellipse cx="150" cy="300" rx="34" ry="20" fill="#f2a8b6" opacity="0.45"/>' +
-    '<ellipse cx="490" cy="300" rx="34" ry="20" fill="#f2a8b6" opacity="0.45"/>',
+    '<ellipse cx="490" cy="300" rx="34" ry="20" fill="#f2a8b6" opacity="0.45"/>' +
+    // Der Hut zuletzt: er liegt ueber dem Kopf (Begruendung oben bei HUT_KREMPE).
+    `<path d="${HUT_KREMPE}" fill="#a2473a" stroke="#8a3a2c" stroke-width="3"/>` +
+    `<path d="${HUT_KRONE}" fill="#b5533f" stroke="#8a3a2c" stroke-width="3"/>` +
+    `<path d="${HUT_BAND}" fill="none" stroke="#7c3227" stroke-width="11"/>` +
+    '<path d="M 264 34 C 278 20 296 12 314 10" fill="none" stroke="#cf7a63" stroke-width="6" stroke-linecap="round"/>',
   holeFill: '#e58c99',
   inner:
     '<ellipse cx="320" cy="258" rx="116" ry="72" fill="#ef9fab"/>' +

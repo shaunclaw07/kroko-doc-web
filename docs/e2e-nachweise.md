@@ -767,17 +767,19 @@ sie meldete `FEHLER`, obwohl die Seite vollständig war. Der Vergleich läuft je
 Groß-/Kleinschreibung, die Liste folgt dem Katalog, und die Sonde liest zusätzlich die Notiz des
 Panthers.
 
-**Der Hut** (Antwort des Nutzers auf die Frage „Hut oder Brille?", 11.10.2026): ein rostroter Filzhut
-mit Krempe, Krone, Band und Glanzkante, zwischen den Ohren. Er liegt in der **Körperebene**
-(`body`), denn der Gesichtsbereich ist auf die Silhouette beschnitten (Kopf + Ohren) und die Krone
-ragt darüber hinaus — sie wäre dort abgeschnitten. Der Hut reicht bis y 94, das Maul beginnt bei
-y 120; er muss deshalb nicht in die Silhouette aufgenommen werden. Farbwahl gegen die anderen
-Lebewesen geprüft: Gold trägt die Löwenmähne, Blau der Hai, Violett der Vampir, Braun und Hauttöne
-der Mensch. Gemessen im gerasterten PNG: Krone `(320,30)` = `(181,83,63)`, Hutband `(320,58)` =
-`(124,50,39)`, Krempe beidseitig `(240,74)` / `(400,74)` = `(162,71,58)`; Ohren `(140,90)` /
-`(500,90)` = `(90,90,102)` und Augen `(170,166)` / `(470,166)` = `(74,51,32)` unverändert
-symmetrisch. Beide Zustände gerastert und angesehen (Krone vollständig, im Zuschnappen sitzt der Hut
-ruhig), Galerie neu gebaut (1970 × 566, zehn Kacheln), Gate 234 Tests in 19 Dateien grün.
+**Der Hut — und eine falsch verortete Anweisung** (11.10.2026). Meine Frage „Hut oder Brille?" hatte
+der Nutzer mit „Hut" beantwortet; ich setzte ihn dem **Panther** auf. Der Nutzer stellte klar: „Der
+Hut sollte für den Menschen sein und nicht für den Panther." Umgesetzt: ein **rostroter** Filzhut mit
+Krempe, Krone, Band und Glanzkante sitzt jetzt auf dem **Menschen**, oberhalb der Brauen; der Panther
+ist wieder schmucklos. Er liegt in der **Körperebene** (`body`), denn der Gesichtsbereich ist auf die
+Silhouette beschnitten und die Krone ragt darüber hinaus. Gemessen im gerasterten PNG — Mensch:
+Krone `(320,20)` = `(181,83,63)`, Band `(320,52)` = `(124,50,39)`, Krempe `(210,66)` / `(430,66)` =
+`(162,71,58)`, daneben `(198,66)` = Hautton `(247,205,170)`; Krempenbreite im Bild gemessen
+(Bildzeile y 66 von x 401 bis 878, Maßstab 2 → 238 px) gegen 236 SVG-Einheiten im Pfad (x 202…438).
+Panther: an denselben Stellen `(16,28,34)` = Hintergrund (kein Rest), Nase `(320,100)` =
+`(180,135,143)` unverändert. Beide Zustände beider Zeichnungen angesehen — Pantherhut restlos
+entfernt, Menschenkrone vollständig, im Zuschnappen unverändert —, Galerie neu gebaut, Gate 234 Tests
+in 19 Dateien grün.
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

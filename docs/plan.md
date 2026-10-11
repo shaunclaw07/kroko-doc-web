@@ -416,10 +416,15 @@ wollen. Hast du noch andere coole Ideen?"
   Jetzt laufen beide Ohren gleichsinnig (das rechte rückwärts notiert), die Ohren sind kleiner, und
   dazu kamen Schnurrhaare im Fellstreifen neben dem Maul. Beide Fassungen gerastert und angesehen,
   die Falle steht in `AGENTS.md`.
-- **Der Hut (Wahl des Nutzers, 11.10.2026).** Auf die Frage „Hut oder Brille?" antwortete der Nutzer
-  mit „Hut": ein weicher, **rostroter** Filzhut mit Krempe, Krone, Band und Glanzkante, zwischen den
-  Ohren auf der Kopfwölbung. Rostrot, weil Gold die Mähne des Löwen trägt, Blau der Hai, Violett der
-  Vampir, Braun und Hauttöne der Mensch. Er liegt in der **Körperebene** (`body`) und nicht im
-  Gesichtsbereich: der wird auf die Silhouette beschnitten (Kopf + Ohren), und die Krone ragt darüber
-  hinaus — dort wäre sie abgeschnitten. Beide Zustände gerastert und angesehen: die Krone ist
-  vollständig, im Zuschnappen sitzt der Hut unverändert.
+- **Der Hut — zuerst falsch verortet (Korrektur des Nutzers, 11.10.2026).** Ich hatte „Genau wie der
+  Mensch … könnte man dem einen Hut anziehen" auf den **Panther** bezogen und ihm einen Filzhut
+  aufgesetzt. Der Nutzer stellte klar: **„Der Hut sollte für den Menschen sein und nicht für den
+  Panther."** Umgesetzt: der Hut sitzt jetzt auf dem **Menschen** (weicher, **rostroter** Filzhut mit
+  Krempe, Krone, Band und Glanzkante, oberhalb der Brauen), der Panther ist wieder schmucklos —
+  im gerasterten Bild nachgemessen, nicht behauptet. Rostrot, weil Gold die Mähne des Löwen trägt,
+  Blau der Hai, Violett der Vampir, Grün das Krokodil; Braun wäre am Menschen nicht von seinen
+  Brauen (`#c79b73`) zu unterscheiden. Er liegt in der **Körperebene** (`body`) und nicht im
+  Gesichtsbereich: der wird auf die Silhouette beschnitten, und die Krone ragt darüber hinaus — dort
+  wäre sie abgeschnitten. Beide Zustände beider Zeichnungen gerastert und angesehen (Pantherhut
+  restlos entfernt, Menschenkrone vollständig), Galerie neu gebaut, Gate grün. **Lehre:** bei „dem
+  einen" in einer Nachricht mit zwei genannten Wesen nachfragen, statt zu raten.

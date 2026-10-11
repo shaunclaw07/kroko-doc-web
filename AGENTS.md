@@ -266,8 +266,13 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   Wer ein neues Tier zeichnet: erst die **Silhouette** unverwechselbar machen, dann das Fell.
 - **Zubehör gehört in die Körperebene.** Ein Hut (oder eine Brille) ragt über den Kopfumriss hinaus —
   der Gesichtsbereich wird aber auf die Silhouette beschnitten (`factory.ts`, `mouthLayers`), dort
-  wäre die Krone abgeschnitten. Der Panther trägt seinen Filzhut deshalb in `body`. In die Silhouette
-  gehört er nur, wenn ein Maulteil ihn erreicht; dann gilt die Gleichsinnigkeit (Falle oben).
+  wäre die Krone abgeschnitten. Der **Mensch** trägt seinen rostroten Filzhut deshalb in `body`. In
+  die Silhouette gehört er nur, wenn ein Maulteil ihn erreicht; dann gilt die Gleichsinnigkeit
+  (Falle oben).
+- **Wer ist gemeint?** „Genau wie der Mensch … könnte man dem einen Hut anziehen" heißt *der Mensch*.
+  Ich hatte den Hut auf den Panther gesetzt (der Satz nannte beide), und der Nutzer musste
+  widersprechen. Bei „dem einen"/„dem anderen" in einer Nachricht mit **zwei** genannten Wesen:
+  nachfragen, statt zu raten.
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.
