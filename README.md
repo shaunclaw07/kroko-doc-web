@@ -3,10 +3,10 @@
 Das Zahn-Zufallsspiel um das Krokodil — Spielprinzip des Spielzeugs *Crocodile Dentist*
 (bekannt als *Kroko Doc*) als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
 Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
-Krokodil, Wolf, Mensch, Hai, Maus und Vampir. Mit Ton, Herzschlag, einer Pause vor jeder Auflösung, Screen-Shake und
+Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda und Löwe. Mit Ton, Herzschlag, einer Pause vor jeder Auflösung, Screen-Shake und
 einer Statistikseite, die eure eigenen Runden auswertet.
 
-![Sechs Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus und Vampir](docs/bilder/gebisse.png)
+![Acht Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda und Löwe](docs/bilder/gebisse.png)
 
 **Warum es dieses Spiel gibt.** Ein Familienmitglied hat gefragt, ob man vorher berechnen
 kann, welcher Zahn das Maul schließt. Antwort: nein — das Spielzeug ist ein mechanischer
@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 206 Tests grün, Bau fertig in 2,12 s.
+frei, 11.10.2026): `pnpm install` läuft durch, 232 Tests grün, Bau fertig in 2,12 s.
 
 ### Die drei Befehle
 
@@ -70,8 +70,8 @@ liegt hinter dem **Zahnrad** oben rechts — beim Spielen lenkt nichts davon ab.
 2. **Zahnrad** (Knopf oben rechts): 1–4 Spieler, welches Tier, wie viele Zähne, wie gefährlich
    („wie das Spielzeug" = 1–3 Zähne gleichzeitig gefährlich, „nur ein Zahn" = genau einer), Ton
    und Wackeln an/aus, „Neue Runde", die Regeln und der Weg zur Statistikseite.
-3. **Tier wählen:** im Zahnrad auf die Tier-Zeile tippen — sechs **Bild-Kacheln** (Krokodil, Wolf,
-   Mensch, Hai, Maus, Vampir) mit dem Kopf aus der eigenen Zeichnung. Ein Tipp zeigt die Kurzinfo
+3. **Tier wählen:** im Zahnrad auf die Tier-Zeile tippen — acht **Bild-Kacheln** (Krokodil, Wolf,
+   Mensch, Hai, Maus, Vampir, Panda, Löwe) mit dem Kopf aus der eigenen Zeichnung. Ein Tipp zeigt die Kurzinfo
    zum Tier, „Damit spielen" übernimmt es. Die **Zahnzahl** stellst du mit `−` / `+` ein
    („Standard" nimmt wieder das tiergerechte Gebiss: Krokodil 10, Wolf 12, Mensch 12; erlaubt
    sind **1 bis 12**). Bei **einem** Zahn ist dieser Zahn der scharfe — der erste Tipp schließt
@@ -101,8 +101,9 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **206 Tests in 18 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **232 Tests in 19 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
+| `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
 | `bash scripts/doku-pruefen.sh …` | Doku prüfen: Code-Zäune, Fließtext im Block, alte Werte (`ALTE_WERTE="…"`) | „Zaeune: … (paarig)"; Exit 1 = es steht noch etwas drin |
@@ -119,9 +120,11 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   liegt hinter dem Zahnrad; die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
   Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
-- **Sechs Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — vier große
+- **Acht Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — vier große
   Fangzähne), Mensch (12, 1–3), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
-  Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne). Jedes
+  Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne),
+  Panda (12, 1–2 — breite Mahlzähne statt Reißzähne, schwarze Ohren und Augenflecken), Löwe
+  (12, 1–2 — Mähne aus Fellbüscheln, vier kräftige Fangzähne). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
@@ -144,7 +147,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 - **Kindgerecht gezeichnet:** warme Farben, runde Zähne, große runde Augen mit Glanzpunkt und
   hellblauem Irisring (wie beim Original-Spielzeug), rosa Wangen und weiche Umrisse; der Rachen ist
   rosenrot statt schwarz, das Zahnfleisch die hellste Stufe. Das Krokodil trägt das satte Grün des
-  Originals (und fällt damit bewusst aus der Reihe der fünf weichen Lebewesen), seine
+  Originals (und fällt damit bewusst aus der Reihe der sieben anderen Lebewesen), seine
   Schnauzenfalten sind Rillen mit Grat. Maul, Zähne und Gesicht werden auf den Kopfumriss
   beschnitten, damit beim Zuschnappen nichts daneben hängt. **Dieselbe Zeichnung trägt auch die
   Auswahl-Kacheln** (`portrait()`): der Kopf des Tieres als Bild, ohne Bedienteile — kein
@@ -179,7 +182,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **229 in 19 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **232 in 19 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–2,5 s (Maschinenstreuung) | `pnpm build`, Arbeitsbaum und frischer Klon |
@@ -188,7 +191,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
-| Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
+| Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Panda 220,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
 | Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | im Browser gemessen (`getBoundingClientRect` eines `.tooth__hit`); Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
 
 ---
@@ -204,6 +207,7 @@ src/infrastructure/    crypto-Zufall, Web-Audio-Klänge, Vibration, localStorage
 src/presentation/      Spielsteuerung, Statistikansicht, Astro-Seiten
   game/creatures/      je Lebewesen ein Zeichnungsmodul + Fabrik + Registry
 scripts/               artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
+                       galerie.py — README-Bild der Gebisse aus den SVGs der Sonde bauen
                        doku-pruefen.sh, doku-pfade-pruefen.py — Doku prüfen (Zäune, alte Werte, Pfade)
 ```
 

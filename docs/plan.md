@@ -292,3 +292,42 @@ Zahnfleischband über der Trefferfläche — ein Tipp in deren Mitte tat nichts.
 `pointer-events: none` für alle dekorativen Ebenen; nachgemessen registrieren die Tipps jetzt, und
 `elementFromPoint` liefert bei allen Zähnen den eigenen Zahn. Belege: `docs/e2e-nachweise.md` §5l,
 Messskripte `scripts/pruefen-trefferflaeche.py` und `scripts/pruefen-zeitgeber.cjs`.
+
+## Nachtrag 11.10.2026 (nachts): zwei neue Lebewesen — Panda und Löwe
+
+Auftrag: „Kannst du noch zu den models einen Panda und männlichen Löwen hinzufügen aber bleibe im
+selben Stil." (Gemeint sind die **Modelle** der Tier-Auswahl — die Zeichnungen der Gebisse.)
+
+**Sparring (`grill-me`, gemeinsam mit dem Auftraggeber):** eine Frage, die das Spielgefühl ändert.
+*Zahnzahl und gleichzeitig scharfe Zähne?* — Empfehlung angenommen:
+**Panda 12 Zähne / 1–2 scharf · Löwe 12 Zähne / 1–2 scharf** (wie Wolf und Hai). Die beiden
+unterscheiden sich also **nicht** durch Zahlen, sondern durch Zeichnung und Zahnprofil — genau wie
+Wolf und Hai sich auch nur so unterscheiden.
+
+**Fakten (nachgeschlagen, nicht geschätzt):**
+
+- **Großer Panda: 42 Zähne.** „Wie die meisten Bären haben sie 42 Zähne, die hinteren
+  Vorbackenzähne und die Backenzähne sind größer und breiter als die der anderen Vertreter ihrer
+  Familie" (de.wikipedia, *Großer Panda*). Das Profil zeigt deshalb **breite Mahlzähne**.
+- **Löwe: 30 Zähne**, Zahnformel I 3/3 · C 1/1 · P 3/2 · M 1/1 (lionalert.org, *Lion Physiology*;
+  University of the Free State, *Predator Species: Lion*). Weniger Zähne als der Wolf (42), dafür
+  vier kräftige Fangzähne.
+
+**Entscheidungen (mit Grund):**
+
+1. **Hinten anhängen** — Katalogreihenfolge ist Kachelreihenfolge; die sechs abgenommenen
+   Zeichnungen samt ihrer Position bleiben unangetastet (Krokodil, Wolf, Mensch, Hai, Maus,
+   Vampir, **Panda**, **Löwe**).
+2. **Panda: Mahlzähne statt Fangzähne.** Zwei kräftige flache Zähne an der Maulmitte, breite
+   quadratische Backenzähne außen, dazwischen zwei kurze Kegel — ein Bär behält seine Eckzähne,
+   aber ein Bambusfresser zeigt keine Reißzähne. Erkennungsmerkmal ist die **Maske**: weiße
+   Kopffläche, schwarze Ohren und Augenflecken, schwarze Nase.
+3. **Löwe: die Mähne trägt die Silhouette.** Kopf und Mähne sind **ein** Pfad — die Mähne liegt
+   außerhalb des Zahnrings (das ist die Fläche, die das Zahnfleischband beim Zuschnappen deckt) und
+   **innerhalb** des Beschnitts, sonst hinge sie beim Zuschnappen neben dem Kopf. Bernsteinfarbenes
+   Fell, braune Mähne, vier kräftige Fangzähne, runde Ohren statt Wolfsspitzen.
+4. **Nichts an Kern, Dramaturgie und Protokoll.** Zwei Katalogeinträge und zwei Kunstwerk-Module —
+   die Kacheln der Auswahl entstehen aus `creaturePortrait()` und sind damit automatisch dabei.
+5. **Das README-Bild wird neu erzeugt** (bisher sechs Gebisse, jetzt acht) und bekommt ein Skript
+   im Baum (`scripts/galerie.py`): es war beim letzten Mal von Hand in einem Arbeitsverzeichnis
+   gebaut worden — ein Bild, das niemand reproduzieren kann, ist kein Nachweis.

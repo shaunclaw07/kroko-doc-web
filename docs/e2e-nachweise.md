@@ -36,6 +36,11 @@ belastbar sind die Tests (171), nicht die Sekunden. Ausgeliefert:
 das Bündel der Live-Seite trägt denselben Namen wie der Klonbau und enthält die neue Schwelle
 (`is-tense` bei 30 %), die alte Konstante `0,18` ist verschwunden.
 
+**Nachtrag 11.10.2026, sechste Fassung** (Panda und Löwe ergänzt, siehe Abschnitt 5n): `pnpm gate`
+grün mit **232 Tests in 19 Dateien**, `pnpm build` 2 Seiten in 2,16 s im Arbeitsbaum. Die
+Zeichnungs-Sonde schreibt jetzt **acht** SVGs, und das README-Bild der Gebisse entsteht aus ihnen
+mit `scripts/galerie.py` (1968 × 708, vier Spalten mal zwei Zeilen).
+
 ## 2. Bedienungssonde (jsdom)
 
 `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts` — 8 Tests, u. a.:
@@ -609,6 +614,64 @@ zusätzlich am Dokument entschieden. Beides bleibt (gut begründet und nachgemes
 weiterhin exakt mittig, Abweichung 0 px) — aber **keine der beiden Änderungen war die Ursache**; die
 stand im selben Block drei Zeilen tiefer. Lehre: erst den Zustand **beim Laden** messen, nicht nur den
 nach der Bedienung.
+
+## 5n. Zwei neue Lebewesen: Panda und Löwe (11.10.2026, nachts)
+
+| Auftrag | Vorgehen | Ergebnis |
+|---|---|---|
+| „Kannst du noch zu den models einen Panda und männlichen Löwen hinzufügen aber bleibe im selben Stil" (Nutzer, 11.10.2026) | Sparring mit **einer** Frage (Zahnzahl und gleichzeitig scharfe Zähne), echte Zahnzahlen **nachgeschlagen**, zwei Zeichnungsmodule gebaut, **drei Fassungen gerendert und angesehen** (Sonde + `scripts/artwork-png.py`, Zustände `offen` und `geschnappt`), Katalog, Registry und Zeichenvertrag durch das Gate | **Gebaut und im Stil der sechs vorhandenen abgenommen.** Panda: 12 Zähne, 1–2 scharf, breite Mahlzähne (Bambus), schwarze Ohren und Augenflecken, weiße Kopffläche. Löwe: 12 Zähne, 1–2 scharf, Mähne aus zwei Lagen Fellbüscheln, runde Ohren, vier kräftige Fangzähne. Gate grün: **232 Tests in 19 Dateien** (vorher 230), `pnpm build` 2 Seiten. Zusätzlich: das README-Bild der Gebisse entsteht jetzt aus einem **Skript im Baum** statt von Hand |
+
+**Entscheidung (Sparring mit dem Auftraggeber, Empfehlung angenommen):** Panda 12 Zähne / 1–2 scharf,
+Löwe 12 Zähne / 1–2 scharf — wie Wolf und Hai. Die beiden unterscheiden sich damit **nicht** durch
+Zahlen, sondern durch Zeichnung und Zahnprofil, genau wie Wolf und Hai sich auch nur so
+unterscheiden.
+
+**Fakten statt Vermutung** (die echte Zahnzahl steht nur als Notiz im Katalog):
+
+- **Großer Panda: 42 Zähne** — „Wie die meisten Bären haben sie 42 Zähne, die hinteren
+  Vorbackenzähne und die Backenzähne sind größer und breiter als die der anderen Vertreter ihrer
+  Familie" (de.wikipedia, *Großer Panda*). Das Profil zeigt deshalb breite Mahlzähne.
+- **Löwe: 30 Zähne**, Zahnformel I 3/3 · C 1/1 · P 3/2 · M 1/1 (lionalert.org, *Lion Physiology*;
+  University of the Free State, *Predator Species: Lion*).
+
+**Drei Fassungen, jede angesehen — was die Bilder gezeigt haben:**
+
+1. **Erste Fassung:** Beim Löwen lagen die Brauen **auf den Ohren** (der Strich war als Lid quer über
+   der Ohrmuschel zu sehen), und die Wangen lagen auf dem Zahnfleisch — dieselbe Falle, die der Wolf
+   schon umgeht, indem er seine Wangen in `body` legt, wo das Maul sie deckt. Beim Panda füllte die
+   Linse den Augenfleck fast aus: das las sich wie eine **Brille**, nicht wie eine Maske.
+2. **Zweite Fassung:** Brauen entfernt und Wangen ins Gesicht gelegt — beim Löwen lagen sie damit
+   aber **außerhalb des Kopfumrisses** auf der Bühne (zwei dunkle Flecken im Hintergrund), weil das
+   Maul hier die Kopfmitte füllt und an den Seiten nur wenige Pixel Fell frei sind. Beim Panda
+   kleiner Linse sah es richtig aus, der graue Linsenrand störte noch.
+3. **Dritte Fassung:** Löwe **ohne** Wangen (die Stilregel gilt für die anderen Tiere; hier ist keine
+   Fläche frei — der Grund steht als Kommentar im Modul), Panda ohne Linsenrand. Beide Zustände
+   (`offen`, `geschnappt`) angesehen: Zahnfleischbänder und Zähne bleiben im Kopf, die geschnappte
+   Pose sieht aus wie beim Referenz-Wolf.
+
+**Gemessen, nicht geschätzt** (abgelesen im erzeugten SVG):
+
+| Lebewesen | Zähne | Schließweg | Schnauzenweg | Treffer-Radius | Trefferfläche auf 285 px Bühne |
+|---|---|---|---|---|---|
+| Panda | 12 | 220,0 | 121,0 | 46,0 | 40,97 px |
+| Löwe | 12 | 222,0 | 122,1 | 46,0 | 40,97 px |
+
+Der Wert liegt wie beim Wolf unter der 44-px-Vorgabe, weil bei 12 Zähnen der **halbe Zahnabstand**
+die Grenze ist — die Ausnahmen stehen namentlich im Test (`creatureViews.test.ts`).
+
+**Der Panda-Ring musste breiter werden.** Mit `rx 195` fiel die Trefferfläche schon bei **11** Zähnen
+unter die Vorgabe; der Test führte daraufhin `panda/11` **und** `panda/12` als Ausnahme. Ring auf
+`rx 200` (wie der Löwe) → die Ausnahme bleibt dort, wo sie vorher war (12 Zähne). Die erwartete
+Liste im Test ist um `panda/12` und `lion/12` erweitert worden; der Kommentar darüber nennt den
+Grund.
+
+**Das README-Bild.** Die alte Galerie war in einem Arbeitsverzeichnis zusammengesetzt worden: sie
+zeigte sechs Gebisse, und nachbauen konnte sie niemand. Neu:
+`uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png crocodile wolf human shark
+mouse vampire panda lion` → 1968 × 708, acht Kacheln. Zwei Fallen löst das Skript, beide im Kopf der
+Datei benannt: achtmal dieselbe `clipPath`-Kennung `creature-clip` hätte jedes Tier mit dem
+Kopfumriss des **ersten** zugeschnitten, und der Stilblock steht einmal statt achtmal im Dokument.
+Ergebnis angesehen: jedes Tier zeigt seinen eigenen Kopf, Panda und Löwe sind als solche erkennbar.
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

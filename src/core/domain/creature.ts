@@ -81,6 +81,26 @@ export const CREATURES: readonly CreatureDefinition[] = [
     realTeeth: 32,
     note: 'Zwei lange Eckzähne, meist sind genau die scharf.',
   },
+  {
+    id: 'panda',
+    name: 'Panda',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Wie die meisten Bären 42 Zähne; die hinteren Backenzähne sind breiter — er zermahlt Bambus.
+    realTeeth: 42,
+    note: 'Breite Mahlzähne statt Reißzähne: der Bambusfresser beißt nur selten zu.',
+  },
+  {
+    id: 'lion',
+    name: 'Löwe',
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // 30 Zähne (I 3/3, C 1/1, P 3/2, M 1/1) — weniger als der Wolf, dafür vier große Fangzähne.
+    realTeeth: 30,
+    note: 'Mähne und vier große Fangzähne: der König beißt selten zu, dann aber richtig.',
+  },
 ];
 
 export function listCreatures(): readonly CreatureDefinition[] {

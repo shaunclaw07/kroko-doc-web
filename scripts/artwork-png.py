@@ -136,6 +136,19 @@ def apply_state(svg: str, state: str) -> str:
     return svg
 
 
+def prepare(svg: str, state: str) -> str:
+    """Zeichnungs-SVG rasterfertig machen: Zustand setzen, Stilregeln und dunkle Buehne einsetzen.
+
+    Eigene Funktion, weil `scripts/galerie.py` dieselbe Vorbereitung fuer die README-Galerie
+    braucht -- zwei Fassungen derselben Umrechnung wuerden auseinanderlaufen.
+    """
+    svg = apply_state(svg, state)
+    width, height = stage_size(svg)
+    # Stilregeln und dunkle Bühne direkt hinter das öffnende <svg>-Tag setzen.
+    head = f"<style>{relevant_css()}</style>" + f'<rect x="0" y="0" width="{width}" height="{height}" fill="{STAGE_FILL}"/>'
+    return svg.replace(">", ">" + head, 1)
+
+
 def main() -> int:
     if len(sys.argv) < 3:
         print((__doc__ or "").strip())
@@ -150,11 +163,7 @@ def main() -> int:
         print("    pnpm vitest run src/render-probe.test.ts")
         return 2
 
-    svg = apply_state(source.read_text(encoding="utf-8"), state)
-    width, height = stage_size(svg)
-    # Stilregeln und dunkle Bühne direkt hinter das öffnende <svg>-Tag setzen.
-    head = f"<style>{relevant_css()}</style>" + f'<rect x="0" y="0" width="{width}" height="{height}" fill="{STAGE_FILL}"/>'
-    svg = svg.replace(">", ">" + head, 1)
+    svg = prepare(source.read_text(encoding="utf-8"), state)
 
     import cairosvg  # type: ignore[import-not-found]
 

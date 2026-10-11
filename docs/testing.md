@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 230 (19 Dateien) |
+| Tests | 232 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–2,5 s (Maschinenstreuung) |
 
@@ -37,7 +37,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/infrastructure/haptics/browserHaptics.test.ts` | Vibrations-Adapter: fehlende Schnittstelle ist kein Fehler, Muster werden durchgereicht |
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen; Katalog und Zeichnungen decken sich |
 | `src/icon.test.ts` | Symbol-Sonde: **erzeugt das App-Symbol** aus der Krokodil-Zeichnung (geschlossenes Maul, Schließwege wie die Bühne), hält die ausgelieferten SVGs Zeichen für Zeichen daran fest, prüft den Manifest-Eintrag, die Existenz jeder genannten Datei und die Kantenlängen der PNGs (180/192/512) |
-| `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 358 px Bühnenbreite ≥ 44 px. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
+| `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 285 px Bühnenbreite ≥ 44 px. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns |
 
@@ -59,6 +59,12 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Die Zustände „offen", „gedrueckt" und „geschnappt" setzt der Rasterer so, wie es das
    Stylesheet tut: `is-pressed`/`is-snapped` als Klasse und den Schließweg als Attribut mit
    dem Wert aus dem SVG (cairosvg kennt weder `var()` noch `transform-origin`).
+
+   Das README-Bild der Gebisse entsteht aus denselben SVGs — als Skript im Baum, nicht von Hand:
+   ```bash
+   uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
+     crocodile wolf human shark mouse vampire panda lion    # Reihenfolge = Katalogreihenfolge
+   ```
 4. **Symbolsonde** — das App-Symbol entsteht aus der Zeichnung und wird angesehen:
    ```bash
    ICON_NEU=1 pnpm test:run                          # schreibt public/favicon.svg + icon-maskable.svg

@@ -3,7 +3,7 @@
 **Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
-bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir),
+bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe),
 Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
 auswertet und ehrlich sagt, wenn die Daten für eine Aussage zu dünn sind.
 
@@ -42,6 +42,8 @@ pnpm typecheck    # tsc --noEmit  — Teil des Gates
 pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # beides nacheinander
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
+uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
+  crocodile wolf human shark mouse vampire panda lion   # README-Bild der Gebisse
 ```
 
 ## Die Karte in sieben Zeilen
@@ -221,6 +223,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
    `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
    `upperTeeth` (Verhältnis, nicht Anzahl), `face`, `ring`, `teethProfile(count)`.
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
+4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
+   zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
 Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
 Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
 Bühne, und dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden. Zeichnung ohne

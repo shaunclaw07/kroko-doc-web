@@ -28,6 +28,8 @@ pnpm gate           # typecheck + tests
 pnpm vitest run src/render-probe.test.ts                     # je Lebewesen ein SVG
 uv run --with cairosvg python scripts/artwork-png.py \
   "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
+uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
+  crocodile wolf human shark mouse vampire panda lion         # README-Bild aus allen acht
 ```
 
 Beide Schritte liegen im Baum — kein Scratch-Verzeichnis, kein fester Pfad. Den Zustand setzt
@@ -36,7 +38,8 @@ Attribut mit dem Wert, den die App selbst ins SVG schreibt.
 
 Rechnerische Kontrolle der Schließung: Der Oberkiefer fährt beim Zuschnappen um
 `2·ry − Banddicke oben − Banddicke unten` **nach unten** (`--close-shift`, Krokodil 232,0 ·
-Mensch 226,0 · Wolf 222,0 SVG-Einheiten); die Schnauze fährt einen Anteil davon mit
+Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Panda 220,0 SVG-Einheiten); die Schnauze fährt einen
+Anteil davon mit
 (`--shell-shift`, Krokodil 143,8). Beide Werte werden gerechnet und stehen im SVG — im Code
 gibt es keinen festen Winkel und keinen festen Weg. Der Zahnring schließt genau, wenn sich die
 Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
