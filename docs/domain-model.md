@@ -69,6 +69,9 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
   war die Ursache der Verwirrung: man konnte die Anzeige nicht deuten.
 - **Farbe = Gefahr:** die Bissgefahr des nächsten Drucks (`tensionForPress`). Ab 30 %
   (`isTense`, `TENSE_LEVEL`) glüht er, ab 60 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
+- **Der Balken hat einen Zweck:** die höchste überstandene Gefahr ist der **Mut** der Runde
+  (`survivedDanger` = die Gefahr des letzten Drucks, der harmlos blieb). Weil die Gefahr mit jedem
+  Druck steigt, ist dieser Wert zugleich das Maximum. Er steht als Satz im Ergebnis.
 - Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken atmet
   im Takt des Herzschlags (`--beat-ms`, dieselbe Zahl wie der Puls).
 - **Gemessene Folge der 60-%-Schwelle:** sie wird in *keinem* Gebiss vor dem letzten Druck erreicht

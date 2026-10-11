@@ -112,3 +112,35 @@ anderes, weil der Balken sonst nicht zu deuten war:
 jeder Zahn gleich wahrscheinlich — es gibt keine Entscheidung, die er stützen könnte. Taktisch würde
 er erst mit einer Mechanik (z. B. einmal pro Runde weitergeben); das wäre ein Eingriff in Kern,
 Protokoll und Statistik und ist eine eigene Runde.
+
+## Nachtrag 11.10.2026: Selbst-Sparring (`grill-me`) zu den offenen Punkten
+
+Auftrag: „Kümmere dich um die offenen Punkte, nutze den `grill-me`-Skill und entscheide selbst." Die
+Fragen des Sparrings, jede mit nachgeschlagener Tatsache und Entscheidung:
+
+1. **Krokodil sattgelbgrün wie das Plastik?** Tatsache: die fünf anderen Gebisse sind pastell (Galerie
+   `docs/bilder/gebisse.png`). Gegengerendert und angesehen: die satte Fassung fällt als Fremdkörper
+   aus der Familie. **Entscheidung: nein** — sie widerspricht dem Auftrag „ohne den aktuellen Stil zu
+   verändern". Die Variante liegt als Bild im Bericht, nicht im Repo.
+2. **Vierte Schnauzenfalte?** Tatsache: die freie Zone über dem Maul ist rund 60 px hoch (Ring bei
+   y 105–123), die Nasenlöcher sitzen bei y 54 — eine vierte Falte müsste eines von beiden berühren.
+   Das Original hat vier Falten auf einer *höheren* Schnauze, die unsere Geometrie (Ring als
+   Spielträger) nicht hat. **Entscheidung: bei drei Falten bleiben.**
+3. **Höhere Augen?** Tatsache: +10 px sind 2 % der Bildhöhe — kaum sichtbar, aber eine Änderung an
+   einer gerade abgenommenen Zeichnung. **Entscheidung: nicht anfassen.**
+4. **Hai-Kiemen größer?** Tatsache: abgenommen („Das zweite Bild ist besser"). **Entscheidung: bleiben.**
+5. **„Weitergeben" als Mechanik?** Tatsache: das Protokoll hat zehn Spalten und wird per Spaltenname
+   gelesen (Erweiterung wäre technisch verträglich), aber der Kern leitet die Zugreihenfolge aus
+   `pressOrder` ab (`round.ts`) — ein Zug ohne Druck verschiebt sie fälschlich. Und: die Wirkung
+   („wird das Spiel besser?") ist nur mit zwei oder mehr Spielern am echten Tisch beurteilbar, meist
+   wird allein gespielt. **Entscheidung: abgesagt und dokumentiert** (siehe zehnte Falle in AGENTS.md).
+6. **Was macht den Balken stattdessen handelbar?** Kandidaten waren ein Nerven-Zähler und der Mut.
+   **Entscheidung: der Mut** — die höchste überstandene Bissgefahr, exakt aus der Anzeigekurve
+   abgeleitet (`survivedDanger`), funktioniert im Einzelspiel, braucht keinen Protokolleingriff und
+   erscheint als Satz im Ergebnis.
+7. **Rotglut bei 60 % lassen?** Tatsache: kein Gebiss erreicht 60 % vor dem letzten Zahn (Krokodil
+   55,0 % beim neunten) — rot fällt also immer mit dem Biss zusammen, ein *überstandener* roter Druck
+   ist unmöglich. Bei 50 % wäre der Mut bis ins Rote möglich. **Entscheidung: bleibt bei 60 %** —
+   die Zahl ist abgesprochen; die Option ist hier mit neuer Begründung notiert.
+8. **Der „geschlossene Blick" aller sechs?** Tatsache: über alle sechs gleich und nie beanstandet.
+   **Entscheidung: nicht anfassen.**

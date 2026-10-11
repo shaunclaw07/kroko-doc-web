@@ -199,6 +199,28 @@ describe('GameController in der Bühne', () => {
     expect(document.getElementById('result-title')?.textContent).toContain('Spieler 2');
   });
 
+  it('nennt im Ergebnis den Mut: die hoechste ueberstandene Bissgefahr', () => {
+    build([4]);
+    click(1);
+    click(2);
+    click(4);
+    // Schnappt beim 3. Druck; ueberstanden wurden Druck 1 und 2, die Gefahr stieg auf 21,3 %.
+    const text = document.getElementById('result-text')?.textContent ?? '';
+    expect(text).toContain('mutigster Druck');
+    expect(text).toContain('21 %');
+  });
+
+  it('nennt den mutigsten Druck beim Namen, wenn mehrere Spieler am Tisch sitzen', () => {
+    build([4], { players: 2 });
+    click(1);
+    click(2);
+    click(4);
+    // Druck 2 kam reihum von Spieler 2 — das war der letzte harmlose Druck der Runde.
+    const text = document.getElementById('result-text')?.textContent ?? '';
+    expect(text).toContain('Spieler 2');
+    expect(text).toContain('21 %');
+  });
+
   it('ignoriert weitere Drücke nach dem Zuschnappen und nach der neuen Runde geht es weiter', () => {
     const { controller, log } = build([3]);
     click(3);

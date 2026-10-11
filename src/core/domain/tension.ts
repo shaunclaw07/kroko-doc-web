@@ -108,6 +108,28 @@ export function pressProgress(args: { pressed: number; teeth: number }): number 
   return clamp01(args.pressed / args.teeth);
 }
 
+/**
+ * Der **Mut** der Runde: die Bissgefahr des letzten Drucks, der harmlos blieb. Weil die Gefahr mit
+ * jedem Druck steigt, ist das zugleich die höchste überstandene Gefahr. `pressIndex` ist der Druck,
+ * bei dem es schnappte — vor dem ersten Druck gibt es nichts zu überstehen, deshalb 0.
+ *
+ * Das gibt dem Gefahren-Balken einen Zweck: die Gefahr, die man übersteht, ist das, was man
+ * erzählt — und sie kommt aus derselben Kurve, die der Balken anzeigt.
+ */
+export function survivedDanger(args: {
+  /** Der Druck, bei dem es schnappte (1-basiert). */
+  pressIndex: number;
+  teeth: number;
+  mode: RandomMode;
+  liveTeethMin: number;
+  liveTeethMax: number;
+}): number {
+  if (args.pressIndex <= 1) {
+    return 0;
+  }
+  return tensionForPress({ ...args, pressIndex: args.pressIndex - 1 });
+}
+
 /** Ist der nächste Druck hoch gefährlich? (Anzeige: rote Füllung.) */
 export function isHighDanger(tension: number): boolean {
   return clamp01(tension) >= HIGH_DANGER;

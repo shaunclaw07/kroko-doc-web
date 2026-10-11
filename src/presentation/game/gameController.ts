@@ -12,6 +12,7 @@ import {
   isHighDanger,
   isTense,
   pressProgress,
+  survivedDanger,
   tensionForPress,
   type PressDrama,
 } from '../../core/domain/tension';
@@ -442,6 +443,35 @@ export class GameController {
     }
   }
 
+  /**
+   * Der Mut der Runde: die hoechste ueberstandene Bissgefahr. Er gibt dem Gefahren-Balken einen
+   * Zweck — die Gefahr, die man uebersteht, ist das, was am Tisch erzaehlt wird. Kommt aus derselben
+   * Kurve wie der Balken (`survivedDanger`), ist also dieselbe Wahrheit wie die Anzeige.
+   */
+  private mutSentence(pressIndex: number): string {
+    const percent = Math.round(
+      survivedDanger({
+        pressIndex,
+        teeth: this.round.teeth,
+        mode: this.round.mode,
+        liveTeethMin: this.round.liveTeethMin,
+        liveTeethMax: this.round.liveTeethMax,
+      }) * 100,
+    );
+    if (percent <= 0) {
+      return '';
+    }
+    if (this.round.players === 1) {
+      return ` Dein mutigster Druck: ${percent} % Bissgefahr - und der Zahn war harmlos.`;
+    }
+    // Der letzte harmlose Druck kam reihum von diesem Spieler.
+    const player = ((pressIndex - 2) % this.round.players) + 1;
+    return (
+      ` Mutigster Druck: ${playerName(player, this.round.players)} bei ${percent} % Bissgefahr` +
+      ' - und der Zahn war harmlos.'
+    );
+  }
+
   private showResult(): void {
     const loser = this.round.loser;
     if (!loser) {
@@ -462,7 +492,8 @@ export class GameController {
       text.textContent =
         `Zahn ${loser.tooth} hat zugeschnappt — der ${loser.pressIndex}. Druck dieser Runde. ` +
         `Insgesamt ${loser.liveCount} ${liveWord} (${live}). ` +
-        `Damit sind ${this.records.length} Runden protokolliert.`;
+        `Damit sind ${this.records.length} Runden protokolliert.` +
+        this.mutSentence(loser.pressIndex);
     }
     this.deps.sound.play(this.round.players === 1 ? 'lose' : 'win', 0.8);
     if (sheet) {

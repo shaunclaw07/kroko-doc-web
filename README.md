@@ -127,6 +127,9 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   Herzschlags, glüht ab 30 % und wird vor dem letzten Zahn rot. Beim ersten Druck einer Sitzung
   erklärt er sich einmal selbst; nachlesen kann man ihn im Blatt „Regeln & Herkunft" und auf der
   Statistikseite (dort steht die ganze Kurve).
+- **Der Mut der Runde:** das Ergebnis nennt die höchste Bissgefahr, bei der ein Druck noch harmlos
+  blieb („Dein mutigster Druck: 55 % Bissgefahr — und der Zahn war harmlos."). Das gibt dem Balken
+  einen Zweck: die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird.
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite zeigt Häufigkeiten,
   Chi²-Tests gegen Gleichverteilung **und** gegen das Zugmodell, Wilson-Intervalle,
   Autokorrelation (Mustersuche) und exportiert/importiert CSV im Format des Analyse-Werkzeugs.

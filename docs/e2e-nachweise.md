@@ -188,6 +188,25 @@ Widerspruch im Bild: der Balken sah aus wie eine Fortschrittsanzeige, war aber e
   Arbeitsbaum gibt es keinen Browser — die Bildregeln sind über das gebaute CSS und das Verhalten
   über die DOM-Tests belegt; das Aussehen beurteilt der Spieler.
 
+## 5e. Ein Zweck für den Balken — der Mut (11.10.2026)
+
+Der Balken erklärte sich (5d), aber er konnte noch nichts **bewirken**. Neu: das Ergebnis der Runde
+nennt den **Mut** — die höchste Bissgefahr, bei der ein Druck noch harmlos blieb (`survivedDanger`).
+Beispiel aus einem Bedienungs-Test: schnappt es beim dritten Druck, war Druck 2 der mutigste —
+21,3 % → im Text „21 %".
+
+| Nachweis | Ergebnis |
+|---|---|
+| vier Kern-Tests (`tension.test.ts`) | `survivedDanger`: 0 vor dem ersten Druck, 55,0 % beim Krokodil-Schnapp im zehnten Druck, `1÷9` im Modus classic, ≤ 1 |
+| zwei Bedienungs-Tests (`gameController.test.ts`) | der Ergebnistext enthält „mutigster Druck … 21 %"; mit zwei Spielern wird der Spieler benannt (Druck 2 → „Spieler 2", reihum) |
+| Rot-Beweis | vorher genau sechs rote Tests — die neuen, keine alten |
+| Gate + Bau | 202 Tests in 18 Dateien, `tsc` fehlerfrei, `pnpm build` → 2 Seiten in 2,08 s |
+
+Warum **nicht** mehr: das „Weitergeben" (Zug abgeben statt drücken) hätte den Balken zur echten
+Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus `pressOrder` ableitet
+(`round.ts`), und seine Wirkung ist nur an einem echten Tisch mit zwei oder mehr Spielern
+beurteilbar. Abgesagt, begründet in `docs/plan.md` und als zehnte Falle in AGENTS.md.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
@@ -202,6 +221,7 @@ Widerspruch im Bild: der Balken sah aus wie eine Fortschrittsanzeige, war aber e
 | „Kannst du das Bild für das Krokodil mehr wie den Original krocodoc aussehen lassen ohne den aktuellen Stil zu verändern?" (Nutzer, 11.10.2026, mit Foto) | Foto und Zeichnung nebeneinander gelegt (`uv run --with pillow`), jede Fassung gerendert und angesehen; Maße gegen den Ring (240×160 um 320/265) gerechnet | **In vier Fassungen mit Sichtprüfung umgesetzt.** 1. **Irisring** hellblau hinter der Pupille, Pupille als Oval — die auffälligste Erkennung des Originals. 2. **Nasenlöcher kleiner** (die großen Punkte sahen wie zweite Augen aus). 3. **Schnauzenfalten:** erst als Doppelstriche (sah wie Bewegungsschwünge aus), dann als **Rille mit Grat** — drei Falten in der freien Zone über dem Maul, gegen die Ringellipse gerechnet. 4. **Einfarbig grün:** das Schnauzenband war ein heller Fleck, beim Original ist der Kopf eine Farbe — Band = Körperfarbe, die Kontur trennt. Dazu das Grün einen Hauch gelber und der Rachen sattes Rot (Zahnfleisch bleibt die hellste Stufe). **Bewusst nicht geändert:** der Maulring mit zwölf Zähnen (Spielmechanik) und die breite Kopfform (Träger des Rings) |
 | Die Klangmaschine liest nur `window.AudioContext` | `sed -n '66,92p' src/infrastructure/audio/webAudioEngine.ts` | bestätigt; daraufhin Rückfall auf `webkitAudioContext` ergänzt (altes iOS) und mit drei Tests belegt |
 | „Der Druck soll spannender werden" (Nutzer, 11.10.2026) | Standbild der neuen Pose gerastert und angesehen | **Eigener Werkzeugfehler gefunden:** der Rasterer setzte die Pose zusätzlich über die Klasse `is-pressing`, und weil cairosvg `transform-origin` nicht kennt, skalierte es die Pupillen-Regel um den Bildursprung — die Pupillen wanderten aus den Augen. Die Pose kommt jetzt vollständig aus Attributen (Verschiebung um den Kreismittelpunkt), das Bild stimmt. **Kein App-Fehler**, nur des Werkzeugs |
+| „Kümmere dich um die offenen Punkte, nutze den `grill-me`-Skill und entscheide selbst" (Nutzer, 11.10.2026) | Acht Fragen des Selbst-Sparrings, jede mit nachgeschlagener Tatsache (`records.ts`, `round.ts`, `tension.ts` gelesen), die Varianten gerendert und angesehen | **Zwei Dinge gebaut, sechs bewusst gelassen, eines abgesagt.** Gebaut: die **Mut**-Zeile im Ergebnis (5e). **Abgesagt:** das „Weitergeben" — verschiebt die Zugreihenfolge des Kerns und ist nur am Tisch mit 2+ Spielern beurteilbar. **Gelassen:** sattgelbes Grün (gegengerendert: fällt als Fremdkörper aus der Familie der sechs), vierte Falte (freie Zone über dem Maul ist 60 px hoch und mit Nasenlöchern belegt), höhere Augen (2 % der Bildhöhe), Kiemengröße (abgenommen), 60-%-Schwelle (abgesprochen — rot ist damit immer ein Biss, ein *überstandener* roter Druck unmöglich), „geschlossener Blick" (über alle sechs gleich) |
 
 ## 7. Offene Punkte (ehrlich benannt)
 
@@ -211,3 +231,7 @@ Widerspruch im Bild: der Balken sah aus wie eine Fortschrittsanzeige, war aber e
 - ~~Vibration ist nicht in einem echten Browser geprüft~~ → am **11.10.2026 am Gerät bestätigt**: der Nutzer hat die Seite am Handy gespielt und die Vibration gespürt (25 ms bei jedem Zahndruck, drei Stöße beim Biss). Der Codeweg bleibt durch Controller- und Adapter-Tests belegt — ein Browser im Baum fehlt weiterhin (erster Punkt).
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
 - ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.
+- **Vom Auftraggeber zu entscheiden** (Wahl, kein Fehler): die **satte Spielzeug-Grün-Variante** des
+  Krokodils (Gegenbild im Bericht vom 11.10.2026), die **Rotglut-Schwelle** (`HIGH_DANGER` 0,6 hält
+  den Mut im Goldenen; 0,5 ließe einen roten, überstandenen Druck zu) und das **„Weitergeben"**
+  (abgesagt mit Begründung — als Feature nur mit 2+ Spielern prüfbar).

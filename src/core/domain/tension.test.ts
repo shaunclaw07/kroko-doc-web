@@ -13,6 +13,7 @@ import {
   pressBeatMs,
   pressProgress,
   reliefLevel,
+  survivedDanger,
   tensionForPress,
   twitchChance,
 } from './tension';
@@ -235,6 +236,29 @@ describe('pressProgress', () => {
     expect(pressProgress({ pressed: 12, teeth: 10 })).toBe(1);
     expect(pressProgress({ pressed: -3, teeth: 10 })).toBe(0);
     expect(pressProgress({ pressed: 3, teeth: 0 })).toBe(0);
+  });
+});
+
+/** Der Mut der Runde: die hoechste ueberstandene Bissgefahr. */
+describe('survivedDanger', () => {
+  it('ist vor dem ersten Druck null — da war nichts zu ueberstehen', () => {
+    expect(survivedDanger({ pressIndex: 1, teeth: 10, ...KROKODIL })).toBe(0);
+  });
+
+  it('nennt die Gefahr des letzten harmlosen Drucks', () => {
+    // Krokodil: schnappt beim 10. Druck → ueberstanden wurden 1..9, die Gefahr stieg bis 55,0 %.
+    expect(survivedDanger({ pressIndex: 10, teeth: 10, ...KROKODIL })).toBeCloseTo(0.55, 3);
+    expect(survivedDanger({ pressIndex: 2, teeth: 10, ...KROKODIL })).toBeCloseTo(0.2, 3);
+  });
+
+  it('rechnet im Modus classic mit 1 geteilt durch die uebrigen Zaehne', () => {
+    expect(survivedDanger({ pressIndex: 3, teeth: 10, mode: 'classic', liveTeethMin: 1, liveTeethMax: 1 }))
+      .toBeCloseTo(1 / 9, 4);
+  });
+
+  it('bleibt in 0..1', () => {
+    const MAUS = { mode: 'original' as const, liveTeethMin: 1, liveTeethMax: 2 };
+    expect(survivedDanger({ pressIndex: 6, teeth: 6, ...MAUS })).toBeLessThanOrEqual(1);
   });
 });
 
