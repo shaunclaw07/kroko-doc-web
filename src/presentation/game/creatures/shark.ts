@@ -43,13 +43,16 @@ export const sharkArtwork: CreatureArtwork = {
     '<path d="M 540 250 L 628 258 L 544 300 Z" fill="#7aa6c6" stroke="#4f7c9c" stroke-width="3"/>' +
     '<path d="M 94 256 C 66 260 40 266 20 274" fill="none" stroke="#aacbe4" stroke-width="4" stroke-linecap="round"/>' +
     '<path d="M 546 256 C 574 260 600 266 620 274" fill="none" stroke="#aacbe4" stroke-width="4" stroke-linecap="round"/>' +
-    // Fuenf Kiemenschlitze je Seite — das Erkennungszeichen eines Hais.
-    '<path d="M 206 214 C 199 244 198 276 205 306" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 186 218 C 179 246 178 276 185 304" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 166 224 C 160 250 159 276 165 300" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 434 214 C 441 244 442 276 435 306" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 454 218 C 461 246 462 276 455 304" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 474 224 C 480 250 481 276 475 300" fill="none" stroke="#5d8bab" stroke-width="6" stroke-linecap="round"/>' +
+    // Drei Kiemenschlitze je Seite (sechs zusammen) — das Erkennungszeichen eines Hais. Sie
+    // liegen **aussen auf dem Kopf** zwischen Auge und Maulrand, nicht im Maul: der Maulring
+    // (Ellipse 200x150 um 320/262) hat bei y=208 seinen Rand links bei x=133, bei y=244 bei
+    // x=121 — die Schlitze halten 5 px Abstand dazu und 3 px zur Silhouette.
+    '<path d="M 128 208 C 122 220 121 232 127 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 113 204 C 107 217 106 231 112 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 103 212 C 97 224 96 234 102 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 512 208 C 518 220 519 232 513 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 527 204 C 533 217 534 231 528 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 537 212 C 543 224 544 234 538 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
     '<ellipse cx="196" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
     '<ellipse cx="444" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
     '<circle cx="198" cy="156" r="15" fill="#2f4557" class="pupil"/>' +
