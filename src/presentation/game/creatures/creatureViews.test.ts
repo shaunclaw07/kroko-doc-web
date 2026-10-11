@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CREATURES, getCreature } from '../../../core/domain/creature';
 import { MAX_TEETH, MIN_TEETH } from '../../../core/domain/teeth';
-import { MIN_TAP_TARGET_PX, maxTapFriendlyTeeth, tapTargetPx } from './geometry';
+import { MIN_STAGE_WIDTH_PX, MIN_TAP_TARGET_PX, VIEWBOX, maxTapFriendlyTeeth, tapTargetPx, toothSpacing } from './geometry';
 import { ARTWORKS, creatureView, listCreatureViews } from './index';
 import { ARTWORKS as ALL_ARTWORKS } from './index';
 
@@ -132,16 +132,63 @@ describe('Zeichnungen der Lebewesen', () => {
     }
   });
 
-  it('gibt jedem Zahn auf dem Handy eine Trefferfläche von mindestens 44 Pixeln', () => {
-    // Ein 358 px breites Handy ist der enge Fall; die Zähne sitzen auf einem Ring um das
-    // ganze Maul, damit sich diese Größe auf mehr Zähne verteilen lässt.
+  it('gibt jedem Zahn auf der schmalsten Bühne 44 Pixel — bis an die Grenze des Zahnabstands', () => {
+    // Der enge Fall ist ein 320-px-Gerät: dort ist die Bühne 288 px breit, der Maßstab fällt auf
+    // 0,45 (gemessen im Browser am 11.10.2026). Zuvor galt die Vorgabe nur für 358 px — auf einem
+    // 320-px-Gerät waren es 43,2 px. Zwei Regeln greifen: die Vorgabe und der halbe Zahnabstand,
+    // damit sich zwei Trefferflächen nicht überdecken. Wo beide zusammen nicht gehen, gewinnt der
+    // Abstand — mehr wäre ein Tippziel, das dem Nachbarn den Druck stiehlt.
+    // Der Grenzfall: ein halber Zahnabstand von rechnerisch genau 44 px (Mensch bei 11 Zähnen) darf
+    // nicht an der Gleitkomma-Rundung entscheiden — er zählt als „erreicht", wird aber mit seiner
+    // eigenen Grenze geprüft. Alles darunter ist der Abstand und wird als Ausnahme festgehalten.
+    const RUNDUNG_PX = 0.05;
+    const knapp: string[] = [];
     for (const creature of CREATURES) {
       const ring = ALL_ARTWORKS[creature.id]?.ring;
       expect(ring, creature.id).toBeTruthy();
       if (!ring) continue;
       for (let count = MIN_TEETH; count <= MAX_TEETH; count += 1) {
-        expect(tapTargetPx(count, ring), `${creature.id}/${count}`).toBeGreaterThanOrEqual(MIN_TAP_TARGET_PX);
+        const px = tapTargetPx(count, ring, MIN_STAGE_WIDTH_PX);
+        const abstandPx = toothSpacing(count, ring) * (MIN_STAGE_WIDTH_PX / VIEWBOX.width);
+        if (abstandPx < MIN_TAP_TARGET_PX - RUNDUNG_PX) {
+          expect(px, `${creature.id}/${count}`).toBeCloseTo(abstandPx, 9);
+          knapp.push(`${creature.id}/${count}`);
+        } else {
+          expect(px, `${creature.id}/${count}`).toBeGreaterThanOrEqual(MIN_TAP_TARGET_PX - RUNDUNG_PX);
+        }
       }
+    }
+    // Belegter Stand (11.10.2026, gerechnet mit dieser Geometrie): bei 12 Zähnen reicht der Abstand
+    // auf 285 px bei fünf der sechs Lebewesen nicht, bei 11 Zähnen nur noch bei den zwei engsten
+    // Ringen (Maus, Vampir). Das Krokodil hat den größten Ring und schafft die Vorgabe überall.
+    expect(knapp).toEqual([
+      'wolf/12',
+      'human/12',
+      'shark/12',
+      'mouse/11',
+      'mouse/12',
+      'vampire/11',
+      'vampire/12',
+    ]);
+  });
+
+  it('belegt, wo die Trefferfläche auf einem 320-px-Gerät endet (gemessen, nicht geschätzt)', () => {
+    const maus = ALL_ARTWORKS['mouse'];
+    expect(maus).toBeTruthy();
+    if (!maus) return;
+    // 10 Zähne schaffen die Vorgabe auf 285 px (44,0 px). Bei 12 Zähnen lässt der halbe Zahnabstand
+    // (41,6 SVG-Einheiten) nur 37,1 px zu — die schmalste Maus ist der engste Fall im ganzen
+    // Katalog, und sie ist der Grund, warum die Grenze bei 11 Zähnen beginnt. Auf einem gewöhnlichen
+    // Handy (358 px Bühne) hält die Vorgabe auch bei 12 Zähnen; im Browser gemessen wurden bei
+    // 320 px Blick (286 px Bühne) 44,15 px für einen einzelnen Zahn.
+    expect(tapTargetPx(10, maus.ring, MIN_STAGE_WIDTH_PX)).toBeCloseTo(44.0, 1);
+    expect(tapTargetPx(12, maus.ring, MIN_STAGE_WIDTH_PX)).toBeCloseTo(37.1, 1);
+    expect(tapTargetPx(12, maus.ring, MIN_STAGE_WIDTH_PX)).toBeLessThan(MIN_TAP_TARGET_PX);
+    expect(tapTargetPx(12, maus.ring, 358)).toBeGreaterThanOrEqual(MIN_TAP_TARGET_PX);
+    // Und die Gegenprobe für den gemeldeten Fall: ein einziger Zahn schafft die Vorgabe jetzt
+    // auf jedem Lebewesen — vorher waren es dort 43,2 px.
+    for (const art of Object.values(ALL_ARTWORKS)) {
+      expect(tapTargetPx(1, art.ring, MIN_STAGE_WIDTH_PX)).toBeCloseTo(MIN_TAP_TARGET_PX, 6);
     }
   });
 

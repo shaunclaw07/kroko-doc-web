@@ -81,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Fünfzehn Fallen, die Zeit kosten
+## Siebzehn Fallen, die Zeit kosten
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -150,7 +150,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   `window.setTimeout`. Die Testumgebung baut am Ende ab und entfernt das globale Fenster, die
   Zeitgeber der Umgebung laufen aber weiter: der späte Schlag stirbt als **unbehandelter
   `ReferenceError: window is not defined`** (Jsdom-Zeitgeber nach entferntem Global, nachgestellt in
-  `scratch/heartbeat-falle/mechanismus.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
+  `scripts/pruefen-zeitgeber.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
   fachlich rot war — gemessen vom fremden Prüfer: 1 von 7 Läufen. Deshalb: `this.doc.defaultView`
   statt `window` (auch als Vorgabe der Wartefunktion), und `dispose()` in der Steuerung, das die
   Sonde nach **jedem** Fall aufruft. Wer den Herzschlag selbst prüfen will, reicht eine eigene Uhr
@@ -163,6 +163,24 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   100 % sagten. Die Auswahl der scharfen Zähne **kappt** auf die Zahnzahl
   (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — das Modell muss dasselbe tun. Gefunden hat das der
   fremde Prüfer, nicht die Tests: prüfe jede Regel auch am **Rand** ihrer neuen Grenze.
+
+- **Eine Vorgabe, die nur für eine Beispielbreite geprüft wird, ist keine Vorgabe.** Die Trefferfläche
+  eines Zahns war gegen 358 px Bühnenbreite nachgerechnet — dem „üblichen" Handy. Ein 320-px-Gerät hat
+  aber 286 px Bühne, und der gezeichnete Maßstab entspricht nur 285,8 px, weil die Zeichnung im Kasten
+  höhenbegrenzt ist: im Browser gemessen **42,9 px statt 44**. Der Deckel stand als feste `48` im Code.
+  Jetzt wird er aus Vorgabe und **schmalster** Bühne gerechnet (`MIN_STAGE_WIDTH_PX = 285` in
+  `creatures/geometry.ts`), nachgemessen 44,15 px. Und die Grenze ist benannt statt versteckt: bei 11
+  und 12 Zähnen erlaubt der halbe Zahnabstand weniger (Maus bei 12 Zähnen 37,1 px) — Überdeckung wäre
+  der schlechtere Tausch. Wer das Seitenpolster ändert, **messt neu**.
+
+- **Dekoration darf keinen Tipp abfangen.** Das untere Zahnfleischband wird **nach** den unteren Zähnen
+  gezeichnet und liegt damit über deren Trefferfläche. Bei Zahn 2 und 10 fiel die Mitte des
+  Trefferkreises darauf, und ein Tipp dort tat **nichts** (`#hud-presses` blieb 0, Zustand `open`) —
+  gefunden hat das nicht ein Nutzer, sondern `document.elementFromPoint` in der Mitte jedes
+  Trefferkreises (`uv run --with playwright python scripts/pruefen-trefferflaeche.py`, siehe
+  `docs/e2e-nachweise.md` §5l). Seit dem 11.10.2026 bekommen alle Ebenen der Zeichnung außer den
+  Zähnen `pointer-events: none` (`presentation/styles/app.css`); `pointer-events: all` bleibt allein
+  am Trefferkreis. Ein unsichtbares Element, das Tipps schluckt, ist ein Bedienfehler.
 
 ## Ein neues Lebewesen ergänzen
 

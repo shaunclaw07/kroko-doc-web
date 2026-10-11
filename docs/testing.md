@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 229 (19 Dateien) |
+| Tests | 230 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–2,5 s (Maschinenstreuung) |
 
@@ -67,12 +67,22 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Danach die gerasterten Bilder ansehen (das Kopfmaul muss zu sein, der Kopf innerhalb der
    Kachel). Ohne `ICON_NEU=1` prüft `src/icon.test.ts` nur, dass die Dateien zur Zeichnung passen.
 
+5. **Trefferflächen-Sonde** — die Trefferfläche eines Zahns wird im echten Browser gemessen (nicht
+   gerechnet) und nachgesehen, ob in ihrer Mitte wirklich der eigene Zahn liegt:
+   `pnpm dev --host`, dann
+   `uv run --with playwright python scripts/pruefen-trefferflaeche.py` (misst bei 320/360/390 px Blick
+   und prüft mit `document.elementFromPoint`, dass keine Dekoration den Tipp abfängt). Erwartet:
+   44,15 px bei 320 px, und bei **jedem** Zahn der eigene Zahn in der Mitte. Der rechnerische Teil
+   (44 px auf der schmalsten Bühne, und wo der Zahnabstand die Grenze ist) steht in
+   `creatureViews.test.ts`.
+
 ## Zwei Regeln für Zeitgeber in Sonden
 
 - **Jede Steuerung wird abgehängt:** `dispose()` nach jedem Fall (`afterEach`). Sonst feuert der
   Herzschlag in die schon abgebaute Umgebung (`ReferenceError: window is not defined`) und das Gate
   wird flakig — ohne dass ein Test fachlich rot ist. Der Mechanismus ist in
-  `scratch/heartbeat-falle/mechanismus.cjs` nachgestellt (Jsdom-Zeitgeber nach entferntem Global).
+  `scripts/pruefen-zeitgeber.cjs` nachgestellt (Jsdom-Zeitgeber nach entferntem Global;
+  `node scripts/pruefen-zeitgeber.cjs`).
 - **Eigene Uhr statt echter Millisekunden:** `vi.useFakeTimers()` + `vi.advanceTimersByTime(...)`,
   wenn ein Test den Herzschlag selbst prüfen will.
 

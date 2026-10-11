@@ -439,7 +439,7 @@ fällt (knapp unter 44); (8) `git show e488f81:src/core/domain/teeth.ts` → `MI
   der Herzschlag hing am **globalen** `window`; nach dem Abbau der Testumgebung läuft der Zeitgeber
   weiter und findet kein Fenster mehr. Behoben: `this.doc.defaultView` statt `window` (auch als
   Vorgabe der Wartefunktion), `dispose()` in der Steuerung, `afterEach` in der Sonde. Der Mechanismus
-  ist deterministisch nachgestellt (`scratch/heartbeat-falle/mechanismus.cjs`: alte Fassung →
+  ist deterministisch nachgestellt (`node scripts/pruefen-zeitgeber.cjs`: alte Fassung →
   `ReferenceError`, neue → fehlerfrei). Eigene Läufe: 8 × grün. **Die Flake-Häufigkeit selbst konnte
   ich in 12 Läufen der alten Fassung nicht reproduzieren** (lastabhängig) — belegt ist der
   Mechanismus, nicht die Quote.
@@ -458,6 +458,55 @@ Statistikseite fehlte die Einzahl (das Spiel selbst sagte schon „Zahn übrig")
 ein Balken „100 % (garantiert scharf)"), Vorschaulinie der Tier-Auswahl, die Zahnzahl überlebt das
 Neuladen (`localStorage`), und im Bau wie live keine Reste der alten Regel („Beim echten Spielzeug
 sind" 0×, `dialog.sheet[open]` 0×).
+
+## 5l. Trefferfläche auf der schmalsten Bühne (11.10.2026, abends)
+
+Auftrag: die Einschränkung aus §5k („bei 320 px Gerätebreite nur 42,9 px") nachziehen — die
+Trefferfläche soll auch dort mindestens 44 px bleiben. Der Nutzer hat den Vorschlag angenommen
+(„Ja ich nehme deine Empfehlung an"): Deckel **statisch** aus der schmalsten Bühne rechnen, und bei
+11/12 Zähnen die Grenze ehrlich nennen statt sie zu verstecken.
+
+**Gerechnet statt gesetzt.** In `creatures/geometry.ts` stand der Deckel als feste Zahl `48`
+(„ein 4-Zähne-Maul braucht keine meterlangen Flächen"). Gemessen im Browser: 320 px Blick → 286 px
+Bühne, der gezeichnete Maßstab entspricht aber nur **285,8 px** Breite (die Zeichnung ist im Kasten
+höhenbegrenzt) → `48` Einheiten ergaben **43,70 px**. Jetzt: `MIN_STAGE_WIDTH_PX = 285` (zwei Pixel
+Reserve gegen die Rundung), Deckel = 44/2 × 640/285 = **49,4 SVG-Einheiten**, und `tapTargetPx` sowie
+`maxTapFriendlyTeeth` rechnen gegen die schmalste Bühne statt gegen 358 px.
+
+**Vorher/nachher, im Browser gemessen** (`uv run --with playwright python scripts/pruefen-trefferflaeche.py`,
+Chromium, lokale Seite, `getBoundingClientRect` eines `.tooth__hit`):
+
+| Blick | Bühne | Trefferfläche vorher | nachher | eigener Zahn in der Mitte |
+|---|---|---|---|---|
+| 320 px | 286 px | 43,70 px | **44,15 px** | 10/10 |
+| 360 px | 326 px | 49,82 px | 50,12 px | 10/10 |
+| 390 px | 356 px | 54,40 px | 54,74 px | 10/10 |
+
+Die Trefferfläche wächst also nur dort, wo sie unter der Vorgabe lag; die Zunahme ist überall ≤ 0,4 px.
+
+**Ehrliche Grenze (gerechnet und im Test festgehalten).** Bei 11 und 12 Zähnen ist der halbe
+Zahnabstand kleiner als die Vorgabe — dann bleibt er die Grenze, weil mehr überdeckende
+Trefferflächen hieße und ein Tippziel, das dem Nachbarn den Druck stiehlt, der schlechtere Tausch
+wäre. Betroffen sind bei 12 Zähnen fünf der sechs Lebewesen und bei 11 Zähnen die zwei engsten Ringe
+(Maus, Vampir); die schmalste Stelle ist die Maus mit 12 Zähnen: **37,1 px**. Das Krokodil hat den
+größten Ring und schafft die Vorgabe in jeder Zahnzahl. Auf einem gewöhnlichen Handy (358 px Bühne)
+gilt die Vorgabe auch bei 12 Zähnen.
+
+**Zweiter Fund derselben Messung — vorbestehend, nicht durch diesen Umbau entstanden.** Bei **Zahn 2
+und Zahn 10** lieferte `document.elementFromPoint` in der Mitte des Trefferkreises das untere
+Zahnfleischband (`path.jaw__band.jaw__band--lower`): das Band wird **nach** den unteren Zähnen
+gezeichnet und liegt damit über deren Trefferfläche. Ein Tipp dort tat **nichts** (`#hud-presses`
+0 → 0, Zustand `open`; Gegenprobe Zahn 1: 0 → 1). Dieselbe Messung gegen die alte Geometrie
+(`git stash` auf `geometry.ts`) zeigte dasselbe Bild — der Fehler war also älter als dieser Umbau.
+Behoben über `pointer-events: none` für alle dekorativen Ebenen der Zeichnung (Körper, Rachen,
+Zahnfleisch, Schnauze, Gesicht, Beißer-Kreis, ruhende Zähne), `pointer-events: all` bleibt allein am
+Trefferkreis. Nachgemessen: Tipp in der Mitte von Zahn 2 und 10 registriert (0 → 1), und
+`elementFromPoint` liefert bei **allen** Zähnen den eigenen Zahn (10/10 statt 8/10).
+
+**Belege (Kommandos).** Geometrie: Messung über die Kunstwerk-Module direkt in Node
+(`scratch/trefferflaeche/messen2.mjs`, die Module importieren nur Typen). Browser: `pruefen.py`
+(Pixel und Eigentum am Zentrum), `ueberdeckung.py` (wer liegt oben), `wirkung.py` (registriert der
+Tipp). Gate: **230 Tests in 19 Dateien**, `tsc` fehlerfrei.
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

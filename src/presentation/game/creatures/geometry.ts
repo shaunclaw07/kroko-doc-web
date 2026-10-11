@@ -17,23 +17,42 @@ export function toothSpacing(count: number, ring: RingGeometry): number {
 }
 
 /**
- * Trefferfläche je Zahn: halber Zahnabstand, damit sich zwei Zähne nicht überdecken,
- * nach oben begrenzt (ein 4-Zähne-Maul braucht keine meterlangen Flächen).
+ * Trefferfläche je Zahn: halber Zahnabstand, damit sich zwei Zähne nicht überdecken, nach oben
+ * begrenzt auf den Wert, der auf der **schmalsten Bühne** gerade noch MIN_TAP_TARGET_PX ergibt.
+ *
+ * Hier stand vorher die feste Zahl 48 („ein 4-Zähne-Maul braucht keine meterlangen Flächen").
+ * Auf einem 320-px-Gerät ist die Bühne aber nur 286 px breit (Maßstab 0,447) — 48 Einheiten ergaben
+ * dort gemessen 43,7 px, also weniger als die Vorgabe. Der Deckel wird deshalb aus Vorgabe und
+ * schmalster Bühne **gerechnet**: 44 / 2 × 640 / 285 = 49,4 SVG-Einheiten. Wo der halbe Zahnabstand
+ * kleiner ist (11 und 12 Zähne auf schmaler Bühne), bleibt er die Grenze — Überdeckung wäre der
+ * schlechtere Tausch.
  */
 export function hitRadius(count: number, ring: RingGeometry): number {
-  return Math.max(14, Math.min(48, toothSpacing(count, ring) * 0.5));
+  const cap = (MIN_TAP_TARGET_PX / 2) * (VIEWBOX.width / MIN_STAGE_WIDTH_PX);
+  return Math.max(14, Math.min(cap, toothSpacing(count, ring) * 0.5));
 }
 
-/** Trefferfläche in CSS-Pixeln bei gegebener Bühnenbreite (Handy: rund 358 px). */
-export function tapTargetPx(count: number, ring: RingGeometry, stageWidthPx = 358): number {
+/** Trefferfläche in CSS-Pixeln bei gegebener Bühnenbreite. */
+export function tapTargetPx(count: number, ring: RingGeometry, stageWidthPx = MIN_STAGE_WIDTH_PX): number {
   return 2 * hitRadius(count, ring) * (stageWidthPx / VIEWBOX.width);
 }
 
 /** Kleinste Kantenlänge, die ein Finger treffen soll (Apple/Google-Richtwert). */
 export const MIN_TAP_TARGET_PX = 44;
 
+/**
+ * Schmalste Bühne, für die die Vorgabe gelten muss: ein 320-px-Gerät (iPhone SE 1. Generation).
+ * **Gemessen** am 11.10.2026 im Browser: 320 px Blick → 286 px Bühne (34 px bleiben links und
+ * rechts Luft). Der gezeichnete Maßstab entspricht aber nur **285,8 px** Breite, weil die Zeichnung
+ * im Kasten höhenbegrenzt ist — die erste Fassung mit 288 px ergab deshalb gemessen 43,7 px.
+ * Gerechnet wird mit 285 px: zwei Pixel Reserve, damit die Vorgabe nicht an der Rundung hängt.
+ * Wer das Polster der Seite ändert, messt neu — die Vorgabe hängt an dieser Zahl, nicht an einer
+ * Annahme.
+ */
+export const MIN_STAGE_WIDTH_PX = 285;
+
 /** Höchste Zahnzahl, bei der jedes Tippziel noch MIN_TAP_TARGET_PX groß ist. */
-export function maxTapFriendlyTeeth(ring: RingGeometry, stageWidthPx = 358): number {
+export function maxTapFriendlyTeeth(ring: RingGeometry, stageWidthPx = MIN_STAGE_WIDTH_PX): number {
   let best = 1;
   for (let count = 2; count <= MAX_TEETH_HARD; count += 1) {
     if (tapTargetPx(count, ring, stageWidthPx) < MIN_TAP_TARGET_PX) {

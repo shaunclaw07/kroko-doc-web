@@ -133,9 +133,12 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   vorsieht. Das kleinste Gebiss ist **ein einziger Zahn** (Wunsch vom 11.10.2026): dann greift die
   Auswahl der scharfen Zähne auf genau diesen zu, der erste Tipp schließt also das Maul — in beiden
   Zufallsmodellen. Die Zähne sitzen auf einem Ring **um das ganze Maul** (obere und untere Reihe), damit
-  jedem Zahn auf einem 358 px breiten Handy eine Trefferfläche von mindestens 44 × 44 Pixeln
-  bleibt — bei 16 Zähnen wären es nur noch 38 px, deshalb ist bei 12 Schluss. Ein Test rechnet
-  das für jedes Lebewesen nach. Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
+  jedem Zahn auf einem **320 px breiten Gerät** (der schmalsten Bühne, die die Seite tragen muss:
+  286 px) eine Trefferfläche von mindestens 44 × 44 Pixeln bleibt — im Browser gemessen 44,15 px,
+  vorher 42,9. Bei 16 Zähnen wären es nur noch 38 px, deshalb ist bei 12 Schluss. Ein Test rechnet
+  das für jedes Lebewesen nach; wo der halbe Zahnabstand kleiner ist als die Vorgabe (11 und 12
+  Zähne auf einem 320-px-Gerät), nennt er die Grenze beim Namen: Maus bei 12 Zähnen 37,1 px.
+  Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
   Zähnen 5,42 erwartete Drücke statt 4,69).
 - **Kindgerecht gezeichnet:** warme Farben, runde Zähne, große runde Augen mit Glanzpunkt und
   hellblauem Irisring (wie beim Original-Spielzeug), rosa Wangen und weiche Umrisse; der Rachen ist
@@ -185,7 +188,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
 | Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
-| Trefferfläche je Zahn | 51–63 px bei 12 Zähnen, 38 px bei 16 | Test in `creatureViews.test.ts` bei 358 px Bühnenbreite |
+| Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | im Browser gemessen (`getBoundingClientRect` eines `.tooth__hit`); Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
 
 ---
 

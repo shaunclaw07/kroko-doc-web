@@ -271,3 +271,24 @@ zwei Defekte gefunden, die meine eigenen Tests nicht sahen:
 Beide Funde bestätigen eine Regel: eine Änderung an einer **Grenze** — hier die kleinste
 Zahnzahl — muss an dieser Grenze geprüft werden, nicht nur in der Mitte des Bereichs. Die Belege
 stehen in `docs/e2e-nachweise.md` §5k.
+
+## Nachtrag 11.10.2026 (abends): Trefferfläche auf der schmalsten Bühne
+
+Antwort des Nutzers auf die Einschränkung aus §5k („bei 320 px nur 42,9 px"): „Ja ich nehme deine
+Empfehlung an." Entschieden wurde im Sparring — zwei Fragen, beide Empfehlungen angenommen:
+
+- **Statisch rechnen statt zur Laufzeit messen.** Der Deckel für den Treffer-Radius stand als feste
+  `48` im Code und war nur gegen 358 px Bühnenbreite geprüft. Jetzt wird er aus der Vorgabe und der
+  **schmalsten** Bühne gerechnet (`MIN_STAGE_WIDTH_PX = 285`, gemessen: 320 px Blick → 286 px Bühne,
+  gezeichneter Maßstab 285,8 px). Kein Mess-Code, keine neue Naht, Geometrie bleibt gerechnet.
+  Nebenbefund aus der Messung: die erste Fassung mit 288 px ergab im Browser 43,70 px — die Bühne
+  ist höhenbegrenzt, deshalb zwei Pixel Reserve.
+- **Die Grenze nennen statt sie zu verstecken.** Bei 11 und 12 Zähnen ist der halbe Zahnabstand
+  kleiner als 44 px; dort bleibt er die Grenze (Maus bei 12 Zähnen 37,1 px), weil Überdeckung das
+  schlechtere Tauschgeschäft wäre. Der Test hält die Ausnahmen namentlich fest.
+
+**Zweiter Fund, den dieselbe Messung aufdeckte (vorbestehend):** bei Zahn 2 und 10 lag das untere
+Zahnfleischband über der Trefferfläche — ein Tipp in deren Mitte tat nichts. Behoben über
+`pointer-events: none` für alle dekorativen Ebenen; nachgemessen registrieren die Tipps jetzt, und
+`elementFromPoint` liefert bei allen Zähnen den eigenen Zahn. Belege: `docs/e2e-nachweise.md` §5l,
+Messskripte `scripts/pruefen-trefferflaeche.py` und `scripts/pruefen-zeitgeber.cjs`.

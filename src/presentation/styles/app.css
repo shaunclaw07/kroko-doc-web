@@ -369,6 +369,25 @@ button:focus-visible,
   fill: none;
 }
 
+/*
+ * Nur die Zähne sind bedienbar — jede andere Ebene der Zeichnung ist Dekoration und darf keinen
+ * Tipp abfangen. Gemessen am 11.10.2026 im Browser: das untere Zahnfleischband (`jaw__band--lower`)
+ * wird NACH den unteren Zähnen gezeichnet und liegt deshalb über deren Trefferfläche; bei Zahn 2
+ * und Zahn 10 fiel die Mitte des Trefferkreises darauf, und ein Tipp dort tat **nichts**
+ * (`#hud-presses` blieb 0, Zustand `open`). Die Ausnahme unten stellt die Trefferfläche wieder her:
+ * `pointer-events: none` am Behälter, `all` am Trefferkreis — Kinder dürfen ihren Eltern widersprechen.
+ */
+.creature .creature__body,
+.creature .mouth__hole,
+.creature .mouth__inner,
+.creature .jaw__upper,
+.creature .jaw__lower,
+.creature .creature__face,
+.creature .creature__biter,
+.creature .rest-tooth {
+  pointer-events: none;
+}
+
 /* Trefferfläche: unsichtbar, aber deutlich größer als die Zahnzeichnung. */
 .tooth__hit {
   fill: #000;
