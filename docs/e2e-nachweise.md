@@ -361,6 +361,55 @@ hielt die Regel „3 Zähne ist unmöglich" fest und musste weichen — er prüf
 **Nicht in einem Browser prüfbar geblieben:** Klang beim Zuschnappen und die Vibration — dafür fehlt ein
 Gerät. Das Gefühl der Kacheln auf einem echten Tablet beurteilt der Spieler.
 
+## 5j. Auftrag: das Krokodil als App-Symbol (11.10.2026, spät)
+
+Auftrag: „Kannst du das Bild vom Krokodil als icon für die all nehmen?" — kurz danach: „Kannst du
+eines mit geschlossenen Mund als Icon nützen?"
+
+**Vorher** war `public/favicon.svg` ein von Hand gezeichnetes Zahn-Symbol (460 Bytes, drei Pfade und
+zwei Kreise) — es hatte mit der Zeichnung der App nichts zu tun. **Jetzt** zeigt es das Kopfbild des
+Krokodils aus der App (dieselbe Zeichnung wie die Tier-Auswahl, ohne bedienbare Zähne) auf der
+dunklen Kachel `#0d1a20`.
+
+**Wie „geschlossen" entsteht — nachgemessen, nicht erfunden.** Die App schließt das Maul mit vier
+CSS-Regeln (`.creature.is-snapped …`): Oberkiefer um `--close-shift` nach unten, Schnauze um
+`--shell-shift` (Anteil), Rachen (`mouth__hole`, `mouth__inner`) und die ruhende obere Zahnreihe
+unsichtbar. Die beiden Schließwege kommen aus dem Bühnen-SVG der Zeichnungs-Sonde:
+
+| Wert | Krokodil | Herkunft |
+|---|---|---|
+| `--close-shift` | **232,0 px** | `dist`-Bühnen-SVG, mit `factory.ts` nachgerechnet |
+| `--shell-shift` | **143,8 px** | dito (Anteil 0,62 des Oberkiefers) |
+
+**Zwei Fassungen aus derselben Zeichnung:** rund (88 % der Breite, Ecken 112 von 512 — wie das
+vorige Symbol 14 von 64) und maskierbar für Android (randlos, 70 % der Breite, damit der Zuschnitt
+nichts vom Kopf nimmt). Dazu vier PNG-Größen:
+
+| Datei | Kante | Bytes | wofür |
+|---|---|---|---|
+| `favicon.svg` | beliebig | 7.257 | Tab und Lesezeichen |
+| `icon-maskable.svg` | beliebig | 7.256 | Grundlage der Apple- und Android-Fassung |
+| `apple-touch-icon.png` | 180 | 8.378 | Startbildschirm am iPhone (randlos, undurchsichtig) |
+| `icon-192.png` | 192 | 14.470 | Android/Chrome |
+| `icon-512.png` | 512 | 49.337 | Android/Chrome, Splashscreen |
+| `icon-maskable-512.png` | 512 | 32.233 | Android mit Schutzzone |
+
+**Angesehen, nicht nur gerechnet:** 512 px, 64 px (Tab-Größe), maskierbare Fassung und Apple-Fassung
+gerastert und begutachtet — Kopf vollständig, Maul zu (kein Rachen mehr zu sehen), Kopf innerhalb der
+Kachel und der Schutzzone.
+
+**Ausgeliefert:** im gebauten HTML stehen vier Kopfverweise (`icon` als SVG, `icon` 192 PNG,
+`apple-touch-icon` 180, `manifest`), das Manifest nennt **5** Symbole. `pnpm build` 2,06 s.
+Die Bühne im Spiel ist **unangetastet** — dort bleibt das Maul offen und jeder Zahn bedienbar; das
+Symbol ist ein Standbild derselben Zeichnung.
+
+**Gate:** `tsc` fehlerfrei, **225 Tests in 19 Dateien** grün (vorher 217 in 18). Die neue
+Symbol-Sonde erzeugt das SVG und hält die ausgelieferte Datei Zeichen für Zeichen daran fest.
+
+**Grenze ehrlich benannt:** wie das Symbol nach dem Zuschnitt auf einem echten Startbildschirm wirkt
+(Android maskiert rund, iOS legt ein Squircle darüber), entscheidet das Gerät — hier sind Schutzzone
+und Kantenlängen gerechnet und die Bilder begutachtet, das Gerät fehlt weiterhin.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

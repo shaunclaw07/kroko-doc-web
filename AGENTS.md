@@ -161,6 +161,12 @@ Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker inn
 Bühne, und dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden. Zeichnung ohne
 Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
 
+**Das App-Symbol hängt an der Zeichnung des Krokodils.** `public/favicon.svg` und
+`public/icon-maskable.svg` entstehen in `src/icon.test.ts` aus `creaturePortrait('crocodile', …)`
+mit den vier Regeln des Zustands „geschnappt" (geschlossenes Maul). Wer die Zeichnung des Krokodils
+ändert, erzeugt das Symbol neu — sonst fällt `src/icon.test.ts` (und das ist gewollt):
+`ICON_NEU=1 pnpm test:run`, dann `uv run --with cairosvg python scripts/icon-png.py`.
+
 ## Aufgaben-Tracking
 
 Im **Hermes-`todo`-Board** (Chat-Kanban), nicht in GitHub Issues.

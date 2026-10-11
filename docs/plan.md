@@ -237,3 +237,20 @@ freut sich wenn nur ein Zahn da ist und beim Tap das maul schließt."
   nach dem Scrollen stehen), „Fertig" am Fuß und ein Tipp **neben** das Blatt.
 - **Doppelte Erklärung entfernt:** der Absatz unter „Wie gefährlich?" sagte dasselbe wie das Regeln-Blatt
   unter „Für Große". Das Regeln-Blatt bleibt die eine Erklärung.
+
+## Nachtrag 11.10.2026 (spät, zweiter Teil): das App-Symbol
+
+„Kannst du das Bild vom Krokodil als icon für die all nehmen?" — danach: „Kannst du eines mit
+geschlossenen Mund als Icon nützen?"
+
+- **Das alte Symbol war von Hand gezeichnet** (460 Bytes, Zahn-Umriss) und hatte mit der Zeichnung
+  der App nichts zu tun. Jetzt ist es das **Kopfbild des Krokodils** aus der App — erzeugt aus
+  `creaturePortrait()` und den vier Regeln des Zustands „geschnappt" (Maul zu), auf der dunklen
+  Kachel.
+- **Zwei Fassungen** (rund für Tab und Lesezeichen, randlos-maskierbar für Android) und **vier
+  PNG-Größen** (180 fürs iPhone, 192 und 512 für Android, 512 maskierbar) zum Installieren.
+- **Kein gemaltes Asset:** die SVGs entstehen in `src/icon.test.ts` aus der Zeichnung, und derselbe
+  Test hält die ausgelieferten Dateien daran fest. Ändert sich das Krokodil, muss das Symbol neu
+  erzeugt werden — das ist gewollt und steht in AGENTS.md.
+- **Die Bühne bleibt unangetastet:** im Spiel ist das Maul offen und jeder Zahn bedienbar; das Symbol
+  ist ein Standbild derselben Zeichnung, kein neuer Spielzustand.

@@ -123,6 +123,12 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
+- **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
+  eigenen Zeichnung** — mit geschlossenem Maul (dieselben vier Regeln, mit denen die App beim
+  Zuschnappen schließt). Das Symbol wird **erzeugt**, nicht gemalt: `ICON_NEU=1 pnpm test:run`
+  schreibt die SVGs aus der Zeichnung, `uv run --with cairosvg python scripts/icon-png.py` rastern
+  die PNG-Größen für Android und iPhone. Ein Test in `src/icon.test.ts` hält die ausgelieferten
+  Dateien an der Zeichnung fest — ändert sich das Krokodil, fällt er auf.
 - **Zahnzahl einstellbar:** 1 bis 12 drückbare Zähne, standardmäßig so viele, wie das Tier
   vorsieht. Das kleinste Gebiss ist **ein einziger Zahn** (Wunsch vom 11.10.2026): dann greift die
   Auswahl der scharfen Zähne auf genau diesen zu, der erste Tipp schließt also das Maul — in beiden
@@ -169,7 +175,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **217 in 18 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **225 in 19 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–2,5 s (Maschinenstreuung) | `pnpm build`, Arbeitsbaum und frischer Klon |
