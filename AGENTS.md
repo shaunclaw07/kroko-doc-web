@@ -142,7 +142,12 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
 - Rachen in warmem Rosenrot, nicht dunkel — es muss wie ein offener Mund aussehen, nicht wie ein Loch.
 - Zähne cremefarben, **rund** (Kegel mit runder Spitze), Umriss weich (`#dcd2b8`), niemals schneeweiß auf schwarz.
 - Zahnfleisch ist die **hellste** Stufe im Maul, damit die Zähne davor lesbar bleiben.
-- Augen: weiße Linsen mit großer runder Pupille und Glanzpunkt, dazu rosa Wangen.
+- Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
+  Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
+  dunkelbraun als Oval — kontrastarm, nie schwarz.
+- **Die Schnauze ist kein hellerer Fleck.** Beim Original ist der Kopf einfarbig, nur die Kontur
+  trennt Schnauze und Kopf. Falten werden als **Rille mit Grat** gezeichnet (dunkle Linie, helle
+  Linie darüber) — ein Paar gleich dicker Striche sieht wie ein Bewegungsschwung aus.
 - **Jedes Element gehört auf die Fläche, für die es gezeichnet ist.** „Sichtbar über dem Kieferband"
   ist **keine** Platzierung: der Hai trug seine sechs Kiemenschlitze mitten im offenen Maul, weil sie nur
   *über* einer Ebene lagen statt *außen* am Kopf. Gegen die Ringellipse rechnen (`ring.rx`/`ring.ry` um
