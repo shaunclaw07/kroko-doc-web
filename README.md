@@ -211,7 +211,8 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
   der Wurzel liegt, baut der Workflow **ohne** `ASTRO_BASE` — Basis-Pfad `/`.
 - Interne Verweise im Code gehen trotzdem über `import.meta.env.BASE_URL` und nie absolut mit
   `"/"` — das hält die Seite heil, falls sie je wieder unter einem Unterpfad laufen soll.
-- Die alte Projektadresse `https://shaunclaw07.github.io/zahn_agent/` leitet auf die Domain um.
+- Die alte Projektadresse `https://shaunclaw07.github.io/zahn_agent/` leitet mit `301` auf die
+  Domain um (mit und ohne Schluss-Schrägstrich geprüft, 11.10.2026).
 - `dist/` ist nicht im Repo; veröffentlicht wird nur, was der Workflow baut.
 
 ## Wenn etwas klemmt
