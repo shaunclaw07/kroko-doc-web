@@ -61,6 +61,14 @@ def main() -> int:
         page.click("#creature-open")
         page.wait_for_timeout(700)
         masse = page.evaluate(ZAEHLEN)
+        # Die Notiz der Tiere steht in einem nachgeladenen Buendel: erst der Tipp auf eine Kachel
+        # holt sie hervor. Geprueft wird der Text, den der Nutzer wirklich liest.
+        page.click('#creature-list button[data-creature="lion"]')
+        page.wait_for_timeout(300)
+        notiz = page.evaluate(
+            "() => (document.getElementById('creature-detail-note') || {}).textContent || ''"
+        )
+        print("Notiz des Loewen:", notiz.strip())
         # Der Katalog im ausgelieferten Buendel: die Kennungen muessen zu den Bildern passen.
         quelle = page.content()
         seite = re.sub(r"<[^>]+>", " ", quelle)
@@ -87,7 +95,8 @@ def main() -> int:
     print("Namen im Seitentext fehlen:", [k for k in ["Panda", "Löwe"] if k not in seite])
     gut = (masse["ids"] == ERWARTET and masse["koepfe"] == len(ERWARTET)
            and masse["sichtbar"] == len(ERWARTET)
-           and masse["eindeutigeKennungen"] == len(ERWARTET) and not fehlt)
+           and masse["eindeutigeKennungen"] == len(ERWARTET) and not fehlt
+           and "Backenz" in notiz and "vier große Fangz" not in notiz)
     print("ERGEBNIS:", "in Ordnung" if gut else "FEHLER")
     return 0 if gut else 1
 

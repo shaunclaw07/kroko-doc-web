@@ -696,6 +696,11 @@ acht Kennungen. Der Workflow-Lauf zum Commit `71d1524` war **grün**
 (`actions/runs/38162562843`). Das Bild der Tier-Auswahl wurde angesehen: acht Kacheln, jede mit
 ihrem eigenen Kopf, Panda und Löwe im Stil der sechs vorhandenen.
 
+**Und der Text, den der Nutzer liest:** die Tier-Sonde tippt die Löwen-Kachel an und liest die Notiz
+aus der Seite — `Mähne, zwei lange Fangzähne und vier breite Backenzähne: der König beißt selten zu,
+dann aber richtig.` Die Notiz liegt in einem **nachgeladenen** Bündel (`localStorageSettings.*.js`);
+der bloße Abruf der Index-Seite sieht sie nicht — wer den Text prüfen will, muss ihn lesen lassen.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
