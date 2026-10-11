@@ -21,8 +21,10 @@ from playwright.sync_api import sync_playwright
 BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 ZIEL = Path(os.environ.get("TMPDIR", "/tmp")) / "zahn_agent-artwork" / "tiere-live.png"
 
-# Erwartet wird je Lebewesen des Katalogs ein Kopfbild in der Zeile.
-ERWARTET = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion"]
+# Erwartet wird je Lebewesen des Katalogs ein Kopfbild in der Zeile. Die Liste muss dem Katalog
+# folgen (`core/domain/creature.ts`) -- sie ist die Gegenprobe, nicht die Quelle.
+ERWARTET = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion",
+            "panther", "sabertooth"]
 
 ZAEHLEN = """
 () => {
@@ -69,6 +71,14 @@ def main() -> int:
             "() => (document.getElementById('creature-detail-note') || {}).textContent || ''"
         )
         print("Notiz des Loewen:", notiz.strip())
+        # Auch das neue Lebewesen pruefen: die vier Fangzaehne sind sein Unterschied zum Loewen,
+        # und die Notiz liegt im selben nachgeladenen Buendel.
+        page.click('#creature-list button[data-creature="panther"]')
+        page.wait_for_timeout(300)
+        notiz_panther = page.evaluate(
+            "() => (document.getElementById('creature-detail-note') || {}).textContent || ''"
+        )
+        print("Notiz des Panthers:", notiz_panther.strip())
         # Der Katalog im ausgelieferten Buendel: die Kennungen muessen zu den Bildern passen.
         quelle = page.content()
         seite = re.sub(r"<[^>]+>", " ", quelle)
@@ -92,11 +102,20 @@ def main() -> int:
         page.locator("#creature-sheet").screenshot(path=str(ZIEL))
         browser.close()
     print("Bild:", ZIEL)
-    print("Namen im Seitentext fehlen:", [k for k in ["Panda", "Löwe"] if k not in seite])
+    print("Namen im Seitentext fehlen:",
+          [k for k in ["Panda", "Löwe", "Panther", "Säbelzahntiger"] if k not in seite])
+    # Vergleich ohne Gross-/Kleinschreibung: die Notiz beginnt mit "Vier Fangzähne", gesucht ist
+    # das Wort -- sonst faellt die Sonde ueber ihren eigenen Suchtext.
     gut = (masse["ids"] == ERWARTET and masse["koepfe"] == len(ERWARTET)
            and masse["sichtbar"] == len(ERWARTET)
            and masse["eindeutigeKennungen"] == len(ERWARTET) and not fehlt
-           and "Backenz" in notiz and "vier große Fangz" not in notiz)
+           # Der Wortlaut muss zur Zeichnung passen: zwei lange Fangzaehne und **drei** breite
+           # Schneidezaehne (die vier waren nicht gespiegelt, siehe docs/e2e-nachweise.md 5o),
+           # und der Panther muss seine vier Fangzaehne nennen.
+           and "zwei lange fangzähne" in notiz.lower()
+           and "drei breite schneidezähne" in notiz.lower()
+           and "vier" not in notiz.lower()
+           and "vier fangzähne" in notiz_panther.lower())
     print("ERGEBNIS:", "in Ordnung" if gut else "FEHLER")
     return 0 if gut else 1
 

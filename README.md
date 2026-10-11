@@ -196,7 +196,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
 | Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · Panther 220,0 · Panda 220,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
 | Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | im Browser gemessen (`getBoundingClientRect` eines `.tooth__hit`); Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
-| Tier-Auswahl der veröffentlichten Seite | **8 Kacheln** in Katalogreihenfolge (… Panda, Löwe), 8 sichtbare Kopfbilder mit 8 **eigenen** Beschnitten, 152 px Kachelbild | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 11.10.2026 |
+| Tier-Auswahl der veröffentlichten Seite | **10 Kacheln** in Katalogreihenfolge (… Panther, Säbelzahntiger), 10 sichtbare Kopfbilder mit 10 **eigenen** Beschnitten, 152 px Kachelbild, dazu die Notizen von Löwe und Panther im Blatt | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 11.10.2026 |
 
 ---
 

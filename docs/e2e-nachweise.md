@@ -751,6 +751,22 @@ der Wurzel), damit keine leere Kachel im Bild steht; für acht Kacheln ergibt da
 492 px Breite wie zuvor. Angesehen: zehn Kacheln in Katalogreihenfolge, jede vollständig, Panther
 und Säbelzahntiger im Stil der acht vorhandenen.
 
+**Am lebenden Gegenstand** (`uv run --with playwright python scripts/pruefen-tiere.py
+https://zahn-agent.schaflabs.com`, echter Chromium, 11.10.2026): Tier-Blatt offen und sichtbar;
+**10 Kacheln** in Katalogreihenfolge (`crocodile, wolf, human, shark, mouse, vampire, panda, lion,
+panther, sabertooth`); Namen Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther,
+Säbelzahntiger; **10 Kopfbilder, 10 sichtbar, 10 eigene Beschnitte**, erstes Kopfbild 152 px; **alle
+zehn** Kennungen im ausgelieferten Bündel; Notiz des Löwen „…zwei lange Fangzähne und drei breite
+Schneidezähne…", Notiz des Panthers „Vier Fangzähne, je einer oben und unten links und rechts…";
+`ERGEBNIS: in Ordnung`, Exit 0. GitHub Actions für `336c597`: Lauf `38175458001`, abgeschlossen,
+**success**.
+
+Dabei fiel ein **Fehler in der Sonde** auf (nicht im Produkt): sie verglich noch gegen die alte
+Achter-Liste und suchte „vier Fangzähne" kleingeschrieben, während die Notiz mit „Vier" beginnt —
+sie meldete `FEHLER`, obwohl die Seite vollständig war. Der Vergleich läuft jetzt ohne
+Groß-/Kleinschreibung, die Liste folgt dem Katalog, und die Sonde liest zusätzlich die Notiz des
+Panthers.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
