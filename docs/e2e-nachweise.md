@@ -758,8 +758,8 @@ panther, sabertooth`); Namen Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, L
 Säbelzahntiger; **10 Kopfbilder, 10 sichtbar, 10 eigene Beschnitte**, erstes Kopfbild 152 px; **alle
 zehn** Kennungen im ausgelieferten Bündel; Notiz des Löwen „…zwei lange Fangzähne und drei breite
 Schneidezähne…", Notiz des Panthers „Vier Fangzähne, je einer oben und unten links und rechts…";
-`ERGEBNIS: in Ordnung`, Exit 0. GitHub Actions für `336c597`: Lauf `38175458001`, abgeschlossen,
-**success**.
+`ERGEBNIS: in Ordnung`, Exit 0. GitHub Actions: Lauf `38175458001` für `336c597` (spitze Ohren) und
+Lauf `38175687763` für `16a54ad` (Sonde), beide abgeschlossen, **success**.
 
 Dabei fiel ein **Fehler in der Sonde** auf (nicht im Produkt): sie verglich noch gegen die alte
 Achter-Liste und suchte „vier Fangzähne" kleingeschrieben, während die Notiz mit „Vier" beginnt —
