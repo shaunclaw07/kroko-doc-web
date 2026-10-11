@@ -97,6 +97,14 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    in einer Spalte, ab 640 px mittig mit 2–4 Spalten und **ohne** Scrollen, und **0 Auffälligkeiten**
    (Exit 0).
 
+7. **Tier-Sonde** — zeigt die Tier-Auswahl alle Lebewesen **mit Bild**? Die Sonde öffnet Zahnrad und
+   Tier-Blatt im echten Browser, zählt die Kacheln, liest Kennungen und Namen in der Reihenfolge,
+   prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
+   zählt dieselben Kennungen im ausgelieferten Bündel:
+   `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
+   die veröffentlichte Seite). Erwartet: acht Kacheln in Katalogreihenfolge, acht sichtbare
+   Kopfbilder, acht eigene Beschnitte, kein Tiername fehlt (Exit 0).
+
 ## Zwei Regeln für Zeitgeber in Sonden
 
 - **Jede Steuerung wird abgehängt:** `dispose()` nach jedem Fall (`afterEach`). Sonst feuert der

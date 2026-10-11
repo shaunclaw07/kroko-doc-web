@@ -673,6 +673,26 @@ Datei benannt: achtmal dieselbe `clipPath`-Kennung `creature-clip` hätte jedes 
 Kopfumriss des **ersten** zugeschnitten, und der Stilblock steht einmal statt achtmal im Dokument.
 Ergebnis angesehen: jedes Tier zeigt seinen eigenen Kopf, Panda und Löwe sind als solche erkennbar.
 
+**Und am lebenden Gegenstand** (nicht nur im Baum): `scripts/pruefen-tiere.py` gegen die
+veröffentlichte Seite (`uv run --with playwright python scripts/pruefen-tiere.py
+https://zahn-agent.schaflabs.com`) — Zahnrad auf, Tier-Blatt auf, gemessen:
+
+```
+Tier-Blatt offen: True | sichtbar: True
+Kacheln: 8 ['crocodile', 'wolf', 'human', 'shark', 'mouse', 'vampire', 'panda', 'lion']
+Namen: ['Krokodil', 'Wolf', 'Mensch', 'Hai', 'Maus', 'Vampir', 'Panda', 'Löwe']
+Kopfbilder: 8 davon sichtbar: 8 | eigene Beschnitte: 8
+Groesse des ersten Kopfbilds: 152 px
+Kennungen im Buendel: [… 'panda', 'lion']
+ERGEBNIS: in Ordnung
+```
+
+Dazu der Abruf der Seite selbst: Wurzel **200** (Titel „Zahn Agent — Zahn für Zahn zum
+Nervenkitzel"), `/statistik/` **200**, das JavaScript-Bündel der Seite (51.845 Zeichen) enthält alle
+acht Kennungen. Der Workflow-Lauf zum Commit `71d1524` war **grün**
+(`actions/runs/38162562843`). Das Bild der Tier-Auswahl wurde angesehen: acht Kacheln, jede mit
+ihrem eigenen Kopf, Panda und Löwe im Stil der sechs vorhandenen.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
