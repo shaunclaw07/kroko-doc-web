@@ -444,6 +444,16 @@ fällt (knapp unter 44); (8) `git show e488f81:src/core/domain/teeth.ts` → `MI
   ich in 12 Läufen der alten Fassung nicht reproduzieren** (lastabhängig) — belegt ist der
   Mechanismus, nicht die Quote.
 
+**Live-Gegenprobe des Statistik-Fixes (nach dem Veröffentlichen, über die Bedienung):** Zahnrad →
+9× „−" → Regler „1", ✕ schließt das Blatt ohne Tastatur, Bühne zeichnet 1 Zahn, Anzeige „1 · Zahn
+übrig", erster Tipp → `data-status="snapped"`. Im Bericht danach: Beobachtung „1 · 100.0 %" und
+**„Modell 100.0 %"** (vorher 33,3 %), kein `NaN`/`Infinity`/`undefined`, die Einstellung überlebt
+das Neuladen, „Zurücksetzen" stellt 10 Zähne her, keine Seitenfehler.
+
+**Dabei selbst gefunden und behoben:** der Bericht schrieb „Krokodil, **1 Zähne**" — auf der
+Statistikseite fehlte die Einzahl (das Spiel selbst sagte schon „Zahn übrig"). Behoben in
+`src/presentation/stats/statsView.ts`, festgehalten in `statsView.test.ts`.
+
 **Heil geblieben (ebenfalls geprüft):** Statistikseite mit Ein-Zahn-Protokoll (kein `NaN`, CSV-Export,
 ein Balken „100 % (garantiert scharf)"), Vorschaulinie der Tier-Auswahl, die Zahnzahl überlebt das
 Neuladen (`localStorage`), und im Bau wie live keine Reste der alten Regel („Beim echten Spielzeug

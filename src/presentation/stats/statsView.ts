@@ -180,8 +180,9 @@ export function dangerCurveHtml(args: DangerCurveArgs): string {
       ].join('');
     })
     .join('');
+  const zaehne = args.teeth === 1 ? '1 Zahn' : `${args.teeth} Zähne`;
   return [
-    `<p><strong>${escapeHtml(args.creatureName)}, ${args.teeth} Zähne</strong> — so gefährlich ist jeder Druck: `,
+    `<p><strong>${escapeHtml(args.creatureName)}, ${zaehne}</strong> — so gefährlich ist jeder Druck: `,
     `von ${percent(points[0] ?? 0)} beim ersten bis 100 % beim letzten.</p>`,
     `<div class="bars">${rows}</div>`,
     '<p class="muted small">Der Balken im Spiel zeigt genau diese Zahl. Sie ist aus dem Modell gerechnet, ',

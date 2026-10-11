@@ -110,6 +110,15 @@ describe('dangerCurveHtml', () => {
     expect(() => dangerCurveHtml({ ...args, teeth: 0 })).not.toThrow();
   });
 
+  it('schreibt bei einem einzigen Zahn die Einzahl', () => {
+    // Am lebenden Gegenstand gesehen: der Bericht schrieb „Krokodil, 1 Zähne". Die Einzahl gilt
+    // seit dem 11.10.2026, weil die kleinste Zahnzahl 1 ist — dieselbe Grenze wie im Spiel.
+    const eins = dangerCurveHtml({ ...args, teeth: 1, liveTeethMin: 1, liveTeethMax: 1 });
+    expect(eins).toContain('Krokodil, 1 Zahn<');
+    expect(eins).not.toContain('1 Zähne');
+    expect(dangerCurveHtml({ ...args, teeth: 2 })).toContain('2 Zähne');
+  });
+
   it('bringt die Kurve in ein Element', () => {
     document.body.innerHTML = '<div id="mount"></div>';
     renderDangerCurve(document.getElementById('mount') as HTMLElement, args);
