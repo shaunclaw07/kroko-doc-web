@@ -81,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Neunzehn Fallen, die Zeit kosten
+## Zwanzig Fallen, die Zeit kosten
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -195,14 +195,21 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   gegen 0-1-0) und die Breite blieb still bei 620 px, obwohl die Spalten schon griffen. Zwei Regeln
   mit demselben Ziel im selben Block immer gegeneinander prüfen.
 - **Kein `transform` auf einem modalen `dialog`, wenn dort ein Knopf erreichbar bleiben muss.** Die
-  Mitte des Blattes kam aus `left: 50%` + `translateX(-50%)`; gemeldet wurde, dass sich das
-  Einstellungsblatt auf einem Tablet **nicht mehr schließen** ließ (hier mit Chromium, Taps und
-  mobiler Ansicht nicht reproduzierbar, WebKit/Firefox auf dem Rechner nicht installierbar). Ein
-  `transform` ist die Stelle, an der ein Browser Fläche und Zeichnung unterschiedlich rechnen kann —
-  dann trifft der Tipp nicht das gezeichnete ✕. Mitten ohne Umrechnung: `inset: auto 0 1.5rem 0`
-  plus `margin: 0 auto`. Und einen Rückweg **nie** von einer einzigen Zustellung abhängig machen:
-  „Tipp neben das Blatt" entscheidet jetzt auch am Dokument, nicht nur am Dialog
+  Mitte des Blattes kam aus `left: 50%` + `translateX(-50%)`. Ein `transform` ist die Stelle, an der
+  ein Browser Fläche und Zeichnung unterschiedlich rechnen kann — dann trifft der Tipp nicht das
+  gezeichnete ✕. Mitten ohne Umrechnung: `inset: auto 0 1.5rem 0` plus `margin: 0 auto` (nachgemessen:
+  Abweichung von der Fenstermitte 0 px). Und einen Rückweg **nie** von einer einzigen Zustellung
+  abhängig machen: „Tipp neben das Blatt" entscheidet auch am Dokument, nicht nur am Dialog
   (`event.target` ist dort der Dialog; die öffnenden Knöpfe sind ausgenommen).
+- **Ein `display` in einer Autoren-Regel hebt `dialog:not([open]) { display: none }` der Browser-Regel
+  auf.** Das Einstellungsblatt war auf jedem Tablet **schon beim Laden sichtbar und ließ sich nicht
+  schließen** (gemeldet; gemessen beim Laden vor jedem Tipp: 1180 px → `display: grid`, 1132 × 525
+  sichtbar, `open = false`; 390 px → `display: none`). Ursache: `dialog.sheet.sheet--columns
+  { display: grid }` — Autoren-Regeln schlagen Browser-Regeln unabhängig von der Spezifität, also
+  stand das **geschlossene** Blatt im Raster auf dem Schirm. Schließen war unmöglich, weil `close()`
+  bei einem geschlossenen Dialog nichts tut. Rasterregeln für ein Blatt gehören deshalb an `[open]`
+  (`dialog.sheet.sheet--columns[open]`), und die Sonde prüft den Zustand **vor** dem ersten Tipp
+  (`scripts/pruefen-blattbreite.py`, erwartet in jeder Zeile `beim Laden none`).
 
 ## Ein neues Lebewesen ergänzen
 

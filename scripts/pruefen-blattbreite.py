@@ -58,9 +58,18 @@ MESSEN = """
 """
 
 
-def pruefen(d, w, h):
+def pruefen(d, w, h, vorher):
     """Gibt die Auffälligkeiten eines Blickes zurück (leer = in Ordnung)."""
     fehler = []
+    # Zuerst das Wichtigste: ein geschlossenes Blatt gehört unsichtbar. Ein `display` einer
+    # Autoren-Regel hebt das `display: none` der Browser-Regel `dialog:not([open])` auf — dann steht
+    # das Blatt beim Laden auf dem Schirm und lässt sich nicht schließen (`close()` ist bei einem
+    # geschlossenen Dialog ein Nichts). Genau das war am 11.10.2026 der gemeldete Fehler.
+    if vorher["display"] != "none" or vorher["breite"] > 0:
+        fehler.append(
+            f"Blatt ist schon beim Laden sichtbar: display={vorher['display']}, "
+            f"{vorher['breite']:.0f} px breit, open={vorher['offen']}"
+        )
     if w < SCHMAL:
         if abs(d["links"]) > 0.6 or abs(d["breite"] - w) > 0.6:
             fehler.append(f"schmal: Blatt soll randlos sein, ist aber {d['breite']:.0f} px ab x={d['links']:.0f}")
@@ -97,14 +106,21 @@ def main():
             page = ctx.new_page()
             page.goto(BASIS, wait_until="load")
             page.wait_for_timeout(250)
+            # Vor jedem Tipp: das geschlossene Blatt muss unsichtbar sein.
+            vorher = page.evaluate(
+                """() => {const d=document.getElementById('settings-sheet');
+                   const s=getComputedStyle(d); const r=d.getBoundingClientRect();
+                   return {offen:d.open, display:s.display, breite:r.width};}"""
+            )
             page.click("#settings-open")
             page.wait_for_timeout(350)
             d = page.evaluate(MESSEN)
             ctx.close()
-            fehler = pruefen(d, w, h)
+            fehler = pruefen(d, w, h, vorher)
             auffaellig += len(fehler)
             print(
-                f"{w:4d} x {h:<4d} | Blatt {d['breite']:6.1f} px, x = {d['links']:5.1f}, "
+                f"{w:4d} x {h:<4d} | beim Laden {vorher['display']:>6s} | "
+                f"Blatt {d['breite']:6.1f} px, x = {d['links']:5.1f}, "
                 f"Luft rechts {d['rechts']:5.1f} | {d['spalten']} Spalte(n) | "
                 f"Inhalt {d['inhalt']} px in Sicht {d['sicht']} px | ✕ sichtbar: {d['xSichtbar']}"
             )

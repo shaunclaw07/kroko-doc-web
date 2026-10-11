@@ -455,11 +455,11 @@ const base = import.meta.env.BASE_URL;
     });
 
     /**
-     * Zweiter Weg für denselben Rückweg: nicht jede Umgebung stellt einen Klick auf den Rand dem
-     * Dialog zu (dann liefe er am Blatt vorbei und niemand reagierte — das Blatt wäre nicht mehr
-     * zu schließen, gemeldet am 11.10.2026 für ein Tablet). Deshalb entscheidet zusätzlich das
-     * Dokument. Die Knöpfe, die ein Blatt **öffnen**, sind ausgenommen: sonst schlösse der Tipp,
-     * der das Blatt gerade geöffnet hat, es im selben Moment wieder.
+     * Zweiter Weg für denselben Rückweg: der Klick auf den Rand wird nicht überall dem Dialog
+     * zugestellt (`event.target` ist dort der Dialog selbst, sonst liefe er vorbei und niemand
+     * reagierte). Deshalb entscheidet zusätzlich das Dokument. Die Knöpfe, die ein Blatt
+     * **öffnen**, sind ausgenommen: sonst schlösse der Tipp, der das Blatt gerade geöffnet hat, es
+     * im selben Moment wieder.
      */
     const oeffnet = (target: EventTarget | null) =>
       target instanceof Element && target.closest('#settings-open, #creature-open, #rules-open') !== null;

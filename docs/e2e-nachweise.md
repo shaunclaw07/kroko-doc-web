@@ -568,28 +568,47 @@ Bildprobe überschrieb ihre eigenen „vorher"-Bilder (Dateiname im Skript fest 
 identische Bilder, obwohl sich die Lage geändert hatte. Belastbar war die Zahlentabelle, nicht der
 Bildvergleich.
 
-**Nachtrag (11.10.2026, später): der Ausgang.** Gemeldet: „Auf dem Tablet kann man den settings
-Dialog nicht mehr schließen." Hier **nicht** reproduzierbar — Chromium mit Maus, mit echten Taps und
-in der mobilen Ansicht (`is_mobile`), bei 820 × 1180, 1024 × 768, 1180 × 820 und in kurzen Fenstern
-(1024 × 600, 1180 × 550, 1366 × 500): alle vier Wege schlossen das Blatt. WebKit und Firefox sind auf
-diesem Rechner **nicht** installierbar (`playwright install webkit|firefox` scheitert an fehlenden
-Systembibliotheken) — die Umgebung des Nutzers ließ sich also nicht nachstellen. Zwei Stellen der
-eigenen Änderung waren aber unnötig fragil und sind entfernt:
+**Nachtrag (11.10.2026, später): der Ausgang — Ursache gefunden, und es war diese Änderung.** Gemeldet:
+„Wenn die Seite auf dem Tablet lädt, ist das settings Modal direkt geöffnet und lässt sich nicht
+schließen." Beleg an der veröffentlichten Fassung, **ohne** jeden Tipp:
 
-- Die Mitte kam aus `left: 50%` + `transform: translateX(-50%)`. Ein `transform` auf einem modalen
-  `dialog` ist genau die Stelle, an der ein Browser Fläche und Zeichnung unterschiedlich rechnen
-  kann — dann liegt das gezeichnete ✕ nicht dort, wo der Tipp ankommt. Jetzt `inset: auto 0 1.5rem 0`
-  mit `margin: 0 auto`: zwei automatische Außenabstände teilen den Rest. Gemessen weiterhin exakt
-  mittig (Abweichung von der Fenstermitte **0 px**) und dieselben Breiten und Spalten (820 → 772/2,
-  1024 → 976/3, 1180 → 1132/3, 1366 → 1318/4).
-- Der Rückweg „Tipp neben das Blatt" hing daran, dass die Umgebung den Klick dem Dialog zustellt
-  (`event.target` ist dort der Dialog selbst). Zusätzlich entscheidet jetzt das Dokument; die Knöpfe,
-  die ein Blatt **öffnen** (`#settings-open`, `#creature-open`, `#rules-open`), sind ausgenommen,
-  sonst schlösse der öffnende Tipp das Blatt im selben Moment wieder.
+```
+1180x820 ohne jedes Zutun: offen=False display=grid   1132x525 -> sichtbar=True
+1024x768 ohne jedes Zutun: offen=False display=grid    976x549 -> sichtbar=True
+ 768x1024 ohne jedes Zutun: offen=False display=grid    720x587 -> sichtbar=True
+ 390x844 ohne jedes Zutun: offen=False display=none      0x0   -> sichtbar=False
+```
 
-Nachgemessen (`/opt/data/cache/scratch/modal/ausgang2.py`, 6 Größen × Maus/Tap/mobile Ansicht):
-nach dem Öffnen offen, Tipp **im** Blatt schließt nicht, Tipp über dem Blatt schließt, ✕ schließt,
-„Fertig" schließt, Tipp in die Lücke schließt. Am Handy (390 px) unverändert.
+Ursache: `dialog.sheet.sheet--columns { display: grid }` aus dem Block `@media (min-width: 640px)`
+gilt auch für das **geschlossene** Blatt. Autoren-Regeln schlagen Browser-Regeln unabhängig von der
+Spezifität — das `display: none` aus `dialog:not([open])` war damit außer Kraft, und das Blatt stand
+im Raster auf dem Schirm. Schließen war unmöglich: der Zustand war **nie** `open`, deshalb tut
+`close()` nichts, und auch die drei Rückwege greifen nicht. Unter 640 px greift der Block nicht,
+darum war das Handy in Ordnung; meine Tablet-Messungen hatten den Zustand immer erst **nach** dem
+Öffnen betrachtet und deshalb nichts gesehen.
+
+Behoben mit `dialog.sheet.sheet--columns[open]` (alle vier Rasterregeln). Die Sonde prüft den Zustand
+jetzt **vor** dem ersten Tipp und nennt ihn in jeder Zeile:
+
+```
+$ uv run --with playwright python scripts/pruefen-blattbreite.py http://127.0.0.1:8483/
+ 320 x 720  | beim Laden   none | Blatt  320.0 px, x =   0.0, Luft rechts   0.0 | 1 Spalte(n) ...
+1180 x 820  | beim Laden   none | Blatt 1132.0 px, x =  24.0, Luft rechts  24.0 | 3 Spalte(n) ...
+
+Auffälligkeiten: 0
+
+$ uv run --with playwright python scripts/pruefen-blattbreite.py https://zahn-agent.schaflabs.com/   # alte Fassung
+        Auffällig: Blatt ist schon beim Laden sichtbar: display=grid, 1132 px breit, open=False
+```
+
+**Was der erste Anlauf falsch gemacht hat.** Weil der Fehler hier nicht reproduzierbar war (Chromium
+mit Maus, echten Taps und mobiler Ansicht; WebKit und Firefox lassen sich auf diesem Rechner nicht
+installieren), habe ich zwei Stellen „gehärtet", ohne die Ursache zu kennen: die Mitte kommt seither
+aus `margin: 0 auto` statt aus `left: 50%` + `transform`, und der Rückweg „Tipp neben das Blatt" wird
+zusätzlich am Dokument entschieden. Beides bleibt (gut begründet und nachgemessen: das Blatt sitzt
+weiterhin exakt mittig, Abweichung 0 px) — aber **keine der beiden Änderungen war die Ursache**; die
+stand im selben Block drei Zeilen tiefer. Lehre: erst den Zustand **beim Laden** messen, nicht nur den
+nach der Bedienung.
 
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 

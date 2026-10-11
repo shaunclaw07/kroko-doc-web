@@ -907,8 +907,13 @@ dialog.sheet::backdrop {
 
   /* Das Einstellungsblatt stellt in Spalten — es ist das einzige Blatt, das breiter sein darf.
      Der Selektor muss `dialog.sheet` aus dem Block darüber schlagen (gleiche Spezifität reicht
-     nicht: `dialog.sheet` wäre 0-1-1, `.sheet--columns` nur 0-1-0 — dann bliebe es bei 620 px). */
-  dialog.sheet.sheet--columns {
+     nicht: `dialog.sheet` wäre 0-1-1, `.sheet--columns` nur 0-1-0 — dann bliebe es bei 620 px).
+     `[open]` ist **Pflicht**: ein `display: grid` eines Autors hebt sonst das `display: none` der
+     Browser-Regel `dialog:not([open])` auf (Autoren-Regeln schlagen Browser-Regeln, egal wie die
+     Spezifität aussieht) — das geschlossene Blatt stand sichtbar auf jeder Tablettseite und ließ
+     sich nicht schließen, weil `close()` bei einem geschlossenen Dialog nichts tut. Gemessen beim
+     Laden, vor jedem Tipp: 1180 px → `display: grid`, 1132 × 525 sichtbar; 390 px → `display: none`. */
+  dialog.sheet.sheet--columns[open] {
     width: calc(100% - 3rem);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
@@ -917,16 +922,16 @@ dialog.sheet::backdrop {
   }
 
   /* Kopf, Hinweiszeilen, Knöpfe und die Fußwege laufen über die ganze Breite. */
-  dialog.sheet.sheet--columns > .sheet__head,
-  dialog.sheet.sheet--columns > .sheet__actions,
-  dialog.sheet.sheet--columns > .sheet-link,
-  dialog.sheet.sheet--columns > .muted {
+  dialog.sheet.sheet--columns[open] > .sheet__head,
+  dialog.sheet.sheet--columns[open] > .sheet__actions,
+  dialog.sheet.sheet--columns[open] > .sheet-link,
+  dialog.sheet.sheet--columns[open] > .muted {
     grid-column: 1 / -1;
   }
 
   /* Die Segment-Schalter ziehen sich sonst als leere dunkle Spur über die ganze Spalte,
      während die Knöpfe links kleben. Sie sollen so breit sein wie ihr Inhalt. */
-  dialog.sheet.sheet--columns .segmented {
+  dialog.sheet.sheet--columns[open] .segmented {
     align-self: start;
   }
 }
