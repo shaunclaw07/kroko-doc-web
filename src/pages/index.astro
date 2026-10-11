@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL;
     <section class="hud" aria-label="Spielstand">
       <div class="stat stat--big">
         <span class="stat__value" id="hud-remaining">10</span>
-        <span class="stat__label">Zähne übrig</span>
+        <span class="stat__label" id="hud-remaining-label">Zähne übrig</span>
       </div>
       <div class="stat stat--quiet">
         <span>Runde <strong id="hud-round">1</strong></span>
@@ -79,8 +79,18 @@ const base = import.meta.env.BASE_URL;
   </main>
 
   <dialog class="sheet" id="settings-sheet" aria-labelledby="settings-title">
-    <div class="sheet__grip" aria-hidden="true"></div>
-    <h2 id="settings-title">Einstellungen</h2>
+    <!-- Der Kopf bleibt beim Scrollen stehen: das ✕ ist der Ausgang, der immer erreichbar ist. -->
+    <div class="sheet__head">
+      <div class="sheet__grip" aria-hidden="true"></div>
+      <div class="sheet__headrow">
+        <h2 id="settings-title">Einstellungen</h2>
+        <button type="button" class="sheet__close" data-close-sheet aria-label="Einstellungen schließen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
 
     <div class="set">
       <span class="set__label">Wie viele spielen?</span>
@@ -124,10 +134,8 @@ const base = import.meta.env.BASE_URL;
         <button type="button" data-mode="original" aria-pressed="true">wie das Spielzeug</button>
         <button type="button" data-mode="classic" aria-pressed="false">nur ein Zahn</button>
       </div>
-      <p class="muted small">
-        Beim echten Spielzeug sind <strong>ein bis drei</strong> Zähne gleichzeitig gefährlich — man
-        weiß vorher nicht, wie viele.
-      </p>
+      <!-- Die Erklärung („1 bis 3 Zähne gleichzeitig, 10/20/30 %") steht ausführlich im
+           Regeln-Blatt unter „Für Große" — hier wäre sie nur eine zweite, längere Fassung. -->
     </div>
 
     <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton an</label>
@@ -145,6 +153,13 @@ const base = import.meta.env.BASE_URL;
       </svg>
       Statistik für Große
     </a>
+    <!-- Der Weg zurück zum Spiel. Ohne ihn blieb nur die Escape-Taste — die hat kein Tablet. -->
+    <button type="button" class="button button--primary sheet-link" data-close-sheet>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M20 6L9 17l-5-5"></path>
+      </svg>
+      Fertig
+    </button>
   </dialog>
 
   <dialog class="sheet" id="creature-sheet" aria-labelledby="creature-title">
@@ -337,14 +352,19 @@ const base = import.meta.env.BASE_URL;
       const creature = getCreature(settings.creature);
       const teeth = effectiveTeeth();
       if (creatureName) creatureName.textContent = creature.name;
-      if (creatureTeeth) creatureTeeth.textContent = `${teeth} Zähne`;
+      if (creatureTeeth) creatureTeeth.textContent = teeth === 1 ? '1 Zahn' : `${teeth} Zähne`;
       if (creatureIcon) creatureIcon.innerHTML = creaturePortrait(creature.id, 'wahl');
       if (teethValue) teethValue.textContent = String(teeth);
       if (teethHint) {
-        teethHint.textContent =
-          settings.teethOverride === null
-            ? `Standard für ${creature.name}`
-            : `abweichend (Standard ${creature.teeth}), spielbar ${MIN_TEETH}–${MAX_TEETH}`;
+        if (teeth === 1) {
+          // Wunsch vom 11.10.2026: ein einziges Gebiss — der Tipp darauf schließt das Maul.
+          // Bei einem Zahn sind beide Zufallsmodelle ohnehin gleich, deshalb steht hier kein Modus.
+          teethHint.textContent = 'nur ein Zahn — der erste Tipp schließt das Maul';
+        } else if (settings.teethOverride === null) {
+          teethHint.textContent = `Standard für ${creature.name}`;
+        } else {
+          teethHint.textContent = `abweichend (Standard ${creature.teeth}), spielbar ${MIN_TEETH}–${MAX_TEETH}`;
+        }
       }
     }
 
@@ -408,6 +428,25 @@ const base = import.meta.env.BASE_URL;
     document.querySelectorAll('[data-close-sheet]').forEach((button) => {
       button.addEventListener('click', () => {
         button.closest('dialog')?.close();
+      });
+    });
+
+    /**
+     * Ein Tipp **neben** das Blatt schließt es (zurück zum Spiel). Geprüft wird die Geometrie, nicht
+     * das Zielelement: `event.target` ist bei einem Dialog auch der Innenabstand, so schlösse ein
+     * Tipp daneben im Blatt selbst. Ohne das bliebe für den Rückweg nur die Escape-Taste.
+     */
+    document.querySelectorAll<HTMLDialogElement>('dialog.sheet').forEach((sheet) => {
+      sheet.addEventListener('click', (event) => {
+        const box = sheet.getBoundingClientRect();
+        const daneben =
+          event.clientX < box.left ||
+          event.clientX > box.right ||
+          event.clientY < box.top ||
+          event.clientY > box.bottom;
+        if (daneben) {
+          sheet.close();
+        }
       });
     });
 

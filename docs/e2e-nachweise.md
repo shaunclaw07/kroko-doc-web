@@ -316,6 +316,51 @@ Minus klicke dann schließt sich das Modal."
   fügt ihre eigene `creature-clip` beim Mounten hinzu) statt der 7 im gebauten HTML — die Zeile in
   §5g ist entsprechend berichtigt.
 
+## 5i. Wunsch: „nur ein Zahn" — und der fehlende Ausgang (11.10.2026, spät)
+
+Auftrag: „Ich würde auch gerne erlaube nur einen Zahn zu konfigurieren. Mein Sohn freut sich wenn nur
+ein Zahn da ist und beim Tap das maul schließt."
+
+**Vorbedingung war eine Schranke ohne Begründung:** `MIN_TEETH = 4`. Für die Obergrenze steht eine
+Messung im Code (44-px-Trefferfläche, deshalb Schluss bei 12), für die Untergrenze **nichts** — weder in
+`teeth.ts` noch in `docs/`. Bei einem Zahn war die Domäne längst fertig: `UniformLiveTeethSelector`
+kappt die Gebissgrenzen auf die Zahnzahl (`Math.min(min, teeth, MAX_LIVE_TEETH)`), das Krokodil meldet
+1–3, bei einem Zahn also 1. Es fehlte nur die Erlaubnis — und die Sprache.
+
+| Was gemessen wurde (Chromium, 390 × 844, echter Klick) | Wert |
+|---|---|
+| Regler neunmal `−` → Zahnzahl | **1** |
+| Hinweis im Blatt | „nur ein Zahn — der erste Tipp schließt das Maul" |
+| Kurztext am Tier | „1 Zahn" (Einzahl) |
+| Zähne auf der Bühne | **1** |
+| Trefferfläche dieses Zahns | **53 × 53 px** (Richtwert 44) |
+| Anzeige unter dem Tier | „1 / **Zahn** übrig" (Einzahl) |
+| Tipp auf den Zahn | Status `snapped`, Ergebnis-Blatt „Zugeschnappt!", übrig 0 |
+| Zweite Ein-Zahn-Runde, erster Tipp | wieder `snapped` |
+| Seitenfehler | keine |
+
+**Der Weg zurück fehlte ganz.** Beim Nachklicken fiel auf: das Einstellungsblatt hatte **keinen**
+Schließen-Knopf — die anderen drei Blätter haben einen (`data-close-sheet`), und ein `dialog` schließt
+von sich aus nur mit **Escape**. Auf einem Tablet ist das kein Weg.
+
+| Messung am Blatt | 390 × 844 | 360 × 640 |
+|---|---|---|
+| Blatthöhe / Inhalt | 692 px / 793 px → muss scrollen | 525 px / 817 px → muss scrollen |
+| „Fertig" am Fuß | liegt bei 871–919 px, **außerhalb** | außerhalb |
+| ✕ im Kopf (`sticky`) | 44 × 44 px, sichtbar **oben und nach dem Scrollen** | ebenso |
+| Klick auf ✕ | Blatt zu | Blatt zu |
+
+Dazu schließt jetzt auch ein Tipp **neben** das Blatt (Geometrie-Prüfung, nicht `event.target` — bei
+einem Dialog ist `event.target` auch der Innenabstand). Und die doppelte Erklärung unter „Wie
+gefährlich?" ist entfernt: sie stand ausführlicher im Regeln-Blatt unter „Für Große".
+
+**Gate:** `tsc` fehlerfrei, **217 Tests in 18 Dateien** grün (vorher 214), Bau 2,37 s. Ein alter Test
+hielt die Regel „3 Zähne ist unmöglich" fest und musste weichen — er prüft jetzt symbolisch
+`MIN_TEETH - 1` und `MAX_TEETH + 1`, damit er die Grenzen mitgeht, statt sie zu wiederholen.
+
+**Nicht in einem Browser prüfbar geblieben:** Klang beim Zuschnappen und die Vibration — dafür fehlt ein
+Gerät. Das Gefühl der Kacheln auf einem echten Tablet beurteilt der Spieler.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

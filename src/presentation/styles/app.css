@@ -812,6 +812,48 @@ dialog.sheet::backdrop {
   margin: 0 auto 0.9rem;
 }
 
+/*
+ * Der Blattkopf bleibt beim Scrollen oben stehen (sticky). Er liegt über dem durchlaufenden
+ * Inhalt und braucht deshalb eine eigene Fläche, sonst scheint der Text durch. Der obere
+ * Innenabstand des Blattes wird mit negativem `top` ausgeglichen, damit der Griff ganz oben sitzt.
+ */
+.sheet__head {
+  position: sticky;
+  top: -1.1rem;
+  z-index: 3;
+  background: #101c22;
+  padding-top: 0.35rem;
+}
+
+.sheet__headrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sheet__head h2 {
+  flex: 1;
+  margin: 0;
+}
+
+/* Der Ausgang: 44 px Trefferfläche (Richtwert für Kinderfinger), ruhig gezeichnet. */
+.sheet__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+}
+
+.sheet__close svg {
+  width: 20px;
+  height: 20px;
+}
+
 .sheet__actions {
   display: flex;
   gap: 0.6rem;

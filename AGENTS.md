@@ -81,7 +81,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Zwölf Fallen, die Zeit kosten
+## Dreizehn Fallen, die Zeit kosten
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
@@ -90,6 +90,15 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   wird nur, was der Neustart wirklich wegräumen soll (das Ergebnis-Blatt). Und beim Schließen den
   **Rückfall** für Umgebungen ohne `dialog.close` mitnehmen: jsdom kennt die Schnittstelle nicht, ein
   Aufruf ohne Prüfung wirft dort.
+
+- **Jedes Blatt braucht einen Ausgang, der ohne Tastatur und ohne Scrollen erreichbar ist.** Ein
+  `dialog` schließt von sich aus nur über die **Escape-Taste** — die hat kein Tablet. Gemessen:
+  das Einstellungsblatt ist 793 px hoch, sichtbar sind auf 390 × 844 nur 692 px, ein Knopf am Fuß
+  lag bei 871–919 px, also außerhalb. Deshalb: ✕ im Blattkopf (`position: sticky`, 44 × 44 px,
+  bleibt auch nach dem Scrollen stehen), zusätzlich am Fuß und ein Tipp **neben** das Blatt. Für den
+  Tipp daneben die **Geometrie** prüfen (`getBoundingClientRect` gegen `clientX/clientY`) — bei einem
+  Dialog ist `event.target` auch der Innenabstand, „Ziel ist der Dialog" schlösse also bei jedem Tipp
+  daneben im Blatt selbst.
 
 - **Eine Kachel darf keine Klasse tragen, die die Steuerung abfragt.** Die Kopfbilder der
   Tier-Auswahl stehen **vor** der Bühne im Dokument. Trüge eine Kachel `.creature` oder `.tooth`,
@@ -149,7 +158,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
 Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
 Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
-Bühne, und dass auch abweichende Zahnzahlen (4–12) sauber gezeichnet werden. Zeichnung ohne
+Bühne, und dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden. Zeichnung ohne
 Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
 
 ## Aufgaben-Tracking

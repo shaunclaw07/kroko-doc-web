@@ -40,7 +40,8 @@ describe('Einstellungen', () => {
 
   it('verwirft eine unmögliche Zahnzahl und nimmt dann den Tier-Standard', () => {
     const storage = new MemoryStorage();
-    for (const bad of [3, MAX_TEETH + 1, 7.5, Number.NaN]) {
+    // Alles von MIN_TEETH (1) bis MAX_TEETH (12) ist erlaubt — unmöglich ist darunter/darüber.
+    for (const bad of [MIN_TEETH - 1, MAX_TEETH + 1, 7.5, Number.NaN]) {
       storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: bad }));
       expect(loadSettings(storage).teethOverride, String(bad)).toBeNull();
     }
@@ -52,6 +53,12 @@ describe('Einstellungen', () => {
       storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, teethOverride: good }));
       expect(loadSettings(storage).teethOverride, String(good)).toBe(good);
     }
+  });
+
+  it('nimmt ein einziges Gebiss an — 1 Zahn ist erlaubt (Wunsch vom 11.10.2026)', () => {
+    const storage = new MemoryStorage();
+    saveSettings(storage, { ...DEFAULT_SETTINGS, teethOverride: 1 });
+    expect(loadSettings(storage).teethOverride).toBe(1);
   });
 
   it('übernimmt die Einstellungen der früheren Fassung unter dem neuen Schlüssel', () => {

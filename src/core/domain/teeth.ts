@@ -10,7 +10,15 @@ export type ToothId = number;
 export type RandomMode = 'original' | 'classic';
 
 export const DEFAULT_TEETH = 10;
-export const MIN_TEETH = 4;
+/**
+ * Kleinstes spielbares Gebiss: **ein einziger Zahn**. Wunsch vom 11.10.2026 („Mein Sohn freut sich,
+ * wenn nur ein Zahn da ist und beim Tap das Maul schließt"). Bei einem Zahn kappt die Auswahl der
+ * scharfen Zähne ihre Grenzen auf die Zahnzahl (siehe liveTeeth.ts) — dieser eine Zahn ist damit in
+ * **beiden** Zufallsmodellen scharf, und der erste Tipp schnappt zu. Eine untere Schranke darüber
+ * hinaus gibt es nicht: je weniger Zähne, desto größer die Trefferfläche — also genau das Gegenteil
+ * der gemessenen Obergrenze unten.
+ */
+export const MIN_TEETH = 1;
 /**
  * Obergrenze drückbarer Zähne. Sie ist gemessen, nicht geschätzt: die Trefferfläche
  * eines Zahns muss auf einem 358 px breiten Handy mindestens 44 × 44 CSS-Pixel groß sein

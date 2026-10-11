@@ -30,6 +30,19 @@ describe('openRound', () => {
     expect(() => openRound({ ...config, teeth: 2.5 }, deps)).toThrow(DomainError);
     expect(() => openRound({ ...config, players: 0 }, deps)).toThrow(DomainError);
   });
+
+  it('spielt eine Runde mit einem einzigen Zahn: der erste Druck schnappt zu', () => {
+    // Kleinstes Gebiss (Wunsch vom 11.10.2026): ein Zahn — und der Tipp darauf schließt das Maul.
+    const single = { rng: new SeededRandom(2), selector: new FixedLiveTeethSelector([1]) };
+    for (const mode of ['original', 'classic'] as const) {
+      const round = openRound({ teeth: 1, mode, players: 1 }, single);
+      expect(round.teeth).toBe(1);
+      expect(remainingTeeth(round)).toBe(1);
+      const pressed = pressTooth(round, 1);
+      expect(pressed.status).toBe('snapped');
+      expect(pressed.loser).toEqual({ tooth: 1, pressIndex: 1, player: 1, liveCount: 1 });
+    }
+  });
 });
 
 describe('pressTooth', () => {

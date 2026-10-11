@@ -218,3 +218,22 @@ beschneiden. Beides wird in `creatureViews.test.ts` festgehalten.
 - **„Weitergeben" bleibt abgesagt** (Bedingung unverändert: echter Tisch, zwei oder mehr Spieler).
 - **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** bleiben wie in der Runde davor
   entschieden.
+
+## Nachtrag 11.10.2026 (spät): ein einziger Zahn
+
+Wunsch des Auftraggebers: „Ich würde auch gerne erlaube nur einen Zahn zu konfigurieren. Mein Sohn
+freut sich wenn nur ein Zahn da ist und beim Tap das maul schließt."
+
+- **Das kleinste Gebiss ist ein Zahn** (`MIN_TEETH = 1`, vorher 4). Die untere Schranke hatte **keine**
+  Begründung in Code und Doku — sie stand einfach da; die gemessene 44-px-Regel trägt nur die
+  Obergrenze (12). Bei einem Zahn kappt die Auswahl der scharfen Zähne ihre Gebissgrenzen auf die
+  Zahnzahl (1–3 des Krokodils werden zu 1), dieser eine Zahn ist also scharf und der erste Tipp schließt
+  das Maul — in beiden Zufallsmodellen, ohne Sonderregel. Der Regler geht bis 1 herunter (Empfehlung
+  angenommen: kein zusätzliches Bedienelement); bei 1 Zahn steht „nur ein Zahn — der erste Tipp schließt
+  das Maul", und die Anzeige wird zur Einzahl („1 Zahn übrig").
+- **Der Ausgang aus dem Einstellungsblatt war ein Fehler der Oberflächenrunde.** Das Blatt ließ sich
+  **nur** mit Escape schließen — auf einem Tablet gibt es die Taste nicht; „Fertig" lag gemessen unter
+  dem Blattrand (793 px Inhalt, 692 px sichtbar). Jetzt: ✕ im Blattkopf (sticky, 44 × 44 px, bleibt auch
+  nach dem Scrollen stehen), „Fertig" am Fuß und ein Tipp **neben** das Blatt.
+- **Doppelte Erklärung entfernt:** der Absatz unter „Wie gefährlich?" sagte dasselbe wie das Regeln-Blatt
+  unter „Für Große". Das Regeln-Blatt bleibt die eine Erklärung.

@@ -377,6 +377,8 @@ export class GameController {
     const pressIndex = this.round.pressOrder.length;
     const currentPlayer = (pressIndex % this.round.players) + 1;
     this.setText('hud-remaining', String(remaining));
+    // Einzahl, wenn nur ein Zahn übrig ist — dann steht er allein auf der Bühne.
+    this.setText('hud-remaining-label', remaining === 1 ? 'Zahn übrig' : 'Zähne übrig');
     this.setText('hud-presses', String(pressIndex));
     this.setText('hud-round', String(this.records.length + 1));
     // Die Zeile unter dem Balken: links der Fortschritt, rechts die Gefahr — beide mit Wort.

@@ -16,6 +16,17 @@ describe('UniformLiveTeethSelector', () => {
     expect(selector.select(request(0.9999))).toEqual([10]);
   });
 
+  it('kappt die Grenzen auf die Zahnzahl: bei einem Zahn ist genau dieser scharf', () => {
+    // Das kleinste Gebiss ist ein Zahn (Wunsch vom 11.10.2026). Damit der Tipp darauf auch
+    // schnappt, müssen die Gebissgrenzen (hier 1 bis 3) auf die Zahnzahl gekappt werden.
+    const rng = new SeededRandom(17);
+    for (const mode of ['original', 'classic'] as const) {
+      for (let round = 0; round < 50; round += 1) {
+        expect(selector.select({ rng, teeth: 1, mode, ...crocodile })).toEqual([1]);
+      }
+    }
+  });
+
   it('original: 1 bis 3 Zähne, niemals mehr als die Modellgrenze', () => {
     const rng = new SeededRandom(7);
     for (let round = 0; round < 2000; round += 1) {

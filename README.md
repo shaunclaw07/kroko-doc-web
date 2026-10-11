@@ -74,7 +74,9 @@ liegt hinter dem **Zahnrad** oben rechts — beim Spielen lenkt nichts davon ab.
    Mensch, Hai, Maus, Vampir) mit dem Kopf aus der eigenen Zeichnung. Ein Tipp zeigt die Kurzinfo
    zum Tier, „Damit spielen" übernimmt es. Die **Zahnzahl** stellst du mit `−` / `+` ein
    („Standard" nimmt wieder das tiergerechte Gebiss: Krokodil 10, Wolf 12, Mensch 12; erlaubt
-   sind 4 bis 12).
+   sind **1 bis 12**). Bei **einem** Zahn ist dieser Zahn der scharfe — der erste Tipp schließt
+   das Maul. Der Weg zurück ins Spiel ist „Fertig" unten im Blatt oder ein Tipp neben das Blatt;
+   das ✕ oben geht immer.
 4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". „Neue Runde"
    im Zahnrad startet jederzeit eine frische Runde.
 5. **Statistik für Große** (im Zahnrad): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
@@ -121,8 +123,10 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
-- **Zahnzahl einstellbar:** 4 bis 12 drückbare Zähne, standardmäßig so viele, wie das Tier
-  vorsieht. Die Zähne sitzen auf einem Ring **um das ganze Maul** (obere und untere Reihe), damit
+- **Zahnzahl einstellbar:** 1 bis 12 drückbare Zähne, standardmäßig so viele, wie das Tier
+  vorsieht. Das kleinste Gebiss ist **ein einziger Zahn** (Wunsch vom 11.10.2026): dann greift die
+  Auswahl der scharfen Zähne auf genau diesen zu, der erste Tipp schließt also das Maul — in beiden
+  Zufallsmodellen. Die Zähne sitzen auf einem Ring **um das ganze Maul** (obere und untere Reihe), damit
   jedem Zahn auf einem 358 px breiten Handy eine Trefferfläche von mindestens 44 × 44 Pixeln
   bleibt — bei 16 Zähnen wären es nur noch 38 px, deshalb ist bei 12 Schluss. Ein Test rechnet
   das für jedes Lebewesen nach. Mehr Zähne heißt mehr Drücke: der Wolf beißt später zu (bei 12
@@ -165,7 +169,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **214 in 18 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **217 in 18 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–2,5 s (Maschinenstreuung) | `pnpm build`, Arbeitsbaum und frischer Klon |

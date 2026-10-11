@@ -51,6 +51,7 @@ const DOM = `
   <div id="stage"><div id="croc-mount"></div></div>
   <span id="hud-round"></span><span id="hud-remaining"></span><span id="hud-presses"></span>
   <span id="hud-tension"></span><span id="hud-turn"></span><span id="hud-warning"></span>
+  <span id="hud-remaining-label"></span>
   <span id="hud-progress"></span><p id="hud-meter-hint" class="hidden"></p>
   <div id="hud-meter"></div>
   <button id="new-round" type="button">Neue Runde</button>
@@ -269,12 +270,16 @@ describe('GameController in der Bühne', () => {
 
   it('warnt, wenn nur noch ein Zahn übrig ist — der ist garantiert scharf', () => {
     build([10], { mode: 'classic' });
+    expect(document.getElementById('hud-remaining-label')?.textContent).toBe('Zähne übrig');
     for (let tooth = 1; tooth <= 9; tooth += 1) {
       click(tooth);
     }
     const warning = document.getElementById('hud-warning');
     expect(warning?.classList.contains('hidden')).toBe(false);
     expect(warning?.textContent).toContain('garantiert scharf');
+    // Sprache: bei einem einzigen übrigen Zahn steht dort die Einzahl.
+    expect(document.getElementById('hud-remaining')?.textContent).toBe('1');
+    expect(document.getElementById('hud-remaining-label')?.textContent).toBe('Zahn übrig');
   });
 
   it('zählt die Runden im Protokoll fortlaufend weiter', () => {
