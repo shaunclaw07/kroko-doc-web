@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { CREATURES, DEFAULT_CREATURE_ID, getCreature, isKnownCreature, listCreatures, validateCreature } from './creature';
+import {
+  CREATURES,
+  DEFAULT_CREATURE_ID,
+  MAX_FACT_LENGTH,
+  getCreature,
+  isKnownCreature,
+  listCreatures,
+  validateCreature,
+} from './creature';
 import { DomainError } from './errors';
 
 describe('Katalog der Lebewesen', () => {
@@ -37,5 +45,28 @@ describe('Katalog der Lebewesen', () => {
       expect(creature.note.length).toBeGreaterThan(20);
       expect(creature.realTeeth).toBeGreaterThanOrEqual(creature.teeth);
     }
+  });
+
+  it('trägt für jedes Tier einen kurzen Satz über das echte Tier', () => {
+    for (const creature of listCreatures()) {
+      expect(creature.fact.trim().length, creature.id).toBeGreaterThan(0);
+      expect(creature.fact.length, creature.id).toBeLessThanOrEqual(MAX_FACT_LENGTH);
+      expect(creature.fact, creature.id).toMatch(/[.!]$/);
+    }
+  });
+
+  it('behauptet in keinem Satz etwas über scharfe Zähne — die zieht allein der Zufall', () => {
+    for (const creature of listCreatures()) {
+      expect(creature.fact, creature.id).not.toMatch(/scharf|gefährlich|meist|häufiger/i);
+    }
+  });
+
+  it('meldet einen leeren oder zu langen Satz als Widerspruch', () => {
+    const base = listCreatures()[0];
+    if (!base) throw new Error('catalog is empty');
+    expect(validateCreature({ ...base, fact: '  ' })).toContain(`${base.id}: fact is empty`);
+    expect(validateCreature({ ...base, fact: 'x'.repeat(MAX_FACT_LENGTH + 1) })).toContain(
+      `${base.id}: fact is longer than ${MAX_FACT_LENGTH} characters`,
+    );
   });
 });
