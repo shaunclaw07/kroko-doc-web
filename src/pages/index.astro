@@ -46,6 +46,9 @@ const base = import.meta.env.BASE_URL;
     <div class="play">
       <section class="stage" id="stage" data-status="open" aria-label="Spielbühne">
         <div id="croc-mount"></div>
+        <!-- Ansage eines neuen Sterns (Tier-Album). Liegt ÜBER der Bühne und ändert keine Maße;
+             sichtbar nur, solange das Maul zu ist (CSS an `data-status`). Fängt keinen Tipp ab. -->
+        <p class="star-toast hidden" id="star-toast" role="status"></p>
       </section>
 
       <!-- Eine große Aussage, daneben wer dran ist. -->
@@ -226,6 +229,15 @@ const base = import.meta.env.BASE_URL;
       <p class="muted small" id="creature-detail-note"></p>
       <p class="muted small" id="creature-detail-real"></p>
     </div>
+    <div class="album-rules">
+      <p>
+        <strong>Sterne sammeln:</strong> Jedes Tier kann drei Sterne bekommen —
+        ★ <strong>gespielt</strong>, ★★ <strong>halb geschafft</strong> (die Hälfte der Zähne war
+        harmlos) und ★★★ <strong>bis zum letzten Zahn</strong>. Für den zweiten und dritten Stern
+        braucht das Tier alle seine Zähne. Sterne sind Glück: welcher Zahn zuschnappt, weiß niemand.
+      </p>
+      <p class="muted small album-summary"></p>
+    </div>
     <details>
       <summary>Für Große: warum es keinen sicheren Zahn gibt</summary>
       <p>
@@ -268,6 +280,7 @@ const base = import.meta.env.BASE_URL;
 
   <script>
     import { GameController } from '../presentation/game/gameController';
+    import { wireAlbum } from '../presentation/game/albumBadges';
     import { creaturePortrait } from '../presentation/game/creatures';
     import { wireQuickControls } from '../presentation/game/quickControls';
     import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from '../presentation/game/sheets';
@@ -298,17 +311,23 @@ const base = import.meta.env.BASE_URL;
 
     controller.mount();
 
+    // Das Tier-Album: Sterne an den Kacheln, abgeleitet aus derselben Ablage. Es hört selbst auf
+    // `kroko:round-finished`; was von außen kommt (anderer Tab, Zurück-Taste), zieht `paint()` nach.
+    const album = wireAlbum({ doc: document, log });
+
     // Das Protokoll kann sich außerhalb dieser Seite ändern: die Statistikseite löscht oder
     // importiert in einem anderen Tab (`storage`), oder diese Seite kommt über die Zurück-Taste
     // unverändert aus dem Zwischenspeicher des Browsers (`pageshow` mit `persisted`).
     window.addEventListener('storage', (event) => {
       if (event.key === null || event.key === STORAGE_KEY) {
         controller.syncLog();
+        album.paint();
       }
     });
     window.addEventListener('pageshow', (event) => {
       if (event.persisted) {
         controller.syncLog();
+        album.paint();
       }
     });
 

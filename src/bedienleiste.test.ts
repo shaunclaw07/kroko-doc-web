@@ -41,6 +41,15 @@ describe('Spielseite', () => {
     expect(SEITE).not.toContain('hud-presses');
     expect(SEITE).not.toContain('teeth-reset');
   });
+  it('trägt die Ansage eines neuen Sterns auf der Bühne — als Meldung, nicht als Blatt', () => {
+    const buehne = SPIEL.slice(SPIEL.indexOf('id="stage"'), SPIEL.indexOf('id="hud-stats"'));
+    expect(buehne).toContain('id="star-toast"');
+    expect(buehne).toContain('role="status"');
+  });
+  it('verdrahtet das Album mit derselben Ablage wie das Spiel', () => {
+    expect(SEITE).toContain("from '../presentation/game/albumBadges'");
+    expect(SEITE).toContain('wireAlbum({ doc: document, log })');
+  });
 });
 
 describe('Zahnrad', () => {
@@ -69,5 +78,10 @@ describe('Regeln', () => {
   });
   it('rechnen nicht mehr mit vier Spielern', () => {
     expect(REGELN).not.toContain('4 Spielern');
+  });
+  it('erklären die drei Sterne beim Namen und sagen, dass sie Glück sind', () => {
+    for (const wort of ['album-summary', 'gespielt', 'halb geschafft', 'bis zum letzten Zahn', 'Glück']) {
+      expect(REGELN).toContain(wort);
+    }
   });
 });
