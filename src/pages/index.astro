@@ -459,8 +459,10 @@ const base = import.meta.env.BASE_URL;
 
     // Browser geben Ton erst nach einer Nutzergeste frei. `pointerup` statt `pointerdown`: ein
     // Finger, der nur scrollt, endet mit `pointercancel` und ist keine Freigabe — die Engine
-    // hielte sich sonst für freigegeben, während der Browser den Ton noch sperrt.
-    document.addEventListener('pointerup', () => sound.unlock(), { once: true });
-    document.addEventListener('keydown', () => sound.unlock(), { once: true });
+    // hielte sich sonst für freigegeben, während der Browser den Ton noch sperrt. Bei **jeder**
+    // Geste, nicht nur der ersten: die erste kann eine sein, die der Browser nicht zählt, und iOS
+    // hält den Ton nach einem Anruf wieder an (`unlock()` tut nichts, solange er läuft).
+    document.addEventListener('pointerup', () => sound.unlock());
+    document.addEventListener('keydown', () => sound.unlock());
   </script>
 </Base>

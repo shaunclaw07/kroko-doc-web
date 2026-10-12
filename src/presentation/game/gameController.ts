@@ -155,11 +155,20 @@ export class GameController {
     this.deps.sound.play('tap', this.tension);
     this.deps.sound.play('creak', this.tension);
     this.deps.sound.play('breath', this.tension);
+    // Das Urteil gehört zu **dieser** Runde. Startet in der Pause eine neue („Neue Runde", eine
+    // Einstellung), läuft es ins Leere — sonst schnappte das Maul über einer offenen Runde zu.
+    const played = this.round;
     this.wait(outcome.drama.beatMs, () => {
+      if (this.round !== played) {
+        return;
+      }
       // Der Riss: alles reißt ab. Die Lücke ist für beide Ausgänge gleich — 60 ms nichts.
       // Die Pose der Pause bleibt dabei stehen, erst das Urteil löst sie auf.
       this.deps.sound.stopAll();
       this.wait(VERDICT_GAP_MS, () => {
+        if (this.round !== played) {
+          return;
+        }
         if (outcome.snapped) {
           this.snap(toothId);
           return;

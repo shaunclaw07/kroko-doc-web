@@ -555,4 +555,25 @@ describe('GameController in der Bühne', () => {
     hint?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     expect(hint?.classList.contains('hidden')).toBe(true);
   });
+
+  it('lässt einen Druck der alten Runde nicht in die neue Runde zuschnappen', () => {
+    // „Neue Runde" in der Pause vor der Auflösung: das Urteil des alten Drucks darf die neue Runde
+    // nicht treffen — sonst steht ein geschlossenes Maul über einer offenen Runde.
+    const pending: Array<() => void> = [];
+    const { log, sound } = build([1], {}, true, undefined, (_ms, run) => {
+      pending.push(run);
+    });
+    click(1);
+    (document.getElementById('new-round') as HTMLButtonElement).click();
+    while (pending.length > 0) {
+      pending.shift()?.();
+    }
+    expect(document.querySelector('.creature')?.classList.contains('is-snapped')).toBe(false);
+    expect(document.getElementById('stage')?.dataset.status).toBe('open');
+    expect(sound.names()).not.toContain('snap');
+    expect(log.records).toEqual([]);
+    // Die neue Runde ist bespielbar.
+    click(2);
+    expect(document.getElementById('hud-presses')?.textContent).toBe('1');
+  });
 });
