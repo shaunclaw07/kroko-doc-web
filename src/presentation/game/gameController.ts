@@ -105,6 +105,7 @@ export class GameController {
     }
     this.stage = this.doc.getElementById('stage');
     this.doc.getElementById('new-round')?.addEventListener('click', () => this.resetRound());
+    this.doc.getElementById('restart-round')?.addEventListener('click', () => this.resetRound());
     this.render();
     this.startHeartbeat();
   }
@@ -412,6 +413,9 @@ export class GameController {
       roundOpen ? `Bissgefahr ${Math.round(this.tension * 100)} %` : 'Runde beendet',
     );
     this.setText('hud-turn', this.turnSentence(currentPlayer));
+    // Bei geschlossenem Maul steht der Weg zur nächsten Runde auf der Bühne — auch dann, wenn das
+    // Ergebnis-Blatt schon zu ist.
+    this.doc.getElementById('restart-round')?.classList.toggle('hidden', roundOpen);
     const warn = this.doc.getElementById('hud-warning');
     if (warn) {
       const tension = isFinalToothTension(this.round);

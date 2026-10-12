@@ -58,6 +58,7 @@ const DOM = `
     <p id="hud-meter-hint" class="hidden"></p>
   </div>
   <button id="new-round" type="button">Neue Runde</button>
+  <button id="restart-round" type="button" class="hidden">Neue Runde</button>
   <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
   <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
 `;
@@ -303,6 +304,23 @@ describe('GameController in der Bühne', () => {
     expect(result?.hasAttribute('open')).toBe(true);
     controller.resetRound();
     expect(result?.hasAttribute('open')).toBe(false);
+  });
+
+  it('zeigt nach dem Biss einen Knopf „Neue Runde" auf der Bühne — auch wenn das Ergebnis zu ist', () => {
+    // Gemessen am 12.10.2026: nach „Schließen" stand „Maul zu", und sichtbar war nur noch das
+    // Zahnrad. Der Knopf erscheint mit dem Biss und verschwindet mit der neuen Runde.
+    build([3]);
+    const restart = document.getElementById('restart-round') as HTMLButtonElement;
+    expect(restart.classList.contains('hidden')).toBe(true);
+    click(1);
+    expect(restart.classList.contains('hidden')).toBe(true);
+    click(3);
+    expect(restart.classList.contains('hidden')).toBe(false);
+    document.getElementById('result-sheet')?.removeAttribute('open');
+    restart.click();
+    expect(restart.classList.contains('hidden')).toBe(true);
+    expect(document.getElementById('stage')?.dataset.status).toBe('open');
+    expect(document.getElementById('hud-presses')?.textContent).toBe('0');
   });
 
   it('warnt, wenn nur noch ein Zahn übrig ist — der ist garantiert scharf', () => {
