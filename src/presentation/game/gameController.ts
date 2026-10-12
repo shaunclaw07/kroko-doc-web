@@ -390,7 +390,11 @@ export class GameController {
   private render(): void {
     // Die Gefahr des **nächsten** Drucks — und zwar auch vor dem ersten. Sonst stünde am
     // Rundenbeginn 0 %, obwohl der erste Druck bereits gefährlich ist.
-    if (this.round.status === 'open') {
+    // Ist das Maul zu, gibt es keinen nächsten Druck — dann wird auch keine Gefahr mehr behauptet
+    // (gemeldet: „Bissgefahr 100 % obwohl der Mund zu ist"; der Wert blieb vom Zuschnappen stehen,
+    // dort ist er genau 1). Die Zeile nennt stattdessen den Ausgang.
+    const roundOpen = this.round.status === 'open';
+    if (roundOpen) {
       this.tension = this.tensionOfNextPress();
     }
     const remaining = remainingTeeth(this.round);
@@ -403,7 +407,10 @@ export class GameController {
     this.setText('hud-round', String(this.records.length + 1));
     // Die Zeile unter dem Balken: links der Fortschritt, rechts die Gefahr — beide mit Wort.
     this.setText('hud-progress', `${pressIndex} von ${this.round.teeth} gedrückt`);
-    this.setText('hud-tension', `Bissgefahr ${Math.round(this.tension * 100)} %`);
+    this.setText(
+      'hud-tension',
+      roundOpen ? `Bissgefahr ${Math.round(this.tension * 100)} %` : 'Runde beendet',
+    );
     this.setText('hud-turn', this.turnSentence(currentPlayer));
     const warn = this.doc.getElementById('hud-warning');
     if (warn) {
@@ -415,10 +422,18 @@ export class GameController {
     // Die Füllung ist der Fortschritt, nicht die Gefahr — die Gefahr trägt die Farbe.
     const progress = pressProgress({ pressed: pressIndex, teeth: this.round.teeth });
     meter?.style.setProperty('width', `${Math.round(progress * 100)}%`);
+    // Die Zustandsklassen gehören an den Kasten, der Balken und Zeile **enthält** (`#hud-panel`).
+    // An der Bühne hat sie keine Regel erreicht — der Balken liegt außerhalb von `.stage`, die
+    // Gefahrfarbe kam dort nie an (gemessen im Browser, `docs/e2e-nachweise.md` §5t).
+    const panel = this.doc.getElementById('hud-panel');
+    panel?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
+    panel?.classList.toggle('is-tense', roundOpen && isTense(this.tension));
+    panel?.classList.toggle('is-danger', roundOpen && isHighDanger(this.tension));
+    panel?.classList.toggle('is-snapped', !roundOpen);
+    // Die Bühne behält ihre eigenen Werte: `--tension` färbt das Bild dunkler, `--beat-ms` taktet
+    // den Herzschlag, `data-status`/`data-tension` tragen die Sonden.
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));
     this.stage?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
-    this.stage?.classList.toggle('is-tense', isTense(this.tension) && this.round.status === 'open');
-    this.stage?.classList.toggle('is-danger', isHighDanger(this.tension));
     if (this.stage) {
       this.stage.dataset.status = this.round.status;
       this.stage.dataset.tension = this.tension.toFixed(2);

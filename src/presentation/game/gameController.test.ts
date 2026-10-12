@@ -50,10 +50,13 @@ class MemoryMarks implements SessionMarkPort {
 const DOM = `
   <div id="stage"><div id="croc-mount"></div></div>
   <span id="hud-round"></span><span id="hud-remaining"></span><span id="hud-presses"></span>
-  <span id="hud-tension"></span><span id="hud-turn"></span><span id="hud-warning"></span>
+  <span id="hud-turn"></span><span id="hud-warning"></span>
   <span id="hud-remaining-label"></span>
-  <span id="hud-progress"></span><p id="hud-meter-hint" class="hidden"></p>
-  <div id="hud-meter"></div>
+  <div class="tension-panel" id="hud-panel">
+    <div class="tension-meter"><div class="tension-meter__fill" id="hud-meter"></div></div>
+    <div class="meter-legend"><span id="hud-progress"></span><span id="hud-tension"></span></div>
+    <p id="hud-meter-hint" class="hidden"></p>
+  </div>
   <button id="new-round" type="button">Neue Runde</button>
   <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
   <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
@@ -399,13 +402,50 @@ describe('GameController in der Bühne', () => {
     // (und damit nie bei einem ueberstandenen Druck); seit 0.5 einen Druck frueher, weil 55,0 %
     // erreicht werden. Faellt dieser Test, hat jemand die Schwelle wieder angefasst.
     build([10]);
-    const stage = document.getElementById('stage');
+    const panel = document.getElementById('hud-meter')?.closest('.tension-panel');
     for (const id of [1, 2, 3, 4, 5, 6, 7]) {
       click(id);
     }
-    expect(stage?.classList.contains('is-danger')).toBe(false);
+    expect(panel?.classList.contains('is-danger')).toBe(false);
     click(8);
-    expect(stage?.classList.contains('is-danger')).toBe(true);
+    expect(panel?.classList.contains('is-danger')).toBe(true);
+  });
+
+  it('setzt die Zustandsklassen an den Kasten, der den Balken enthält', () => {
+    // jsdom rechnet kein CSS, deshalb prüft dieser Test die **Struktur**: nur wenn der Balken in
+    // seinem Kasten steht, erreichen ihn die Farbregeln. Vorher hing `is-danger` an der Bühne und
+    // der Balken stand außerhalb — bei 100 % Bissgefahr blieb er grün→gold (gemessen im Browser,
+    // docs/e2e-nachweise.md §5t). Die Farben selbst misst `scripts/pruefen-anzeige.py`.
+    build([9]);
+    const meter = document.getElementById('hud-meter');
+    expect(meter).not.toBeNull();
+    expect(meter?.closest('.tension-panel')).not.toBeNull();
+    expect(document.getElementById('stage')?.contains(meter ?? null)).toBe(false);
+  });
+
+  it('steht mit einem Zahn sofort auf „rot" — und die Klasse sitzt am Balkenkasten', () => {
+    // Ein Zahn: der nächste Druck schnappt garantiert, die Gefahr ist genau 1.
+    build([1], { teethOverride: 1 });
+    const panel = document.getElementById('hud-meter')?.closest('.tension-panel');
+    expect(document.getElementById('hud-tension')?.textContent).toBe('Bissgefahr 100 %');
+    expect(panel?.classList.contains('is-danger')).toBe(true);
+    expect(panel?.classList.contains('is-tense')).toBe(true);
+    expect(panel?.classList.contains('is-snapped')).toBe(false);
+  });
+
+  it('nimmt nach dem Zuschnappen die Bissgefahr zurück — es gibt keinen nächsten Druck', () => {
+    // Gemeldet: „Bissgefahr 100 % obwohl der Mund zu ist". Der Wert stand noch vom Zuschnappen da.
+    build([1], { teethOverride: 1 });
+    click(1);
+    expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
+    expect(document.getElementById('hud-tension')?.textContent).toBe('Runde beendet');
+    expect(document.getElementById('hud-tension')?.textContent).not.toContain('Bissgefahr');
+    // Der Fortschritt bleibt wahr: gedrückter Zahn von Zähnen.
+    expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 1 gedrückt');
+    const panel = document.getElementById('hud-meter')?.closest('.tension-panel');
+    expect(panel?.classList.contains('is-snapped')).toBe(true);
+    expect(panel?.classList.contains('is-danger')).toBe(false);
+    expect(panel?.classList.contains('is-tense')).toBe(false);
   });
 
   it('erklärt den Balken genau einmal je Sitzung', () => {

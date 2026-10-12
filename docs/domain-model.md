@@ -67,6 +67,17 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
 - **Füllung = Fortschritt:** `gedrückte ÷ Zähne` (`pressProgress`). Vorher trug die Füllung die
   Gefahr — der Balken sah damit aus wie eine Fortschrittsanzeige, war aber ein Gefahrenmesser. Das
   war die Ursache der Verwirrung: man konnte die Anzeige nicht deuten.
+- **Ist das Maul zu, entfällt die Gefahr-Aussage.** Es gibt keinen nächsten Druck, also steht dort
+  kein Prozentwert mehr, sondern **„Runde beendet"**; die Füllung bleibt der Fortschritt und trägt
+  **keine** Gefahrfarbe (`.tension-panel.is-snapped`, Klassen am Kasten `#hud-panel`). Vorher blieb
+  der Wert vom Zuschnappen stehen — genau dort ist die Gefahr 1 —, und die Anzeige behauptete
+  „Bissgefahr 100 %", während daneben „Maul zu" stand (gemeldet vom Auftraggeber: „Bissgefahr 100 %
+  obwohl der Mund zu ist"). **Rot hieße hier „der nächste Druck ist gefährlich"** — für einen Druck,
+  den es nicht mehr gibt; dieselbe Farbe mit zwei Bedeutungen wäre der Fehler von vorher.
+- **Die Zustandsklassen hängen am Kasten, der Balken und Zeile enthält** (`#hud-panel`). An der
+  Bühne (`#stage`) haben sie den Balken nie erreicht: der liegt außerhalb, keine der Farbregeln
+  griff. Gemessen im echten Browser — bei 100 % Bissgefahr blieb die Füllung grün→gold
+  (`docs/e2e-nachweise.md` §5t).
 - **Farbe = Gefahr:** die Bissgefahr des nächsten Drucks (`tensionForPress`). Ab 30 %
   (`isTense`, `TENSE_LEVEL`) glüht er, ab 50 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
   *Warum 50 und nicht 60:* bei 60 % erreichte **kein** Gebiss die Schwelle vor dem letzten Druck —

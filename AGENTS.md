@@ -185,6 +185,22 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   und 12 Zähnen erlaubt der halbe Zahnabstand weniger (Maus bei 12 Zähnen 37,1 px) — Überdeckung wäre
   der schlechtere Tausch. Wer das Seitenpolster ändert, **messt neu**.
 
+- **Eine Zustandsklasse muss den Kasten enthalten, den sie färbt.** Der Balken liegt **außerhalb**
+  der Bühne (`.stage`), seine Zustandsklassen hingen aber an der Bühne: `is-danger` war gesetzt, und
+  keine der vier Farbregeln erreichte den Balken — bei 100 % Bissgefahr blieb seine Füllung grün→gold,
+  der Text daneben gold statt rot (im echten Browser an den **berechneten** Stilen gemessen,
+  `scripts/pruefen-anzeige.py`; jsdom rechnet kein CSS, deshalb sahen die Unit-Tests nichts). Seitdem
+  hängen `is-tense`/`is-danger`/`is-snapped` am Kasten `#hud-panel`, der Balken, Zeile und Hinweis
+  **enthält** — und ein Test prüft die **Struktur** (`meter.closest('.tension-panel')`), weil jsdom
+  die Farben nicht rechnen kann.
+
+- **Eine Anzeige muss verstummen, wenn ihre Frage wegfällt.** Beim Zuschnappen blieb der letzte
+  Gefahrwert stehen (dort ist er genau 1) und die Anzeige behauptete „Bissgefahr 100 %", während
+  daneben „Maul zu" stand — gemeldet als „Bissgefahr 100 % obwohl der Mund zu ist". Bei
+  geschlossenem Maul gibt es keinen nächsten Druck, also steht dort jetzt „Runde beendet", die
+  Füllung bleibt der Fortschritt und trägt keine Gefahrfarbe. Wer eine Kennzahl anzeigt, muss auch
+  festlegen, was bei **Wegfall** ihrer Grundlage dasteht.
+
 - **Dekoration darf keinen Tipp abfangen.** Das untere Zahnfleischband wird **nach** den unteren Zähnen
   gezeichnet und liegt damit über deren Trefferfläche. Bei Zahn 2 und 10 fiel die Mitte des
   Trefferkreises darauf, und ein Tipp dort tat **nichts** (`#hud-presses` blieb 0, Zustand `open`) —

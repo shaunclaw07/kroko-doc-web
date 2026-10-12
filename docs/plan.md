@@ -476,3 +476,17 @@ wollen. Hast du noch andere coole Ideen?"
   Gemessen im gebauten `dist/` mit echtem Chromium: 34 × 34 px bei 390 **und** 1180 px Breite,
   Bild geladen, ausgelieferte Datei byte-identisch zur Datei im Baum; angesehen. Dazu eine
   Prüfung mehr in der Sonde (Gate **235 Tests in 19 Dateien**). Nachweis §5s, Regel in `AGENTS.md`.
+- **Der Balken verstummt, wenn das Maul zu ist (12.10.2026).** Meldung: „Die progressbar und der Text
+  sind scheinbar nicht mehr synchronisiert" / „Bissgefahr 100% obwohl dee Mund zu ist". Zwei Ursachen:
+  (1) `render()` rechnet die Gefahr nur bei offener Runde neu, beim Zuschnappen blieb der Wert 1
+  stehen und die Zeile behauptete eine Gefahr für einen Druck, den es nicht mehr gibt; (2)
+  `is-tense`/`is-danger` hingen an `#stage`, der Balken liegt aber **außerhalb** der Bühne — keine der
+  vier Farbregeln traf ihn, und `--beat-ms` fiel auf den 0,9-s-Ersatzwert zurück (die Doku versprach
+  seit dem 11.10.2026 „wird ab 50 % rot" und „atmet im Takt des Herzschlags", beides war unwahr).
+  Jetzt: Kasten `#hud-panel` um Balken/Zeile/Hinweis, Klassen und `--beat-ms` dort; bei
+  geschlossenem Maul „Runde beendet", Füllung bleibt Fortschritt und wird farblos (`is-snapped`).
+  Neue Sonde `scripts/pruefen-anzeige.py` (drei Lagen, **berechnete** Stile im echten Chromium;
+  gegen die veröffentlichte Seite zuerst **rot mit 5 Funden**), drei neue Unit-Tests, die die
+  **Struktur** prüfen. Gemessen nach dem Fix: 100 % → rot + 0,38 s Takt, 21 % → nicht rot
+  (Gegenprobe), Maul zu → farblos + „Runde beendet". Gate **238 Tests in 19 Dateien**.
+  Nachweis §5t, Regeln in `AGENTS.md` und `docs/domain-model.md`.

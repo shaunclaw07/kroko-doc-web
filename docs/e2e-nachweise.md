@@ -945,6 +945,58 @@ alten Farben dort nicht mehr vorkommen (`#2f6b4f`, `#1c4531`, `#fbf7e8`). CSS: `
 **Nebenbei:** Symbol neu erzeugt (`ICON_NEU=1 pnpm vitest run src/icon.test.ts`) → Gate **235 Tests
 in 19 Dateien** (vorher 234, die Sonde hat eine Prüfung mehr); die Zahlendoku ist nachgezogen.
 
+## 5t. „Bissgefahr 100 % obwohl der Mund zu ist" — der Balken und seine zwei Aussagen (12.10.2026)
+
+Meldung des Auftraggebers (mit Bild): „Die progressbar und der Text sind scheinbar nicht mehr
+synchronisiert" / „Bissgefahr 100% obwohl dee Mund zu ist". Auf dem Bild: elfte Zahnreihe, „Maul zu",
+„1 von 12 gedrückt" — und rechts „Bissgefahr 100 %".
+
+**Schleife zuerst.** Weil jsdom kein CSS rechnet, war der Fehler für die Unit-Tests unsichtbar.
+Deshalb eine eigene Sonde, die den Fall **deterministisch** herstellt und die **berechneten** Stile
+im echten Chromium liest: `scripts/pruefen-anzeige.py`. Ein Zahn am Vampir heißt: genau dieser Zahn
+ist scharf, der erste Druck schnappt garantiert — kein Zufall im Spiel. Lauf gegen die
+veröffentlichte Seite, **rot mit 5 Funden** (12.10.2026):
+
+```
+  status           snapped          tensionWert   1.00
+  fortschrittText  1 von 1 gedrückt gefahrText    Bissgefahr 100 %     <- ein Druck, den es nicht gibt
+  fuellHintergrund linear-gradient(90deg, rgb(111, 207, 151), rgb(232, 182, 76))   <- grün→gold statt rot
+  legendenFarbe    rgb(232, 182, 76)                                                  <- gold statt rot
+  fuellAtmung      0.9s                                                                <- Ersatzwert, nicht der Puls
+  klasseAmStage    stage is-tense is-danger     balkenImStage  False     <- Klasse am falschen Element
+```
+
+**Zwei Ursachen, nicht eine:**
+
+1. **Der Wert stand still.** `render()` rechnet die Gefahr nur bei offener Runde neu
+   (`if (roundOpen) this.tension = this.tensionOfNextPress()`); beim Zuschnappen ist sie genau 1 und
+   blieb stehen — die Zeile behauptete weiter eine Gefahr für einen Druck, den es nicht mehr gibt.
+2. **Die Klassen erreichten den Balken nie.** `is-tense`/`is-danger` wurden an `#stage` gehängt, der
+   Balken liegt aber **außerhalb** der Bühne (`stage.contains(hud-meter) === false`). Alle vier
+   Farbregeln (`.stage.is-danger .tension-meter__fill`, `… .meter-legend #hud-tension`,
+   `… .meter-hint`, `.stage.is-tense …`) trafen damit nichts — die Dokumentation versprach seit dem
+   11.10.2026 „ab 50 % wird er rot" und „er atmet im Takt des Herzschlags", beides war nicht wahr.
+   Der Ersatzwert verrät es: `--beat-ms` war am 0,9-s-Rückfall (statt 0,38 s am Ende des Bereichs).
+
+**Behoben:** neuer Kasten `#hud-panel` (`.tension-panel`) um Balken, Zeile und Hinweis; die
+Zustandsklassen und `--beat-ms` hängen dort. Bei geschlossenem Maul steht „Runde beendet", die
+Füllung bleibt der Fortschritt und bekommt `is-snapped` (farblos, keine Atmung) — **rot hieße „der
+nächste Druck ist gefährlich"**, und diese zweite Bedeutung für dieselbe Farbe war schon einmal der
+Fehler. Testseitig: drei neue Fälle in `gameController.test.ts` (Struktur `closest('.tension-panel')`,
+rot mit einem Zahn, Rücknahme nach dem Zuschnappen) plus die Sonde in drei Lagen.
+
+**Gemessen nach dem Fix** (gebautes `dist/`, echtes Chromium, drei Lagen):
+
+| Lage | Bissgefahr | Füllung | Text | Atmung | Klassen am Kasten |
+|---|---|---|---|---|---|
+| ein Zahn, offen | 100 % | `linear-gradient(90deg, gold, danger)` | rot, fett | 0,38 s | `is-tense is-danger` |
+| zehn Zähne, 1 Druck | 21 % | `linear-gradient(90deg, ok, gold)` | gold | 0,789 s | — (Gegenprobe: **nicht** rot) |
+| ein Zahn, gedrückt | — | `none` (farblos) | „Runde beendet" | 0 s | `is-snapped` |
+
+Angesehen: der rote Balken bei 50 % mit Fortschritt (`balken-rot-gefuellt.png`) und der abgeschlossene
+Zustand ohne Gefahrfarbe (`balken-maul-zu-2.png`). Nebenbei bestätigt: die Füllbreite folgt dem
+Fortschritt (1 von 1 = 356 px von 356 px), nicht der Gefahr. Gate **238 Tests in 19 Dateien**.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

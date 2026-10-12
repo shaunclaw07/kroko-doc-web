@@ -62,18 +62,24 @@ const base = import.meta.env.BASE_URL;
       <span id="hud-turn">Du bist dran</span>
     </div>
 
-    <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr. -->
-    <div class="tension-meter" role="img" aria-label="Fortschritt der Runde und Bissgefahr des nächsten Drucks">
-      <div class="tension-meter__fill" id="hud-meter"></div>
-    </div>
-    <div class="meter-legend">
-      <span id="hud-progress">0 von 10 gedrückt</span>
-      <span id="hud-tension">Bissgefahr 0 %</span>
-    </div>
+    <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr.
+         Die Zustandsklassen (`is-tense`, `is-danger`, `is-snapped`) sitzen an DIESEM Kasten, denn
+         er enthält Balken, Zeile und Hinweis. Standen sie an der Bühne (`#stage`), erreichte keine
+         einzige Farbregel den Balken — er liegt außerhalb der Bühne. Gemessen im Browser:
+         docs/e2e-nachweise.md §5t. -->
+    <div class="tension-panel" id="hud-panel">
+      <div class="tension-meter" role="img" aria-label="Fortschritt der Runde und Bissgefahr des nächsten Drucks">
+        <div class="tension-meter__fill" id="hud-meter"></div>
+      </div>
+      <div class="meter-legend">
+        <span id="hud-progress">0 von 10 gedrückt</span>
+        <span id="hud-tension">Bissgefahr 0 %</span>
+      </div>
 
-    <p class="meter-hint hidden" id="hud-meter-hint">
-      Je mehr Zähne getippt sind, desto sicherer schnappt es zu.
-    </p>
+      <p class="meter-hint hidden" id="hud-meter-hint">
+        Je mehr Zähne getippt sind, desto sicherer schnappt es zu.
+      </p>
+    </div>
 
     <p class="alarm hidden" id="hud-warning" role="status"></p>
 

@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 235 (19 Dateien) |
+| Tests | 238 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -105,6 +105,17 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
    die veröffentlichte Seite). Erwartet: zehn Kacheln in Katalogreihenfolge, zehn sichtbare
    Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0).
+
+8. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
+   **berechneten** Stile im echten Chromium (jsdom rechnet kein CSS) in drei Lagen: ein Zahn
+   (Gefahr 100 % → Füllung **und** Text in der Gefahrfarbe, Atmung im Puls-Takt), zehn Zähne mit
+   einem Druck (Gegenprobe: 21 % → **nicht** rot) und nach dem Zuschnappen („Runde beendet",
+   Füllung farblos, keine Atmung). Gegen die veröffentlichte Seite war sie zuerst **rot mit 5
+   Funden** (§5t).
+   ```bash
+   uv run --with playwright python scripts/pruefen-anzeige.py            # veröffentlichte Seite
+   uv run --with playwright python scripts/pruefen-anzeige.py http://localhost:4402/index.html
+   ```
 
 ## Zwei Regeln für Zeitgeber in Sonden
 
