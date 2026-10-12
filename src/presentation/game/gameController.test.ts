@@ -158,6 +158,56 @@ describe('GameController in der Bühne', () => {
     );
   });
 
+  it('lässt das Tier nach dem Biss seine Stimme hören — und nie bei einem harmlosen Zahn', () => {
+    const { sound } = build([9], { creature: 'wolf' });
+    click(1);
+    expect(sound.voices).toEqual([]);
+    click(9);
+    expect(sound.voices).toEqual(['wolf']);
+  });
+
+  it('spielt die Stimme der alten Runde nicht mehr, wenn schon eine neue läuft', () => {
+    // Der Kiefer zieht 120 ms nach dem Biss nach — in dieser Zeit kann „Neue Runde" getippt werden.
+    const spaet: Array<() => void> = [];
+    // Auch die Pause vor dem Urteil kann 120 ms lang sein (`BEAT_MIN_MS`) — zurückgehalten wird
+    // deshalb nur, was **nach** dem Zuschnappen geplant wird.
+    const snapped = (): boolean =>
+      document.querySelector('.creature')?.classList.contains('is-snapped') ?? false;
+    const latchLater = (ms: number, run: () => void): void => {
+      if (ms === 120 && snapped()) {
+        spaet.push(run);
+        return;
+      }
+      if (ms < 1000) run();
+    };
+    const { controller, sound } = build([4], { creature: 'wolf' }, true, undefined, latchLater);
+    click(4);
+    expect(spaet, 'ohne den späten Rückruf wäre der Test sinnlos').toHaveLength(1);
+    controller.resetRound();
+    spaet.forEach((run) => run());
+    expect(sound.voices).toEqual([]);
+    expect(document.querySelector('.creature')?.classList.contains('is-clenching')).toBe(false);
+  });
+
+  it('lässt ein neu gewähltes Tier sich vorstellen', () => {
+    const { controller, sound } = build([4]);
+    controller.applySettings(settings({ creature: 'mouse' }));
+    expect(sound.voices).toEqual(['mouse']);
+  });
+
+  it('bleibt still, wenn dasselbe Tier bleibt und nur die Zahnzahl wechselt', () => {
+    const { controller, sound } = build([4]);
+    controller.applySettings(settings({ teethOverride: 6 }));
+    expect(sound.voices).toEqual([]);
+  });
+
+  it('bleibt beim Wählen und beim Biss still, wenn der Ton aus ist', () => {
+    const { controller, sound } = build([4], { sound: false });
+    controller.applySettings(settings({ sound: false, creature: 'mouse' }));
+    click(4);
+    expect(sound.voices).toEqual([]);
+  });
+
   it('hängt den Herzschlag ab: nach dispose() schlägt nichts mehr', () => {
     // Der Herzschlag war der einzige Zeitgeber am globalen `window` — er feuerte nach dem Testende
     // in eine abgebaute Umgebung („window is not defined") und machte das Gate gelegentlich rot.

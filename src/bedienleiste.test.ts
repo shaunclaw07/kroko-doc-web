@@ -31,6 +31,11 @@ describe('Spielseite', () => {
     // Der Satz zum echten Tier steht NACH dem Ergebnis — ein Bildschirmleser liest in dieser Reihenfolge.
     expect(SPIEL.indexOf('id="result-fact"')).toBeGreaterThan(SPIEL.indexOf('id="result-text"'));
   });
+  it('reicht der Engine den Basis-Pfad für die Tierstimmen — nie eine feste Adresse', () => {
+    expect(SEITE).toContain('voiceBaseUrl: import.meta.env.BASE_URL');
+    expect(SEITE).not.toContain("'/sounds/");
+    expect(SEITE).not.toContain('"/sounds/');
+  });
   it('kennt die abgeschafften Anzeigen nicht mehr', () => {
     expect(SEITE).not.toContain('restart-round');
     expect(SEITE).not.toContain('hud-presses');

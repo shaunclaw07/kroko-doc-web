@@ -228,9 +228,16 @@ export class GameController {
     this.recordRound();
     this.showResult();
     // Zweite Stufe: der Kiefer zieht nach — das Maul wirkt wie eine Feder, nicht wie ein Sprung.
+    // Dazu die Stimme des Tiers. Beides gehört zu **dieser** Runde: startet in den 120 ms eine
+    // neue, bekäme sonst die offene Zeichnung den zusammengebissenen Kiefer.
+    const bitten = this.round;
     this.wait(BITE_LATCH_MS, () => {
+      if (this.round !== bitten) {
+        return;
+      }
       this.art?.classList.add('is-clenching');
       this.shake(0.45);
+      this.deps.sound.playVoice(bitten.creatureId);
     });
   }
 
@@ -399,6 +406,11 @@ export class GameController {
     this.deps.sound.setMuted(!settings.sound);
     if (modeChanged || playersChanged || creatureChanged || teethChanged) {
       this.resetRound();
+      // Das neue Tier stellt sich vor. Der Tipp auf die Kachel ist die Nutzergeste — die Seite
+      // gibt den Ton bei `pointerup` frei, also vor diesem `click`.
+      if (creatureChanged) {
+        this.deps.sound.playVoice(settings.creature);
+      }
     } else if (!settings.sound) {
       this.clearHeartbeat();
       this.deps.sound.stopAll();

@@ -280,7 +280,8 @@ const base = import.meta.env.BASE_URL;
 
     const storage = browserStorage();
     const settings = loadSettings(storage);
-    const sound = new WebAudioEngine({ muted: !settings.sound });
+    // Die Tierstimmen sind Dateien unter dem Basis-Pfad der Seite (public/sounds/voices/).
+    const sound = new WebAudioEngine({ muted: !settings.sound, voiceBaseUrl: import.meta.env.BASE_URL });
     const haptics = new BrowserHaptics();
     const log = new LocalStorageRoundLog(storage);
 
