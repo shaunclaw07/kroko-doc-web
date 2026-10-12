@@ -11,6 +11,13 @@ infrastructure   Adapter: crypto-Zufall, Web-Audio, Vibration, localStorage, Tes
 presentation     Bedienung: Spielsteuerung, SVG-Zeichnung, Statistikansicht, Seiten
 ```
 
+**Tondateien.** Die Tierstimmen sind die einzigen Klänge aus Dateien (`public/sounds/voices/`).
+Der Kern kennt davon nur eine Naht: `SoundPort.playVoice(creatureId)`. Welche Datei zu welchem
+Tier gehört (`infrastructure/audio/creatureVoices.ts`), wie sie geholt (`fetch`) und dekodiert
+wird (`decodeAudioData`), steht allein im Adapter `infrastructure/audio/webAudioEngine.ts` — die
+Bedienung nennt nur die Kennung des Tiers und reicht den Basis-Pfad der Seite herein. Im Test
+ersetzt eine Ladefunktion (`loadVoice`) das Netz und `FakeAudioContext` das Dekodieren.
+
 ## Die Importregel (A1–A6)
 
 | ID | Regel |

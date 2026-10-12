@@ -28,6 +28,8 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | [`docs/domain-model.md`](docs/domain-model.md) |
 | Tests & Nachweise (Gate, Testzahlen, Sonden, Mindeststichprobe) | [`docs/testing.md`](docs/testing.md) |
 | Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
+| Tierstimmen ergänzen oder tauschen, Tier-Sätze, alle Skripte | [`docs/workflow.md`](docs/workflow.md) |
+| Herkunft und Lizenz der Tierstimmen | [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md) |
 | Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) |
 | Warum das Spiel so ist (Charter) | [`README.md`](README.md) |
 | Plan, Annahmen, offene Punkte | [`docs/plan.md`](docs/plan.md) |
@@ -44,6 +46,8 @@ pnpm gate         # beides nacheinander
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
+python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
+bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]  # Stimme schneiden (ffmpeg)
 ```
 
 ## Die Karte in sieben Zeilen
@@ -82,6 +86,18 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Nicht-stören-Modus und eine abgeschaltete Systemvibration. Safari auf iOS kennt sie nicht.
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
+- **Tierstimmen sind Dateien — die einzigen.** Je Tier ein MP3 von höchstens 1,5 s unter
+  `public/sounds/voices/`, jede mit Urheber, Lizenz und Quelle in `QUELLEN.md` daneben (ein Test
+  liefert keine Datei ohne diese Zeile aus). Alle Spielklänge bleiben synthetisiert. Gespielt wird
+  über `SoundPort.playVoice(creatureId)` im **selben** Audio-Kontext (`decodeAudioData`), nicht
+  über ein `<audio>`-Element — so gelten Ton-Schalter, Freigabe und `stopAll()` ohne zweite Regel.
+  Anlässe: beim Wählen eines **anderen** Tiers und 120 ms nach dem Biss; nie vor einem Urteil, nie
+  bei einem harmlosen Zahn — die Stimme darf nichts verraten. Der Tierwechsel ruft `stopAll()`,
+  **bevor** das neue Tier sich meldet (danach schnitte er genau die neue Stimme ab). Geladen wird
+  erst nach der ersten Geste und nur bei eingeschaltetem Ton; eine Stimme, die mehr als 0,5 s zu
+  spät kommt, entfällt. Adressen nur über den Basis-Pfad (`voiceBaseUrl: import.meta.env.BASE_URL`).
+  **Wie etwas klingt, kann ich nicht prüfen** — Ausschnitt, Lautstärke und Rauschen hört nur der
+  Auftraggeber. Rezept: `docs/workflow.md`, „Eine Tierstimme ergänzen oder tauschen".
 - **Vor der ersten Nutzergeste plant der Ton nichts.** Der Browser hält einen Audio-Kontext an, bis
   der Nutzer etwas tut; seine Uhr steht so lange, und alles, was in dieser Zeit geplant wird, startet
   beim Freigeben **gleichzeitig**. Der Herzschlag lief ab Seitenstart: nach 20 s Leerlauf lagen

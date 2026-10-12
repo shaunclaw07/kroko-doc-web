@@ -111,12 +111,18 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm test:run` | Tests einmalig | **346 Tests in 26 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
+| `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
+| `bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer>` | eine Tierstimme schneiden (braucht `ffmpeg`) | `public/sounds/voices/<tier>.mp3: … Byte, Spitze vorher …` |
+| `uv run --with playwright python scripts/pruefen-bedienung.py` | Sonde im echten Browser: scrollt etwas, verdeckt die Leiste etwas (der Server muss laufen) | „Auffälligkeiten: 0" |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
 | `bash scripts/doku-pruefen.sh …` | Doku prüfen: Code-Zäune, Fließtext im Block, alte Werte (`ALTE_WERTE="…"`) | „Zaeune: … (paarig)"; Exit 1 = es steht noch etwas drin |
 | `python3 scripts/doku-pfade-pruefen.py . …` | halten, ob jede in Backticks genannte Pfadangabe existiert | „Alle genannten Pfade existieren." |
 
 Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --port 4322`.
+
+Alle Skripte mit Zweck und Aufruf: [`docs/workflow.md`](docs/workflow.md), Abschnitt „Skripte im
+Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt oder tauscht**.
 
 ---
 
@@ -239,10 +245,12 @@ src/contract/          Außenvertrag (Rundenprotokoll, CSV-Format)
 src/infrastructure/    crypto-Zufall, Web-Audio-Klänge, Vibration, localStorage, Testattrappen
 src/presentation/      Spielsteuerung, Statistikansicht, Astro-Seiten
   game/creatures/      je Lebewesen ein Zeichnungsmodul + Fabrik + Registry
+public/sounds/voices/  je Lebewesen eine Stimme als MP3, Herkunft und Lizenz in QUELLEN.md
 scripts/               artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
                        galerie.py — README-Bild der Gebisse aus den SVGs der Sonde bauen
                        pruefen-*.py — Sonden am lebenden Gegenstand (Tiere, Trefferfläche, Blatt)
                        doku-pruefen.sh, doku-pfade-pruefen.py — Doku prüfen (Zäune, alte Werte, Pfade)
+                       stimme-suchen.py, stimme-schneiden.sh — Tierstimmen finden und schneiden
 ```
 
 Der Kern kennt weder Browser noch Uhr: Zufall kommt über einen Port herein, die Zeit über
@@ -260,6 +268,8 @@ Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
   Konten, keine Telemetrie. Runden und Einstellungen aus Fassungen mit früherem Namen (`zahn-agent:…`,
   `kroko-doc-web:…`) werden beim ersten Laden einmalig übernommen.
 - **Zurücksetzen:** Statistikseite → „Protokoll löschen" (löscht nur das Rundenprotokoll).
+- **Tierstimmen** sind Dateien vom eigenen Ursprung (`sounds/voices/`), geladen nach dem ersten Tipp
+  und nur bei eingeschaltetem Ton — kein fremder Server, nichts wird übertragen.
 - **Sichern/umbenennen:** CSV exportieren; die Datei kannst du wieder importieren oder dem
   Python-Werkzeug `../kroko-doc/kroko_analyse.py` geben.
 - CSV-Kopf (bewusst deutsch, weil es die Schnittstelle zum Analyse-Werkzeug ist):
@@ -289,6 +299,7 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
 | „Verbindung fehlgeschlagen" im Browser | Server hört nur auf `localhost` (IPv6) | `localhost` statt `127.0.0.1` verwenden, oder `pnpm dev --host 127.0.0.1` |
 | Port 4321 belegt | anderer Server läuft | `pnpm dev --port 4322`, dann `http://localhost:4322` |
 | Kein Ton | Browser erlaubt Audio erst nach einer Nutzeraktion | einmal ins Maul tippen; Ton in den Einstellungen muss an sein |
+| Ein Tier bleibt stumm, die Spielklänge laufen | die Stimmdatei fehlt, ist noch nicht geladen oder kam mehr als 0,5 s zu spät | Netzwerk-Reiter der Entwicklerwerkzeuge: `sounds/voices/<tier>.mp3` muss mit 200 kommen; das Tier noch einmal wählen. Ohne Netz beim ersten Versuch wird beim nächsten Anlass neu geladen |
 | **Handy vibriert nicht** | Auf Android kann es das Gerät unterdrücken: die Vibration braucht **keine** Berechtigung, Chrome hat deshalb **keine** Website-Einstellung dafür. Laut MDN halten Stumm-/Nicht-stören-Modus und eine abgeschaltete Systemvibration sie zurück; auf iOS/Safari gibt es die Schnittstelle gar nicht | Der Schalter ist dann **abgeblendet** und die Einstellungen sagen es im Klartext. Auf Android bleibt sonst nur die Systemseite zu prüfen: Einstellungen → Töne und Vibration (Intensität nicht auf 0), Stumm-Modus auf Vibrieren, Nicht stören aus. Belegte Ursachen laut [MDN, `Navigator.vibrate`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate): Stumm- bzw. Nicht-stören-Modus und eine abgeschaltete Systemvibration |
 | Vibration sehr schwach | manche Geräte setzen kurze Stöße unter ~20 ms nicht um | die App nutzt 25 ms bei **jedem Zahndruck** und drei Stöße (120/50/220 ms) beim Biss |
 | Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node 20.3+ installieren (Astro 5: `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
@@ -305,6 +316,17 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
   Browser. Das übrige Verhalten ist in jsdom (Bedienungs- und Statistiksonde) und über gerenderte
   Standbilder der Zeichnung belegt (`pnpm vitest run src/render-probe.test.ts`, dann
   `scripts/artwork-png.py`); das Gefühl am Gerät in allen Feinheiten prüft nur ein Mensch.
+- **Tierstimmen:** neun gemeinfreie Aufnahmen und ein generierter Platzhalter (Maus), alle mit
+  Urheber, Lizenz und Quelle in [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md).
+  Das Heulen des Wolfs stammt aus dem Tonarchiv des Yellowstone-Nationalparks (**National Park
+  Service** & MSU Acoustic Atlas / Jennifer Jerrett), die übrigen Aufnahmen von Wikimedia Commons.
+  Der Panther faucht als Hauskatze, der Säbelzahntiger knurrt als Tiger, der Hai blubbert — echte
+  gemeinfreie Aufnahmen gab es dafür nicht. Die Ausschnitte hat ein Programm gewählt; angehört
+  und abgenommen hat sie der Auftraggeber am 12.10.2026 am lokalen Entwicklungsserver; am Handy
+  sind sie nicht geprüft.
+- **Tier-Sätze („Wusstest du?"):** jeder ist belegt, die Quellen stehen in `docs/plan.md`. Die
+  Zahl „Echtes Gebiss: 32 Zähne" beim Krokodil ist dagegen **nicht** belegt und vermutlich zu
+  niedrig — sie steht als offener Punkt im Plan.
 - Veröffentlicht wird über GitHub Pages (siehe oben, ausgeliefert wird nur der gebaute Stand);
   einen eigenen Server gibt es nicht, und die Spieldaten bleiben im `localStorage` des Browsers.
 

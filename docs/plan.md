@@ -662,7 +662,7 @@ im Regeln-Blatt als „Echtes Gebiss: 32 Zähne“.
 
 Gate **323 Tests in 25 Dateien**, Sonde `scripts/pruefen-bedienung.py` 0 Auffälligkeiten. Nachweis §5y.
 
-## Nachtrag 12.10.2026 (gebaut, Hörprobe offen): Tierstimmen als Dateien
+## Nachtrag 12.10.2026 (gebaut und abgenommen): Tierstimmen als Dateien
 
 Auftrag: „Bei den Tierstimmen würde ich gerne die Sounds vorher generieren lassen und dann mit
 ausliefern, geht das, wenn ja auch kostenlos?“ — danach: „Ich hätte gerne eine Mischung (echte
@@ -724,5 +724,10 @@ und ob der Panther eine echte Großkatze bekommen soll. Tauschen heißt: neu sch
 **Nachgezogen** (Wunsch: „den aktiven Sound stoppen, wenn man einen anderen Charakter auswählt“):
 der Tierwechsel ruft `stopAll()`, **bevor** das neue Tier sich meldet — die Reihenfolge hält ein
 Test fest. Der Wolf heult seitdem allein (Yellowstone-Tonarchiv statt Rudel-Ausschnitt).
+
+**Abgenommen** vom Auftraggeber am 12.10.2026 („So passt mir das"), gehört am lokalen Entwicklungsserver. Offen
+bleiben das Handy, ein besserer Klang für die Maus und eine echte Großkatze für den Panther.
+Dazugekommen ist `scripts/stimme-suchen.py`; das Rezept für künftige Stimmen steht in
+`docs/workflow.md` („Eine Tierstimme ergänzen oder tauschen").
 
 Gate **346 Tests in 26 Dateien**. Nachweis §5z.

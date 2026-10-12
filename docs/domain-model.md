@@ -11,6 +11,8 @@
 | **Position** | Nummer des Drucks, bei dem es schnappte (1-basiert) — die eigentlich aussagekräftige Größe. |
 | **Verlierer** | Der Spieler, der den scharfen Zahn gedrückt hat (`(position - 1) mod spieler + 1`). |
 | **Spannung** | 0..1; die **Biss-Wahrscheinlichkeit des nächsten Drucks**. Beim letzten Zahn genau 1. |
+| **Tier-Satz** | Katalogfeld `fact`: ein belegter Satz über das **echte** Tier, höchstens 110 Zeichen. Steht nach dem Biss als „Wusstest du? …" unter dem Ergebnis und sagt nie etwas über scharfe Zähne. |
+| **Tierstimme** | Der Laut eines Tiers (Datei, höchstens 1,5 s). Erklingt beim Wählen und kurz nach dem Biss — nie vor dem Urteil, sie ist kein Signal. |
 
 ## Zufallsmodelle
 
