@@ -135,6 +135,22 @@ export function isHighDanger(tension: number): boolean {
   return clamp01(tension) >= HIGH_DANGER;
 }
 
+/** Zoom an der Rot-Schwelle: ein sichtbarer Sprung, damit „ab jetzt wird es ernst" zu sehen ist. */
+export const ZOOM_ENTRY = 0.4;
+
+/**
+ * Wie nah die Bühne an das Maul rückt, 0..1 — **abgeleitet** aus der Bissgefahr, nicht hochgezählt.
+ * Unter der Rot-Schwelle 0, an der Schwelle `ZOOM_ENTRY`, beim letzten Zahn genau 1. Der Sprung ist
+ * Absicht: der erste rote Druck des Krokodils liegt bei 55 %, eine reine Rampe wäre dort unsichtbar.
+ */
+export function dangerZoom(tension: number): number {
+  const level = Number.isFinite(tension) ? clamp01(tension) : 0;
+  if (level < HIGH_DANGER) {
+    return 0;
+  }
+  return ZOOM_ENTRY + (1 - ZOOM_ENTRY) * ((level - HIGH_DANGER) / (1 - HIGH_DANGER));
+}
+
 /** Ab dieser Gefahr spannt sich die Bühne an (Bild zieht zu, Balken glüht). */
 export const TENSE_LEVEL = 0.3;
 

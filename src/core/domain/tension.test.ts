@@ -5,6 +5,8 @@ import {
   PULSE_FAST_MS,
   PULSE_SLOW_MS,
   HIGH_DANGER,
+  ZOOM_ENTRY,
+  dangerZoom,
   pulseInterval,
   TENSE_LEVEL,
   isHighDanger,
@@ -190,6 +192,32 @@ describe('pulseInterval', () => {
   it('klemmt unsinnige Werte', () => {
     expect(pulseInterval(-3)).toBe(PULSE_SLOW_MS);
     expect(pulseInterval(7)).toBe(PULSE_FAST_MS);
+  });
+});
+
+describe('dangerZoom', () => {
+  it('bleibt unter der Rot-Schwelle bei null', () => {
+    expect(dangerZoom(0)).toBe(0);
+    expect(dangerZoom(0.2)).toBe(0);
+    expect(dangerZoom(HIGH_DANGER - 0.001)).toBe(0);
+  });
+
+  it('springt an der Schwelle auf ZOOM_ENTRY und erreicht beim letzten Zahn genau 1', () => {
+    expect(dangerZoom(HIGH_DANGER)).toBeCloseTo(ZOOM_ENTRY, 6);
+    expect(dangerZoom(1)).toBe(1);
+  });
+
+  it('wächst zwischen Schwelle und letztem Zahn linear', () => {
+    // Krokodil, vorletzter Druck: 55,0 % Bissgefahr.
+    expect(dangerZoom(0.55)).toBeCloseTo(0.46, 6);
+    expect(dangerZoom(0.75)).toBeCloseTo(0.7, 6);
+    expect(dangerZoom(0.6)).toBeLessThan(dangerZoom(0.8));
+  });
+
+  it('klemmt unsinnige Werte', () => {
+    expect(dangerZoom(-3)).toBe(0);
+    expect(dangerZoom(7)).toBe(1);
+    expect(dangerZoom(Number.NaN)).toBe(0);
   });
 });
 
