@@ -1,13 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { bravestRound } from './statistics';
 import { DEFAULT_K_WEIGHTS, binomial, pressPositionDistribution } from './probabilities';
+import type { RoundRecord } from './records';
 import type { RandomMode } from './teeth';
+import { fairRounds } from '../../infrastructure/testing/fairRounds';
+import { SeededRandom } from '../../infrastructure/testing/seededRandom';
 import {
   analyseSession,
   autocorrelation,
   chiSquareGoodnessOfFit,
   chiSquareSurvival,
   countBy,
+  groupRounds,
   verdict,
   wilsonInterval,
   type ChiSquareResult,
@@ -249,5 +253,113 @@ describe('bravestRound', () => {
 
   it('uebergeht Runden, in denen schon der erste Druck schnappte', () => {
     expect(bravestRound([krokodil(3, 1)])).toBeNull();
+  });
+});
+
+/** 360 faire Runden aus drei Gebissen — so sieht ein Protokoll aus, wenn ein Kind die Tiere wechselt. */
+function mixedFairRounds(): RoundRecord[] {
+  const rng = new SeededRandom(7);
+  return [
+    ...fairRounds(rng, 'crocodile', 120, 1),
+    ...fairRounds(rng, 'mouse', 120, 121),
+    ...fairRounds(rng, 'wolf', 120, 241),
+  ];
+}
+
+describe('groupRounds', () => {
+  it('trennt nach Lebewesen, Zahnzahl und Modus — die größte Gruppe zuerst', () => {
+    const rng = new SeededRandom(3);
+    const groups = groupRounds([
+      ...fairRounds(rng, 'crocodile', 2, 1),
+      ...fairRounds(rng, 'mouse', 5, 3),
+      ...fairRounds(rng, 'crocodile', 3, 8, 4),
+      ...fairRounds(rng, 'crocodile', 1, 11),
+      ...fairRounds(rng, 'crocodile', 3, 12, undefined, 'classic'),
+    ]);
+    expect(groups.map((group) => `${group.creature}/${group.teeth}/${group.mode}/${group.rounds.length}`)).toEqual([
+      'mouse/6/original/5',
+      'crocodile/10/original/3',
+      'crocodile/4/original/3',
+      'crocodile/10/classic/3',
+    ]);
+  });
+
+  it('zählt Runden ohne oder mit unbekanntem Lebewesen zum Krokodil (Altdaten)', () => {
+    const groups = groupRounds([
+      { mode: 'original' as const, teeth: 10 },
+      { mode: 'original' as const, teeth: 10, creature: 'drache' },
+      { mode: 'original' as const, teeth: 10, creature: 'crocodile' },
+    ]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0]?.creature).toBe('crocodile');
+    expect(groups[0]?.rounds).toHaveLength(3);
+  });
+
+  it('liefert für ein leeres Protokoll keine Gruppe', () => {
+    expect(groupRounds([])).toEqual([]);
+  });
+});
+
+describe('Auswertung je Gebiss', () => {
+  it('meldet bei gemischten, fairen Runden keinen falschen Alarm', () => {
+    const rounds = mixedFairRounds();
+    // Zusammengeworfen schlagen beide Tests an — genau der Fehler, den die Gruppen verhindern.
+    const lumped = analyseSession(rounds, 100);
+    expect(lumped.toothTest?.significant).toBe(true);
+    expect(lumped.modelTest?.significant).toBe(true);
+
+    const groups = groupRounds(rounds);
+    expect(groups.map((group) => group.creature).sort()).toEqual(['crocodile', 'mouse', 'wolf']);
+    for (const group of groups) {
+      const report = analyseSession(group.rounds, 100);
+      expect(report.teeth, group.creature).toBe(group.teeth);
+      expect(report.countsByTooth, group.creature).toHaveLength(group.teeth);
+      expect(report.toothTest?.significant, `${group.creature}: Zahn-Test`).toBe(false);
+      expect(report.modelTest?.significant, `${group.creature}: Modell-Test`).toBe(false);
+      expect(report.autocorrelations.some((entry) => entry.remarkable), `${group.creature}: Muster`).toBe(false);
+    }
+  });
+
+  it('nennt das Modell, gegen das geprüft wird — beim Wolf 5,42 erwartete Drücke, nicht 4,69', () => {
+    const report = analyseSession(fairRounds(new SeededRandom(7), 'wolf', 10), 100);
+    expect(report.creature).toBe('wolf');
+    expect(report.mode).toBe('original');
+    expect(report.model).toHaveLength(12);
+    expect(report.model.reduce((sum, share) => sum + share, 0)).toBeCloseTo(1, 12);
+    expect(report.expectedPresses).toBeCloseTo(5.4167, 3);
+  });
+
+  it('prüft die Druck-Position nur im Modus classic gegen die Gleichverteilung', () => {
+    const rng = new SeededRandom(7);
+    expect(analyseSession(fairRounds(rng, 'crocodile', 120), 100).pressIndexTest).toBeNull();
+    expect(analyseSession(fairRounds(rng, 'crocodile', 120, 1, undefined, 'classic'), 100).pressIndexTest).not.toBeNull();
+  });
+
+  it('lässt die Mustersuche unter der Mindestzahl aus', () => {
+    const report = analyseSession(fairRounds(new SeededRandom(7), 'crocodile', 99), 100);
+    expect(report.autocorrelations).toEqual([]);
+  });
+
+  it('spricht keinen Test frei, der nicht lief (ein Zahn, 100 Runden)', () => {
+    const report = analyseSession(fairRounds(new SeededRandom(7), 'crocodile', 100, 1, 1), 100);
+    expect(report.toothTest).toBeNull();
+    expect(report.modelTest).toBeNull();
+    const text = verdict(report, 100);
+    expect(text).toContain('Zugmodell lässt sich bei diesem Gebiss nicht prüfen');
+    expect(text).not.toContain('passt zu den Daten');
+    expect(text).not.toContain('vereinbar');
+    expect(text).not.toContain('kein erkennbares Muster');
+  });
+
+  it('schreibt das Fazit mit Umlauten', () => {
+    const text = verdict(analyseSession(mixedFairRounds().slice(0, 120), 100), 100);
+    expect(text).toContain('Verlierer-Zähne');
+    expect(text).toContain('Häufigster');
+    expect(text).not.toMatch(/Zaehne|auffaellig|Haeufigster/);
+  });
+
+  it('kommt mit einem unbekannten Lebewesen im Protokoll zurecht', () => {
+    const [round] = fairRounds(new SeededRandom(7), 'crocodile', 1);
+    expect(() => bravestRound([{ ...round!, creature: 'drache' }])).not.toThrow();
   });
 });

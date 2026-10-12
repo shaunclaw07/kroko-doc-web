@@ -1,4 +1,4 @@
-import { DEFAULT_CREATURE_ID, getCreature } from './creature';
+import { DEFAULT_CREATURE_ID, getCreature, isKnownCreature, type CreatureDefinition } from './creature';
 import {
   creatureKWeights,
   expectedPresses as modelExpectedPresses,
@@ -13,6 +13,11 @@ import { survivedDanger } from './tension';
  * Reine Statistik-Helfer fuer die Auswertungsseite: keine DOM-Zugriffe, keine
  * Uhr, kein Zustand — alles ist eine Funktion der Eingaben.
  */
+
+/** Lebewesen einer Runde; fehlt die Kennung (Altdaten) oder ist sie unbekannt, gilt das Krokodil. */
+function creatureOfRound(id: string | undefined): CreatureDefinition {
+  return getCreature(id !== undefined && isKnownCreature(id) ? id : DEFAULT_CREATURE_ID);
+}
 
 /** Die mutigste Runde im Protokoll: die hoechste Bissgefahr, die ueberstanden wurde. */
 export interface BravestRound {
@@ -33,7 +38,7 @@ export interface BravestRound {
 export function bravestRound(records: readonly RoundRecord[]): BravestRound | null {
   let best: BravestRound | null = null;
   for (const record of records) {
-    const creature = getCreature(record.creature);
+    const creature = creatureOfRound(record.creature);
     const danger = survivedDanger({
       pressIndex: record.pressIndex,
       teeth: record.teeth,
@@ -248,9 +253,47 @@ export function countBy(values: readonly number[], domain: number): number[] {
   return counts;
 }
 
+/** Runden desselben Gebisses: gleiches Lebewesen, gleiche Zahnzahl, gleiches Zufallsmodell. */
+export interface RoundGroup<T> {
+  creature: string;
+  teeth: number;
+  mode: RandomMode;
+  rounds: T[];
+}
+
+/**
+ * Teilt ein Protokoll in Gruppen gleichen Gebisses — die größte zuerst, bei Gleichstand die zuerst
+ * gespielte. **Nur innerhalb einer Gruppe** gelten Gleichverteilung und Zugmodell: wer Krokodil
+ * (10 Zähne), Maus (6) und Wolf (12) zusammenwirft, prüft drei Verteilungen gegen eine und bekommt
+ * „auffällig", obwohl jede für sich fair ist (nachgerechnet am 12.10.2026 mit 300 fairen Runden:
+ * Zahn-Test p = 6e-13, Modell-Test p = 1e-5).
+ */
+export function groupRounds<T extends { mode: RandomMode; teeth: number; creature?: string }>(
+  rounds: readonly T[],
+): RoundGroup<T>[] {
+  const groups = new Map<string, RoundGroup<T>>();
+  for (const round of rounds) {
+    const creature = creatureOfRound(round.creature).id;
+    const key = `${creature}|${round.teeth}|${round.mode}`;
+    const group = groups.get(key);
+    if (group) {
+      group.rounds.push(round);
+    } else {
+      groups.set(key, { creature, teeth: round.teeth, mode: round.mode, rounds: [round] });
+    }
+  }
+  // Array.prototype.sort ist stabil: bei gleicher Größe bleibt die Reihenfolge des ersten Auftretens.
+  return [...groups.values()].sort((a, b) => b.rounds.length - a.rounds.length);
+}
+
 export interface SessionReport {
   rounds: number;
   teeth: number;
+  /** Gebiss, gegen das gerechnet wurde (Kennung aus dem Katalog) — die Anzeige nennt es. */
+  creature: string;
+  mode: RandomMode;
+  /** Verteilung der Druck-Position nach dem Zugmodell — dieselbe, gegen die `modelTest` prüft. */
+  model: number[];
   countsByTooth: number[];
   countsByPressIndex: number[];
   toothTest: ChiSquareResult | null;
@@ -264,10 +307,14 @@ export interface SessionReport {
 
 const AUTOCORRELATION_LAGS: readonly number[] = [1, 2, 3, 4, 5, 6];
 
+/** Sechs Versätze werden zugleich geprüft: z für 5 % ÷ 6 (zweiseitig), sonst schlägt bei fairen
+ *  Daten rund jede vierte Auswertung allein durch die Mehrfachprüfung an. */
+const AUTOCORRELATION_Z = 2.64;
+
 /**
- * Baut den Bericht aus den Runden einer Sitzung. `mode` (aus den Runden) steuert
- * die Modellgewichte. Unterhalb `minSample` Runden bleiben die Chi2-Tests null —
- * ehrlicher als eine Aussage auf zu duennem Datenfundament.
+ * Baut den Bericht aus Runden **eines** Gebisses (siehe `groupRounds`): Lebewesen und Modus
+ * kommen aus der ersten Runde, die Zahnzahl ist die größte. Unterhalb `minSample` Runden bleiben
+ * Chi2-Tests und Mustersuche aus — ehrlicher als eine Aussage auf zu duennem Datenfundament.
  */
 export function analyseSession(
   rounds: readonly {
@@ -291,18 +338,23 @@ export function analyseSession(
   const countsByTooth = countBy(loserTeeth, teeth);
   const countsByPressIndex = countBy(pressIndices, teeth);
 
-  const creature = getCreature(rounds[0]?.creature ?? DEFAULT_CREATURE_ID);
+  const creature = creatureOfRound(rounds[0]?.creature);
   const model = pressPositionDistribution(teeth, creatureKWeights(creature, mode, teeth));
 
   const toothTest = enough ? chiSquareGoodnessOfFit(countsByTooth, 'uniform') : null;
-  const pressIndexTest = enough ? chiSquareGoodnessOfFit(countsByPressIndex, 'uniform') : null;
+  // Gleichverteilt ist die Druck-Position nur bei genau einem scharfen Zahn. Im Originalmodell
+  // schnappt es vorne öfter — der Test wäre dort bei fairen Daten immer „auffällig".
+  const pressIndexTest =
+    enough && mode === 'classic' ? chiSquareGoodnessOfFit(countsByPressIndex, 'uniform') : null;
   const modelTest = enough ? chiSquareGoodnessOfFit(countsByPressIndex, model) : null;
 
-  const band = sample > 0 ? 1.96 / Math.sqrt(sample) : 0;
-  const autocorrelations = AUTOCORRELATION_LAGS.map((lag) => {
-    const value = autocorrelation(pressIndices, lag);
-    return { lag, value, remarkable: value !== null && Math.abs(value) > band };
-  });
+  const band = sample > 0 ? AUTOCORRELATION_Z / Math.sqrt(sample) : 0;
+  const autocorrelations = enough
+    ? AUTOCORRELATION_LAGS.map((lag) => {
+        const value = autocorrelation(pressIndices, lag);
+        return { lag, value, remarkable: value !== null && Math.abs(value) > band };
+      })
+    : [];
 
   let mostLikelyTooth: number | null = null;
   let bestCount = 0;
@@ -319,6 +371,9 @@ export function analyseSession(
   return {
     rounds: sample,
     teeth,
+    creature: creature.id,
+    mode,
+    model,
     countsByTooth,
     countsByPressIndex,
     toothTest,
@@ -331,7 +386,11 @@ export function analyseSession(
   };
 }
 
-/** Kurzes deutsches Fazit fuer die Statistikseite. */
+/**
+ * Kurzes deutsches Fazit für die Statistikseite. Ein Test, der nicht lief (`null` — etwa bei einem
+ * einzigen Zahn), bekommt **keinen** Freispruch: „passt zu den Daten" darf nur dastehen, wenn
+ * geprüft wurde.
+ */
 export function verdict(report: SessionReport, minSample = DEFAULT_MIN_SAMPLE): string {
   if (report.rounds < minSample) {
     return `Noch zu wenig Daten: erst ${report.rounds} Runden, belastbare Aussagen ab ${minSample}.`;
@@ -339,31 +398,42 @@ export function verdict(report: SessionReport, minSample = DEFAULT_MIN_SAMPLE): 
 
   const sentences: string[] = [];
 
-  sentences.push(
-    report.toothTest?.significant
-      ? 'Die Verlierer-Zaehne sind auffaellig ungleich verteilt (p < 0,05).'
-      : 'Die Verlierer-Zaehne sind mit der Gleichverteilung vereinbar.',
-  );
-  sentences.push(
-    report.pressIndexTest?.significant
-      ? 'Die Druck-Nummer ist auffaellig ungleich verteilt (p < 0,05).'
-      : 'Die Druck-Nummer ist mit der Gleichverteilung vereinbar.',
-  );
-  sentences.push(
-    report.modelTest?.significant
-      ? 'Das Zugmodell passt nicht zu den Daten.'
-      : 'Das Zugmodell passt zu den Daten.',
-  );
+  if (report.toothTest === null) {
+    sentences.push('Die Verlierer-Zähne lassen sich bei diesem Gebiss nicht prüfen.');
+  } else {
+    sentences.push(
+      report.toothTest.significant
+        ? 'Die Verlierer-Zähne sind auffällig ungleich verteilt (p < 0,05).'
+        : 'Die Verlierer-Zähne sind mit der Gleichverteilung vereinbar.',
+    );
+  }
+  // Nur im Modus „genau ein Zahn" gibt es diesen Test — dort ist die Druck-Nummer gleichverteilt.
+  if (report.pressIndexTest !== null) {
+    sentences.push(
+      report.pressIndexTest.significant
+        ? 'Die Druck-Nummer ist auffällig ungleich verteilt (p < 0,05).'
+        : 'Die Druck-Nummer ist mit der Gleichverteilung vereinbar.',
+    );
+  }
+  if (report.modelTest === null) {
+    sentences.push('Das Zugmodell lässt sich bei diesem Gebiss nicht prüfen.');
+  } else {
+    sentences.push(
+      report.modelTest.significant ? 'Das Zugmodell passt nicht zu den Daten.' : 'Das Zugmodell passt zu den Daten.',
+    );
+  }
 
   const remarkable = report.autocorrelations.filter((entry) => entry.remarkable);
   sentences.push(
-    remarkable.length > 0
-      ? `Auffaellige Autokorrelation bei Lag ${remarkable.map((entry) => entry.lag).join(', ')} - ein Muster ist nicht ausgeschlossen.`
-      : 'Keine auffaellige Autokorrelation - kein erkennbares Muster.',
+    report.autocorrelations.every((entry) => entry.value === null)
+      ? 'Eine Mustersuche ist bei diesen Daten nicht möglich.'
+      : remarkable.length > 0
+        ? `Auffällige Autokorrelation bei Versatz ${remarkable.map((entry) => entry.lag).join(', ')} — ein Muster ist nicht ausgeschlossen.`
+        : 'Keine auffällige Autokorrelation — kein erkennbares Muster.',
   );
 
   if (report.mostLikelyTooth !== null) {
-    sentences.push(`Haeufigster Verlierer-Zahn: ${report.mostLikelyTooth}.`);
+    sentences.push(`Häufigster Verlierer-Zahn: ${report.mostLikelyTooth}.`);
   }
 
   return sentences.join(' ');
