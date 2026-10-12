@@ -83,7 +83,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Dreiundzwanzig Fallen, die Zeit kosten
+## Sechsundzwanzig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -251,6 +251,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   **nur** dieses Blatt (das Einstellungsblatt bleibt offen, die Kurzinfo beschreibt das gewählte
   Tier). Wer eine Wahl sofort gelten lässt, muss die Knöpfe umbenennen: „Abbrechen" wäre eine Lüge
   — dort steht „Fertig".
+
+- **„Daneben" ist keine Frage der Koordinaten allein.** Die Regel „Tipp neben das Blatt schließt
+  es" verglich nur `clientX/clientY` mit dem Kasten. Drei Fehler kamen daher (gemessen am
+  12.10.2026): ein Klick per **Tastatur** trägt (0, 0) und galt als daneben — Enter auf „−" schloss
+  das Einstellungsblatt; ein Tipp auf eine Kachel des **oberen** Blatts lag neben dem unteren und
+  schloss es mit (Tablet: Auswahlblatt ab y 160, Einstellungsblatt ab y 413); und ein Tipp auf die
+  Bühne nach dem Biss wischte das Ergebnis weg. Seitdem steht die Regel in
+  `presentation/game/sheets.ts` — nur Zeigerklicks (`detail > 0`), nur das **oberste** Blatt,
+  entschieden in der **Einfangphase** (bevor ein Knopf sein Blatt schließt). Seitenskripte in
+  `.astro` lädt jsdom nicht: Bedienlogik gehört in ein Modul mit Test, das Skript verdrahtet nur.
+  Nachmessen: `uv run --with playwright python scripts/pruefen-blaetter.py`.
 
 ## Ein neues Lebewesen ergänzen
 

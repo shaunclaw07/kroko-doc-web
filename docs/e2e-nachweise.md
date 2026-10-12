@@ -1033,6 +1033,109 @@ das fest, weil jsdom das Seitenskript der `.astro`-Datei nicht lädt.
 
 Gate **243 Tests in 20 Dateien**.
 
+## 5v. Blätter: Tastatur, Tablet-Auswahl, Ergebnis (12.10.2026)
+
+Vier Bedienfehler rund um die Blätter (modale Dialoge), alle am 12.10.2026 im Chromium gegen den
+Bau `c857579` gemessen und danach behoben:
+
+| Nr. | Befund | Messung (vorher) |
+|---|---|---|
+| 1 | Enter/Leertaste auf einem Knopf im Einstellungsblatt schließt das Blatt | Tastaturklick trägt `clientX/Y = 0/0`, `detail = 0`; bei 390 und 1180 px |
+| 2 | Tipp auf eine obere Kachel der Tier-Auswahl schließt auch das Einstellungsblatt | bei 768 × 1024 und 1366 × 1024: Auswahlblatt beginnt bei y 160, Einstellungsblatt bei y 413 bzw. 528 |
+| 8 | Tipp auf die Bühne nach dem Biss schließt das Ergebnis; danach ist nur das Zahnrad sichtbar | 390 × 844, Ergebnisblatt y 560–844 |
+| 9 | Dasselbe Tier erneut tippen: eigene Zahnzahl weg, Runde neu | Krokodil 5 Zähne, 1 Druck → 10 Zähne, 0 Drücke |
+
+Die Regel „Tipp neben das Blatt schließt es“ stand als **Seitenskript** in `src/pages/index.astro`.
+jsdom lädt solche Skripte nicht, also prüfte sie kein Test — und alle drei Ursachen lagen in der
+Regel selbst: Ein Klick per Tastatur hat keinen Ort und galt als „daneben“; verglichen wurde nur mit
+dem **unteren** Blatt, sodass ein Tipp auf eine Kachel des **oberen** es mitschloss; und das
+Ergebnis-Blatt war nicht ausgenommen. Jetzt steht die Regel in
+`src/presentation/game/sheets.ts` — nur Zeigerklicks (`detail > 0`), nur das **oberste** Blatt,
+entschieden in der **Einfangphase** (`src/presentation/game/sheets.test.ts`, 9 Fälle mit den
+gemessenen Tablet-Maßen). Dazu `src/presentation/game/creatureChoice.ts` für Befund 9 und der Knopf
+`#restart-round` auf der Bühne für Befund 8 — er erscheint mit dem Zuschnappen und verschwindet mit
+der neuen Runde, weil nach „Schließen“ sonst nur noch das Zahnrad sichtbar war (belegt in der
+Grün-Ausgabe unten: Knopf vorher `none`, nach dem Schließen `block` mit 145,6 × 48,4 px, nach dem
+Tipp Status `open` und wieder `none`).
+
+**Aufruf** (`uv run --with playwright python scripts/pruefen-blaetter.py`; der Vorschau-Server
+`pnpm build && pnpm preview --port 4321` muss laufen):
+
+Rot vor der Umsetzung — die Sonde brach am noch fehlenden Knopf `#restart-round` ab (Exit 1):
+
+```
+Tastatur 390 px, Enter auf Minus: Blatt offen = False
+Tastatur 390 px, Leertaste auf Minus: Blatt offen = False
+Tastatur 390 px, Leertaste auf Ton: Blatt offen = False
+Tastatur 390 px, Enter auf Spielerzahl 2: Blatt offen = False
+Tastatur 1180 px, Enter auf Minus: Blatt offen = False
+Tastatur 1180 px, Leertaste auf Minus: Blatt offen = False
+Tastatur 1180 px, Leertaste auf Ton: Blatt offen = False
+Tastatur 1180 px, Enter auf Spielerzahl 2: Blatt offen = False
+Auswahl 390 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 390 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 390 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 390 px: Tipp daneben schliesst = True
+Auswahl 768 px, wolf: Auswahl offen = False, Einstellungen offen = False
+Auswahl 768 px, crocodile: Auswahl offen = False, Einstellungen offen = False
+Auswahl 768 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 768 px: Tipp daneben schliesst = True
+Auswahl 1180 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1180 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1180 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 1180 px: Tipp daneben schliesst = True
+Auswahl 1366 px, wolf: Auswahl offen = False, Einstellungen offen = False
+Auswahl 1366 px, crocodile: Auswahl offen = False, Einstellungen offen = False
+Auswahl 1366 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 1366 px: Tipp daneben schliesst = True
+```
+
+(Danach brach die Sonde ab: `#restart-round` gibt es im alten Markup noch nicht — `Page.evaluate:
+TypeError: Failed to execute 'getComputedStyle' … parameter 1 is not of type 'Element'`, Exit 1.)
+
+Grün nach der Umsetzung (`ERGEBNIS: in Ordnung`, Exit 0) — die Ausgabe des Laufs wörtlich:
+
+```
+Tastatur 390 px, Enter auf Minus: Blatt offen = True
+Tastatur 390 px, Leertaste auf Minus: Blatt offen = True
+Tastatur 390 px, Leertaste auf Ton: Blatt offen = True
+Tastatur 390 px, Enter auf Spielerzahl 2: Blatt offen = True
+Tastatur 1180 px, Enter auf Minus: Blatt offen = True
+Tastatur 1180 px, Leertaste auf Minus: Blatt offen = True
+Tastatur 1180 px, Leertaste auf Ton: Blatt offen = True
+Tastatur 1180 px, Enter auf Spielerzahl 2: Blatt offen = True
+Auswahl 390 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 390 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 390 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 390 px: Tipp daneben schliesst = True
+Auswahl 768 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 768 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 768 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 768 px: Tipp daneben schliesst = True
+Auswahl 1180 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1180 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1180 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 1180 px: Tipp daneben schliesst = True
+Auswahl 1366 px, wolf: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1366 px, crocodile: Auswahl offen = False, Einstellungen offen = True
+Auswahl 1366 px, sabertooth: Auswahl offen = False, Einstellungen offen = True
+Gegenprobe 1366 px: Tipp daneben schliesst = True
+Nach dem Biss: Ergebnis bleibt nach Tipp auf die Buehne = True | Knopf vorher: none | nach Schliessen: {'display': 'block', 'breite': 145.609375, 'hoehe': 48.375, 'imBild': True} | nach Neue Runde: {'status': 'open', 'display': 'none'}
+Dasselbe Tier erneut getippt: Zaehne auf der Buehne = 5
+ERGEBNIS: in Ordnung
+```
+
+Die beiden Gegenproben desselben Baus bleiben grün: `scripts/pruefen-tiere.py` meldet
+`ERGEBNIS: in Ordnung` (zehn Kacheln, nach dem Tipp Auswahlblatt zu und Einstellungsblatt offen),
+`scripts/pruefen-blattbreite.py` meldet **0 Auffälligkeiten** mit `beim Laden none` in allen acht
+Zeilen (320–1366 px).
+
+**Zur Umgebung, ehrlich benannt:** `uv` fehlt auf dieser Maschine. Die Sonde lief deshalb mit dem
+aus dem lokalen pip-Cache installierten `playwright` 1.63 gegen ein echtes Chromium (dieselbe
+Schnittstelle, dasselbe Skript); für die von 1.63 verlangte Browser-Revision 1243 zeigt ein
+Verzeichnis-Verweis auf die vorhandene 1234. Ein Handgerät stand nicht zur Verfügung — die
+Tastatur-, Tablet- und Biss-Prüfungen sind damit gemessen, das Gefühl am Finger nicht.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

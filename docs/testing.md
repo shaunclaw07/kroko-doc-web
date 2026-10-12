@@ -8,12 +8,12 @@ pnpm gate          # pnpm typecheck && pnpm test:run
 
 Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
-## Stand (letzter Lauf 11.10.2026)
+## Stand (letzter Lauf 12.10.2026)
 
 | Größe | Wert |
 |---|---|
-| Testdateien | 20 |
-| Tests | 243 (20 Dateien) |
+| Testdateien | 22 |
+| Tests | 256 (22 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -38,6 +38,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen; Katalog und Zeichnungen decken sich |
 | `src/icon.test.ts` | Symbol-Sonde: **erzeugt das App-Symbol** aus der Krokodil-Zeichnung (geschlossenes Maul, Schließwege wie die Bühne), hält die ausgelieferten SVGs Zeichen für Zeichen daran fest (`favicon.svg`, `icon-maskable.svg` und `logo.svg` für den Kopfbereich der Seite), prüft, dass der Kopfbereich beider Seiten das Symbol zeigt und kein zweites, von Hand gezeichnetes Krokodil, den Manifest-Eintrag, die Existenz jeder genannten Datei und die Kantenlängen der PNGs (180/192/512) |
 | `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 285 px Bühnenbreite ≥ 44 px. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
+| `src/presentation/game/sheets.test.ts` | Blätter: Tipp daneben schließt nur das **oberste** Blatt, ein Tastaturklick (0/0) schließt nichts, eine Kachel oberhalb des unteren Blatts schließt es nicht mit, das Ergebnis bleibt bei Tipps auf die Bühne stehen — mit den gemessenen Tablet-Maßen |
+| `src/presentation/game/creatureChoice.test.ts` | Tier-Auswahl: dasselbe Tier erneut tippen ändert nichts, ein anderes bringt sein Gebiss mit |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns |
 
@@ -109,7 +111,17 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Einstellungsblatt offen, der Name im Blatt der gewählte und genau eine Kachel markiert; beim
    erneuten Öffnen steht die Kurzinfo des gewählten Tiers weiter da.
 
-8. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
+8. **Blätter-Sonde** — bleiben die Blätter offen, solange man darin arbeitet? Die Sonde stellt die
+   vier Befunde vom 12.10.2026 im echten Chromium nach: Enter/Leertaste auf einem Knopf im
+   Einstellungsblatt (Tastaturklick trägt 0/0), Tipp auf eine obere Kachel der Tier-Auswahl bei
+   390/768/1180/1366 px, Tipp auf die Bühne nach dem Biss und dasselbe Tier erneut tippen. Dazu die
+   Gegenprobe, dass ein Zeigertipp **neben** das Einstellungsblatt es weiterhin schließt.
+   `uv run --with playwright python scripts/pruefen-blaetter.py` (mit einer Adresse als Argument
+   gegen die veröffentlichte Seite). Erwartet: 8× `Blatt offen = True`, je Breite `Auswahl offen =
+   False, Einstellungen offen = True` und `Tipp daneben schliesst = True`, der Knopf `#restart-round`
+   nach dem Biss erreichbar (≥ 44 px, im Sichtfenster) und `ERGEBNIS: in Ordnung` (Exit 0).
+
+9. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
    **berechneten** Stile im echten Chromium (jsdom rechnet kein CSS) in drei Lagen: ein Zahn
    (Gefahr 100 % → Füllung **und** Text in der Gefahrfarbe, Atmung im Puls-Takt), zehn Zähne mit
    einem Druck (Gegenprobe: 21 % → **nicht** rot) und nach dem Zuschnappen („Runde beendet",
