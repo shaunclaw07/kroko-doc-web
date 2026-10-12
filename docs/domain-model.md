@@ -52,9 +52,10 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
 |---|---|
 | Spannung | `P(J = i) / P(J ≥ i)` aus der Verteilung in `probabilities.ts` — die Biss-Wahrscheinlichkeit des nächsten Drucks. **Kein aufaddierter Pegel:** sie sättigt nicht, sondern steigt monoton bis zum letzten Zahn auf 1. |
 | Zucken | Grundchance 12 %, wächst mit der Spannung, **0** beim letzten Zahn |
-| Pause (`beatMs`) | bei **jedem** Druck, 120–700 ms; die Länge wird **unabhängig vom Ausgang** gezogen (früh meist kurz, spät bis ans Ende des Fensters) |
+| Pause (`beatMs`) | bei **jedem** Druck, 120–700 ms; die Länge wird **unabhängig vom Ausgang** gezogen (früh meist kurz, spät bis ans Ende des Fensters). Sie ist die **Mindestpause**: wer den Zahn länger hält, bekommt das Urteil 60 ms nach dem Loslassen |
+| Halten | der Zahn sinkt beim Auflegen des Fingers, gezogen wird erst beim Loslassen; wegschieben, `pointercancel` oder 4 s Zögern nehmen den Druck zurück |
 | Riss | feste 60 ms zwischen Pause und Auflösung — für beide Ausgänge gleich |
-| Erleichterung | 0..1, abgeleitet aus der erlebten Pause; nur beim harmlosen Druck |
+| Erleichterung | 0..1, abgeleitet aus der **erlebten** Pause (`max(beatMs, Haltedauer)`); nur beim harmlosen Druck |
 | Puls des Balkens | 900 ms bei Spannung 0 bis 380 ms bei Spannung 1 (nur sichtbar; der hörbare Herzschlag ist seit dem 12.10.2026 entfernt) |
 | Beschleunigung | Bildschirmbeben, Vibration, Maul-„Lunge" nach vorn |
 

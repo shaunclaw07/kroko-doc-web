@@ -1400,6 +1400,56 @@ Kind gefallen. Während der Pause vor dem Urteil sinkt das Gesicht um 7 Einheite
 (`is-pressing`); bei den knappsten Augen (Abstand zum Ring 2 bis 3 Einheiten) kann es dabei für
 einen Moment den Wurzelrand eines Zahns berühren.
 
+## 5ac. Zahn halten: das Urteil kommt beim Loslassen (12.10.2026)
+
+**Was geprüft wurde:** ob ein Zahn im **echten** Browser erst beim Loslassen entschieden wird —
+halten, wegschieben, kurzer Mausklick, Obergrenze, Eingabetaste, Finger-Tipp und die Ein-Zahn-Runde.
+jsdom kennt weder Geometrie noch `elementFromPoint`; genau daran hängen das Zurücknehmen und die
+Frage, ob ein Zeiger-Tipp doppelt zählt.
+
+**Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
+`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+
+```bash
+uv run --with playwright python scripts/pruefen-halten.py http://localhost:4321
+# ohne uv:
+python scripts/pruefen-halten.py http://localhost:4321
+```
+
+**Wörtliche Ausgabe** (Chromium, Seite vom laufenden `pnpm dev`, 12.10.2026):
+
+```
+1 — Halten
+  ok    beim Halten kein Zug (steht: 0 von 10 gedrückt)
+  ok    der gehaltene Zahn trägt is-held und ist nicht gedrückt
+  ok    Loslassen zählt genau einen Zug (steht: 1 von 10 gedrückt)
+  ok    nach dem Loslassen ist der Zahn gedrückt
+2 — Wegschieben
+  ok    weggeschoben zählt nicht (steht: 0 von 10 gedrückt)
+  ok    der Zahn steht wieder
+3 — kurzer Mausklick
+  ok    ein Klick ist ein Zug (steht: 1 von 10 gedrückt)
+4 — Obergrenze
+  ok    nach 4 s federt der Zahn zurück
+  ok    das späte Loslassen zählt nicht (steht: 0 von 10 gedrückt)
+5 — Tastatur
+  ok    Eingabetaste zählt einen Zug (steht: 1 von 10 gedrückt)
+6 — Finger-Tipp
+  ok    ein Finger-Tipp ist ein Zug (steht: 1 von 10 gedrückt)
+7 — ein Zahn: das Urteil kommt erst nach dem Loslassen
+  ok    beim Halten bleibt die Runde offen (ist: open)
+  ok    nach dem Loslassen schnappt es zu (ist: snapped)
+
+Auffälligkeiten: 0
+```
+
+Die vier bestehenden Sonden liefen danach gegen dieselbe Seite ohne Fund: `pruefen-trefferflaeche.py`
+meldete für alle drei Tippproben „registriert", `pruefen-anzeige.py` „ERGEBNIS: in Ordnung",
+`pruefen-bedienung.py` `Auffälligkeiten: 0` (die um elf Zeichen längere Anleitung bricht auf
+320 × 568 nicht störend um) und `pruefen-blaetter.py` „ERGEBNIS: in Ordnung".
+
+**Nicht geprüft:** echtes Gerät, Safari, Silk — die Sonde läuft in Chromium.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

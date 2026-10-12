@@ -882,3 +882,43 @@ Pulsieren des Balkens im selben Takt. Entschieden vom Auftraggeber: **nur das Ge
 den Drücken ist es jetzt still.
 
 Gate **373 Tests in 28 Dateien**. Nicht gepusht.
+
+## Nachtrag 12.10.2026 (gebaut): Zahn halten, das Urteil kommt beim Loslassen
+
+**Anlass (Auftraggeber):** die Frage nach mehr Nervenkitzel und seine Zustimmung zu den drei
+Empfehlungen „Drücken und halten", „Das Tier reagiert auf die Gefahr", „Heranzoomen bei Rot" — in
+dieser Reihenfolge. Dies ist der erste der drei Pläne; die beiden anderen stehen noch aus.
+
+**Die Entscheidungen** (Selbst-Sparring, jede Antwort mit einer Tatsache aus dem Baum):
+
+1. **Beim Auflegen wird nichts entschieden.** `playPress` läuft erst beim Loslassen. Grund: ein
+   Finger, der nur scrollen will, endet mit `pointercancel` (so begründet `src/pages/index.astro`
+   schon die Ton-Freigabe bei `pointerup`) — er darf keinen Zug kosten.
+2. **Vom Zahn schieben nimmt den Druck zurück.** Geprüft wird beim Loslassen mit
+   `document.elementFromPoint` gegen den Zahn. Das verrät nichts: bis dahin ist nichts gezogen.
+3. **Die Pause des Kerns bleibt Mindestpause.** Gewartet wird `max(0, beatMs − Haltedauer)`. Ein
+   kurzer Tipp fühlt sich damit an wie heute (120–700 ms), und schnelles Tippen kürzt die Pause
+   nicht ab. Die Länge hängt weiter nur an Zufall, Spannung und der Hand des Spielers — nie am
+   Ausgang.
+4. **Tastatur und Hilfstechnik: kurzer Druck wie bisher.** `keydown` (Enter, Leertaste) und ein
+   `click` ohne Zeiger (`detail === 0`) lösen sofort aus. Ein `click` **mit** Zeiger (`detail ≥ 1`)
+   wird übergangen — den Zug hat `pointerup` schon ausgelöst.
+5. **Obergrenze 4 s, danach federt der Zahn zurück** (kein Zug). Grund: ein verlorenes `pointerup`
+   (Tabwechsel, Systemdialog) darf nichts entscheiden und die Bühne nicht sperren.
+6. **Nur ein Halten zugleich.** Ein zweiter Finger beginnt keinen zweiten Druck (`isPrimary`, und
+   ein laufendes Halten sperrt).
+7. **Die Erleichterung wächst mit der erlebten Pause** — also mit `max(beatMs, Haltedauer)`. Wer
+   lange gehalten hat, atmet hörbarer aus.
+8. **Tipp-Rückmeldung beim Auflegen:** Vibration (25 ms) und die Klänge `tap`, `creak`, `breath`
+   kommen beim Auflegen des Fingers, nicht beim Loslassen. Beim Zurücknehmen bricht `stopAll()` sie
+   ab.
+
+**Abgesagt:** Auslösen bei Erreichen der Obergrenze (ein hängendes Halten würde einen Zug
+ergwingen); Halten per Tastatur (`keydown`/`keyup` mit Tastenwiederholung — eigener Fehlerraum ohne
+Gewinn); ein Fortschrittsring um den gehaltenen Zahn (sähe aus wie ein Zeitlimit).
+
+**Offen — nur der Auftraggeber kann es beurteilen:** wie sich das Halten am Handy anfühlt, ob 4 s zu
+kurz oder zu lang sind, und ob ein langer Druck auf dem Fire-Tablet oder in Safari ein Systemmenü
+öffnet (die Sonde prüft nur Chromium).
+
+Gate **386 Tests in 28 Dateien**. Nicht gepusht.

@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 28 |
-| Tests | 373 (28 Dateien) |
+| Tests | 386 (28 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -46,7 +46,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/presentation/game/quickControls.test.ts` | Leiste der Spielseite: Zahnzahl je Schritt, Grenzen 1 und 12 ändern nichts (keine neue Runde), Kachel wählt in Reihe wie Blatt, Bühne bleibt unberührt, Kurzinfo gefüllt |
 | `src/presentation/game/albumBadges.test.ts` | Tier-Album in der Bedienung (jsdom): drei Plätze je Kachel, verdiente gefüllt, Beschriftung für Bildschirmleser („Krokodil, 2 von 3 Sternen"), die Zeichnung auf der Bühne bleibt unberührt (auch sie trägt `data-creature`), mehrmaliges Malen legt keine weiteren Plätze an, Zusammenfassung in einem Satz; die **Ansage** nennt nach dem Biss Tier und Stern, mehrere Sterne zusammen, schweigt ohne Neues und räumt die alte Ansage weg — und sagt nichts an, wenn sich das Protokoll von außen ändert (anderer Tab, Import) |
 | `src/bedienleiste.test.ts` | Markup der Spielseite: Tier, Zähne und Neue Runde stehen auf der Seite und nicht im Zahnrad; das Zahnrad bietet genau 1 oder 2 Spieler; die Kurzinfo steht im Regeln-Blatt; die Ansage eines neuen Sterns steht als Meldung (`role="status"`) auf der Bühne, das Album ist mit derselben Ablage verdrahtet wie das Spiel, und das Regeln-Blatt nennt die drei Sterne beim Namen und sagt, dass sie Glück sind |
-| `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, **Tierstimme** nach dem Biss und beim Tierwechsel (nie bei harmlosem Zahn, nie für eine überholte Runde; der Tierwechsel bricht vorher ab, was noch klingt), Ergebnis auf der Seite samt Satz über das echte Tier (nach einem Tierwechsel der des neuen Tiers), **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis auf der Seite räumt die neue Runde weg; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt; im Leerlauf spielt nichts von selbst (kein Herzschlag), und nach `dispose()` läuft kein spätes Urteil mehr |
+| `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, **Tierstimme** nach dem Biss und beim Tierwechsel (nie bei harmlosem Zahn, nie für eine überholte Runde; der Tierwechsel bricht vorher ab, was noch klingt), Ergebnis auf der Seite samt Satz über das echte Tier (nach einem Tierwechsel der des neuen Tiers), **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis auf der Seite räumt die neue Runde weg; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt; im Leerlauf spielt nichts von selbst (kein Herzschlag), und nach `dispose()` läuft kein spätes Urteil mehr; **Halten**: beim Auflegen wird nichts entschieden, Loslassen auf dem Zahn zählt genau einen Zug, Wegschieben, `pointercancel`, die Obergrenze von 4 s, eine neue Runde und `dispose()` nehmen ihn zurück, ein zweiter Finger beginnt nichts, der `click` eines Zeigers wird übergangen |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns; dazu ein Bericht je Gebiss (größte Gruppe offen, übrige eingeklappt), beim Wolf der Modellwert 5,42 statt 4,69, der Gleichverteilungs-Test der Druck-Position nur im Modus classic, keine Muster-Marken unter der Mindestzahl; ein unbekanntes Lebewesen wirft nicht (gilt als Krokodil), die Statuszeile zählt die Mindestzahl je Gebiss, und ein Test, den das Gebiss nicht hergibt, heißt „nicht prüfbar" statt „zu wenig Daten" |
 
 ## Prüfsonden (Nachweis am laufenden Gegenstand)
@@ -150,6 +150,10 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    nachgestellt). Handy quer (844 × 390) darf scrollen, aber nichts verdecken.
    `uv run --with playwright python scripts/pruefen-bedienung.py` (mit einer Adresse als Argument
    gegen die veröffentlichte Seite). Erwartet: zehn Messzeilen und `Auffälligkeiten: 0` (Exit 0).
+
+11. **Halte-Sonde** — `scripts/pruefen-halten.py` hält, schiebt weg, klickt, tippt und drückt die
+   Eingabetaste im echten Browser. Erwartet: dreizehn Zeilen `ok` und `Auffälligkeiten: 0` (Exit 0).
+   `uv run --with playwright python scripts/pruefen-halten.py`
 
 ## Zwei Regeln für Zeitgeber in Sonden
 
