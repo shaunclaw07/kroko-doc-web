@@ -8,6 +8,7 @@ import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from 
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
 import {
   VERDICT_GAP_MS,
+  dangerZoom,
   isHighDanger,
   isTense,
   pressProgress,
@@ -633,6 +634,9 @@ export class GameController {
     // Die Bühne behält ihre eigenen Werte: `--tension` färbt das Bild dunkler, `--beat-ms` taktet
     // den Puls, `data-status`/`data-tension` tragen die Sonden.
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));
+    // Ab der Rot-Schwelle rückt die Bühne heran. Bei geschlossenem Maul gibt es keinen nächsten
+    // Druck — dann auch keinen Zoom (wie die Gefahr-Anzeige, die dort verstummt).
+    this.stage?.style.setProperty('--zoom', (roundOpen ? dangerZoom(this.tension) : 0).toFixed(3));
     this.stage?.style.setProperty('--beat-ms', `${pulseInterval(this.tension)}ms`);
     if (this.stage) {
       this.stage.dataset.status = this.round.status;

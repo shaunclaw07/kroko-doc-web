@@ -1065,4 +1065,44 @@ describe('GameController in der Bühne', () => {
     expect(artClasses()?.contains('is-wary')).toBe(false);
     expect(artClasses()?.contains('is-trembling')).toBe(false);
   });
+
+  function zoom(): string | undefined {
+    return document.getElementById('stage')?.style.getPropertyValue('--zoom');
+  }
+
+  it('lässt die Bühne am Rundenbeginn in Ruhe (Krokodil: 20 % Bissgefahr)', () => {
+    build([10]);
+    expect(zoom()).toBe('0.000');
+  });
+
+  it('rückt ab der Rot-Schwelle heran — abgeleitet aus der Bissgefahr des nächsten Drucks', () => {
+    build([10]);
+    // Krokodil, 10 Zähne: der 8. Druck hat 40,7 % (noch nicht rot), der 9. Druck 55,0 %.
+    for (const tooth of [1, 2, 3, 4, 5, 6, 7]) click(tooth);
+    expect(zoom()).toBe('0.000');
+    click(8);
+    expect(zoom()).toBe('0.460');
+    click(9);
+    expect(zoom()).toBe('1.000');
+  });
+
+  it('ist bei einem einzigen Zahn von Anfang an ganz herangerückt', () => {
+    build([1], { teethOverride: 1 });
+    expect(zoom()).toBe('1.000');
+  });
+
+  it('steht nach dem Biss wieder auf 0', () => {
+    build([1], { teethOverride: 1 });
+    click(1);
+    expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
+    expect(zoom()).toBe('0.000');
+  });
+
+  it('steht nach einer neuen Runde wieder auf 0', () => {
+    const { controller } = build([10]);
+    for (const tooth of [1, 2, 3, 4, 5, 6, 7, 8]) click(tooth);
+    expect(zoom()).toBe('0.460');
+    controller.resetRound();
+    expect(zoom()).toBe('0.000');
+  });
 });
