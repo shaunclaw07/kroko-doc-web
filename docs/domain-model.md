@@ -37,6 +37,10 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
    sagt das ausdrücklich an.
 4. **Statistik ohne Signifikanz unter der Mindeststichprobe** (100 Runden): Es gibt dann
    Tabellen, aber keine Testaussage.
+5. **Die Statistik vergleicht nur Gleiches.** Ein Protokoll wird nach Lebewesen, Zahnzahl und Modus
+   in Gruppen geteilt (`groupRounds`); Gleichverteilung und Zugmodell gelten nur innerhalb einer
+   Gruppe, und die Mindeststichprobe von 100 Runden gilt je Gruppe. Ein Test, der nicht laufen
+   konnte, bekommt kein Urteil — „passt zu den Daten" steht nur da, wenn geprüft wurde.
 
 ## Spannungsdramaturgie (`core/domain/tension.ts`)
 

@@ -83,7 +83,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Sechsundzwanzig Fallen, die Zeit kosten
+## Siebenundzwanzig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -267,6 +267,16 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   entschieden in der **Einfangphase** (bevor ein Knopf sein Blatt schließt). Seitenskripte in
   `.astro` lädt jsdom nicht: Bedienlogik gehört in ein Modul mit Test, das Skript verdrahtet nur.
   Nachmessen: `uv run --with playwright python scripts/pruefen-blaetter.py`.
+
+- **Ein Test gegen ein Modell gilt nur für Daten aus diesem Modell.** Die Statistik warf alle Runden
+  zusammen (Zahnzahl = Maximum, Tier und Modus aus der ersten Runde). 300 **faire** Runden aus
+  Krokodil, Maus und Wolf ergaben „Verlierer-Zähne auffällig ungleich verteilt" (p = 6e-13) und
+  „Das Zugmodell passt nicht" (p = 1e-5) — die Maus hat eben keine Zähne 7 bis 12. Seit dem
+  12.10.2026 teilt `groupRounds` das Protokoll nach Lebewesen, Zahnzahl und Modus, und der Test dazu
+  spielt **faire Runden mit den echten Regeln** (`infrastructure/testing/fairRounds.ts`): wer prüfen
+  will, ob eine Auswertung zu Unrecht Alarm schlägt, braucht faire Daten, keine ausgedachten.
+  Dieselbe Regel im Kleinen: „Druck-Position gegen Gleichverteilung" war im Originalmodell **immer**
+  rot, weil die Position dort gewollt nicht gleichverteilt ist.
 
 ## Ein neues Lebewesen ergänzen
 
