@@ -28,6 +28,8 @@ describe('Spielseite', () => {
     expect(SPIEL).toContain('id="result-text"');
     expect(SEITE).not.toContain('result-sheet');
     expect(SEITE).not.toContain('result-again');
+    // Der Satz zum echten Tier steht NACH dem Ergebnis — ein Bildschirmleser liest in dieser Reihenfolge.
+    expect(SPIEL.indexOf('id="result-fact"')).toBeGreaterThan(SPIEL.indexOf('id="result-text"'));
   });
   it('kennt die abgeschafften Anzeigen nicht mehr', () => {
     expect(SEITE).not.toContain('restart-round');

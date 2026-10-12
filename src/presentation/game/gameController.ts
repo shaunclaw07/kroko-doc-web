@@ -19,6 +19,7 @@ import {
 import { METER_HINT_KEY, type SessionMarkPort } from '../../core/ports/sessionMark';
 import { createRoundRecord, nextRoundNumber } from '../../core/domain/sessionLog';
 import { type RandomMode } from '../../core/domain/teeth';
+import { getCreature } from '../../core/domain/creature';
 import { playPress } from '../../core/use-cases/playPress';
 import { creatureView, type CreatureView } from './creatures';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
@@ -570,6 +571,8 @@ export class GameController {
         `Insgesamt ${loser.liveCount} ${liveWord} (${live}).` +
         this.mutSentence(loser.pressIndex);
     }
+    // Der Satz gehört zum Tier **dieser** Runde — nicht zur Einstellung, die sich ändern kann.
+    this.setText('result-fact', `Wusstest du? ${getCreature(this.round.creatureId).fact}`);
     this.deps.sound.play(this.round.players === 1 ? 'lose' : 'win', 0.8);
   }
 }

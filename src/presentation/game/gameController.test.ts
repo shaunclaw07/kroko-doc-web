@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GameController } from './gameController';
+import { getCreature } from '../../core/domain/creature';
 import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics';
 import { RecordingSound } from '../../infrastructure/testing/recordingSound';
 import { ScriptedRandom } from '../../infrastructure/testing/scriptedRandom';
@@ -62,7 +63,7 @@ const DOM = `
   <p id="how-to"></p>
   <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
   <section id="hud-stats"></section>
-  <section id="result-panel" class="hidden"><h2 id="result-title"></h2><p id="result-text"></p></section>
+  <section id="result-panel" class="hidden"><h2 id="result-title"></h2><p id="result-text"></p><p id="result-fact"></p></section>
 `;
 
 function settings(overrides: Partial<GameSettings> = {}): GameSettings {
@@ -136,6 +137,25 @@ describe('GameController in der Bühne', () => {
     for (const controller of gebaut.splice(0)) {
       controller.dispose();
     }
+  });
+
+  it('nennt nach dem Biss einen Satz über das echte Tier', () => {
+    build([4], { creature: 'mouse' });
+    expect(document.getElementById('result-fact')?.textContent).toBe('');
+    click(4);
+    expect(document.getElementById('result-fact')?.textContent).toBe(
+      `Wusstest du? ${getCreature('mouse').fact}`,
+    );
+  });
+
+  it('nennt nach einem Tierwechsel den Satz des neuen Tiers', () => {
+    const { controller } = build([4], { creature: 'mouse' });
+    click(4);
+    controller.applySettings(settings({ creature: 'wolf' }));
+    click(4);
+    expect(document.getElementById('result-fact')?.textContent).toBe(
+      `Wusstest du? ${getCreature('wolf').fact}`,
+    );
   });
 
   it('hängt den Herzschlag ab: nach dispose() schlägt nichts mehr', () => {
