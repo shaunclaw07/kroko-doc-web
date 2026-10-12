@@ -36,12 +36,88 @@ describe('createBrowserAudioContext', () => {
   });
 });
 
-/** Baut eine Engine auf einem frischen Fake-Kontext — so gehören alle Logs zu diesem Klang. */
+/**
+ * Baut eine Engine auf einem frischen Fake-Kontext — so gehören alle Logs zu diesem Klang. Die
+ * Engine ist **freigegeben** (`unlock`), wie nach der ersten Nutzergeste; was davor gilt, prüft der
+ * Block „Freigabe".
+ */
 function makeEngine(options: WebAudioEngineOptions = {}): { engine: WebAudioEngine; audio: FakeAudioContext } {
   const audio = new FakeAudioContext();
   const engine = new WebAudioEngine({ ...options, createContext: () => audio });
+  engine.unlock();
   return { engine, audio };
 }
+
+/** Ein Kontext, den der Browser noch anhält: `resume()` wird gezählt, ändert aber nichts. */
+function blockedContext(): FakeAudioContext {
+  const audio = new FakeAudioContext();
+  audio.state = 'suspended';
+  audio.resume = () => {
+    audio.resumeCallCount += 1;
+    return Promise.resolve();
+  };
+  return audio;
+}
+
+describe('Freigabe', () => {
+  it('plant vor der ersten Nutzergeste nichts — nicht einmal einen Kontext', () => {
+    let created = 0;
+    const audio = new FakeAudioContext();
+    const engine = new WebAudioEngine({
+      createContext: () => {
+        created += 1;
+        return audio;
+      },
+    });
+    for (let beat = 0; beat < 50; beat += 1) {
+      engine.play('heartbeat');
+    }
+    engine.play('tap');
+    expect(created).toBe(0);
+    expect(audio.nodeCount()).toBe(0);
+
+    engine.unlock();
+    engine.play('heartbeat');
+    expect(audio.nodeCount()).toBeGreaterThan(0);
+  });
+
+  it('staut keinen Herzschlag, solange der Kontext nicht läuft', () => {
+    // Gemessen am 12.10.2026: 50 gestaute Schläge spielten beim ersten Tipp gleichzeitig.
+    const audio = blockedContext();
+    const engine = new WebAudioEngine({ createContext: () => audio });
+    engine.unlock();
+    for (let beat = 0; beat < 50; beat += 1) {
+      engine.play('heartbeat');
+    }
+    expect(audio.nodeCount()).toBe(0);
+
+    // Die Klänge eines Tipps werden geplant — der Tipp ist die Geste, die den Kontext startet.
+    engine.play('tap');
+    expect(audio.nodeCount()).toBeGreaterThan(0);
+
+    const afterTap = audio.nodeCount();
+    audio.state = 'running';
+    engine.play('heartbeat');
+    expect(audio.nodeCount()).toBeGreaterThan(afterTap);
+  });
+
+  it('bittet erneut um Freigabe, solange der Kontext nicht läuft — und nie, wenn er läuft', () => {
+    const audio = blockedContext();
+    const engine = new WebAudioEngine({ createContext: () => audio });
+    engine.unlock();
+    engine.unlock();
+    expect(audio.resumeCallCount).toBe(2);
+
+    audio.state = 'running';
+    engine.unlock();
+    expect(audio.resumeCallCount).toBe(2);
+
+    // iOS hält den Kontext nach einem Anruf oder der Bildschirmsperre an.
+    audio.state = 'interrupted';
+    engine.unlock();
+    expect(audio.resumeCallCount).toBe(3);
+  });
+});
 
 /** Höchster geplanter Gain-Wert — Maß für "wie laut". */
 function peakGain(audio: FakeAudioContext): number {
@@ -131,16 +207,9 @@ describe('Robustheit', () => {
     expect(typeof engine.isMuted()).toBe('boolean');
   });
 
-  it('ruft resume() über unlock() genau einmal wirksam auf', () => {
-    const { engine, audio } = makeEngine();
-    engine.unlock();
-    engine.unlock();
-    engine.unlock();
-    expect(audio.resumeCallCount).toBe(1);
-  });
-
   it('bleibt stumm, wenn resume() scheitert', async () => {
     const audio = new FakeAudioContext();
+    audio.state = 'suspended';
     audio.resume = () => {
       audio.resumeCallCount += 1;
       return Promise.reject(new Error('not allowed'));

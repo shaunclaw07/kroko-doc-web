@@ -97,7 +97,8 @@ export class WebAudioEngine implements SoundPort {
   private context: AudioContextLike | null = null;
   private muted: boolean;
   private tension = 0;
-  private resumeRequested = false;
+  /** Erst nach der ersten Nutzergeste wird überhaupt etwas geplant (siehe `play`). */
+  private unlocked = false;
 
   constructor(options: WebAudioEngineOptions = {}) {
     this.createContext = options.createContext ?? createBrowserAudioContext;
@@ -106,8 +107,16 @@ export class WebAudioEngine implements SoundPort {
 
   play(name: SoundName, intensity: number = DEFAULT_INTENSITY): void {
     if (this.muted) return; // stumm: kein Knoten, kein Ton
+    // Vor der ersten Nutzergeste hält der Browser den Kontext an: seine Uhr steht, und alles, was
+    // jetzt geplant wird, startet beim Freigeben **gleichzeitig**. Der Herzschlag lief ab Seitenstart
+    // — nach 20 s Leerlauf lagen 50 Schläge übereinander (gemessen: Spitzenpegel 6,6 statt 0,26).
+    if (!this.unlocked) return;
     const context = this.ensureContext();
     if (context === null) return;
+    // Der Herzschlag ist der einzige Klang, der sich selbst wiederholt. Solange der Kontext nicht
+    // läuft (Freigabe noch unterwegs, auf iOS nach einem Anruf „interrupted"), fällt er aus,
+    // statt sich zu stauen. Einzelne Klänge eines Tipps werden geplant — sie sind die Geste.
+    if (name === 'heartbeat' && context.state !== 'running') return;
     const now = context.currentTime;
     const level = this.clamp01(intensity);
     try {
@@ -175,10 +184,12 @@ export class WebAudioEngine implements SoundPort {
   }
 
   unlock(): void {
+    this.unlocked = true;
     const context = this.ensureContext();
     if (context === null) return;
-    if (this.resumeRequested) return; // resume() höchstens einmal wirksam
-    this.resumeRequested = true;
+    // Nicht „höchstens einmal": die erste Geste kann eine sein, die der Browser nicht als Freigabe
+    // zählt, und ein laufender Kontext kann wieder angehalten werden (iOS nach Anruf oder Sperre).
+    if (context.state === 'running') return;
     try {
       const resume = context.resume();
       if (resume && typeof resume.catch === 'function') {
