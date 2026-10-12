@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 23 |
-| Tests | 286 (23 Dateien) |
+| Tests | 293 (23 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -33,7 +33,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/core/domain/statistics.test.ts` | Chi²-Verteilung gegen Tabellenwerte (χ²=3,841/df=1 → 0,050; 19,023/df=9 → 0,025), Wilson-Intervall, Autokorrelation, **Gruppen gleichen Gebisses** (`groupRounds`); 360 faire, gemischte Runden sind je Gruppe unauffällig (zusammengeworfen schlagen Zahn- und Modell-Test an); Druck-Position gegen Gleichverteilung nur im Modus classic; Mustersuche erst ab der Mindeststichprobe; kein Freispruch für einen Test, der nicht lief; Fazit mit Umlauten; ein unbekanntes Lebewesen im Protokoll wirft nicht mehr |
 | `src/core/use-cases/playPress.test.ts` | Dramaturgie ohne Verrat des Geheimnisses |
 | `src/infrastructure/audio/webAudioEngine.test.ts` | Klänge synthetisch, stumm schaltet Knoten ab, Spannung ändert das Tempo, ohne Audio-Kontext keine Ausnahme, `webkitAudioContext`-Rückfall; **Freigabe**: vor der ersten Nutzergeste entsteht weder Knoten noch Kontext, der Herzschlag staut sich nicht, solange der Kontext nicht läuft, und `unlock()` bittet erneut um Freigabe (auch nach „interrupted") |
-| `src/infrastructure/storage/localStorageLog.test.ts` | Ablage, kaputtes JSON, privater Modus, Übernahme früherer Speicher-Schlüssel; Einträge, die kein Protokolleintrag sind, werden übergangen |
+| `src/infrastructure/storage/localStorageLog.test.ts` | Ablage, kaputtes JSON, privater Modus, Übernahme früherer Speicher-Schlüssel; Einträge, die kein Protokolleintrag sind, werden übergangen; scheitert das Schreiben über einem älteren Stand, gilt bis zum nächsten Erfolg der Arbeitsspeicher; Löschen räumt auch die früheren Schlüssel |
 | `src/infrastructure/storage/localStorageSettings.test.ts` | Einstellungen: Ablage, kaputtes JSON, Übernahme früherer Speicher-Schlüssel; die Grenzen 1 und 12 werden angenommen, darunter/darüber verworfen |
 | `src/infrastructure/haptics/browserHaptics.test.ts` | Vibrations-Adapter: fehlende Schnittstelle ist kein Fehler, Muster werden durchgereicht |
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen; Katalog und Zeichnungen decken sich |
@@ -42,7 +42,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/presentation/game/sheets.test.ts` | Blätter: Tipp daneben schließt nur das **oberste** Blatt, ein Tastaturklick (0/0) schließt nichts, eine Kachel oberhalb des unteren Blatts schließt es nicht mit, das Ergebnis bleibt bei Tipps auf die Bühne stehen — mit den gemessenen Tablet-Maßen |
 | `src/presentation/game/creatureChoice.test.ts` | Tier-Auswahl: dasselbe Tier erneut tippen ändert nichts, ein anderes bringt sein Gebiss mit |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt |
-| `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns; dazu ein Bericht je Gebiss (größte Gruppe offen, übrige eingeklappt), beim Wolf der Modellwert 5,42 statt 4,69, der Gleichverteilungs-Test der Druck-Position nur im Modus classic, keine Muster-Marken unter der Mindestzahl |
+| `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns; dazu ein Bericht je Gebiss (größte Gruppe offen, übrige eingeklappt), beim Wolf der Modellwert 5,42 statt 4,69, der Gleichverteilungs-Test der Druck-Position nur im Modus classic, keine Muster-Marken unter der Mindestzahl; ein unbekanntes Lebewesen wirft nicht (gilt als Krokodil), die Statuszeile zählt die Mindestzahl je Gebiss, und ein Test, den das Gebiss nicht hergibt, heißt „nicht prüfbar" statt „zu wenig Daten" |
 
 ## Prüfsonden (Nachweis am laufenden Gegenstand)
 

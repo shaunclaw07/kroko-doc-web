@@ -65,13 +65,12 @@ import Base from '../layouts/Base.astro';
   </main>
 
   <script>
-    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { fromCsv, toCsv } from '../core/domain/sessionLog';
-    import { renderDangerCurve, renderReport } from '../presentation/stats/statsView';
+    import { renderDangerCurve, renderReport, sampleStatus } from '../presentation/stats/statsView';
     import { getCreature } from '../core/domain/creature';
     import { loadSettings } from '../infrastructure/storage/localStorageSettings';
     import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
-    import { MIN_SAMPLE_FOR_VERDICT } from '../presentation/stats/statsView';
 
     const log = new LocalStorageRoundLog(browserStorage());
 
@@ -98,10 +97,7 @@ import Base from '../layouts/Base.astro';
         renderReport(mountPoint, records);
       }
       if (status) {
-        status.textContent =
-          records.length >= MIN_SAMPLE_FOR_VERDICT
-            ? `${records.length} Runden ausgewertet.`
-            : `${records.length} von ${MIN_SAMPLE_FOR_VERDICT} Runden für eine belastbare Aussage.`;
+        status.textContent = sampleStatus(records);
       }
     }
 
@@ -149,5 +145,11 @@ import Base from '../layouts/Base.astro';
     });
 
     refresh();
+    // Das Spiel in einem anderen Tab schreibt in dieselbe Ablage — die Auswertung zieht nach.
+    window.addEventListener('storage', (event) => {
+      if (event.key === null || event.key === STORAGE_KEY) {
+        refresh();
+      }
+    });
   </script>
 </Base>

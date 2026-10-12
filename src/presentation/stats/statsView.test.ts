@@ -1,6 +1,13 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import { MIN_SAMPLE_FOR_VERDICT, renderReport, dangerCurveHtml, dangerCurvePoints, renderDangerCurve } from './statsView';
+import {
+  MIN_SAMPLE_FOR_VERDICT,
+  renderReport,
+  dangerCurveHtml,
+  dangerCurvePoints,
+  renderDangerCurve,
+  sampleStatus,
+} from './statsView';
 import { createRoundRecord } from '../../core/domain/sessionLog';
 import type { RoundRecord } from '../../contract/sessionLog';
 import { fairRounds } from '../../infrastructure/testing/fairRounds';
@@ -186,5 +193,48 @@ describe('renderReport bei gemischten Gebissen', () => {
     const target = mount();
     renderReport(target, fairRounds(new SeededRandom(7), 'crocodile', 1));
     expect(target.querySelector('summary')?.textContent).toContain('— 1 Runde');
+  });
+
+  it('wirft nicht bei einem Lebewesen, das der Katalog nicht kennt', () => {
+    // Die Ablage kann eine Kennung tragen, die es nicht (mehr) gibt — dort gilt das Krokodil.
+    const target = mount();
+    const fremd = records(3).map((record) => ({ ...record, creature: 'drache', pressIndex: 5 }));
+    expect(() => renderReport(target, fremd)).not.toThrow();
+    expect(target.textContent).toContain('Krokodil');
+  });
+});
+
+describe('sampleStatus', () => {
+  it('zählt bei einem einzigen Gebiss gegen die Mindestzahl', () => {
+    expect(sampleStatus([])).toBe('0 von 100 Runden für eine belastbare Aussage.');
+    expect(sampleStatus(records(40))).toBe('40 von 100 Runden für eine belastbare Aussage.');
+    expect(sampleStatus(records(120))).toBe('120 Runden ausgewertet.');
+  });
+
+  it('behauptet bei mehreren dünnen Gebissen keine Auswertung, nur weil die Summe reicht', () => {
+    const rng = new SeededRandom(7);
+    const duenn = [...fairRounds(rng, 'crocodile', 80, 1), ...fairRounds(rng, 'mouse', 70, 81)];
+    expect(sampleStatus(duenn)).toBe(
+      '150 Runden in 2 Gebissen — das größte hat 80 von 100 Runden für eine belastbare Aussage.',
+    );
+    const gemischt = [...fairRounds(rng, 'crocodile', 120, 1), ...fairRounds(rng, 'mouse', 30, 121)];
+    expect(sampleStatus(gemischt)).toBe(
+      '150 Runden ausgewertet — 1 von 2 Gebissen haben genug Runden für eine belastbare Aussage.',
+    );
+  });
+});
+
+describe('Tests, die ein Gebiss nicht hergibt', () => {
+  it('nennt bei einem einzigen Zahn „nicht prüfbar" statt „zu wenig Daten"', () => {
+    const einZahn = Array.from({ length: MIN_SAMPLE_FOR_VERDICT }, (_, index) =>
+      createRoundRecord({
+        round: index + 1, playedAt: '2026-10-12T09:00:00.000Z', mode: 'original', teeth: 1, players: 1,
+        loserTooth: 1, pressIndex: 1, liveCount: 1, pressOrder: [1],
+      }),
+    );
+    const target = mount();
+    renderReport(target, einZahn);
+    expect(target.textContent).toContain('nicht prüfbar');
+    expect(target.textContent).not.toContain('zu wenig Daten');
   });
 });

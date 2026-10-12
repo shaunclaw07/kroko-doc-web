@@ -22,9 +22,10 @@ function percent(value: number): string {
   return `${(value * 100).toFixed(1)} %`;
 }
 
-function testTag(result: ChiSquareResult | null): string {
+/** `enough`: genug Runden — fehlt das Ergebnis dann trotzdem, liegt es am Gebiss, nicht an der Menge. */
+function testTag(result: ChiSquareResult | null, enough: boolean): string {
   if (!result) {
-    return '<span class="tag tag--warn">zu wenig Daten</span>';
+    return `<span class="tag tag--warn">${enough ? 'nicht prüfbar' : 'zu wenig Daten'}</span>`;
   }
   const label = result.significant ? 'auffällig' : 'unauffällig';
   const kind = result.significant ? 'bad' : 'ok';
@@ -124,12 +125,12 @@ function groupHtml(report: SessionReport, open: boolean): string {
     '<h3 class="small muted" style="margin-top:1rem">Position in der Druckreihenfolge</h3>',
     `<div class="bars">${bars(report.countsByPressIndex, report.rounds, report.model)}</div>`,
     '<h3 class="small muted" style="margin-top:1rem">Tests</h3>',
-    `<p class="small">Zahn-Nummern gegen Gleichverteilung: ${testTag(report.toothTest)}</p>`,
+    `<p class="small">Zahn-Nummern gegen Gleichverteilung: ${testTag(report.toothTest, enough)}</p>`,
     // Nur im Modus „genau ein Zahn" ist die Druck-Position gleichverteilt — nur dort steht der Test.
     report.mode === 'classic'
-      ? `<p class="small">Druck-Position gegen Gleichverteilung: ${testTag(report.pressIndexTest)}</p>`
+      ? `<p class="small">Druck-Position gegen Gleichverteilung: ${testTag(report.pressIndexTest, enough)}</p>`
       : '',
-    `<p class="small">Druck-Position gegen das Zugmodell: ${testTag(report.modelTest)}</p>`,
+    `<p class="small">Druck-Position gegen das Zugmodell: ${testTag(report.modelTest, enough)}</p>`,
     '<h3 class="small muted" style="margin-top:1rem">Mustersuche (Autokorrelation)</h3>',
     autocorrelationTable(report),
     '</details>',
@@ -172,6 +173,31 @@ function reportHtml(records: readonly RoundRecord[]): string {
         .join('\n'),
     )}</div></details>`,
   ].join('');
+}
+
+/**
+ * Die Statuszeile der Seite. Die Mindestzahl gilt **je Gebiss** — 150 Runden aus zwei Gebissen zu
+ * je 75 sind nicht „ausgewertet", auch wenn die Summe über der Schwelle liegt.
+ */
+export function sampleStatus(records: readonly RoundRecord[]): string {
+  const groups = groupRounds(records);
+  const enough = groups.filter((group) => group.rounds.length >= MIN_SAMPLE_FOR_VERDICT).length;
+  if (groups.length <= 1) {
+    return enough === 1
+      ? `${records.length} Runden ausgewertet.`
+      : `${records.length} von ${MIN_SAMPLE_FOR_VERDICT} Runden für eine belastbare Aussage.`;
+  }
+  if (enough === 0) {
+    const largest = groups[0]?.rounds.length ?? 0;
+    return (
+      `${records.length} Runden in ${groups.length} Gebissen — das größte hat ${largest} von ` +
+      `${MIN_SAMPLE_FOR_VERDICT} Runden für eine belastbare Aussage.`
+    );
+  }
+  return (
+    `${records.length} Runden ausgewertet — ${enough} von ${groups.length} Gebissen haben genug ` +
+    'Runden für eine belastbare Aussage.'
+  );
 }
 
 /** Schreibt den Bericht in das übergebene Element. */

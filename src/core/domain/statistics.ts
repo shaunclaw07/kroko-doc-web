@@ -23,7 +23,7 @@ function creatureOfRound(id: string | undefined): CreatureDefinition {
 export interface BravestRound {
   /** Laufende Nummer der Runde (wie im Protokoll). */
   round: number;
-  /** Gebiss dieser Runde (Kennung aus dem Katalog). */
+  /** Gebiss dieser Runde — immer eine Kennung aus dem Katalog (Unbekanntes gilt als Krokodil). */
   creature: string;
   /** Bissgefahr des letzten harmlosen Drucks, 0..1. */
   danger: number;
@@ -47,7 +47,7 @@ export function bravestRound(records: readonly RoundRecord[]): BravestRound | nu
       liveTeethMax: creature.liveTeethMax,
     });
     if (danger > 0 && (best === null || danger > best.danger)) {
-      best = { round: record.round, creature: record.creature, danger };
+      best = { round: record.round, creature: creature.id, danger };
     }
   }
   return best;

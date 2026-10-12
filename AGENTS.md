@@ -91,7 +91,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   (iOS hält ihn nach einem Anruf wieder an). Am echten Handy ist der Schlag nie gemessen worden —
   ob der erste Tipp nach langem Leerlauf normal klingt, kann nur der Nutzer prüfen.
 
-## Achtundzwanzig Fallen, die Zeit kosten
+## Neunundzwanzig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -294,6 +294,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   und `pageshow` mit `persisted` (Zurück-Taste) ab. Ein Zwischenstand im Arbeitsspeicher ist eine
   Kopie für die Anzeige, nie die Wahrheit. Und was von außen kommt (CSV, Ablage), geht durch
   `isPlausibleRecord`, bevor die Auswertung damit rechnet.
+  **Die Kehrseite, bei der Durchsicht am 12.10.2026 gefunden:** wer vor jedem Schreiben liest,
+  hängt an allem, was das Lesen liefert. Scheitert ein Schreiben (volle Ablage), käme der alte Stand
+  zurück und jede Runde seither ginge verloren — bis zum nächsten Erfolg gilt deshalb der
+  Arbeitsspeicher. Und „Löschen" muss auch die früheren Schlüssel räumen, sonst übernimmt das
+  nächste Lesen sie erneut und die gelöschten Runden sind wieder da.
+
+- **Ein Zeitgeber trägt die Runde, zu der er gehört.** Das Urteil eines Drucks kommt nach der Pause
+  — startet in dieser Pause eine neue Runde („Neue Runde", eine Einstellung), traf es die **neue**:
+  das Maul stand geschlossen über einer offenen Runde, deren Zähne sich weiter drücken ließen.
+  `handlePress` merkt sich den Rundenstand und die Rückrufe laufen ins Leere, wenn er nicht mehr
+  gilt. Jeder verzögerte Rückruf prüft, ob sein Anlass noch besteht.
 
 ## Ein neues Lebewesen ergänzen
 
