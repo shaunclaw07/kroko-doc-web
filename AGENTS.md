@@ -48,6 +48,7 @@ pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach 
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt ein Zahn unter dem Gesicht?
 uv run --with playwright python scripts/pruefen-halten.py      # Halten, Wegschieben, Obergrenze (Server muss laufen)
 uv run --with playwright python scripts/pruefen-blick.py       # Blick, Linsen-Grenze, Zittern (Server muss laufen)
+uv run --with playwright python scripts/pruefen-zoom.py        # voller Zoom: bleibt jeder Zahn erreichbar? (Server muss laufen)
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -229,7 +230,9 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Jetzt wird er aus Vorgabe und **schmalster** Bühne gerechnet (`MIN_STAGE_WIDTH_PX = 285` in
   `creatures/geometry.ts`), nachgemessen 44,15 px. Und die Grenze ist benannt statt versteckt: bei 11
   und 12 Zähnen erlaubt der halbe Zahnabstand weniger (Maus bei 12 Zähnen 37,1 px) — Überdeckung wäre
-  der schlechtere Tausch. Wer das Seitenpolster ändert, **messt neu**.
+  der schlechtere Tausch. Wer das Seitenpolster ändert, **messt neu**. Dasselbe gilt für den Zoom bei
+  Rot (`#croc-mount`, höchstens 8 %): `scripts/pruefen-zoom.py` misst ihn auf 320, 390 und 820 px für
+  jedes Tier.
 
 - **Eine Zustandsklasse muss den Kasten enthalten, den sie färbt.** Der Balken liegt **außerhalb**
   der Bühne (`.stage`), seine Zustandsklassen hingen aber an der Bühne: `is-danger` war gesetzt, und

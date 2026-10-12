@@ -244,6 +244,7 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-bedienung.py` | Sonde: scrollt die Spielseite, verdeckt die Leiste etwas, sind die Griffe groß genug — auf acht Größen, auch nach dem Biss mit längstem Ergebnis und längstem Tier-Satz | `uv run --with playwright python scripts/pruefen-bedienung.py` |
 | `pruefen-halten.py` | Sonde: Zahn halten, wegschieben, Obergrenze; Klick, Finger-Tipp und Eingabetaste zählen genau einen Zug | `uv run --with playwright python scripts/pruefen-halten.py` |
 | `pruefen-blick.py` | Sonde: die Augen folgen dem Zeiger, die Pupille bleibt bei jedem Tier in der Linse, der Kiefer zittert mit der Bissgefahr | `uv run --with playwright python scripts/pruefen-blick.py` |
+| `pruefen-zoom.py` | Sonde: bei vollem Zoom bleibt jeder Zahn erreichbar — jedes Tier, zwei Zahnzahlen, drei Breiten | `uv run --with playwright python scripts/pruefen-zoom.py` |
 | `pruefen-anzeige.py` | Sonde: Balken, Fortschritt und Bissgefahr an den berechneten Stilen | `uv run --with playwright python scripts/pruefen-anzeige.py` |
 | `pruefen-blaetter.py` | Sonde: bleiben die Blätter offen, solange man darin arbeitet | `uv run --with playwright python scripts/pruefen-blaetter.py` |
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |

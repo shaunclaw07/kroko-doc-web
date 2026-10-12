@@ -1519,6 +1519,75 @@ src/render-probe.test.ts` schrieb 120 Zeichnungen, `scripts/pruefen-zahnsicht.py
 
 **Nicht geprüft:** ob Blick und Zittern am Handy spannend wirken — das sieht nur der Auftraggeber.
 
+## 5ae. Heranzoomen bei Rot (12.10.2026)
+
+**Was geprüft wurde:** ob die herangerückte Bühne (höchstens 8 %) keinen Zahn unerreichbar macht —
+bei jedem der zehn Tiere, bei Standard-Zahnzahl und bei 12 Zähnen, auf 320, 390 und 820 px. jsdom
+rechnet weder CSS noch Geometrie; die Falle „Eine Vorgabe, die nur für eine Beispielbreite geprüft
+wird" verlangt die schmalste Bühne.
+
+**Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
+`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+
+```bash
+uv run --with playwright python scripts/pruefen-zoom.py http://localhost:4321
+# ohne uv:
+python scripts/pruefen-zoom.py http://localhost:4321
+```
+
+**Wörtliche Ausgabe, Messzeilen bei 320 px** (Chromium, Seite vom laufenden `pnpm dev`, 12.10.2026):
+
+```
+A — Geometrie bei vollem Zoom
+  gemessen  320 px, crocodile, 10 Zähne: kleinste Trefferfläche 47.68 px, vorher 44.15 px
+  gemessen  320 px, crocodile, 12 Zähne: kleinste Trefferfläche 47.68 px, vorher 44.15 px
+  gemessen  320 px, wolf, 12 Zähne: kleinste Trefferfläche 45.37 px, vorher 42.01 px
+  gemessen  320 px, wolf, 12 Zähne: kleinste Trefferfläche 45.37 px, vorher 42.01 px
+  gemessen  320 px, human, 12 Zähne: kleinste Trefferfläche 43.73 px, vorher 40.49 px
+  gemessen  320 px, human, 12 Zähne: kleinste Trefferfläche 43.73 px, vorher 40.49 px
+  gemessen  320 px, shark, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, shark, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, mouse, 6 Zähne: kleinste Trefferfläche 47.68 px, vorher 44.15 px
+  gemessen  320 px, mouse, 12 Zähne: kleinste Trefferfläche 40.15 px, vorher 37.18 px
+  gemessen  320 px, vampire, 12 Zähne: kleinste Trefferfläche 41.12 px, vorher 38.07 px
+  gemessen  320 px, vampire, 12 Zähne: kleinste Trefferfläche 41.12 px, vorher 38.07 px
+  gemessen  320 px, panda, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, panda, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, lion, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, lion, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, panther, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, panther, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, sabertooth, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+  gemessen  320 px, sabertooth, 12 Zähne: kleinste Trefferfläche 44.40 px, vorher 41.11 px
+```
+
+(Bei acht der zehn Tiere ist die Standard-Zahnzahl schon 12, deshalb stehen die Zeilen doppelt —
+nur Krokodil mit 10 und Maus mit 6 Zähnen liefern zwei verschiedene Lagen. Teil B der Sonde:)
+
+```
+B — der echte Ablauf
+  ok    zehn Zähne am Start: keine Skalierung (1)
+  ok    ein Zahn: Skalierung 1,08 (1.08)
+  ok    der eine Zahn ließ sich bei vollem Zoom drücken (Status snapped)
+  ok    nach dem Biss: keine Skalierung (1)
+  ok    reduzierte Bewegung: keine Skalierung (1)
+
+Auffälligkeiten: 0
+```
+
+**Die kleinste Trefferfläche über alle 60 Lagen** war **40,15 px** — 320 px Blick, Maus, 12 Zähne
+(vorher, ohne Zoom: 37,18 px; der halbe Zahnabstand ist dort die Grenze, siehe `AGENTS.md`). Bei
+390 px sind es 49,98 px, bei 820 px 101,93 px. Kein Zahn lief aus der Bühne, und in der Mitte jeder
+Trefferfläche lag weiterhin ihr eigener Zahn (`elementFromPoint`).
+
+**Beobachtung an der Nachbar-Sonde:** `scripts/pruefen-trefferflaeche.py` misst `#stage .creature`
+und nennt das „Bühne". Weil die Zeichnung jetzt skaliert wird, fängt die Sonde den 0,6 s langen
+Übergang mitten im Lauf ab: bei einem Zahn stehen dort 292 px statt 286 px. Die geprüften Werte
+bleiben richtig — bei 320 px und 10 Zähnen (Zoom 0) misst sie unverändert 44,15 px, und alle drei
+Tippproben melden „registriert".
+
+**Nicht geprüft:** ob 8 % am Handy spürbar oder zu zaghaft sind — das sieht nur der Auftraggeber.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

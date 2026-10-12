@@ -60,6 +60,7 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
 | Beschleunigung | Bildschirmbeben, Vibration, Maul-„Lunge" nach vorn |
 | Blick | die Pupillen folgen dem Zeiger und bleiben auf dem gedrückten Zahn, höchstens 4 SVG-Einheiten (`creatures/gaze.ts`); hängt nie an den scharfen Zähnen |
 | Zittern | der Oberkiefer zittert leicht über 30 % Bissgefahr (`is-wary`) und deutlich ab 50 % (`is-trembling`) — dieselben Schwellen wie der Balken; bei geschlossenem Maul nie |
+| Heranzoomen | `dangerZoom`: 0 unter 50 % Bissgefahr, 0,4 an der Schwelle, linear bis 1 beim letzten Zahn; die Bühne skaliert um höchstens 8 % (`--zoom` an `#stage`). Bei geschlossenem Maul 0, bei reduzierter Bewegung gar nicht |
 
 Wenn die Spannung eine Wahrscheinlichkeit ist, kann die Anzeige nicht lügen — und sie steht
 nirgends vorzeitig auf 100 %. Gemessene Kurven (Krokodil 10 Zähne, 1–3 scharf):

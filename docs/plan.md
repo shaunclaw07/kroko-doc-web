@@ -973,3 +973,51 @@ sind und ob das Zittern spannend oder unruhig wirkt. Stellschrauben: `GAZE_MAX` 
 `creatures/gaze.ts`, `--tremble` und die Dauern in `app.css`.
 
 Gate **404 Tests in 29 Dateien**. Nicht gepusht.
+
+## Nachtrag 12.10.2026 (gebaut): Heranzoomen bei Rot
+
+**Anlass (Auftraggeber):** die Frage nach mehr Nervenkitzel und seine Zustimmung zu den drei
+Empfehlungen „Drücken und halten", „Das Tier reagiert auf die Gefahr", „Heranzoomen bei Rot" — in
+dieser Reihenfolge. Dies ist der dritte und letzte der drei Pläne.
+
+**Die Entscheidungen** (Selbst-Sparring, jede Antwort mit einer Tatsache aus dem Baum):
+
+1. **Der Zoom wird abgeleitet, nicht hochgezählt.** `dangerZoom(tension)` steht im Kern neben
+   `isHighDanger` und benutzt dieselbe Schwelle `HIGH_DANGER = 0,5`. Grund: die Falle „Eine Kennzahl,
+   die aufaddiert wird, sättigt".
+2. **Sprung an der Schwelle, dann Rampe.** Unter 50 % ist der Zoom 0; bei 50 % springt er auf 0,4
+   und wächst linear bis 1 bei 100 %. Grund: beim Krokodil ist der erste rote Druck 55,0 % — eine
+   reine Rampe ergäbe dort 0,1, also 0,8 % Vergrößerung, unsichtbar. Mit dem Sprung sind es
+   0,46 → 3,7 %.
+3. **Höchstens 8 %.** Nachgerechnet am breitesten Kopf: der Vampir reicht mit Kragen und Ohren von
+   x 24 bis 616 der 640 Einheiten; um die Mitte skaliert liegt der linke Rand bei
+   320 − 296 × 1,08 = 0,3 — er bleibt gerade im Bild. Der Zahnring (Halbachse höchstens 240) bleibt
+   weit innerhalb.
+4. **Drehpunkt 50 % / 58 %** — die Maulmitte (`ring.cy` 265 von 460). Oben darf dabei etwas aus dem
+   Bild laufen (Hut des Menschen, Ohrspitzen): das ist die Wirkung von „näher ran". **Kein Zahn und
+   keine Trefferfläche** darf dadurch unerreichbar werden — die Sonde prüft das für jedes Tier, bei
+   Standard-Zahnzahl und bei 12 Zähnen, auf 320, 390 und 820 px.
+5. **Beim Biss zurück auf 0.** Bei geschlossenem Maul gibt es keine Gefahr des nächsten Drucks
+   (Falle „Eine Anzeige muss verstummen, wenn ihre Frage wegfällt"); das Zurückfahren liest sich als
+   Rückstoß.
+6. **`prefers-reduced-motion`: gar kein Zoom.** Die vorhandene Regel schaltet nur Übergänge ab —
+   die Bühne spränge sonst. Deshalb eine eigene Regel `transform: none`.
+7. **Kein neuer Schalter.** Der Zoom ist ein Zustand der Bühne wie die Vignette.
+
+**Schon vorhanden, deshalb nicht Teil dieses Plans:** das Abdunkeln des Randes — `.stage::after`
+zieht eine Vignette mit `--tension` zu (`rgba(0, 0, 0, calc(0.2 + 0.6 * var(--tension)))`).
+
+**Abgesagt:** Zoom von Rundenbeginn an (der Wolf beginnt bei 12 %, das Krokodil bei 20 % — die
+Bühne stünde nie in Ruhe); Zoom auf den zuletzt gedrückten Zahn (verschöbe alle anderen
+Trefferflächen unter dem Finger); stärker als 8 % (der Kopf des Vampirs liefe seitlich aus dem
+Bild).
+
+**Gebaut mit dem Faktor 0,08 (8 %).** Die Sonde hat ihn nicht beanstandet: auf 320, 390 und 820 px
+blieb bei jedem der zehn Tiere und bei 1–12 Zähnen jeder Zahn in der Mitte seiner Trefferfläche
+erreichbar, keine Trefferfläche wurde kleiner (sie wächst mit dem Zoom: 320 px / 12 Zähne Maus
+37,18 → 40,15 px), und keine Zahnzeichnung lief aus der Bühne.
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob 8 % am Handy spürbar oder zu zaghaft sind.
+Stellschraube: der Faktor `0.08` in `app.css` — wer ihn anhebt, fährt `scripts/pruefen-zoom.py`.
+
+Gate **413 Tests in 29 Dateien**. Nicht gepusht.
