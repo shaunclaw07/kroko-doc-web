@@ -37,6 +37,19 @@ export const RANDOM_MODES: readonly RandomMode[] = ['original', 'classic'];
 /** Höchstzahl gleichzeitig scharfer Zähne im Originalmodell (Bumerang mit zwei Enden). */
 export const MAX_LIVE_TEETH = 3;
 
+/**
+ * Spanne der gleichzeitig scharfen Zähne für ein Gebiss dieser Größe. **Eine** Stelle für Auswahl
+ * (`liveTeeth.ts`) und Modell (`probabilities.ts`): erst werden die Grenzen des Lebewesens auf
+ * die Zahnzahl und auf MAX_LIVE_TEETH gekappt, dann wird gleichverteilt aus der Spanne gezogen.
+ * Vorher kappte das Modell erst **nach** dem Ziehen — bei zwei Zähnen und Grenzen 1–3 zeigte die
+ * Anzeige 83,3 % Bissgefahr, gezogen wurde mit 75,0 % (gemessen am 12.10.2026).
+ */
+export function liveCountRange(teeth: number, min: number, max: number): { lowest: number; highest: number } {
+  const lowest = Math.max(1, Math.min(Math.floor(min), teeth, MAX_LIVE_TEETH));
+  const highest = Math.max(lowest, Math.min(Math.floor(max), teeth, MAX_LIVE_TEETH));
+  return { lowest, highest };
+}
+
 export function isValidToothCount(teeth: number): boolean {
   return Number.isInteger(teeth) && teeth >= MIN_TEETH && teeth <= MAX_TEETH;
 }

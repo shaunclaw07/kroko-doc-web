@@ -52,7 +52,7 @@ export function tensionForPress(args: {
   }
   const distribution = pressPositionDistribution(
     args.teeth,
-    modeKWeights(args.mode, args.liveTeethMin, args.liveTeethMax),
+    modeKWeights(args.mode, args.liveTeethMin, args.liveTeethMax, args.teeth),
   );
   const atPress = distribution[press - 1] ?? 0;
   const fromPressOn = distribution.slice(press - 1).reduce((sum, share) => sum + share, 0);

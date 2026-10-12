@@ -1,6 +1,6 @@
 import type { LiveTeethRequest, LiveTeethSelector } from '../ports/liveTeeth';
 import type { RandomSource } from '../ports/random';
-import { MAX_LIVE_TEETH, type RandomMode } from './teeth';
+import { MAX_LIVE_TEETH, liveCountRange, type RandomMode } from './teeth';
 
 /** Zieht k verschiedene Zähne aus 1..population (Teil-Mischen, ohne Doppelte). */
 export function sampleDistinct(rng: RandomSource, population: number, k: number): number[] {
@@ -24,8 +24,7 @@ export function sampleDistinct(rng: RandomSource, population: number, k: number)
  */
 export class UniformLiveTeethSelector implements LiveTeethSelector {
   select({ rng, teeth, mode, min, max }: LiveTeethRequest): number[] {
-    const lowest = Math.max(1, Math.min(min, teeth, MAX_LIVE_TEETH));
-    const highest = Math.max(lowest, Math.min(max, teeth, MAX_LIVE_TEETH));
+    const { lowest, highest } = liveCountRange(teeth, min, max);
     const count = mode === 'classic' ? 1 : lowest + rng.uniformInt(highest - lowest + 1);
     return sampleDistinct(rng, teeth, count);
   }

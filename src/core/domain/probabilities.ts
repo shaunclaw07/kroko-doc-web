@@ -1,5 +1,5 @@
 import type { CreatureDefinition } from './creature';
-import { MAX_LIVE_TEETH, type RandomMode } from './teeth';
+import { MAX_LIVE_TEETH, liveCountRange, type RandomMode } from './teeth';
 
 /** Gewichte über mögliche Anzahlen gleichzeitig scharfer Zähne. */
 export type KWeights = Readonly<Record<number, number>>;
@@ -9,13 +9,18 @@ export const DEFAULT_K_WEIGHTS: KWeights = { 1: 1 / 3, 2: 1 / 3, 3: 1 / 3 };
 /**
  * Gewichte über die Anzahl gleichzeitig scharfer Zähne.
  * Die Grenzen kommen aus dem Gebiss des Lebewesens (Krokodil 1–3, Wolf 1–2 …).
+ *
+ * Mit `teeth` gilt dieselbe Spanne wie in der Auswahl der scharfen Zähne (`liveCountRange`) —
+ * wer eine Runde mit bekannter Zahnzahl rechnet, **muss** sie mitgeben, sonst weicht das Modell bei
+ * kleinen Gebissen von dem ab, was wirklich gezogen wird.
  */
-export function modeKWeights(mode: RandomMode, min = 1, max = MAX_LIVE_TEETH): KWeights {
+export function modeKWeights(mode: RandomMode, min = 1, max = MAX_LIVE_TEETH, teeth?: number): KWeights {
   if (mode === 'classic') {
     return { 1: 1 };
   }
-  const lowest = Math.max(1, Math.floor(min));
-  const highest = Math.max(lowest, Math.floor(max));
+  const range = teeth === undefined ? null : liveCountRange(teeth, min, max);
+  const lowest = range ? range.lowest : Math.max(1, Math.floor(min));
+  const highest = range ? range.highest : Math.max(lowest, Math.floor(max));
   const weights: Record<number, number> = {};
   const span = highest - lowest + 1;
   for (let k = lowest; k <= highest; k += 1) {
@@ -24,9 +29,13 @@ export function modeKWeights(mode: RandomMode, min = 1, max = MAX_LIVE_TEETH): K
   return weights;
 }
 
-/** Gewichte für ein Lebewesen aus dem Katalog. */
-export function creatureKWeights(creature: CreatureDefinition, mode: RandomMode): KWeights {
-  return modeKWeights(mode, creature.liveTeethMin, creature.liveTeethMax);
+/** Gewichte für ein Lebewesen aus dem Katalog; `teeth` ist die Zahnzahl der Runde (einstellbar). */
+export function creatureKWeights(
+  creature: CreatureDefinition,
+  mode: RandomMode,
+  teeth: number = creature.teeth,
+): KWeights {
+  return modeKWeights(mode, creature.liveTeethMin, creature.liveTeethMax, teeth);
 }
 
 /** Binomialkoeffizient (iterativ, exakt für die hier vorkommenden kleinen n). */

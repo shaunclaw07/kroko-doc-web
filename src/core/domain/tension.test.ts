@@ -17,6 +17,8 @@ import {
   tensionForPress,
   twitchChance,
 } from './tension';
+import { UniformLiveTeethSelector } from './liveTeeth';
+import { MAX_TEETH, liveCountRange } from './teeth';
 import { SeededRandom } from '../../infrastructure/testing/seededRandom';
 import { ScriptedRandom } from '../../infrastructure/testing/scriptedRandom';
 
@@ -34,6 +36,37 @@ describe('tensionForPress', () => {
       const wert = tensionForPress({ pressIndex: index + 1, teeth: 10, ...KROKODIL });
       expect(wert * 100).toBeCloseTo(prozent, 1);
     });
+  });
+
+  it('nennt beim ersten Druck genau die Gefahr, mit der die Auswahl wirklich zieht — bei jeder Zahnzahl', () => {
+    // Gemessen am 12.10.2026: Krokodil mit 2 Zähnen zeigte 83,3 %, gezogen wurde mit 75,0 %. Die
+    // Auswahl kappt die Grenzen und zieht dann gleichverteilt; das Modell muss dieselbe Spanne nehmen.
+    for (const [min, max] of [[1, 3], [1, 2], [2, 3]] as const) {
+      for (let teeth = 1; teeth <= MAX_TEETH; teeth += 1) {
+        const { lowest, highest } = liveCountRange(teeth, min, max);
+        let expected = 0;
+        for (let live = lowest; live <= highest; live += 1) {
+          expected += live / teeth / (highest - lowest + 1);
+        }
+        const shown = tensionForPress({ pressIndex: 1, teeth, mode: 'original', liveTeethMin: min, liveTeethMax: max });
+        expect(shown, `${teeth} Zähne, ${min}–${max} scharf`).toBeCloseTo(expected, 10);
+      }
+    }
+    expect(tensionForPress({ pressIndex: 1, teeth: 2, ...KROKODIL })).toBeCloseTo(0.75, 10);
+  });
+
+  it('trifft bei zwei Zähnen die gezogene Häufigkeit (Auswahl gegen Anzeige)', () => {
+    const rng = new SeededRandom(7);
+    const selector = new UniformLiveTeethSelector();
+    const rounds = 20000;
+    let bites = 0;
+    for (let round = 0; round < rounds; round += 1) {
+      const live = selector.select({ rng, teeth: 2, mode: 'original', min: 1, max: 3 });
+      if (live.includes(1 + rng.uniformInt(2))) {
+        bites += 1;
+      }
+    }
+    expect(Math.abs(bites / rounds - tensionForPress({ pressIndex: 1, teeth: 2, ...KROKODIL }))).toBeLessThan(0.015);
   });
 
   it('ist beim letzten Zahn genau 1 — dort schnappt es garantiert', () => {

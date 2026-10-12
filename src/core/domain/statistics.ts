@@ -292,7 +292,7 @@ export function analyseSession(
   const countsByPressIndex = countBy(pressIndices, teeth);
 
   const creature = getCreature(rounds[0]?.creature ?? DEFAULT_CREATURE_ID);
-  const model = pressPositionDistribution(teeth, creatureKWeights(creature, mode));
+  const model = pressPositionDistribution(teeth, creatureKWeights(creature, mode, teeth));
 
   const toothTest = enough ? chiSquareGoodnessOfFit(countsByTooth, 'uniform') : null;
   const pressIndexTest = enough ? chiSquareGoodnessOfFit(countsByPressIndex, 'uniform') : null;
