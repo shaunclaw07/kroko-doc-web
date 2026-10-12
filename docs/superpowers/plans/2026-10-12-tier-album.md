@@ -10,6 +10,25 @@
 
 **Spec:** Es gibt kein eigenes Spec-Dokument. Grundlage sind die Entscheidungen unten; sie wandern in Aufgabe 4 als Nachtrag nach `docs/plan.md`. Vor dem Bau lesen: `AGENTS.md` (Fallen zu Kachel-Klassen, Dekoration und Tipps, Ablage), `docs/domain-model.md` (Ehrlichkeitsregeln), `docs/architecture.md`.
 
+## Stand beim Start (nachgetragen am 12.10.2026, nach Tierfakten und Tierstimmen)
+
+Dieser Plan wurde **vor** den beiden anderen Vorhaben geschrieben. Seitdem gilt:
+
+- **Ausgangslage:** `main` bei `be0a544` oder später, Gate **346 Tests in 26 Dateien**, veröffentlicht.
+- **Zuerst die Entscheidungen bestätigen lassen** (nächster Abschnitt) — vor Aufgabe 1 und **eine
+  Frage nach der anderen** (`docs/workflow.md`, „Vor der Planung: das Sparring"). Entscheidung 1
+  hebt eine frühere Absage auf; ohne das Ja des Auftraggebers wird nicht gebaut.
+- **Der Ergebnis-Kasten trägt inzwischen zwei Absätze:** `#result-text` und `#result-fact`
+  („Wusstest du? …"). Die Ansage eines neuen Sterns liegt deshalb weiter als Überlagerung **auf der
+  Bühne** — im Kasten ist auf niedrigen Bildschirmen kein Platz (gemessen, `docs/e2e-nachweise.md` §5y).
+- **Tierwechsel hat jetzt Ton:** ein Tipp auf eine Kachel bricht ab, was klingt, und das neue Tier
+  meldet sich (`SoundPort.playVoice`). Das Album hört nur auf `kroko:round-finished` und rührt den
+  Ton nicht an.
+- **Dieser Rechner (Windows, Git Bash):** kein `uv` — Sonden mit `PYTHONIOENCODING=utf-8 python
+  scripts/<name>.py`; Fallen und das Beenden des Entwicklungsservers stehen in `docs/workflow.md`
+  („Fallen", „Skripte im Baum").
+- **Kein Push ohne ausdrückliches Wort des Auftraggebers** — ein Push auf `main` veröffentlicht.
+
 ## Entscheidungen (Empfehlung, vom Auftraggeber zu bestätigen)
 
 1. **Eine frühere Absage wird aufgehoben.** Am 11.10.2026 hieß es in `docs/plan.md`: „Kein neues Spiel-Element (… keine Fortschrittsbelohnung): was nicht geprüft werden kann, wird nicht heimlich gebaut." Das Album ist prüfbar (reine Funktion des Protokolls) und wird nicht heimlich gebaut — aber die Aufhebung entscheidet der Auftraggeber.
@@ -35,7 +54,7 @@
 - Die Überlagerungen ändern **keine** Maße: auf den acht Größen 320×568 bis 1180×820 bleiben `scripts/pruefen-bedienung.py`, `scripts/pruefen-tiere.py` und `scripts/pruefen-trefferflaeche.py` bei 0 Auffälligkeiten.
 - Anzeigen werden benannt: kein Stern ohne Wort (Beschriftung für Bildschirmleser an der Kachel, Legende im Regeln-Blatt, Name des Sterns in der Ansage).
 - Wer die Ablage liest, liest sie **jetzt**: das Album rechnet bei jedem Malen aus `log.load()`, nie aus einer gemerkten Liste.
-- Keine `.test.ts` in `src/pages/`. Die Sonden laufen mit `python scripts/<name>.py` (`uv` fehlt auf diesem Rechner); der Server muss laufen (`pnpm dev`).
+- Keine `.test.ts` in `src/pages/`. Die Sonden laufen mit `PYTHONIOENCODING=utf-8 python scripts/<name>.py` (`uv` fehlt auf diesem Rechner); der Server muss laufen (`pnpm dev`).
 
 ## Review Focus
 
@@ -831,7 +850,7 @@ Zurück zum Spiel. Erwartet an den Kacheln: Maus ★★★, Wolf ★★, Krokodi
 - [ ] **Step 5: Doku prüfen**
 
 ```bash
-ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|293 Tests|318 Tests"
+ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|293 Tests|318 Tests|323 Tests|345 Tests|346 Tests|346 in 26"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/plan.md docs/e2e-nachweise.md docs/domain-model.md
 python scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
