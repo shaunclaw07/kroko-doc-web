@@ -82,6 +82,14 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Nicht-stören-Modus und eine abgeschaltete Systemvibration. Safari auf iOS kennt sie nicht.
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
+- **Vor der ersten Nutzergeste plant der Ton nichts.** Der Browser hält einen Audio-Kontext an, bis
+  der Nutzer etwas tut; seine Uhr steht so lange, und alles, was in dieser Zeit geplant wird, startet
+  beim Freigeben **gleichzeitig**. Der Herzschlag lief ab Seitenstart: nach 20 s Leerlauf lagen
+  50 Schläge übereinander (gemessen am 12.10.2026 mit angehaltenem Kontext: Spitzenpegel 6,6 statt
+  0,26). Deshalb: `play()` tut vor `unlock()` nichts, der Herzschlag fällt aus, solange der Kontext
+  nicht `running` ist, und `unlock()` bittet bei **jeder** Geste um Freigabe, solange er nicht läuft
+  (iOS hält ihn nach einem Anruf wieder an). Am echten Handy ist der Schlag nie gemessen worden —
+  ob der erste Tipp nach langem Leerlauf normal klingt, kann nur der Nutzer prüfen.
 
 ## Achtundzwanzig Fallen, die Zeit kosten
 
