@@ -1294,6 +1294,77 @@ sieben Aufnahmen hat ein Programm gewählt (die lautesten 1,2 bis 1,5 Sekunden),
 angehört. Ob Biss, Stimme und Verlierer-Tonfolge zusammen matschen, ob eine Stimme erschreckt, ob
 alle gleich laut wirken: das hört nur der Auftraggeber, am besten auch am Handy.
 
+## 5aa. Das Tier-Album: Sterne an den Kacheln, Ansage nach dem Biss (12.10.2026)
+
+**Was geprüft wurde:** ob die beiden Überlagerungen im echten Browser nichts verschieben, keinen
+Tipp fangen und nichts verdecken, was man sehen muss — jsdom rechnet kein CSS, die Unit-Tests
+sehen davon nichts.
+
+**Die drei Sonden** (Chromium ohne Fenster gegen den Bau, `astro preview`):
+
+| Sonde | Ergebnis |
+|---|---|
+| `scripts/pruefen-bedienung.py` | **0 Auffälligkeiten**, acht Größen von 320 × 568 bis 1180 × 820; Zeile für Zeile dieselben Maße vor und nach der Korrektur des Stils |
+| `scripts/pruefen-tiere.py` | **ERGEBNIS: in Ordnung** — 10 Kacheln, 10 Kennungen im Bündel |
+| `scripts/pruefen-trefferflaeche.py` | 12 von 12 Zeilen mit eigenem Zahn in der Mitte jeder Trefferfläche, drei Tippproben „registriert“ |
+
+`pruefen-tiere.py` meldet gegen `pnpm dev` einen Fund („Kennungen im Buendel: []“): sie liest den
+Text der `script[src]`-Dateien, und der Entwicklungsserver liefert dort nur ein Einstiegsmodul. Das
+hat mit dem Album nichts zu tun; gegen den Bau ist sie in Ordnung.
+
+**Mit bekannten Daten angesehen** (Einmal-Skript, 320 × 568 und 1180 × 820): vier Runden über
+„CSV importieren“ — Maus 6/6 Zähne bis zum 6. Druck, Wolf 12 Zähne bis zum 7., Krokodil 10 Zähne
+bis zum 1., Löwe mit **2** eingestellten Zähnen bis zum 2.
+
+| Erwartet | Gemessen (beide Größen gleich) |
+|---|---|
+| Maus ★★★, Wolf ★★, Krokodil ★, Löwe ★ (zwei Zähne sind nicht sein ganzes Gebiss), sonst leer | 3 · 2 · 1 · 1, die übrigen sechs 0 — an **beiden** Kachelsätzen (Blatt und Reihe) |
+| Beschriftung für Bildschirmleser | „Maus, 3 von 3 Sternen“ … „Panda, 0 von 3 Sternen“ |
+| Zusammenfassung im Regeln-Blatt | „4 von 10 Tieren gespielt · 7 von 30 Sternen“ |
+| Ansage vor dem Biss | nicht sichtbar |
+| Ansage nach dem Biss mit dem Panda | „Neue Sterne: Panda — gespielt, halb geschafft!“ (der Biss kam beim 7. bzw. 9. Druck — der Zufall gab zwei Sterne statt des einen aus dem Plan), sichtbar, scharfer Zahn nicht überdeckt |
+| nach „Neue Runde“ | Zustand `open`, Ansage nicht sichtbar; der Panda trägt „2 von 3 Sternen“ |
+| „Protokoll löschen“ | Nachfrage: „Wirklich alle protokollierten Runden löschen? Damit verschwinden auch die Sterne im Tier-Album.“ — danach 0 gefüllte Sterne, „0 von 10 Tieren gespielt · 0 von 30 Sternen“ |
+| Fehler in der Konsole | keine |
+
+**Drei Funde im Bild — das CSS des Plans hielt seine eigene Prüfung nicht:**
+
+1. **Ansage halb so breit.** Mit `left: 50%` + `translate` bei 320 px gemessen: Kasten 143 × 71 px
+   in einer 288 px breiten Bühne, drei Zeilen, über den Augen des Pandas. Ein absolut gesetzter
+   Kasten bekommt ab `left: 50%` nur die halbe Breite zum Schrumpfen.
+2. **Sterne über dem Auge.** Die Marke (34 × 14,5 px) lag mit `top: 3px` im Kopfbild und verdeckte
+   auf der 65-px-Kachel das rechte Auge (im Bild deutlich bei Krokodil, Mensch und Panda).
+3. **Ansage über der Beschriftung.** Zweizeilig (50 px hoch, Unterkante 59 px) reichte sie beim
+   Krokodil über „Zahn 6“ — den Ring und das Wort des oberen scharfen Zahns.
+
+**Nach der Korrektur gemessen** (Einmal-Skript: je Tier bis zum Biss gespielt, dann Ring und
+Beschriftung nacheinander an **jeden** Zahn gesetzt — der Anker ist die Zahnspitze, gegen die echte
+Markierung des Verlierers auf 0,1 SVG-Einheiten gleich — und gegen die Ansage mit einem, zwei und
+drei Sternen des jeweiligen Tiers verglichen; 30 Fälle je Größe):
+
+| Größe | Bühne | höchste Ansage | Überdeckungen (Ring, Wort, Zahnform) | kleinste Luft zur Markierung |
+|---|---|---|---|---|
+| 320 × 568 | 288 × 208 | 34 px (zwei Zeilen) | 0 | **6,7 px** (Krokodil) |
+| 360 × 640 | 328 × 236 | 34 px | 0 | 13,4 px |
+| 390 × 844 | 358 × 258 | 34 px | 0 | 18,2 px |
+| 844 × 390 (quer) | 728 × 524 | 28 px (eine Zeile) | 0 | 75,4 px |
+| 768 × 1024 | 728 × 524 | 28 px | 0 | 75,4 px |
+| 1180 × 820 | 762 × 548 | 28 px | 0 | 80,9 px |
+
+Die Ansage steht in allen 180 Fällen 0 px neben der Bühnenmitte und trägt `pointer-events: none`.
+Die Sterne: Marke 34 × 14 px auf der oberen Kachelkante, endet **0,5 px vor** dem Kopfbild; Kacheln
+unverändert 65 × 87 px (320), 75 × 94 px (360), 83 × 99 px (390), 101 × 113 px (1180); die Marke
+fängt keinen Tipp (`pointer-events: none`) — in ihrer Mitte trifft er die Kachel.
+
+**Eine Falle der Messung selbst:** im Querformat 844 × 390 ist die Bühne 524 px hoch, die Zähne
+liegen unter dem Sichtfenster. `page.mouse.click` an einer Stelle außerhalb des Fensters tut
+**nichts** — der Zustand blieb `open`, die Ansage maß 0 × 0, und das sah zuerst wie ein Fehler des
+Produkts aus. Vor dem Tipp den Zahn ins Bild rollen (`scrollIntoView`).
+
+**Nicht geprüft — und von mir nicht prüfbar:** ob die Ansage in 12 px am echten Handy für ein Kind
+gut lesbar ist und ob die kleinen Sterne auf der Kachelkante am Gerät erkennbar sind. Gemessen ist
+die Lage, nicht der Eindruck.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

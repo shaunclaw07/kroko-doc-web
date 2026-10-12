@@ -731,3 +731,86 @@ Dazugekommen ist `scripts/stimme-suchen.py`; das Rezept für künftige Stimmen s
 `docs/workflow.md` („Eine Tierstimme ergänzen oder tauschen").
 
 Gate **346 Tests in 26 Dateien**. Nachweis §5z.
+
+## Nachtrag 12.10.2026 (gebaut): das Tier-Album
+
+Auftrag: „Setze den Plan docs/superpowers/plans/2026-10-12-tier-album.md um. Lies zuerst den
+Abschnitt ‚Stand beim Start‘ und lass mich die Entscheidungen bestätigen.“
+Umsetzungsplan: `docs/superpowers/plans/2026-10-12-tier-album.md`. Gearbeitet auf dem Zweig
+`tier-album`, nicht auf `main`.
+
+**Entscheidungen (mit Grund) — alle sieben vom Auftraggeber am 12.10.2026 einzeln bestätigt:**
+
+1. **Die Absage vom 11.10.2026 ist aufgehoben** („Ja, aufheben“). Dort hieß es: „Kein neues
+   Spiel-Element (… keine Fortschrittsbelohnung): was nicht geprüft werden kann, wird nicht heimlich
+   gebaut.“ Das Album ist eine Fortschrittsbelohnung — aber es ist prüfbar (eine reine Funktion des
+   Protokolls) und nicht heimlich gebaut. Die Regel selbst gilt weiter.
+2. **Drei Sterne je Tier, jeder mit Namen:** **gespielt** (eine Runde mit dem Tier, egal mit wie
+   vielen Zähnen), **halb geschafft** (mindestens die Hälfte der Zähne harmlos gedrückt; Krokodil:
+   5 von 10) und **bis zum letzten Zahn** (erst der letzte Zahn schnappte).
+3. **Stern zwei und drei gelten nur mit dem ganzen Gebiss** (Zahnzahl des Katalogs). Mit „2 Zähne“
+   wären beide fast geschenkt — dort reicht ein harmloser Druck. Auch **mehr** Zähne als im Katalog
+   geben nur „gespielt“.
+4. **Die Chancen sind gerechnet** (`pressPositionDistribution`, am 12.10.2026 nachgerechnet) und der
+   dritte Stern bleibt eine lange Jagd („Ja, so lassen“):
+
+   | Tier (Zähne) | „halb geschafft“ je Runde | „bis zum letzten Zahn“ je Runde |
+   |---|---|---|
+   | Krokodil (10), Modus „wie das Spielzeug“ | 26,9 % | 3,3 % |
+   | Mensch (12) | 27,3 % | 2,8 % |
+   | Maus (6) | 35,0 % | 8,3 % |
+   | Wolf, Hai, Vampir, Panda, Löwe, Panther, Säbelzahntiger (12) | 36,4 % | 4,2 % |
+   | alle im Modus „nur ein Zahn“ | 50,0 % | 8,3 % (12 Zähne) · 10,0 % (Krokodil) · 16,7 % (Maus) |
+
+   Im Schnitt also 12 bis 36 Runden je Tier für den dritten Stern. `album.test.ts` hält für jedes
+   Tier und beide Modi die Spannen 20–50 % und 2–20 % fest.
+5. **Sterne sind Glück, kein Können.** Die Regeln sagen das so. Keine Punkte, keine Serien, kein
+   Tagesdruck.
+6. **Kein eigener Speicher.** Die Sterne werden bei jedem Malen aus `log.load()` gerechnet.
+   „Protokoll löschen“ löscht sie mit (die Nachfrage sagt das), ein CSV-Import bringt sie mit.
+7. **Kein neues Blatt, kein zusätzlicher Tipp.** Sterne als Überlagerung an den Kacheln, Ansage als
+   Überlagerung auf der Bühne (nur bei geschlossenem Maul), Erklärung im Regeln-Blatt.
+
+**Gebaut:** `core/domain/album.ts` (reine Ableitung; `creatureOrDefault` ersetzt die private
+`creatureOfRound` der Statistik — eine Regel, eine Stelle), `presentation/game/albumBadges.ts`
+(malt die Kacheln, hört auf `kroko:round-finished`), Markup und Verdrahtung in
+`src/pages/index.astro`, Nachfrage in `src/pages/statistik.astro`, Stil in
+`presentation/styles/app.css`. Die Steuerung ist unverändert, es gibt keinen neuen Port.
+
+**Abweichungen vom Plan — alle drei im echten Browser gefunden, nicht am Code:**
+
+- **Die Ansage war halb so breit wie gedacht.** Das CSS des Plans setzte sie mit `left: 50%` und
+  `translate: -50% 0` mittig. Ein absolut gesetzter Kasten bekommt dann nur die **halbe**
+  Bühnenbreite zum Schrumpfen: bei 320 px gemessen 143 statt 272 px, „Neue Sterne: Panda — gespielt,
+  halb geschafft!“ lief über drei Zeilen und lag über den Augen. Jetzt: `left`/`right` gesetzt,
+  `width: fit-content`, `margin: 0 auto` — Abweichung von der Bühnenmitte 0 px.
+- **Die Ansage überdeckte die Beschriftung eines oberen scharfen Zahns** („Zahn 6“ beim Krokodil),
+  sobald sie zweizeilig war. Sie ist deshalb auf schmaler Bühne kleiner und dichter gesetzt
+  (0,75 rem, Zeilenhöhe 1,2, 4 px unter der Kante; ab 640 px Fensterbreite 0,95 rem). Gemessen für
+  alle zehn Tiere, **jeden** Zahn und die drei möglichen Sätze auf sechs Größen: keine Überdeckung
+  von Ring oder Beschriftung, kleinste Luft 6,7 px (§5aa).
+- **Die Sterne lagen im Kopfbild und verdeckten auf der 65-px-Kachel ein Auge** (`top: 3px`). Die
+  Marke sitzt jetzt **auf der oberen Kante** der Kachel und endet 0,5 px vor dem Bild. Die
+  Kachelmaße sind unverändert (65 × 87 px bei 320 px, 101 × 113 px bei 1180 px).
+
+**Messung der drei Sonden** (gegen den Bau, `astro preview`): `pruefen-bedienung.py` 0
+Auffälligkeiten auf allen acht Größen, `pruefen-tiere.py` „ERGEBNIS: in Ordnung“,
+`pruefen-trefferflaeche.py` jede Trefferfläche mit eigenem Zahn in der Mitte und drei Tippproben
+„registriert“. `pruefen-tiere.py` fällt gegen `pnpm dev` — unabhängig vom Album: sie sucht die
+Tierkennungen im Text der `script[src]`-Dateien, und der Entwicklungsserver liefert dort nur ein
+Einstiegsmodul.
+
+**Bekannte Grenzen:**
+
+- **Volle Ablage:** scheitert das Schreiben, liefert `log.load()` den Stand im Arbeitsspeicher —
+  der Stern erscheint. Nach einem Neuladen kann er fehlen, weil die Runde nie in der Ablage stand.
+- **Schriftgröße der Ansage am Handy:** 12 px in Gold auf Dunkel. Ob ein Kind das am echten Gerät
+  gut liest, kann nur der Auftraggeber prüfen; größer geht auf 320 px nur um den Preis, dass die
+  Ansage die Beschriftung eines oberen Zahns wieder erreicht.
+- **Die Messung der Ansage ist ein Einmal-Skript**, keine Sonde im Baum. Wer Schriftgröße, Lage oder
+  Wortlaut der Ansage ändert, misst neu (Verfahren in §5aa).
+
+**Abgesagt:** ein eigenes Album-Blatt, Punkte, Serien, ein Stern für den „mutigsten Druck“.
+
+Gate **371 Tests in 28 Dateien**. Nachweis §5aa. Nicht gepusht — ein Push auf `main` veröffentlicht
+und wartet auf das Wort des Auftraggebers.

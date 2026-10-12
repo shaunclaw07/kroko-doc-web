@@ -13,6 +13,8 @@
 | **Spannung** | 0..1; die **Biss-Wahrscheinlichkeit des nächsten Drucks**. Beim letzten Zahn genau 1. |
 | **Tier-Satz** | Katalogfeld `fact`: ein belegter Satz über das **echte** Tier, höchstens 110 Zeichen. Steht nach dem Biss als „Wusstest du? …" unter dem Ergebnis und sagt nie etwas über scharfe Zähne. |
 | **Tierstimme** | Der Laut eines Tiers (Datei, höchstens 1,5 s). Erklingt beim Wählen und kurz nach dem Biss — nie vor dem Urteil, sie ist kein Signal. |
+| **Stern** | Eine von drei Marken je Tier: **gespielt** (eine Runde mit dem Tier, egal mit wie vielen Zähnen), **halb geschafft** (mindestens die Hälfte der Zähne harmlos gedrückt) und **bis zum letzten Zahn** (erst der letzte Zahn schnappte). Die beiden letzten gelten nur mit dem **ganzen Gebiss** (Zahnzahl des Katalogs). Sterne sind Glück, kein Können. |
+| **Album** | Die Sterne aller Tiere, **abgeleitet** aus dem Rundenprotokoll (`core/domain/album.ts`) — kein eigener Speicher. Wer das Protokoll löscht, löscht die Sterne; ein CSV-Import bringt sie mit. Runden ohne oder mit unbekanntem Lebewesen zählen für das Krokodil. |
 
 ## Zufallsmodelle
 
