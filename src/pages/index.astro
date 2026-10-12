@@ -21,13 +21,16 @@ const base = import.meta.env.BASE_URL;
   <main class="app">
     <header class="topbar">
       <div class="brand">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M4 30c8-8 22-10 34-7l16 5-16 5C26 37 12 36 4 30z" fill="#2f6b4f"></path>
-          <path d="M6 40c12-5 24-5 36-2l14 4-14 4C30 48 16 47 6 40z" fill="#1c4531"></path>
-          <path d="M18 34l4 9 4-9zM32 33l4 9 4-9zM46 34l4 8 4-9z" fill="#fbf7e8"></path>
-          <circle cx="46" cy="22" r="5.5" fill="#f7f4e6"></circle>
-          <circle cx="47" cy="23" r="2.4" fill="#10171b"></circle>
-        </svg>
+        <!-- Dasselbe Zeichen wie Tab und Startbildschirm (public/logo.svg, erzeugt in
+             src/icon.test.ts aus der eigenen Zeichnung des Krokodils, Maul zu). -->
+        <img
+          class="brand__mark"
+          src={`${import.meta.env.BASE_URL}logo.svg`}
+          alt=""
+          aria-hidden="true"
+          width="34"
+          height="34"
+        />
         <span>Zahn Agent</span>
       </div>
       <button type="button" class="icon-button" id="settings-open" aria-haspopup="dialog" aria-label="Einstellungen öffnen">

@@ -63,7 +63,8 @@ body {
   letter-spacing: 0.02em;
 }
 
-.brand svg {
+.brand svg,
+.brand__mark {
   width: 34px;
   height: 34px;
 }

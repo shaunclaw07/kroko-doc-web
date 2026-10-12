@@ -906,6 +906,39 @@ gerasterten PNG, Maßstab 2).
 Gate **234 Tests in 19 Dateien** grün · beide Zustände gerastert und angesehen · Galerie neu
 (10 Kacheln, 1970 × 566) · Kachel angesehen: Flecken und Ohren sind auch bei 152 px zu erkennen.
 
+## 5s. Das Zeichen im Kopfbereich wird das App-Symbol (12.10.2026)
+
+Auftrag: „Das logo neben Zahn Agent ganz oben im auf der Seite ist noch so ein altes Krokodil,
+kannst du das austauschen mir dem Icon was du gemacht hast."
+
+**Befund.** Der Kopfbereich beider Seiten (`src/pages/index.astro`, `src/pages/statistik.astro`) trug
+ein **eigenes, von Hand gezeichnetes Krokodil-SVG** (dunkelgrün `#2f6b4f`/`#1c4531`, ein Auge,
+`viewBox 0 0 64 64`) — 34 px groß und ohne Bezug zur Zeichnung des Spiels. Das App-Symbol dagegen
+entsteht aus der eigenen Zeichnung (`creaturePortrait('crocodile', …)`, Maul zu) und liegt als
+`public/favicon.svg` (512 × 512, `rx 112`, Kachel `#0d1a20`).
+
+**Umsetzung.** `src/icon.test.ts` schreibt dieselbe Fassung zusätzlich als `public/logo.svg`
+(byte-identisch zu `favicon.svg`) und prüft, dass beide Seiten im Kopfbereich
+`<img src={`${import.meta.env.BASE_URL}logo.svg`} width="34" height="34" alt="">` zeigen und die
+alten Farben dort nicht mehr vorkommen (`#2f6b4f`, `#1c4531`, `#fbf7e8`). CSS: `.brand svg,
+.brand__mark` → 34 × 34 px.
+
+**Gemessen** (gebautes `dist/` über `python3 -m http.server`, echtes Chromium):
+
+- `dist/index.html` und `dist/statistik/index.html` nennen `logo.svg` mit Basis-Pfad (`/logo.svg`),
+  die Datei liegt in `dist/` (7257 Bytes) — Bauausgabe angesehen, nicht nur der Exit-Code.
+- Gerendert: `src = /logo.svg`, Kasten **34 × 34 px** bei 390 px **und** bei 1180 px Breite,
+  `complete && naturalWidth > 0` → das Bild wird wirklich geladen. Beide Formate und die
+  Statistikseite angesehen: der Krokodilkopf aus der Zeichnung sitzt neben dem Schriftzug, Augen und
+  Maul sind auch in 34 px erkennbar.
+- Das ausgelieferte `logo.svg` ist **byte-identisch** mit der Datei im Baum (SHA-256 verglichen).
+- **Falle dabei:** das SVG trägt kein eigenes `width`/`height` (nur `viewBox 0 0 512 512`). Deshalb
+  stehen am `<img>` die Attribute **und** die CSS-Regel; ohne beides zeichnet der Browser es in der
+  Ersatzgröße **150 × 150 px** (im Browser abgelesen: `naturalWidth` = 150).
+
+**Nebenbei:** Symbol neu erzeugt (`ICON_NEU=1 pnpm vitest run src/icon.test.ts`) → Gate **235 Tests
+in 19 Dateien** (vorher 234, die Sonde hat eine Prüfung mehr); die Zahlendoku ist nachgezogen.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

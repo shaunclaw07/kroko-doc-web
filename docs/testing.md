@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 19 |
-| Tests | 234 (19 Dateien) |
+| Tests | 235 (19 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -36,7 +36,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/infrastructure/storage/localStorageSettings.test.ts` | Einstellungen: Ablage, kaputtes JSON, Übernahme früherer Speicher-Schlüssel; die Grenzen 1 und 12 werden angenommen, darunter/darüber verworfen |
 | `src/infrastructure/haptics/browserHaptics.test.ts` | Vibrations-Adapter: fehlende Schnittstelle ist kein Fehler, Muster werden durchgereicht |
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen; Katalog und Zeichnungen decken sich |
-| `src/icon.test.ts` | Symbol-Sonde: **erzeugt das App-Symbol** aus der Krokodil-Zeichnung (geschlossenes Maul, Schließwege wie die Bühne), hält die ausgelieferten SVGs Zeichen für Zeichen daran fest, prüft den Manifest-Eintrag, die Existenz jeder genannten Datei und die Kantenlängen der PNGs (180/192/512) |
+| `src/icon.test.ts` | Symbol-Sonde: **erzeugt das App-Symbol** aus der Krokodil-Zeichnung (geschlossenes Maul, Schließwege wie die Bühne), hält die ausgelieferten SVGs Zeichen für Zeichen daran fest (`favicon.svg`, `icon-maskable.svg` und `logo.svg` für den Kopfbereich der Seite), prüft, dass der Kopfbereich beider Seiten das Symbol zeigt und kein zweites, von Hand gezeichnetes Krokodil, den Manifest-Eintrag, die Existenz jeder genannten Datei und die Kantenlängen der PNGs (180/192/512) |
 | `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 285 px Bühnenbreite ≥ 44 px. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns |
@@ -48,7 +48,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts`
 2. **Bau- und Auslieferungssonde** — `pnpm build` und Prüfung der erzeugten Seiten:
    `grep -c 'Zahn Agent' dist/index.html`, `grep -o 'croc-mount' dist/index.html`,
-   `ls dist` (erwartet: `index.html`, `statistik/index.html`, `favicon.svg`, `manifest.webmanifest`,
+   `ls dist` (erwartet: `index.html`, `statistik/index.html`, `favicon.svg`, `logo.svg`,
+   `manifest.webmanifest`,
    `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `_astro/`).
 3. **Zeichnungssonde** — die Zeichnung wird ohne Browser sichtbar gemacht und angesehen:
    ```bash
@@ -67,7 +68,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    ```
 4. **Symbolsonde** — das App-Symbol entsteht aus der Zeichnung und wird angesehen:
    ```bash
-   ICON_NEU=1 pnpm test:run                          # schreibt public/favicon.svg + icon-maskable.svg
+   ICON_NEU=1 pnpm test:run                          # schreibt favicon.svg, icon-maskable.svg, logo.svg
    uv run --with cairosvg python scripts/icon-png.py # rastern: 180, 192, 512, maskierbar 512
    ```
    Danach die gerasterten Bilder ansehen (das Kopfmaul muss zu sein, der Kopf innerhalb der

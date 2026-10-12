@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 234 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 235 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -103,7 +103,7 @@ anderer Browser oder ein privates Fenster hat seine eigene Statistik.
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **234 Tests in 19 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **235 Tests in 19 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
@@ -135,10 +135,13 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   Kopfform, eigenes Zahnfleisch.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
   eigenen Zeichnung** — mit geschlossenem Maul (dieselben vier Regeln, mit denen die App beim
-  Zuschnappen schließt). Das Symbol wird **erzeugt**, nicht gemalt: `ICON_NEU=1 pnpm test:run`
+  Zuschnappen schließt). **Auch das Zeichen im Kopfbereich der Seite ist dieselbe Datei**
+  (`public/logo.svg`; dort stand bis zum 11.10.2026 ein von Hand gezeichnetes Krokodil ohne Bezug
+  zur Zeichnung). Das Symbol wird **erzeugt**, nicht gemalt: `ICON_NEU=1 pnpm test:run`
   schreibt die SVGs aus der Zeichnung, `uv run --with cairosvg python scripts/icon-png.py` rastern
   die PNG-Größen für Android und iPhone. Ein Test in `src/icon.test.ts` hält die ausgelieferten
-  Dateien an der Zeichnung fest — ändert sich das Krokodil, fällt er auf.
+  Dateien an der Zeichnung fest — ändert sich das Krokodil, fällt er auf. Derselbe Test hält fest,
+  dass im Kopfbereich beider Seiten **kein** zweites Krokodil mehr steht.
 - **Zahnzahl einstellbar:** 1 bis 12 drückbare Zähne, standardmäßig so viele, wie das Tier
   vorsieht. Das kleinste Gebiss ist **ein einziger Zahn** (Wunsch vom 11.10.2026): dann greift die
   Auswahl der scharfen Zähne auf genau diesen zu, der erste Tipp schließt also das Maul — in beiden
@@ -188,7 +191,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **234 in 19 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **235 in 19 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |

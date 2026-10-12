@@ -467,3 +467,12 @@ wollen. Hast du noch andere coole Ideen?"
   dem Ohr** wird von der Ohrenfläche zugedeckt, Flecken auf der **Stirn** liefen mit r 12/r 8 über die
   Schnauzenkante (Ring nur 40 bzw. 51 von 72 Grad sichtbar) — jetzt r 6 mit 72/72. Gate 234/19 grün,
   Galerie neu, beide Zustände angesehen. Nachweis §5r, Regel in `AGENTS.md`.
+- **Das Zeichen im Kopfbereich wird das App-Symbol (11./12.10.2026).** „Das logo neben Zahn Agent
+  ganz oben im auf der Seite ist noch so ein altes Krokodil, kannst du das austauschen mir dem Icon
+  was du gemacht hast." Der Kopfbereich beider Seiten trug ein eigenes, von Hand gezeichnetes
+  Krokodil (dunkelgrün `#2f6b4f`/`#1c4531`, `viewBox 0 0 64 64`) ohne Bezug zur Zeichnung. Statt es
+  nachzumalen entsteht jetzt `public/logo.svg` in `src/icon.test.ts` aus **derselben** Quelle wie
+  `favicon.svg` und wird von beiden Seiten als `<img>` gezeigt (34 × 34 px, Basis-Pfad).
+  Gemessen im gebauten `dist/` mit echtem Chromium: 34 × 34 px bei 390 **und** 1180 px Breite,
+  Bild geladen, ausgelieferte Datei byte-identisch zur Datei im Baum; angesehen. Dazu eine
+  Prüfung mehr in der Sonde (Gate **235 Tests in 19 Dateien**). Nachweis §5s, Regel in `AGENTS.md`.

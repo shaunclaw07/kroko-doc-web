@@ -102,6 +102,10 @@ describe('App-Symbol', () => {
     const dateien: [string, string][] = [
       ['favicon.svg', erwartet],
       ['icon-maskable.svg', erwartetMaskierbar],
+      // Dieselbe Fassung noch einmal als Zeichen im Kopfbereich der Seite. Eigene Datei, damit im
+      // Markup zu lesen ist, was gemeint ist — erzeugt und verglichen wird sie aus derselben Quelle
+      // wie das Symbol, ein Auseinanderlaufen ist damit ausgeschlossen.
+      ['logo.svg', erwartet],
     ];
     for (const [name, inhalt] of dateien) {
       const pfad = join(PUBLIC, name);
@@ -120,6 +124,27 @@ describe('App-Symbol', () => {
     expect(radius(erwartetMaskierbar)).toBe(0);
     expect(radius(erwartet)).toBeGreaterThan(0);
     expect(skalierung(erwartetMaskierbar)).toBeLessThan(skalierung(erwartet));
+  });
+
+  it('steht auch im Kopfbereich beider Seiten — kein von Hand gezeichnetes Altsymbol mehr', () => {
+    // Der Kopfbereich trug bis zum 11.10.2026 ein eigenes, von Hand gezeichnetes Krokodil
+    // (dunkelgrüne Flächen `#2f6b4f`/`#1c4531`, ein Auge) — ohne Bezug zur Zeichnung des Spiels.
+    // Gemeldet vom Auftraggeber: „Das logo neben Zahn Agent ganz oben auf der Seite ist noch so ein
+    // altes Krokodil, kannst du das austauschen mit dem Icon was du gemacht hast." Deshalb zeigt der
+    // Kopfbereich jetzt **dieselbe Datei** wie Tab und Startbildschirm.
+    const alt = ['#2f6b4f', '#1c4531', '#fbf7e8'];
+    for (const seite of ['index.astro', 'statistik.astro']) {
+      const inhalt = readFileSync(join(PROJEKT, 'src', 'pages', seite), 'utf8');
+      const start = inhalt.indexOf('class="brand"');
+      const marke = inhalt.slice(start, inhalt.indexOf('</div>', start));
+      expect(start, `${seite}: kein Kopfbereich gefunden`).toBeGreaterThan(-1);
+      expect(marke, `${seite}: Kopfbereich zeigt nicht das Symbol`).toContain('<img');
+      expect(marke, `${seite}: Symbol ohne Basis-Pfad`).toContain('import.meta.env.BASE_URL');
+      expect(marke, `${seite}: Kopfbereich nennt logo.svg nicht`).toContain('logo.svg');
+      for (const farbe of alt) {
+        expect(marke, `${seite}: das alte Krokodil (${farbe}) steht noch im Kopfbereich`).not.toContain(farbe);
+      }
+    }
   });
 
   it('hat das Maul wirklich zu (Rachen und obere Zahnreihe verdeckt)', () => {

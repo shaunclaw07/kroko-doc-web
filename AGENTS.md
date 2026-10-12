@@ -246,6 +246,15 @@ mit den vier Regeln des Zustands „geschnappt" (geschlossenes Maul). Wer die Ze
 ändert, erzeugt das Symbol neu — sonst fällt `src/icon.test.ts` (und das ist gewollt):
 `ICON_NEU=1 pnpm test:run`, dann `uv run --with cairosvg python scripts/icon-png.py`.
 
+**Auch das Zeichen im Kopfbereich hängt an dieser Zeichnung.** Beide Seiten (`src/pages/index.astro`,
+`src/pages/statistik.astro`) zeigen dort `public/logo.svg` — **dieselbe Datei** wie das App-Symbol,
+von derselben Sonde erzeugt und geprüft. Vorher stand dort ein eigenes, von Hand gezeichnetes
+Krokodil-SVG (dunkelgrün `#2f6b4f`/`#1c4531`), das mit der Zeichnung des Spiels nichts zu tun hatte;
+gemeldet hat das der Auftraggeber („Das logo neben Zahn Agent ganz oben auf der Seite ist noch so ein
+altes Krokodil, kannst du das austauschen mir dem Icon was du gemacht hast"). **Ein zweites Bild
+desselben Tiers neben der geprüften Zeichnung ist eine zweite Wahrheit** — also die Datei
+wiederverwenden statt neu malen; ein Test verbietet die alten Farben im Kopfbereich.
+
 ## Aufgaben-Tracking
 
 Im **Hermes-`todo`-Board** (Chat-Kanban), nicht in GitHub Issues.
