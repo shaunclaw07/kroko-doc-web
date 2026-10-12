@@ -105,7 +105,6 @@ export class GameController {
     }
     this.stage = this.doc.getElementById('stage');
     this.doc.getElementById('new-round')?.addEventListener('click', () => this.resetRound());
-    this.doc.getElementById('restart-round')?.addEventListener('click', () => this.resetRound());
     this.render();
     this.startHeartbeat();
   }
@@ -427,7 +426,6 @@ export class GameController {
     this.setText('hud-remaining', String(remaining));
     // Einzahl, wenn nur ein Zahn übrig ist — dann steht er allein auf der Bühne.
     this.setText('hud-remaining-label', remaining === 1 ? 'Zahn übrig' : 'Zähne übrig');
-    this.setText('hud-presses', String(pressIndex));
     this.setText('hud-round', String(this.records.length + 1));
     // Die Zeile unter dem Balken: links der Fortschritt, rechts die Gefahr — beide mit Wort.
     this.setText('hud-progress', `${pressIndex} von ${this.round.teeth} gedrückt`);
@@ -436,15 +434,20 @@ export class GameController {
       roundOpen ? `Bissgefahr ${Math.round(this.tension * 100)} %` : 'Runde beendet',
     );
     this.setText('hud-turn', this.turnSentence(currentPlayer));
-    // Bei geschlossenem Maul steht der Weg zur nächsten Runde auf der Bühne — auch dann, wenn das
-    // Ergebnis-Blatt schon zu ist.
-    this.doc.getElementById('restart-round')?.classList.toggle('hidden', roundOpen);
+    // „Neue Runde" steht immer in der Leiste. Bei geschlossenem Maul ist er der nächste Schritt
+    // und wird betont — auch dann, wenn das Ergebnis-Blatt schon zu ist.
+    this.doc.getElementById('new-round')?.classList.toggle('is-next', !roundOpen);
+    const finalTooth = isFinalToothTension(this.round);
     const warn = this.doc.getElementById('hud-warning');
     if (warn) {
-      const tension = isFinalToothTension(this.round);
-      warn.classList.toggle('hidden', !tension);
-      warn.textContent = tension ? 'Nur noch ein Zahn — der ist garantiert scharf!' : '';
+      warn.classList.toggle('hidden', !finalTooth);
+      warn.textContent = finalTooth ? 'Nur noch ein Zahn — der ist garantiert scharf!' : '';
     }
+    // Die Anleitung gilt vor dem ersten Druck. Danach macht sie dem einmaligen Hinweis und der
+    // Warnung Platz: auf 320 × 568 reicht die Höhe über der Leiste nicht für alle drei.
+    this.doc
+      .getElementById('how-to')
+      ?.classList.toggle('hidden', pressIndex > 0 || !roundOpen || finalTooth);
     const meter = this.doc.getElementById('hud-meter');
     // Die Füllung ist der Fortschritt, nicht die Gefahr — die Gefahr trägt die Farbe.
     const progress = pressProgress({ pressed: pressIndex, teeth: this.round.teeth });

@@ -50,7 +50,7 @@ class MemoryMarks implements SessionMarkPort {
 
 const DOM = `
   <div id="stage"><div id="croc-mount"></div></div>
-  <span id="hud-round"></span><span id="hud-remaining"></span><span id="hud-presses"></span>
+  <span id="hud-round"></span><span id="hud-remaining"></span>
   <span id="hud-turn"></span><span id="hud-warning"></span>
   <span id="hud-remaining-label"></span>
   <div class="tension-panel" id="hud-panel">
@@ -59,7 +59,7 @@ const DOM = `
     <p id="hud-meter-hint" class="hidden"></p>
   </div>
   <button id="new-round" type="button">Neue Runde</button>
-  <button id="restart-round" type="button" class="hidden">Neue Runde</button>
+  <p id="how-to"></p>
   <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
   <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
 `;
@@ -205,7 +205,7 @@ describe('GameController in der Bühne', () => {
     expect(tooth?.classList.contains('is-pressed')).toBe(true);
     expect(tooth?.getAttribute('aria-pressed')).toBe('true');
     expect(document.getElementById('hud-remaining')?.textContent).toBe('9');
-    expect(document.getElementById('hud-presses')?.textContent).toBe('1');
+    expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 10 gedrückt');
     expect(sound.names()).toContain('tap');
     expect(sound.names()).toContain('creak');
     expect(document.getElementById('stage')?.dataset.status).toBe('open');
@@ -308,21 +308,52 @@ describe('GameController in der Bühne', () => {
     expect(result?.hasAttribute('open')).toBe(false);
   });
 
-  it('zeigt nach dem Biss einen Knopf „Neue Runde" auf der Bühne — auch wenn das Ergebnis zu ist', () => {
-    // Gemessen am 12.10.2026: nach „Schließen" stand „Maul zu", und sichtbar war nur noch das
-    // Zahnrad. Der Knopf erscheint mit dem Biss und verschwindet mit der neuen Runde.
+  it('hebt „Neue Runde" nach dem Biss hervor — der Knopf steht immer in der Leiste', () => {
+    // Bis zum 12.10.2026 erschien dafür ein eigener Knopf auf der Bühne; jetzt ist „Neue Runde"
+    // immer da und wird bei geschlossenem Maul nur betont.
     build([3]);
-    const restart = document.getElementById('restart-round') as HTMLButtonElement;
-    expect(restart.classList.contains('hidden')).toBe(true);
+    const again = document.getElementById('new-round') as HTMLButtonElement;
+    expect(again.classList.contains('is-next')).toBe(false);
     click(1);
-    expect(restart.classList.contains('hidden')).toBe(true);
+    expect(again.classList.contains('is-next')).toBe(false);
     click(3);
-    expect(restart.classList.contains('hidden')).toBe(false);
+    expect(again.classList.contains('is-next')).toBe(true);
     document.getElementById('result-sheet')?.removeAttribute('open');
-    restart.click();
-    expect(restart.classList.contains('hidden')).toBe(true);
+    again.click();
+    expect(again.classList.contains('is-next')).toBe(false);
     expect(document.getElementById('stage')?.dataset.status).toBe('open');
-    expect(document.getElementById('hud-presses')?.textContent).toBe('0');
+    expect(document.getElementById('hud-progress')?.textContent).toBe('0 von 10 gedrückt');
+  });
+
+  it('zeigt die Anleitung nur vor dem ersten Druck', () => {
+    const { controller } = build([3]);
+    const howTo = document.getElementById('how-to');
+    expect(howTo?.classList.contains('hidden')).toBe(false);
+    click(1);
+    expect(howTo?.classList.contains('hidden')).toBe(true);
+    controller.resetRound();
+    expect(howTo?.classList.contains('hidden')).toBe(false);
+  });
+
+  it('lässt die Anleitung weg, wenn schon die Letzter-Zahn-Warnung steht', () => {
+    build([1], { teethOverride: 1 });
+    expect(document.getElementById('hud-warning')?.classList.contains('hidden')).toBe(false);
+    expect(document.getElementById('how-to')?.classList.contains('hidden')).toBe(true);
+  });
+
+  it('eine neue Zahnzahl in der Pause vor dem Urteil lässt das alte Urteil ins Leere laufen', () => {
+    const pending: Array<() => void> = [];
+    const { controller, log } = build([1], {}, true, undefined, (_ms, run) => {
+      pending.push(run);
+    });
+    click(1);
+    controller.applySettings(settings({ teethOverride: 9 }));
+    while (pending.length > 0) {
+      pending.shift()?.();
+    }
+    expect(document.querySelectorAll('.tooth')).toHaveLength(9);
+    expect(document.getElementById('stage')?.dataset.status).toBe('open');
+    expect(log.records).toEqual([]);
   });
 
   it('nimmt das Glühen eines Zuckens zurück, auch wenn der nächste Druck sofort zuschnappt', () => {
@@ -574,6 +605,6 @@ describe('GameController in der Bühne', () => {
     expect(log.records).toEqual([]);
     // Die neue Runde ist bespielbar.
     click(2);
-    expect(document.getElementById('hud-presses')?.textContent).toBe('1');
+    expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 10 gedrückt');
   });
 });
