@@ -1672,3 +1672,51 @@ Tippproben melden „registriert".
   Auch der alte Lesezeichen-Link endet damit auf `https`: `https://shaunclaw07.github.io/zahn_agent/`
   → zwei Umleitungen → `https://zahn-agent.schaflabs.com/` **200** (Titel „Zahn Agent — Zahn für Zahn
   zum Nervenkitzel"), gemessen 12:12 Uhr.
+
+## 5af. Start ohne Netz (12.10.2026)
+
+**Was geprüft wurde:** ob die **gebaute** Seite im echten Browser ohne Netz startet — Anmeldung des
+Service Workers, Inhalt des Vorrats, Neuladen der Spielseite und der Statistikseite ohne Netz.
+
+**Aufruf:**
+
+```bash
+pnpm build
+pnpm preview --port 4322
+uv run --with playwright python scripts/pruefen-offline.py
+```
+
+**Die Sonde hat drei Fehler gefunden, bevor sie sauber lief** — die Unit-Tests waren jedes Mal grün:
+
+| Lauf | Befund | Ursache | Behoben durch |
+|---|---|---|---|
+| 1 | ohne Netz 0 Zähne, 3 Bausteine im Vorrat | das HTML nennt den geteilten Baustein nicht, den die Seitenskripte einbinden | der Worker folgt den Einbindungen der Skripte |
+| 2 | ein Seitenskript fehlt im Vorrat | beide Seiten nebeneinander abgelegt: das Aufräumen der einen löschte Bausteine der anderen | Ablegen nacheinander |
+| 3 | ohne Netz 0 Zähne, 4 Bausteine im Vorrat, `net::ERR_FAILED` für das Seitenskript | `Vary: Origin` — der Vorrat verfehlte das Skript | Abfrage mit `ignoreVary` |
+| 4 | zehn gescheiterte Anfragen ohne Netz | die Tierstimmen lädt die Seite erst nach der ersten Geste | Stimmen schon bei der Installation im Vorrat |
+
+**Wörtliche Ausgabe des letzten Laufs** (Chromium, `pnpm preview` auf Port 4322):
+
+```
+1 — Anmeldung
+  ok    ein Service Worker steuert die Seite
+2 — Vorrat
+  ok    die Spielseite liegt im Vorrat
+  ok    die Statistikseite liegt im Vorrat
+  ok    Bausteine liegen im Vorrat (4 unter _astro/)
+  ok    das Manifest liegt im Vorrat
+3 — Spielseite ohne Netz
+  ok    die Bühne zeichnet ihre Zähne (10)
+  ok    das Stylesheet ist geladen (Bühnenradius 18px)
+  ok    ein Druck zählt (0 von 10 gedrückt → 1 von 10 gedrückt)
+4 — Statistikseite ohne Netz
+  ok    die Statistikseite lädt (Titel: Statistik — Zahn Agent)
+5 — gescheiterte Anfragen ohne Netz
+  ok    keine (0): 
+
+Auffälligkeiten: 0
+```
+
+**Nicht geprüft:** die veröffentlichte Seite (GitHub Pages schickt `Vary: Accept-Encoding` statt
+`Vary: Origin`), Safari und der Silk-Browser, und ob ein Gerät die Installation anbietet. Die Sonde
+läuft auch gegen die veröffentlichte Adresse: `python scripts/pruefen-offline.py https://zahn-agent.schaflabs.com`.

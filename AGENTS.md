@@ -49,6 +49,8 @@ uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt e
 uv run --with playwright python scripts/pruefen-halten.py      # Halten, Wegschieben, Obergrenze (Server muss laufen)
 uv run --with playwright python scripts/pruefen-blick.py       # Blick, Linsen-Grenze, Zittern (Server muss laufen)
 uv run --with playwright python scripts/pruefen-zoom.py        # voller Zoom: bleibt jeder Zahn erreichbar? (Server muss laufen)
+pnpm build && pnpm preview --port 4322                         # der Service Worker läuft nur im Bau …
+uv run --with playwright python scripts/pruefen-offline.py     # … danach: startet die Seite ohne Netz?
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -114,7 +116,19 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   wiederholt sich kein Klang mehr von selbst. Wer wieder einen einführt, lässt ihn ausfallen,
   solange der Kontext nicht `running` ist.
 
-## Zweiunddreißig Fallen, die Zeit kosten
+## Dreiunddreißig Fallen, die Zeit kosten
+
+- **Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet.** Der Service Worker
+  (`public/sw.js`) bestand alle Fälle seiner nachgestellten Umgebung — und im echten Browser lud die
+  Seite ohne Netz, zeichnete aber **keinen Zahn**. Drei Ursachen hintereinander, jede erst von
+  `scripts/pruefen-offline.py` gefunden (12.10.2026): (1) das HTML nennt nicht alle Bausteine — die
+  Seitenskripte binden einen geteilten Baustein ein, den nur sie kennen, also folgt der Worker den
+  Einbindungen der Skripte; (2) beide Seiten wurden nebeneinander abgelegt, und das Aufräumen der
+  einen löschte die Bausteine der anderen, bevor deren Liste stand — abgelegt wird nacheinander;
+  (3) der Server schickt `Vary: Origin`, und der Vorrat verfehlte das Skript, das der Worker selbst
+  ohne diese Kopfzeile geholt hatte — befragt wird mit `ignoreVary`. Wer den Worker ändert, baut
+  und fährt die Sonde; der Entwicklungsserver meldet ihn gar nicht an. Und: kommt eine Tierstimme
+  dazu, gehört sie auch in `VOICES` in `public/sw.js` (ein Test hält die Listen gleich).
 
 - **Eine Geste, die mit der Maus geprüft ist, ist am Finger nicht geprüft.** Das Halten eines Zahns
   bestand alle Fälle der Sonde — mit Maus und mit einem Finger-Tipp ohne Weg. Ein Finger, der beim

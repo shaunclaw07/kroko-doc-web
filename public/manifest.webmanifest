@@ -1,7 +1,9 @@
 {
+  "id": "./",
+  "lang": "de",
   "name": "Zahn Agent",
   "short_name": "Zahn Agent",
-  "description": "Zahn-Zufallsspiel mit Spannung: tippe Zähne an, bis das Maul zuschnappt.",
+  "description": "Zahn-Zufallsspiel mit Spannung: tippe oder halte Zähne, bis das Maul zuschnappt.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#080f14",

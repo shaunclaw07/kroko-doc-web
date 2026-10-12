@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 414 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 430 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -110,7 +110,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **414 Tests in 29 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **430 Tests in 30 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -146,6 +146,12 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   oben, beim echten Tier bis 20 cm lang, geflecktem Fell und kleinen dunklen Ohren). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
+- **Startet ohne Netz und lässt sich installieren:** ein Service Worker (`public/sw.js`, von Hand
+  geschrieben, ohne Paket) hält beide Seiten, ihre Bausteine, die Symbole und die zehn Tierstimmen
+  vor. Mit Netz kommt die Seite immer frisch vom Server, ohne Netz aus dem Vorrat. Er wird nur im
+  Bau angemeldet, nicht im Entwicklungsserver. **Gegen Datenverlust hilft er nicht:** der Vorrat
+  liegt im selben Browserprofil wie das Rundenprotokoll — verwirft ein Browser beim Schließen seine
+  Daten (gemeldet für das Kinderprofil eines Fire-Tablets), ist beides weg.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
   eigenen Zeichnung** — mit geschlossenem Maul (dieselben vier Regeln, mit denen die App beim
   Zuschnappen schließt). **Auch das Zeichen im Kopfbereich der Seite ist dieselbe Datei**
@@ -231,7 +237,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **414 in 29 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **430 in 30 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |

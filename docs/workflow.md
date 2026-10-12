@@ -245,6 +245,7 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-halten.py` | Sonde: Zahn halten, wegschieben, Obergrenze; Klick, Finger-Tipp und Eingabetaste zählen genau einen Zug; ein wackelnder Finger bricht das Halten nicht ab | `uv run --with playwright python scripts/pruefen-halten.py` |
 | `pruefen-blick.py` | Sonde: die Augen folgen dem Zeiger, die Pupille bleibt bei jedem Tier in der Linse, der Kiefer zittert mit der Bissgefahr | `uv run --with playwright python scripts/pruefen-blick.py` |
 | `pruefen-zoom.py` | Sonde: bei vollem Zoom bleibt jeder Zahn erreichbar — jedes Tier, zwei Zahnzahlen, drei Breiten | `uv run --with playwright python scripts/pruefen-zoom.py` |
+| `pruefen-offline.py` | Sonde: die **gebaute** Seite startet ohne Netz (vorher `pnpm build` und `pnpm preview --port 4322`) | `uv run --with playwright python scripts/pruefen-offline.py` |
 | `pruefen-anzeige.py` | Sonde: Balken, Fortschritt und Bissgefahr an den berechneten Stilen | `uv run --with playwright python scripts/pruefen-anzeige.py` |
 | `pruefen-blaetter.py` | Sonde: bleiben die Blätter offen, solange man darin arbeitet | `uv run --with playwright python scripts/pruefen-blaetter.py` |
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |

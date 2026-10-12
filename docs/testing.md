@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 29 |
-| Tests | 414 (29 Dateien) |
+| Tests | 430 (30 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -41,6 +41,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen und unter `zahnzahlen/` eines je Zahnzahl (1–12) für `scripts/pruefen-zahnsicht.py`; Katalog und Zeichnungen decken sich |
 | `src/icon.test.ts` | Symbol-Sonde: **erzeugt das App-Symbol** aus der Krokodil-Zeichnung (geschlossenes Maul, Schließwege wie die Bühne), hält die ausgelieferten SVGs Zeichen für Zeichen daran fest (`favicon.svg`, `icon-maskable.svg` und `logo.svg` für den Kopfbereich der Seite), prüft, dass der Kopfbereich beider Seiten das Symbol zeigt und kein zweites, von Hand gezeichnetes Krokodil, den Manifest-Eintrag, die Existenz jeder genannten Datei und die Kantenlängen der PNGs (180/192/512) |
 | `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 285 px Bühnenbreite ≥ 44 px. **Kein Zahn unter dem Gesicht:** jede Ellipse und jeder Kreis der Gesichtsebene (Augen, Wangen, Ohren, Monokel) liegt samt halber Strichstärke und 2 Einheiten Abstand außerhalb der Ringellipse und trägt kein `transform`. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
+| `src/offline.test.ts` | Offline-Sonde: lädt `public/sw.js` in eine nachgestellte Worker-Umgebung — Installation legt beide Seiten, ihre Bausteine (auch die, die nur ein anderer Baustein einbindet), Symbole und Tierstimmen in den Vorrat; ohne Netz kommen Seiten und Bausteine von dort; mit Netz immer der neue Stand, alte Bausteine werden weggeräumt; fremde Ursprünge, Schreibzugriffe und Teilabrufe bleiben unberührt; der Vorrat wird ohne Rücksicht auf `Vary` befragt. Dazu: Anmeldung nur im Bau und über den Basis-Pfad, Pflichtfelder des Manifests, Stimmenliste gleich `CREATURE_VOICE_FILES` |
 | `src/presentation/game/creatures/gaze.test.ts` | Rechnung des Blicks (Richtung, Höchstweg, Abstand null, kein `NaN`), Umrechnung Bildschirm → Zeichnung (auch ohne Größe) und die **Linsen-Grenze**: bei vollem Blick bleibt die Pupille jedes Tiers in acht Richtungen in ihrer weißen Linse |
 | `src/presentation/game/sheets.test.ts` | Blätter: Tipp daneben schließt nur das **oberste** Blatt, ein Tastaturklick (0/0) schließt nichts, eine Kachel oberhalb des unteren Blatts schließt es nicht mit, das Ergebnis bleibt bei Tipps auf die Bühne stehen — mit den gemessenen Tablet-Maßen |
 | `src/presentation/game/creatureChoice.test.ts` | Tier-Auswahl: dasselbe Tier erneut tippen ändert nichts, ein anderes bringt sein Gebiss mit |
@@ -167,6 +168,12 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Zahnzahl und 12 Zähnen auf 320, 390 und 820 px und prüft, dass jeder Zahn in der Mitte seiner
    Trefferfläche erreichbar bleibt. Erwartet: 60 Messzeilen und `Auffälligkeiten: 0` (Exit 0).
    `uv run --with playwright python scripts/pruefen-zoom.py`
+
+14. **Offline-Sonde** — `scripts/pruefen-offline.py` lädt die **gebaute** Seite, wartet auf den
+   Service Worker, nimmt dem Browser das Netz und lädt beide Seiten neu. Der Entwicklungsserver
+   genügt nicht (dort wird kein Service Worker angemeldet): vorher `pnpm build` und
+   `pnpm preview --port 4322`. Erwartet: zehn Zeilen `ok` und `Auffälligkeiten: 0` (Exit 0).
+   `uv run --with playwright python scripts/pruefen-offline.py`
 
 ## Zwei Regeln für Zeitgeber in Sonden
 

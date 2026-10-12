@@ -25,5 +25,16 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
+    <script>
+      // Der Service Worker hält die Seite für den Start ohne Netz vor (public/sw.js). Nur im Bau:
+      // im Entwicklungsserver stünde sein Vorrat jeder Änderung im Weg. Ein Extra — scheitert die
+      // Anmeldung, läuft die Seite wie bisher.
+      if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+        const base = import.meta.env.BASE_URL;
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch(() => undefined);
+        });
+      }
+    </script>
   </body>
 </html>

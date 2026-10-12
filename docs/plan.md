@@ -1049,3 +1049,33 @@ Berührung halten es fest (Messwerte: `docs/e2e-nachweise.md` §5ac, Falle in `A
 Fire-Tablet jetzt zuverlässig ist.
 
 Gate **414 Tests in 29 Dateien**. Nicht gepusht.
+
+## Nachtrag 12.10.2026 (gebaut): Start ohne Netz — der fehlende Baustein der PWA
+
+**Anlass (Auftraggeber):** das Kinderprofil eines Fire-Tablets leert beim Schließen der Seite den
+lokalen Speicher; Frage, ob eine PWA reicht, und dann: „Kannst du das was fehlt bitte hinzufügen?"
+
+**Bestand vorher:** Manifest, Symbole in allen nötigen Größen, HTTPS, `theme-color` — es fehlte
+allein der Service Worker.
+
+**Gebaut:**
+
+1. `public/sw.js`, von Hand und ohne Paket. Seiten: erst Netz, bei Fehler Vorrat. Bausteine unter
+   `_astro/` (Hash im Namen): erst Vorrat. Alles andere: Vorrat, im Hintergrund aufgefrischt. Bei
+   der Installation kommen beide Seiten, ihre Bausteine, vier Symbole und die zehn Tierstimmen in
+   den Vorrat; Bausteine, die keine Seite mehr nennt, werden weggeräumt. Keine Versionsnummer.
+2. Anmeldung in `src/layouts/Base.astro` — nur im Bau (`import.meta.env.PROD`), über den Basis-Pfad.
+3. Manifest: `id`, `lang`, und die Beschreibung nennt das Halten.
+4. `src/offline.test.ts` (16 Fälle) und `scripts/pruefen-offline.py` (gebaute Seite, echter Browser).
+
+**Entscheidungen:** keine feste Ausrichtung im Manifest (die Seite ist auch quer bedienbar); kein
+Paket für den Worker (er ist rund 200 Zeilen und kennt keine Dateiliste, die der Bau erzeugen müsste).
+
+**Was es nicht löst — das Ausgangsproblem:** der Vorrat liegt im selben Browserprofil wie das
+Rundenprotokoll. Verwirft das Kinderprofil beim Schließen alles, ist auch er weg. Dagegen helfen
+nur ein Spielstand auf einem Server oder eine verpackte Android-App; beides ist nicht gebaut.
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob Fire-Tablet und Fairphone die Installation
+anbieten und ob die installierte App ihre Daten behält.
+
+Gate **430 Tests in 30 Dateien**. Nicht gepusht.
