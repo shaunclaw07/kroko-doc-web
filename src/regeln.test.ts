@@ -12,7 +12,7 @@ import { expectedPresses, modeKWeights, pressPositionDistribution } from './core
 
 const SEITE = readFileSync(new URL('./pages/index.astro', import.meta.url), 'utf8');
 /** Das Blatt als eine Zeile — der Fließtext ist im Markup umbrochen. */
-const REGELN = SEITE.slice(SEITE.indexOf('id="rules-sheet"'), SEITE.indexOf('id="result-sheet"'))
+const REGELN = SEITE.slice(SEITE.indexOf('id="rules-sheet"'), SEITE.indexOf('<script>'))
   .split(/\s+/)
   .join(' ');
 const MARKE = ' stellen <strong>1–3 Zähne gleichzeitig scharf</strong>';

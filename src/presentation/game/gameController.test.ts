@@ -61,7 +61,8 @@ const DOM = `
   <button id="new-round" type="button">Neue Runde</button>
   <p id="how-to"></p>
   <dialog class="sheet" id="settings-sheet"><output id="teeth-value"></output></dialog>
-  <dialog id="result-sheet"><h2 id="result-title"></h2><p id="result-text"></p></dialog>
+  <section id="hud-stats"></section>
+  <section id="result-panel" class="hidden"><h2 id="result-title"></h2><p id="result-text"></p></section>
 `;
 
 function settings(overrides: Partial<GameSettings> = {}): GameSettings {
@@ -231,7 +232,7 @@ describe('GameController in der Bühne', () => {
     // Druck 3 fällt bei zwei Spielern wieder auf Spieler 1 (reihum).
     expect(document.getElementById('result-title')?.textContent).toContain('Spieler 1');
     expect(document.getElementById('result-text')?.textContent).toContain('Zahn 4');
-    expect(document.getElementById('result-sheet')?.hasAttribute('open')).toBe(true);
+    expect(document.getElementById('result-panel')?.classList.contains('hidden')).toBe(false);
   });
 
   it('nennt bei zwei Spielern den Verlierer des zweiten Drucks', () => {
@@ -239,15 +240,6 @@ describe('GameController in der Bühne', () => {
     click(1);
     click(7);
     expect(document.getElementById('result-title')?.textContent).toContain('Spieler 2');
-  });
-
-  it('schreibt beim ersten Protokolleintrag die Einzahl', () => {
-    build([4]);
-    click(1);
-    click(4);
-    const text = document.getElementById('result-text')?.textContent ?? '';
-    expect(text).toContain('Damit ist 1 Runde protokolliert.');
-    expect(text).not.toContain('1 Runden');
   });
 
   it('nennt im Ergebnis den Mut: die hoechste ueberstandene Bissgefahr', () => {
@@ -299,13 +291,35 @@ describe('GameController in der Bühne', () => {
     expect(document.getElementById('hud-remaining')?.textContent).toBe('11');
   });
 
-  it('schließt das Ergebnis-Blatt bei einer neuen Runde', () => {
+  it('zeigt das Ergebnis nach dem Biss auf der Seite — kein Blatt, das man wegtippen muss', () => {
+    // Bis zum 12.10.2026 öffnete sich ein modales Blatt. Seit Tier, Zähne und „Neue Runde" auf der
+    // Seite stehen, hielt es nur noch auf (Wunsch des Auftraggebers).
+    build([3]);
+    const panel = document.getElementById('result-panel');
+    const stats = document.getElementById('hud-stats');
+    expect(panel?.classList.contains('hidden')).toBe(true);
+    expect(stats?.classList.contains('hidden')).toBe(false);
+    click(1);
+    expect(panel?.classList.contains('hidden')).toBe(true);
+    click(3);
+    expect(panel?.classList.contains('hidden')).toBe(false);
+    // Bei geschlossenem Maul gibt es keine Zähne mehr zu zählen: das Ergebnis steht an ihrer Stelle.
+    expect(stats?.classList.contains('hidden')).toBe(true);
+    expect(document.querySelector('dialog[open]')).toBeNull();
+  });
+
+  it('räumt das Ergebnis mit der neuen Runde wieder weg', () => {
     const { controller } = build([3]);
     click(3);
-    const result = document.getElementById('result-sheet');
-    expect(result?.hasAttribute('open')).toBe(true);
     controller.resetRound();
-    expect(result?.hasAttribute('open')).toBe(false);
+    expect(document.getElementById('result-panel')?.classList.contains('hidden')).toBe(true);
+    expect(document.getElementById('hud-stats')?.classList.contains('hidden')).toBe(false);
+  });
+
+  it('nennt im Ergebnis keine Protokollzahl mehr — die Runde steht in der Kopfzeile', () => {
+    build([3]);
+    click(3);
+    expect(document.getElementById('result-text')?.textContent).not.toContain('protokolliert');
   });
 
   it('hebt „Neue Runde" nach dem Biss hervor — der Knopf steht immer in der Leiste', () => {
@@ -318,7 +332,6 @@ describe('GameController in der Bühne', () => {
     expect(again.classList.contains('is-next')).toBe(false);
     click(3);
     expect(again.classList.contains('is-next')).toBe(true);
-    document.getElementById('result-sheet')?.removeAttribute('open');
     again.click();
     expect(again.classList.contains('is-next')).toBe(false);
     expect(document.getElementById('stage')?.dataset.status).toBe('open');
@@ -413,7 +426,6 @@ describe('GameController in der Bühne', () => {
     click(2);
     expect(log.records.map((record) => record.round)).toEqual([7, 8, 9]);
     expect(log.records.slice(0, 2)).toEqual(imported);
-    expect(document.getElementById('result-text')?.textContent).toContain('3 Runden protokolliert');
   });
 
   it('zeigt nach syncLog() die Rundennummer des geänderten Protokolls', () => {

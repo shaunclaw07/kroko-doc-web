@@ -599,3 +599,18 @@ und 820 × 1180, 648 px bei 1024 × 768, 762 px bei 1180 × 820. Das CSS braucht
 Gate **316 Tests in 25 Dateien**. Nachweis §5w, Regel in `AGENTS.md`.
 
 Offen: kein echtes Gerät im Arbeitsumfeld; Handy quer scrollt wie zuvor.
+
+## Nachtrag 12.10.2026 (gebaut): das Ergebnis steht auf der Seite
+
+Wunsch des Auftraggebers nach dem Umbau der Spielseite: das Ergebnis-Blatt am Ende der Runde
+entfernen — „Neue Runde" ist jetzt immer einen Tipp entfernt, das Blatt hielt nur noch auf. Die
+Auskunft ist „nice to have" und wird nach der Runde eingeblendet, die neue Runde räumt sie weg.
+
+- `#result-sheet` entfällt; `#result-panel` steht bei geschlossenem Maul an der Stelle des
+  Spielstands. „Noch eine Runde", „Zur Statistik" und der Protokoll-Satz sind entfallen.
+- Bei geschlossenem Maul verschwindet der einmalige Balken-Hinweis; unter 360 px Breite steht das
+  Ergebnis in kleinerer Schrift. Beides hat die Sonde bei 320 × 568 gefunden (§5x).
+- Die Regel „ein Tipp daneben schließt dieses Blatt nicht" (`data-keep-on-outside-tap`) bleibt in
+  `sheets.ts` samt Test stehen, wird aber von keinem Blatt der Seite mehr benutzt.
+
+Gate **318 Tests in 25 Dateien**, Sonden gegen den Bau grün. Nachweis §5x.

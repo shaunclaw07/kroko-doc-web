@@ -49,7 +49,7 @@ const base = import.meta.env.BASE_URL;
       </section>
 
       <!-- Eine große Aussage, daneben wer dran ist. -->
-      <section class="hud" aria-label="Spielstand">
+      <section class="hud" id="hud-stats" aria-label="Spielstand">
         <div class="stat stat--big">
           <span class="stat__value" id="hud-remaining">10</span>
           <span class="stat__label" id="hud-remaining-label">Zähne übrig</span>
@@ -58,6 +58,14 @@ const base = import.meta.env.BASE_URL;
           <span class="turn__dot" aria-hidden="true"></span>
           <span id="hud-turn">Du bist dran</span>
         </div>
+      </section>
+
+      <!-- Das Ergebnis der Runde steht auf der Seite, an der Stelle des Spielstands, und
+           verschwindet mit der neuen Runde. Bis zum 12.10.2026 war es ein modales Blatt: seit
+           „Neue Runde" immer in der Leiste steht, hielt es nur noch auf. -->
+      <section class="result hidden" id="result-panel" role="status" aria-labelledby="result-title">
+        <h2 id="result-title">Zugeschnappt!</h2>
+        <p id="result-text"></p>
       </section>
 
       <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr.
@@ -254,20 +262,6 @@ const base = import.meta.env.BASE_URL;
     </div>
   </dialog>
 
-  <!-- `data-keep-on-outside-tap`: ein Tipp neben dieses Blatt schließt es nicht. Es öffnet sich
-       mitten im Spiel — wer nach dem Biss weiter auf die Bühne tippt, wischte sonst das Ergebnis
-       weg, bevor es jemand gelesen hat. Die drei Knöpfe im Blatt bleiben der Ausgang. -->
-  <dialog class="sheet" id="result-sheet" aria-labelledby="result-title" data-keep-on-outside-tap>
-    <div class="sheet__grip" aria-hidden="true"></div>
-    <h2 id="result-title">Zugeschnappt!</h2>
-    <p id="result-text"></p>
-    <div class="sheet__actions">
-      <button type="button" class="button--primary" id="result-again">Noch eine Runde</button>
-      <a class="button" href={`${base}statistik`}>Zur Statistik</a>
-      <button type="button" class="button--ghost" data-close-sheet>Schließen</button>
-    </div>
-  </dialog>
-
   <script>
     import { GameController } from '../presentation/game/gameController';
     import { creaturePortrait } from '../presentation/game/creatures';
@@ -370,7 +364,6 @@ const base = import.meta.env.BASE_URL;
     document.getElementById('settings-open')?.addEventListener('click', () => openSheet('settings-sheet'));
     document.getElementById('creature-open')?.addEventListener('click', () => openSheet('creature-sheet'));
 
-    document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());
     document.getElementById('rules-open')?.addEventListener('click', () => openSheet('rules-sheet'));
     document.querySelectorAll('[data-close-sheet]').forEach((button) => {
       button.addEventListener('click', () => closeSheet(button.closest('dialog')));

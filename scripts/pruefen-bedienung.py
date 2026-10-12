@@ -3,7 +3,8 @@ Scrollen erreichbar — auf Handy und Tablet?
 
 Gemessen wird im echten Browser auf acht Größen (320 × 568 bis 1180 × 820):
   - die Spielseite scrollt nicht und die feste Leiste verdeckt keinen Inhalt — beim Laden, nach
-    einem Druck (einmaliger Hinweis sichtbar) und im Ein-Zahn-Spiel (Warnung sichtbar);
+    einem Druck (einmaliger Hinweis sichtbar), im Ein-Zahn-Spiel (Warnung sichtbar) und nach
+    dem Biss (Ergebnis auf der Seite, mit Mut-Satz — kein Blatt öffnet sich);
   - kein Griff ist kleiner als 48 px hoch oder 44 px breit, keiner liegt außerhalb des Bildes;
   - Tippzahlen: Zähne 1, Neue Runde 1, Tier 2 (unter 640 px, über das Blatt) bzw. 1 (ab 640 px);
   - weder das Auswahlblatt noch das Zahnrad-Blatt scrollt; das Zahnrad bietet zwei Spielerzahlen;
@@ -32,6 +33,9 @@ SCHLUESSEL = "zahn_agent:settings:v1"
 ZWEI = {"creature": "sabertooth", "teethOverride": None, "sound": False, "vibration": False,
         "mode": "original", "players": 2}
 EIN_ZAHN = {**ZWEI, "teethOverride": 1}
+# Die längste Fassung des Ergebnistexts (Wortlaut aus gameController.showResult).
+LAENGSTES = ("Zahn 12 hat zugeschnappt — der 12. Druck dieser Runde. Insgesamt 3 Zähne waren scharf "
+             "(10, 11, 12). Mutigster Druck: Spieler 2 bei 100 % Bissgefahr — und der Zahn war harmlos.")
 MIN_HOEHE = 48
 MIN_BREITE = 44
 
@@ -171,19 +175,41 @@ def main() -> int:
                 page.wait_for_timeout(1200)
                 if page.evaluate("() => document.getElementById('stage').dataset.status") == "open":
                     break
-                if page.evaluate("() => document.getElementById('result-sheet').open"):
-                    page.click("#result-again")
             nach = page.evaluate(SEITE)
             if nach["status"] == "open":
                 funde += seite_pruefen(nach, f"{lage} nach einem Druck")
             else:
                 funde.append(f"{lage}: in zwölf Versuchen blieb keine Runde nach einem Druck offen")
 
-            # Neue Runde: ein Tipp.
+            # Weiterdrücken bis zum Biss: das Ergebnis steht auf der Seite (mit Mut-Satz, also in
+            # seiner längsten Fassung), kein Blatt öffnet sich, nichts scrollt.
+            if nach["status"] == "open":
+                for _ in range(12):
+                    page.click("#stage .tooth:not(.is-pressed)")
+                    page.wait_for_timeout(1200)
+                    if page.evaluate("() => document.getElementById('stage').dataset.status") != "open":
+                        break
+                biss = page.evaluate(SEITE)
+                funde += seite_pruefen(biss, f"{lage} nach dem Biss")
+                if not page.locator("#result-panel").is_visible():
+                    funde.append(f"{lage}: nach dem Biss fehlt das Ergebnis auf der Seite")
+                if page.locator("dialog[open]").count() != 0:
+                    funde.append(f"{lage}: nach dem Biss ist ein Blatt offen")
+                ergebnis = page.inner_text("#result-text")
+                if "harmlos" not in ergebnis:
+                    funde.append(f"{lage}: dem Ergebnis fehlt der Mut-Satz: {ergebnis!r}")
+                # Der Zufall liefert nicht den längsten Text. Die Obergrenze wird eingesetzt und
+                # gemessen: zwölfter Zahn, drei scharfe Zähne, zweistellige Zahlen überall.
+                page.evaluate("(t) => { document.getElementById('result-text').textContent = t; }", LAENGSTES)
+                funde += seite_pruefen(page.evaluate(SEITE), f"{lage} nach dem Biss (längstes Ergebnis)")
+
+            # Neue Runde: ein Tipp — und das Ergebnis ist wieder weg.
             page.click("#new-round")
             fortschritt = page.inner_text("#hud-progress")
             if not fortschritt.startswith("0 von"):
                 funde.append(f"{lage}: nach 'Neue Runde' steht {fortschritt!r}")
+            if page.locator("#result-panel").is_visible():
+                funde.append(f"{lage}: das Ergebnis steht nach 'Neue Runde' noch da")
 
             # Zahnrad: scrollt nicht, zwei Spielerzahlen, keine häufigen Griffe.
             page.click("#settings-open")
@@ -204,12 +230,13 @@ def main() -> int:
             if not page.locator("#hud-warning").is_visible():
                 funde.append(f"{lage}: im Ein-Zahn-Spiel fehlt die Warnung")
             funde += seite_pruefen(ein, f"{lage} Ein-Zahn-Spiel")
-            # Nach dem Biss: ein Tipp zur nächsten Runde.
+            # Nach dem Biss: ein Tipp zur nächsten Runde, ohne dass ein Blatt dazwischen steht.
             page.click("#stage .tooth")
-            page.wait_for_selector("#result-sheet[open]")
-            page.click("#result-again")
+            page.wait_for_selector("#result-panel:not(.hidden)")
+            funde += seite_pruefen(page.evaluate(SEITE), f"{lage} Ein-Zahn-Spiel nach dem Biss")
+            page.click("#new-round")
             if page.evaluate("() => document.getElementById('stage').dataset.status") != "open":
-                funde.append(f"{lage}: 'Noch eine Runde' startet keine Runde")
+                funde.append(f"{lage}: 'Neue Runde' startet nach dem Biss keine Runde")
             ctx.close()
 
         # Ohne Vibration (Safari iOS): der Hinweis steht da, das Blatt scrollt trotzdem nicht.

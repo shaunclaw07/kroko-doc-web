@@ -7,7 +7,8 @@ Vier Fehler vom 12.10.2026, jeder im echten Browser nachgestellt:
   2. Tablet: ein Tipp auf eine obere Kachel der Tier-Auswahl schloss auch das Einstellungsblatt
      (das Auswahlblatt ist hoeher; die Kachel lag geometrisch neben dem unteren Blatt).
   3. Nach dem Biss: ein weiterer Tipp auf die Buehne schloss das Ergebnis; danach war nur noch das
-     Zahnrad sichtbar. Jetzt bleibt das Ergebnis stehen und auf der Buehne steht "Neue Runde".
+     Zahnrad sichtbar. Seit dem 12.10.2026 gibt es dafuer kein Blatt mehr: das Ergebnis steht auf
+     der Seite, bis "Neue Runde" (immer in der Leiste, nach dem Biss betont) es wegraeumt.
   4. Dasselbe Tier erneut getippt verwarf die eigene Zahnzahl und startete die Runde neu.
 
 Dazu die Gegenprobe: ein Zeigertipp neben das Einstellungsblatt schliesst es weiterhin.
@@ -103,10 +104,10 @@ def main() -> int:
         context, page = frisch(browser, HANDY, ein_zahn)
         betont_vorher = page.evaluate("() => document.getElementById('new-round').classList.contains('is-next')")
         page.click('.tooth[data-tooth="1"]')
-        page.wait_for_selector("#result-sheet[open]")
+        page.wait_for_selector("#result-panel:not(.hidden)")
+        blatt_offen = page.locator("dialog[open]").count()
         page.mouse.click(195, 250)  # weiter auf die Buehne getippt
-        ergebnis_steht = offen(page, "result-sheet")
-        page.click("#result-sheet [data-close-sheet]")
+        ergebnis_steht = page.locator("#result-panel").is_visible()
         knopf = page.evaluate(
             """() => {
               const k = document.getElementById('new-round');
@@ -120,16 +121,23 @@ def main() -> int:
             """() => ({ status: document.getElementById('stage').dataset.status,
                         betont: document.getElementById('new-round').classList.contains('is-next') })"""
         )
-        print("Nach dem Biss: Ergebnis bleibt nach Tipp auf die Buehne =", ergebnis_steht,
-              "| betont vorher:", betont_vorher, "| nach Schliessen:", knopf, "| nach Neue Runde:", nachher)
+        ergebnis_weg = not page.locator("#result-panel").is_visible()
+        print("Nach dem Biss: offene Blaetter =", blatt_offen,
+              "| Ergebnis bleibt nach Tipp auf die Buehne =", ergebnis_steht,
+              "| betont vorher:", betont_vorher, "| Knopf:", knopf, "| nach Neue Runde:", nachher,
+              "| Ergebnis weg =", ergebnis_weg)
         if betont_vorher:
             funde.append("'Neue Runde' ist schon bei offener Runde betont")
+        if blatt_offen:
+            funde.append("nach dem Biss oeffnet sich ein Blatt")
         if not ergebnis_steht:
-            funde.append("Tipp auf die Buehne schliesst das Ergebnis-Blatt")
+            funde.append("Tipp auf die Buehne raeumt das Ergebnis weg")
         if not knopf["betont"] or knopf["hoehe"] < 48 or not knopf["imBild"]:
-            funde.append(f"'Neue Runde' nach dem Schliessen nicht erreichbar oder nicht betont: {knopf}")
+            funde.append(f"'Neue Runde' nach dem Biss nicht erreichbar oder nicht betont: {knopf}")
         if nachher["status"] != "open" or nachher["betont"]:
             funde.append(f"'Neue Runde' startet keine Runde: {nachher}")
+        if not ergebnis_weg:
+            funde.append("das Ergebnis steht nach 'Neue Runde' noch da")
         context.close()
 
         # 4. Dasselbe Tier erneut tippen laesst die eigene Zahnzahl stehen

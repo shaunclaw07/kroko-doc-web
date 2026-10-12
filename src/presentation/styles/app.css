@@ -1277,3 +1277,48 @@ textarea {
     width: 64px;
   }
 }
+
+/* Das Ergebnis der Runde: steht bei geschlossenem Maul an der Stelle des Spielstands. */
+.result {
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.result h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.1rem;
+}
+
+.result p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Auf dem schmalsten Handy (320 × 568) bleiben dem Ergebnis rund 110 px über der Leiste: der
+   längste Text passt nur in kleinerer Schrift (gemessen, scripts/pruefen-bedienung.py). */
+@media (max-width: 359px) {
+  .result {
+    padding: 0.35rem 0.6rem;
+  }
+
+  .result h2 {
+    margin-bottom: 0.1rem;
+    font-size: 1rem;
+  }
+
+  .result p {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+}
+
+/* Maul zu: der einmalige Balken-Hinweis erklärt einen nächsten Druck, den es nicht mehr gibt —
+   und stünde er weiter da, reichte bei 320 × 568 die Höhe nicht für das Ergebnis (gemessen:
+   Inhalt bis 524 px, Leiste ab 489 px). */
+.tension-panel.is-snapped .meter-hint {
+  display: none;
+}

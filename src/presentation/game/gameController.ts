@@ -386,10 +386,6 @@ export class GameController {
     this.deps.sound.setTension(0);
     this.render();
     this.startHeartbeat();
-    // Nur das **Ergebnis**-Blatt schließen: eine Änderung im Einstellungsblatt startet die Runde
-    // zwar neu, das Blatt muss aber offen bleiben — sonst schließt jeder Tipp auf „−“ das Blatt,
-    // in dem man gerade stellt (gemeldeter Fehler vom 11.10.2026).
-    this.closeSheet(this.doc.getElementById('result-sheet') as HTMLDialogElement | null);
   }
 
   applySettings(settings: GameSettings): void {
@@ -434,8 +430,12 @@ export class GameController {
       roundOpen ? `Bissgefahr ${Math.round(this.tension * 100)} %` : 'Runde beendet',
     );
     this.setText('hud-turn', this.turnSentence(currentPlayer));
+    // Das Ergebnis steht auf der Seite, solange das Maul zu ist — an der Stelle des Spielstands,
+    // denn bei geschlossenem Maul gibt es keine Zähne mehr zu zählen. Die neue Runde räumt es weg.
+    this.doc.getElementById('result-panel')?.classList.toggle('hidden', roundOpen);
+    this.doc.getElementById('hud-stats')?.classList.toggle('hidden', !roundOpen);
     // „Neue Runde" steht immer in der Leiste. Bei geschlossenem Maul ist er der nächste Schritt
-    // und wird betont — auch dann, wenn das Ergebnis-Blatt schon zu ist.
+    // und wird betont.
     this.doc.getElementById('new-round')?.classList.toggle('is-next', !roundOpen);
     const finalTooth = isFinalToothTension(this.round);
     const warn = this.doc.getElementById('hud-warning');
@@ -554,7 +554,6 @@ export class GameController {
     if (!loser) {
       return;
     }
-    const sheet = this.doc.getElementById('result-sheet') as HTMLDialogElement | null;
     const title = this.doc.getElementById('result-title');
     const text = this.doc.getElementById('result-text');
     if (title) {
@@ -569,34 +568,8 @@ export class GameController {
       text.textContent =
         `Zahn ${loser.tooth} hat zugeschnappt — der ${loser.pressIndex}. Druck dieser Runde. ` +
         `Insgesamt ${loser.liveCount} ${liveWord} (${live}).` +
-        this.mutSentence(loser.pressIndex) +
-        (this.records.length === 1
-          ? ' Damit ist 1 Runde protokolliert.'
-          : ` Damit sind ${this.records.length} Runden protokolliert.`);
+        this.mutSentence(loser.pressIndex);
     }
     this.deps.sound.play(this.round.players === 1 ? 'lose' : 'win', 0.8);
-    if (sheet) {
-      if (typeof sheet.showModal === 'function') {
-        sheet.showModal();
-      } else {
-        // Manche Umgebungen (und ältere Browser) kennen showModal nicht.
-        sheet.setAttribute('open', '');
-      }
-    }
-  }
-
-  /**
-   * Ein Blatt schließen. Über den Rückfall für Umgebungen ohne `dialog.close` (jsdom kennt die
-   * Schnittstelle nicht, ältere Browser ebenso wenig) — sonst wirft der Aufruf dort eine Ausnahme.
-   */
-  private closeSheet(sheet: HTMLDialogElement | null): void {
-    if (!sheet) {
-      return;
-    }
-    if (typeof sheet.close === 'function') {
-      sheet.close();
-    } else {
-      sheet.removeAttribute('open');
-    }
   }
 }

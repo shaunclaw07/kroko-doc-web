@@ -10,7 +10,7 @@ import { describe, expect, it } from 'vitest';
 const SEITE = readFileSync(new URL('./pages/index.astro', import.meta.url), 'utf8');
 const SPIEL = SEITE.slice(SEITE.indexOf('<main'), SEITE.indexOf('</main>'));
 const ZAHNRAD = SEITE.slice(SEITE.indexOf('id="settings-sheet"'), SEITE.indexOf('id="creature-sheet"'));
-const REGELN = SEITE.slice(SEITE.indexOf('id="rules-sheet"'), SEITE.indexOf('id="result-sheet"'));
+const REGELN = SEITE.slice(SEITE.indexOf('id="rules-sheet"'), SEITE.indexOf('<script>'));
 
 describe('Spielseite', () => {
   it('trägt Tier, Zahnzahl und Neue Runde selbst', () => {
@@ -21,6 +21,13 @@ describe('Spielseite', () => {
   it('zeigt die Köpfe auf Tablets dauerhaft — mit eigener Beschnitt-Kennung', () => {
     expect(SPIEL).toContain('id="creature-rail"');
     expect(SPIEL).toContain("creaturePortrait(creature.id, 'leiste')");
+  });
+  it('zeigt das Ergebnis auf der Seite und nicht in einem Blatt', () => {
+    expect(SPIEL).toContain('id="result-panel"');
+    expect(SPIEL).toContain('id="result-title"');
+    expect(SPIEL).toContain('id="result-text"');
+    expect(SEITE).not.toContain('result-sheet');
+    expect(SEITE).not.toContain('result-again');
   });
   it('kennt die abgeschafften Anzeigen nicht mehr', () => {
     expect(SEITE).not.toContain('restart-round');

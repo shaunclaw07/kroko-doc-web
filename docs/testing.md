@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 23 |
-| Tests | 316 (25 Dateien) |
+| Tests | 318 (25 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -43,7 +43,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/presentation/game/creatureChoice.test.ts` | Tier-Auswahl: dasselbe Tier erneut tippen ändert nichts, ein anderes bringt sein Gebiss mit |
 | `src/presentation/game/quickControls.test.ts` | Leiste der Spielseite: Zahnzahl je Schritt, Grenzen 1 und 12 ändern nichts (keine neue Runde), Kachel wählt in Reihe wie Blatt, Bühne bleibt unberührt, Kurzinfo gefüllt |
 | `src/bedienleiste.test.ts` | Markup der Spielseite: Tier, Zähne und Neue Runde stehen auf der Seite und nicht im Zahnrad; das Zahnrad bietet genau 1 oder 2 Spieler; die Kurzinfo steht im Regeln-Blatt |
-| `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt |
+| `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnis auf der Seite, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis auf der Seite räumt die neue Runde weg; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns; dazu ein Bericht je Gebiss (größte Gruppe offen, übrige eingeklappt), beim Wolf der Modellwert 5,42 statt 4,69, der Gleichverteilungs-Test der Druck-Position nur im Modus classic, keine Muster-Marken unter der Mindestzahl; ein unbekanntes Lebewesen wirft nicht (gilt als Krokodil), die Statuszeile zählt die Mindestzahl je Gebiss, und ein Test, den das Gebiss nicht hergibt, heißt „nicht prüfbar" statt „zu wenig Daten" |
 
 ## Prüfsonden (Nachweis am laufenden Gegenstand)
@@ -118,7 +118,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 8. **Blätter-Sonde** — bleiben die Blätter offen, solange man darin arbeitet? Die Sonde stellt die
    vier Befunde vom 12.10.2026 im echten Chromium nach: Enter/Leertaste auf einem Knopf im
    Einstellungsblatt (Tastaturklick trägt 0/0), Tier-Auswahl bei
-   390/768/1180/1366 px (unter 640 px über das Blatt, darüber in der offenen Kopfreihe), Tipp auf die Bühne nach dem Biss und dasselbe Tier erneut tippen. Dazu die
+   390/768/1180/1366 px (unter 640 px über das Blatt, darüber in der offenen Kopfreihe), Tipp auf die Bühne nach dem Biss (das Ergebnis steht seit dem 12.10.2026 auf der Seite, kein
+   Blatt öffnet sich) und dasselbe Tier erneut tippen. Dazu die
    Gegenprobe, dass ein Zeigertipp **neben** das Einstellungsblatt es weiterhin schließt.
    `uv run --with playwright python scripts/pruefen-blaetter.py` (mit einer Adresse als Argument
    gegen die veröffentlichte Seite). Erwartet: 8× `Blatt offen = True`, je Breite und Tier `Auswahl offen =
@@ -138,7 +139,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 10. **Bedien-Sonde** — sind Tier, Zahnzahl und „Neue Runde" ohne Blatt und ohne Scrollen erreichbar?
    Gemessen wird im echten Chromium auf acht Größen (320 × 568 bis 1180 × 820), je in drei Lagen
-   (beim Laden, nach einem Druck, Ein-Zahn-Spiel mit Warnung): die Spielseite scrollt nicht, die
+   (beim Laden, nach einem Druck, Ein-Zahn-Spiel mit Warnung) und nach dem Biss mit dem
+   **längsten** Ergebnistext (eingesetzt, weil der Zufall ihn nicht liefert): die Spielseite scrollt nicht, die
    feste Leiste verdeckt nichts, kein Griff ist kleiner als 48 px hoch oder 44 px breit, die
    Tippzahlen stimmen (Zähne 1, Neue Runde 1, Tier 2 unter 640 px bzw. 1 darüber), und weder die
    Tier-Auswahl noch das Zahnrad-Blatt scrollt — auch nicht ohne Vibration (Safari iOS,

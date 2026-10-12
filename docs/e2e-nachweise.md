@@ -1188,6 +1188,36 @@ Gate: **316 Tests in 25 Dateien**.
 der Nutzer am Handy und Tablet sehen. Auf einem Handy **quer** (844 × 390) passt die Bühne wie
 schon vorher nicht ins Fenster — dort scrollt die Seite.
 
+## 5x. Das Ergebnis steht auf der Seite — kein Blatt mehr nach dem Biss (12.10.2026)
+
+Wunsch des Auftraggebers: „kannst du das modal am ende eine Runde enfernen? da jetzt alles gut und
+schnell im Zugriff ist wird es nicht mehr benötigt. Die Informationen sind ja nice to have, man
+könnte sie ggf. nach jeder Runde einblenden und wieder entfernen wenn eine neue Runde gestartet
+wurde."
+
+Umgesetzt: `#result-sheet` (modal) ist entfallen. Titel und Text des Ergebnisses stehen in
+`#result-panel` an der Stelle des Spielstands (`#hud-stats` ist bei geschlossenem Maul verborgen)
+und verschwinden mit der neuen Runde. Entfallen sind „Noch eine Runde" (dafür steht „Neue Runde"
+betont in der Leiste), „Zur Statistik" (bleibt im Zahnrad) und der Satz „Damit sind N Runden
+protokolliert" (die Rundennummer steht in der Kopfzeile).
+
+Zwei Funde der Sonde auf dem Weg, beide nur bei 320 × 568:
+
+| Fund | Messung | Abhilfe |
+|---|---|---|
+| Ergebnis mit Mut-Satz ragt unter die Leiste | Inhalt bis 497 px, Leiste ab 489 px | unter 360 px Breite kleinere Schrift im Ergebnis (0,78 rem) |
+| Balken-Hinweis und Ergebnis zugleich (Biss kurz nach dem ersten Druck) | Inhalt bis 524 px, Leiste ab 489 px | der Hinweis verschwindet bei geschlossenem Maul (`.is-snapped .meter-hint`) |
+
+Die Sonde setzt nach dem Biss zusätzlich den **längsten** möglichen Ergebnistext ein (12. Zahn,
+drei scharfe Zähne, zweistellige Zahlen) und misst erneut — der Zufall liefert diese Fassung nicht.
+`python scripts/pruefen-bedienung.py` gegen den Bau, zwei Läufe: `Auffälligkeiten: 0`.
+`pruefen-blaetter.py`: „offene Blaetter = 0 | Ergebnis bleibt nach Tipp auf die Buehne = True |
+… nach Neue Runde: {'status': 'open', 'betont': False} | Ergebnis weg = True", „ERGEBNIS: in
+Ordnung". Gate: **318 Tests in 25 Dateien**.
+
+**Nicht geprüft:** ein echtes Gerät, und die Ansage für Bildschirmleser (`role="status"`) wurde
+nicht mit einem Vorleseprogramm gehört.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

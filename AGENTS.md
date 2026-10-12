@@ -107,7 +107,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
   dabei **alle** offenen Blätter schließt (`dialog.sheet[open]`), macht genau das Blatt zu, in dem der
   Nutzer gerade stellt (gemeldet: „wenn ich auf das Minus klicke, schließt sich das Modal"). Geschlossen
-  wird nur, was der Neustart wirklich wegräumen soll (das Ergebnis-Blatt). Und beim Schließen den
+  wird nur, was der Neustart wirklich wegräumen soll (damals das Ergebnis-Blatt; seit dem
+  12.10.2026 steht das Ergebnis auf der Seite und der Neustart blendet es aus). Und beim Schließen den
   **Rückfall** für Umgebungen ohne `dialog.close` mitnehmen: jsdom kennt die Schnittstelle nicht, ein
   Aufruf ohne Prüfung wirft dort.
 
