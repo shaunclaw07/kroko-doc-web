@@ -222,6 +222,7 @@ export class FakeAudioContext implements AudioContextLike {
   state = 'running';
   readonly destination: AudioNodeLike = new FakeDestinationNode();
   resumeCallCount = 0;
+  decodedCount = 0;
   readonly createdNodes: Array<FakeGainNode | FakeOscillatorNode | FakeBufferSourceNode> = [];
   readonly startedSources: FakeSource[] = [];
   readonly paramEvents: FakeParamEvent[] = [];
@@ -249,6 +250,12 @@ export class FakeAudioContext implements AudioContextLike {
     const buffer = new FakeAudioBuffer(numberOfChannels, length, sampleRate);
     this.buffers.push(buffer);
     return buffer;
+  }
+
+  /** Dekodieren kostet im Test nichts: ein Byte gilt als ein Abtastwert (24 000 Byte = 0,5 s). */
+  decodeAudioData(data: ArrayBuffer): Promise<AudioBufferLike> {
+    this.decodedCount += 1;
+    return Promise.resolve(new FakeAudioBuffer(1, Math.max(1, data.byteLength), this.sampleRate));
   }
 
   resume(): Promise<void> {

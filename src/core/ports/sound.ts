@@ -14,6 +14,12 @@ export type SoundName =
 export interface SoundPort {
   /** Spielt einen Klang; intensity 0..1 verschiebt Tonhöhe/Lautstärke. */
   play(name: SoundName, intensity?: number): void;
+  /**
+   * Die Stimme eines Tiers (Kennung aus dem Katalog). Kennt die Umsetzung das Tier nicht oder ist
+   * die Stimme nicht rechtzeitig da, bleibt sie still. Die Bedienung ruft sie beim Wählen und nach
+   * dem Biss — nie vor einem Urteil.
+   */
+  playVoice(creatureId: string): void;
   /** Spannungspegel 0..1 (steuert Tempo von Herzschlag und Knarren). */
   setTension(level: number): void;
   setMuted(muted: boolean): void;

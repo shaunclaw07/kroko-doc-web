@@ -1,4 +1,5 @@
 import type { SoundName, SoundPort } from '../../core/ports/sound';
+import { CREATURE_VOICE_FILES, voiceUrl } from './creatureVoices';
 
 /** Strukturelle Minimalschnittstelle eines AudioParameters (für Hüllkurven und Tonhöhen). */
 export interface AudioParamLike {
@@ -52,6 +53,15 @@ export interface AudioContextLike {
   createOscillator(): OscillatorNodeLike;
   createBufferSource(): AudioBufferSourceNodeLike;
   createBuffer(numberOfChannels: number, length: number, sampleRate: number): AudioBufferLike;
+  /**
+   * Dekodiert eine Tondatei. Neuere Browser geben eine Zusage zurück, ältere Safari-Fassungen
+   * rufen nur die Rückrufe — die Engine bedient beides.
+   */
+  decodeAudioData(
+    data: ArrayBuffer,
+    onDecoded?: (buffer: AudioBufferLike) => void,
+    onError?: (error: unknown) => void,
+  ): Promise<AudioBufferLike> | void;
   resume(): Promise<void>;
 }
 
@@ -60,6 +70,10 @@ export interface WebAudioEngineOptions {
   createContext?: () => AudioContextLike | null;
   /** Startet stumm, wenn true. */
   muted?: boolean;
+  /** Holt die Datei einer Tierstimme; `null` heißt: gibt es nicht. Standard: `createVoiceLoader`. */
+  loadVoice?: (creatureId: string) => Promise<ArrayBuffer | null>;
+  /** Basis-Pfad der Seite mit Schluss-Schrägstrich (`import.meta.env.BASE_URL`). Ohne ihn bleiben die Tiere still. */
+  voiceBaseUrl?: string;
 }
 
 /**
@@ -81,6 +95,30 @@ export function createBrowserAudioContext(): AudioContextLike | null {
   }
 }
 
+/** Holt Stimmdateien vom eigenen Ursprung. Eine Fehlantwort oder ein unbekanntes Tier ergibt `null`. */
+export function createVoiceLoader(baseUrl: string): (creatureId: string) => Promise<ArrayBuffer | null> {
+  return async (creatureId) => {
+    const url = voiceUrl(baseUrl, creatureId);
+    if (url === null || typeof fetch !== 'function') return null;
+    const response = await fetch(url);
+    return response.ok ? response.arrayBuffer() : null;
+  };
+}
+
+/** Lautstärke der Tierstimmen — unter dem Biss (0,9), damit sich kein Kind erschreckt. */
+export const VOICE_GAIN = 0.6;
+/** So spät darf eine Stimme nach ihrem Anlass noch kommen (Sekunden); danach wäre sie ein Fremdkörper. */
+export const VOICE_LATE_LIMIT_S = 0.5;
+
+function decode(context: AudioContextLike, bytes: ArrayBuffer): Promise<AudioBufferLike> {
+  return new Promise((resolve, reject) => {
+    const result = context.decodeAudioData(bytes, resolve, reject);
+    if (result && typeof result.then === 'function') {
+      result.then(resolve, reject);
+    }
+  });
+}
+
 /** Exponentielle Rampen dürfen nie auf exakt 0 laufen — dieser Wert steht für "still". */
 const SILENCE = 0.0001;
 /** Neutrale Intensität, wenn der Aufrufer keine angibt. */
@@ -99,10 +137,21 @@ export class WebAudioEngine implements SoundPort {
   private tension = 0;
   /** Erst nach der ersten Nutzergeste wird überhaupt etwas geplant (siehe `play`). */
   private unlocked = false;
+  private readonly loadVoice: (creatureId: string) => Promise<ArrayBuffer | null>;
+  /** Fertig dekodierte Stimmen. */
+  private readonly voices = new Map<string, AudioBufferLike>();
+  /** Laufende Abrufe — damit keine Datei zweimal zugleich geholt wird. */
+  private readonly voiceLoads = new Map<string, Promise<AudioBufferLike | null>>();
+  private voicesRequested = false;
+  /** Zählt `stopAll()`: eine Stimme, die danach erst fertig lädt, gehört zu einem alten Anlass. */
+  private voiceEpoch = 0;
 
   constructor(options: WebAudioEngineOptions = {}) {
     this.createContext = options.createContext ?? createBrowserAudioContext;
     this.muted = options.muted ?? false;
+    const baseUrl = options.voiceBaseUrl;
+    this.loadVoice =
+      options.loadVoice ?? (baseUrl === undefined ? () => Promise.resolve(null) : createVoiceLoader(baseUrl));
   }
 
   play(name: SoundName, intensity: number = DEFAULT_INTENSITY): void {
@@ -154,6 +203,28 @@ export class WebAudioEngine implements SoundPort {
     }
   }
 
+  playVoice(creatureId: string): void {
+    // Dieselben Sperren wie in `play`: stumm heißt kein Knoten und kein Abruf, und vor der ersten
+    // Nutzergeste passiert nichts.
+    if (this.muted || !this.unlocked) return;
+    const context = this.ensureContext();
+    if (context === null) return;
+    const ready = this.voices.get(creatureId);
+    if (ready !== undefined) {
+      this.startVoice(context, ready);
+      return;
+    }
+    // Noch nicht da (das Tier wurde mit der allerersten Geste gewählt): nachreichen — aber nur,
+    // solange der Anlass noch gilt.
+    const epoch = this.voiceEpoch;
+    const asked = context.currentTime;
+    void this.fetchVoice(context, creatureId).then((buffer) => {
+      if (buffer === null || this.muted || epoch !== this.voiceEpoch) return;
+      if (context.currentTime - asked > VOICE_LATE_LIMIT_S) return;
+      this.startVoice(context, buffer);
+    });
+  }
+
   setTension(level: number): void {
     this.tension = this.clamp01(level);
   }
@@ -167,6 +238,7 @@ export class WebAudioEngine implements SoundPort {
   }
 
   stopAll(): void {
+    this.voiceEpoch += 1;
     const when = this.context === null ? 0 : this.context.currentTime;
     for (const source of this.active) {
       try {
@@ -187,6 +259,7 @@ export class WebAudioEngine implements SoundPort {
     this.unlocked = true;
     const context = this.ensureContext();
     if (context === null) return;
+    this.requestVoices(context);
     // Nicht „höchstens einmal": die erste Geste kann eine sein, die der Browser nicht als Freigabe
     // zählt, und ein laufender Kontext kann wieder angehalten werden (iOS nach Anruf oder Sperre).
     if (context.state === 'running') return;
@@ -214,6 +287,47 @@ export class WebAudioEngine implements SoundPort {
     if (created === null) return null;
     this.context = created;
     return created;
+  }
+
+  /** Holt nach der ersten Geste alle Stimmen im Hintergrund — einmal, und nur bei eingeschaltetem Ton. */
+  private requestVoices(context: AudioContextLike): void {
+    if (this.voicesRequested || this.muted) return;
+    this.voicesRequested = true;
+    for (const creatureId of Object.keys(CREATURE_VOICE_FILES)) {
+      void this.fetchVoice(context, creatureId);
+    }
+  }
+
+  /** Lädt und dekodiert eine Stimme. Ein Fehlschlag wird nicht gemerkt: der nächste Anlass versucht es erneut. */
+  private fetchVoice(context: AudioContextLike, creatureId: string): Promise<AudioBufferLike | null> {
+    const running = this.voiceLoads.get(creatureId);
+    if (running !== undefined) return running;
+    const load = Promise.resolve()
+      .then(() => this.loadVoice(creatureId))
+      .then((bytes) => (bytes === null ? null : decode(context, bytes)))
+      .catch(() => null)
+      .then((buffer) => {
+        this.voiceLoads.delete(creatureId);
+        if (buffer !== null) this.voices.set(creatureId, buffer);
+        return buffer;
+      });
+    this.voiceLoads.set(creatureId, load);
+    return load;
+  }
+
+  private startVoice(context: AudioContextLike, buffer: AudioBufferLike): void {
+    try {
+      const now = context.currentTime;
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      const gain = context.createGain();
+      gain.gain.setValueAtTime(VOICE_GAIN, now);
+      source.connect(gain);
+      gain.connect(context.destination);
+      this.startSource(source, now, buffer.length / buffer.sampleRate);
+    } catch {
+      // Fehlende Audio-Unterstützung darf das Spiel niemals abbrechen.
+    }
   }
 
   private clamp01(value: number): number {

@@ -8,6 +8,8 @@ export interface SoundEvent {
 /** Klangattrappe für Tests: schreibt mit, was gespielt worden wäre. */
 export class RecordingSound implements SoundPort {
   readonly events: SoundEvent[] = [];
+  /** Kennungen der Tiere, deren Stimme gespielt worden wäre. */
+  readonly voices: string[] = [];
   readonly tensions: number[] = [];
   stopAllCalls = 0;
   unlockCalls = 0;
@@ -18,6 +20,13 @@ export class RecordingSound implements SoundPort {
       return;
     }
     this.events.push({ name, intensity });
+  }
+
+  playVoice(creatureId: string): void {
+    if (this.muted) {
+      return;
+    }
+    this.voices.push(creatureId);
   }
 
   setTension(level: number): void {

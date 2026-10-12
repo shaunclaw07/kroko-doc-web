@@ -1,5 +1,6 @@
-import { afterEach, describe, expect, it } from 'vitest';
-import { WebAudioEngine, createBrowserAudioContext } from './webAudioEngine';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { listCreatures } from '../../core/domain/creature';
+import { VOICE_GAIN, WebAudioEngine, createBrowserAudioContext, createVoiceLoader } from './webAudioEngine';
 import type { WebAudioEngineOptions } from './webAudioEngine';
 import { FakeAudioContext } from '../testing/fakeAudioContext';
 
@@ -243,5 +244,190 @@ describe('Robustheit', () => {
 
     expect(peakGain(below.audio)).toBeCloseTo(peakGain(zero.audio), 6);
     expect(peakGain(above.audio)).toBeCloseTo(peakGain(one.audio), 6);
+  });
+});
+
+/** Lässt alle anstehenden Zusagen (Laden, Dekodieren) durchlaufen. */
+const settle = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 0));
+
+/** Engine mit eigener Ladefunktion: sie schreibt mit, was verlangt wurde. */
+function voiceEngine(options: WebAudioEngineOptions = {}): {
+  engine: WebAudioEngine;
+  audio: FakeAudioContext;
+  asked: string[];
+} {
+  const audio = new FakeAudioContext();
+  const asked: string[] = [];
+  const engine = new WebAudioEngine({
+    createContext: () => audio,
+    loadVoice: (id) => {
+      asked.push(id);
+      return Promise.resolve(id === 'dragon' ? null : new ArrayBuffer(24000));
+    },
+    ...options,
+  });
+  return { engine, audio, asked };
+}
+
+describe('Tierstimmen in der Engine', () => {
+  it('lädt nach der ersten Nutzergeste jede Stimme des Katalogs genau einmal', async () => {
+    const { engine, audio, asked } = voiceEngine();
+    expect(asked).toEqual([]);
+    engine.unlock();
+    engine.unlock();
+    await settle();
+    expect([...asked].sort()).toEqual(listCreatures().map((creature) => creature.id).sort());
+    expect(audio.decodedCount).toBe(listCreatures().length);
+    // Laden und Dekodieren legen keinen Knoten an — gespielt wird erst auf Anlass.
+    expect(audio.nodeCount()).toBe(0);
+  });
+
+  it('spielt eine geladene Stimme sofort, in ihrer Länge und leiser als den Biss', async () => {
+    const { engine, audio } = voiceEngine();
+    engine.unlock();
+    await settle();
+    engine.playVoice('wolf');
+    expect(audio.startedSources).toHaveLength(1);
+    // 24 000 Abtastwerte bei 48 kHz sind eine halbe Sekunde.
+    expect(audio.startedSources[0]?.stopTime).toBeCloseTo(0.5, 6);
+    expect(peakGain(audio)).toBe(VOICE_GAIN);
+    expect(VOICE_GAIN).toBeLessThan(0.9);
+  });
+
+  it('spielt eine Stimme, die beim Anlass noch lädt, sobald sie da ist — genau einmal', async () => {
+    const { engine, audio } = voiceEngine();
+    engine.unlock();
+    engine.playVoice('wolf');
+    expect(audio.startedSources).toHaveLength(0);
+    await settle();
+    expect(audio.startedSources).toHaveLength(1);
+  });
+
+  it('lässt eine Stimme fallen, die mehr als eine halbe Sekunde zu spät kommt', async () => {
+    // Jede Stimme wartet auf ihre eigene Lieferung — nach `unlock()` sind alle zehn unterwegs.
+    const waiting = new Map<string, (bytes: ArrayBuffer) => void>();
+    const { engine, audio } = voiceEngine({
+      loadVoice: (id) =>
+        new Promise<ArrayBuffer>((resolve) => {
+          waiting.set(id, resolve);
+        }),
+    });
+    engine.unlock();
+    engine.playVoice('wolf');
+    await settle();
+    audio.currentTime = 0.8;
+    waiting.get('wolf')?.(new ArrayBuffer(24000));
+    await settle();
+    expect(audio.startedSources).toHaveLength(0);
+    // Geladen ist sie trotzdem — der nächste Anlass spielt sie sofort.
+    engine.playVoice('wolf');
+    expect(audio.startedSources).toHaveLength(1);
+  });
+
+  it('lässt eine Stimme fallen, deren Anlass von stopAll() überholt wurde', async () => {
+    const { engine, audio } = voiceEngine();
+    engine.unlock();
+    engine.playVoice('wolf');
+    engine.stopAll();
+    await settle();
+    expect(audio.startedSources).toHaveLength(0);
+  });
+
+  it('bricht eine laufende Stimme mit stopAll() ab', async () => {
+    const { engine, audio } = voiceEngine();
+    engine.unlock();
+    await settle();
+    engine.playVoice('lion');
+    engine.stopAll();
+    expect(audio.runningSources()).toHaveLength(0);
+  });
+
+  it('lädt und spielt nichts, wenn der Ton aus ist', async () => {
+    const { engine, audio, asked } = voiceEngine({ muted: true });
+    engine.unlock();
+    engine.playVoice('wolf');
+    await settle();
+    expect(asked).toEqual([]);
+    expect(audio.nodeCount()).toBe(0);
+  });
+
+  it('tut vor der ersten Nutzergeste nichts — kein Kontext, kein Abruf', async () => {
+    let created = 0;
+    const asked: string[] = [];
+    const engine = new WebAudioEngine({
+      createContext: () => {
+        created += 1;
+        return new FakeAudioContext();
+      },
+      loadVoice: (id) => {
+        asked.push(id);
+        return Promise.resolve(new ArrayBuffer(8));
+      },
+    });
+    engine.playVoice('wolf');
+    await settle();
+    expect(created).toBe(0);
+    expect(asked).toEqual([]);
+  });
+
+  it('bleibt still, wenn das Laden scheitert — und versucht es beim nächsten Anlass erneut', async () => {
+    let fail = true;
+    const asked: string[] = [];
+    const audio = new FakeAudioContext();
+    const engine = new WebAudioEngine({
+      createContext: () => audio,
+      loadVoice: (id) => {
+        asked.push(id);
+        return fail ? Promise.reject(new Error('offline')) : Promise.resolve(new ArrayBuffer(24000));
+      },
+    });
+    engine.unlock();
+    await settle();
+    expect(() => engine.playVoice('wolf')).not.toThrow();
+    await settle();
+    expect(audio.startedSources).toHaveLength(0);
+
+    fail = false;
+    engine.playVoice('wolf');
+    await settle();
+    expect(audio.startedSources).toHaveLength(1);
+    expect(asked.filter((id) => id === 'wolf').length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('bleibt bei einem unbekannten Tier still, statt zu werfen', async () => {
+    const { engine, audio } = voiceEngine();
+    engine.unlock();
+    await settle();
+    expect(() => engine.playVoice('dragon')).not.toThrow();
+    await settle();
+    expect(audio.startedSources).toHaveLength(0);
+  });
+});
+
+describe('Laden der Stimmdateien', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('holt die Datei unter dem Basis-Pfad der Seite', async () => {
+    const urls: string[] = [];
+    vi.stubGlobal('fetch', (url: string) => {
+      urls.push(url);
+      return Promise.resolve({ ok: true, arrayBuffer: () => Promise.resolve(new ArrayBuffer(4)) });
+    });
+    const bytes = await createVoiceLoader('/zahn_agent/')('wolf');
+    expect(urls).toEqual(['/zahn_agent/sounds/voices/wolf.mp3']);
+    expect(bytes?.byteLength).toBe(4);
+  });
+
+  it('liefert nichts bei einer Fehlantwort und fragt für ein unbekanntes Tier gar nicht erst', async () => {
+    let calls = 0;
+    vi.stubGlobal('fetch', () => {
+      calls += 1;
+      return Promise.resolve({ ok: false, arrayBuffer: () => Promise.resolve(new ArrayBuffer(4)) });
+    });
+    expect(await createVoiceLoader('/')('wolf')).toBeNull();
+    expect(await createVoiceLoader('/')('dragon')).toBeNull();
+    expect(calls).toBe(1);
   });
 });
