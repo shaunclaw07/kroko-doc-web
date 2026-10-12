@@ -29,6 +29,11 @@ export const MIN_TEETH = 1;
  */
 export const MAX_TEETH = 12;
 export const MAX_PLAYERS = 4;
+/**
+ * Höchste Spielerzahl, die die Bedienung anbietet (Entscheidung vom 12.10.2026). `MAX_PLAYERS`
+ * bleibt die Grenze für protokollierte und importierte Runden — die gab es mit 3 und 4 Spielern.
+ */
+export const MAX_SELECTABLE_PLAYERS = 2;
 export const DEFAULT_PLAYERS = 1;
 export const DEFAULT_MODE: RandomMode = 'original';
 

@@ -2,6 +2,7 @@ import { DEFAULT_CREATURE_ID, isKnownCreature } from '../../core/domain/creature
 import {
   DEFAULT_MODE,
   DEFAULT_PLAYERS,
+  MAX_SELECTABLE_PLAYERS,
   isValidToothCount,
   type RandomMode,
 } from '../../core/domain/teeth';
@@ -66,7 +67,7 @@ export function loadSettings(storage: StorageLike | null): GameSettings {
     const players = Number.isInteger(candidate.players) ? Number(candidate.players) : DEFAULT_SETTINGS.players;
     return {
       mode: candidate.mode === 'classic' || candidate.mode === 'original' ? candidate.mode : DEFAULT_MODE,
-      players: Math.min(4, Math.max(1, players)),
+      players: Math.min(MAX_SELECTABLE_PLAYERS, Math.max(1, players)),
       sound: candidate.sound !== false,
       vibration: candidate.vibration !== false,
       // Ein unbekanntes Lebewesen (alte Fassung, Tippfehler) wird zum Krokodil.

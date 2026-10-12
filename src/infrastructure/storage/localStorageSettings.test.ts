@@ -74,8 +74,17 @@ describe('Einstellungen', () => {
   it('holt Einstellungen auch aus der ältesten Fassung', () => {
     const storage = new MemoryStorage();
     storage.setItem(LEGACY_SETTINGS_KEYS[1], JSON.stringify({ ...DEFAULT_SETTINGS, players: 3 }));
-    expect(loadSettings(storage).players).toBe(3);
+    // Gespeichert sind 3, gelesen werden 2: die Bedienung bietet nur noch 1 und 2 (12.10.2026).
+    expect(loadSettings(storage).players).toBe(2);
     expect(storage.getItem(SETTINGS_KEY)).not.toBeNull();
+  });
+
+  it('begrenzt eine gespeicherte Spielerzahl von 3 oder 4 auf 2 — die Bedienung bietet nur noch 1 und 2', () => {
+    for (const players of [3, 4]) {
+      const storage = new MemoryStorage();
+      storage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, players }));
+      expect(loadSettings(storage).players).toBe(2);
+    }
   });
 
   it('macht aus einem unbekannten Lebewesen das Krokodil', () => {
