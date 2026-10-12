@@ -474,16 +474,18 @@ button:focus-visible,
 }
 
 /* --- Tier-Album: Sterne liegen ÜBER der Kachel und ändern keine Maße (gemessen,
-   scripts/pruefen-bedienung.py). Sie fangen keinen Tipp ab — der gehört der Kachel. */
+   scripts/pruefen-bedienung.py). Sie fangen keinen Tipp ab — der gehört der Kachel.
+   Die Marke sitzt AUF der oberen Kante, halb über der Kachel: das Kopfbild beginnt 8 px unter der
+   Kante, die Marke endet davor. Im Bild selbst verdeckte sie auf der 65-px-Kachel ein Auge. */
 .album-stars {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: -9px;
+  right: 4px;
   display: flex;
   gap: 1px;
   padding: 1px 4px;
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.55);
+  background: #0b1418;
   font-size: 0.6rem;
   line-height: 1.3;
   pointer-events: none;
@@ -498,22 +500,35 @@ button:focus-visible,
 }
 
 /* Die Ansage eines neuen Sterns: oben über der Bühne, nur bei geschlossenem Maul.
-   `.stage` ist schon `position: relative` — die Ansage richtet sich daran aus. */
+   `.stage` ist schon `position: relative` — die Ansage richtet sich daran aus.
+   Mitte über beide Ränder und `margin: auto`, nicht über `left: 50%`: dort bekäme der Kasten nur
+   die halbe Bühnenbreite zum Schrumpfen (gemessen bei 320 px: 143 statt 272 px, drei Zeilen).
+   Klein und dicht gesetzt, solange die Bühne schmal ist: Ring und Beschriftung eines oberen
+   scharfen Zahns beginnen dort schon knapp unter der Kante. */
 .star-toast {
   position: absolute;
-  top: 8px;
-  left: 50%;
-  max-width: calc(100% - 16px);
-  margin: 0;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
+  top: 4px;
+  right: 6px;
+  left: 6px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.15rem 0.7rem;
+  border-radius: 14px;
   background: rgba(0, 0, 0, 0.72);
   color: #f2c94c;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  line-height: 1.2;
   text-align: center;
-  translate: -50% 0;
   pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .star-toast {
+    top: 10px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.95rem;
+  }
 }
 
 .stage:not([data-status="snapped"]) .star-toast {
