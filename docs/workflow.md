@@ -32,7 +32,12 @@ uv run --with cairosvg python scripts/artwork-png.py \
   "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth  # README-Bild aus allen zehn
+uv run --with playwright python scripts/pruefen-zahnsicht.py   # liegt ein Zahn unter dem Gesicht?
 ```
+
+Die Sonde schreibt außerdem jede Zahnzahl je Lebewesen nach `zahnzahlen/` im selben Verzeichnis;
+`pruefen-zahnsicht.py` misst daran im Browser, ob das Gesicht einen Zahn verdeckt (erwartet:
+`0 Auffälligkeiten`). Wie ein Tiermodell entsteht, steht in `docs/tiermodell-anleitung.md`.
 
 Beide Schritte liegen im Baum — kein Scratch-Verzeichnis, kein fester Pfad. Den Zustand setzt
 der Rasterer wie das Stylesheet (Klassen `is-pressed`/`is-snapped`), den Schließweg als
@@ -242,6 +247,7 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |
 | `pruefen-tiere.py` | Sonde: alle Tiere mit Bild, ein Tipp wählt | `uv run --with playwright python scripts/pruefen-tiere.py` |
 | `pruefen-trefferflaeche.py` | Sonde: Trefferfläche je Zahn, kein Zahn verdeckt | `uv run --with playwright python scripts/pruefen-trefferflaeche.py` |
+| `pruefen-zahnsicht.py` | Sonde ohne Server: liegt ein Zahn unter dem Gesicht — jedes Tier, jede Zahnzahl, an den SVGs der Zeichnungs-Sonde; `--freiraum <tier>` zeigt, wo ein Auge Platz hat | `uv run --with playwright python scripts/pruefen-zahnsicht.py` |
 | `pruefen-zeitgeber.cjs` | stellt den Zeitgeber-Fehler des Gates nach (Mechanismus, nicht Häufigkeit) | `node scripts/pruefen-zeitgeber.cjs` |
 | `doku-pruefen.sh` | Doku: Code-Zäune, Fließtext im Block, alte Werte | Rezept oben unter „Doku prüfen" |
 | `doku-pfade-pruefen.py` | Doku: zeigt jede genannte Pfadangabe auf eine Datei | `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` |

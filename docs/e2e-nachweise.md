@@ -1365,6 +1365,41 @@ Produkts aus. Vor dem Tipp den Zahn ins Bild rollen (`scrollIntoView`).
 gut lesbar ist und ob die kleinen Sterne auf der Kachelkante am Gerät erkennbar sind. Gemessen ist
 die Lage, nicht der Eindruck.
 
+## 5ab. Kein Zahn unter dem Gesicht (12.10.2026)
+
+**Was geprüft wurde:** ob irgendein Teil der Gesichtsebene (Augen, Wangen, Brauen, Schnurrhaare,
+Kiemen, Monokel) einen Zahn verdeckt — für jedes der zehn Tiere bei jeder Zahnzahl von 1 bis 12.
+
+**Verfahren:** `pnpm vitest run src/render-probe.test.ts` schreibt 120 Zeichnungen,
+`scripts/pruefen-zahnsicht.py` lädt jede in Chromium ohne Fenster, tastet jede Zahnfläche in einem
+Raster von 24 × 24 Punkten ab (`isPointInFill`) und fragt je Punkt, was obenauf liegt
+(`elementFromPoint`). Fund ab 2 % der Zahnfläche unter einer Ebene außer dem unteren
+Zahnfleischband.
+
+| Stand | Ergebnis |
+|---|---|
+| vorher (Stichprobe `panda-11 shark-8 crocodile-10`) | **8 Auffälligkeiten**, Exit 1 — Panda Zahn 5 und 8 je 100 %, Hai Zahn 4 und 6 je 82 %, Krokodil Zahn 5 und 7 je 43 %, Zahn 4 und 8 je 10 % (Wangen) |
+| nachher (alle 120) | **0 Auffälligkeiten**, Exit 0 |
+
+Die Gegenprobe gegen den alten Stand lief mit zurückgelegten Zeichnungsmodulen
+(`git stash push -- src/presentation/game/creatures`), nicht aus der Erinnerung. Das untere
+Zahnfleischband deckt weiterhin bis 72 % eines unteren Zahns — gewollt, die Wurzeln stecken darin.
+
+**Eine Falle der Messung selbst:** die erste Gegenprobe legte **alles** zurück, auch die Sonde, die
+die Zeichnungen je Zahnzahl schreibt — gemessen wurden deshalb die neuen Dateien, und das Ergebnis
+hieß fälschlich „0 Auffälligkeiten“ für den alten Stand. Eine Gegenprobe legt nur das zurück, was
+sie prüfen will.
+
+**Bilder:** README-Bild und Icon-PNGs sind hier nicht mit Cairo gerastert, sondern über Chromium
+(auf dieser Maschine fehlt `libcairo-2.dll`); der alte Stand, auf demselben Weg gerastert, wich vom
+eingecheckten Bild in 241 von 1 115 020 Bildpunkten ab (Kantenglättung).
+
+**Nicht geprüft — und von mir nicht prüfbar:** der Eindruck am echten Handy. Gemessen ist, dass
+kein Zahn verdeckt wird, nicht, ob die kleineren Augen von Löwe, Säbelzahntiger und Panda einem
+Kind gefallen. Während der Pause vor dem Urteil sinkt das Gesicht um 7 Einheiten
+(`is-pressing`); bei den knappsten Augen (Abstand zum Ring 2 bis 3 Einheiten) kann es dabei für
+einen Moment den Wurzelrand eines Zahns berühren.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

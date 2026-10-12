@@ -26,6 +26,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Sprache (Englisch im Code, Deutsch in Kommentar und UI) | [`docs/language-guidelines.md`](docs/language-guidelines.md) |
 | Architektur (Schichten, Importregel, Schicht-Tabelle, Fehlerarten) | [`docs/architecture.md`](docs/architecture.md) |
 | Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | [`docs/domain-model.md`](docs/domain-model.md) |
+| Ein Tiermodell zeichnen (Ebenen, Zahnring als Sperrgebiet, Augen setzen, Prüfreihenfolge) | [`docs/tiermodell-anleitung.md`](docs/tiermodell-anleitung.md) |
 | Tests & Nachweise (Gate, Testzahlen, Sonden, Mindeststichprobe) | [`docs/testing.md`](docs/testing.md) |
 | Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
 | Tierstimmen ergänzen oder tauschen, Tier-Sätze, alle Skripte | [`docs/workflow.md`](docs/workflow.md) |
@@ -44,6 +45,7 @@ pnpm typecheck    # tsc --noEmit  — Teil des Gates
 pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # beides nacheinander
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
+uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt ein Zahn unter dem Gesicht?
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -107,7 +109,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   (iOS hält ihn nach einem Anruf wieder an). Am echten Handy ist der Schlag nie gemessen worden —
   ob der erste Tipp nach langem Leerlauf normal klingt, kann nur der Nutzer prüfen.
 
-## Dreißig Fallen, die Zeit kosten
+## Einunddreißig Fallen, die Zeit kosten
+
+- **Das Gesicht liegt über den Zähnen — der Zahnring ist für Augen und Wangen Sperrgebiet.** Die
+  Gesichtsebene wird zuletzt gemalt, und die Augen saßen bei allen zehn Tieren auf dem Ring. Welcher
+  Zahn darunter rutscht, hängt an der Zahnzahl: gemessen am 12.10.2026 für jede Zahl von 1 bis 12
+  deckte der Augenfleck des Pandas bei 11 Zähnen einen Zahn zu 100 %, das Auge des Hais bei 8 Zähnen
+  82 %, das des Krokodils im Standard 43 % (gemeldet: „öfters mal der eine oder andere Zahn verdeckt
+  von den Augen"). Kein Test sah es — sie prüfen Markup, nicht Deckung, und die Bilder der Sonde
+  zeigen nur die Standard-Zahnzahl. Seitdem liegen alle runden Gesichtsformen außerhalb der
+  Ringellipse (`creatureViews.test.ts`), und `scripts/pruefen-zahnsicht.py` misst die Deckung für
+  jede Zahnzahl im Browser (erwartet: 0 Auffälligkeiten). Anleitung: `docs/tiermodell-anleitung.md`.
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -335,7 +347,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
    `realTeeth`, `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen,
    ohne ein Wort über scharfe Zähne; die Quelle gehört in `docs/plan.md`).
-2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen: `body`, `holeFill`,
+2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen (vorher
+   `docs/tiermodell-anleitung.md` lesen — dort steht, wohin die Augen dürfen): `body`, `holeFill`,
    `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
    keine Bänder neben dem Kopf hängen),
    `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
@@ -352,7 +365,9 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
    language“). Und anhören kann eine Stimme nur der Auftraggeber.
 Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
 Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
-Bühne, und dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden. Zeichnung ohne
+Bühne, dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden und dass keine runde
+Gesichtsform in den Zahnring ragt. Pfade (Brauen, Schnurrhaare) misst nur die Sonde:
+`uv run --with playwright python scripts/pruefen-zahnsicht.py`. Zeichnung ohne
 Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
 
 **Das App-Symbol hängt an der Zeichnung des Krokodils.** `public/favicon.svg` und
@@ -444,6 +459,9 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   (2 · Trefferradius 49,4 px · Skala 286/640) — die Zahl stimmte, die angegebene Herkunft nicht.
   Wer eine Fläche behauptet, nennt die Rechnung; wer eine Messung behauptet, nennt das Werkzeug,
   das sie wirklich liefert.
+- **Augen und Wangen liegen im Fellstreifen, nie auf dem Zahnring** — sonst verdecken sie je nach
+  Zahnzahl einen Zahn. Wo der Streifen schmal ist (Katzen, Panda, Hai), werden die Augen kleiner
+  und rücken neben die Nase; die Braue liegt dann als Lid auf der Augenkante.
 - Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
   Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
   dunkelbraun als Oval — kontrastarm, nie schwarz.

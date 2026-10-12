@@ -814,3 +814,46 @@ Einstiegsmodul.
 
 Gate **371 Tests in 28 Dateien**. Nachweis §5aa. Nicht gepusht — ein Push auf `main` veröffentlicht
 und wartet auf das Wort des Auftraggebers.
+
+## Nachtrag 12.10.2026 (gebaut): kein Zahn mehr unter den Augen
+
+Auftrag: „Kannst du einmal die Grafiken der Modelle analysieren und optimieren. Aktuell ist öfters
+mal der eine oder andere Zahn verdeckt von den Augen. Es soll alles kinderfreundlich und im
+einheitlichen Stil bleiben“ — und nach der Vorlage des Entwurfs: „ja bitte umsetzen und
+anschließend eine Anleitung für zukünftige Models erstellen“.
+
+**Befund (gemessen, jedes Tier × jede Zahnzahl 1–12):** die Gesichtsebene liegt über den Zähnen,
+und die Augen saßen bei allen zehn Tieren auf dem Zahnring. Höchste Verdeckung eines Zahns: Panda
+100 %, Hai 82 %, Panther 64 %, Säbelzahntiger 61 %, Krokodil 49 % (dazu Wangen 34 %), Löwe und
+Mensch 41 %, Vampir 15 % (Monokel), Wolf 14 %, Maus 7 %.
+
+**Entscheidungen (mit Grund), vom Auftraggeber als Entwurf mit Vorschaubild bestätigt:**
+
+1. **Augen, Brauen und Wangen wandern in den Fellstreifen** zwischen Zahnring und Kopfumriss; Ring,
+   Zähne und Trefferflächen bleiben unverändert. Grund: das Maul ist das Spielfeld.
+2. **Wo der Streifen schmal ist, werden die Augen kleiner** und rücken neben die Nase: Löwe 34 × 29
+   → 25 × 22, Säbelzahntiger 32 × 26 → 24 × 21, Panther 33 × 28 → 27 × 24, Hai 35 × 30 → 28 × 25,
+   Krokodil 38 × 33 → 33 × 29. Das ist mehr als die im Entwurf genannten 15–20 % (Löwe und
+   Säbelzahntiger rund 25 %): der gemessene Streifen gab nicht mehr her. Mensch, Wolf, Maus und
+   Vampir behalten ihre Größe.
+3. **Panda:** Augenfleck 54 × 44 (gedreht) → 29 × 26 neben der Nase, Linse 18 × 17. Der Fleck ist
+   der größte Eingriff; die Linse füllt ihn bis auf einen dunklen Rand, damit das Auge groß wirkt.
+4. **Brauen als Lid**, wo über dem Auge kein Platz bleibt (Krokodil, Mensch, Hai, Säbelzahntiger).
+5. **Kiemenschlitze des Hais** an den Flossenansatz (der innerste lag auf einem Zahn);
+   **Wangen** von Krokodil, Wolf und Maus aus dem Ring; **Schnurrhaare** des Panthers 4 Einheiten
+   kürzer.
+
+**Abgesagt:** Zähne über das Gesicht malen (ein Zahn läge auf dem Augapfel); Zähne um die Augen
+herum verteilen (kleinere Trefferflächen); den Zahnring oben absenken (dem Auftraggeber für den
+Panda angeboten, nicht gewählt — flacheres Maul, rund 4 % kleinere Trefferflächen).
+
+**Abgesichert:** ein Test in `creatureViews.test.ts` (keine runde Gesichtsform im Zahnring), die
+Sonde `scripts/pruefen-zahnsicht.py` (Deckung im Browser, 120 Zeichnungen, 0 Auffälligkeiten) und
+die Anleitung `docs/tiermodell-anleitung.md`. App-Symbol und README-Bild neu erzeugt.
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob die kleineren Augen von Löwe,
+Säbelzahntiger und Panda am Handy noch freundlich genug wirken. Der nächste Schritt wäre, den
+Kopfumriss dieser Tiere oben anzuheben, nicht das Auge weiter zu verkleinern.
+
+Gate **372 Tests in 28 Dateien**. Nachweis §5ab. Nicht gepusht — ein Push auf `main` veröffentlicht
+und wartet auf das Wort des Auftraggebers.
