@@ -490,3 +490,15 @@ wollen. Hast du noch andere coole Ideen?"
   **Struktur** prüfen. Gemessen nach dem Fix: 100 % → rot + 0,38 s Takt, 21 % → nicht rot
   (Gegenprobe), Maul zu → farblos + „Runde beendet". Gate **238 Tests in 19 Dateien**.
   Nachweis §5t, Regeln in `AGENTS.md` und `docs/domain-model.md`.
+- **Tier-Auswahl: ein Tipp wählt und schließt (12.10.2026).** Wunsch: „Man muss sonst immer erst
+  nochmal bestätigen wenn man ein anderes Modell ausgewählt hat. Das nervt." Das Blatt „Welches
+  Tier?" war als Vorschau gebaut (`pending` + „Damit spielen"), damit die Kurzinfo lesbar bleibt —
+  vom Auftraggeber überstimmt. Ein Tipp übernimmt die Wahl jetzt sofort und schließt **nur** das
+  Auswahlblatt; das Einstellungsblatt bleibt offen, die Kurzinfo beschreibt das gewählte Tier und
+  steht beim nächsten Öffnen wieder da. „Damit spielen" und „Abbrechen" sind entfallen (im Bau steht
+  nur `>Fertig<`); `src/auswahl.test.ts` hält das Markup fest, die erweiterte Tier-Sonde das
+  Verhalten (Blatt nach dem Tipp zu, Name/Marke im Einstellungsblatt neu, Kurzinfo bleibt).
+  Zwei Fallen: eine `.test.ts` **in** `src/pages/` bricht `pnpm build` (Astro baut sie als Seite,
+  „Vitest failed to access its internal state"), und die Anzeige-Sonde baute in Lage 2 auf Glück
+  (ein Druck bei zehn Zähnen kann zuschnappen) — sie würfelt jetzt mit frischer Seite, bis die Runde
+  offen bleibt. Gate **243 Tests in 20 Dateien**. Nachweis §5u, Regeln in `AGENTS.md`, `docs/testing.md`.

@@ -195,8 +195,7 @@ const base = import.meta.env.BASE_URL;
       </details>
     </div>
     <div class="sheet__actions">
-      <button type="button" class="button--primary" id="creature-apply">Damit spielen</button>
-      <button type="button" class="button--ghost" data-close-sheet>Abbrechen</button>
+      <button type="button" class="button--primary" data-close-sheet>Fertig</button>
     </div>
   </dialog>
 
@@ -378,16 +377,17 @@ const base = import.meta.env.BASE_URL;
     }
 
     /**
-     * Das Auswahlblatt: Die Wahl im Blatt ist zunächst nur eine **Vorschau** (`pending`) — erst
-     * „Damit spielen“ übernimmt sie. Sonst schlösse jeder Tipp das Blatt, und die Kurzinfo zum Tier
-     * wäre nie zu lesen.
+     * Das Auswahlblatt: **ein Tipp wählt und schließt.** Bis zum 12.10.2026 war die Wahl nur eine
+     * Vorschau (`pending`), die erst „Damit spielen“ übernahm — Begründung damals: sonst schlösse
+     * jeder Tipp das Blatt und die Kurzinfo wäre nie zu lesen. Der Auftraggeber hat das überstimmt
+     * („Man muss sonst immer erst nochmal bestätigen … das nervt“): Ein Tipp übernimmt die Wahl
+     * sofort und schließt das Blatt. Die Kurzinfo bleibt erreichbar — sie beschreibt jetzt das
+     * **gewählte** Tier und steht beim nächsten Öffnen wieder da.
      */
-    let pending = settings.creature;
-
-    function paintChoice(): void {
-      const creature = getCreature(pending);
+    function paintDetail(): void {
+      const creature = getCreature(settings.creature);
       document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
-        button.setAttribute('aria-pressed', String(button.dataset.creature === pending));
+        button.setAttribute('aria-pressed', String(button.dataset.creature === settings.creature));
       });
       if (detailLine) {
         const live = creature.liveTeethMin === creature.liveTeethMax
@@ -415,21 +415,22 @@ const base = import.meta.env.BASE_URL;
       paintCreature();
     });
     document.getElementById('creature-open')?.addEventListener('click', () => {
-      pending = settings.creature;
-      paintChoice();
+      paintDetail();
       openSheet('creature-sheet');
     });
     document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
       button.addEventListener('click', () => {
-        pending = button.dataset.creature ?? pending;
-        paintChoice();
+        // Ein Tipp = Wahl + zurück ins Einstellungsblatt. Beim Wechsel gilt wieder das Gebiss des
+        // gewählten Tieres (`teethOverride: null`); dasselbe Tier erneut zu tippen ändert nichts.
+        controller.applySettings({
+          ...settings,
+          creature: button.dataset.creature ?? settings.creature,
+          teethOverride: null,
+        });
+        paintDetail();
+        paintCreature();
+        sheetOf('creature-sheet')?.close();
       });
-    });
-    document.getElementById('creature-apply')?.addEventListener('click', () => {
-      // Beim Wechsel gilt wieder das Gebiss des gewählten Tieres.
-      controller.applySettings({ ...settings, creature: pending, teethOverride: null });
-      paintCreature();
-      sheetOf('creature-sheet')?.close();
     });
 
     document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());

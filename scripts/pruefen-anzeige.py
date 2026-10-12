@@ -117,12 +117,22 @@ def main() -> int:
              f"Der Balken soll im Herzschlag-Takt atmen (380 ms am Ende des Bereichs), tut aber {offen['fuellAtmung']}"),
         ])
 
-        # Lage 2 — Gegenprobe: zehn Zähne, ein Druck → 21 % Gefahr. Hier darf nichts rot sein.
-        leise = neue_seite(ZEHN_ZAEHNE)
-        leise.click("#stage [data-tooth]")
-        leise.wait_for_timeout(1200)
-        ruhig = leise.evaluate(MESSUNG)
-        zeige("\nLage 2 — zehn Zähne, ein Druck (Gegenprobe, Gefahr unter der Schwelle):", ruhig)
+        # Lage 2 — Gegenprobe: zehn Zähne, ein Druck → Gefahr unter der Schwelle. Hier darf nichts
+        # rot sein. Ein Druck **kann** zuschnappen (1–3 der zehn Zähne sind scharf), deshalb wird mit
+        # frischer Seite neu gewürfelt, bis die Runde offen bleibt: Die Sonde soll den Zustand messen
+        # und nicht auf Glück hoffen — am 12.10.2026 lief sie genau darüber rot.
+        ruhig: dict = {}
+        for versuch in range(1, 11):
+            leise = neue_seite(ZEHN_ZAEHNE)
+            leise.click("#stage [data-tooth]")
+            leise.wait_for_timeout(1200)
+            ruhig = leise.evaluate(MESSUNG)
+            leise.context.close()
+            if ruhig["status"] == "open":
+                zeige(f"\nLage 2 — zehn Zähne, ein Druck (Versuch {versuch}; Gegenprobe unter der Schwelle):", ruhig)
+                break
+        else:
+            funde.append("Lage 2: nach 10 Versuchen war die Runde nie offen — kein verwertbarer Zustand")
         funde += ruege([
             (ruhig["status"] == "open", f"Runde sollte weiterlaufen, ist {ruhig['status']}"),
             ("Bissgefahr" in ruhig["gefahrText"],

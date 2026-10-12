@@ -12,8 +12,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 | Größe | Wert |
 |---|---|
-| Testdateien | 19 |
-| Tests | 238 (19 Dateien) |
+| Testdateien | 20 |
+| Tests | 243 (20 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -104,7 +104,10 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    zählt dieselben Kennungen im ausgelieferten Bündel:
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
    die veröffentlichte Seite). Erwartet: zehn Kacheln in Katalogreihenfolge, zehn sichtbare
-   Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0).
+   Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
+   außerdem den Kern der Auswahl: Nach einem Tipp auf eine Kachel ist das **Auswahlblatt zu**, das
+   Einstellungsblatt offen, der Name im Blatt der gewählte und genau eine Kachel markiert; beim
+   erneuten Öffnen steht die Kurzinfo des gewählten Tiers weiter da.
 
 8. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
    **berechneten** Stile im echten Chromium (jsdom rechnet kein CSS) in drei Lagen: ein Zahn
@@ -126,6 +129,16 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
   `node scripts/pruefen-zeitgeber.cjs`).
 - **Eigene Uhr statt echter Millisekunden:** `vi.useFakeTimers()` + `vi.advanceTimersByTime(...)`,
   wenn ein Test den Herzschlag selbst prüfen will.
+
+## Sonden dürfen nicht würfeln
+
+- **Eine Sonde stellt den Zustand her, den sie messen will — sie hofft nicht darauf.** Die
+  Anzeige-Sonde drückte in ihrer Gegenprobe (zehn Zähne, ein Druck) auf einen Zahn und nahm an, er
+  sei harmlos: 1–3 der zehn Zähne sind aber scharf, also schnappte die Runde gelegentlich zu und die
+  Sonde meldete drei Funde, die keine waren („Runde sollte weiterlaufen, ist snapped"). Sie würfelt
+  jetzt mit **frischer Seite** neu, bis die Runde offen bleibt, und nennt den Versuch im Titel. Wer
+  einen zufälligen Zustand messen will, muss ihn entweder deterministisch herstellen (ein Zahn beim
+  Vampir heißt: der erste Druck schnappt garantiert) oder so lange neu ziehen, bis er steht.
 
 ## Zahlen nur aus Kommandos
 

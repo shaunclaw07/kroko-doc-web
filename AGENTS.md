@@ -83,7 +83,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Einundzwanzig Fallen, die Zeit kosten
+## Dreiundzwanzig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -238,6 +238,19 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   bei einem geschlossenen Dialog nichts tut. Rasterregeln für ein Blatt gehören deshalb an `[open]`
   (`dialog.sheet.sheet--columns[open]`), und die Sonde prüft den Zustand **vor** dem ersten Tipp
   (`scripts/pruefen-blattbreite.py`, erwartet in jeder Zeile `beim Laden none`).
+
+- **Eine `.test.ts` in `src/pages/` bricht den Bau.** Astro baut jede Datei in `src/pages/` als
+  eigene Seite; ein Test dort wird zum Seitenmodul, importiert `vitest` und lässt `pnpm build` mit
+  „Vitest failed to access its internal state" abbrechen, während `pnpm test` grün bleibt. Tests,
+  die das Seiten-Markup prüfen, liegen **neben** `src/pages/`, z. B. `src/auswahl.test.ts`.
+
+- **Ein Auswahlblatt wählt mit dem Tipp und schließt sich — und trägt dann kein „Abbrechen".**
+  Die Tier-Auswahl war bewusst eine Vorschau (`pending` + „Damit spielen"), damit die Kurzinfo
+  lesbar bleibt; der Auftraggeber hat das überstimmt („Man muss sonst immer erst nochmal
+  bestätigen … das nervt"). Seit dem 12.10.2026 übernimmt ein Tipp die Wahl sofort und schließt
+  **nur** dieses Blatt (das Einstellungsblatt bleibt offen, die Kurzinfo beschreibt das gewählte
+  Tier). Wer eine Wahl sofort gelten lässt, muss die Knöpfe umbenennen: „Abbrechen" wäre eine Lüge
+  — dort steht „Fertig".
 
 ## Ein neues Lebewesen ergänzen
 

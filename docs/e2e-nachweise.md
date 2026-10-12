@@ -997,6 +997,42 @@ Angesehen: der rote Balken bei 50 % mit Fortschritt (`balken-rot-gefuellt.png`) 
 Zustand ohne Gefahrfarbe (`balken-maul-zu-2.png`). Nebenbei bestätigt: die Füllbreite folgt dem
 Fortschritt (1 von 1 = 356 px von 356 px), nicht der Gefahr. Gate **238 Tests in 19 Dateien**.
 
+## 5u. Ein Tipp wählt das Tier — kein Bestätigen mehr (12.10.2026)
+
+Wunsch des Auftraggebers: „Kannst du wenn man ein Modell in den settings selektiert den Auswahl
+Dialog schließen. Man muss sonst immer erst nochmal bestätigen wenn man ein anderes Modell
+ausgewählt hat. Das nervt."
+
+Das Blatt „Welches Tier?" (`#creature-sheet`) war als **Vorschau** gebaut: Ein Tipp setzte nur
+`pending` und füllte die Kurzinfo, erst „Damit spielen" (`#creature-apply`) übernahm die Wahl —
+Begründung damals im Code: sonst schlösse jeder Tipp das Blatt und die Kurzinfo wäre nie zu lesen.
+Der Auftraggeber hat das überstimmt. **Ein Tipp wählt jetzt sofort und schließt das Auswahlblatt**,
+das Einstellungsblatt bleibt offen, und die Kurzinfo beschreibt das gewählte Tier.
+
+Gemessen mit `scripts/pruefen-tiere.py` (echter Chromium, gebautes `dist/`):
+
+| nach dem Tipp auf | Auswahlblatt | Einstellungsblatt | Name im Blatt | Marke | Notiz |
+|---|---|---|---|---|---|
+| Löwe | **zu** | offen | „Löwe" | `['lion']` | Mähne, zwei lange Fangzähne, drei breite Schneidezähne … |
+| Panther | **zu** | offen | „Panther" | `['panther']` | Vier Fangzähne, je einer oben und unten … |
+
+Beim erneuten Öffnen stehen Marke und Kurzinfo weiter auf dem gewählten Tier (`markiert:
+['lion']`, Notiz des Löwen vollständig) — die Auskunft bleibt erreichbar. „Damit spielen" und
+„Abbrechen" sind entfallen (im gebauten HTML steht nur noch `>Fertig<`); `src/auswahl.test.ts` hält
+das fest, weil jsdom das Seitenskript der `.astro`-Datei nicht lädt.
+
+**Zwei Fallen dabei gefunden:**
+
+1. Eine `.test.ts` **in** `src/pages/` baut Astro als eigene Seite → `pnpm build` bricht mit
+   „Vitest failed to access its internal state" ab, obwohl `pnpm test` grün bleibt. Der Test liegt
+   jetzt als `src/auswahl.test.ts` **neben** `src/pages/`.
+2. Die Anzeige-Sonde (§5t) baute auf Glück: Lage 2 drückte bei zehn Zähnen einen Zahn und nahm an,
+   er sei harmlos — 1–3 der zehn Zähne sind scharf, also schnappte die Runde gelegentlich zu und die
+   Sonde meldete drei Funde, die keine waren. Sie würfelt jetzt mit frischer Seite neu, bis die
+   Runde offen bleibt, und nennt den Versuch im Titel.
+
+Gate **243 Tests in 20 Dateien**.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |
