@@ -21,11 +21,17 @@ export interface StorageLike {
 /** Ablage der Runden. Fällt auf den Arbeitsspeicher zurück, wenn der Browser blockt. */
 export class LocalStorageRoundLog implements RoundLogPort {
   private fallback: RoundRecord[] = [];
+  /**
+   * Das letzte Schreiben ist gescheitert (volle Ablage): bis es wieder klappt, gilt der
+   * Arbeitsspeicher. Die Steuerung liest vor jedem Anhängen — aus der Ablage käme sonst der alte
+   * Stand zurück, und jede Runde seit dem Fehlschlag ginge beim nächsten Biss verloren.
+   */
+  private unsaved = false;
 
   constructor(private readonly storage: StorageLike | null) {}
 
   load(): RoundRecord[] {
-    const raw = this.read();
+    const raw = this.unsaved ? null : this.read();
     if (raw === null) {
       return [...this.fallback];
     }
@@ -46,15 +52,23 @@ export class LocalStorageRoundLog implements RoundLogPort {
     }
     try {
       this.storage.setItem(STORAGE_KEY, JSON.stringify(records));
+      this.unsaved = false;
     } catch {
       // Privater Modus oder voller Speicher: dann eben nur im Arbeitsspeicher.
+      this.unsaved = true;
     }
   }
 
   clear(): void {
     this.fallback = [];
+    this.unsaved = false;
     try {
       this.storage?.removeItem(STORAGE_KEY);
+      // Auch die früheren Fassungen: `read()` übernähme sie sonst beim nächsten Lesen erneut, und
+      // die gelöschten Runden wären wieder da.
+      for (const key of LEGACY_STORAGE_KEYS) {
+        this.storage?.removeItem(key);
+      }
     } catch {
       // siehe save()
     }

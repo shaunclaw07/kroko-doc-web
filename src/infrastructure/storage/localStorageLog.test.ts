@@ -102,4 +102,32 @@ describe('LocalStorageRoundLog', () => {
     expect(() => log.save([record])).not.toThrow();
     expect(log.load()).toEqual([record]);
   });
+
+  it('behält die Runden der Sitzung, wenn das Schreiben über einem älteren Stand scheitert', () => {
+    // Volle Ablage: der alte Stand liegt noch dort. Wer danach wieder aus der Ablage liest, verlöre
+    // jede Runde seit dem Fehlschlag — die Steuerung liest vor jedem Anhängen.
+    const storage = new FakeStorage();
+    const log = new LocalStorageRoundLog(storage);
+    log.save([record]);
+    storage.failNextWrite = true;
+    const zweite = { ...record, round: 2 };
+    log.save([record, zweite]);
+    expect(log.load()).toEqual([record, zweite]);
+    // Klappt das Schreiben wieder, gilt wieder die Ablage (ein anderer Tab darf sie ändern).
+    storage.failNextWrite = false;
+    log.save([record, zweite]);
+    storage.map.set(STORAGE_KEY, JSON.stringify([record]));
+    expect(log.load()).toEqual([record]);
+  });
+
+  it('leert auch die früheren Fassungen — gelöschte Runden kommen nicht zurück', () => {
+    const storage = new FakeStorage();
+    storage.map.set(LEGACY_STORAGE_KEYS[0], JSON.stringify([record]));
+    storage.map.set(LEGACY_STORAGE_KEYS[1], JSON.stringify([record]));
+    const log = new LocalStorageRoundLog(storage);
+    expect(log.load()).toEqual([record]);
+    log.clear();
+    expect(log.load()).toEqual([]);
+    expect(new LocalStorageRoundLog(storage).load()).toEqual([]);
+  });
 });
