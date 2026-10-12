@@ -12,8 +12,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 | Größe | Wert |
 |---|---|
-| Testdateien | 22 |
-| Tests | 256 (22 Dateien) |
+| Testdateien | 23 |
+| Tests | 261 (23 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -26,8 +26,9 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/core/domain/liveTeeth.test.ts` | Zufallsmodell: 1–3 scharfe Zähne, Gleichverteilung über 9000 Züge, keine Doppelten, Reproduzierbarkeit, und der Ein-Zahn-Fall: die Gebissgrenzen werden auf die Zahnzahl gekappt, dieser eine Zahn ist scharf (beide Modelle) |
 | `src/core/domain/round.test.ts` | Zugregeln, Verlierer, Spielerreihenfolge, Unveränderlichkeit, Fehlercodes; dazu das kleinste Gebiss: eine Runde mit einem Zahn schnappt beim ersten Druck zu (beide Modelle) |
 | `src/core/domain/probabilities.test.ts` | Verteilung, Erwartungswert, Überlebenskurve, Spielerchancen gegen die Python-Referenz (`../kroko-doc`) |
-| `src/core/domain/tension.test.ts` | Spannung als Biss-Wahrscheinlichkeit (Kurven für Krokodil/Maus/classic), Pause (Fenster, Mittelwert, **Unabhängigkeit vom Ausgang**), Erleichterung, Zucken, Herzschlag, Fortschritt der Runde, Schwellen für „angespannt" (30 %) und „rot" (60 %), Reproduzierbarkeit |
+| `src/core/domain/tension.test.ts` | Spannung als Biss-Wahrscheinlichkeit (Kurven für Krokodil/Maus/classic), Pause (Fenster, Mittelwert, **Unabhängigkeit vom Ausgang**), Erleichterung, Zucken, Herzschlag, Fortschritt der Runde, Schwellen für „angespannt" (30 %) und „rot" (60 %), Reproduzierbarkeit — und die **Gleichheit von Anzeige und Auswahl**: die Gefahr des ersten Drucks ist bei jeder Zahnzahl 1–12 genau die Häufigkeit, mit der die Auswahl zieht (bei 2 Zähnen 75 %, nicht 83,3 %) |
 | `src/infrastructure/storage/sessionStorageMarks.test.ts` | Sitzungs-Marken: merken, trennen, Rückfall in den Arbeitsspeicher, gesperrter Speicher wirft nicht |
+| `src/regeln.test.ts` | Regeln-Blatt gegen den Katalog: genau die Tiere mit 1–3 scharfen Zähnen sind genannt, die erwarteten Drücke (5,42 statt 4,69) kommen aus dem Modell, keine Tier-Notiz behauptet eine Vorliebe für bestimmte Zähne |
 | `src/core/domain/sessionLog.test.ts` | CSV-Format, Kurzformat-Import, fehlerhafte Zeilen |
 | `src/core/domain/statistics.test.ts` | Chi²-Verteilung gegen Tabellenwerte (χ²=3,841/df=1 → 0,050; 19,023/df=9 → 0,025), Wilson-Intervall, Autokorrelation |
 | `src/core/use-cases/playPress.test.ts` | Dramaturgie ohne Verrat des Geheimnisses |

@@ -175,6 +175,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   100 % sagten. Die Auswahl der scharfen Zähne **kappt** auf die Zahnzahl
   (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — das Modell muss dasselbe tun. Gefunden hat das der
   fremde Prüfer, nicht die Tests: prüfe jede Regel auch am **Rand** ihrer neuen Grenze.
+  **Und zum zweiten Mal dieselbe Falle** (12.10.2026): das Kappen allein genügte nicht. Die Auswahl
+  kappt die **Grenzen** und zieht dann gleichverteilt, das Modell zog erst und kappte dann — bei
+  2 Zähnen und Grenzen 1–3 zeigte die Anzeige 83,3 % Bissgefahr, gezogen wurde mit 75,0 %. Seitdem
+  gibt es **eine** Rechenstelle für beide (`liveCountRange` in `core/domain/teeth.ts`), und ein Test
+  vergleicht Anzeige und Auswahl für **jede** Zahnzahl von 1 bis 12 statt für Beispielwerte.
 
 - **Eine Vorgabe, die nur für eine Beispielbreite geprüft wird, ist keine Vorgabe.** Die Trefferfläche
   eines Zahns war gegen 358 px Bühnenbreite nachgerechnet — dem „üblichen" Handy. Ein 320-px-Gerät hat
