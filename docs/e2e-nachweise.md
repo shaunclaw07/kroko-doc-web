@@ -1264,6 +1264,36 @@ unter dem Ergebnis, zwei Zeilen, darunter Balken und Leiste unverändert.
 
 **Nicht geprüft:** kein echtes Gerät; ob ein Kind den Satz liest, zeigt nur der Tisch.
 
+## 5z. Tierstimmen als Dateien (12.10.2026)
+
+**Was geprüft wurde:** ob der echte Browser die Stimmdateien lädt, dekodiert und zum richtigen
+Anlass spielt — jsdom kennt weder `fetch` auf Dateien noch einen Audio-Kontext.
+
+**Messung** (Chromium ohne Fenster gegen `pnpm dev`, 1180 × 820, Einmal-Skript: `decodeAudioData`
+und `AudioBufferSourceNode.start` mitgezählt, Antworten auf `.mp3` mitgeschrieben):
+
+| Lauf | MP3 vor der ersten Geste | MP3 danach | dekodiert | gescheitert | Stimme nach der Wahl | Stimme nach dem Biss |
+|---|---|---|---|---|---|---|
+| Ton an | 0 | 10 (alle 200) | 10 | 0 | ein Puffer von 1,54 s (Wolf) | derselbe Puffer noch einmal |
+| Ton aus | 0 | 0 | 0 | 0 | keiner | keiner |
+
+Die allererste Geste war der Tipp auf die Wolf-Kachel: die Datei war da noch nicht geladen und
+wurde trotzdem gespielt (nachgereicht innerhalb der Frist von 0,5 s).
+
+**Basis-Pfad:** `ASTRO_BASE=/zahn_agent pnpm build` → im gebauten Skript steht
+`voiceBaseUrl:"/zahn_agent/"`, im Normalbau `voiceBaseUrl:"/"`; `dist/sounds/voices/` enthält die
+zehn MP3 und `QUELLEN.md`. **Falle auf Windows:** Git Bash wandelt `/zahn_agent` in einen
+Windows-Pfad um und der Bau bricht ab — mit `MSYS_NO_PATHCONV=1 MSYS2_ENV_CONV_EXCL=ASTRO_BASE` davor
+läuft er.
+
+**Dateien:** zehn MP3, 0,2 bis 1,54 s, 1 880 bis 12 329 Byte, zusammen 84 840 Byte; jede beginnt mit
+einem Tonrahmen (`ff fb`), keine trägt Metadaten.
+
+**Nicht geprüft — und von mir nicht prüfbar:** wie die Stimmen **klingen**. Die Ausschnitte der
+sieben Aufnahmen hat ein Programm gewählt (die lautesten 1,2 bis 1,5 Sekunden), kein Mensch hat sie
+angehört. Ob Biss, Stimme und Verlierer-Tonfolge zusammen matschen, ob eine Stimme erschreckt, ob
+alle gleich laut wirken: das hört nur der Auftraggeber, am besten auch am Handy.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

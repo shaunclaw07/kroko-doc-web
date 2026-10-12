@@ -14,7 +14,9 @@ pnpm gate           # typecheck + tests
 
 - Node 26, pnpm 12, Astro 5, vitest 3, jsdom 30 als Testumgebung.
 - **Keine externen Schriften, Bilder, CDNs.** Die Zeichnung ist SVG-Markup, die Klänge sind
-  synthetisiert (Web Audio).
+  synthetisiert (Web Audio). **Einzige Ausnahme** sind die Tierstimmen: zehn kurze MP3 im eigenen
+  Baum (`public/sounds/voices/`), geschnitten mit `scripts/stimme-schneiden.sh` (braucht `ffmpeg`),
+  jede mit Lizenzzeile in `public/sounds/voices/QUELLEN.md`.
 - `pnpm` blockiert Installationsskripte. **pnpm 12 liest das `pnpm`-Feld in `package.json`
   nicht mehr** — die Erlaubnis steht als Zuordnung `allowBuilds` in `pnpm-workspace.yaml`
   (hier `esbuild: true`, `sharp: true`). Neue native Abhängigkeiten dort eintragen, sonst

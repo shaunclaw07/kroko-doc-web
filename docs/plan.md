@@ -661,3 +661,57 @@ de.wikipedia nennt keine Zahl. Der Wert bleibt stehen, bis eine belastbare Quell
 im Regeln-Blatt als „Echtes Gebiss: 32 Zähne“.
 
 Gate **323 Tests in 25 Dateien**, Sonde `scripts/pruefen-bedienung.py` 0 Auffälligkeiten. Nachweis §5y.
+
+## Nachtrag 12.10.2026 (gebaut, Hörprobe offen): Tierstimmen als Dateien
+
+Auftrag: „Bei den Tierstimmen würde ich gerne die Sounds vorher generieren lassen und dann mit
+ausliefern, geht das, wenn ja auch kostenlos?“ — danach: „Ich hätte gerne eine Mischung (echte
+Tiere, dazu generiertes Kichern und ‚Oh-oh‘)“ und „Setze gerne nun den zweiten Plan um“.
+Umsetzungsplan: `docs/superpowers/plans/2026-10-12-tierstimmen.md`.
+
+**Entscheidungen (mit Grund):**
+
+1. **Dateien statt Synthese** für die Tierstimmen (Auftraggeber). Die Regel „keine Dateien“ gilt
+   weiter für alle Spielklänge.
+2. **Nur gemeinfreie Aufnahmen** (CC0 / Public Domain): keine Namensnennung im Spiel nötig.
+3. **Zwei Anlässe:** beim Wählen eines anderen Tiers und 120 ms nach dem Biss — nie vor einem
+   Urteil, nie bei einem harmlosen Zahn.
+4. **Gespielt wird im selben Audio-Kontext** wie alles andere (`decodeAudioData`), nicht über ein
+   `<audio>`-Element: so gelten Ton-Schalter, Freigabe nach der ersten Geste und `stopAll()` ohne
+   zweite Regel.
+5. **Geladen wird erst nach der ersten Geste** und nur bei eingeschaltetem Ton (85 KB). Eine
+   Stimme, die mehr als 0,5 s nach ihrem Anlass fertig lädt, entfällt.
+6. **Kurz und leise:** höchstens 1,5 s, Spitze −3 dB, abgespielt mit 0,6 (der Biss: 0,9).
+
+**Die zehn Stimmen** (Quellen im Einzelnen: `public/sounds/voices/QUELLEN.md`):
+
+| Tier | Stimme | Herkunft |
+|---|---|---|
+| Krokodil | Brüllen eines Alligators | Aufnahme, Public Domain |
+| Wolf | Heulen | Aufnahme des U.S. Fish and Wildlife Service, Public Domain |
+| Hai | Luftblasen im Wasser (Haie sind stumm) | Aufnahme, Public Domain |
+| Panda | Zwitschern eines Großen Pandas | Aufnahme, Public Domain |
+| Löwe | Brüllen | Aufnahme, Public Domain |
+| Panther | **Fauchen einer Hauskatze** — keine gemeinfreie Leoparden-Aufnahme gefunden | Aufnahme, CC0 |
+| Säbelzahntiger | Knurren eines Tigers | Aufnahme, CC0 |
+| Maus | **Platzhalter**, zwei Pfeiftöne | mit `ffmpeg` generiert |
+| Mensch | **Platzhalter**, „Oh-oh“ aus zwei Sinustönen | mit `ffmpeg` generiert |
+| Vampir | **Platzhalter**, vier fallende Sinustöne | mit `ffmpeg` generiert |
+
+**Abweichungen vom Plan:**
+
+- Der Plan sah vor, dass der Auftraggeber die Kandidaten **vor** dem Einbau anhört und Mensch und
+  Vampir selbst generiert. Gebaut ist es umgekehrt: alles läuft mit einer ersten Auswahl, damit er
+  im Spiel hören kann statt auf einer Kandidatenseite. Die drei generierten Stimmen sind schlichte
+  Tonfolgen, **keine** KI-Klänge — sie halten den Platz, bis bessere da sind.
+- **Maus:** auf Wikimedia Commons fand sich keine gemeinfreie Aufnahme. Der erste Treffer („Mouse
+  in Antefasy“, CC0) war das gesprochene Wort in einem madagassischen Dialekt; aufgefallen an der
+  Kategorie der Dateiseite, nicht am Titel.
+- Die Ausschnitte hat ein Programm gewählt (lauteste Stelle), nicht ein Ohr.
+
+**Offen — nur der Auftraggeber kann es:** die Hörprobe (klingt jede Stimme erkennbar und
+freundlich, sind sie gleich laut, matscht es nach dem Biss?), bessere Klänge für Maus, Mensch und
+Vampir, und ob der Panther eine echte Großkatze bekommen soll. Tauschen heißt: neu schneiden
+(`scripts/stimme-schneiden.sh`) und die Zeile in `QUELLEN.md` ändern — kein Code.
+
+Gate **345 Tests in 26 Dateien**. Nachweis §5z.

@@ -327,6 +327,13 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
 4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
    zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
+5. Eine Stimme: Aufnahme mit freier Lizenz suchen, mit `scripts/stimme-schneiden.sh` nach
+   `public/sounds/voices/<id>.mp3` schneiden, in `CREATURE_VOICE_FILES`
+   (`infrastructure/audio/creatureVoices.ts`) eintragen und in `public/sounds/voices/QUELLEN.md`
+   Urheber, Lizenz und Quelle nennen — ohne Datei oder Lizenzzeile fällt `creatureVoices.test.ts`.
+   **Vorher die Dateiseite lesen, nicht nur den Titel:** „Mouse in Antefasy“ war kein Quieken,
+   sondern das gesprochene Wort „Maus“ in einem madagassischen Dialekt (Kategorie „Malagasy
+   language“). Und anhören kann eine Stimme nur der Auftraggeber.
 Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
 Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
 Bühne, und dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden. Zeichnung ohne
