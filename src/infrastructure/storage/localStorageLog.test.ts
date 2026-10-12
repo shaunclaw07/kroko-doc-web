@@ -57,6 +57,12 @@ describe('LocalStorageRoundLog', () => {
     expect(new LocalStorageRoundLog(storage).load()).toEqual([]);
   });
 
+  it('übergeht Einträge, die kein Protokolleintrag sind', () => {
+    const storage = new FakeStorage();
+    storage.map.set(STORAGE_KEY, JSON.stringify([null, record, { ...record, teeth: 1000000000 }, 'x']));
+    expect(new LocalStorageRoundLog(storage).load()).toEqual([record]);
+  });
+
   it('übernimmt Runden der früheren Fassung unter dem neuen Schlüssel', () => {
     const storage = new FakeStorage();
     storage.map.set(LEGACY_STORAGE_KEY, JSON.stringify([record]));

@@ -1,4 +1,5 @@
 import type { RoundRecord } from '../../core/domain/records';
+import { isPlausibleRecord } from '../../core/domain/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 
 export const STORAGE_KEY = 'zahn_agent:rounds:v1';
@@ -30,7 +31,8 @@ export class LocalStorageRoundLog implements RoundLogPort {
     }
     try {
       const parsed: unknown = JSON.parse(raw);
-      return Array.isArray(parsed) ? (parsed as RoundRecord[]) : [];
+      // Was kein Protokolleintrag ist (fremde Fassung, von Hand verändert), wird übergangen.
+      return Array.isArray(parsed) ? parsed.filter(isPlausibleRecord) : [];
     } catch {
       // Kaputte Ablage darf das Spiel nicht anhalten.
       return [];

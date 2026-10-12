@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createRoundRecord, fromCsv, nextRoundNumber, toCsv } from './sessionLog';
+import { createRoundRecord, fromCsv, isPlausibleRecord, nextRoundNumber, toCsv } from './sessionLog';
 
 const record = createRoundRecord({
   round: 1,
@@ -78,6 +78,46 @@ describe('fromCsv', () => {
 
   it('liefert für leere Eingabe eine leere Liste', () => {
     expect(fromCsv('')).toEqual([]);
+  });
+
+  it('überspringt Zeilen mit unmöglichen Werten — eine Zahnzahl von einer Milliarde legt nichts lahm', () => {
+    const kopf = 'runde;reihenfolge;verlierer_zahn;modus;zaehne;spieler;druck_nummer;scharfe_zaehne;lebewesen;zeitpunkt';
+    const records = fromCsv(
+      [
+        kopf,
+        '1;1-2-4;4;original;1000000000;2;3;2;crocodile;x', // Zahnzahl jenseits der Spielgrenze
+        '2;1-2-4;4;original;0;2;3;2;crocodile;x', // kein Gebiss
+        '3;1-2-11;11;original;10;2;3;2;crocodile;x', // Verlierer-Zahn außerhalb des Gebisses
+        '4;1-2-4;4;original;10;2;12;2;crocodile;x', // Druck-Nummer größer als die Zahnzahl
+        '5;1-2-4;4;original;10;9;3;2;crocodile;x', // neun Spieler
+        '6;1-2-4;4;original;10;2;3;2;crocodile;x',
+      ].join('\n'),
+    );
+    expect(records.map((entry) => entry.round)).toEqual([6]);
+  });
+});
+
+describe('isPlausibleRecord', () => {
+  it('nimmt einen echten Eintrag und Altdaten ohne Lebewesen an', () => {
+    expect(isPlausibleRecord(record)).toBe(true);
+    const { creature: _creature, ...older } = record;
+    expect(isPlausibleRecord(older)).toBe(true);
+  });
+
+  it('nimmt das Kurzformat des Analyse-Werkzeugs an (keine scharfen Zähne bekannt)', () => {
+    expect(fromCsv(['runde;reihenfolge;verlierer_zahn', '1;3-7-1-2-9;1'].join('\n'))).toHaveLength(1);
+  });
+
+  it('weist ab, was kein Eintrag ist', () => {
+    for (const garbage of [null, undefined, 7, 'x', [], {}]) {
+      expect(isPlausibleRecord(garbage)).toBe(false);
+    }
+    expect(isPlausibleRecord({ ...record, teeth: 13 })).toBe(false);
+    expect(isPlausibleRecord({ ...record, loserTooth: 0 })).toBe(false);
+    expect(isPlausibleRecord({ ...record, pressIndex: 2.5 })).toBe(false);
+    expect(isPlausibleRecord({ ...record, mode: 'schnell' })).toBe(false);
+    expect(isPlausibleRecord({ ...record, pressOrder: 'eins' })).toBe(false);
+    expect(isPlausibleRecord({ ...record, liveCount: 4 })).toBe(false);
   });
 });
 

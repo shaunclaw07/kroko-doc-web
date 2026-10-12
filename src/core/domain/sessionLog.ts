@@ -1,6 +1,14 @@
 import { DEFAULT_CREATURE_ID, isKnownCreature } from './creature';
 import { CSV_HEADER, type RoundRecord } from './records';
-import { DEFAULT_MODE, DEFAULT_TEETH, RANDOM_MODES, type RandomMode } from './teeth';
+import {
+  DEFAULT_MODE,
+  DEFAULT_TEETH,
+  MAX_LIVE_TEETH,
+  RANDOM_MODES,
+  isValidPlayerCount,
+  isValidToothCount,
+  type RandomMode,
+} from './teeth';
 
 /**
  * Rundenprotokoll als CSV. Die ersten drei Spalten sind absichtlich identisch mit dem
@@ -85,6 +93,42 @@ function isMode(value: string): value is RandomMode {
   return (RANDOM_MODES as readonly string[]).includes(value);
 }
 
+/**
+ * Ist das ein Protokolleintrag, mit dem die Auswertung rechnen kann? Geprüft wird an **beiden**
+ * Eingängen — CSV-Import und Ablage im Browser: eine Zahnzahl von 1000000000 in einer CSV-Zeile
+ * ließe die Statistikseite sonst einen Zählvektor dieser Länge anlegen, bei jedem Laden neu.
+ * Ein fehlendes Lebewesen ist erlaubt (Altdaten vor den Gebissen) — dort gilt das Krokodil.
+ */
+export function isPlausibleRecord(value: unknown): value is RoundRecord {
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+  const record = value as Partial<RoundRecord>;
+  const teeth = record.teeth;
+  const inJaw = (tooth: unknown): boolean =>
+    typeof tooth === 'number' && Number.isInteger(tooth) && tooth >= 1 && tooth <= (teeth ?? 0);
+  return (
+    typeof record.round === 'number' &&
+    Number.isInteger(record.round) &&
+    record.round >= 1 &&
+    typeof teeth === 'number' &&
+    isValidToothCount(teeth) &&
+    inJaw(record.loserTooth) &&
+    inJaw(record.pressIndex) &&
+    typeof record.mode === 'string' &&
+    isMode(record.mode) &&
+    typeof record.players === 'number' &&
+    isValidPlayerCount(record.players) &&
+    typeof record.liveCount === 'number' &&
+    Number.isInteger(record.liveCount) &&
+    record.liveCount >= 0 &&
+    record.liveCount <= MAX_LIVE_TEETH &&
+    Array.isArray(record.pressOrder) &&
+    record.pressOrder.every(inJaw) &&
+    (record.creature === undefined || typeof record.creature === 'string')
+  );
+}
+
 /** Liest das eigene Format, das Kurzformat des Werkzeugs und die frühere 9-Spalten-Fassung. */
 export function fromCsv(text: string): RoundRecord[] {
   const rows = text
@@ -132,7 +176,7 @@ export function fromCsv(text: string): RoundRecord[] {
     const modeRaw = (cell(cells, 'mode') ?? '').trim();
     // Kurzformat kennt kein Lebewesen; das Analyse-Werkzeug nur das 10-Zähne-Krokodil.
     const creatureRaw = (cell(cells, 'creature') ?? '').trim();
-    records.push({
+    const record: RoundRecord = {
       round: Number.parseInt(cell(cells, 'round') ?? '', 10) || index + 1,
       playedAt: (cell(cells, 'time') ?? '').trim(),
       creature: isKnownCreature(creatureRaw) ? creatureRaw : DEFAULT_CREATURE_ID,
@@ -145,7 +189,12 @@ export function fromCsv(text: string): RoundRecord[] {
         Number.parseInt(cell(cells, 'press') ?? '', 10) || Math.max(1, pressOrder.indexOf(loserTooth) + 1),
       liveCount: Number.isInteger(liveCount) ? liveCount : 0,
       pressOrder,
-    });
+    };
+    // Unmögliche Werte (Zahn außerhalb des Gebisses, Zahnzahl jenseits der Spielgrenzen) sind
+    // kaputte Zeilen — übersprungen wie Zeilen ohne Verlierer-Zahn.
+    if (isPlausibleRecord(record)) {
+      records.push(record);
+    }
   });
   return records;
 }
