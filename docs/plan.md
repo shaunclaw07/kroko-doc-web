@@ -721,4 +721,8 @@ passend, sind sie gleich laut, matscht es nach dem Biss?), ein besserer Klang f�
 und ob der Panther eine echte Großkatze bekommen soll. Tauschen heißt: neu schneiden
 (`scripts/stimme-schneiden.sh`) und die Zeile in `QUELLEN.md` ändern — kein Code.
 
-Gate **345 Tests in 26 Dateien**. Nachweis §5z.
+**Nachgezogen** (Wunsch: „den aktiven Sound stoppen, wenn man einen anderen Charakter auswählt“):
+der Tierwechsel ruft `stopAll()`, **bevor** das neue Tier sich meldet — die Reihenfolge hält ein
+Test fest. Der Wolf heult seitdem allein (Yellowstone-Tonarchiv statt Rudel-Ausschnitt).
+
+Gate **346 Tests in 26 Dateien**. Nachweis §5z.

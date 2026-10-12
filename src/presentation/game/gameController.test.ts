@@ -195,6 +195,25 @@ describe('GameController in der Bühne', () => {
     expect(sound.voices).toEqual(['mouse']);
   });
 
+  it('bricht beim Tierwechsel ab, was noch klingt — bevor das neue Tier sich meldet', () => {
+    const { controller, sound } = build([4]);
+    // Bei jedem Abbruch mitschreiben, wie viele Stimmen bis dahin gespielt waren: die Reihenfolge
+    // zählt — ein Abbruch **nach** der neuen Stimme würde genau sie abschneiden.
+    const voicesAtStop: number[] = [];
+    const stopAll = sound.stopAll.bind(sound);
+    sound.stopAll = () => {
+      voicesAtStop.push(sound.voices.length);
+      stopAll();
+    };
+    controller.applySettings(settings({ creature: 'mouse' }));
+    expect(voicesAtStop).toEqual([0]);
+    expect(sound.voices).toEqual(['mouse']);
+
+    // Nur die Zahnzahl: es klingt keine Stimme, die man abbrechen müsste.
+    controller.applySettings(settings({ creature: 'mouse', teethOverride: 4 }));
+    expect(voicesAtStop).toEqual([0]);
+  });
+
   it('bleibt still, wenn dasselbe Tier bleibt und nur die Zahnzahl wechselt', () => {
     const { controller, sound } = build([4]);
     controller.applySettings(settings({ teethOverride: 6 }));

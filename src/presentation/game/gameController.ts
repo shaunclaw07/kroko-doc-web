@@ -409,6 +409,9 @@ export class GameController {
       // Das neue Tier stellt sich vor. Der Tipp auf die Kachel ist die Nutzergeste — die Seite
       // gibt den Ton bei `pointerup` frei, also vor diesem `click`.
       if (creatureChanged) {
+        // Was vom vorigen Tier noch klingt (seine Stimme, die Tonfolge nach dem Biss), bricht ab —
+        // sonst reden beim schnellen Durchtippen der Köpfe mehrere Tiere durcheinander.
+        this.deps.sound.stopAll();
         this.deps.sound.playVoice(settings.creature);
       }
     } else if (!settings.sound) {
