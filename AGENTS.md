@@ -317,7 +317,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 ## Ein neues Lebewesen ergänzen
 
 1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
-   `realTeeth`, `note`).
+   `realTeeth`, `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen,
+   ohne ein Wort über scharfe Zähne; die Quelle gehört in `docs/plan.md`).
 2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen: `body`, `holeFill`,
    `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
    keine Bänder neben dem Kopf hängen),

@@ -614,3 +614,50 @@ Auskunft ist „nice to have" und wird nach der Runde eingeblendet, die neue Run
   `sheets.ts` samt Test stehen, wird aber von keinem Blatt der Seite mehr benutzt.
 
 Gate **318 Tests in 25 Dateien**, Sonden gegen den Bau grün. Nachweis §5x.
+
+## Nachtrag 12.10.2026 (gebaut): „Wusstest du?“ — ein Satz über das echte Tier
+
+Auftrag: „Was könnte man noch für Kinder an features hinzufügen?“ — aus den Vorschlägen gewählt
+und als erster von drei Plänen gebaut („Implementiere den ersten plan“). Umsetzungsplan:
+`docs/superpowers/plans/2026-10-12-tierfakten.md`.
+
+**Entscheidungen (mit Grund):**
+
+1. **Eigenes Katalogfeld `fact` statt `note`.** `note` spricht Spieltechnik („1–3 Zähne
+   gleichzeitig scharf“) und steht im Regeln-Blatt; der neue Satz spricht über das echte Tier.
+2. **Ein Satz je Tier, kein Wechsel.** Mehrere Sätze mit Zufallswahl wären eine zweite Zufallsebene
+   und zehnmal so viel Belegarbeit.
+3. **Kein Satz sagt etwas über scharfe Zähne** — die Auswahl zieht gleichverteilt. Ein Test
+   verbietet `scharf`, `gefährlich`, `meist`, `häufiger`.
+4. **Wo der Platz fehlt, entfällt der Satz.** Gemessen (§5y): unter 700 px Höhe und im Querformat
+   unter 900 px Höhe reicht es nicht für Ergebnis und Satz. Das Ergebnis geht vor.
+
+**Die zehn Sätze und ihre Belege** (de.wikipedia, abgerufen am 12.10.2026, soweit nicht anders
+genannt):
+
+| Tier | Satz | Beleg |
+|---|---|---|
+| Krokodil | Einem Krokodil wachsen neue Zähne nach — viele Male in seinem Leben. | *Krokodile*, Abschnitt Gebiss: „einen mehrfachen, regelmäßigen Zahnwechsel“; „Mit zunehmendem Alter findet der Zahnwechsel jedoch immer seltener statt und endet schließlich ganz“ — deshalb „viele Male“ und nicht „ein Leben lang“ |
+| Wolf | Ein Wolf hat 42 Zähne. Das sind zehn mehr, als ein erwachsener Mensch hat. | *Wolf*: „Insgesamt haben Wölfe somit 42 Zähne.“; *Zahn*: 32 bleibende Zähne |
+| Mensch | Du bekommst zweimal Zähne: erst 20 Milchzähne, später bis zu 32 bleibende. | *Milchzahn*: „besteht das Milchgebiss aus 20 Zähnen“; *Zahn*: „insgesamt 32 bleibende Zähne (inklusive der Weisheitszähne)“ |
+| Hai | Ein Hai verliert ständig Zähne. Dahinter wartet schon die nächste Reihe. | *Revolvergebiss*: die Zähne wachsen „auf der Innenseite des Kiefers beständig nach“, „wobei der vorderste Zahn letztlich ausfällt“ |
+| Maus | Die Nagezähne einer Maus wachsen ihr ganzes Leben lang. Darum nagt sie so viel. | *Nagezahn*: „dauerwachsende Schneidezähne“; „Ein Nagetrieb sorgt für eine dem Wachstum angeglichene Abnutzung.“ (für die Nagetiere, die Maus ist nicht eigens genannt) |
+| Vampir | Vampire gibt es nur in Geschichten. Ihre spitzen Zähne heißen bei dir Eckzähne. | *Eckzahn*: „nur eine Höckerspitze (Eckzahnspitze)“ |
+| Panda | Ein Panda frisst fast nur Bambus. Dafür hat er besonders breite Backenzähne. | *Großer Panda*: „ernähren sich zu 99 % von Bambus“; die Backenzähne „sind größer und breiter als die der anderen Vertreter ihrer Familie“ |
+| Löwe | Ein Löwe hat 30 Zähne. Die vier langen heißen Fangzähne. | schon belegt im Nachtrag „Panther und Säbelzahntiger“ |
+| Panther | Ein schwarzer Panther ist ein Leopard mit schwarzem Fell. | ebenda |
+| Säbelzahntiger | Seine Säbel ragten bis zu 20 cm aus dem Kiefer. Das Tier ist seit rund 12.000 Jahren ausgestorben. | ebenda |
+
+Zwei Sätze wurden beim Belegen **umformuliert**: beim Krokodil stand zuerst „immer wieder“, beim
+Panda „breite Mahlzähne“ — die Quelle sagt „mehrfach, … endet schließlich ganz“ und „breiter“.
+
+**Abgesagt:** mehrere Sätze je Tier; der Satz im Auswahlblatt (dort müssen alle Köpfe ohne Scrollen
+passen); der Satz als Überlagerung auf der Bühne (deckte auf dem schmalsten Handy rund ein Drittel
+der Zeichnung zu — gerechnet, nicht gebaut).
+
+**Offen:** `realTeeth: 32` beim Krokodil ist **nicht belegt** und vermutlich zu niedrig. Gefunden
+wurden nur schwache Quellen (ein Zoo: „about 60 teeth“; ein Safari-Blog: 64–68 beim Nilkrokodil),
+de.wikipedia nennt keine Zahl. Der Wert bleibt stehen, bis eine belastbare Quelle da ist — er steht
+im Regeln-Blatt als „Echtes Gebiss: 32 Zähne“.
+
+Gate **323 Tests in 25 Dateien**, Sonde `scripts/pruefen-bedienung.py` 0 Auffälligkeiten. Nachweis §5y.

@@ -1218,6 +1218,52 @@ Ordnung". Gate: **318 Tests in 25 Dateien**.
 **Nicht geprüft:** ein echtes Gerät, und die Ansage für Bildschirmleser (`role="status"`) wurde
 nicht mit einem Vorleseprogramm gehört.
 
+## 5y. „Wusstest du?“ — ein Satz über das echte Tier nach dem Biss (12.10.2026)
+
+**Was geprüft wurde:** ob Ergebnis **und** Satz nach dem Biss auf die Seite passen, ohne dass sie
+scrollt oder die feste Leiste Inhalt verdeckt — mit dem längsten Ergebnistext und dem längsten
+erlaubten Satz (110 Zeichen, `MAX_FACT_LENGTH`).
+
+**Erster Lauf, Satz überall sichtbar** (`python scripts/pruefen-bedienung.py`, acht Größen):
+8 Auffälligkeiten auf drei Größen.
+
+| Größe | Befund |
+|---|---|
+| 320 × 568 | Seite 600 px in 568 px; Inhalt bis 516, Leiste ab 489 |
+| 360 × 640 | Seite 660 px in 640 px; Inhalt bis 576, Leiste ab 561 |
+| 1180 × 820 | Seite 845 px in 820 px (schon mit echtem Text 826 px) |
+
+**Folge:** der Satz entfällt unter 700 px Höhe und im zweispaltigen Querformat unter 900 px Höhe
+(`.result .result__fact` in `presentation/styles/app.css`). Die Grenze 700 statt 660 kommt aus
+einer Nachmessung auf 14 Größen: 375 × 667 scrollte mit Satz um 3 px.
+
+**Nachmessung, längstes Ergebnis und längster Satz eingesetzt:**
+
+| Größe | Satz | Seite | Inhalt bis / Leiste ab |
+|---|---|---|---|
+| 320 × 568 | entfällt | 568 in 568 | 457 / 489 |
+| 360 × 640 | entfällt | 640 in 640 | 507 / 561 |
+| 375 × 667 | entfällt | 667 in 667 | 518 / 588 |
+| 360 × 740 | sichtbar | 740 in 740 | 576 / 661 |
+| 390 × 844 | sichtbar | 844 in 844 | 597 / 765 |
+| 412 × 915 | sichtbar | 915 in 915 | 613 / 836 |
+| 768 × 1024 | sichtbar | 1024 in 1024 | 908 / 947 |
+| 820 × 1180 | sichtbar | 1180 in 1180 | 1089 / 1103 |
+| 1024 × 768 | entfällt | 768 in 768 | Leiste im Fluss |
+| 1180 × 820 | entfällt | 820 in 820 | Leiste im Fluss |
+| 1280 × 800 | entfällt | 800 in 800 | Leiste im Fluss |
+| 1366 × 1024 | sichtbar | 1024 in 1024 | Leiste im Fluss |
+| 1440 × 900 | sichtbar | 900 in 900 | Leiste im Fluss |
+| 1920 × 1080 | sichtbar | 1080 in 1080 | Leiste im Fluss |
+
+Danach `python scripts/pruefen-bedienung.py` gegen `pnpm dev`: **0 Auffälligkeiten**. Die sechs
+zusätzlichen Größen stammen aus einem Einmal-Skript und stehen nicht in der Sonde.
+
+**Angesehen** (Bildschirmfoto 390 × 844, Maus bis zum Biss gespielt): der Satz steht abgesetzt
+unter dem Ergebnis, zwei Zeilen, darunter Balken und Leiste unverändert.
+
+**Nicht geprüft:** kein echtes Gerät; ob ein Kind den Satz liest, zeigt nur der Tisch.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

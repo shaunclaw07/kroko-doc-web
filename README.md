@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 318 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 323 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -108,7 +108,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **318 Tests in 25 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **323 Tests in 25 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
@@ -184,6 +184,11 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 - **Der Mut der Runde:** das Ergebnis nennt die höchste Bissgefahr, bei der ein Druck noch harmlos
   blieb („Dein mutigster Druck: 55 % Bissgefahr — und der Zahn war harmlos."). Das gibt dem Balken
   einen Zweck: die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird.
+- **Wusstest du?** Nach dem Biss steht unter dem Ergebnis ein Satz über das **echte** Tier („Die
+  Nagezähne einer Maus wachsen ihr ganzes Leben lang. Darum nagt sie so viel.“). Je Tier ein Satz,
+  jeder mit Quelle belegt (`docs/plan.md`), keiner sagt etwas über scharfe Zähne. Wo die Höhe nicht
+  für Ergebnis **und** Satz reicht, entfällt der Satz: auf Handys unter 700 px Höhe und auf Tablets
+  quer unter 900 px (gemessen, `scripts/pruefen-bedienung.py`).
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite wertet **je Gebiss** aus —
   Tier, Zahnzahl und Modus bestimmen eine Gruppe, die größte steht offen, die übrigen sind
   eingeklappt. Je Gruppe: Häufigkeiten, die **mutigste Runde** („Mutigste Runde", `bravestRound`),
@@ -201,7 +206,7 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **293 in 23 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **323 in 25 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |
