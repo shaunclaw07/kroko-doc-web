@@ -45,7 +45,7 @@ body {
   gap: 1rem;
   max-width: 620px;
   margin: 0 auto;
-  padding: 1rem 1rem 2.5rem;
+  padding: 1rem 1rem calc(5.25rem + env(safe-area-inset-bottom));
 }
 
 .topbar {
@@ -131,7 +131,7 @@ button,
   border-radius: 12px;
   padding: 0.7rem 1rem;
   cursor: pointer;
-  min-height: 44px;
+  min-height: 48px;
   transition: transform 0.12s ease, background 0.15s ease;
 }
 
@@ -179,7 +179,7 @@ button:focus-visible,
   border: 0;
   background: transparent;
   padding: 0.5rem 0.8rem;
-  min-height: 40px;
+  min-height: 48px;
 }
 
 .segmented button[aria-pressed="true"] {
@@ -191,6 +191,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-height: 48px;
   padding: 0.35rem 0;
   cursor: pointer;
 }
@@ -409,39 +410,6 @@ button:focus-visible,
   font-weight: 700;
 }
 
-.picker {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-height: 66px;
-  padding: 8px 14px 8px 8px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface-2);
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.picker__icon {
-  flex: none;
-  width: 68px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.picker__text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.picker__name {
-  font-weight: 700;
-}
-
 /* Das Kopfbild: dieselbe Zeichnung wie die Bühne, nur als Bild ohne Bedienung. */
 .creature-portrait {
   display: block;
@@ -449,64 +417,29 @@ button:focus-visible,
   height: auto;
 }
 
-.stepper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.stepper button {
-  width: 46px;
-  height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface-2);
-  color: inherit;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.stepper output {
-  min-width: 42px;
-  font-size: 20px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.button--small {
-  min-height: 40px;
-  padding: 8px 12px;
-  font-size: 14px;
-}
-
 /* --- Gebiss-Auswahl: Bild-Kacheln statt Textliste ---
    Der Kopf des Tieres ist das Bild, das es im Spiel gibt — kein zusätzliches Asset.
-   Zwei Spalten für den Daumen, drei ab 480 px. */
+   Vier Spalten: alle zehn Köpfe stehen auf dem schmalsten Handy ohne Scrollen (gemessen,
+   scripts/pruefen-bedienung.py). */
 .creature-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
   margin: 12px 0 0;
   padding: 0;
   list-style: none;
-}
-
-@media (min-width: 480px) {
-  .creature-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 .creature-grid button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  min-height: 48px;
   width: 100%;
-  padding: 8px 8px 10px;
+  padding: 6px 4px 8px;
   border: 2px solid var(--line);
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--surface-2);
   color: inherit;
   font: inherit;
@@ -522,7 +455,14 @@ button:focus-visible,
 }
 
 .creature-grid__name {
+  min-height: 2.3em;
+  font-size: 0.72rem;
   font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  /* „Säbelzahntiger" passt in keine 65-px-Kachel: trennen statt abschneiden. */
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .creature-grid button[aria-pressed="true"] {
@@ -531,7 +471,7 @@ button:focus-visible,
   background: rgba(76, 143, 108, 0.16);
 }
 
-/* Die Kurzinfo erscheint erst nach dem Antippen einer Kachel. */
+/* Die Kurzinfo zum gewählten Tier steht im Regeln-Blatt. */
 .creature-detail {
   margin-top: 0.9rem;
   font-size: 0.9rem;
@@ -558,20 +498,6 @@ details[open] summary {
 }
 
 /* Der Weg zur Statistikseite liegt im Blatt — vorher lag ein Knopf über dem Maul. */
-.sheet-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.9rem;
-  text-decoration: none;
-}
-
-.sheet-link svg {
-  width: 20px;
-  height: 20px;
-}
-
 .tooth:hover .tooth__shape,
 .tooth:focus-visible .tooth__shape {
   fill: #fffdf3;
@@ -628,7 +554,7 @@ details[open] summary {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .stat {
@@ -671,20 +597,6 @@ details[open] summary {
   letter-spacing: 0;
 }
 
-.stat--quiet {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  padding: 0.35rem 0.7rem;
-  font-size: 0.8rem;
-  color: var(--ink-dim);
-}
-
-.stat--quiet strong {
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-
 /* Die einzige Spielanleitung — ein Satz, für das Kind wie für die Großen lesbar. */
 .how-to {
   margin: 0;
@@ -692,7 +604,7 @@ details[open] summary {
   color: rgba(255, 255, 255, 0.86);
 }
 
-/* Zahnrad in der Kopfzeile: der einzige Weg zu allem Einstellbaren. */
+/* Zahnrad in der Kopfzeile: der Weg zu dem, was je Sitzung gestellt wird. */
 .icon-button {
   display: inline-flex;
   align-items: center;
@@ -758,7 +670,7 @@ details[open] summary {
   justify-content: space-between;
   gap: 0.6rem;
   margin-top: 0.35rem;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.72);
 }
 
@@ -796,7 +708,7 @@ details[open] summary {
   border-radius: 0.6rem;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.86);
   cursor: pointer;
 }
@@ -810,6 +722,9 @@ details[open] summary {
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.2;
 }
 
 .turn__dot {
@@ -833,6 +748,7 @@ dialog.sheet {
   width: 100%;
   max-width: 620px;
   max-height: 82vh;
+  max-height: 88dvh;
   overflow: auto;
   border: 0;
   border-radius: 20px 20px 0 0;
@@ -879,13 +795,13 @@ dialog.sheet::backdrop {
   margin: 0;
 }
 
-/* Der Ausgang: 44 px Trefferfläche (Richtwert für Kinderfinger), ruhig gezeichnet. */
+/* Der Ausgang: 48 px Trefferfläche (Richtwert für Kinderfinger), ruhig gezeichnet. */
 .sheet__close {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
@@ -948,7 +864,6 @@ dialog.sheet::backdrop {
   /* Kopf, Hinweiszeilen, Knöpfe und die Fußwege laufen über die ganze Breite. */
   dialog.sheet.sheet--columns[open] > .sheet__head,
   dialog.sheet.sheet--columns[open] > .sheet__actions,
-  dialog.sheet.sheet--columns[open] > .sheet-link,
   dialog.sheet.sheet--columns[open] > .muted {
     grid-column: 1 / -1;
   }
@@ -1119,13 +1034,6 @@ textarea {
   45% { transform: translateY(calc(var(--close-shift, 0px) + 3px)); }
 }
 
-/* „Neue Runde" auf der Bühne (nur bei geschlossenem Maul): mittig, nicht über die volle Breite. */
-.restart {
-  align-self: center;
-  min-height: 44px;
-  padding-inline: 1.6rem;
-}
-
 /* Statistik: eine Auswertung je Gebiss — die größte Gruppe steht offen. */
 .report-group {
   margin-top: 1rem;
@@ -1133,4 +1041,237 @@ textarea {
 
 .report-group > summary {
   font-weight: 700;
+}
+
+/* --- Spielseite: Spielfeld und Griffe ---
+   Drei Stufen, Maß ist die Fläche und nicht die Geräteklasse:
+   unter 640 px  Leiste fest am unteren Rand, die Köpfe öffnen sich als Blatt;
+   ab 640 px     die Köpfe stehen dauerhaft offen, der Tier-Griff entfällt;
+   quer ab 900   zwei Spalten — links das Spielfeld, rechts Köpfe, Zähne, Neue Runde.
+   Alle Zahlen sind im Browser nachgemessen (scripts/pruefen-bedienung.py). */
+.play {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.round-tag {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+.round-tag strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Unter 640 px hat die Spalte keinen eigenen Kasten: die Leiste ist fest, die Reihe verborgen. */
+.side {
+  display: contents;
+}
+
+.creature-rail {
+  display: none;
+}
+
+.controls {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px max(1rem, calc((100vw - 760px) / 2 + 1rem)) calc(10px + env(safe-area-inset-bottom));
+  background: #0b151b;
+  border-top: 1px solid var(--line);
+}
+
+/* Jeder Griff der Leiste trägt sein Wort („Tier", „Zähne") — ein Bild ohne Wort ist kein Knopf. */
+.quick__label {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--ink-dim);
+}
+
+.quick-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 60px;
+  min-height: 56px;
+  padding: 4px;
+}
+
+.quick-pick__icon {
+  display: block;
+  width: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.quick-teeth {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.quick-teeth button {
+  width: 44px;
+  min-height: 56px;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.quick-teeth button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.quick-teeth__value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 34px;
+}
+
+.quick-teeth__value output {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.quick-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 56px;
+  padding: 0.3rem 0.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.quick-new svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+/* Maul zu: „Neue Runde" ist der nächste Schritt. */
+.quick-new.is-next {
+  background: linear-gradient(180deg, var(--jw-green-light), var(--jw-green-dark));
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Auf dem schmalsten Handy bleiben dem Knopf rund 82 px: das Zeichen weicht dem Wort. */
+@media (max-width: 359px) {
+  .quick-new svg {
+    display: none;
+  }
+}
+
+/* Das Zahnrad-Blatt: Ton und Wackeln nebeneinander, damit es auch bei 320 × 568 nicht scrollt. */
+.switches {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+@media (min-width: 640px) {
+  .app {
+    max-width: 760px;
+  }
+
+  .side {
+    display: block;
+  }
+
+  /* Die Köpfe stehen offen: eine Reihe aus zehn. */
+  .creature-rail {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .quick-pick {
+    display: none;
+  }
+
+  .controls {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+/* Hohe Tablets hochkant haben Platz für große Köpfe in zwei Reihen. */
+@media (min-width: 640px) and (min-height: 1100px) and (orientation: portrait) {
+  .creature-rail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .creature-rail .creature-grid__name {
+    min-height: 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet quer: zwei Spalten. Die Breite des Spielfelds folgt der HÖHE des Fensters — die Zeichnung
+   ist 640 : 460, also 1,39 mal so breit wie hoch; 17 rem sind Kopfzeile, Spielstand und Abstände. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .app {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    grid-template-areas: "top top" "play side";
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    align-items: start;
+    max-width: 1180px;
+    padding-bottom: 1rem;
+  }
+
+  .topbar {
+    grid-area: top;
+  }
+
+  .play {
+    grid-area: play;
+    justify-self: center;
+    width: 100%;
+    max-width: calc((100dvh - 17rem) * 1.39);
+  }
+
+  .side {
+    grid-area: side;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .creature-rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .controls {
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .quick-teeth {
+    justify-content: center;
+  }
+
+  .quick-teeth button {
+    width: 64px;
+  }
 }
