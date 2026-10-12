@@ -1443,6 +1443,37 @@ python scripts/pruefen-halten.py http://localhost:4321
 Auffälligkeiten: 0
 ```
 
+**Nachtrag aus der Durchsicht (12.10.2026): ein wackelnder Finger brach das Halten ab.** Die sieben
+Fälle oben halten mit der Maus und tippen mit dem Finger ohne Weg. Mit echter Berührung
+(`Input.dispatchTouchEvent`: auflegen, 0,4 s halten, in vier Schritten wandern, abheben) zeigte sich:
+
+| Weg des Fingers | Trefferfläche | vorher | nachher |
+|---|---|---|---|
+| 0 px | 65 px (390 px breit) | 1 Zug | 1 Zug |
+| 6 px | 65 px | 1 Zug | 1 Zug |
+| 14 px | 65 px | **0 Züge** (`pointercancel`) | 1 Zug |
+| 20 px | 65 px | **0 Züge** (`pointercancel`) | 1 Zug |
+| 14 px | 52 px (320 px breit) | **0 Züge** (`pointercancel`) | 1 Zug |
+| 90 px (vom Zahn) | 65 px | 0 Züge | 0 Züge (`pointerup` neben dem Zahn) |
+
+Die Seite scrollte dabei nie (`scrollY` 0, Dokument so hoch wie das Fenster) — der Browser beginnt
+das Wischen trotzdem. `touch-action: none` an `.tooth` änderte nichts (berechneter Stil `none`,
+weiter `pointercancel`); geholfen hat `preventDefault()` auf `touchstart` des gehaltenen Zahns. Die
+Sonde trägt seitdem zwei Fälle mit echter Berührung:
+
+```
+8 — wackelnder Finger
+  ok    14 px Wackeln auf dem Zahn bricht das Halten nicht ab (steht: 1 von 10 gedrückt)
+9 — Finger vom Zahn geschoben
+  ok    120 px weggeschoben zählt nicht (steht: 0 von 10 gedrückt)
+  ok    der Zahn steht wieder
+
+Auffälligkeiten: 0
+```
+
+Nicht geprüft: ein echtes Gerät. Die Berührung ist die des Chromium-Emulators; Safari auf iOS und
+der Silk-Browser des Fire-Tablets können nur am Gerät geprüft werden.
+
 Die vier bestehenden Sonden liefen danach gegen dieselbe Seite ohne Fund: `pruefen-trefferflaeche.py`
 meldete für alle drei Tippproben „registriert", `pruefen-anzeige.py` „ERGEBNIS: in Ordnung",
 `pruefen-bedienung.py` `Auffälligkeiten: 0` (die um elf Zeichen längere Anleitung bricht auf

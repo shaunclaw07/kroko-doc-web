@@ -966,6 +966,25 @@ describe('GameController in der Bühne', () => {
     expect(progressText()).toBe('0 von 10 gedrückt');
   });
 
+  it('lässt den Browser aus dem gehaltenen Zahn kein Wischen machen — sonst bricht ein wackelnder Finger ab', () => {
+    // Gemessen am 12.10.2026: 14 px Weg auf 65 px Trefferfläche genügten für ein `pointercancel`.
+    const { waits } = buildHold([4]);
+    const touchStart = (id: number): boolean => {
+      const event = new Event('touchstart', { bubbles: true, cancelable: true });
+      toothElement(id).dispatchEvent(event);
+      return event.defaultPrevented;
+    };
+    expect(touchStart(1), 'ohne Halten bleibt das Wischen frei').toBe(false);
+
+    pointer('pointerdown', toothElement(1));
+    expect(touchStart(1)).toBe(true);
+    expect(touchStart(2), 'nur der gehaltene Zahn').toBe(false);
+
+    pointer('pointerup', toothElement(1));
+    waits.filter((entry) => entry.ms >= 1000).forEach((entry) => entry.run());
+    expect(touchStart(1), 'von einem gedrückten Zahn aus lässt sich scrollen').toBe(false);
+  });
+
   it('lässt einen zweiten Finger nichts beginnen und nichts beenden', () => {
     buildHold([4]);
     pointer('pointerdown', toothElement(1));

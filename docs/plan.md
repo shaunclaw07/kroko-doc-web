@@ -1021,3 +1021,31 @@ erreichbar, keine Trefferfläche wurde kleiner (sie wächst mit dem Zoom: 320 px
 Stellschraube: der Faktor `0.08` in `app.css` — wer ihn anhebt, fährt `scripts/pruefen-zoom.py`.
 
 Gate **413 Tests in 29 Dateien**. Nicht gepusht.
+
+## Nachtrag 12.10.2026 (gebaut): Durchsicht der drei Pläne — ein Fund
+
+**Anlass (Auftraggeber):** „alle drei Pläne wurden implementiert. Bitte mache ein review und fixe
+alle findings direkt"
+
+**Geprüft:** der Code der drei Pläne (Steuerung, Blick-Rechnung, Kern, Stylesheet), das Gate und
+sieben Sonden gegen den laufenden Entwicklungsserver (Halten, Blick, Zoom, Trefferfläche, Zahnsicht,
+Anzeige, Bedienung) — alle ohne Fund.
+
+**Der Fund:** ein Finger, der beim Halten wackelt, brach das Halten ab. Nach rund 10 px Weg — noch
+mitten auf der Trefferfläche — schickt der Browser `pointercancel`, weil er ein Wischen beginnt; der
+Zahn federte zurück und der Druck zählte nicht. Die Sonde hielt nur mit der Maus. **Behoben:** die
+Steuerung hält `touchstart` des gehaltenen Zahns an; ein Test und zwei Sondenfälle mit echter
+Berührung halten es fest (Messwerte: `docs/e2e-nachweise.md` §5ac, Falle in `AGENTS.md`).
+
+**Bewusst gelassen:**
+
+1. Beim **allerersten** Halten einer Sitzung auf einem Berührungsbildschirm kommen Klang und Stoß
+   erst beim Loslassen: der Browser gibt Ton und Vibration erst mit dem Ende der ersten Berührung
+   frei. Ab dem zweiten Druck stimmt der Zeitpunkt. Daran lässt sich in der Seite nichts ändern.
+2. Wer den Finger vom Zahn schiebt, bricht mit `stopAll()` auch eine Tierstimme ab, die gerade
+   noch klingt (nur direkt nach einem Tierwechsel möglich).
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob das Halten am echten Handy und am
+Fire-Tablet jetzt zuverlässig ist.
+
+Gate **414 Tests in 29 Dateien**. Nicht gepusht.

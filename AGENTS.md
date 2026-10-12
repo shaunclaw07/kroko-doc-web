@@ -114,7 +114,18 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   wiederholt sich kein Klang mehr von selbst. Wer wieder einen einführt, lässt ihn ausfallen,
   solange der Kontext nicht `running` ist.
 
-## Einunddreißig Fallen, die Zeit kosten
+## Zweiunddreißig Fallen, die Zeit kosten
+
+- **Eine Geste, die mit der Maus geprüft ist, ist am Finger nicht geprüft.** Das Halten eines Zahns
+  bestand alle Fälle der Sonde — mit Maus und mit einem Finger-Tipp ohne Weg. Ein Finger, der beim
+  Halten wackelt, ist für den Browser aber der Anfang eines Wischens: nach rund 10 px kam
+  `pointercancel`, der Zahn federte zurück und der Druck zählte nicht (gemessen am 12.10.2026 mit
+  echter Berührung über `Input.dispatchTouchEvent`: 14 px Weg auf 65 px Trefferfläche, kein Zug —
+  obwohl die Seite gar nicht scrollte). `touch-action: none` am Zahn hilft **nicht**: Chromium
+  wertet es an Teilen einer SVG-Zeichnung nicht aus (der berechnete Stil sagt `none`, das Verhalten
+  bleibt). Deshalb hält die Steuerung `touchstart` des **gehaltenen** Zahns an (`preventDefault`,
+  nicht passiv). Wer eine Zeigergeste baut, die länger dauert als ein Tipp, prüft sie mit
+  Berührung **und** Weg (`scripts/pruefen-halten.py`, Fälle 8 und 9).
 
 - **Das Gesicht liegt über den Zähnen — der Zahnring ist für Augen und Wangen Sperrgebiet.** Die
   Gesichtsebene wird zuletzt gemalt, und die Augen saßen bei allen zehn Tieren auf dem Ring. Welcher

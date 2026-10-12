@@ -164,6 +164,20 @@ export class GameController {
         }
         this.beginHold(id, pointer.pointerId);
       });
+      // Ein Finger, der beim Halten wackelt, ist kein Wischen: ohne dies brach der Browser das
+      // Halten nach rund 10 px Weg mit `pointercancel` ab — mitten auf der Trefferfläche und ohne
+      // dass die Seite scrollte (gemessen am 12.10.2026: 14 px Weg auf 65 px Fläche, kein Zug).
+      // `touch-action` hilft hier nicht, Chromium wertet es an Teilen einer SVG-Zeichnung nicht
+      // aus. Nur für den gehaltenen Zahn: von einem schon gedrückten aus lässt sich weiter scrollen.
+      tooth.addEventListener(
+        'touchstart',
+        (event) => {
+          if (this.hold?.toothId === id && event.cancelable) {
+            event.preventDefault();
+          }
+        },
+        { passive: false },
+      );
       // Ein Zeiger-Tipp endet zusätzlich mit `click` (detail ≥ 1) — den Zug hat `pointerup` schon
       // ausgelöst. Ein `click` ohne Zeiger (detail 0) kommt von Tastatur und Hilfstechnik.
       tooth.addEventListener('click', (event) => {

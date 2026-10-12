@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 29 |
-| Tests | 413 (29 Dateien) |
+| Tests | 414 (29 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -153,7 +153,10 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    gegen die veröffentlichte Seite). Erwartet: zehn Messzeilen und `Auffälligkeiten: 0` (Exit 0).
 
 11. **Halte-Sonde** — `scripts/pruefen-halten.py` hält, schiebt weg, klickt, tippt und drückt die
-   Eingabetaste im echten Browser. Erwartet: dreizehn Zeilen `ok` und `Auffälligkeiten: 0` (Exit 0).
+   Eingabetaste im echten Browser; dazu zwei Fälle mit **echter Berührung** (ein Finger, der auf dem
+   Zahn 14 px wackelt, und einer, der 120 px weggeschoben wird) — die Maus zeigt nicht, wann der
+   Browser aus einem Halten ein Wischen macht. Erwartet: sechzehn Zeilen `ok` und
+   `Auffälligkeiten: 0` (Exit 0).
    `uv run --with playwright python scripts/pruefen-halten.py`
 
 12. **Blick-Sonde** — `scripts/pruefen-blick.py` bewegt den Zeiger über die Bühne aller zehn Tiere

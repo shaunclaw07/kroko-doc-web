@@ -13,6 +13,8 @@ Geprüft wird:
     5. Tastatur          → Eingabetaste auf dem Zahn zählt einen Zug
     6. Finger-Tipp       → ein Tipp auf dem Berührungsbildschirm zählt genau einen Zug
     7. ein Zahn          → Runde bleibt beim Halten offen und schnappt erst nach dem Loslassen zu
+    8. wackelnder Finger → 14 px Weg auf dem Zahn brechen das Halten nicht ab (echte Berührung)
+    9. Finger weggeschoben → 120 px Weg nehmen den Druck zurück
 
 Aufruf (der Entwicklungsserver muss laufen):
     uv run --with playwright python scripts/pruefen-halten.py [URL]
@@ -153,6 +155,42 @@ def main() -> int:
         seite.wait_for_timeout(400)
         lage = seite.evaluate(LAGE, "1")
         pruefe(lage["status"] == "snapped", f"nach dem Loslassen schnappt es zu (ist: {lage['status']})")
+        seite.context.close()
+
+        def finger(seite, zahn: str, weg: float) -> dict:
+            """Legt einen Finger auf, lässt ihn `weg` px wandern und hebt ihn ab (echte Berührung)."""
+            stelle = seite.evaluate(MITTE, zahn)
+            cdp = seite.context.new_cdp_session(seite)
+
+            def punkt(x: float, y: float) -> list[dict]:
+                return [{"x": x, "y": y, "id": 1}]
+
+            cdp.send("Input.dispatchTouchEvent",
+                     {"type": "touchStart", "touchPoints": punkt(stelle["x"], stelle["y"])})
+            seite.wait_for_timeout(400)
+            for schritt in range(1, 5):
+                cdp.send("Input.dispatchTouchEvent",
+                         {"type": "touchMove",
+                          "touchPoints": punkt(stelle["x"] + weg * schritt / 4, stelle["y"])})
+                seite.wait_for_timeout(60)
+            seite.wait_for_timeout(400)
+            cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+            seite.wait_for_timeout(300)
+            return seite.evaluate(LAGE, zahn)
+
+        print("8 — wackelnder Finger")
+        seite = neue_seite(ZEHN_ZAEHNE, beruehrung=True)
+        lage = finger(seite, "3", 14)
+        pruefe(lage["fortschritt"] == "1 von 10 gedrückt",
+               f"14 px Wackeln auf dem Zahn bricht das Halten nicht ab (steht: {lage['fortschritt']})")
+        seite.context.close()
+
+        print("9 — Finger vom Zahn geschoben")
+        seite = neue_seite(ZEHN_ZAEHNE, beruehrung=True)
+        lage = finger(seite, "3", 120)
+        pruefe(lage["fortschritt"] == "0 von 10 gedrückt",
+               f"120 px weggeschoben zählt nicht (steht: {lage['fortschritt']})")
+        pruefe(not lage["gehalten"] and not lage["gedrueckt"], "der Zahn steht wieder")
         seite.context.close()
 
         browser.close()
