@@ -7,7 +7,7 @@ Mono, 44,1 kHz, MP3 64 kbit/s, höchstens 1,5 s, Spitze −3 dB. Abgerufen am 12
 | Datei | Was | Urheber | Lizenz | Quelle | Ausschnitt |
 |---|---|---|---|---|---|
 | `crocodile.mp3` | Brüllen eines Alligators | Borisblue | Public Domain (gemeinfrei) | https://commons.wikimedia.org/wiki/File:Alligatorbellowedit.ogg | ab 14,2 s, 1,3 s |
-| `wolf.mp3` | Wolfsheulen | U.S. Fish and Wildlife Service | Public Domain (Werk einer US-Bundesbehörde, PD-USGov-FWS) | https://commons.wikimedia.org/wiki/File:Wolf_howls.ogg | ab 0,15 s, 1,5 s |
+| `wolf.mp3` | Heulen eines einzelnen Wolfs („Wolf Howls Near Passing Car“, Yellowstone, 11.01.2016) | National Park Service & MSU Acoustic Atlas / Jennifer Jerrett | Public Domain (Yellowstone Sound Library: „in the public domain … used without limitation“; Nennung „National Park Service“ erbeten) | https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm | ab 3,45 s, 1,5 s, 0,5 s ausgeblendet |
 | `shark.mp3` | Luftblasen im Wasser (Haie sind stumm) | stephan (PDSounds) | Public Domain (gemeinfrei) | https://commons.wikimedia.org/wiki/File:Water_bubbles_chortling.ogg | ab 33,75 s, 1,2 s |
 | `panda.mp3` | Zwitschern eines Großen Pandas | Mizunoryu | Public Domain (vom Urheber freigegeben, PD-self) | https://commons.wikimedia.org/wiki/File:Giant_panda_twittering.ogg | ab 1,0 s, 1,2 s |
 | `lion.mp3` | Brüllen eines Löwen im Zoo | த*உழவன் | Public Domain (gemeinfrei) | https://commons.wikimedia.org/wiki/File:Lion_raring-sound1TamilNadu178.ogg | ab 4,9 s, 1,4 s |
