@@ -231,11 +231,10 @@ export class GameController {
     this.wait(320, () => this.art?.classList.remove('is-twitching'));
     const tooth = this.tooth(toothId);
     tooth?.classList.add('is-live');
-    this.wait(260, () => {
-      if (this.round.status === 'open') {
-        tooth?.classList.remove('is-live');
-      }
-    });
+    // Immer zurücknehmen: dieser Zahn war harmlos. Die Bedingung „nur bei offener Runde" ließ das
+    // Glühen stehen, wenn der nächste Druck binnen 260 ms zuschnappte — im Endbild sah dann ein
+    // harmloser Zahn scharf aus.
+    this.wait(260, () => tooth?.classList.remove('is-live'));
   }
 
   /** Zeigt Ring und Beschriftung an der Stelle des scharfen Zahns. */

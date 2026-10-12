@@ -5,6 +5,7 @@ import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics'
 import { RecordingSound } from '../../infrastructure/testing/recordingSound';
 import { ScriptedRandom } from '../../infrastructure/testing/scriptedRandom';
 import type { LiveTeethSelector } from '../../core/ports/liveTeeth';
+import type { RandomSource } from '../../core/ports/random';
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
@@ -91,6 +92,7 @@ function build(
   hapticsSupported = true,
   session?: SessionMarkPort,
   waitOverride: (ms: number, run: () => void) => void = compressedWait,
+  rng: RandomSource = new ScriptedRandom([0.5]),
 ): {
   controller: GameController;
   sound: RecordingSound;
@@ -102,7 +104,7 @@ function build(
   const log = new MemoryLog();
   const haptics = new RecordingHaptics(hapticsSupported);
   const controller = new GameController({
-    rng: new ScriptedRandom([0.5]),
+    rng,
     selector: new FixedLiveTeethSelector(live),
     sound,
     haptics,
@@ -321,6 +323,30 @@ describe('GameController in der Bühne', () => {
     expect(restart.classList.contains('hidden')).toBe(true);
     expect(document.getElementById('stage')?.dataset.status).toBe('open');
     expect(document.getElementById('hud-presses')?.textContent).toBe('0');
+  });
+
+  it('nimmt das Glühen eines Zuckens zurück, auch wenn der nächste Druck sofort zuschnappt', () => {
+    // Der Zeitgeber des Zuckens (260 ms) wird festgehalten und erst nach dem Biss ausgeführt —
+    // so, als hätte jemand sofort weitergetippt. Zufall: 0,5 für die Pause, 0,01 lässt es zucken.
+    const held: Array<() => void> = [];
+    const wait = (ms: number, run: () => void): void => {
+      if (ms === 260) {
+        held.push(run);
+      } else if (ms < 1000) {
+        run();
+      }
+    };
+    build([2], {}, true, undefined, wait, new ScriptedRandom([0.5, 0.01]));
+    const tooth = (id: number): Element | null => document.querySelector(`.tooth[data-tooth="${id}"]`);
+
+    click(1);
+    expect(tooth(1)?.classList.contains('is-live'), 'ohne Zucken wäre der Test sinnlos').toBe(true);
+    click(2);
+    expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
+    held.forEach((run) => run());
+
+    expect(tooth(1)?.classList.contains('is-live')).toBe(false);
+    expect(tooth(2)?.classList.contains('is-live')).toBe(true);
   });
 
   it('warnt, wenn nur noch ein Zahn übrig ist — der ist garantiert scharf', () => {
