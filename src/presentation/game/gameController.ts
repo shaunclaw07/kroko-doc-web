@@ -23,6 +23,7 @@ import { type RandomMode } from '../../core/domain/teeth';
 import { getCreature } from '../../core/domain/creature';
 import { playPress } from '../../core/use-cases/playPress';
 import { creatureView, type CreatureView } from './creatures';
+import { clientToViewBox, gazeOffset, midpoint, type Point } from './creatures/gaze';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
 
 export interface GameDeps {
@@ -86,6 +87,8 @@ export class GameController {
   private stage: HTMLElement | null = null;
   private view: CreatureView | null = null;
   private art: SVGElement | null = null;
+  /** Mitte zwischen den Pupillen des gezeichneten Tiers — von dort aus schaut es. */
+  private eyes: Point | null = null;
   private records: RoundRecord[];
 
   constructor(deps: GameDeps) {
@@ -122,6 +125,12 @@ export class GameController {
     this.view = creatureView(this.round.creatureId, this.round.teeth);
     mountPoint.innerHTML = this.view.render();
     this.art = this.doc.querySelector('.creature');
+    // Die Augenmitte gehört zu **diesem** Tier; ein neues Tier oder eine neue Runde schaut geradeaus.
+    const pupils = Array.from(this.art?.querySelectorAll('.pupil') ?? []);
+    this.eyes = midpoint(
+      pupils.map((pupil) => ({ x: Number(pupil.getAttribute('cx')), y: Number(pupil.getAttribute('cy')) })),
+    );
+    this.lookAt(null);
     this.wireTeeth();
   }
 
@@ -132,6 +141,8 @@ export class GameController {
       this.buildStage(mountPoint);
     }
     this.stage = this.doc.getElementById('stage');
+    this.stage?.addEventListener('pointermove', this.onStagePointer);
+    this.stage?.addEventListener('pointerdown', this.onStagePointer);
     // Das Loslassen wird am Dokument gehört: mit der Maus endet es dort, wo der Zeiger gerade
     // steht — nicht unbedingt auf dem Zahn.
     this.doc.addEventListener('pointerup', this.onPointerUp);
@@ -283,6 +294,8 @@ export class GameController {
     this.deps.sound.setTension(this.tension);
     this.tooth(toothId)?.classList.remove('is-held');
     this.markPressed(toothId);
+    // Das Tier schaut auf den Zahn, der gerade gedrückt wurde — auch bei Tastatur ohne Zeiger.
+    this.lookAt(this.view?.toothAnchor(toothId) ?? null);
     this.render();
 
     if (!felt) {
@@ -416,6 +429,28 @@ export class GameController {
     tooth?.setAttribute('aria-pressed', 'true');
   }
 
+  /**
+   * Richtet den Blick auf einen Punkt der Zeichnung (`null` = geradeaus). Der Versatz hängt nur
+   * an Augenmitte und Ziel — nie an den scharfen Zähnen.
+   */
+  private lookAt(target: Point | null): void {
+    const offset = target && this.eyes ? gazeOffset(this.eyes, target) : { x: 0, y: 0 };
+    this.art?.style.setProperty('--look-x', offset.x.toFixed(2));
+    this.art?.style.setProperty('--look-y', offset.y.toFixed(2));
+  }
+
+  /** Der Zeiger über der Bühne zieht den Blick mit — solange das Maul offen ist. */
+  private readonly onStagePointer = (event: Event): void => {
+    if (this.disposed || !this.art || this.round.status !== 'open') {
+      return;
+    }
+    const pointer = event as PointerEvent;
+    const at = clientToViewBox({ x: pointer.clientX, y: pointer.clientY }, this.art.getBoundingClientRect());
+    if (at) {
+      this.lookAt(at);
+    }
+  };
+
   private shake(level: number): void {
     if (this.reducedMotion() || !this.stage) {
       return;
@@ -450,6 +485,8 @@ export class GameController {
    */
   dispose(): void {
     this.hold = null;
+    this.stage?.removeEventListener('pointermove', this.onStagePointer);
+    this.stage?.removeEventListener('pointerdown', this.onStagePointer);
     this.doc.removeEventListener('pointerup', this.onPointerUp);
     this.doc.removeEventListener('pointercancel', this.onPointerCancel);
     this.disposed = true;

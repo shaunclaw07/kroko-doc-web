@@ -11,6 +11,8 @@ import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
 import type { SessionMarkPort } from '../../core/ports/sessionMark';
+import { creatureView } from './creatures';
+import { GAZE_MAX, gazeOffset } from './creatures/gaze';
 
 /**
  * Prüfsonde der Bedienung: sie drückt im echten DOM (jsdom) Zähne, bis das Maul
@@ -801,6 +803,82 @@ describe('GameController in der Bühne', () => {
     // Die neue Runde ist bespielbar.
     click(2);
     expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 10 gedrückt');
+  });
+
+  /** Der Blick, wie er an der Zeichnung steht. */
+  function look(): { x: string; y: string } {
+    const art = document.querySelector<SVGElement>('.creature');
+    return {
+      x: art?.style.getPropertyValue('--look-x') ?? '',
+      y: art?.style.getPropertyValue('--look-y') ?? '',
+    };
+  }
+
+  /** Gibt der Zeichnung eine Größe — jsdom misst sonst 0 × 0. */
+  function sizeStage(): void {
+    const art = document.querySelector('.creature');
+    if (!art) throw new Error('Zeichnung fehlt');
+    art.getBoundingClientRect = () =>
+      ({ left: 0, top: 0, width: 640, height: 460, right: 640, bottom: 460, x: 0, y: 0, toJSON: () => ({}) }) as DOMRect;
+  }
+
+  function moveOverStage(clientX: number, clientY: number): void {
+    document
+      .getElementById('stage')
+      ?.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, clientX, clientY }));
+  }
+
+  it('schaut am Rundenbeginn geradeaus', () => {
+    build([4]);
+    expect(look()).toEqual({ x: '0.00', y: '0.00' });
+  });
+
+  it('schaut auf den Zahn, der gerade gedrückt wurde', () => {
+    build([4]);
+    click(1);
+    // Krokodil: Pupillen bei 146/114 und 498/114 — die Augenmitte ist 322/114.
+    const expected = gazeOffset({ x: 322, y: 114 }, creatureView('crocodile', 10).toothAnchor(1));
+    expect(look()).toEqual({ x: expected.x.toFixed(2), y: expected.y.toFixed(2) });
+    expect(Math.hypot(expected.x, expected.y)).toBeGreaterThan(1);
+  });
+
+  it('folgt dem Zeiger über der Bühne', () => {
+    build([4]);
+    sizeStage();
+    moveOverStage(0, 114);
+    expect(look()).toEqual({ x: (-GAZE_MAX).toFixed(2), y: '0.00' });
+    moveOverStage(640, 114);
+    expect(look()).toEqual({ x: GAZE_MAX.toFixed(2), y: '0.00' });
+  });
+
+  it('lässt den Blick stehen, wenn die Zeichnung keine Größe hat', () => {
+    build([4]);
+    moveOverStage(0, 114);
+    expect(look()).toEqual({ x: '0.00', y: '0.00' });
+  });
+
+  it('schaut nach einer neuen Runde wieder geradeaus', () => {
+    const { controller } = build([4]);
+    click(1);
+    controller.resetRound();
+    expect(look()).toEqual({ x: '0.00', y: '0.00' });
+  });
+
+  it('folgt dem Zeiger nach dem Biss nicht mehr', () => {
+    build([4]);
+    click(4);
+    const afterBite = look();
+    sizeStage();
+    moveOverStage(0, 114);
+    expect(look()).toEqual(afterBite);
+  });
+
+  it('folgt nach dispose() keinem Zeiger mehr', () => {
+    const { controller } = build([4]);
+    sizeStage();
+    controller.dispose();
+    moveOverStage(0, 114);
+    expect(look()).toEqual({ x: '0.00', y: '0.00' });
   });
 
   it('entscheidet beim Auflegen des Fingers noch nichts: der Zahn sinkt nur', () => {
