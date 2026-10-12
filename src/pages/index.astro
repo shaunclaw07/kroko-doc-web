@@ -62,6 +62,10 @@ const base = import.meta.env.BASE_URL;
       <span id="hud-turn">Du bist dran</span>
     </div>
 
+    <!-- Der Weg zur nächsten Runde, wenn das Ergebnis-Blatt schon zu ist. Ohne ihn blieb nach
+         „Schließen" nur das Zahnrad — und „Neue Runde" lag zwei Tipps tief im Einstellungsblatt. -->
+    <button type="button" class="button--primary restart hidden" id="restart-round">Neue Runde</button>
+
     <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr.
          Die Zustandsklassen (`is-tense`, `is-danger`, `is-snapped`) sitzen an DIESEM Kasten, denn
          er enthält Balken, Zeile und Hinweis. Standen sie an der Bühne (`#stage`), erreichte keine
@@ -251,7 +255,10 @@ const base = import.meta.env.BASE_URL;
     </div>
   </dialog>
 
-  <dialog class="sheet" id="result-sheet" aria-labelledby="result-title">
+  <!-- `data-keep-on-outside-tap`: ein Tipp neben dieses Blatt schließt es nicht. Es öffnet sich
+       mitten im Spiel — wer nach dem Biss weiter auf die Bühne tippt, wischte sonst das Ergebnis
+       weg, bevor es jemand gelesen hat. Die drei Knöpfe im Blatt bleiben der Ausgang. -->
+  <dialog class="sheet" id="result-sheet" aria-labelledby="result-title" data-keep-on-outside-tap>
     <div class="sheet__grip" aria-hidden="true"></div>
     <h2 id="result-title">Zugeschnappt!</h2>
     <p id="result-text"></p>
@@ -265,6 +272,8 @@ const base = import.meta.env.BASE_URL;
   <script>
     import { GameController } from '../presentation/game/gameController';
     import { creaturePortrait } from '../presentation/game/creatures';
+    import { settingsAfterCreatureChoice } from '../presentation/game/creatureChoice';
+    import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from '../presentation/game/sheets';
     import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
@@ -296,14 +305,7 @@ const base = import.meta.env.BASE_URL;
     /** Blätter öffnen und schließen. */
     const sheetOf = (id: string): HTMLDialogElement | null =>
       document.getElementById(id) as HTMLDialogElement | null;
-    const openSheet = (id: string): void => {
-      const sheet = sheetOf(id);
-      if (sheet && typeof sheet.showModal === 'function') {
-        sheet.showModal();
-      } else {
-        sheet?.setAttribute('open', '');
-      }
-    };
+    const openSheet = (id: string): void => showSheet(sheetOf(id));
 
     // Schalter und Segmente mit den gespeicherten Einstellungen abgleichen
     const soundBox = document.getElementById('opt-sound') as HTMLInputElement | null;
@@ -421,69 +423,25 @@ const base = import.meta.env.BASE_URL;
     document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
       button.addEventListener('click', () => {
         // Ein Tipp = Wahl + zurück ins Einstellungsblatt. Beim Wechsel gilt wieder das Gebiss des
-        // gewählten Tieres (`teethOverride: null`); dasselbe Tier erneut zu tippen ändert nichts.
-        controller.applySettings({
-          ...settings,
-          creature: button.dataset.creature ?? settings.creature,
-          teethOverride: null,
-        });
+        // gewählten Tieres; dasselbe Tier erneut zu tippen ändert nichts (`null`).
+        const next = settingsAfterCreatureChoice(settings, button.dataset.creature);
+        if (next) {
+          controller.applySettings(next);
+        }
         paintDetail();
         paintCreature();
-        sheetOf('creature-sheet')?.close();
+        closeSheet(sheetOf('creature-sheet'));
       });
     });
 
     document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());
     document.getElementById('rules-open')?.addEventListener('click', () => openSheet('rules-sheet'));
     document.querySelectorAll('[data-close-sheet]').forEach((button) => {
-      button.addEventListener('click', () => {
-        button.closest('dialog')?.close();
-      });
+      button.addEventListener('click', () => closeSheet(button.closest('dialog')));
     });
 
-    /**
-     * Ein Tipp **neben** das Blatt schließt es (zurück zum Spiel). Geprüft wird die Geometrie, nicht
-     * das Zielelement: `event.target` ist bei einem Dialog auch der Innenabstand, so schlösse ein
-     * Tipp daneben im Blatt selbst. Ohne das bliebe für den Rückweg nur die Escape-Taste.
-     */
-    const daneben = (sheet: HTMLDialogElement, event: MouseEvent) => {
-      const box = sheet.getBoundingClientRect();
-      return (
-        event.clientX < box.left ||
-        event.clientX > box.right ||
-        event.clientY < box.top ||
-        event.clientY > box.bottom
-      );
-    };
-
-    document.querySelectorAll<HTMLDialogElement>('dialog.sheet').forEach((sheet) => {
-      sheet.addEventListener('click', (event) => {
-        if (daneben(sheet, event)) {
-          sheet.close();
-        }
-      });
-    });
-
-    /**
-     * Zweiter Weg für denselben Rückweg: der Klick auf den Rand wird nicht überall dem Dialog
-     * zugestellt (`event.target` ist dort der Dialog selbst, sonst liefe er vorbei und niemand
-     * reagierte). Deshalb entscheidet zusätzlich das Dokument. Die Knöpfe, die ein Blatt
-     * **öffnen**, sind ausgenommen: sonst schlösse der Tipp, der das Blatt gerade geöffnet hat, es
-     * im selben Moment wieder.
-     */
-    const oeffnet = (target: EventTarget | null) =>
-      target instanceof Element && target.closest('#settings-open, #creature-open, #rules-open') !== null;
-
-    document.addEventListener('click', (event) => {
-      if (oeffnet(event.target)) {
-        return;
-      }
-      document.querySelectorAll<HTMLDialogElement>('dialog.sheet[open]').forEach((sheet) => {
-        if (daneben(sheet, event)) {
-          sheet.close();
-        }
-      });
-    });
+    // Ein Tipp neben das oberste Blatt schließt es — die Regeln stehen (geprüft) in sheets.ts.
+    wireOutsideTapDismissal(document);
 
     // Browser geben Ton erst nach einer Nutzergeste frei.
     document.addEventListener('pointerdown', () => sound.unlock(), { once: true });

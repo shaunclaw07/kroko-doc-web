@@ -1118,3 +1118,10 @@ textarea {
   0%, 100% { transform: translateY(var(--close-shift, 0px)); }
   45% { transform: translateY(calc(var(--close-shift, 0px) + 3px)); }
 }
+
+/* „Neue Runde" auf der Bühne (nur bei geschlossenem Maul): mittig, nicht über die volle Breite. */
+.restart {
+  align-self: center;
+  min-height: 44px;
+  padding-inline: 1.6rem;
+}
