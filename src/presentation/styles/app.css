@@ -702,7 +702,7 @@ details[open] summary {
   animation: meter-breath var(--beat-ms, 900ms) ease-in-out infinite;
 }
 
-/* Der Balken atmet im selben Takt wie der Herzschlag — zwei Anzeigen, ein Rhythmus. */
+/* Der Balken pulsiert — je höher die Bissgefahr, desto schneller (`--beat-ms`). */
 @keyframes meter-breath {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.3); }

@@ -8,10 +8,10 @@ import { openRound, remainingTeeth, isFinalToothTension, type RoundState } from 
 import { UniformLiveTeethSelector } from '../../core/domain/liveTeeth';
 import {
   VERDICT_GAP_MS,
-  heartbeatInterval,
   isHighDanger,
   isTense,
   pressProgress,
+  pulseInterval,
   survivedDanger,
   tensionForPress,
   type PressDrama,
@@ -63,7 +63,6 @@ export class GameController {
   private round: RoundState;
   private tension = 0;
   private busy = false;
-  private heartbeatTimer: number | null = null;
   private stage: HTMLElement | null = null;
   private view: CreatureView | null = null;
   private art: SVGElement | null = null;
@@ -72,7 +71,14 @@ export class GameController {
   constructor(deps: GameDeps) {
     this.deps = deps;
     this.doc = deps.document;
-    this.wait = deps.wait ?? ((ms, run) => void this.win()?.setTimeout(run, ms));
+    this.wait =
+      deps.wait ??
+      ((ms, run) =>
+        void this.win()?.setTimeout(() => {
+          if (!this.disposed) {
+            run();
+          }
+        }, ms));
     this.selector = deps.selector ?? new UniformLiveTeethSelector();
     this.records = deps.log.load();
     this.round = this.newRound();
@@ -107,7 +113,6 @@ export class GameController {
     this.stage = this.doc.getElementById('stage');
     this.doc.getElementById('new-round')?.addEventListener('click', () => this.resetRound());
     this.render();
-    this.startHeartbeat();
   }
 
   private wireTeeth(): void {
@@ -149,8 +154,7 @@ export class GameController {
     }
 
     // Die Pause: sie kommt bei jedem Druck, und ihre Länge sagt nichts über den Ausgang.
-    // Der Herzschlag tritt zurück, das Tier hält den Atem an — dann reißt es ab.
-    this.clearHeartbeat();
+    // Das Tier hält den Atem an — dann reißt es ab.
     this.startPressBeat(outcome.drama.beatMs);
     this.deps.sound.play('tap', this.tension);
     this.deps.sound.play('creak', this.tension);
@@ -208,13 +212,11 @@ export class GameController {
       this.twitch(toothId);
     }
     this.busy = false;
-    this.startHeartbeat();
   }
 
   private snap(toothId: number): void {
     this.busy = false;
     this.endPressBeat();
-    this.clearHeartbeat();
     this.deps.sound.play('snap', 1);
     if (this.deps.settings.vibration) {
       this.vibrate(BITE_VIBRATION_PATTERN);
@@ -297,32 +299,6 @@ export class GameController {
     this.deps.haptics?.vibrate(pattern);
   }
 
-  private startHeartbeat(): void {
-    this.clearHeartbeat();
-    if (this.disposed || !this.deps.settings.sound || this.round.status !== 'open') {
-      return;
-    }
-    const fenster = this.win();
-    if (!fenster) {
-      return;
-    }
-    const beat = (): void => {
-      if (this.disposed || this.round.status !== 'open' || this.busy) {
-        return;
-      }
-      this.deps.sound.play('heartbeat', this.tension);
-      this.heartbeatTimer = fenster.setTimeout(beat, heartbeatInterval(this.tension));
-    };
-    this.heartbeatTimer = fenster.setTimeout(beat, heartbeatInterval(this.tension));
-  }
-
-  private clearHeartbeat(): void {
-    if (this.heartbeatTimer !== null) {
-      this.win()?.clearTimeout(this.heartbeatTimer);
-      this.heartbeatTimer = null;
-    }
-  }
-
   /**
    * Das Fenster des Dokuments. Bewusst **nie** das globale `window`: nach dem Abbau der
    * Testumgebung gibt es das nicht mehr, ein spät feuernder Zeitgeber endete dann als
@@ -333,11 +309,10 @@ export class GameController {
   }
 
   /**
-   * Die Steuerung abhängen: der Herzschlag endet, späte Zeitgeber rühren nichts mehr an. Der Test
-   * ruft das nach jedem Fall auf — nur so bleibt kein Zeitgeber über das Testende hinaus offen.
+   * Die Steuerung abhängen: späte Zeitgeber rühren nichts mehr an. Der Test ruft das nach jedem
+   * Fall auf — so läuft kein Rückruf in eine schon abgebaute Umgebung.
    */
   dispose(): void {
-    this.clearHeartbeat();
     this.disposed = true;
   }
 
@@ -381,7 +356,6 @@ export class GameController {
 
   /** Öffnet eine neue Runde mit den aktuellen Einstellungen. */
   resetRound(): void {
-    this.clearHeartbeat();
     this.clearBiter();
     this.round = this.newRound();
     // Schon der erste Druck hat eine Gefahr — der Balken startet nicht bei null.
@@ -393,7 +367,6 @@ export class GameController {
     }
     this.deps.sound.setTension(0);
     this.render();
-    this.startHeartbeat();
   }
 
   applySettings(settings: GameSettings): void {
@@ -415,10 +388,7 @@ export class GameController {
         this.deps.sound.playVoice(settings.creature);
       }
     } else if (!settings.sound) {
-      this.clearHeartbeat();
       this.deps.sound.stopAll();
-    } else {
-      this.startHeartbeat();
     }
   }
 
@@ -472,14 +442,14 @@ export class GameController {
     // An der Bühne hat sie keine Regel erreicht — der Balken liegt außerhalb von `.stage`, die
     // Gefahrfarbe kam dort nie an (gemessen im Browser, `docs/e2e-nachweise.md` §5t).
     const panel = this.doc.getElementById('hud-panel');
-    panel?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
+    panel?.style.setProperty('--beat-ms', `${pulseInterval(this.tension)}ms`);
     panel?.classList.toggle('is-tense', roundOpen && isTense(this.tension));
     panel?.classList.toggle('is-danger', roundOpen && isHighDanger(this.tension));
     panel?.classList.toggle('is-snapped', !roundOpen);
     // Die Bühne behält ihre eigenen Werte: `--tension` färbt das Bild dunkler, `--beat-ms` taktet
-    // den Herzschlag, `data-status`/`data-tension` tragen die Sonden.
+    // den Puls, `data-status`/`data-tension` tragen die Sonden.
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));
-    this.stage?.style.setProperty('--beat-ms', `${heartbeatInterval(this.tension)}ms`);
+    this.stage?.style.setProperty('--beat-ms', `${pulseInterval(this.tension)}ms`);
     if (this.stage) {
       this.stage.dataset.status = this.round.status;
       this.stage.dataset.tension = this.tension.toFixed(2);

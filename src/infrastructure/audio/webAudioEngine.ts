@@ -157,15 +157,11 @@ export class WebAudioEngine implements SoundPort {
   play(name: SoundName, intensity: number = DEFAULT_INTENSITY): void {
     if (this.muted) return; // stumm: kein Knoten, kein Ton
     // Vor der ersten Nutzergeste hält der Browser den Kontext an: seine Uhr steht, und alles, was
-    // jetzt geplant wird, startet beim Freigeben **gleichzeitig**. Der Herzschlag lief ab Seitenstart
-    // — nach 20 s Leerlauf lagen 50 Schläge übereinander (gemessen: Spitzenpegel 6,6 statt 0,26).
+    // jetzt geplant wird, startet beim Freigeben **gleichzeitig** (gemessen mit dem früheren
+    // Herzschlag: nach 20 s Leerlauf lagen 50 Schläge übereinander, Spitzenpegel 6,6 statt 0,26).
     if (!this.unlocked) return;
     const context = this.ensureContext();
     if (context === null) return;
-    // Der Herzschlag ist der einzige Klang, der sich selbst wiederholt. Solange der Kontext nicht
-    // läuft (Freigabe noch unterwegs, auf iOS nach einem Anruf „interrupted"), fällt er aus,
-    // statt sich zu stauen. Einzelne Klänge eines Tipps werden geplant — sie sind die Geste.
-    if (name === 'heartbeat' && context.state !== 'running') return;
     const now = context.currentTime;
     const level = this.clamp01(intensity);
     try {
@@ -175,9 +171,6 @@ export class WebAudioEngine implements SoundPort {
           break;
         case 'creak':
           this.playCreak(context, now, level);
-          break;
-        case 'heartbeat':
-          this.playHeartbeat(context, now);
           break;
         case 'twitch':
           this.playTwitch(context, now, level);
@@ -391,18 +384,7 @@ export class WebAudioEngine implements SoundPort {
     this.startSource(oscillator, now, duration + 0.02);
   }
 
-  /** heartbeat: zwei tiefe Sinus-Stöße (lub-dub); höhere Spannung = engere und lautere Schläge. */
-  private playHeartbeat(context: AudioContextLike, now: number): void {
-    const gap = 0.34 - this.tension * 0.22; // höhere Spannung -> schnellere Schläge
-    const lubFrequency = 88 + this.tension * 6;
-    const dubFrequency = 68 + this.tension * 6;
-    const lubGain = 0.28 + this.tension * 0.4;
-    const dubGain = 0.22 + this.tension * 0.34;
-    this.thump(context, now, lubFrequency, lubGain, 0.18);
-    this.thump(context, now + gap, dubFrequency, dubGain, 0.22);
-  }
-
-  /** Ein einzelner Herzstoß: kurz tief absackende Sinus-Welle mit weichem Anschlag. */
+  /** Ein einzelner dumpfer Stoß: kurz tief absackende Sinus-Welle mit weichem Anschlag. */
   private thump(context: AudioContextLike, at: number, frequency: number, peak: number, duration: number): void {
     const oscillator = context.createOscillator();
     oscillator.type = 'sine';

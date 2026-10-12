@@ -82,8 +82,8 @@ function compressedWait(ms: number, run: () => void): void {
 }
 
 /**
- * Weggeworfene Steuerungen: der Herzschlag eines jeden Falls wird nach dem Test abgehängt. Ohne das
- * feuerte ein offener Zeitgeber in die schon abgebaute Umgebung („window is not defined") und das
+ * Weggeworfene Steuerungen: jede wird nach ihrem Fall abgehängt. Ohne das feuerte ein offener
+ * Zeitgeber (damals der Herzschlag) in die schon abgebaute Umgebung („window is not defined") und das
  * Gate schlug gelegentlich ohne echten Fehler fehl — gemessen: 1 von 7 Läufen (11.10.2026).
  */
 const gebaut: GameController[] = [];
@@ -227,21 +227,42 @@ describe('GameController in der Bühne', () => {
     expect(sound.voices).toEqual([]);
   });
 
-  it('hängt den Herzschlag ab: nach dispose() schlägt nichts mehr', () => {
-    // Der Herzschlag war der einzige Zeitgeber am globalen `window` — er feuerte nach dem Testende
-    // in eine abgebaute Umgebung („window is not defined") und machte das Gate gelegentlich rot.
+  it('spielt im Leerlauf nichts von selbst — es gibt keinen Herzschlag mehr', () => {
     vi.useFakeTimers();
     try {
-      const { controller, sound } = build([2]);
-      const schlaege = (): number => sound.names().filter((name) => name === 'heartbeat').length;
-      const leer = schlaege();
-      vi.advanceTimersByTime(3000);
-      expect(schlaege(), 'ohne Herzschlag wäre der Test sinnlos').toBeGreaterThan(leer);
+      const { sound } = build([2]);
+      const before = sound.names().length;
+      vi.advanceTimersByTime(10000);
+      expect(sound.names()).toHaveLength(before);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('hängt die Steuerung ab: nach dispose() läuft kein spätes Urteil mehr', () => {
+    // Ein Zeitgeber, der nach dem Testende in eine abgebaute Umgebung feuerte („window is not
+    // defined"), machte das Gate gelegentlich rot. Hier mit den echten Zeitgebern der Steuerung.
+    vi.useFakeTimers();
+    try {
+      document.body.innerHTML = DOM;
+      const sound = new RecordingSound();
+      const controller = new GameController({
+        rng: new ScriptedRandom([0.5]),
+        selector: new FixedLiveTeethSelector([2]),
+        sound,
+        log: new MemoryLog(),
+        settings: settings(),
+        onSettingsChange: () => undefined,
+        document,
+      });
+      controller.mount();
+      click(2);
+      expect(sound.names(), 'ohne offenen Druck wäre der Test sinnlos').not.toContain('snap');
 
       controller.dispose();
-      const beimAbhängen = schlaege();
       vi.advanceTimersByTime(10000);
-      expect(schlaege(), 'nach dispose() darf kein Schlag mehr kommen').toBe(beimAbhängen);
+      expect(sound.names()).not.toContain('snap');
+      expect(document.querySelector('.creature')?.classList.contains('is-snapped')).toBe(false);
     } finally {
       vi.useRealTimers();
     }

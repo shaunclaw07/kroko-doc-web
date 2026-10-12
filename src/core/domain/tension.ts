@@ -21,9 +21,9 @@ export const VERDICT_GAP_MS = 60;
  * und die Schwelle geprüft ist.
  */
 export const HIGH_DANGER = 0.5;
-/** Herzschlag-Abstand an den Enden des Spannungsbereichs (Millisekunden). */
-export const HEARTBEAT_SLOW_MS = 900;
-export const HEARTBEAT_FAST_MS = 380;
+/** Puls-Abstand des Balkens an den Enden des Spannungsbereichs (Millisekunden). */
+export const PULSE_SLOW_MS = 900;
+export const PULSE_FAST_MS = 380;
 
 function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
@@ -91,10 +91,10 @@ export function twitchChance(args: { tension: number; remaining: number }): numb
   return clamp01(TWITCH_BASE_CHANCE * (0.6 + 0.9 * clamp01(args.tension)));
 }
 
-/** Herzschlag-Abstand in Millisekunden — höhere Spannung, schnellerer Puls. */
-export function heartbeatInterval(tension: number): number {
+/** Puls-Abstand des Balkens in Millisekunden — höhere Spannung, schnellerer Puls. */
+export function pulseInterval(tension: number): number {
   const level = clamp01(tension);
-  return Math.round(HEARTBEAT_SLOW_MS - (HEARTBEAT_SLOW_MS - HEARTBEAT_FAST_MS) * level);
+  return Math.round(PULSE_SLOW_MS - (PULSE_SLOW_MS - PULSE_FAST_MS) * level);
 }
 
 /**

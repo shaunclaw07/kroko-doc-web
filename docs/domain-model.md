@@ -55,7 +55,7 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
 | Pause (`beatMs`) | bei **jedem** Druck, 120–700 ms; die Länge wird **unabhängig vom Ausgang** gezogen (früh meist kurz, spät bis ans Ende des Fensters) |
 | Riss | feste 60 ms zwischen Pause und Auflösung — für beide Ausgänge gleich |
 | Erleichterung | 0..1, abgeleitet aus der erlebten Pause; nur beim harmlosen Druck |
-| Herzschlag | 900 ms bei Spannung 0 bis 380 ms bei Spannung 1 |
+| Puls des Balkens | 900 ms bei Spannung 0 bis 380 ms bei Spannung 1 (nur sichtbar; der hörbare Herzschlag ist seit dem 12.10.2026 entfernt) |
 | Beschleunigung | Bildschirmbeben, Vibration, Maul-„Lunge" nach vorn |
 
 Wenn die Spannung eine Wahrscheinlichkeit ist, kann die Anzeige nicht lügen — und sie steht
@@ -94,8 +94,8 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
 - **Der Balken hat einen Zweck:** die höchste überstandene Gefahr ist der **Mut** der Runde
   (`survivedDanger` = die Gefahr des letzten Drucks, der harmlos blieb). Weil die Gefahr mit jedem
   Druck steigt, ist dieser Wert zugleich das Maximum. Er steht als Satz im Ergebnis.
-- Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken atmet
-  im Takt des Herzschlags (`--beat-ms`, dieselbe Zahl wie der Puls).
+- Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken pulsiert
+  mit steigender Gefahr schneller (`--beat-ms` aus `pulseInterval`).
 - **Gemessene Folge der 50-%-Schwelle:** der vorletzte Krokodil-Druck (55,0 %) ist rot, der achte
   (40,7 %) noch nicht. Rot kommt damit einen Druck früher als bei 60 % — und *kann* überstanden
   werden. Zwei Stolperdrähte halten diese Folge fest (`statsView.test.ts`, `gameController.test.ts`

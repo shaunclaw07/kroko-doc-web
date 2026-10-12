@@ -32,7 +32,8 @@ Nervenkitzel entsteht nicht durch Zufall, sondern durch **Zeit und Ton**:
    anders als geplant:** nicht als aufaddierter Pegel, sondern als **Biss-Wahrscheinlichkeit des
    nächsten Drucks** aus `probabilities.ts` — der alte Pegel stand bei 10 Zähnen schon ab dem
    4. Druck auf 100 % und sagte damit nichts mehr (siehe `docs/domain-model.md`).
-2. Herzschlag (zwei tiefe Sinus-Stöße) wird schneller und lauter.
+2. Herzschlag (zwei tiefe Sinus-Stöße) wird schneller und lauter. **Entfernt am 12.10.2026** auf
+   Wunsch des Auftraggebers (Nachtrag unten).
 3. Knarren/Quietschen der Feder, Tonhöhe steigt mit dem Pegel.
 4. **Fakeouts**: mit ~12 % Chance zuckt das Maul beim Druck (sichtbar, hörbar) und
    schnappt *nicht* zu — Pegel springt stark hoch.
@@ -857,3 +858,27 @@ Kopfumriss dieser Tiere oben anzuheben, nicht das Auge weiter zu verkleinern.
 
 Gate **372 Tests in 28 Dateien**. Nachweis §5ab. Nicht gepusht — ein Push auf `main` veröffentlicht
 und wartet auf das Wort des Auftraggebers.
+
+## Nachtrag 12.10.2026 (gebaut): der Herzschlag ist entfernt
+
+**Anlass (Auftraggeber):** „Ich finde dieses features des heartbeats nicht so toll. Kannst du das
+entfernen?"
+
+**Die eine Frage des Sparrings:** der Herzschlag war zweierlei — das pochende Geräusch und das
+Pulsieren des Balkens im selben Takt. Entschieden vom Auftraggeber: **nur das Geräusch** fällt weg.
+
+**Gebaut:**
+
+1. Der Klang `heartbeat` ist aus `SoundPort`, Ton-Engine und Steuerung entfernt; die Steuerung hat
+   keinen eigenen Zeitgeber mehr, und kein Klang wiederholt sich mehr von selbst.
+2. Der Balken pulsiert weiter (900 ms bei Gefahr 0 bis 380 ms bei Gefahr 1). Die Rechnung heißt
+   jetzt `pulseInterval` (`PULSE_SLOW_MS`/`PULSE_FAST_MS`) statt `heartbeatInterval` — sie taktet
+   nur noch die Anzeige. Regeln-Blatt: „Der Balken pulsiert, und je höher die Gefahr, desto
+   schneller."
+3. `dispose()` bleibt: die Vorgabe der Wartefunktion führt nach dem Abhängen keinen Rückruf mehr
+   aus (vorher hängte `dispose()` nur den Herzschlag ab).
+
+**Offen — nur der Auftraggeber kann es beurteilen:** wie die Runde ohne das Pochen klingt. Zwischen
+den Drücken ist es jetzt still.
+
+Gate **373 Tests in 28 Dateien**. Nicht gepusht.

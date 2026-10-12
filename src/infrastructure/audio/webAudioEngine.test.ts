@@ -70,36 +70,25 @@ describe('Freigabe', () => {
         return audio;
       },
     });
-    for (let beat = 0; beat < 50; beat += 1) {
-      engine.play('heartbeat');
+    for (let call = 0; call < 50; call += 1) {
+      engine.play('creak');
     }
     engine.play('tap');
     expect(created).toBe(0);
     expect(audio.nodeCount()).toBe(0);
 
     engine.unlock();
-    engine.play('heartbeat');
+    engine.play('tap');
     expect(audio.nodeCount()).toBeGreaterThan(0);
   });
 
-  it('staut keinen Herzschlag, solange der Kontext nicht läuft', () => {
-    // Gemessen am 12.10.2026: 50 gestaute Schläge spielten beim ersten Tipp gleichzeitig.
+  it('plant die Klänge eines Tipps auch, solange der Kontext noch nicht läuft', () => {
+    // Der Tipp ist die Geste, die den Kontext startet.
     const audio = blockedContext();
     const engine = new WebAudioEngine({ createContext: () => audio });
     engine.unlock();
-    for (let beat = 0; beat < 50; beat += 1) {
-      engine.play('heartbeat');
-    }
-    expect(audio.nodeCount()).toBe(0);
-
-    // Die Klänge eines Tipps werden geplant — der Tipp ist die Geste, die den Kontext startet.
     engine.play('tap');
     expect(audio.nodeCount()).toBeGreaterThan(0);
-
-    const afterTap = audio.nodeCount();
-    audio.state = 'running';
-    engine.play('heartbeat');
-    expect(audio.nodeCount()).toBeGreaterThan(afterTap);
   });
 
   it('bittet erneut um Freigabe, solange der Kontext nicht läuft — und nie, wenn er läuft', () => {
@@ -168,22 +157,21 @@ describe('Klangdesign', () => {
     expect(audio.nodeCount()).toBeGreaterThan(0);
   });
 
-  it('macht den Herzschlag mit steigender Spannung schneller und lauter', () => {
+  it('macht das Knarren mit steigender Spannung lauter', () => {
     const calm = makeEngine();
     calm.engine.setTension(0);
-    calm.engine.play('heartbeat');
+    calm.engine.play('creak');
 
     const tense = makeEngine();
     tense.engine.setTension(1);
-    tense.engine.play('heartbeat');
+    tense.engine.play('creak');
 
-    expect(furthestTime(tense.audio)).toBeLessThan(furthestTime(calm.audio));
     expect(peakGain(tense.audio)).toBeGreaterThan(peakGain(calm.audio));
   });
 
   it('beendet mit stopAll alle laufenden Quellen', () => {
     const { engine, audio } = makeEngine();
-    engine.play('heartbeat');
+    engine.play('creak');
     engine.play('win');
     expect(audio.runningSources().length).toBeGreaterThan(0);
 
@@ -198,7 +186,6 @@ describe('Robustheit', () => {
     expect(() => {
       engine.play('snap', 1);
       engine.play('creak');
-      engine.play('heartbeat');
       engine.setTension(0.5);
       engine.setMuted(true);
       engine.setMuted(false);
@@ -224,26 +211,23 @@ describe('Robustheit', () => {
   it('klemmt den Spannungspegel auf 0..1', () => {
     const below = makeEngine();
     below.engine.setTension(-5);
-    below.engine.play('heartbeat');
+    below.engine.play('creak');
 
     const zero = makeEngine();
     zero.engine.setTension(0);
-    zero.engine.play('heartbeat');
+    zero.engine.play('creak');
 
     const above = makeEngine();
     above.engine.setTension(4);
-    above.engine.play('heartbeat');
+    above.engine.play('creak');
 
     const one = makeEngine();
     one.engine.setTension(1);
-    one.engine.play('heartbeat');
-
-    expect(furthestTime(below.audio)).toBeCloseTo(furthestTime(zero.audio), 6);
-    expect(furthestTime(above.audio)).toBeCloseTo(furthestTime(one.audio), 6);
-    expect(furthestTime(zero.audio)).not.toBeCloseTo(furthestTime(one.audio), 6);
+    one.engine.play('creak');
 
     expect(peakGain(below.audio)).toBeCloseTo(peakGain(zero.audio), 6);
     expect(peakGain(above.audio)).toBeCloseTo(peakGain(one.audio), 6);
+    expect(peakGain(zero.audio)).not.toBeCloseTo(peakGain(one.audio), 6);
   });
 });
 

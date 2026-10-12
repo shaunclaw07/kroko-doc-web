@@ -2,7 +2,6 @@
 export type SoundName =
   | 'tap' // harmloser Druck auf einen Zahn
   | 'creak' // Knarren der Feder beim Öffnen
-  | 'heartbeat' // Herzschlag, wird mit der Spannung schneller
   | 'twitch' // Fakeout: Maul zuckt, schnappt aber nicht zu
   | 'snap' // das Zuschnappen
   | 'breath' // Atem des Tieres in der Pause vor der Auflösung
@@ -20,7 +19,7 @@ export interface SoundPort {
    * dem Biss — nie vor einem Urteil.
    */
   playVoice(creatureId: string): void;
-  /** Spannungspegel 0..1 (steuert Tempo von Herzschlag und Knarren). */
+  /** Spannungspegel 0..1 (steuert Tonhöhe und Lautstärke des Knarrens). */
   setTension(level: number): void;
   setMuted(muted: boolean): void;
   isMuted(): boolean;

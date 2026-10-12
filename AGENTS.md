@@ -102,12 +102,13 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Auftraggeber. Rezept: `docs/workflow.md`, „Eine Tierstimme ergänzen oder tauschen".
 - **Vor der ersten Nutzergeste plant der Ton nichts.** Der Browser hält einen Audio-Kontext an, bis
   der Nutzer etwas tut; seine Uhr steht so lange, und alles, was in dieser Zeit geplant wird, startet
-  beim Freigeben **gleichzeitig**. Der Herzschlag lief ab Seitenstart: nach 20 s Leerlauf lagen
-  50 Schläge übereinander (gemessen am 12.10.2026 mit angehaltenem Kontext: Spitzenpegel 6,6 statt
-  0,26). Deshalb: `play()` tut vor `unlock()` nichts, der Herzschlag fällt aus, solange der Kontext
-  nicht `running` ist, und `unlock()` bittet bei **jeder** Geste um Freigabe, solange er nicht läuft
-  (iOS hält ihn nach einem Anruf wieder an). Am echten Handy ist der Schlag nie gemessen worden —
-  ob der erste Tipp nach langem Leerlauf normal klingt, kann nur der Nutzer prüfen.
+  beim Freigeben **gleichzeitig**. Der frühere Herzschlag lief ab Seitenstart: nach 20 s Leerlauf
+  lagen 50 Schläge übereinander (gemessen am 12.10.2026 mit angehaltenem Kontext: Spitzenpegel 6,6
+  statt 0,26). Deshalb: `play()` tut vor `unlock()` nichts, und `unlock()` bittet bei **jeder** Geste
+  um Freigabe, solange der Kontext nicht läuft (iOS hält ihn nach einem Anruf wieder an). **Den
+  Herzschlag gibt es seit dem 12.10.2026 nicht mehr** (vom Auftraggeber abgewählt); seitdem
+  wiederholt sich kein Klang mehr von selbst. Wer wieder einen einführt, lässt ihn ausfallen,
+  solange der Kontext nicht `running` ist.
 
 ## Einunddreißig Fallen, die Zeit kosten
 
@@ -195,14 +196,14 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
   fahren und die **Ausgabe ansehen**, nicht nur den Exit-Code.
 
-- **Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt.** Der Herzschlag hing an
+- **Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt.** Der Herzschlag (seit dem 12.10.2026 entfernt) hing an
   `window.setTimeout`. Die Testumgebung baut am Ende ab und entfernt das globale Fenster, die
   Zeitgeber der Umgebung laufen aber weiter: der späte Schlag stirbt als **unbehandelter
   `ReferenceError: window is not defined`** (Jsdom-Zeitgeber nach entferntem Global, nachgestellt in
   `scripts/pruefen-zeitgeber.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
   fachlich rot war — gemessen vom fremden Prüfer: 1 von 7 Läufen. Deshalb: `this.doc.defaultView`
   statt `window` (auch als Vorgabe der Wartefunktion), und `dispose()` in der Steuerung, das die
-  Sonde nach **jedem** Fall aufruft. Wer den Herzschlag selbst prüfen will, reicht eine eigene Uhr
+  Sonde nach **jedem** Fall aufruft. Wer eine Wartezeit der Steuerung selbst prüfen will, reicht eine eigene Uhr
   herein (`vi.useFakeTimers()`) statt auf echte Millisekunden zu warten.
 
 - **Ein Modell, das Sonderfälle wegfallen lässt, lügt bei kleinen Zahlen.** Die Vorhersage der

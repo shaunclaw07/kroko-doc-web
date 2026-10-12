@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest';
 import {
   BEAT_MAX_MS,
   BEAT_MIN_MS,
-  HEARTBEAT_FAST_MS,
-  HEARTBEAT_SLOW_MS,
+  PULSE_FAST_MS,
+  PULSE_SLOW_MS,
   HIGH_DANGER,
-  heartbeatInterval,
+  pulseInterval,
   TENSE_LEVEL,
   isHighDanger,
   isTense,
@@ -179,17 +179,17 @@ describe('twitchChance', () => {
   });
 });
 
-describe('heartbeatInterval', () => {
+describe('pulseInterval', () => {
   it('beschleunigt zwischen den Grenzen', () => {
-    expect(heartbeatInterval(0)).toBe(HEARTBEAT_SLOW_MS);
-    expect(heartbeatInterval(1)).toBe(HEARTBEAT_FAST_MS);
-    expect(heartbeatInterval(0.5)).toBeLessThan(HEARTBEAT_SLOW_MS);
-    expect(heartbeatInterval(0.5)).toBeGreaterThan(HEARTBEAT_FAST_MS);
+    expect(pulseInterval(0)).toBe(PULSE_SLOW_MS);
+    expect(pulseInterval(1)).toBe(PULSE_FAST_MS);
+    expect(pulseInterval(0.5)).toBeLessThan(PULSE_SLOW_MS);
+    expect(pulseInterval(0.5)).toBeGreaterThan(PULSE_FAST_MS);
   });
 
   it('klemmt unsinnige Werte', () => {
-    expect(heartbeatInterval(-3)).toBe(HEARTBEAT_SLOW_MS);
-    expect(heartbeatInterval(7)).toBe(HEARTBEAT_FAST_MS);
+    expect(pulseInterval(-3)).toBe(PULSE_SLOW_MS);
+    expect(pulseInterval(7)).toBe(PULSE_FAST_MS);
   });
 });
 

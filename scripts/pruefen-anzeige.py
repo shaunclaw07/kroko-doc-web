@@ -114,7 +114,7 @@ def main() -> int:
             (offen["gefahrTextFarbe"] == farben["danger"],
              f"Bei 100 % Bissgefahr muss der Gefahrtext die Gefahrfarbe tragen — er zeigt „{offen['gefahrTextFarbe']}\""),
             (offen["fuellAtmung"] == "0.38s",
-             f"Der Balken soll im Herzschlag-Takt atmen (380 ms am Ende des Bereichs), tut aber {offen['fuellAtmung']}"),
+             f"Der Balken soll im Puls-Takt atmen (380 ms am Ende des Bereichs), tut aber {offen['fuellAtmung']}"),
         ])
 
         # Lage 2 — Gegenprobe: zehn Zähne, ein Druck → Gefahr unter der Schwelle. Hier darf nichts
