@@ -79,7 +79,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
     liveTeethMax: 2,
     // Der Witz: ein Vampir hat ein menschliches Gebiss — mit zwei langen Eckzähnen.
     realTeeth: 32,
-    note: 'Zwei lange Eckzähne, meist sind genau die scharf.',
+    note: 'Zwei lange Eckzähne — welcher Zahn scharf ist, entscheidet aber auch hier der Zufall.',
   },
   {
     id: 'panda',
