@@ -624,6 +624,12 @@ export class GameController {
     panel?.classList.toggle('is-tense', roundOpen && isTense(this.tension));
     panel?.classList.toggle('is-danger', roundOpen && isHighDanger(this.tension));
     panel?.classList.toggle('is-snapped', !roundOpen);
+    // Das Tier spürt die Gefahr mit: leichtes Zittern über 30 %, deutliches ab 50 % — dieselben
+    // Schwellen wie der Balken, also dieselbe öffentliche Zahl. Bei geschlossenem Maul nie: eine
+    // Animation am Oberkiefer überschriebe dort seine Schließ-Transformation.
+    const danger = roundOpen && isHighDanger(this.tension);
+    this.art?.classList.toggle('is-trembling', danger);
+    this.art?.classList.toggle('is-wary', roundOpen && isTense(this.tension) && !danger);
     // Die Bühne behält ihre eigenen Werte: `--tension` färbt das Bild dunkler, `--beat-ms` taktet
     // den Puls, `data-status`/`data-tension` tragen die Sonden.
     this.stage?.style.setProperty('--tension', this.tension.toFixed(3));

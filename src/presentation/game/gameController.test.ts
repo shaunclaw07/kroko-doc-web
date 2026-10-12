@@ -1030,4 +1030,39 @@ describe('GameController in der Bühne', () => {
     pointer('pointerup', toothElement(1));
     expect(sound.events.find((event) => event.name === 'settle')?.intensity).toBe(1);
   });
+
+  function artClasses(): DOMTokenList | undefined {
+    return document.querySelector('.creature')?.classList;
+  }
+
+  it('zittert am Rundenbeginn nicht (Krokodil: 20 % Bissgefahr)', () => {
+    build([10]);
+    expect(artClasses()?.contains('is-wary')).toBe(false);
+    expect(artClasses()?.contains('is-trembling')).toBe(false);
+  });
+
+  it('zittert leicht über 30 % und deutlich ab 50 % — nie beides zugleich', () => {
+    build([10]);
+    // Krokodil, 10 Zähne: der 7. Druck hat 33,8 %, der 9. Druck 55,0 % Bissgefahr.
+    for (const tooth of [1, 2, 3, 4, 5, 6]) click(tooth);
+    expect(artClasses()?.contains('is-wary')).toBe(true);
+    expect(artClasses()?.contains('is-trembling')).toBe(false);
+    click(7);
+    click(8);
+    expect(artClasses()?.contains('is-wary')).toBe(false);
+    expect(artClasses()?.contains('is-trembling')).toBe(true);
+  });
+
+  it('zittert bei einem einzigen Zahn von Anfang an deutlich (100 %)', () => {
+    build([1], { teethOverride: 1 });
+    expect(artClasses()?.contains('is-trembling')).toBe(true);
+  });
+
+  it('zittert nach dem Biss nicht mehr', () => {
+    build([1], { teethOverride: 1 });
+    click(1);
+    expect(artClasses()?.contains('is-snapped')).toBe(true);
+    expect(artClasses()?.contains('is-wary')).toBe(false);
+    expect(artClasses()?.contains('is-trembling')).toBe(false);
+  });
 });

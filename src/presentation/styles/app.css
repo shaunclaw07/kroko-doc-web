@@ -310,6 +310,27 @@ button:focus-visible,
   opacity: 0;
 }
 
+/* Das Tier spürt die Gefahr mit: der Oberkiefer zittert leicht über 30 % Bissgefahr und deutlich
+   ab 50 % (Klassen aus der Steuerung, dieselben Schwellen wie der Balken). Diese Regeln stehen mit
+   Absicht **vor** dem Zucken und vor der Pause: `is-twitching`, `is-pressing`, `is-settling` und
+   `is-clenching` animieren dasselbe Element mit gleicher Spezifität — die spätere Regel gewinnt,
+   und das Zittern darf keine von ihnen schlucken. */
+.creature.is-wary .jaw__upper {
+  --tremble: 2px;
+  animation: jaw-tremble 1.4s ease-in-out infinite;
+}
+
+.creature.is-trembling .jaw__upper {
+  --tremble: 3px;
+  animation: jaw-tremble 0.42s ease-in-out infinite;
+}
+
+@keyframes jaw-tremble {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(var(--tremble, 2px)); }
+  70% { transform: translateY(calc(var(--tremble, 2px) * -0.5)); }
+}
+
 /* Fakeout-Zucken: das Maul zuckt kurz, ohne zuzuschnappen. */
 .creature.is-twitching .jaw__upper {
   animation: twitch 0.26s ease-in-out 2;
