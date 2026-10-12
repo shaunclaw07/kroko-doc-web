@@ -83,7 +83,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
 
-## Siebenundzwanzig Fallen, die Zeit kosten
+## Achtundzwanzig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -277,6 +277,15 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   will, ob eine Auswertung zu Unrecht Alarm schlägt, braucht faire Daten, keine ausgedachten.
   Dieselbe Regel im Kleinen: „Druck-Position gegen Gleichverteilung" war im Originalmodell **immer**
   rot, weil die Position dort gewollt nicht gleichverteilt ist.
+
+- **Wer eine Ablage zurückschreibt, liest sie vorher.** Die Steuerung lud das Protokoll einmal beim
+  Seitenstart und schrieb beim Biss **ihre** Liste zurück. Die Statistikseite ändert dieselbe Ablage
+  (löschen, CSV-Import): mit zwei Tabs gemessen am 12.10.2026 waren nach dem nächsten Biss drei
+  gelöschte Runden wieder da und fünf importierte weg — ohne Fehlermeldung. Seitdem liest
+  `recordRound()` unmittelbar vor dem Anhängen, und die Seite gleicht bei `storage` (anderer Tab)
+  und `pageshow` mit `persisted` (Zurück-Taste) ab. Ein Zwischenstand im Arbeitsspeicher ist eine
+  Kopie für die Anzeige, nie die Wahrheit. Und was von außen kommt (CSV, Ablage), geht durch
+  `isPlausibleRecord`, bevor die Auswertung damit rechnet.
 
 ## Ein neues Lebewesen ergänzen
 
