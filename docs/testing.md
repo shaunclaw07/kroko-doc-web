@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 23 |
-| Tests | 293 (23 Dateien) |
+| Tests | 316 (25 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -41,6 +41,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/presentation/game/creatures/creatureViews.test.ts` | Zeichnungsvertrag **und Tippziel-Nachweis**: jedes Katalog-Lebewesen hat eine Zeichnung, Zahnzahl stimmt, Ebenenreihenfolge, gültiges Markup, Anker in der Bühne, und für jede erlaubte Zahnzahl (1–12) bleibt die Trefferfläche bei 285 px Bühnenbreite ≥ 44 px. Dazu die **Kopfbilder der Tier-Auswahl**: ohne Bedienteile (kein `.creature`, kein `.tooth`, kein `data-tooth`, keine Trefferfläche), jede Kachel mit **eigener** Beschnitt-Kennung und derselben Ebenenreihenfolge wie die Bühne |
 | `src/presentation/game/sheets.test.ts` | Blätter: Tipp daneben schließt nur das **oberste** Blatt, ein Tastaturklick (0/0) schließt nichts, eine Kachel oberhalb des unteren Blatts schließt es nicht mit, das Ergebnis bleibt bei Tipps auf die Bühne stehen — mit den gemessenen Tablet-Maßen |
 | `src/presentation/game/creatureChoice.test.ts` | Tier-Auswahl: dasselbe Tier erneut tippen ändert nichts, ein anderes bringt sein Gebiss mit |
+| `src/presentation/game/quickControls.test.ts` | Leiste der Spielseite: Zahnzahl je Schritt, Grenzen 1 und 12 ändern nichts (keine neue Runde), Kachel wählt in Reihe wie Blatt, Bühne bleibt unberührt, Kurzinfo gefüllt |
+| `src/bedienleiste.test.ts` | Markup der Spielseite: Tier, Zähne und Neue Runde stehen auf der Seite und nicht im Zahnrad; das Zahnrad bietet genau 1 oder 2 Spieler; die Kurzinfo steht im Regeln-Blatt |
 | `src/presentation/game/gameController.test.ts` | **Prüfsonde** im DOM (jsdom): Drücke bis zum Biss, Klassen, Anzeigen, Tonfolge, Protokolleintrag, Ergebnisfenster, **Zugzeile in richtiger Sprache** („Du bist dran" statt „Du ist dran", bei mehreren Spielern der Name, nach dem Biss „Maul zu") und **Blatt-Verhalten**: das Einstellungsblatt bleibt beim Stellen offen, das Ergebnis-Blatt schließt die neue Runde; dazu **Anhängen an den Stand der Ablage** (ein anderer Tab hat gelöscht oder importiert), `syncLog()` und das Glühen eines Zuckens, das auch dann zurückgeht, wenn der nächste Druck sofort zuschnappt |
 | `src/presentation/stats/statsView.test.ts` | Bericht, Mindeststichprobe, Erkennung eines bevorzugten Zahns; dazu ein Bericht je Gebiss (größte Gruppe offen, übrige eingeklappt), beim Wolf der Modellwert 5,42 statt 4,69, der Gleichverteilungs-Test der Druck-Position nur im Modus classic, keine Muster-Marken unter der Mindestzahl; ein unbekanntes Lebewesen wirft nicht (gilt als Krokodil), die Statuszeile zählt die Mindestzahl je Gebiss, und ein Test, den das Gebiss nicht hergibt, heißt „nicht prüfbar" statt „zu wenig Daten" |
 
@@ -101,26 +103,27 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    in einer Spalte, ab 640 px mittig mit 2–4 Spalten und **ohne** Scrollen, und **0 Auffälligkeiten**
    (Exit 0).
 
-7. **Tier-Sonde** — zeigt die Tier-Auswahl alle Lebewesen **mit Bild**? Die Sonde öffnet Zahnrad und
-   Tier-Blatt im echten Browser, zählt die Kacheln, liest Kennungen und Namen in der Reihenfolge,
+7. **Tier-Sonde** — zeigt die Tier-Auswahl alle Lebewesen **mit Bild**? Die Sonde öffnet das
+   Tier-Blatt von der Spielseite aus im echten Browser, zählt die Kacheln, liest Kennungen und Namen in der Reihenfolge,
    prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
    zählt dieselben Kennungen im ausgelieferten Bündel:
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
    die veröffentlichte Seite). Erwartet: zehn Kacheln in Katalogreihenfolge, zehn sichtbare
    Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
    außerdem den Kern der Auswahl: Nach einem Tipp auf eine Kachel ist das **Auswahlblatt zu**, das
-   Einstellungsblatt offen, der Name im Blatt der gewählte und genau eine Kachel markiert; beim
-   erneuten Öffnen steht die Kurzinfo des gewählten Tiers weiter da.
+   gewählte Tier steht auf der Bühne und genau eine Kachel ist markiert; die Kurzinfo des gewählten
+   Tiers ist gefüllt (sie steht seit dem Umbau im Regeln-Blatt). Die Bündel-Prüfung braucht den
+   **Bau** (`pnpm build`, `pnpm preview`) — gegen `pnpm dev` meldet sie ein leeres Bündel.
 
 8. **Blätter-Sonde** — bleiben die Blätter offen, solange man darin arbeitet? Die Sonde stellt die
    vier Befunde vom 12.10.2026 im echten Chromium nach: Enter/Leertaste auf einem Knopf im
-   Einstellungsblatt (Tastaturklick trägt 0/0), Tipp auf eine obere Kachel der Tier-Auswahl bei
-   390/768/1180/1366 px, Tipp auf die Bühne nach dem Biss und dasselbe Tier erneut tippen. Dazu die
+   Einstellungsblatt (Tastaturklick trägt 0/0), Tier-Auswahl bei
+   390/768/1180/1366 px (unter 640 px über das Blatt, darüber in der offenen Kopfreihe), Tipp auf die Bühne nach dem Biss und dasselbe Tier erneut tippen. Dazu die
    Gegenprobe, dass ein Zeigertipp **neben** das Einstellungsblatt es weiterhin schließt.
    `uv run --with playwright python scripts/pruefen-blaetter.py` (mit einer Adresse als Argument
-   gegen die veröffentlichte Seite). Erwartet: 8× `Blatt offen = True`, je Breite `Auswahl offen =
-   False, Einstellungen offen = True` und `Tipp daneben schliesst = True`, der Knopf `#restart-round`
-   nach dem Biss erreichbar (≥ 44 px, im Sichtfenster) und `ERGEBNIS: in Ordnung` (Exit 0).
+   gegen die veröffentlichte Seite). Erwartet: 8× `Blatt offen = True`, je Breite und Tier `Auswahl offen =
+   False` mit dem gewählten Tier auf der Bühne und `Tipp daneben schliesst = True`, der Knopf
+   `#new-round` nach dem Biss betont (`is-next`) und erreichbar (≥ 48 px, im Sichtfenster) und `ERGEBNIS: in Ordnung` (Exit 0).
 
 9. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
    **berechneten** Stile im echten Chromium (jsdom rechnet kein CSS) in drei Lagen: ein Zahn
@@ -132,6 +135,16 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    uv run --with playwright python scripts/pruefen-anzeige.py            # veröffentlichte Seite
    uv run --with playwright python scripts/pruefen-anzeige.py http://localhost:4402/index.html
    ```
+
+10. **Bedien-Sonde** — sind Tier, Zahnzahl und „Neue Runde" ohne Blatt und ohne Scrollen erreichbar?
+   Gemessen wird im echten Chromium auf acht Größen (320 × 568 bis 1180 × 820), je in drei Lagen
+   (beim Laden, nach einem Druck, Ein-Zahn-Spiel mit Warnung): die Spielseite scrollt nicht, die
+   feste Leiste verdeckt nichts, kein Griff ist kleiner als 48 px hoch oder 44 px breit, die
+   Tippzahlen stimmen (Zähne 1, Neue Runde 1, Tier 2 unter 640 px bzw. 1 darüber), und weder die
+   Tier-Auswahl noch das Zahnrad-Blatt scrollt — auch nicht ohne Vibration (Safari iOS,
+   nachgestellt). Handy quer (844 × 390) darf scrollen, aber nichts verdecken.
+   `uv run --with playwright python scripts/pruefen-bedienung.py` (mit einer Adresse als Argument
+   gegen die veröffentlichte Seite). Erwartet: zehn Messzeilen und `Auffälligkeiten: 0` (Exit 0).
 
 ## Zwei Regeln für Zeitgeber in Sonden
 

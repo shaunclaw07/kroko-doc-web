@@ -461,6 +461,7 @@ button:focus-visible,
   line-height: 1.15;
   text-align: center;
   /* „Säbelzahntiger" passt in keine 65-px-Kachel: trennen statt abschneiden. */
+  -webkit-hyphens: auto;
   hyphens: auto;
   overflow-wrap: anywhere;
 }
@@ -1245,6 +1246,7 @@ textarea {
     grid-area: play;
     justify-self: center;
     width: 100%;
+    max-width: calc((100vh - 17rem) * 1.39);
     max-width: calc((100dvh - 17rem) * 1.39);
   }
 

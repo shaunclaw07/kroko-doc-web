@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 293 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 316 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -63,30 +63,32 @@ pnpm preview    # serviert dist/ auf http://localhost:4321
 
 ### So probierst du es aus
 
-Die Startseite zeigt **nur das Spiel**: das Tier, „Zähne übrig" und den Balken. Alles Einstellbare
-liegt hinter dem **Zahnrad** oben rechts — beim Spielen lenkt nichts davon ab.
+Die Startseite zeigt das Spiel **und die drei Griffe, die man ständig braucht**: Tier, Zahnzahl und
+„Neue Runde" stehen als große Knöpfe auf der Seite (auf dem Handy als Leiste am unteren Rand).
+Hinter dem **Zahnrad** oben rechts liegt nur, was man einmal je Sitzung stellt.
 
 1. **Spielen:** auf einen Zahn im Maul tippen. Beim Tippen hörst du einen Klang, der
    Herzschlag wird schneller, gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
    nächste Zahn — erst nach einer Pause, die nichts über den Ausgang verrät — oder der **Biss** samt Screen-Shake und Vibration.
-2. **Zahnrad** (Knopf oben rechts): 1–4 Spieler, welches Tier, wie viele Zähne, wie gefährlich
-   („wie das Spielzeug" = 1–3 Zähne gleichzeitig gefährlich, „nur ein Zahn" = genau einer), Ton
-   und Wackeln an/aus, „Neue Runde", die Regeln und der Weg zur Statistikseite.
-3. **Tier wählen:** im Zahnrad auf die Tier-Zeile tippen — zehn **Bild-Kacheln** (Krokodil, Wolf,
-   Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther, Säbelzahntiger) mit dem Kopf aus der eigenen Zeichnung. **Ein Tipp wählt das Tier und schließt das Blatt** — nichts mehr bestätigen; unten
-   steht „Fertig" als Ausgang, das Einstellungsblatt bleibt offen. Die Kurzinfo zum gewählten Tier
-   steht unter „Mehr über dieses Tier", wenn du das Blatt erneut öffnest. Die **Zahnzahl** stellst du mit `−` / `+` ein
-   („Standard" nimmt wieder das tiergerechte Gebiss: Krokodil 10, Wolf 12, Mensch 12; erlaubt
-   sind **1 bis 12**). Bei **einem** Zahn ist dieser Zahn der scharfe — der erste Tipp schließt
-   das Maul. Der Weg zurück ins Spiel ist „Fertig" unten im Blatt oder ein Tipp neben das Blatt;
-   das ✕ oben geht immer. Auf einem **Tablet** steht das Blatt mittig und nutzt die Breite: die
-   Felder laufen dann in zwei bis vier Spalten, ganz ohne Scrollen.
-4. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". „Neue Runde"
-   im Zahnrad startet jederzeit eine frische Runde.
-5. **Statistik für Große** (im Zahnrad): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
+2. **Tier wählen:** zehn **Bild-Kacheln** (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe,
+   Panther, Säbelzahntiger) mit dem Kopf aus der eigenen Zeichnung. Auf dem **Handy** öffnet der
+   Griff „Tier" die Auswahl, ein Tipp auf eine Kachel wählt und schließt sie (zwei Tipps, alle zehn
+   Köpfe ohne Scrollen). Auf dem **Tablet** stehen die Köpfe dauerhaft offen (ein Tipp); quer liegt
+   die Bühne links und die Köpfe rechts. Die Kurzinfo zum gewählten Tier steht im Regeln-Blatt.
+3. **Zähne und neue Runde:** `−` / `+` stellen die Zahnzahl (erlaubt sind **1 bis 12**; ein anderes
+   Tier bringt sein eigenes Gebiss mit: Krokodil 10, Wolf 12, Mensch 12). Bei **einem** Zahn ist
+   dieser Zahn der scharfe — der erste Tipp schließt das Maul. „Neue Runde" steht immer da. Tier
+   und Zahnzahl starten die Runde sofort neu, ohne Nachfrage.
+4. **Zahnrad** (Knopf oben rechts): allein oder zu zweit, wie gefährlich („wie das Spielzeug" =
+   1–3 Zähne gleichzeitig gefährlich, „nur ein Zahn" = genau einer), Ton und Wackeln an/aus, die
+   Regeln und der Weg zur Statistikseite. Der Weg zurück ins Spiel ist „Fertig", das ✕ oder ein
+   Tipp neben das Blatt. Das Blatt scrollt auf keinem der gemessenen Geräte.
+5. **Nach dem Biss:** Ergebnis-Blatt mit Verlierer und Zahn, dazu „Noch eine Runde". „Neue Runde"
+   in der Leiste startet jederzeit eine frische Runde.
+6. **Statistik** (im Zahnrad, für Große): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
    gegen das Zugmodell, Wilson-Intervalle, Mustersuche (Autokorrelation), Rohdaten,
    CSV-Export/-Import und **„Protokoll löschen"** zum Zurücksetzen.
-6. **Regeln** (im Zahnrad): zuerst die Kind-Regeln, darunter eingeklappt „Für Große: warum es keinen
+7. **Regeln** (im Zahnrad): zuerst die Kind-Regeln, darunter eingeklappt „Für Große: warum es keinen
    sicheren Zahn gibt" (und warum mehrere Lebewesen).
 
 Zwei Eigenheiten, die normal sind: **Ton kommt erst nach dem ersten Tipp** (Browser erlauben
@@ -105,7 +107,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **293 Tests in 23 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **316 Tests in 25 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
@@ -119,9 +121,9 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
 
 ## Was es kann
 
-- **Spielen:** 1–4 Spieler im Hot-Seat, Maul schnappt zu, Verlierer wird benannt.
-- **Für Kinder gebaut:** die Startseite zeigt Tier und Spielstand — sonst nichts. Alles Einstellbare
-  liegt hinter dem Zahnrad; die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
+- **Spielen:** allein oder zu zweit im Hot-Seat, Maul schnappt zu, Verlierer wird benannt.
+- **Für Kinder gebaut:** die Startseite zeigt Tier, Spielstand und drei große Griffe (Tier, Zähne, Neue
+  Runde); nur Seltenes liegt hinter dem Zahnrad. Die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
   Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
 - **Zehn Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange

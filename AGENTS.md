@@ -91,7 +91,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   (iOS hält ihn nach einem Anruf wieder an). Am echten Handy ist der Schlag nie gemessen worden —
   ob der erste Tipp nach langem Leerlauf normal klingt, kann nur der Nutzer prüfen.
 
-## Neunundzwanzig Fallen, die Zeit kosten
+## Dreißig Fallen, die Zeit kosten
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -261,8 +261,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Die Tier-Auswahl war bewusst eine Vorschau (`pending` + „Damit spielen"), damit die Kurzinfo
   lesbar bleibt; der Auftraggeber hat das überstimmt („Man muss sonst immer erst nochmal
   bestätigen … das nervt"). Seit dem 12.10.2026 übernimmt ein Tipp die Wahl sofort und schließt
-  **nur** dieses Blatt (das Einstellungsblatt bleibt offen, die Kurzinfo beschreibt das gewählte
-  Tier). Wer eine Wahl sofort gelten lässt, muss die Knöpfe umbenennen: „Abbrechen" wäre eine Lüge
+  **nur** dieses Blatt (seit dem Umbau der Spielseite öffnet es sich von dort; die Kurzinfo steht
+  im Regeln-Blatt). Wer eine Wahl sofort gelten lässt, muss die Knöpfe umbenennen: „Abbrechen" wäre eine Lüge
   — dort steht „Fertig".
 
 - **„Daneben" ist keine Frage der Koordinaten allein.** Die Regel „Tipp neben das Blatt schließt
@@ -305,6 +305,13 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   das Maul stand geschlossen über einer offenen Runde, deren Zähne sich weiter drücken ließen.
   `handlePress` merkt sich den Rundenstand und die Rückrufe laufen ins Leere, wenn er nicht mehr
   gilt. Jeder verzögerte Rückruf prüft, ob sein Anlass noch besteht.
+
+- **Was oft gebraucht wird, gehört nicht hinter ein Blatt.** Tier, Zahnzahl und „Neue Runde" lagen
+  hinter dem Zahnrad: gemessen am 12.10.2026 vier Tipps für ein anderes Tier, drei für die Zahnzahl,
+  und das Blatt scrollte auf jedem Handy (821 px Inhalt in 466–750 px). Seitdem stehen sie in der
+  Leiste der Spielseite; das Zahnrad trägt nur, was je **Sitzung** gestellt wird. Nachmessen:
+  `uv run --with playwright python scripts/pruefen-bedienung.py` (erwartet: 0 Auffälligkeiten).
+  Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
 
 ## Ein neues Lebewesen ergänzen
 

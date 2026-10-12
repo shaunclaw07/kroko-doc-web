@@ -1136,6 +1136,58 @@ Schnittstelle, dasselbe Skript); für die von 1.63 verlangte Browser-Revision 12
 Verzeichnis-Verweis auf die vorhandene 1234. Ein Handgerät stand nicht zur Verfügung — die
 Tastatur-, Tablet- und Biss-Prüfungen sind damit gemessen, das Gefühl am Finger nicht.
 
+## 5w. Die häufigen Griffe stehen auf der Spielseite (12.10.2026)
+
+Anlass: Auftrag, die Bedienung für Tablet und Handy und für Kinder von 6 bis 12 zu prüfen — Tier und
+Zahnzahl sollen einfach zu wechseln sein und eine neue Runde schnell startbar, „ohne durch modals
+zu scrollen".
+
+**Vorher** (Chromium mit Touch, Stand `aeffba8`, acht Größen von 320 × 568 bis 1180 × 820):
+
+| Handgriff | Tipps | Scrollen |
+|---|---|---|
+| Tier wechseln | 4 | auf jedem Handy für 4–6 der 10 Tiere |
+| Zahnzahl ändern | 3 | nein |
+| Neue Runde mitten im Spiel | 3 | bei 320 und 360 px Breite ja |
+
+Einstellungsblatt 821 px Inhalt in 466–750 px (Handys); Tier-Auswahl scrollte auf sieben von acht
+Größen (953–1118 px Inhalt). Griffe unter 44 px: Spielerzahl 34 × 40, Modus 40 hoch.
+
+**Nachher** — `python scripts/pruefen-bedienung.py http://localhost:4323` gegen den Bau
+(`pnpm build`, `pnpm preview`), wörtliche Ausgabe:
+
+```
+Bedien-Sonde gegen http://localhost:4323
+
+  320 × 568 | Bühne  288 px | Seite  568 in  568 | Inhalt bis  472.2, Leiste ab  489.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+  360 × 640 | Bühne  328 px | Seite  640 in  640 | Inhalt bis  500.9, Leiste ab  561.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+  390 × 844 | Bühne  358 px | Seite  844 in  844 | Inhalt bis  522.5, Leiste ab  765.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+  412 × 915 | Bühne  380 px | Seite  915 in  915 | Inhalt bis  538.3, Leiste ab  836.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+ 768 × 1024 | Bühne  728 px | Seite 1024 in 1024 | Inhalt bis  868.6, Leiste ab  947.0 (fest) | Tier 1 Tipp(s) | Zahnrad 343 in 343 px
+ 1024 × 768 | Bühne  648 px | Seite  768 in  768 | Inhalt bis  708.1, Leiste ab  570.8 (im Fluss) | Tier 1 Tipp(s) | Zahnrad 283 in 283 px
+ 820 × 1180 | Bühne  728 px | Seite 1180 in 1180 | Inhalt bis 1049.6, Leiste ab 1103.0 (fest) | Tier 1 Tipp(s) | Zahnrad 343 in 343 px
+ 1180 × 820 | Bühne  762 px | Seite  820 in  820 | Inhalt bis  789.8, Leiste ab  570.8 (im Fluss) | Tier 1 Tipp(s) | Zahnrad 283 in 283 px
+Ohne Vibration, 320 × 568: Zahnrad 488 in 488 px
+Handy quer, 844 × 390: Seite 953 in 390 px, Inhalt bis 305.6, Leiste ab 313.0
+
+Auffälligkeiten: 0
+```
+
+Lesart: „Zahnrad 447 in 447 px" heißt Inhalt = Sichtfeld, das Blatt scrollt nicht. Bei 320 × 568
+bleiben zwischen Inhalt (472 px) und Leiste (489 px) 17 px. Ohne Vibration wächst das Zahnrad-Blatt
+um die Hinweiszeile auf 488 px; die Grenze dort sind 88 % von 568 px = 500 px.
+
+Das CSS brauchte nach der ersten Messung keine Nachstellung. Die übrigen Sonden gegen denselben
+Stand: `pruefen-blaetter.py` „ERGEBNIS: in Ordnung", `pruefen-tiere.py` (gegen den Bau) „ERGEBNIS:
+in Ordnung", `pruefen-blattbreite.py` „Auffälligkeiten: 0", `pruefen-anzeige.py` „ERGEBNIS: in
+Ordnung", `pruefen-trefferflaeche.py` drei Tippproben „registriert".
+Gate: **316 Tests in 25 Dateien**.
+
+**Nicht geprüft:** ein echtes Gerät. Ob die Leiste mit der Systemleiste von iOS/Android gut steht
+(`env(safe-area-inset-bottom)`) und ob 56 px für die Finger eines Sechsjährigen reichen, kann nur
+der Nutzer am Handy und Tablet sehen. Auf einem Handy **quer** (844 × 390) passt die Bühne wie
+schon vorher nicht ins Fenster — dort scrollt die Seite.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

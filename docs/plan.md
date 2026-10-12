@@ -502,3 +502,100 @@ wollen. Hast du noch andere coole Ideen?"
   „Vitest failed to access its internal state"), und die Anzeige-Sonde baute in Lage 2 auf Glück
   (ein Druck bei zehn Zähnen kann zuschnappen) — sie würfelt jetzt mit frischer Seite, bis die Runde
   offen bleibt. Gate **243 Tests in 20 Dateien**. Nachweis §5u, Regeln in `AGENTS.md`, `docs/testing.md`.
+
+## Nachtrag 12.10.2026 (gebaut): die häufigen Griffe kommen auf die Spielseite
+
+**Anlass.** Auftrag: die Bedienung für Tablet und Handy und für Kinder von 6 bis 12 prüfen; Tier
+und Zahnzahl sollen einfach zu wechseln sein und eine neue Runde schnell startbar, „ohne durch
+modals zu scrollen".
+
+**Ist-Stand, gemessen** (Chromium mit Touch, acht Größen von 320 × 568 bis 1180 × 820, Stand
+`aeffba8`):
+
+| Handgriff | Tipps | Scrollen |
+|---|---|---|
+| Tier wechseln | 4 (Zahnrad → „Welches Tier?" → Kachel → Blatt schließen) | auf jedem Handy für 4–6 der 10 Tiere |
+| Zahnzahl ändern | 3 | nein |
+| Neue Runde mitten im Spiel | 3 | bei 320 und 360 px Breite ja |
+| Neue Runde nach dem Biss | 1 | nein |
+
+- Die Spielseite selbst scrollt auf keiner der acht Größen.
+- Einstellungsblatt: Inhalt 821 px, sichtbar auf den Handys 466–750 px; „Fertig" liegt auf allen
+  vier Handygrößen außerhalb. Auf Tablets passt es (525–587 px).
+- Tier-Auswahl: scrollt auf sieben von acht Größen (Inhalt 953–1118 px), nur 820 × 1180 zeigt alles.
+- Leerer Platz: 390 × 844 unter dem Inhalt 285 px; 1180 × 820 links und rechts je 296 px (Bühne bei
+  588 px gedeckelt durch `.app { max-width: 620px }`); 820 × 1180 unten 478 px.
+- Griffe unter 44 px: Spielerzahl 34 × 40, Modus und „Standard" 40 hoch, „Mehr über dieses Tier" 30
+  hoch. Schrift der Balkenzeile und von „Runde 1 / schon 0 getippt": 12,8 px.
+
+**Entscheidungen des Auftraggebers (Sparring, eine Frage nach der anderen):**
+
+1. Tier und Zahnzahl liegen offen auf der Spielseite und starten die Runde **sofort** neu, ohne
+   Nachfrage — eine Runde dauert im Schnitt rund vier Drücke, und eine Nachfrage wäre wieder ein Modal.
+2. Auf dem Handy öffnet der Tier-Griff eine **kompakte Auswahl** mit allen zehn Köpfen ohne Scrollen
+   (2 Tipps). Abgesagt: ein Streifen zum Wischen (zeigt nur etwa fünf Köpfe, kostet rund 70 px Höhe)
+   und Pfeile an der Bühne (bis zu fünf Tipps, jeder ein Neustart, keine Übersicht).
+3. Die Spielerzahl bleibt hinter dem Zahnrad — sie wechselt je Sitzung, nicht je Runde.
+4. Es gibt nur noch **1 oder 2** Spieler zur Wahl.
+5. Der Entwurf unten samt zweier Annahmen (Kurzinfo, „Standard") ist freigegeben.
+
+**Entwurf.**
+
+- **Leiste** am unteren Bildschirmrand, drei Griffe, je mindestens 56 px hoch:
+  Tier (Kopf und Name) · Zähne (− Zahl +, darunter „Zähne"; bei 1 und 12 ist der Knopf abgeblendet) ·
+  Neue Runde (immer da, nach dem Biss hervorgehoben; `#restart-round` entfällt).
+- **Handy (unter 640 px):** Bühne, Spielstand, unten die Leiste. Das Kästchen „Runde / schon
+  getippt" entfällt (die Zahl steht als „x von n gedrückt" am Balken), „Du bist dran" rückt neben
+  „Zähne übrig" — das spart 40 px; gerechnet endet der Inhalt bei 320 × 568 dann bei 541 px.
+- **Tablet hochkant:** wie das Handy, Bühne breiter als 588 px, die zehn Köpfe stehen dauerhaft
+  offen (5 × 2), Tierwechsel 1 Tipp.
+- **Tablet quer:** zwei Spalten — links Bühne (bei 1180 × 820 rund 760 px) mit Spielstand, rechts
+  Köpfe dauerhaft offen, darunter Zähne und Neue Runde.
+- **Tier-Auswahl (nur Handy):** 4 Spalten, drei Reihen; ein Tipp wählt und schließt.
+- **Zahnrad:** Spielerzahl (zwei große Knöpfe), „Wie gefährlich?", Ton, Wackeln, Regeln, Statistik,
+  „Fertig". Tier, Zähne und Neue Runde verschwinden daraus; Ton/Wackeln und Regeln/Statistik stehen
+  je nebeneinander, damit das Blatt auch bei 320 × 568 nicht scrollt.
+- **Ergebnis-Blatt:** unverändert. **Regeln-Blatt:** darf als einziges scrollen (Lesetext).
+- **Größen:** jeder Griff mindestens 48 px hoch; Balkenzeile etwa 15 px.
+- **Kurzinfo zum Tier** (Zähne/gefährliche Zähne, „Mehr über dieses Tier") zieht ins Regeln-Blatt als
+  Abschnitt zum gewählten Tier. **„Standard"** bei den Zähnen entfällt — ein Tierwechsel stellt das
+  Gebiss des Tiers ohnehin ein.
+- **Spielerzahl:** nur die Bedienung wird begrenzt; `MAX_PLAYERS = 4` im Kern bleibt, damit schon
+  protokollierte und importierte Runden mit 3 oder 4 Spielern gültig bleiben. Eine gespeicherte
+  Einstellung 3 oder 4 fällt beim Laden auf 2. Regeltext und README werden auf zwei Spieler
+  umgeschrieben.
+
+**Bau und Nachweis.**
+
+- Die Verdrahtung der Leiste zieht aus dem Seitenskript in ein Modul unter `presentation/game/` mit
+  Test (jsdom lädt Seitenskripte nicht). Kacheln tragen weiter weder `.creature` noch `.tooth`, jede
+  Verwendung von `portrait(suffix)` ihre eigene Kennung.
+- Neue Sonde über die acht Größen: die Spielseite scrollt nicht; kein Blatt außer den Regeln
+  scrollt; kein Griff unter 48 px; Tippzahlen Tier 2 (Handy) bzw. 1 (Tablet), Zähne 1, Neue Runde 1.
+- `scripts/pruefen-blattbreite.py` und `scripts/pruefen-blaetter.py` erwarten das alte
+  Einstellungsblatt und werden angepasst; `src/auswahl.test.ts` ebenso.
+- README, `docs/testing.md`, `docs/e2e-nachweise.md`, `AGENTS.md` ziehen nach. Gate: `pnpm typecheck`
+  und `pnpm test:run`, dazu die Sonden mit angesehener Ausgabe.
+- Maße im Entwurf sind **gerechnet**; gültig ist, was die Sonde im Browser misst.
+
+**Gebaut (12.10.2026, Zweig `bedienleiste`).** Umsetzungsplan in
+`docs/superpowers/plans/2026-10-12-bedienleiste.md`. Vier Abweichungen vom Entwurf, alle beim
+Nachrechnen entstanden:
+
+- „Runde N" bleibt, klein in der Kopfzeile — sonst hätte `syncLog()` keine sichtbare Wirkung mehr.
+  „schon N getippt" ist entfallen.
+- Die Anleitung steht nur **vor dem ersten Druck** und nicht neben der Letzter-Zahn-Warnung: bei
+  320 × 568 reicht die Höhe über der Leiste nicht für Anleitung, Hinweis und Warnung zugleich.
+- Tablet hochkant zeigt die Köpfe in **einer Zehnerreihe**, erst ab 1100 px Höhe als 5 × 2 — bei
+  768 × 1024 passen zwei Reihen großer Kacheln nicht ohne Scrollen.
+- Im Zahnrad heißen die Spielerknöpfe „Allein" und „Zu zweit"; Regeln, Statistik und Fertig stehen
+  in einer Reihe. Der Satz zu den Verlustchancen bei vier Spielern ist aus dem Regeln-Blatt
+  gestrichen und **nicht** durch eine ungerechnete Zahl für zwei Spieler ersetzt.
+
+Gemessen (`scripts/pruefen-bedienung.py` gegen den Bau, 0 Auffälligkeiten): Tier 2 Tipps unter
+640 px, 1 Tipp darüber; Zähne 1; Neue Runde 1. Zahnrad-Blatt 447 px (Handy), 343 px (Tablet
+hochkant), 283 px (quer) — jeweils ohne Scrollen. Bühne 288 px bei 320 × 568, 728 px bei 768 × 1024
+und 820 × 1180, 648 px bei 1024 × 768, 762 px bei 1180 × 820. Das CSS brauchte keine Nachstellung.
+Gate **316 Tests in 25 Dateien**. Nachweis §5w, Regel in `AGENTS.md`.
+
+Offen: kein echtes Gerät im Arbeitsumfeld; Handy quer scrollt wie zuvor.
