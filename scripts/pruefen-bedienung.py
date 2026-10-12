@@ -36,6 +36,9 @@ EIN_ZAHN = {**ZWEI, "teethOverride": 1}
 # Die längste Fassung des Ergebnistexts (Wortlaut aus gameController.showResult).
 LAENGSTES = ("Zahn 12 hat zugeschnappt — der 12. Druck dieser Runde. Insgesamt 3 Zähne waren scharf "
              "(10, 11, 12). Mutigster Druck: Spieler 2 bei 100 % Bissgefahr — und der Zahn war harmlos.")
+# Der längste erlaubte Satz zum echten Tier (MAX_FACT_LENGTH = 110 in core/domain/creature.ts).
+# Kein echter Satz ist so lang — gemessen wird die Grenze, nicht der heutige Katalog.
+LAENGSTER_SATZ = "Wusstest du? " + ("Seine Säbel ragten bis zu 20 cm aus dem Kiefer. " * 3)[:110]
 MIN_HOEHE = 48
 MIN_BREITE = 44
 
@@ -200,7 +203,11 @@ def main() -> int:
                     funde.append(f"{lage}: dem Ergebnis fehlt der Mut-Satz: {ergebnis!r}")
                 # Der Zufall liefert nicht den längsten Text. Die Obergrenze wird eingesetzt und
                 # gemessen: zwölfter Zahn, drei scharfe Zähne, zweistellige Zahlen überall.
-                page.evaluate("(t) => { document.getElementById('result-text').textContent = t; }", LAENGSTES)
+                page.evaluate(
+                    "([t, f]) => { document.getElementById('result-text').textContent = t;"
+                    " document.getElementById('result-fact').textContent = f; }",
+                    [LAENGSTES, LAENGSTER_SATZ],
+                )
                 funde += seite_pruefen(page.evaluate(SEITE), f"{lage} nach dem Biss (längstes Ergebnis)")
 
             # Neue Runde: ein Tipp — und das Ergebnis ist wieder weg.

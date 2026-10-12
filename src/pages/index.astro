@@ -66,8 +66,9 @@ const base = import.meta.env.BASE_URL;
       <section class="result hidden" id="result-panel" role="status" aria-labelledby="result-title">
         <h2 id="result-title">Zugeschnappt!</h2>
         <p id="result-text"></p>
-        <!-- Ein Satz über das echte Tier (Katalogfeld `fact`). Auf niedrigen Handys entfällt er:
-             dort reicht die Höhe über der Leiste nicht (gemessen, scripts/pruefen-bedienung.py). -->
+        <!-- Ein Satz über das echte Tier (Katalogfeld `fact`). Unter 700 px Höhe und auf Tablets
+             quer unter 900 px entfällt er: dort reicht die Höhe nicht für Ergebnis und Satz
+             (gemessen, scripts/pruefen-bedienung.py). -->
         <p class="result__fact" id="result-fact"></p>
       </section>
 

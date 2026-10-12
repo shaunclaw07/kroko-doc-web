@@ -1306,6 +1306,24 @@ textarea {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Wo die Höhe nicht für Ergebnis **und** Satz reicht, entfällt der Satz — das Ergebnis geht vor.
+   Gemessen am 12.10.2026 mit dem längsten Ergebnis und dem längsten Satz
+   (scripts/pruefen-bedienung.py): 320 × 568 scrollte um 32 px, 360 × 640 um 20 px, 375 × 667 um
+   3 px. Ab 360 × 740 bleiben 85 px Luft. */
+@media (max-height: 700px) {
+  .result .result__fact {
+    display: none;
+  }
+}
+
+/* Tablet quer: dort folgt die Bühne der Fensterhöhe und lässt unter sich nur den Platz für das
+   Ergebnis (gemessen: 1180 × 820 scrollte mit Satz um 25 px). */
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 899px) and (orientation: landscape) {
+  .result .result__fact {
+    display: none;
+  }
+}
+
 /* Auf dem schmalsten Handy (320 × 568) bleiben dem Ergebnis rund 110 px über der Leiste: der
    längste Text passt nur in kleinerer Schrift (gemessen, scripts/pruefen-bedienung.py). */
 @media (max-width: 359px) {
