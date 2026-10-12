@@ -4,8 +4,8 @@
  *
  * Das Markup kann nur festhalten, dass der Knopf fehlt und das Blatt einen Ausgang hat; ob der Tipp
  * wirklich wählt und schließt, entscheidet sich im echten Browser — das prüft
- * `scripts/pruefen-tiere.py` (Kachel antippen, danach muss das Blatt zu und der Name im
- * Einstellungsblatt neu sein). jsdom lädt das Seitenskript der `.astro`-Datei nicht aus.
+ * `scripts/pruefen-tiere.py` (Kachel antippen, danach muss das Blatt zu und das Tier auf der
+ * Bühne neu sein). jsdom lädt das Seitenskript der `.astro`-Datei nicht aus.
  *
  * Diese Datei liegt **neben** `src/pages/` und nicht darin: Astro baut jede Datei in `src/pages/`
  * als eigene Seite, ein Test dort bricht den Bau („Vitest failed to access its internal state").
@@ -40,9 +40,7 @@ describe('Auswahlblatt „Welches Tier?"', () => {
       expect(AUSWAHL).toContain(`data-creature={creature.id}`);
     }
   });
-  it('hat die drei Textstellen, die die Kurzinfo füllt', () => {
-    expect(AUSWAHL).toContain('creature-detail-line');
-    expect(AUSWAHL).toContain('creature-detail-note');
-    expect(AUSWAHL).toContain('creature-detail-real');
+  it('trägt keine Kurzinfo mehr — sie steht im Regeln-Blatt, damit alle Köpfe ohne Scrollen passen', () => {
+    expect(AUSWAHL).not.toContain('creature-detail');
   });
 });

@@ -13,10 +13,10 @@ const base = import.meta.env.BASE_URL;
   description="Tippe die Zähne des Krokodils an. Ein Druck ist zu viel — dann schnappt das Maul zu. Mit Statistik, wer wirklich verliert."
 >
   <!--
-    Das Spiel kommt zuerst: Tier und Spielstand. Alles Einstellbare liegt hinter dem Zahnrad,
-    damit ein Kind beim Öffnen nichts scrollen muss und nichts ablenkt. Die zwei benannten
-    Anzeigewerte (Fortschritt und Bissgefahr) bleiben wörtlich stehen — sie tragen die
-    Ehrlichkeitsregel.
+    Das Spiel kommt zuerst: Tier und Spielstand. Was je Runde wechselt (Tier, Zähne, „Neue Runde")
+    steht als große Griffe auf der Seite; hinter dem Zahnrad liegt nur, was je Sitzung gestellt
+    wird. Die zwei benannten Anzeigewerte (Fortschritt und Bissgefahr) bleiben wörtlich stehen —
+    sie tragen die Ehrlichkeitsregel.
   -->
   <main class="app">
     <header class="topbar">
@@ -33,6 +33,7 @@ const base = import.meta.env.BASE_URL;
         />
         <span>Zahn Agent</span>
       </div>
+      <span class="round-tag">Runde <strong id="hud-round">1</strong></span>
       <button type="button" class="icon-button" id="settings-open" aria-haspopup="dialog" aria-label="Einstellungen öffnen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
@@ -41,58 +42,99 @@ const base = import.meta.env.BASE_URL;
       </button>
     </header>
 
-    <section class="stage" id="stage" data-status="open" aria-label="Spielbühne">
-      <div id="croc-mount"></div>
-    </section>
+    <!-- Das Spielfeld: Bühne und Spielstand. Auf dem Tablet quer ist das die linke Spalte. -->
+    <div class="play">
+      <section class="stage" id="stage" data-status="open" aria-label="Spielbühne">
+        <div id="croc-mount"></div>
+      </section>
 
-    <!-- Eine große Aussage, der Rest ist ruhige Nebenzeile. -->
-    <section class="hud" aria-label="Spielstand">
-      <div class="stat stat--big">
-        <span class="stat__value" id="hud-remaining">10</span>
-        <span class="stat__label" id="hud-remaining-label">Zähne übrig</span>
-      </div>
-      <div class="stat stat--quiet">
-        <span>Runde <strong id="hud-round">1</strong></span>
-        <span>schon <strong id="hud-presses">0</strong> getippt</span>
-      </div>
-    </section>
+      <!-- Eine große Aussage, daneben wer dran ist. -->
+      <section class="hud" aria-label="Spielstand">
+        <div class="stat stat--big">
+          <span class="stat__value" id="hud-remaining">10</span>
+          <span class="stat__label" id="hud-remaining-label">Zähne übrig</span>
+        </div>
+        <div class="turn">
+          <span class="turn__dot" aria-hidden="true"></span>
+          <span id="hud-turn">Du bist dran</span>
+        </div>
+      </section>
 
-    <div class="turn">
-      <span class="turn__dot" aria-hidden="true"></span>
-      <span id="hud-turn">Du bist dran</span>
+      <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr.
+           Die Zustandsklassen (`is-tense`, `is-danger`, `is-snapped`) sitzen an DIESEM Kasten, denn
+           er enthält Balken, Zeile und Hinweis (docs/e2e-nachweise.md §5t). -->
+      <div class="tension-panel" id="hud-panel">
+        <div class="tension-meter" role="img" aria-label="Fortschritt der Runde und Bissgefahr des nächsten Drucks">
+          <div class="tension-meter__fill" id="hud-meter"></div>
+        </div>
+        <div class="meter-legend">
+          <span id="hud-progress">0 von 10 gedrückt</span>
+          <span id="hud-tension">Bissgefahr 0 %</span>
+        </div>
+        <p class="meter-hint hidden" id="hud-meter-hint">
+          Je mehr Zähne getippt sind, desto sicherer schnappt es zu.
+        </p>
+      </div>
+
+      <p class="alarm hidden" id="hud-warning" role="status"></p>
+
+      <!-- Nur vor dem ersten Druck: danach macht die Anleitung Hinweis und Warnung Platz. -->
+      <p class="how-to" id="how-to">Tippe einen Zahn an. Einer ist der falsche — dann schnappt es zu!</p>
+      <p class="sr-only">Mit der Tastatur: mit der Tabulatortaste einen Zahn auswählen, dann die Eingabetaste drücken.</p>
     </div>
 
-    <!-- Der Weg zur nächsten Runde, wenn das Ergebnis-Blatt schon zu ist. Ohne ihn blieb nach
-         „Schließen" nur das Zahnrad — und „Neue Runde" lag zwei Tipps tief im Einstellungsblatt. -->
-    <button type="button" class="button--primary restart hidden" id="restart-round">Neue Runde</button>
+    <!--
+      Die drei häufigen Griffe stehen auf der Spielseite (Entscheidung vom 12.10.2026; vorher
+      hinter dem Zahnrad: 4 Tipps für ein anderes Tier, 3 für die Zahnzahl). Unter 640 px ist die
+      Leiste am unteren Rand fest und die Köpfe öffnen sich als Blatt; ab 640 px stehen die Köpfe
+      dauerhaft offen (`#creature-rail`) und der Tier-Griff entfällt.
+      Die Kacheln tragen weder `.creature` noch `.tooth` — die Steuerung fragt diese Klassen ab.
+    -->
+    <aside class="side" aria-label="Spiel einstellen">
+      <ul class="creature-grid creature-rail" id="creature-rail" role="group" aria-label="Lebewesen">
+        {creatures.map((creature) => (
+          <li>
+            <button type="button" data-creature={creature.id} aria-pressed={creature.id === DEFAULT_CREATURE_ID}>
+              <span class="creature-grid__icon" aria-hidden="true">
+                <Fragment set:html={creaturePortrait(creature.id, 'leiste')} />
+              </span>
+              <span class="creature-grid__name">{creature.name}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
 
-    <!-- Der Balken trägt zwei Aussagen: die Füllung ist der Fortschritt, die Farbe die Gefahr.
-         Die Zustandsklassen (`is-tense`, `is-danger`, `is-snapped`) sitzen an DIESEM Kasten, denn
-         er enthält Balken, Zeile und Hinweis. Standen sie an der Bühne (`#stage`), erreichte keine
-         einzige Farbregel den Balken — er liegt außerhalb der Bühne. Gemessen im Browser:
-         docs/e2e-nachweise.md §5t. -->
-    <div class="tension-panel" id="hud-panel">
-      <div class="tension-meter" role="img" aria-label="Fortschritt der Runde und Bissgefahr des nächsten Drucks">
-        <div class="tension-meter__fill" id="hud-meter"></div>
+      <div class="controls" id="controls">
+        <button type="button" class="quick-pick" id="creature-open" aria-haspopup="dialog">
+          <span class="quick-pick__icon" id="creature-icon" aria-hidden="true">
+            {first && <Fragment set:html={creaturePortrait(first.id, 'wahl')} />}
+          </span>
+          <span class="quick__label">Tier</span>
+          <span class="sr-only" id="creature-name">{first?.name}</span>
+        </button>
+
+        <div class="quick-teeth" role="group" aria-label="Zahl der Zähne">
+          <button type="button" id="teeth-minus" aria-label="Ein Zahn weniger">−</button>
+          <span class="quick-teeth__value">
+            <output id="teeth-value">{first?.teeth}</output>
+            <span class="quick__label" id="teeth-label">Zähne</span>
+          </span>
+          <button type="button" id="teeth-plus" aria-label="Ein Zahn mehr">+</button>
+        </div>
+
+        <button type="button" class="quick-new" id="new-round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 12a8 8 0 1 1-2.6-5.9"></path>
+            <path d="M20 4v5h-5"></path>
+          </svg>
+          <span>Neue Runde</span>
+        </button>
       </div>
-      <div class="meter-legend">
-        <span id="hud-progress">0 von 10 gedrückt</span>
-        <span id="hud-tension">Bissgefahr 0 %</span>
-      </div>
-
-      <p class="meter-hint hidden" id="hud-meter-hint">
-        Je mehr Zähne getippt sind, desto sicherer schnappt es zu.
-      </p>
-    </div>
-
-    <p class="alarm hidden" id="hud-warning" role="status"></p>
-
-    <p class="how-to">Tippe einen Zahn an. Einer ist der falsche — dann schnappt es zu!</p>
-    <p class="sr-only">Mit der Tastatur: mit der Tabulatortaste einen Zahn auswählen, dann die Eingabetaste drücken.</p>
+    </aside>
   </main>
 
   <dialog class="sheet sheet--columns" id="settings-sheet" aria-labelledby="settings-title">
-    <!-- Der Kopf bleibt beim Scrollen stehen: das ✕ ist der Ausgang, der immer erreichbar ist. -->
+    <!-- Der Kopf bleibt stehen: das ✕ ist der Ausgang, der immer erreichbar ist. -->
     <div class="sheet__head">
       <div class="sheet__grip" aria-hidden="true"></div>
       <div class="sheet__headrow">
@@ -105,40 +147,13 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
 
+    <!-- Nur was je Sitzung gestellt wird. Tier, Zähne und „Neue Runde" stehen auf der Spielseite. -->
     <div class="set">
       <span class="set__label">Wie viele spielen?</span>
       <div class="segmented" id="opt-players" role="group" aria-label="Spielerzahl">
-        <button type="button" data-players="1" aria-pressed="true">1</button>
-        <button type="button" data-players="2" aria-pressed="false">2</button>
-        <button type="button" data-players="3" aria-pressed="false">3</button>
-        <button type="button" data-players="4" aria-pressed="false">4</button>
+        <button type="button" data-players="1" aria-pressed="true">Allein</button>
+        <button type="button" data-players="2" aria-pressed="false">Zu zweit</button>
       </div>
-    </div>
-
-    <div class="set">
-      <span class="set__label">Welches Tier?</span>
-      <button type="button" class="picker" id="creature-open" aria-haspopup="dialog">
-        <span class="picker__icon" id="creature-icon" aria-hidden="true">
-          {first && <Fragment set:html={creaturePortrait(first.id, 'wahl')} />}
-        </span>
-        <span class="picker__text">
-          <span class="picker__name" id="creature-name">{first?.name}</span>
-          <span class="muted small" id="creature-teeth">{first?.teeth} Zähne</span>
-        </span>
-      </button>
-    </div>
-
-    <div class="set">
-      <span class="set__label">Wie viele Zähne?</span>
-      <div class="row">
-        <div class="stepper">
-          <button type="button" id="teeth-minus" aria-label="Ein Zahn weniger">−</button>
-          <output id="teeth-value">{first?.teeth}</output>
-          <button type="button" id="teeth-plus" aria-label="Ein Zahn mehr">+</button>
-        </div>
-        <button type="button" class="button--ghost button--small" id="teeth-reset">Standard</button>
-      </div>
-      <p class="muted small" id="teeth-hint"></p>
     </div>
 
     <div class="set">
@@ -147,32 +162,20 @@ const base = import.meta.env.BASE_URL;
         <button type="button" data-mode="original" aria-pressed="true">wie das Spielzeug</button>
         <button type="button" data-mode="classic" aria-pressed="false">nur ein Zahn</button>
       </div>
-      <!-- Die Erklärung („1 bis 3 Zähne gleichzeitig, 10/20/30 %") steht ausführlich im
-           Regeln-Blatt unter „Für Große" — hier wäre sie nur eine zweite, längere Fassung. -->
     </div>
 
-    <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton an</label>
-    <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Wackeln (Handy)</label>
+    <div class="switches">
+      <label class="switch"><input type="checkbox" id="opt-sound" checked /> Ton</label>
+      <label class="switch"><input type="checkbox" id="opt-vibration" checked /> Wackeln</label>
+    </div>
     <p class="muted small" id="vibration-hint" hidden></p>
 
     <div class="row sheet__actions">
-      <button type="button" class="button--primary" id="new-round">Neue Runde</button>
       <button type="button" class="button--ghost" id="rules-open">Regeln</button>
+      <a class="button button--ghost" href={`${base}statistik`}>Statistik</a>
+      <!-- Der Weg zurück zum Spiel. Ohne ihn blieb nur die Escape-Taste — die hat kein Tablet. -->
+      <button type="button" class="button--primary" data-close-sheet>Fertig</button>
     </div>
-
-    <a class="button sheet-link" href={`${base}statistik`}>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>
-      </svg>
-      Statistik für Große
-    </a>
-    <!-- Der Weg zurück zum Spiel. Ohne ihn blieb nur die Escape-Taste — die hat kein Tablet. -->
-    <button type="button" class="button button--primary sheet-link" data-close-sheet>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <path d="M20 6L9 17l-5-5"></path>
-      </svg>
-      Fertig
-    </button>
   </dialog>
 
   <dialog class="sheet" id="creature-sheet" aria-labelledby="creature-title">
@@ -190,14 +193,6 @@ const base = import.meta.env.BASE_URL;
         </li>
       ))}
     </ul>
-    <div class="creature-detail">
-      <p id="creature-detail-line"></p>
-      <details>
-        <summary>Mehr über dieses Tier</summary>
-        <p class="muted small" id="creature-detail-note"></p>
-        <p class="muted small" id="creature-detail-real"></p>
-      </details>
-    </div>
     <div class="sheet__actions">
       <button type="button" class="button--primary" data-close-sheet>Fertig</button>
     </div>
@@ -214,6 +209,11 @@ const base = import.meta.env.BASE_URL;
       Welcher Zahn der falsche ist, weiß man vorher nicht. Nur eines ist sicher: Ist nur noch ein
       Zahn übrig, ist er es.
     </p>
+    <div class="creature-detail">
+      <p id="creature-detail-line"></p>
+      <p class="muted small" id="creature-detail-note"></p>
+      <p class="muted small" id="creature-detail-real"></p>
+    </div>
     <details>
       <summary>Für Große: warum es keinen sicheren Zahn gibt</summary>
       <p>
@@ -224,8 +224,7 @@ const base = import.meta.env.BASE_URL;
       </p>
       <p>
         <strong>Rechenwerte (10 Zähne, zufällige Reihenfolge):</strong> P(Biss beim 1. Druck) = 20 %,
-        erwartete Drücke bis zum Biss = 3,97; bei 4 Spielern verliert der Startspieler zu 33,9 %,
-        danach 28,3 % / 20,7 % / 17,0 %. Wer bis zum letzten Zahn überlebt, verliert garantiert.
+        erwartete Drücke bis zum Biss = 3,97. Wer bis zum letzten Zahn überlebt, verliert garantiert.
       </p>
       <p>
         <strong>Warum mehrere Lebewesen:</strong> Jedes Tier hat sein eigenes Gebiss. Krokodil und
@@ -272,7 +271,7 @@ const base = import.meta.env.BASE_URL;
   <script>
     import { GameController } from '../presentation/game/gameController';
     import { creaturePortrait } from '../presentation/game/creatures';
-    import { settingsAfterCreatureChoice } from '../presentation/game/creatureChoice';
+    import { wireQuickControls } from '../presentation/game/quickControls';
     import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from '../presentation/game/sheets';
     import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
@@ -280,8 +279,6 @@ const base = import.meta.env.BASE_URL;
     import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
-    import { getCreature } from '../core/domain/creature';
-    import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
 
     const storage = browserStorage();
     const settings = loadSettings(storage);
@@ -334,8 +331,7 @@ const base = import.meta.env.BASE_URL;
       vibrationBox.disabled = true;
       if (vibrationHint) {
         vibrationHint.hidden = false;
-        vibrationHint.textContent =
-          'Dieser Browser kann nicht wackeln (z. B. Safari auf dem iPhone — dort fehlt die Schnittstelle). Ton und Spiel bleiben.';
+        vibrationHint.textContent = 'Dieser Browser kann nicht wackeln (z. B. Safari auf dem iPhone).';
       }
     }
     document.querySelectorAll<HTMLButtonElement>('#opt-players [data-players]').forEach((button) => {
@@ -357,96 +353,22 @@ const base = import.meta.env.BASE_URL;
     soundBox?.addEventListener('change', () => controller.applySettings({ ...settings, sound: soundBox.checked }));
     vibrationBox?.addEventListener('change', () => controller.applySettings({ ...settings, vibration: vibrationBox.checked }));
 
-    const creatureName = document.getElementById('creature-name');
-    const creatureTeeth = document.getElementById('creature-teeth');
-    const creatureIcon = document.getElementById('creature-icon');
-    const teethValue = document.getElementById('teeth-value');
-    const teethHint = document.getElementById('teeth-hint');
-    const detailLine = document.getElementById('creature-detail-line');
-    const detailNote = document.getElementById('creature-detail-note');
-    const detailReal = document.getElementById('creature-detail-real');
+    // Die Leiste der Spielseite (Tier, Zähne): Regeln und Test stehen in quickControls.ts.
+    // Ein Tipp auf eine Kachel wählt und schließt das Auswahlblatt — auf dem Tablet ist es gar
+    // nicht offen, `closeSheet` tut dann nichts.
+    wireQuickControls({
+      doc: document,
+      settings,
+      apply: (next: GameSettings) => controller.applySettings(next),
+      portrait: creaturePortrait,
+      onCreatureChosen: () => {
+        const sheet = sheetOf('creature-sheet');
+        if (sheet?.hasAttribute('open')) closeSheet(sheet);
+      },
+    });
 
-    /** Zahnzahl, die gerade gilt: eigener Wert oder das tiergerechte Gebiss. */
-    function effectiveTeeth(): number {
-      return settings.teethOverride ?? getCreature(settings.creature).teeth;
-    }
-
-    /** Das Einstellungsblatt: gewähltes Tier, Zahnzahl, Zahnrad-Vorschau. */
-    function paintCreature(): void {
-      const creature = getCreature(settings.creature);
-      const teeth = effectiveTeeth();
-      if (creatureName) creatureName.textContent = creature.name;
-      if (creatureTeeth) creatureTeeth.textContent = teeth === 1 ? '1 Zahn' : `${teeth} Zähne`;
-      if (creatureIcon) creatureIcon.innerHTML = creaturePortrait(creature.id, 'wahl');
-      if (teethValue) teethValue.textContent = String(teeth);
-      if (teethHint) {
-        if (teeth === 1) {
-          // Wunsch vom 11.10.2026: ein einziges Gebiss — der Tipp darauf schließt das Maul.
-          // Bei einem Zahn sind beide Zufallsmodelle ohnehin gleich, deshalb steht hier kein Modus.
-          teethHint.textContent = 'nur ein Zahn — der erste Tipp schließt das Maul';
-        } else if (settings.teethOverride === null) {
-          teethHint.textContent = `Standard für ${creature.name}`;
-        } else {
-          teethHint.textContent = `abweichend (Standard ${creature.teeth}), spielbar ${MIN_TEETH}–${MAX_TEETH}`;
-        }
-      }
-    }
-
-    /**
-     * Das Auswahlblatt: **ein Tipp wählt und schließt.** Bis zum 12.10.2026 war die Wahl nur eine
-     * Vorschau (`pending`), die erst „Damit spielen“ übernahm — Begründung damals: sonst schlösse
-     * jeder Tipp das Blatt und die Kurzinfo wäre nie zu lesen. Der Auftraggeber hat das überstimmt
-     * („Man muss sonst immer erst nochmal bestätigen … das nervt“): Ein Tipp übernimmt die Wahl
-     * sofort und schließt das Blatt. Die Kurzinfo bleibt erreichbar — sie beschreibt jetzt das
-     * **gewählte** Tier und steht beim nächsten Öffnen wieder da.
-     */
-    function paintDetail(): void {
-      const creature = getCreature(settings.creature);
-      document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
-        button.setAttribute('aria-pressed', String(button.dataset.creature === settings.creature));
-      });
-      if (detailLine) {
-        const live = creature.liveTeethMin === creature.liveTeethMax
-          ? `${creature.liveTeethMin}`
-          : `${creature.liveTeethMin}–${creature.liveTeethMax}`;
-        detailLine.textContent = `${creature.teeth} Zähne — bei jedem Tipp sind ${live} davon gefährlich.`;
-      }
-      if (detailNote) detailNote.textContent = creature.note;
-      if (detailReal) detailReal.textContent = `Echtes Gebiss: ${creature.realTeeth} Zähne.`;
-    }
-
-    function setTeeth(next: number): void {
-      const clamped = Math.max(MIN_TEETH, Math.min(MAX_TEETH, next));
-      const standard = getCreature(settings.creature).teeth;
-      controller.applySettings({ ...settings, teethOverride: clamped === standard ? null : clamped });
-      paintCreature();
-    }
-
-    paintCreature();
     document.getElementById('settings-open')?.addEventListener('click', () => openSheet('settings-sheet'));
-    document.getElementById('teeth-minus')?.addEventListener('click', () => setTeeth(effectiveTeeth() - 1));
-    document.getElementById('teeth-plus')?.addEventListener('click', () => setTeeth(effectiveTeeth() + 1));
-    document.getElementById('teeth-reset')?.addEventListener('click', () => {
-      controller.applySettings({ ...settings, teethOverride: null });
-      paintCreature();
-    });
-    document.getElementById('creature-open')?.addEventListener('click', () => {
-      paintDetail();
-      openSheet('creature-sheet');
-    });
-    document.querySelectorAll<HTMLButtonElement>('#creature-list [data-creature]').forEach((button) => {
-      button.addEventListener('click', () => {
-        // Ein Tipp = Wahl + zurück ins Einstellungsblatt. Beim Wechsel gilt wieder das Gebiss des
-        // gewählten Tieres; dasselbe Tier erneut zu tippen ändert nichts (`null`).
-        const next = settingsAfterCreatureChoice(settings, button.dataset.creature);
-        if (next) {
-          controller.applySettings(next);
-        }
-        paintDetail();
-        paintCreature();
-        closeSheet(sheetOf('creature-sheet'));
-      });
-    });
+    document.getElementById('creature-open')?.addEventListener('click', () => openSheet('creature-sheet'));
 
     document.getElementById('result-again')?.addEventListener('click', () => controller.resetRound());
     document.getElementById('rules-open')?.addEventListener('click', () => openSheet('rules-sheet'));
