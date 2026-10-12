@@ -154,6 +154,11 @@ export function getCreature(id: string = DEFAULT_CREATURE_ID): CreatureDefinitio
   return found;
 }
 
+/** Lebewesen einer Runde; fehlt die Kennung (Altdaten) oder ist sie unbekannt, gilt das Krokodil. */
+export function creatureOrDefault(id: string | undefined): CreatureDefinition {
+  return getCreature(id !== undefined && isKnownCreature(id) ? id : DEFAULT_CREATURE_ID);
+}
+
 /** Prüft einen Katalogeintrag auf Widersprüche — genutzt vom Katalogtest. */
 export function validateCreature(creature: CreatureDefinition): string[] {
   const problems: string[] = [];

@@ -1,4 +1,4 @@
-import { DEFAULT_CREATURE_ID, getCreature, isKnownCreature, type CreatureDefinition } from './creature';
+import { creatureOrDefault } from './creature';
 import {
   creatureKWeights,
   expectedPresses as modelExpectedPresses,
@@ -13,11 +13,6 @@ import { survivedDanger } from './tension';
  * Reine Statistik-Helfer fuer die Auswertungsseite: keine DOM-Zugriffe, keine
  * Uhr, kein Zustand — alles ist eine Funktion der Eingaben.
  */
-
-/** Lebewesen einer Runde; fehlt die Kennung (Altdaten) oder ist sie unbekannt, gilt das Krokodil. */
-function creatureOfRound(id: string | undefined): CreatureDefinition {
-  return getCreature(id !== undefined && isKnownCreature(id) ? id : DEFAULT_CREATURE_ID);
-}
 
 /** Die mutigste Runde im Protokoll: die hoechste Bissgefahr, die ueberstanden wurde. */
 export interface BravestRound {
@@ -38,7 +33,7 @@ export interface BravestRound {
 export function bravestRound(records: readonly RoundRecord[]): BravestRound | null {
   let best: BravestRound | null = null;
   for (const record of records) {
-    const creature = creatureOfRound(record.creature);
+    const creature = creatureOrDefault(record.creature);
     const danger = survivedDanger({
       pressIndex: record.pressIndex,
       teeth: record.teeth,
@@ -273,7 +268,7 @@ export function groupRounds<T extends { mode: RandomMode; teeth: number; creatur
 ): RoundGroup<T>[] {
   const groups = new Map<string, RoundGroup<T>>();
   for (const round of rounds) {
-    const creature = creatureOfRound(round.creature).id;
+    const creature = creatureOrDefault(round.creature).id;
     const key = `${creature}|${round.teeth}|${round.mode}`;
     const group = groups.get(key);
     if (group) {
@@ -338,7 +333,7 @@ export function analyseSession(
   const countsByTooth = countBy(loserTeeth, teeth);
   const countsByPressIndex = countBy(pressIndices, teeth);
 
-  const creature = creatureOfRound(rounds[0]?.creature);
+  const creature = creatureOrDefault(rounds[0]?.creature);
   const model = pressPositionDistribution(teeth, creatureKWeights(creature, mode, teeth));
 
   const toothTest = enough ? chiSquareGoodnessOfFit(countsByTooth, 'uniform') : null;
