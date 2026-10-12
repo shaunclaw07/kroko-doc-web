@@ -82,16 +82,16 @@ export const humanArtwork: CreatureArtwork = {
     '<ellipse cx="302" cy="98" rx="11" ry="7" fill="#c08a6a"/>' +
     '<ellipse cx="338" cy="98" rx="11" ry="7" fill="#c08a6a"/>',
   face:
-    '<path d="M 130 126 C 154 112 190 112 214 126" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 426 126 C 450 112 486 112 510 126" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
+    '<path d="M 112 128 A 38 33 0 0 1 180 128" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
+    '<path d="M 460 128 A 38 33 0 0 1 528 128" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
     // Die Schlaeferlocken im Gesichtsbereich, hinter den Brauen -- sie liegen ueber der
     // Schnauzenflaeche des Mundes (Begruendung oben bei HAAR_LOCKE_LINKS).
     `<path d="${HAAR_LOCKE_LINKS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
     `<path d="${HAAR_LOCKE_RECHTS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
-    '<ellipse cx="172" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
-    '<ellipse cx="468" cy="158" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
-    '<circle cx="174" cy="161" r="15" fill="#5b86a8" class="pupil"/><circle cx="470" cy="161" r="15" fill="#5b86a8" class="pupil"/>' +
-    '<circle cx="168" cy="154" r="6" fill="#ffffff"/><circle cx="464" cy="154" r="6" fill="#ffffff"/>',
+    '<ellipse cx="146" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
+    '<ellipse cx="494" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
+    '<circle cx="148" cy="145" r="15" fill="#5b86a8" class="pupil"/><circle cx="496" cy="145" r="15" fill="#5b86a8" class="pupil"/>' +
+    '<circle cx="142" cy="138" r="6" fill="#ffffff"/><circle cx="490" cy="138" r="6" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Mensch: hinten runde Backenzaehne, dann Eckzaehne, dazwischen Schneidezaehne.

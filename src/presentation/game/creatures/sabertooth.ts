@@ -104,16 +104,17 @@ export const sabertoothArtwork: CreatureArtwork = {
   lowerExtra:
     '<path d="M 214 430 C 250 452 390 452 426 430" fill="none" stroke="#c08f47" stroke-width="5" stroke-linecap="round"/>',
   face:
-    // Kulleraugen wie beim Loewen, nur etwas schmaler -- darueber ein dunkler Brauenbogen,
-    // damit der Blick ernst wird, ohne dass ein Strich auf dem Ohr landet.
-    '<path d="M 136 132 C 154 114 190 112 206 122" fill="none" stroke="#a8732f" stroke-width="6" stroke-linecap="round"/>' +
-    '<path d="M 504 132 C 486 114 450 112 434 122" fill="none" stroke="#a8732f" stroke-width="6" stroke-linecap="round"/>' +
-    '<ellipse cx="170" cy="162" rx="32" ry="26" fill="#ffffff" stroke="#a8732f" stroke-width="3"/>' +
-    '<ellipse cx="470" cy="162" rx="32" ry="26" fill="#ffffff" stroke="#a8732f" stroke-width="3"/>' +
-    '<circle cx="172" cy="165" r="14" fill="#a3651f" class="pupil"/>' +
-    '<circle cx="468" cy="165" r="14" fill="#a3651f" class="pupil"/>' +
-    '<circle cx="166" cy="158" r="6" fill="#ffffff"/>' +
-    '<circle cx="462" cy="158" r="6" fill="#ffffff"/>',
+    // Kulleraugen wie beim Loewen, im Fellstreifen ueber dem Zahnring (kein Zahn liegt darunter).
+    // Der dunkle Brauenbogen liegt als Lid direkt auf der oberen Augenkante: fuer einen freien
+    // Strich darueber ist zwischen Auge und Kopfrand kein Platz.
+    '<path d="M 182 104 A 26 23 0 0 1 230 104" fill="none" stroke="#a8732f" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 410 104 A 26 23 0 0 1 458 104" fill="none" stroke="#a8732f" stroke-width="5" stroke-linecap="round"/>' +
+    '<ellipse cx="206" cy="114" rx="24" ry="21" fill="#ffffff" stroke="#a8732f" stroke-width="3"/>' +
+    '<ellipse cx="434" cy="114" rx="24" ry="21" fill="#ffffff" stroke="#a8732f" stroke-width="3"/>' +
+    '<circle cx="207.5" cy="116" r="11" fill="#a3651f" class="pupil"/>' +
+    '<circle cx="432.5" cy="116" r="11" fill="#a3651f" class="pupil"/>' +
+    '<circle cx="203" cy="111" r="4.5" fill="#ffffff"/>' +
+    '<circle cx="428" cy="111" r="4.5" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Die zwei Saebel: die oberen Eckzaehne links und rechts der Ringmitte (count/2). Sie sind

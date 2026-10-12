@@ -47,16 +47,18 @@ export const pandaArtwork: CreatureArtwork = {
     // Kinnkante unter dem unteren Zahnfleischband.
     '<path d="M 214 428 C 250 450 390 450 426 428" fill="none" stroke="#eae5dc" stroke-width="5" stroke-linecap="round"/>',
   face:
-    // Augenflecken: die Panda-Maske. Sie liegen schraeg und bleiben gross -- die Linse sitzt
-    // klein darin, sonst liest der Fleck sich wie eine Brille.
-    '<g transform="rotate(-16 170 176)"><ellipse cx="170" cy="176" rx="54" ry="44" fill="#3a3a40"/></g>' +
-    '<g transform="rotate(16 470 176)"><ellipse cx="470" cy="176" rx="54" ry="44" fill="#3a3a40"/></g>' +
-    '<ellipse cx="172" cy="176" rx="27" ry="24" fill="#ffffff"/>' +
-    '<ellipse cx="468" cy="176" rx="27" ry="24" fill="#ffffff"/>' +
-    '<circle cx="174" cy="179" r="12" fill="#33333a" class="pupil"/>' +
-    '<circle cx="466" cy="179" r="12" fill="#33333a" class="pupil"/>' +
-    '<circle cx="168" cy="172" r="5" fill="#ffffff"/>' +
-    '<circle cx="462" cy="172" r="5" fill="#ffffff"/>',
+    // Augenflecken: die Panda-Maske. Sie sitzen neben der Nase im Fellstreifen **ueber** dem
+    // Zahnring (Abstand zum Ring gemessen rund 31, der Fleck hat 29) -- vorher lagen sie gross und
+    // schraeg auf dem Ring und deckten bei 11 Zaehnen einen Zahn ganz zu (12.10.2026). Die Linse
+    // fuellt den Fleck bis auf einen dunklen Rand, damit das Auge trotz kleinem Fleck gross wirkt.
+    '<ellipse cx="236" cy="102" rx="29" ry="26" fill="#3a3a40"/>' +
+    '<ellipse cx="404" cy="102" rx="29" ry="26" fill="#3a3a40"/>' +
+    '<ellipse cx="237" cy="102" rx="18" ry="17" fill="#ffffff"/>' +
+    '<ellipse cx="403" cy="102" rx="18" ry="17" fill="#ffffff"/>' +
+    '<circle cx="238" cy="104" r="9" fill="#33333a" class="pupil"/>' +
+    '<circle cx="402" cy="104" r="9" fill="#33333a" class="pupil"/>' +
+    '<circle cx="235" cy="99" r="4" fill="#ffffff"/>' +
+    '<circle cx="399" cy="99" r="4" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Zwei kraeftige flache Zaehne in der Mitte des Unterkiefers (Zahn 0 ist die Ringmitte

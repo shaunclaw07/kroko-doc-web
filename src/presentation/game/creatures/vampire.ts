@@ -88,25 +88,25 @@ export const vampireArtwork: CreatureArtwork = {
   face:
     '<ellipse cx="110" cy="252" rx="19" ry="12" fill="#f2a8b6" opacity="0.45"/>' +
     '<ellipse cx="530" cy="252" rx="19" ry="12" fill="#f2a8b6" opacity="0.45"/>' +
-    '<path d="M 122 158 C 140 146 172 146 190 158" fill="none" stroke="#4a3b5c" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 450 158 C 468 146 500 146 518 158" fill="none" stroke="#4a3b5c" stroke-width="5" stroke-linecap="round"/>' +
-    '<ellipse cx="152" cy="178" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
-    '<ellipse cx="488" cy="178" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
-    '<circle cx="154" cy="181" r="14" fill="#a8562f" class="pupil"/>' +
-    '<circle cx="490" cy="181" r="14" fill="#a8562f" class="pupil"/>' +
-    '<circle cx="154" cy="181" r="7" fill="#3a2d49"/>' +
-    '<circle cx="490" cy="181" r="7" fill="#3a2d49"/>' +
-    '<circle cx="149" cy="175" r="5" fill="#ffffff"/>' +
-    '<circle cx="485" cy="175" r="5" fill="#ffffff"/>' +
+    '<path d="M 110 150 C 128 138 160 138 178 150" fill="none" stroke="#4a3b5c" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 462 150 C 480 138 512 138 530 150" fill="none" stroke="#4a3b5c" stroke-width="5" stroke-linecap="round"/>' +
+    '<ellipse cx="140" cy="170" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
+    '<ellipse cx="500" cy="170" rx="30" ry="26" fill="#ffffff" stroke="#c1aed1" stroke-width="3"/>' +
+    '<circle cx="142" cy="173" r="14" fill="#a8562f" class="pupil"/>' +
+    '<circle cx="502" cy="173" r="14" fill="#a8562f" class="pupil"/>' +
+    '<circle cx="142" cy="173" r="7" fill="#3a2d49"/>' +
+    '<circle cx="502" cy="173" r="7" fill="#3a2d49"/>' +
+    '<circle cx="137" cy="167" r="5" fill="#ffffff"/>' +
+    '<circle cx="497" cy="167" r="5" fill="#ffffff"/>' +
     // Das Monokel am linken Auge: Ring, schwacher Schimmer im Glas, Kette mit Gewicht.
     // Vor den Haaren, damit die Haube es sauber einfasst (Begruendung oben im Kopfkommentar).
-    '<ellipse cx="152" cy="178" rx="36" ry="32" fill="#eaf2f8" fill-opacity="0.18" ' +
+    '<ellipse cx="140" cy="170" rx="36" ry="32" fill="#eaf2f8" fill-opacity="0.18" ' +
     'stroke="#8f86a3" stroke-width="5"/>' +
-    '<path d="M 124 156 C 134 146 148 142 160 142" fill="none" stroke="#c9c2d6" ' +
+    '<path d="M 112 148 C 122 138 136 134 148 134" fill="none" stroke="#c9c2d6" ' +
     'stroke-width="4" stroke-linecap="round"/>' +
-    '<path d="M 122 200 C 106 214 96 226 92 236" fill="none" stroke="#8f86a3" ' +
+    '<path d="M 110 192 C 94 206 84 218 80 228" fill="none" stroke="#8f86a3" ' +
     'stroke-width="4" stroke-linecap="round"/>' +
-    '<circle cx="92" cy="241" r="5" fill="#8f86a3"/>' +
+    '<circle cx="80" cy="233" r="5" fill="#8f86a3"/>' +
     // Haare zuletzt: schmale Haube am Kopfrand mit Spitzenansatz (Zipfel zeigt zum Mund).
     '<path d="M 106 156 C 114 106 194 54 320 54 C 446 54 526 106 534 156 ' +
     'C 494 120 442 100 388 98 L 320 122 L 252 98 C 198 100 146 120 106 156 Z" ' +

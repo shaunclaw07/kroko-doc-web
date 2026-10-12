@@ -78,12 +78,12 @@ export const lionArtwork: CreatureArtwork = {
     '<circle cx="150" cy="72" r="24" fill="#e8a0ae"/>' +
     '<circle cx="490" cy="72" r="46" fill="#f2c469" stroke="#c2913c" stroke-width="3"/>' +
     '<circle cx="490" cy="72" r="24" fill="#e8a0ae"/>' +
-    '<ellipse cx="170" cy="152" rx="34" ry="29" fill="#ffffff" stroke="#c2913c" stroke-width="3"/>' +
-    '<ellipse cx="470" cy="152" rx="34" ry="29" fill="#ffffff" stroke="#c2913c" stroke-width="3"/>' +
-    '<circle cx="172" cy="155" r="15" fill="#a3651f" class="pupil"/>' +
-    '<circle cx="468" cy="155" r="15" fill="#a3651f" class="pupil"/>' +
-    '<circle cx="166" cy="148" r="6" fill="#ffffff"/>' +
-    '<circle cx="462" cy="148" r="6" fill="#ffffff"/>',
+    '<ellipse cx="214" cy="110" rx="25" ry="22" fill="#ffffff" stroke="#c2913c" stroke-width="3"/>' +
+    '<ellipse cx="426" cy="110" rx="25" ry="22" fill="#ffffff" stroke="#c2913c" stroke-width="3"/>' +
+    '<circle cx="215.5" cy="112" r="11" fill="#a3651f" class="pupil"/>' +
+    '<circle cx="424.5" cy="112" r="11" fill="#a3651f" class="pupil"/>' +
+    '<circle cx="211" cy="107" r="4.5" fill="#ffffff"/>' +
+    '<circle cx="420" cy="107" r="4.5" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Loewe: drei breite Schneidezaehne in der Mitte des Unterkiefers, links und rechts je ein

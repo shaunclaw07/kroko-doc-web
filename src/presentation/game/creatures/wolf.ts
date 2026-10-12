@@ -34,14 +34,14 @@ export const wolfArtwork: CreatureArtwork = {
     '<path d="M 508 112 L 562 12 L 434 78 Z" fill="#e2d3bd" stroke="#bda98f" stroke-width="3"/>' +
     '<path d="M 122 88 L 98 38 L 164 78 Z" fill="#f6c1c9"/>' +
     '<path d="M 518 88 L 542 38 L 476 78 Z" fill="#f6c1c9"/>' +
-    '<ellipse cx="150" cy="150" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
-    '<ellipse cx="490" cy="150" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
-    '<circle cx="152" cy="153" r="16" fill="#b07a3a" class="pupil"/><circle cx="492" cy="153" r="16" fill="#b07a3a" class="pupil"/>' +
-    '<circle cx="146" cy="146" r="6" fill="#ffffff"/><circle cx="486" cy="146" r="6" fill="#ffffff"/>' +
-    '<path d="M 118 114 C 136 102 164 102 182 114" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +
-    '<path d="M 458 114 C 476 102 504 102 522 114" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +
-    '<ellipse cx="112" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>' +
-    '<ellipse cx="528" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>',
+    '<ellipse cx="134" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
+    '<ellipse cx="506" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#bda98f" stroke-width="3"/>' +
+    '<circle cx="136" cy="145" r="16" fill="#b07a3a" class="pupil"/><circle cx="508" cy="145" r="16" fill="#b07a3a" class="pupil"/>' +
+    '<circle cx="130" cy="138" r="6" fill="#ffffff"/><circle cx="502" cy="138" r="6" fill="#ffffff"/>' +
+    '<path d="M 102 106 C 120 94 148 94 166 106" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +
+    '<path d="M 474 106 C 492 94 520 94 538 106" fill="none" stroke="#bda98f" stroke-width="4" stroke-linecap="round"/>' +
+    '<ellipse cx="104" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>' +
+    '<ellipse cx="536" cy="212" rx="20" ry="13" fill="#f2a8b6" opacity="0.45"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Wolf: drei breite Schneidezaehne in der Mitte des Unterkiefers, links und rechts je ein

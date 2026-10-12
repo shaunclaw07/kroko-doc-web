@@ -44,23 +44,25 @@ export const sharkArtwork: CreatureArtwork = {
     '<path d="M 94 256 C 66 260 40 266 20 274" fill="none" stroke="#aacbe4" stroke-width="4" stroke-linecap="round"/>' +
     '<path d="M 546 256 C 574 260 600 266 620 274" fill="none" stroke="#aacbe4" stroke-width="4" stroke-linecap="round"/>' +
     // Drei Kiemenschlitze je Seite (sechs zusammen) — das Erkennungszeichen eines Hais. Sie
-    // liegen **aussen auf dem Kopf** zwischen Auge und Maulrand, nicht im Maul: der Maulring
-    // (Ellipse 200x150 um 320/262) hat bei y=208 seinen Rand links bei x=133, bei y=244 bei
-    // x=121 — die Schlitze halten 5 px Abstand dazu und 3 px zur Silhouette.
-    '<path d="M 128 208 C 122 220 121 232 127 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 113 204 C 107 217 106 231 112 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 103 212 C 97 224 96 234 102 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 512 208 C 518 220 519 232 513 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 527 204 C 533 217 534 231 528 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 537 212 C 543 224 544 234 538 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<ellipse cx="196" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
-    '<ellipse cx="444" cy="152" rx="35" ry="30" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
-    '<circle cx="198" cy="156" r="15" fill="#2f4557" class="pupil"/>' +
-    '<circle cx="446" cy="156" r="15" fill="#2f4557" class="pupil"/>' +
-    '<circle cx="192" cy="149" r="6" fill="#ffffff"/>' +
-    '<circle cx="440" cy="149" r="6" fill="#ffffff"/>' +
-    '<path d="M 162 116 C 180 102 212 102 230 116" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 410 116 C 428 102 460 102 478 116" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>',
+    // liegen **aussen auf dem Kopf** am Flossenansatz, nicht im Maul: der Maulring (Ellipse
+    // 200x150 um 320/262) hat bei y=208 seinen Rand links bei x=133, bei y=244 bei x=121. Der
+    // innerste Schlitz endet bei x=112 — vorher reichte er bis x=127 und lag damit auf dem
+    // Wurzelrand eines Seitenzahns (gemessen bei 7 und 11 Zaehnen).
+    '<path d="M 113 208 C 107 220 106 232 112 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 102 204 C 96 217 95 231 101 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 91 212 C 85 224 84 234 90 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 527 208 C 533 220 534 232 528 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 538 204 C 544 217 545 231 539 243" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 549 212 C 555 224 556 234 550 244" fill="none" stroke="#5d8bab" stroke-width="5" stroke-linecap="round"/>' +
+    // Augen im Fellstreifen ueber dem Zahnring; die Braue liegt als Lid auf der Augenkante.
+    '<ellipse cx="212" cy="98" rx="28" ry="25" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
+    '<ellipse cx="428" cy="98" rx="28" ry="25" fill="#ffffff" stroke="#5d8bab" stroke-width="3"/>' +
+    '<circle cx="213.5" cy="101" r="12" fill="#2f4557" class="pupil"/>' +
+    '<circle cx="429.5" cy="101" r="12" fill="#2f4557" class="pupil"/>' +
+    '<circle cx="209" cy="95.5" r="5" fill="#ffffff"/>' +
+    '<circle cx="425" cy="95.5" r="5" fill="#ffffff"/>' +
+    '<path d="M 186 87 A 29 26 0 0 1 238 87" fill="none" stroke="#5d8bab" stroke-width="4" stroke-linecap="round"/>' +
+    '<path d="M 402 87 A 29 26 0 0 1 454 87" fill="none" stroke="#5d8bab" stroke-width="4" stroke-linecap="round"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => ({
       // Hai: gleichmaessige, runde Raubtierzahn-Reihe, abwechselnd etwas laenger und kuerzer.

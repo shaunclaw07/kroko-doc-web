@@ -43,19 +43,22 @@ export const crocodileArtwork: CreatureArtwork = {
     '<ellipse cx="288" cy="54" rx="9" ry="5" fill="#5f8f1e"/>' +
     '<ellipse cx="352" cy="54" rx="9" ry="5" fill="#5f8f1e"/>',
   face:
-    '<ellipse cx="165" cy="132" rx="38" ry="33" fill="#ffffff" stroke="#5f8f1e" stroke-width="3"/>' +
-    '<ellipse cx="475" cy="132" rx="38" ry="33" fill="#ffffff" stroke="#5f8f1e" stroke-width="3"/>' +
+    // Augen und Wangen liegen **ausserhalb** des Zahnrings (zwischen Ring und Kopfumriss): das
+    // Gesicht wird ueber die Zaehne gemalt, und was in den Ring ragt, deckt je nach Zahnzahl
+    // einen Zahn zu. Die Braue liegt als Lid auf der oberen Augenkante.
+    '<ellipse cx="144" cy="111" rx="33" ry="29" fill="#ffffff" stroke="#5f8f1e" stroke-width="3"/>' +
+    '<ellipse cx="496" cy="111" rx="33" ry="29" fill="#ffffff" stroke="#5f8f1e" stroke-width="3"/>' +
     // Hellblauer Irisring wie beim Original; die Pupille zieht sich beim Druck darin zusammen.
-    '<ellipse cx="167" cy="136" rx="25" ry="28" fill="#a8d8e8"/>' +
-    '<ellipse cx="477" cy="136" rx="25" ry="28" fill="#a8d8e8"/>' +
-    '<ellipse cx="167" cy="136" rx="16" ry="19" fill="#4a3521" class="pupil"/>' +
-    '<ellipse cx="477" cy="136" rx="16" ry="19" fill="#4a3521" class="pupil"/>' +
-    '<circle cx="160" cy="127" r="6" fill="#ffffff"/>' +
-    '<circle cx="470" cy="127" r="6" fill="#ffffff"/>' +
-    '<path d="M 135 96 C 152 84 180 84 197 96" fill="none" stroke="#5f8f1e" stroke-width="5" stroke-linecap="round"/>' +
-    '<path d="M 443 96 C 460 84 488 84 505 96" fill="none" stroke="#5f8f1e" stroke-width="5" stroke-linecap="round"/>' +
-    '<ellipse cx="118" cy="196" rx="20" ry="13" fill="#f4a8b6" opacity="0.5"/>' +
-    '<ellipse cx="522" cy="196" rx="20" ry="13" fill="#f4a8b6" opacity="0.5"/>',
+    '<ellipse cx="146" cy="114" rx="22" ry="24" fill="#a8d8e8"/>' +
+    '<ellipse cx="498" cy="114" rx="22" ry="24" fill="#a8d8e8"/>' +
+    '<ellipse cx="146" cy="114" rx="14" ry="17" fill="#4a3521" class="pupil"/>' +
+    '<ellipse cx="498" cy="114" rx="14" ry="17" fill="#4a3521" class="pupil"/>' +
+    '<circle cx="140" cy="107" r="5" fill="#ffffff"/>' +
+    '<circle cx="492" cy="107" r="5" fill="#ffffff"/>' +
+    '<path d="M 113 98 A 34 30 0 0 1 175 98" fill="none" stroke="#5f8f1e" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M 465 98 A 34 30 0 0 1 527 98" fill="none" stroke="#5f8f1e" stroke-width="5" stroke-linecap="round"/>' +
+    '<ellipse cx="66" cy="224" rx="16" ry="11" fill="#f4a8b6" opacity="0.85"/>' +
+    '<ellipse cx="574" cy="224" rx="16" ry="11" fill="#f4a8b6" opacity="0.85"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => ({
       // Krokodil: gleichmaessige, runde Zaehnchen, abwechselnd etwas laenger und kuerzer.

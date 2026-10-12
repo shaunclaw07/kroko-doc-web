@@ -87,23 +87,23 @@ export const pantherArtwork: CreatureArtwork = {
     // Maulrand liegt dort bei x 120, der Kopfrand bei x 88..96) -- mehr als rund 30 px Laenge
     // gibt er nicht her. Auf dem fast schwarzen Fell brauchen sie einen mittleren Grauton.
     '<g stroke="#6d6d7a" stroke-width="4" stroke-linecap="round">' +
-    '<path d="M 118 254 L 88 244"/>' +
-    '<path d="M 120 274 L 86 274"/>' +
-    '<path d="M 118 294 L 88 304"/>' +
-    '<path d="M 522 254 L 552 244"/>' +
-    '<path d="M 520 274 L 554 274"/>' +
-    '<path d="M 522 294 L 552 304"/>' +
+    '<path d="M 114 254 L 88 244"/>' +
+    '<path d="M 116 274 L 86 274"/>' +
+    '<path d="M 114 294 L 88 304"/>' +
+    '<path d="M 526 254 L 552 244"/>' +
+    '<path d="M 524 274 L 554 274"/>' +
+    '<path d="M 526 294 L 552 304"/>' +
     '</g>' +
     // Kulleraugen mit gelbem Irisring. Die Pupille ist rund und dunkelbraun -- nie schwarz,
     // nie ein Schlitz (Regel fuer Kinder).
-    '<ellipse cx="170" cy="166" rx="33" ry="28" fill="#ffffff"/>' +
-    '<ellipse cx="470" cy="166" rx="33" ry="28" fill="#ffffff"/>' +
-    '<circle cx="172" cy="168" r="21" fill="#f0c14b"/>' +
-    '<circle cx="468" cy="168" r="21" fill="#f0c14b"/>' +
-    '<circle cx="173" cy="169" r="13" fill="#4a3320" class="pupil"/>' +
-    '<circle cx="467" cy="169" r="13" fill="#4a3320" class="pupil"/>' +
-    '<circle cx="165" cy="159" r="6" fill="#ffffff"/>' +
-    '<circle cx="459" cy="159" r="6" fill="#ffffff"/>',
+    '<ellipse cx="222" cy="108" rx="27" ry="24" fill="#ffffff"/>' +
+    '<ellipse cx="418" cy="108" rx="27" ry="24" fill="#ffffff"/>' +
+    '<circle cx="223.5" cy="109.5" r="17" fill="#f0c14b"/>' +
+    '<circle cx="416.5" cy="109.5" r="17" fill="#f0c14b"/>' +
+    '<circle cx="224.5" cy="110.5" r="10.5" fill="#4a3320" class="pupil"/>' +
+    '<circle cx="415.5" cy="110.5" r="10.5" fill="#4a3320" class="pupil"/>' +
+    '<circle cx="218" cy="102" r="5" fill="#ffffff"/>' +
+    '<circle cx="409" cy="102" r="5" fill="#ffffff"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Ringmitte oben = Zahn count/2, unten = Zahn 0. Die vier Eckzaehne sitzen daneben:

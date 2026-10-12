@@ -116,6 +116,44 @@ describe('Zeichnungen der Lebewesen', () => {
     }
   });
 
+  /**
+   * Das Gesicht wird als letzte Ebene **über** die Zähne gemalt. Die Zähne stehen auf dem Ring und
+   * zeigen nach innen — jede runde Gesichtsform (Auge, Iris, Wange, Ohr, Monokel), die in die
+   * Ringellipse ragt, deckt deshalb bei irgendeiner Zahnzahl einen Zahn zu. Gemessen am 12.10.2026:
+   * der Augenfleck des Pandas verdeckte bei 11 Zähnen einen Zahn ganz, das Auge des Hais bei 8
+   * Zähnen 82 %. Die Regel gilt unabhängig von der Zahnzahl, weil sie den Ring prüft, nicht den Zahn.
+   */
+  it('hält Augen, Wangen und Ohren aus dem Zahnring heraus — kein Zahn liegt unter dem Gesicht', () => {
+    const MARGIN = 2;
+    const attribute = (tag: string, name: string): number | undefined => {
+      const match = tag.match(new RegExp(`\\s${name}="([^"]+)"`));
+      return match ? Number(match[1]) : undefined;
+    };
+    for (const creature of CREATURES) {
+      const art = ALL_ARTWORKS[creature.id]!;
+      const { cx, cy, rx, ry } = art.ring;
+      const shapes = art.face.match(/<(?:ellipse|circle)\b[^>]*>/g) ?? [];
+      // Mindestens zwei Augen — sonst prüfte die Regel bei geändertem Markup still nichts mehr.
+      expect(shapes.length, creature.id).toBeGreaterThanOrEqual(2);
+      // Eine gedrehte oder verschobene Form läge woanders, als ihre Attribute sagen.
+      expect(art.face, creature.id).not.toMatch(/<g\b[^>]*transform=[^>]*>\s*<(?:ellipse|circle)/);
+      for (const tag of shapes) {
+        expect(tag, creature.id).not.toContain('transform=');
+        const x = attribute(tag, 'cx') ?? 0;
+        const y = attribute(tag, 'cy') ?? 0;
+        const grow = (attribute(tag, 'stroke-width') ?? 0) / 2 + MARGIN;
+        const shapeRx = (attribute(tag, 'rx') ?? attribute(tag, 'r') ?? 0) + grow;
+        const shapeRy = (attribute(tag, 'ry') ?? attribute(tag, 'r') ?? 0) + grow;
+        for (let deg = 0; deg < 360; deg += 5) {
+          const px = x + shapeRx * Math.cos((deg * Math.PI) / 180);
+          const py = y + shapeRy * Math.sin((deg * Math.PI) / 180);
+          const inRing = ((px - cx) / rx) ** 2 + ((py - cy) / ry) ** 2;
+          expect(inRing, `${creature.id}: ${tag} ragt bei ${deg}° in den Zahnring`).toBeGreaterThanOrEqual(1);
+        }
+      }
+    }
+  });
+
   it('macht Zähne bei vielen Zähnen schmaler, damit sie sich nicht überdecken', () => {
     const wide = creatureView('crocodile', 6).render();
     const narrow = creatureView('crocodile', MAX_TEETH).render();

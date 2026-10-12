@@ -46,14 +46,14 @@ export const mouseArtwork: CreatureArtwork = {
     '<path d="M 498 210 C 528 202 558 198 584 196" fill="none" stroke="#a9a1b6" stroke-width="4" stroke-linecap="round"/>' +
     '<path d="M 496 236 C 530 238 562 242 590 248" fill="none" stroke="#a9a1b6" stroke-width="4" stroke-linecap="round"/>' +
     '<path d="M 498 262 C 528 272 556 282 580 292" fill="none" stroke="#a9a1b6" stroke-width="4" stroke-linecap="round"/>' +
-    '<ellipse cx="168" cy="170" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
-    '<ellipse cx="472" cy="170" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
-    '<circle cx="170" cy="173" r="13" fill="#3d3450" class="pupil"/>' +
-    '<circle cx="474" cy="173" r="13" fill="#3d3450" class="pupil"/>' +
-    '<circle cx="165" cy="167" r="5" fill="#ffffff"/>' +
-    '<circle cx="469" cy="167" r="5" fill="#ffffff"/>' +
-    '<ellipse cx="132" cy="230" rx="20" ry="13" fill="#f2a8b6" opacity="0.5"/>' +
-    '<ellipse cx="508" cy="230" rx="20" ry="13" fill="#f2a8b6" opacity="0.5"/>',
+    '<ellipse cx="156" cy="160" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
+    '<ellipse cx="484" cy="160" rx="28" ry="25" fill="#ffffff" stroke="#a9a1b6" stroke-width="3"/>' +
+    '<circle cx="158" cy="163" r="13" fill="#3d3450" class="pupil"/>' +
+    '<circle cx="486" cy="163" r="13" fill="#3d3450" class="pupil"/>' +
+    '<circle cx="153" cy="157" r="5" fill="#ffffff"/>' +
+    '<circle cx="481" cy="157" r="5" fill="#ffffff"/>' +
+    '<ellipse cx="128" cy="230" rx="20" ry="13" fill="#f2a8b6" opacity="0.5"/>' +
+    '<ellipse cx="512" cy="230" rx="20" ry="13" fill="#f2a8b6" opacity="0.5"/>',
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Maus: breite Nagezaehne; die zwei vorn (an der Maulmitte) sind die kraeftigsten.
