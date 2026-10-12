@@ -10,6 +10,9 @@ das nervt"): Nach dem Tipp auf eine Kachel ist das Auswahlblatt **zu**, das Eins
 bleibt offen und traegt den neuen Namen. Wer das Blatt erneut oeffnet, sieht die Marke auf dem
 gewaehlten Tier und dessen Kurzinfo — die Auskunft bleibt also erreichbar.
 
+Seit dem Umbau der Spielseite (12.10.2026, Bedienleiste) oeffnet sich das Auswahlblatt direkt von
+der Spielseite; die Kurzinfo steht im Regeln-Blatt.
+
 Aufruf (Server muss laufen; Standard ist der Entwicklungsserver):
 
     uv run --with playwright python scripts/pruefen-tiere.py
@@ -60,13 +63,11 @@ ZAEHLEN = """
 EIN_TIPP = """
 () => {
   const blatt = document.getElementById('creature-sheet');
-  const einstellungen = document.getElementById('settings-sheet');
   const text = (id) => ((document.getElementById(id) || {}).textContent || '').trim();
   return {
     blattOffen: blatt.open === true && getComputedStyle(blatt).display !== 'none',
-    einstellungenOffen: einstellungen.open === true,
     name: text('creature-name'),
-    zaehne: text('creature-teeth'),
+    buehne: document.querySelector('svg.creature').dataset.creature,
     linie: text('creature-detail-line'),
     notiz: text('creature-detail-note'),
     markiert: Array.from(blatt.querySelectorAll('#creature-list button[data-creature]'))
@@ -92,8 +93,6 @@ def main() -> int:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": 390, "height": 844})
         page.goto(BASIS, wait_until="load")
-        page.click("#settings-open")
-        page.wait_for_timeout(500)
         # „Welches Tier?" ist eine Kachel, die ein zweites Blatt oeffnet: erst antippen.
         page.click("#creature-open")
         page.wait_for_timeout(700)
@@ -158,10 +157,10 @@ def main() -> int:
     for name, stand in (("Loewe", loewe), ("Panther", panther)):
         if stand["blattOffen"]:
             funde.append(f"{name}: Auswahlblatt ist nach dem Tipp noch offen")
-        if not stand["einstellungenOffen"]:
-            funde.append(f"{name}: Einstellungsblatt wurde mitgeschlossen")
+        if stand["buehne"] != erwartete_kennung[name]:
+            funde.append(f"{name}: auf der Buehne steht {stand['buehne']!r}")
         if stand["name"] != stand["nameDerMarke"] or not stand["name"]:
-            funde.append(f"{name}: Einstellungsblatt zeigt {stand['name']!r}, "
+            funde.append(f"{name}: der Tier-Griff nennt {stand['name']!r}, "
                          f"markierte Kachel {stand['nameDerMarke']!r}")
         if stand["markiert"] != [erwartete_kennung[name]]:
             funde.append(f"{name}: Marke steht auf {stand['markiert']!r}")

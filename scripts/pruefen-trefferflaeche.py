@@ -52,25 +52,18 @@ with sync_playwright() as p:
         seite.wait_for_timeout(400)
         bericht(f"{breite} px, 10 Zähne", seite.evaluate(MESSEN))
 
-        seite.click("#settings-open")
         for _ in range(9):
             seite.click("#teeth-minus")
-        seite.click("#settings-sheet .sheet__close")
         bericht(f"{breite} px, 1 Zahn", seite.evaluate(MESSEN))
 
-        seite.click("#settings-open")
-        seite.click("#teeth-reset")
-        for _ in range(2):
-            seite.click("#teeth-minus")
-        seite.click("#settings-sheet .sheet__close")
-        bericht(f"{breite} px, 10 Zähne (nach Zurücksetzen)", seite.evaluate(MESSEN))
+        for _ in range(9):
+            seite.click("#teeth-plus")
+        bericht(f"{breite} px, 10 Zähne (wieder hochgezählt)", seite.evaluate(MESSEN))
 
         # 12 Zähne: der Fall, in dem die Vorgabe auf 320 px nicht mehr geht
-        seite.click("#settings-open")
         for _ in range(2):
             seite.click("#teeth-plus")
-        print("   Regler:", seite.inner_text("#teeth-value"), "| Hinweis:", seite.inner_text("#teeth-hint"))
-        seite.click("#settings-sheet .sheet__close")
+        print("   Regler:", seite.inner_text("#teeth-value"))
         bericht(f"{breite} px, 12 Zähne", seite.evaluate(MESSEN))
         seite.close()
 
@@ -93,10 +86,10 @@ with sync_playwright() as p:
         if stelle is None:
             print(f"Tippprobe: Zahn {ziel} gibt es nicht")
             continue
-        vorher = seite.inner_text("#hud-presses")
+        vorher = seite.inner_text("#hud-progress")
         seite.mouse.click(stelle["x"], stelle["y"])
         seite.wait_for_timeout(150)
-        nachher = seite.inner_text("#hud-presses")
+        nachher = seite.inner_text("#hud-progress")
         print(f"Tippprobe bei 320 px: Zahn {ziel} in der Mitte gedrückt "
               f"{vorher} → {nachher} ({'registriert' if nachher != vorher else 'TOT'})")
     browser.close()

@@ -56,8 +56,8 @@ def main() -> int:
         # 1. Tastatur im Einstellungsblatt
         for blick in (HANDY, {"width": 1180, "height": 820}):
             for name, ziel, taste in (
-                ("Enter auf Minus", "#teeth-minus", "Enter"),
-                ("Leertaste auf Minus", "#teeth-minus", " "),
+                ("Enter auf Modus", '#opt-mode [data-mode="classic"]', "Enter"),
+                ("Leertaste auf Modus", '#opt-mode [data-mode="classic"]', " "),
                 ("Leertaste auf Ton", "#opt-sound", " "),
                 ("Enter auf Spielerzahl 2", '#opt-players [data-players="2"]', "Enter"),
             ):
@@ -71,22 +71,25 @@ def main() -> int:
                     funde.append(f"{blick['width']} px: {name} schliesst das Einstellungsblatt")
                 context.close()
 
-        # 2. Tier-Auswahl: nur das Auswahlblatt schliesst sich — in jeder Breite, jede Kachelreihe
+        # 2. Tier-Auswahl: unter 640 px ein Blatt, das ein Tipp schliesst; ab 640 px die offene Reihe.
         for blick in BLICKE:
             context, page = frisch(browser, blick)
-            page.click("#settings-open")
+            schmal = blick["width"] < 640
             for tier in ("wolf", "crocodile", "sabertooth"):
-                page.click("#creature-open")
-                page.click(f'#creature-list [data-creature="{tier}"]')
-                stand = (offen(page, "creature-sheet"), offen(page, "settings-sheet"))
-                print(f"Auswahl {blick['width']} px, {tier}: Auswahl offen = {stand[0]}, "
-                      f"Einstellungen offen = {stand[1]}")
-                if stand[0]:
+                if schmal:
+                    page.click("#creature-open")
+                    page.click(f'#creature-list [data-creature="{tier}"]')
+                else:
+                    page.click(f'#creature-rail [data-creature="{tier}"]')
+                noch_offen = offen(page, "creature-sheet")
+                steht = page.evaluate("() => document.querySelector('svg.creature').dataset.creature")
+                print(f"Auswahl {blick['width']} px, {tier}: Auswahl offen = {noch_offen}, Buehne = {steht}")
+                if noch_offen:
                     funde.append(f"{blick['width']} px: Auswahlblatt nach Tipp auf {tier} noch offen")
-                if not stand[1]:
-                    funde.append(f"{blick['width']} px: Tipp auf {tier} schliesst das Einstellungsblatt mit")
-                    page.click("#settings-open")
-            # Gegenprobe: ein Zeigertipp neben das Blatt schliesst es weiterhin.
+                if steht != tier:
+                    funde.append(f"{blick['width']} px: nach Tipp auf {tier} steht {steht} auf der Buehne")
+            # Gegenprobe: ein Zeigertipp neben das Zahnrad-Blatt schliesst es weiterhin.
+            page.click("#settings-open")
             page.mouse.click(blick["width"] / 2, 40)
             if offen(page, "settings-sheet"):
                 funde.append(f"{blick['width']} px: Tipp neben das Einstellungsblatt schliesst es nicht mehr")
@@ -98,7 +101,7 @@ def main() -> int:
         ein_zahn = {"creature": "crocodile", "teethOverride": 1, "sound": False, "vibration": False,
                     "mode": "original", "players": 1}
         context, page = frisch(browser, HANDY, ein_zahn)
-        vorher = page.evaluate("() => getComputedStyle(document.getElementById('restart-round')).display")
+        betont_vorher = page.evaluate("() => document.getElementById('new-round').classList.contains('is-next')")
         page.click('.tooth[data-tooth="1"]')
         page.wait_for_selector("#result-sheet[open]")
         page.mouse.click(195, 250)  # weiter auf die Buehne getippt
@@ -106,26 +109,26 @@ def main() -> int:
         page.click("#result-sheet [data-close-sheet]")
         knopf = page.evaluate(
             """() => {
-              const k = document.getElementById('restart-round');
+              const k = document.getElementById('new-round');
               const r = k.getBoundingClientRect();
-              return { display: getComputedStyle(k).display, breite: r.width, hoehe: r.height,
+              return { betont: k.classList.contains('is-next'), breite: r.width, hoehe: r.height,
                        imBild: r.top >= 0 && r.bottom <= innerHeight };
             }"""
         )
-        page.click("#restart-round")
+        page.click("#new-round")
         nachher = page.evaluate(
             """() => ({ status: document.getElementById('stage').dataset.status,
-                        display: getComputedStyle(document.getElementById('restart-round')).display })"""
+                        betont: document.getElementById('new-round').classList.contains('is-next') })"""
         )
         print("Nach dem Biss: Ergebnis bleibt nach Tipp auf die Buehne =", ergebnis_steht,
-              "| Knopf vorher:", vorher, "| nach Schliessen:", knopf, "| nach Neue Runde:", nachher)
-        if vorher != "none":
-            funde.append("'Neue Runde' steht schon bei offener Runde auf der Buehne")
+              "| betont vorher:", betont_vorher, "| nach Schliessen:", knopf, "| nach Neue Runde:", nachher)
+        if betont_vorher:
+            funde.append("'Neue Runde' ist schon bei offener Runde betont")
         if not ergebnis_steht:
             funde.append("Tipp auf die Buehne schliesst das Ergebnis-Blatt")
-        if knopf["display"] == "none" or knopf["hoehe"] < 44 or not knopf["imBild"]:
-            funde.append(f"'Neue Runde' nach dem Schliessen nicht erreichbar: {knopf}")
-        if nachher["status"] != "open" or nachher["display"] != "none":
+        if not knopf["betont"] or knopf["hoehe"] < 48 or not knopf["imBild"]:
+            funde.append(f"'Neue Runde' nach dem Schliessen nicht erreichbar oder nicht betont: {knopf}")
+        if nachher["status"] != "open" or nachher["betont"]:
             funde.append(f"'Neue Runde' startet keine Runde: {nachher}")
         context.close()
 
@@ -133,7 +136,6 @@ def main() -> int:
         fuenf = {"creature": "crocodile", "teethOverride": 5, "sound": False, "vibration": False,
                  "mode": "original", "players": 1}
         context, page = frisch(browser, HANDY, fuenf)
-        page.click("#settings-open")
         page.click("#creature-open")
         page.click('#creature-list [data-creature="crocodile"]')
         zaehne = page.locator(".tooth").count()
