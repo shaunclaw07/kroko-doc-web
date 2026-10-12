@@ -58,6 +58,8 @@ Rechenwerte für n = 10, `original`, zufällige Druckreihenfolge (nachgerechnet 
 | Erleichterung | 0..1, abgeleitet aus der **erlebten** Pause (`max(beatMs, Haltedauer)`); nur beim harmlosen Druck |
 | Puls des Balkens | 900 ms bei Spannung 0 bis 380 ms bei Spannung 1 (nur sichtbar; der hörbare Herzschlag ist seit dem 12.10.2026 entfernt) |
 | Beschleunigung | Bildschirmbeben, Vibration, Maul-„Lunge" nach vorn |
+| Blick | die Pupillen folgen dem Zeiger und bleiben auf dem gedrückten Zahn, höchstens 4 SVG-Einheiten (`creatures/gaze.ts`); hängt nie an den scharfen Zähnen |
+| Zittern | der Oberkiefer zittert leicht über 30 % Bissgefahr (`is-wary`) und deutlich ab 50 % (`is-trembling`) — dieselben Schwellen wie der Balken; bei geschlossenem Maul nie |
 
 Wenn die Spannung eine Wahrscheinlichkeit ist, kann die Anzeige nicht lügen — und sie steht
 nirgends vorzeitig auf 100 %. Gemessene Kurven (Krokodil 10 Zähne, 1–3 scharf):

@@ -922,3 +922,54 @@ kurz oder zu lang sind, und ob ein langer Druck auf dem Fire-Tablet oder in Safa
 öffnet (die Sonde prüft nur Chromium).
 
 Gate **386 Tests in 28 Dateien**. Nicht gepusht.
+
+## Nachtrag 12.10.2026 (gebaut): das Tier reagiert auf die Gefahr
+
+**Anlass (Auftraggeber):** die Frage nach mehr Nervenkitzel und seine Zustimmung zu den drei
+Empfehlungen „Drücken und halten", „Das Tier reagiert auf die Gefahr", „Heranzoomen bei Rot" — in
+dieser Reihenfolge. Dies ist der zweite der drei Pläne (nach „Drücken und halten").
+
+**Die Entscheidungen** (Selbst-Sparring, jede Antwort mit einer Tatsache aus dem Baum):
+
+1. **Nur die Pupille bewegt sich**, nicht Linse, Iris oder Glanzpunkt. Grund: alle zehn Tiere tragen
+   `class="pupil"` an genau zwei Formen; die Linse ist bei allen eine weiße Ellipse
+   (`fill="#ffffff"`). Eine Änderung an den zehn Zeichnungen ist nicht nötig.
+2. **Höchstens 4 SVG-Einheiten.** Nachgerechnet am engsten Auge: beim Panther liegt die Pupille
+   (r 10,5, Mitte um 1,4 versetzt) in einer Iris von r 17 — 5,1 Einheiten Luft; beim Panda sind es
+   in der Linse 18 × 17 senkrecht 6. Vier bleibt bei jedem Tier in der Linse. Ein Test rechnet das
+   für alle zehn nach.
+3. **Beide Augen schauen parallel.** Ein Versatz für beide, gerechnet von der Mitte zwischen den
+   Pupillen. Schielen sähe für ein Kind falsch aus.
+4. **Ziel ist der Zeiger über der Bühne**, und beim Zug der Anker des gedrückten Zahns
+   (`CreatureView.toothAnchor`). Auf dem Handy gibt es kein Schweben: dort bleibt der Blick dort,
+   wo der Finger zuletzt war — also auf dem gedrückten Zahn. Die Tastatur bekommt denselben Blick
+   über den Anker.
+5. **Der Blick verrät nichts.** Er hängt nur am Zeiger und am gedrückten Zahn, nie an den scharfen
+   Zähnen. Bei geschlossenem Maul folgt er dem Zeiger nicht mehr.
+6. **Zittern in zwei Stufen aus den vorhandenen Schwellen:** `is-wary` über 30 % (`isTense`),
+   `is-trembling` ab 50 % (`isHighDanger`). Keine neue Schwelle, keine neue Rechnung im Kern.
+7. **Es zittert der Oberkiefer** (`.jaw__upper`), 2 bzw. 3 SVG-Einheiten. Die oberen Zähne fahren
+   mit; bei 390 px Bühne sind 3 Einheiten rund 1,7 px — die Trefferfläche (≥ 44 px) trägt das.
+8. **Die Regeln stehen vor den Druck-Regeln im Stylesheet.** `is-pressing`, `is-settling`,
+   `is-twitching` und `is-clenching` animieren dasselbe Element mit gleicher Spezifität; die
+   spätere Regel gewinnt. Das Zittern muss also **vor** „Fakeout-Zucken" stehen, sonst schluckt es
+   das Knarren der Pause.
+9. **`prefers-reduced-motion`:** die vorhandene Regel (`* { animation: none !important; transition:
+   none !important; }`) schaltet das Zittern ab; die Pupillen springen dann ohne Übergang. Das
+   genügt.
+
+**Abgesagt:** Augen, die sich bei Gefahr weiten oder das Tier ängstlich machen (für ein Kind soll
+das Tier verspielt bleiben, nicht leiden); ein Blick auf einen **scharfen** Zahn als „Tell"
+(verriete den Ausgang); Zittern der ganzen Bühne (kollidiert mit `is-shaking` und verschöbe alle
+Trefferflächen).
+
+**Gebaut mit `GAZE_MAX = 4`.** Die engste Linse hat der **Panda** (Pupille r 9 in einer Linse
+18 × 17, gemessene Luft 5,85 Einheiten), nicht der Panther wie im Plan angenommen — 4 Einheiten
+lassen dort also rund 1,85 Einheiten übrig. Der Test rechnet die Grenze für alle zehn Tiere nach,
+die Sonde misst sie im Browser (Wanderung links → rechts: 4,12 bis 4,38 px bei 390 px Blick).
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob 4 Einheiten Blick am Handy sichtbar genug
+sind und ob das Zittern spannend oder unruhig wirkt. Stellschrauben: `GAZE_MAX` in
+`creatures/gaze.ts`, `--tremble` und die Dauern in `app.css`.
+
+Gate **404 Tests in 29 Dateien**. Nicht gepusht.

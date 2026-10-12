@@ -1450,6 +1450,75 @@ meldete für alle drei Tippproben „registriert", `pruefen-anzeige.py` „ERGEB
 
 **Nicht geprüft:** echtes Gerät, Safari, Silk — die Sonde läuft in Chromium.
 
+## 5ad. Blick und Zittern (12.10.2026)
+
+**Was geprüft wurde:** ob die Augen im **echten** Browser dem Zeiger folgen, ob die Pupille dabei
+bei jedem der zehn Tiere in ihrer weißen Linse bleibt und ob der Oberkiefer mit der Bissgefahr
+zittert. jsdom rechnet kein CSS — die Unit-Tests sehen die Klassen, nicht die Bewegung.
+
+**Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
+`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+
+```bash
+uv run --with playwright python scripts/pruefen-blick.py http://localhost:4321
+# ohne uv:
+python scripts/pruefen-blick.py http://localhost:4321
+```
+
+**Wörtliche Ausgabe** (Chromium, 390 × 844, Seite vom laufenden `pnpm dev`, 12.10.2026):
+
+```
+1 — Blick, je Tier
+  ok    crocodile: zwei Pupillen gefunden (2)
+  ok    crocodile: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    crocodile: der Blick wandert von links nach rechts (4.17 px)
+2 — Kopfbilder
+  ok    die Pupille der Kachel steht still (transform: none)
+1 — Blick, je Tier (weiter)
+  ok    wolf: zwei Pupillen gefunden (2)
+  ok    wolf: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    wolf: der Blick wandert von links nach rechts (4.29 px)
+  ok    human: zwei Pupillen gefunden (2)
+  ok    human: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    human: der Blick wandert von links nach rechts (4.29 px)
+  ok    shark: zwei Pupillen gefunden (2)
+  ok    shark: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    shark: der Blick wandert von links nach rechts (4.12 px)
+  ok    mouse: zwei Pupillen gefunden (2)
+  ok    mouse: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    mouse: der Blick wandert von links nach rechts (4.35 px)
+  ok    vampire: zwei Pupillen gefunden (2)
+  ok    vampire: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    vampire: der Blick wandert von links nach rechts (4.38 px)
+  ok    panda: zwei Pupillen gefunden (2)
+  ok    panda: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    panda: der Blick wandert von links nach rechts (4.13 px)
+  ok    lion: zwei Pupillen gefunden (2)
+  ok    lion: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    lion: der Blick wandert von links nach rechts (4.16 px)
+  ok    panther: zwei Pupillen gefunden (2)
+  ok    panther: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    panther: der Blick wandert von links nach rechts (4.16 px)
+  ok    sabertooth: zwei Pupillen gefunden (2)
+  ok    sabertooth: jede Pupille bleibt an allen fünf Stellen in ihrer Linse
+  ok    sabertooth: der Blick wandert von links nach rechts (4.18 px)
+3 — Zittern
+  ok    zehn Zähne am Start: keine Animation (none)
+  ok    ein Zahn: der Kiefer zittert (jaw-tremble, 0.42s, Klassen: creature is-trembling)
+4 — Pause
+  ok    in der Pause gewinnt das Knarren, nicht das Zittern (jaw-crack)
+5 — Ruhe
+  ok    mit reduzierter Bewegung läuft nichts (none)
+
+Auffälligkeiten: 0
+```
+
+Die Zahnsicht-Sonde lief danach gegen dieselben Zeichnungen: `pnpm vitest run
+src/render-probe.test.ts` schrieb 120 Zeichnungen, `scripts/pruefen-zahnsicht.py` meldete
+„120 Zeichnungen geprüft (Lebewesen × Zahnzahl), 0 Auffälligkeiten" (Exit 0).
+
+**Nicht geprüft:** ob Blick und Zittern am Handy spannend wirken — das sieht nur der Auftraggeber.
+
 ## 6. Von Prüfern gefundene Umgebungsfallen (nachgeprüft)
 
 | Behauptung des Prüfers | Eigene Nachprüfung | Ergebnis |

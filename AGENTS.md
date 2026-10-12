@@ -47,6 +47,7 @@ pnpm gate         # beides nacheinander
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt ein Zahn unter dem Gesicht?
 uv run --with playwright python scripts/pruefen-halten.py      # Halten, Wegschieben, Obergrenze (Server muss laufen)
+uv run --with playwright python scripts/pruefen-blick.py       # Blick, Linsen-Grenze, Zittern (Server muss laufen)
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -166,7 +167,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Niemals `git add -A`** — explizite Pfade. Vor dem Commit `git status --short | grep '^ D'`.
 - **Die Zeichnung hat zwei Wahrheiten:** Formen, Farben und Zahnprofile stehen in
   `presentation/game/creatures/<tier>.ts`, nur Zustände im CSS (`is-held`, `is-pressed`, `is-snapped`,
-  `is-live`, `is-twitching`, `is-pressing`, `is-settling`, `is-clenching`). Geometrie (Ring,
+  `is-live`, `is-twitching`, `is-pressing`, `is-settling`, `is-clenching`, `is-wary`, `is-trembling`). Geometrie (Ring,
   Schließweg, Trefferflächen) wird berechnet,
   nicht gesetzt — wer einen Wert hart einträgt, umgeht die Prüfung.
 - **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
@@ -356,6 +357,9 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
    keine Bänder neben dem Kopf hängen),
    `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
    `upperTeeth` (Verhältnis, nicht Anzahl), `face`, `ring`, `teethProfile(count)`.
+  Die beiden Pupillen tragen `class="pupil"` und liegen in einer weißen Linse (`fill="#ffffff"`) mit
+  mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger (`creatures/gaze.ts`); `gaze.test.ts`
+  fällt sonst.
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
 4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
    zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.

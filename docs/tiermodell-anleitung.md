@@ -84,6 +84,11 @@ Dann:
    seitlich **außerhalb** des Rings. Auf kräftigem Grün oder Blau wird halbdurchsichtiges Rosa
    schmutzig — beim Krokodil deshalb Deckkraft 0,85.
 
+**Die Pupille wandert.** Beide Pupillen tragen `class="pupil"` und folgen dem Zeiger um höchstens
+4 Einheiten (`GAZE_MAX` in `creatures/gaze.ts`). Die weiße Linse (`fill="#ffffff"`) muss deshalb
+rings um die Pupille mindestens 4 Einheiten Luft lassen — `gaze.test.ts` rechnet das für jedes Tier
+in acht Richtungen nach, `scripts/pruefen-blick.py` misst es im Browser.
+
 ## 4. Prüfen — in dieser Reihenfolge
 
 ```bash
