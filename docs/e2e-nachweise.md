@@ -935,6 +935,12 @@ alten Farben dort nicht mehr vorkommen (`#2f6b4f`, `#1c4531`, `#fbf7e8`). CSS: `
 - **Falle dabei:** das SVG trägt kein eigenes `width`/`height` (nur `viewBox 0 0 512 512`). Deshalb
   stehen am `<img>` die Attribute **und** die CSS-Regel; ohne beides zeichnet der Browser es in der
   Ersatzgröße **150 × 150 px** (im Browser abgelesen: `naturalWidth` = 150).
+- **Zweite Falle:** derselbe Gegenstand, zwei Wege — ein direkter Abruf von
+  `https://zahn-agent.schaflabs.com/logo.svg` mit `python3 -m urllib` endet in **HTTP 403**
+  (Bot-Sperre), während der Abruf **im Browser** HTTP 200 liefert. Gemessen wurde deshalb per
+  `fetch('/logo.svg')` aus der Seite heraus: 200, 7257 Bytes, SHA-256 **identisch** zur Datei im
+  Baum, enthält die Fellfarbe der Zeichnung (`#8fce33`) und **nicht** das alte Krokodil (`#2f6b4f`).
+  Wer eine Auslieferung behauptet, misst mit einem Werkzeug, das die Seite auch bedient.
 
 **Nebenbei:** Symbol neu erzeugt (`ICON_NEU=1 pnpm vitest run src/icon.test.ts`) → Gate **235 Tests
 in 19 Dateien** (vorher 234, die Sonde hat eine Prüfung mehr); die Zahlendoku ist nachgezogen.
