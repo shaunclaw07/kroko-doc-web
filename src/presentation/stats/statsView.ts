@@ -1,8 +1,14 @@
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RandomMode } from '../../core/domain/teeth';
 import { HIGH_DANGER, tensionForPress } from '../../core/domain/tension';
-import { DEFAULT_K_WEIGHTS, expectedPresses, modeKWeights, pressPositionDistribution } from '../../core/domain/probabilities';
-import { analyseSession, bravestRound, verdict, type ChiSquareResult, type SessionReport } from '../../core/domain/statistics';
+import {
+  analyseSession,
+  bravestRound,
+  groupRounds,
+  verdict,
+  type ChiSquareResult,
+  type SessionReport,
+} from '../../core/domain/statistics';
 import { getCreature } from '../../core/domain/creature';
 
 /** Unter dieser Rundenzahl gibt es bewusst keine Signifikanz-Aussage. */
@@ -70,50 +76,89 @@ function autocorrelationTable(report: SessionReport): string {
   ].join('');
 }
 
-function reportHtml(report: SessionReport, records: readonly RoundRecord[]): string {
-  const mode: 'original' | 'classic' = records[0]?.mode ?? 'original';
-  const weights = modeKWeights(mode);
-  const model = pressPositionDistribution(report.teeth, weights);
+/**
+ * Wie viele Zähne gleichzeitig scharf sein können — aus dem Gebiss der Gruppe, nicht pauschal.
+ * Vorher stand hier „1–3 scharf", auch beim Wolf (der 1–2 hat) und bei jeder Zahnzahl.
+ */
+function liveLabel(report: SessionReport): string {
+  if (report.mode === 'classic') {
+    return 'genau 1 scharf';
+  }
+  const creature = getCreature(report.creature);
+  const lowest = Math.min(creature.liveTeethMin, report.teeth);
+  const highest = Math.min(creature.liveTeethMax, report.teeth);
+  return lowest === highest ? `${lowest} scharf` : `${lowest}–${highest} scharf`;
+}
+
+function groupTitle(report: SessionReport): string {
+  const teeth = report.teeth === 1 ? '1 Zahn' : `${report.teeth} Zähne`;
+  return `${getCreature(report.creature).name} · ${teeth} · ${liveLabel(report)}`;
+}
+
+/**
+ * Auswertung **eines** Gebisses. Modellwert und Modellbalken kommen aus dem Bericht (`report.model`)
+ * — also aus derselben Verteilung, gegen die der Test prüft. Vorher rechnete die Anzeige pauschal mit
+ * 1–3 scharfen Zähnen: beim Wolf stand „Erwartet 4,69", getestet wurde gegen 5,42.
+ */
+function groupHtml(report: SessionReport, open: boolean): string {
   const enough = report.rounds >= MIN_SAMPLE_FOR_VERDICT;
-  const brave = bravestRound(records);
+  const runden = report.rounds === 1 ? '1 Runde' : `${report.rounds} Runden`;
   return [
+    `<details class="report-group"${open ? ' open' : ''}>`,
+    `<summary>${escapeHtml(groupTitle(report))} — ${runden}</summary>`,
     '<div class="hud">',
-    `<div class="stat"><div class="stat__label">Runden</div><div class="stat__value">${report.rounds}</div></div>`,
-    `<div class="stat"><div class="stat__label">Zähne</div><div class="stat__value">${report.teeth}</div></div>`,
-    `<div class="stat"><div class="stat__label">Modus</div><div class="stat__value">${
-      mode === 'classic' ? 'genau 1' : '1–3 scharf'
-    }</div></div>`,
     `<div class="stat"><div class="stat__label">Drücke bis Biss</div><div class="stat__value">${report.observedPresses.toFixed(
       2,
     )}</div></div>`,
-    `<div class="stat"><div class="stat__label">Erwartet (Modell)</div><div class="stat__value">${expectedPresses(
-      model,
-    ).toFixed(2)}</div></div>`,
+    `<div class="stat"><div class="stat__label">Erwartet (Modell)</div><div class="stat__value">${report.expectedPresses.toFixed(
+      2,
+    )}</div></div>`,
     `<div class="stat"><div class="stat__label">Häufigster Zahn</div><div class="stat__value">${
       report.mostLikelyTooth ?? '—'
     }</div></div>`,
+    '</div>',
+    `<p>${escapeHtml(verdict(report, MIN_SAMPLE_FOR_VERDICT))}</p>`,
+    enough ? '' : '<p class="small muted">Für statistische Aussagen fehlen Runden — die Tests bleiben deshalb aus.</p>',
+    '<h3 class="small muted">Verlierer-Zahn (Häufigkeit)</h3>',
+    `<div class="bars">${bars(report.countsByTooth, report.rounds)}</div>`,
+    '<h3 class="small muted" style="margin-top:1rem">Position in der Druckreihenfolge</h3>',
+    `<div class="bars">${bars(report.countsByPressIndex, report.rounds, report.model)}</div>`,
+    '<h3 class="small muted" style="margin-top:1rem">Tests</h3>',
+    `<p class="small">Zahn-Nummern gegen Gleichverteilung: ${testTag(report.toothTest)}</p>`,
+    // Nur im Modus „genau ein Zahn" ist die Druck-Position gleichverteilt — nur dort steht der Test.
+    report.mode === 'classic'
+      ? `<p class="small">Druck-Position gegen Gleichverteilung: ${testTag(report.pressIndexTest)}</p>`
+      : '',
+    `<p class="small">Druck-Position gegen das Zugmodell: ${testTag(report.modelTest)}</p>`,
+    '<h3 class="small muted" style="margin-top:1rem">Mustersuche (Autokorrelation)</h3>',
+    autocorrelationTable(report),
+    '</details>',
+  ].join('');
+}
+
+function reportHtml(records: readonly RoundRecord[]): string {
+  const groups = groupRounds(records);
+  const brave = bravestRound(records);
+  return [
+    '<div class="hud">',
+    `<div class="stat"><div class="stat__label">Runden</div><div class="stat__value">${records.length}</div></div>`,
+    `<div class="stat"><div class="stat__label">Gebisse</div><div class="stat__value">${groups.length}</div></div>`,
     `<div class="stat"><div class="stat__label">Mutigste Runde</div><div class="stat__value">${
       brave ? `${Math.round(brave.danger * 100)} %` : '—'
     }</div></div>`,
     '</div>',
-    `<p>${escapeHtml(verdict(report, MIN_SAMPLE_FOR_VERDICT))}</p>`,
     brave
       ? `<p class="small">Mutigste Runde: ${Math.round(brave.danger * 100)} % Bissgefahr in Runde ${
           brave.round
         } (${escapeHtml(getCreature(brave.creature).name)}) — die höchste Gefahr, die überstanden wurde. ` +
         'Ein einzelner Wert ist kein statistischer Befund, sondern eine Geschichte.</p>'
       : '',
-    enough ? '' : '<p class="small muted">Für statistische Aussagen fehlen Runden — die Tests bleiben deshalb aus.</p>',
-    '<h3 class="small muted">Verlierer-Zahn (Häufigkeit)</h3>',
-    `<div class="bars">${bars(report.countsByTooth, report.rounds)}</div>`,
-    '<h3 class="small muted" style="margin-top:1rem">Position in der Druckreihenfolge</h3>',
-    `<div class="bars">${bars(report.countsByPressIndex, report.rounds, model)}</div>`,
-    '<h3 class="small muted" style="margin-top:1rem">Tests</h3>',
-    `<p class="small">Zahn-Nummern gegen Gleichverteilung: ${testTag(report.toothTest)}</p>`,
-    `<p class="small">Druck-Position gegen Gleichverteilung: ${testTag(report.pressIndexTest)}</p>`,
-    `<p class="small">Druck-Position gegen das Zugmodell: ${testTag(report.modelTest)}</p>`,
-    '<h3 class="small muted" style="margin-top:1rem">Mustersuche (Autokorrelation)</h3>',
-    autocorrelationTable(report),
+    groups.length > 1
+      ? '<p class="small muted">Jedes Gebiss wird für sich ausgewertet: Tier, Zahnzahl und Modus ' +
+        'bestimmen, was „zufällig" heißt — zusammengeworfen wären die Tests falsch.</p>'
+      : '',
+    // Die größte Gruppe steht offen, die übrigen sind eingeklappt.
+    groups.map((group, index) => groupHtml(analyseSession(group.rounds, MIN_SAMPLE_FOR_VERDICT), index === 0)).join(''),
     '<h3 class="small muted" style="margin-top:1rem">Rohdaten</h3>',
     `<details><summary class="small muted">Letzte ${Math.min(records.length, 50)} Runden als Text</summary><div class="report">${escapeHtml(
       records
@@ -135,8 +180,7 @@ export function renderReport(target: HTMLElement, records: readonly RoundRecord[
     target.innerHTML = '<p class="muted">Noch keine Runden protokolliert. Spielt ein paar Runden, dann füllt sich diese Seite.</p>';
     return;
   }
-  const report = analyseSession(records, MIN_SAMPLE_FOR_VERDICT);
-  target.innerHTML = reportHtml(report, records);
+  target.innerHTML = reportHtml(records);
 }
 
 /** Wofür die Kurve gerechnet wird: das eingestellte Gebiss. */

@@ -1125,3 +1125,12 @@ textarea {
   min-height: 44px;
   padding-inline: 1.6rem;
 }
+
+/* Statistik: eine Auswertung je Gebiss — die größte Gruppe steht offen. */
+.report-group {
+  margin-top: 1rem;
+}
+
+.report-group > summary {
+  font-weight: 700;
+}

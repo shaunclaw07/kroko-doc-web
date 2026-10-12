@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { MIN_SAMPLE_FOR_VERDICT, renderReport, dangerCurveHtml, dangerCurvePoints, renderDangerCurve } from './statsView';
 import { createRoundRecord } from '../../core/domain/sessionLog';
 import type { RoundRecord } from '../../contract/sessionLog';
+import { fairRounds } from '../../infrastructure/testing/fairRounds';
+import { SeededRandom } from '../../infrastructure/testing/seededRandom';
 
 /** Erzeugt ein Protokoll; mit `favouriteTooth` bekommt ein Zahn messbar mehr Bisse. */
 function records(count: number, favouriteTooth: number | null = null): RoundRecord[] {
@@ -123,5 +125,66 @@ describe('dangerCurveHtml', () => {
     document.body.innerHTML = '<div id="mount"></div>';
     renderDangerCurve(document.getElementById('mount') as HTMLElement, args);
     expect(document.getElementById('mount')?.querySelectorAll('.bar')).toHaveLength(10);
+  });
+});
+
+describe('renderReport bei gemischten Gebissen', () => {
+  /** 360 faire Runden aus drei Gebissen — dieselben wie in `statistics.test.ts`. */
+  function mixed(): RoundRecord[] {
+    const rng = new SeededRandom(7);
+    return [
+      ...fairRounds(rng, 'crocodile', 120, 1),
+      ...fairRounds(rng, 'mouse', 120, 121),
+      ...fairRounds(rng, 'wolf', 120, 241),
+    ];
+  }
+
+  it('wertet jedes Gebiss für sich aus und meldet bei fairen Runden nichts Auffälliges', () => {
+    const target = mount();
+    renderReport(target, mixed());
+    const groups = Array.from(target.querySelectorAll('details.report-group'));
+    expect(groups).toHaveLength(3);
+    // Die erste Gruppe steht offen, die anderen sind eingeklappt.
+    expect(groups.map((group) => group.hasAttribute('open'))).toEqual([true, false, false]);
+    const titles = groups.map((group) => group.querySelector('summary')?.textContent ?? '');
+    expect(titles).toContain('Krokodil · 10 Zähne · 1–3 scharf — 120 Runden');
+    expect(titles).toContain('Maus · 6 Zähne · 1–2 scharf — 120 Runden');
+    expect(titles).toContain('Wolf · 12 Zähne · 1–2 scharf — 120 Runden');
+    expect(target.querySelector('.tag--bad')).toBeNull();
+    expect(target.textContent).toContain('Jedes Gebiss wird für sich ausgewertet');
+    expect(target.textContent).not.toContain('passt nicht zu den Daten');
+  });
+
+  it('zeigt beim Wolf das Modell, gegen das auch geprüft wird (5.42, nicht 4.69)', () => {
+    const target = mount();
+    renderReport(target, fairRounds(new SeededRandom(7), 'wolf', 120));
+    const text = target.textContent ?? '';
+    expect(text).toContain('5.42');
+    expect(text).not.toContain('4.69');
+    expect(text).toContain('Wolf · 12 Zähne · 1–2 scharf');
+    expect(text).not.toContain('Jedes Gebiss wird für sich ausgewertet');
+  });
+
+  it('zeigt den Test gegen die Gleichverteilung der Druck-Position nur im Modus classic', () => {
+    const original = mount();
+    renderReport(original, fairRounds(new SeededRandom(7), 'crocodile', 120));
+    expect(original.textContent).not.toContain('Druck-Position gegen Gleichverteilung');
+    const classic = mount();
+    renderReport(classic, fairRounds(new SeededRandom(7), 'crocodile', 120, 1, undefined, 'classic'));
+    expect(classic.textContent).toContain('Druck-Position gegen Gleichverteilung');
+    expect(classic.textContent).toContain('genau 1 scharf');
+  });
+
+  it('zeigt unter der Mindestzahl keine Muster-Marken', () => {
+    const target = mount();
+    renderReport(target, fairRounds(new SeededRandom(7), 'crocodile', 30));
+    expect(target.textContent).toContain('Nicht genug Runden für eine Musterprüfung');
+    expect(target.textContent).not.toContain('Versatz 1');
+  });
+
+  it('schreibt bei einer einzigen Runde die Einzahl', () => {
+    const target = mount();
+    renderReport(target, fairRounds(new SeededRandom(7), 'crocodile', 1));
+    expect(target.querySelector('summary')?.textContent).toContain('— 1 Runde');
   });
 });
