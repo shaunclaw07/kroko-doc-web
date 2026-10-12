@@ -39,4 +39,10 @@ describe('Regeln-Blatt', () => {
       expect(creature.note, creature.id).not.toMatch(/meist|häufiger/i);
     }
   });
+
+  it('erklärt das Halten: in der Anleitung und in den Regeln', () => {
+    expect(SEITE).toContain('Tippe oder halte einen Zahn.');
+    expect(SEITE).toContain('entschieden wird erst, wenn du loslässt');
+    expect(SEITE).toContain('dann zählt der Druck nicht');
+  });
 });

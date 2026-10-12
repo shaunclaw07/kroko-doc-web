@@ -361,6 +361,10 @@ button:focus-visible,
 /* Zähne: große Trefferfläche, kleine Zeichnung */
 .tooth {
   cursor: pointer;
+  /* Langes Halten ist eine Spielgeste — kein Auswahl- oder Systemmenü. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .tooth .tooth__shape {
@@ -573,6 +577,12 @@ details[open] summary {
 .tooth[aria-pressed="true"] .tooth__shape {
   transform: translateY(22px);
   fill: #cfc7ac;
+}
+
+/* Gehalten: der Zahn sinkt schon, behält aber seine Farbe — entschieden ist noch nichts.
+   Erst der Zug färbt ihn (is-pressed). */
+.tooth.is-held .tooth__shape {
+  transform: translateY(22px);
 }
 
 .tooth.is-live .tooth__glow {
@@ -1031,6 +1041,7 @@ textarea {
 /* --- Die Pause vor der Auflösung (der Kern liefert die Dauer als --press-beat) ------ */
 
 /* Der Zahn fährt in die Wurzel: schnell ansetzend, dann zäh — die Feder, nicht der Klick. */
+.tooth.is-held .tooth__shape,
 .tooth.is-pressed .tooth__shape,
 .tooth[aria-pressed="true"] .tooth__shape {
   transition: transform var(--press-beat, 160ms) cubic-bezier(0.15, 0.85, 0.3, 1), fill 0.15s ease;
