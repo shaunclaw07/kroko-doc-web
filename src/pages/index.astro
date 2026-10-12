@@ -277,7 +277,7 @@ const base = import.meta.env.BASE_URL;
     import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
-    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
     import { getCreature } from '../core/domain/creature';
@@ -301,6 +301,20 @@ const base = import.meta.env.BASE_URL;
     });
 
     controller.mount();
+
+    // Das Protokoll kann sich außerhalb dieser Seite ändern: die Statistikseite löscht oder
+    // importiert in einem anderen Tab (`storage`), oder diese Seite kommt über die Zurück-Taste
+    // unverändert aus dem Zwischenspeicher des Browsers (`pageshow` mit `persisted`).
+    window.addEventListener('storage', (event) => {
+      if (event.key === null || event.key === STORAGE_KEY) {
+        controller.syncLog();
+      }
+    });
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        controller.syncLog();
+      }
+    });
 
     /** Blätter öffnen und schließen. */
     const sheetOf = (id: string): HTMLDialogElement | null =>

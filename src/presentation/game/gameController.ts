@@ -66,7 +66,7 @@ export class GameController {
   private stage: HTMLElement | null = null;
   private view: CreatureView | null = null;
   private art: SVGElement | null = null;
-  private readonly records: RoundRecord[];
+  private records: RoundRecord[];
 
   constructor(deps: GameDeps) {
     this.deps = deps;
@@ -331,6 +331,11 @@ export class GameController {
     if (!loser) {
       return;
     }
+    // Erst lesen, dann anhängen: die Statistikseite (anderer Tab, oder vor der Zurück-Taste) kann
+    // das Protokoll inzwischen gelöscht oder per Import erweitert haben. Mit dem Stand vom
+    // Seitenstart überschrieb das Spiel beides (gemessen am 12.10.2026: 3 gelöschte Runden waren
+    // wieder da, 5 importierte weg).
+    this.records = this.deps.log.load();
     this.records.push(
       createRoundRecord({
         round: nextRoundNumber(this.records),
@@ -347,6 +352,16 @@ export class GameController {
     );
     this.deps.log.save(this.records);
     this.doc.dispatchEvent(new CustomEvent('kroko:round-finished', { detail: { records: this.records.length } }));
+  }
+
+  /**
+   * Liest das Protokoll neu — für den Fall, dass es außerhalb dieser Steuerung geändert wurde
+   * (Statistikseite in einem anderen Tab, Rückkehr über die Zurück-Taste). Sonst zeigte die
+   * Rundennummer bis zum nächsten Biss den alten Stand.
+   */
+  syncLog(): void {
+    this.records = this.deps.log.load();
+    this.render();
   }
 
   /** Öffnet eine neue Runde mit den aktuellen Einstellungen. */

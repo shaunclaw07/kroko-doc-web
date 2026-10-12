@@ -345,6 +345,30 @@ describe('GameController in der Bühne', () => {
     expect(log.records.map((record) => record.round)).toEqual([1, 2]);
   });
 
+  it('hängt an das Protokoll an, wie es jetzt in der Ablage steht — nicht wie beim Seitenstart', () => {
+    // Gemessen am 12.10.2026 mit zwei Tabs: 3 Runden gespielt, in der Statistik gelöscht und 5
+    // importiert. Der nächste Biss schrieb die 3 gelöschten zurück und verwarf die 5 importierten.
+    const { controller, log } = build([2]);
+    click(2);
+    controller.resetRound();
+    const imported = [7, 8].map((round) => ({ ...log.records[0]!, round, loserTooth: 5 }));
+    log.records = imported;
+    click(2);
+    expect(log.records.map((record) => record.round)).toEqual([7, 8, 9]);
+    expect(log.records.slice(0, 2)).toEqual(imported);
+    expect(document.getElementById('result-text')?.textContent).toContain('3 Runden protokolliert');
+  });
+
+  it('zeigt nach syncLog() die Rundennummer des geänderten Protokolls', () => {
+    const { controller, log } = build([2]);
+    click(2);
+    controller.resetRound();
+    expect(document.getElementById('hud-round')?.textContent).toBe('2');
+    log.records = [];
+    controller.syncLog();
+    expect(document.getElementById('hud-round')?.textContent).toBe('1');
+  });
+
   it('wechselt das Lebewesen, zeichnet dessen Gebiss und protokolliert es', () => {
     const { controller, log } = build([9], { creature: 'crocodile' });
     expect(document.querySelectorAll('.tooth')).toHaveLength(10);
