@@ -128,6 +128,79 @@ function click(toothId: number): void {
   tooth?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 }
 
+/**
+ * Zeiger-Ereignis. `isPrimary` und `button` stehen ausdrücklich da: jsdom gibt `isPrimary: false`
+ * vor, und die Steuerung nimmt nur den ersten Finger bzw. die Haupttaste.
+ */
+function pointer(
+  type: 'pointerdown' | 'pointerup' | 'pointercancel',
+  target: EventTarget,
+  init: PointerEventInit = {},
+): void {
+  target.dispatchEvent(
+    new PointerEvent(type, { bubbles: true, pointerId: 1, isPrimary: true, button: 0, ...init }),
+  );
+}
+
+function toothElement(id: number): Element {
+  const tooth = document.querySelector(`.tooth[data-tooth="${id}"]`);
+  if (!tooth) {
+    throw new Error(`Zahn ${id} fehlt`);
+  }
+  return tooth;
+}
+
+interface Waiting {
+  ms: number;
+  run: () => void;
+}
+
+/**
+ * Steuerung mit eigener Uhr und mitgeschriebenen Wartezeiten. Kurze Wartezeiten laufen sofort
+ * (wie `compressedWait`), die Obergrenze des Haltens (4000 ms) bleibt stehen und wird von Hand
+ * ausgeführt.
+ */
+function buildHold(
+  live: number[],
+  overrides: Partial<GameSettings> = {},
+): {
+  controller: GameController;
+  sound: RecordingSound;
+  haptics: RecordingHaptics;
+  clock: { ms: number };
+  waits: Waiting[];
+} {
+  document.body.innerHTML = DOM;
+  const sound = new RecordingSound();
+  const haptics = new RecordingHaptics(true);
+  const clock = { ms: 0 };
+  const waits: Waiting[] = [];
+  const controller = new GameController({
+    rng: new ScriptedRandom([0.5]),
+    selector: new FixedLiveTeethSelector(live),
+    sound,
+    haptics,
+    log: new MemoryLog(),
+    settings: settings(overrides),
+    onSettingsChange: () => undefined,
+    document,
+    now: () => clock.ms,
+    wait: (ms, run) => {
+      waits.push({ ms, run });
+      if (ms < 1000) {
+        run();
+      }
+    },
+  });
+  controller.mount();
+  gebaut.push(controller);
+  return { controller, sound, haptics, clock, waits };
+}
+
+function progressText(): string | null | undefined {
+  return document.getElementById('hud-progress')?.textContent;
+}
+
 describe('GameController in der Bühne', () => {
   beforeEach(() => {
     document.body.innerHTML = '';
@@ -728,5 +801,155 @@ describe('GameController in der Bühne', () => {
     // Die neue Runde ist bespielbar.
     click(2);
     expect(document.getElementById('hud-progress')?.textContent).toBe('1 von 10 gedrückt');
+  });
+
+  it('entscheidet beim Auflegen des Fingers noch nichts: der Zahn sinkt nur', () => {
+    const { sound, haptics } = buildHold([4], { vibration: true });
+    const tensionsBefore = sound.tensions.length;
+    pointer('pointerdown', toothElement(1));
+    expect(toothElement(1).classList.contains('is-held')).toBe(true);
+    expect(toothElement(1).getAttribute('aria-pressed')).not.toBe('true');
+    expect(document.querySelector('.creature')?.classList.contains('is-pressing')).toBe(true);
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    expect(sound.names()).toEqual(['tap', 'creak', 'breath']);
+    expect(sound.tensions).toHaveLength(tensionsBefore);
+    expect(haptics.patterns).toEqual([25]);
+  });
+
+  it('löst den Druck beim Loslassen auf dem Zahn aus — genau einmal', () => {
+    const { sound } = buildHold([4]);
+    pointer('pointerdown', toothElement(1));
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('1 von 10 gedrückt');
+    expect(toothElement(1).getAttribute('aria-pressed')).toBe('true');
+    expect(toothElement(1).classList.contains('is-held')).toBe(false);
+    expect(sound.names().filter((name) => name === 'tap')).toHaveLength(1);
+    expect(sound.names()).toContain('settle');
+    expect(document.getElementById('stage')?.dataset.status).toBe('open');
+  });
+
+  it('wartet nach einem kurzen Tipp den Rest der Pause ab, nach langem Halten nichts mehr', () => {
+    const { clock, waits } = buildHold([4]);
+    let before = waits.length;
+    pointer('pointerdown', toothElement(1));
+    pointer('pointerup', toothElement(1));
+    // Erst die Obergrenze des Haltens, dann der Rest der Pause aus dem Kern (120–700 ms).
+    expect(waits[before]?.ms).toBe(4000);
+    expect(waits[before + 1]?.ms).toBeGreaterThanOrEqual(120);
+    expect(waits[before + 1]?.ms).toBeLessThanOrEqual(700);
+
+    before = waits.length;
+    pointer('pointerdown', toothElement(2));
+    clock.ms += 2000;
+    pointer('pointerup', toothElement(2));
+    expect(waits[before]?.ms).toBe(4000);
+    expect(waits[before + 1]?.ms).toBe(0);
+  });
+
+  it('schnappt erst beim Loslassen zu, auch wenn der scharfe Zahn lange gehalten wird', () => {
+    const { clock, sound } = buildHold([1]);
+    pointer('pointerdown', toothElement(1));
+    clock.ms += 1500;
+    expect(document.getElementById('stage')?.dataset.status).toBe('open');
+    expect(sound.names()).not.toContain('snap');
+    pointer('pointerup', toothElement(1));
+    expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
+    expect(sound.names()).toContain('snap');
+  });
+
+  it('nimmt den Druck zurück, wenn der Finger vom Zahn geschoben wird', () => {
+    const { sound } = buildHold([4]);
+    const doc = document as unknown as { elementFromPoint?: (x: number, y: number) => Element | null };
+    doc.elementFromPoint = () => document.body;
+    try {
+      const stopsBefore = sound.stopAllCalls;
+      pointer('pointerdown', toothElement(1));
+      pointer('pointerup', document.body);
+      expect(progressText()).toBe('0 von 10 gedrückt');
+      expect(toothElement(1).classList.contains('is-held')).toBe(false);
+      expect(document.querySelector('.creature')?.classList.contains('is-pressing')).toBe(false);
+      expect(sound.stopAllCalls).toBe(stopsBefore + 1);
+    } finally {
+      delete doc.elementFromPoint;
+    }
+    // Der Zahn bleibt drückbar.
+    pointer('pointerdown', toothElement(1));
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('1 von 10 gedrückt');
+  });
+
+  it('nimmt den Druck bei pointercancel zurück (der Finger scrollt)', () => {
+    buildHold([4]);
+    pointer('pointerdown', toothElement(1));
+    pointer('pointercancel', toothElement(1));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    expect(toothElement(1).classList.contains('is-held')).toBe(false);
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+  });
+
+  it('lässt einen zweiten Finger nichts beginnen und nichts beenden', () => {
+    buildHold([4]);
+    pointer('pointerdown', toothElement(1));
+    pointer('pointerdown', toothElement(2), { pointerId: 2, isPrimary: false });
+    pointer('pointerdown', toothElement(3), { pointerId: 3 });
+    expect(toothElement(2).classList.contains('is-held')).toBe(false);
+    expect(toothElement(3).classList.contains('is-held')).toBe(false);
+    pointer('pointerup', toothElement(2), { pointerId: 2, isPrimary: false });
+    expect(toothElement(1).classList.contains('is-held')).toBe(true);
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('1 von 10 gedrückt');
+  });
+
+  it('übergeht den click eines Zeigers — den Zug hat pointerup schon ausgelöst', () => {
+    buildHold([4]);
+    toothElement(1).dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    // Ohne Zeiger (Tastatur, Hilfstechnik) bleibt der kurze Druck.
+    toothElement(1).dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 0 }));
+    expect(progressText()).toBe('1 von 10 gedrückt');
+  });
+
+  it('federt nach der Obergrenze zurück, statt einen Zug zu erzwingen', () => {
+    const { waits } = buildHold([4]);
+    const before = waits.length;
+    pointer('pointerdown', toothElement(1));
+    expect(waits[before]?.ms).toBe(4000);
+    waits[before]?.run();
+    expect(toothElement(1).classList.contains('is-held')).toBe(false);
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+  });
+
+  it('vergisst das Halten, wenn eine neue Runde beginnt', () => {
+    const { controller, waits } = buildHold([4]);
+    const before = waits.length;
+    pointer('pointerdown', toothElement(1));
+    controller.resetRound();
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+    expect(toothElement(1).getAttribute('aria-pressed')).not.toBe('true');
+    // Auch die Obergrenze der alten Runde rührt die neue nicht an.
+    pointer('pointerdown', toothElement(2));
+    waits[before]?.run();
+    expect(toothElement(2).classList.contains('is-held')).toBe(true);
+  });
+
+  it('löst nach dispose() nichts mehr aus', () => {
+    const { controller } = buildHold([4]);
+    pointer('pointerdown', toothElement(1));
+    controller.dispose();
+    pointer('pointerup', toothElement(1));
+    expect(progressText()).toBe('0 von 10 gedrückt');
+  });
+
+  it('lässt die Erleichterung mit der erlebten Pause wachsen — auch mit der gehaltenen', () => {
+    const { clock, sound } = buildHold([4]);
+    pointer('pointerdown', toothElement(1));
+    clock.ms += 2000;
+    pointer('pointerup', toothElement(1));
+    expect(sound.events.find((event) => event.name === 'settle')?.intensity).toBe(1);
   });
 });

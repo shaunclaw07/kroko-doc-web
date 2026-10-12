@@ -12,6 +12,7 @@ import {
   isTense,
   pressProgress,
   pulseInterval,
+  reliefLevel,
   survivedDanger,
   tensionForPress,
   type PressDrama,
@@ -39,6 +40,8 @@ export interface GameDeps {
   document: Document;
   /** Für Tests und Vorschauen austauschbar; Standard sind echte Timer. */
   wait?: (ms: number, run: () => void) => void;
+  /** Uhr in Millisekunden für die Haltedauer; Standard ist `performance.now()` des Dokumentfensters. */
+  now?: () => number;
 }
 
 /** Tast-Rückmeldung: ein kurzer Tipp bei jedem Zahndruck, drei Stöße beim Zuschnappen (ms). */
@@ -48,6 +51,20 @@ const BITE_VIBRATION_PATTERN = [120, 50, 220] as const;
 const RELIEF_VIBRATION_MIN_MS = 12;
 /** Zweite Stufe des Bisses: der Kiefer zieht nach (ms). */
 const BITE_LATCH_MS = 120;
+/** So lange braucht der Zahn, um unter dem Finger zu sinken (ms) — nur Bild, kein Urteil. */
+const HOLD_SINK_MS = 320;
+/**
+ * Längstes Halten (ms). Danach federt der Zahn zurück, **ohne** Zug: ein verlorenes Loslassen
+ * (Tabwechsel, Systemdialog) darf nichts entscheiden und die Bühne nicht sperren.
+ */
+const HOLD_MAX_MS = 4000;
+
+/** Ein Finger liegt auf einem Zahn — entschieden ist noch nichts. */
+interface Hold {
+  toothId: number;
+  pointerId: number;
+  startedAt: number;
+}
 
 function playerName(player: number, players: number): string {
   return players === 1 ? 'Du' : `Spieler ${player}`;
@@ -58,6 +75,9 @@ export class GameController {
   private readonly deps: GameDeps;
   private readonly selector: LiveTeethSelector;
   private readonly wait: (ms: number, run: () => void) => void;
+  private readonly now: () => number;
+  /** Das laufende Halten; höchstens eines zugleich. */
+  private hold: Hold | null = null;
   /** Nach `dispose()` rührt die Steuerung sich nicht mehr — späte Zeitgeber laufen ins Leere. */
   private disposed = false;
   private round: RoundState;
@@ -79,6 +99,7 @@ export class GameController {
             run();
           }
         }, ms));
+    this.now = deps.now ?? (() => this.win()?.performance.now() ?? 0);
     this.selector = deps.selector ?? new UniformLiveTeethSelector();
     this.records = deps.log.load();
     this.round = this.newRound();
@@ -111,6 +132,10 @@ export class GameController {
       this.buildStage(mountPoint);
     }
     this.stage = this.doc.getElementById('stage');
+    // Das Loslassen wird am Dokument gehört: mit der Maus endet es dort, wo der Zeiger gerade
+    // steht — nicht unbedingt auf dem Zahn.
+    this.doc.addEventListener('pointerup', this.onPointerUp);
+    this.doc.addEventListener('pointercancel', this.onPointerCancel);
     this.doc.getElementById('new-round')?.addEventListener('click', () => this.resetRound());
     this.render();
   }
@@ -119,7 +144,23 @@ export class GameController {
     const teeth = this.doc.querySelectorAll<SVGGElement>('.tooth');
     teeth.forEach((tooth) => {
       const id = Number(tooth.dataset.tooth ?? '0');
-      tooth.addEventListener('click', () => this.handlePress(id));
+      tooth.addEventListener('pointerdown', (event) => {
+        const pointer = event as PointerEvent;
+        // Nur der erste Finger bzw. die Haupttaste — ein zweiter Finger beginnt keinen Druck.
+        if (!pointer.isPrimary || pointer.button !== 0) {
+          return;
+        }
+        this.beginHold(id, pointer.pointerId);
+      });
+      // Ein Zeiger-Tipp endet zusätzlich mit `click` (detail ≥ 1) — den Zug hat `pointerup` schon
+      // ausgelöst. Ein `click` ohne Zeiger (detail 0) kommt von Tastatur und Hilfstechnik.
+      tooth.addEventListener('click', (event) => {
+        if ((event as MouseEvent).detail === 0) {
+          this.handlePress(id);
+        }
+      });
+      // Langes Halten darf kein Systemmenü öffnen.
+      tooth.addEventListener('contextmenu', (event) => event.preventDefault());
       tooth.addEventListener('keydown', (event) => {
         const key = (event as KeyboardEvent).key;
         if (key === 'Enter' || key === ' ' || key === 'Spacebar') {
@@ -134,35 +175,130 @@ export class GameController {
     return this.doc.querySelector<SVGGElement>(`.tooth[data-tooth="${id}"]`);
   }
 
-  private handlePress(toothId: number): void {
-    if (this.busy || this.round.status !== 'open' || this.round.pressOrder.includes(toothId)) {
+  private canPress(toothId: number): boolean {
+    return !this.busy && this.round.status === 'open' && !this.round.pressOrder.includes(toothId);
+  }
+
+  private readonly onPointerUp = (event: Event): void => {
+    const hold = this.hold;
+    const pointer = event as PointerEvent;
+    if (!hold || pointer.pointerId !== hold.pointerId) {
       return;
     }
-    this.busy = true;
+    if (this.releasedOnTooth(pointer, hold.toothId)) {
+      this.releaseHold();
+    } else {
+      this.cancelHold();
+    }
+  };
+
+  private readonly onPointerCancel = (event: Event): void => {
+    if (this.hold && (event as PointerEvent).pointerId === this.hold.pointerId) {
+      this.cancelHold();
+    }
+  };
+
+  /** Liegt der Zeiger beim Loslassen noch auf dem Zahn? Wer ihn wegschiebt, nimmt den Druck zurück. */
+  private releasedOnTooth(pointer: PointerEvent, toothId: number): boolean {
+    // jsdom kennt `elementFromPoint` nicht — dort gilt jedes Loslassen als auf dem Zahn.
+    if (typeof this.doc.elementFromPoint !== 'function') {
+      return true;
+    }
+    const under = this.doc.elementFromPoint(pointer.clientX, pointer.clientY);
+    return under !== null && this.tooth(toothId)?.contains(under) === true;
+  }
+
+  /** Was der Finger sofort merkt: Stoß und Klang. Verrät nichts — es hängt nur an der Gefahr. */
+  private feelPress(): void {
+    if (this.deps.settings.vibration) {
+      this.vibrate(TAP_VIBRATION_MS);
+    }
+    this.deps.sound.play('tap', this.tension);
+    this.deps.sound.play('creak', this.tension);
+    this.deps.sound.play('breath', this.tension);
+  }
+
+  /**
+   * Der Finger liegt auf: der Zahn sinkt, der Kiefer knarrt, das Tier hält den Atem an.
+   * Entschieden ist noch nichts — `playPress` läuft erst beim Loslassen.
+   */
+  private beginHold(toothId: number, pointerId: number): void {
+    if (this.hold || !this.canPress(toothId)) {
+      return;
+    }
+    const hold: Hold = { toothId, pointerId, startedAt: this.now() };
+    this.hold = hold;
     this.deps.sound.unlock();
+    this.tooth(toothId)?.classList.add('is-held');
+    this.startPressBeat(HOLD_SINK_MS);
+    this.feelPress();
+    // Die Obergrenze gehört zu **diesem** Halten — ein späteres rührt sie nicht an.
+    this.wait(HOLD_MAX_MS, () => {
+      if (this.hold === hold) {
+        this.cancelHold();
+      }
+    });
+  }
+
+  /** Der Zahn federt zurück, ohne Zug: Finger weggeschoben, Geste abgebrochen oder zu lange gezögert. */
+  private cancelHold(): void {
+    const hold = this.hold;
+    if (!hold) {
+      return;
+    }
+    this.hold = null;
+    this.tooth(hold.toothId)?.classList.remove('is-held');
+    this.endPressBeat();
+    this.deps.sound.stopAll();
+  }
+
+  private releaseHold(): void {
+    const hold = this.hold;
+    if (!hold) {
+      return;
+    }
+    this.hold = null;
+    this.resolvePress(hold.toothId, Math.max(0, this.now() - hold.startedAt), true);
+  }
+
+  /** Kurzer Druck ohne Halten — Tastatur und Hilfstechnik. */
+  private handlePress(toothId: number): void {
+    if (this.hold || !this.canPress(toothId)) {
+      return;
+    }
+    this.deps.sound.unlock();
+    this.resolvePress(toothId, 0, false);
+  }
+
+  /**
+   * Der Zug: jetzt erst wird gezogen. `heldMs` ist die Zeit, die der Finger schon auflag — die
+   * Pause des Kerns ist die Mindestpause, gewartet wird nur noch ihr Rest. `felt` sagt, ob Stoß,
+   * Klang und Sink-Bewegung schon beim Auflegen kamen.
+   */
+  private resolvePress(toothId: number, heldMs: number, felt: boolean): void {
+    this.busy = true;
     const outcome = playPress({ state: this.round, tooth: toothId, rng: this.deps.rng });
     this.round = outcome.state;
     this.tension = outcome.drama.tensionAfter;
     this.deps.sound.setTension(this.tension);
+    this.tooth(toothId)?.classList.remove('is-held');
     this.markPressed(toothId);
     this.render();
 
-    // Sofort spürbar: der Druck wird gefühlt, direkt aus der Fingerberührung heraus, ohne
-    // Verzögerung. Das ist zugleich die ehrlichste Probe, ob das Gerät Vibration zulässt.
-    if (this.deps.settings.vibration) {
-      this.vibrate(TAP_VIBRATION_MS);
+    if (!felt) {
+      // Die Pause: sie kommt bei jedem Druck, und ihre Länge sagt nichts über den Ausgang.
+      this.startPressBeat(outcome.drama.beatMs);
+      this.feelPress();
     }
-
-    // Die Pause: sie kommt bei jedem Druck, und ihre Länge sagt nichts über den Ausgang.
-    // Das Tier hält den Atem an — dann reißt es ab.
-    this.startPressBeat(outcome.drama.beatMs);
-    this.deps.sound.play('tap', this.tension);
-    this.deps.sound.play('creak', this.tension);
-    this.deps.sound.play('breath', this.tension);
+    // Die Erleichterung wächst mit der Pause, die der Spieler **erlebt** hat — auch der gehaltenen.
+    const drama: PressDrama = {
+      ...outcome.drama,
+      reliefLevel: reliefLevel(Math.max(outcome.drama.beatMs, heldMs)),
+    };
     // Das Urteil gehört zu **dieser** Runde. Startet in der Pause eine neue („Neue Runde", eine
     // Einstellung), läuft es ins Leere — sonst schnappte das Maul über einer offenen Runde zu.
     const played = this.round;
-    this.wait(outcome.drama.beatMs, () => {
+    this.wait(Math.max(0, outcome.drama.beatMs - heldMs), () => {
       if (this.round !== played) {
         return;
       }
@@ -177,7 +313,7 @@ export class GameController {
           this.snap(toothId);
           return;
         }
-        this.settle(toothId, outcome.drama);
+        this.settle(toothId, drama);
       });
     });
   }
@@ -313,6 +449,9 @@ export class GameController {
    * Fall auf — so läuft kein Rückruf in eine schon abgebaute Umgebung.
    */
   dispose(): void {
+    this.hold = null;
+    this.doc.removeEventListener('pointerup', this.onPointerUp);
+    this.doc.removeEventListener('pointercancel', this.onPointerCancel);
     this.disposed = true;
   }
 
@@ -356,6 +495,8 @@ export class GameController {
 
   /** Öffnet eine neue Runde mit den aktuellen Einstellungen. */
   resetRound(): void {
+    // Ein laufendes Halten gehört zur alten Runde — sein Loslassen darf die neue nicht treffen.
+    this.hold = null;
     this.clearBiter();
     this.round = this.newRound();
     // Schon der erste Druck hat eine Gefahr — der Balken startet nicht bei null.
