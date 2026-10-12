@@ -172,8 +172,9 @@ Ports: Entwicklungs- und Vorschauserver benutzen **4321**. Belegt? `pnpm dev --p
   in der Oberfläche „wie das Spielzeug") und `classic` (genau ein scharfer Zahn — „nur ein Zahn").
 - **Tierstimmen:** jedes Tier meldet sich, wenn es gewählt wird, und kurz nach dem Biss. Das sind
   die einzigen Klänge aus **Dateien**: zehn MP3 von höchstens 1,5 s (zusammen 85 KB) unter
-  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Sieben sind gemeinfreie
-  Aufnahmen (Wikimedia Commons); **Maus, Mensch und Vampir sind vorerst generierte Platzhalter**.
+  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Neun sind gemeinfreie
+  Aufnahmen (Wikimedia Commons) — der Mensch sagt „Servus“, der Vampir lacht gruselig; **die Maus
+  ist vorerst ein generierter Platzhalter**.
   Geladen wird erst nach dem ersten Tipp und nur bei eingeschaltetem Ton.
 - **Nervenkitzel:** synthetisierte Spielklänge (Web Audio, keine Dateien), Herzschlag, dessen Tempo
   mit der Spannung steigt (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Knarren, Fakeout-Zucken des Mauls, eine Feder, die den Zahn in die Wurzel zieht, und die Pause vor jedem Urteil (ihre Länge sagt nichts über den Ausgang),

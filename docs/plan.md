@@ -695,8 +695,8 @@ Umsetzungsplan: `docs/superpowers/plans/2026-10-12-tierstimmen.md`.
 | Panther | **Fauchen einer Hauskatze** — keine gemeinfreie Leoparden-Aufnahme gefunden | Aufnahme, CC0 |
 | Säbelzahntiger | Knurren eines Tigers | Aufnahme, CC0 |
 | Maus | **Platzhalter**, zwei Pfeiftöne | mit `ffmpeg` generiert |
-| Mensch | **Platzhalter**, „Oh-oh“ aus zwei Sinustönen | mit `ffmpeg` generiert |
-| Vampir | **Platzhalter**, vier fallende Sinustöne | mit `ffmpeg` generiert |
+| Mensch | „Servus“, Männerstimme | Aufnahme, Public Domain |
+| Vampir | gruseliges Lachen | Aufnahme, Public Domain |
 
 **Abweichungen vom Plan:**
 
@@ -709,9 +709,16 @@ Umsetzungsplan: `docs/superpowers/plans/2026-10-12-tierstimmen.md`.
   Kategorie der Dateiseite, nicht am Titel.
 - Die Ausschnitte hat ein Programm gewählt (lauteste Stelle), nicht ein Ohr.
 
+**Nachgezogen am selben Tag** (Wunsch: „beim Menschen ein männliches ‚Servus‘ und beim Vampir so
+ein gruseliges Lachen“): beides sind jetzt gemeinfreie Aufnahmen von Wikimedia Commons statt der
+Tonfolgen. „Männlich“ ist am Grundton gemessen (rund 123 Hz; eine zweite, CC0-lizenzierte
+Aufnahme lag bei 182 Hz und wurde deshalb nicht genommen), nicht gehört. Die „Servus“-Aufnahme
+hat ein hörbares Grundrauschen (rund ein Zehntel der Spitze). Ein „gruseliges“ Lachen ist eine
+bewusste Ausnahme von „freundlich, nicht erschreckend“ — es bleibt bei 1,5 s und Lautstärke 0,6.
+
 **Offen — nur der Auftraggeber kann es:** die Hörprobe (klingt jede Stimme erkennbar und
-freundlich, sind sie gleich laut, matscht es nach dem Biss?), bessere Klänge für Maus, Mensch und
-Vampir, und ob der Panther eine echte Großkatze bekommen soll. Tauschen heißt: neu schneiden
+passend, sind sie gleich laut, matscht es nach dem Biss?), ein besserer Klang für die Maus,
+und ob der Panther eine echte Großkatze bekommen soll. Tauschen heißt: neu schneiden
 (`scripts/stimme-schneiden.sh`) und die Zeile in `QUELLEN.md` ändern — kein Code.
 
 Gate **345 Tests in 26 Dateien**. Nachweis §5z.
