@@ -1286,7 +1286,7 @@ zehn MP3 und `QUELLEN.md`. **Falle auf Windows:** Git Bash wandelt `/zahn_agent`
 Windows-Pfad um und der Bau bricht ab — mit `MSYS_NO_PATHCONV=1 MSYS2_ENV_CONV_EXCL=ASTRO_BASE` davor
 läuft er.
 
-**Dateien:** zehn MP3, 0,2 bis 1,54 s, 1 880 bis 12 329 Byte, zusammen 84 840 Byte; jede beginnt mit
+**Dateien:** zehn MP3, 0,2 bis 1,54 s, 1 880 bis 12 329 Byte, zusammen 95 498 Byte (Stand nach dem Tausch von Mensch, Vampir und Wolf am selben Tag; bei der Messung 84 840); jede beginnt mit
 einem Tonrahmen (`ff fb`), keine trägt Metadaten.
 
 **Nicht geprüft — und von mir nicht prüfbar:** wie die Stimmen **klingen**. Die Ausschnitte der

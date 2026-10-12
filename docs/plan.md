@@ -679,7 +679,7 @@ Umsetzungsplan: `docs/superpowers/plans/2026-10-12-tierstimmen.md`.
 4. **Gespielt wird im selben Audio-Kontext** wie alles andere (`decodeAudioData`), nicht über ein
    `<audio>`-Element: so gelten Ton-Schalter, Freigabe nach der ersten Geste und `stopAll()` ohne
    zweite Regel.
-5. **Geladen wird erst nach der ersten Geste** und nur bei eingeschaltetem Ton (85 KB). Eine
+5. **Geladen wird erst nach der ersten Geste** und nur bei eingeschaltetem Ton (85 KB; nach dem Tausch von Mensch, Vampir und Wolf 95 KB). Eine
    Stimme, die mehr als 0,5 s nach ihrem Anlass fertig lädt, entfällt.
 6. **Kurz und leise:** höchstens 1,5 s, Spitze −3 dB, abgespielt mit 0,6 (der Biss: 0,9).
 

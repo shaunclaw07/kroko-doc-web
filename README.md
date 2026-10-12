@@ -178,7 +178,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   in der Oberfläche „wie das Spielzeug") und `classic` (genau ein scharfer Zahn — „nur ein Zahn").
 - **Tierstimmen:** jedes Tier meldet sich, wenn es gewählt wird, und kurz nach dem Biss; wer ein
   anderes Tier wählt, bricht ab, was vom vorigen noch klingt. Das sind
-  die einzigen Klänge aus **Dateien**: zehn MP3 von höchstens 1,5 s (zusammen 85 KB) unter
+  die einzigen Klänge aus **Dateien**: zehn MP3 von höchstens 1,5 s (zusammen 95 KB) unter
   `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Neun sind gemeinfreie
   Aufnahmen (Wikimedia Commons) — der Mensch sagt „Servus“, der Vampir lacht gruselig; **die Maus
   ist vorerst ein generierter Platzhalter**.
