@@ -548,6 +548,10 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   korrekt im SVG stand. Der Hut bleibt trotzdem in `body`, weil seine Krone über den Umriss
   hinausragt und der Gesichtsbereich beschnitten wird. Also: **Hut in `body`, Haare in `face`** —
   je nachdem, was die Form braucht, und immer im gerasterten Bild nachsehen.
+  **Nachtrag 13.10.2026:** die Haare von damals liest der Auftraggeber als **Bart**, und im
+  Gesichtsbereich blieben sie beim Zuschnappen am Hut hängen, während die Nase nach unten fuhr.
+  Sie liegen jetzt in `upperExtra`, der Ebene der Nase. Die Regel dahinter steht unter „Das
+  geschlossene Maul": was sich mit dem Kiefer bewegen soll, gehört in dessen Ebene.
 - **Was über den Umriss hinausragen soll, gehört in die Körperebene — sonst schneidet der Beschnitt
   es ab.** Die Ohren des Vampirs standen im Gesichtsbereich, und im gerasterten Bild fehlten ihre
   Spitzen: die Spitze lag bei x 52, der Umriss bei y 116 aber erst bei x 110 — **58 px Ohren** schnitt

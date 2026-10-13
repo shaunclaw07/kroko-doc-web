@@ -120,7 +120,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
    zählt dieselben Kennungen im ausgelieferten Bündel:
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
-   die veröffentlichte Seite). Erwartet: zehn Kacheln in Katalogreihenfolge, zehn sichtbare
+   die veröffentlichte Seite). Erwartet: zehn Kacheln in der Reihenfolge der Freischaltung
+   (`UNLOCK_ORDER`: Krokodil, Maus, Wolf, dann die Folge), zehn sichtbare
    Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
    außerdem den Kern der Auswahl: Nach einem Tipp auf eine Kachel ist das **Auswahlblatt zu**, das
    gewählte Tier steht auf der Bühne und genau eine Kachel ist markiert; die Kurzinfo des gewählten
@@ -140,8 +141,9 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 9. **Anzeige-Sonde** — trägt der Balken seine zwei Aussagen wirklich? Gemessen werden die
    **berechneten** Stile im echten Chromium (jsdom rechnet kein CSS) in drei Lagen: ein Zahn
-   (Gefahr 100 % → Füllung **und** Text in der Gefahrfarbe, Atmung im Puls-Takt), zehn Zähne mit
-   einem Druck (Gegenprobe: 21 % → **nicht** rot) und nach dem Zuschnappen („Runde beendet",
+   (Gefahr 100 % → Füllung in der Gefahrfarbe, Atmung im Puls-Takt; die Zahl der Bissgefahr ist
+   seit dem 13.10.2026 **nicht mehr sichtbar**, das prüft die Sonde ebenfalls), zehn Zähne mit
+   einem Druck (Gegenprobe: 21 % → **nicht** rot) und nach dem Zuschnappen (keine Bissgefahr mehr,
    Füllung farblos, keine Atmung). Gegen die veröffentlichte Seite war sie zuerst **rot mit 5
    Funden** (§5t).
    ```bash

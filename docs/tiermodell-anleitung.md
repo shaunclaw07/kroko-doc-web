@@ -17,8 +17,8 @@ deckt das frühere:
 |---|---|---|
 | Körper | `body` | Kopf, Fell, alles was **über den Kopfumriss hinausragt** (Hut, Kragen, Ohrspitzen) |
 | Maulöffnung, Rachen | `holeFill`, `inner` | — |
-| Schnauze | `upperShell`, `upperExtra` | Nase, Schnauzenfalten — fährt beim Biss mit |
-| Oberkiefer | `upper` + obere Zähne | — |
+| Schnauze | `upperShell`, `upperExtra` | Nase, Schnauzenfalten, ein Schnurrbart — fährt beim Biss mit. Bei geschlossenem Maul verschwindet die Schnauzen**fläche**; was in `upperExtra` steht, bleibt und ist dann nach unten gerutscht |
+| Oberkiefer | `upper` + obere Zähne | — fährt beim Biss zu und verschwindet danach |
 | untere Zähne, Unterkiefer | `lower`, `lowerExtra` | Kinnkante |
 | **Gesicht** | `face` | Augen, Brauen, Wangen, Schnurrhaare, Ohren im Umriss — **über allem** |
 
@@ -28,6 +28,12 @@ fast jeder Fehler hing:
 - **Was im Gesicht steht, liegt über den Zähnen.** Es darf den Zahnring nicht berühren (Abschnitt 2).
 - **Was im Körper steht, verschwindet unter der Schnauzenfläche** (`upperShell`), soweit diese
   reicht. Was dort sichtbar sein soll, gehört ins Gesicht — solange es im Umriss bleibt.
+- **… aber nur, solange das Maul offen ist.** Beim Zuschnappen fährt die Schnauzenfläche weg und
+  verschwindet; was sie verdeckt hat, liegt dann offen. Die Ohren des Vampirs liefen als Dreiecke
+  bis unter die Augen — offen unsichtbar, geschlossen zwei Striche quer durchs Gesicht (13.10.2026).
+  Was unter der Schnauze endet, endet dort **ohne Strich** oder gar nicht erst so weit innen.
+- **Was sich mit der Nase bewegen soll, gehört in `upperExtra`, nicht ins Gesicht.** Das Gesicht
+  bleibt beim Biss liegen: der Schnurrbart des Menschen blieb dort am Hut hängen.
 
 ## 2. Der Zahnring ist Sperrgebiet für das Gesicht
 
@@ -103,8 +109,9 @@ pnpm gate
   Tieren) und nennt Tier, Zahnzahl, Zahn, Anteil und das deckende Element. Exit-Code 1 bei einem
   Fund. Das untere Zahnfleischband deckt die Wurzeln der unteren Zähne zu 50 bis 72 % — das ist
   gewollt und wird nur als Zahl genannt.
-- **Das Bild ansehen, offen und geschnappt.** Geschnappt bleibt das Gesicht stehen, während Schnauze
-  und Oberkiefer nach unten fahren: die Augen müssen dann wie ein Gesicht über der Nase sitzen.
+- **Das Bild ansehen, offen und geschnappt.** Geschnappt bleibt das Gesicht stehen, die Nase rutscht
+  nach unten, Oberkiefer und Schnauzenfläche sind weg (seit dem 13.10.2026): die Augen müssen dann
+  wie ein Gesicht über der Nase sitzen, und nichts aus `body` darf als Strich im Gesicht stehen.
 - **Die Gegenprobe ist billig:** eine absichtlich falsche Lage (Auge 30 Einheiten zur Maulmitte)
   muss Test **und** Sonde rot machen. Bleibt eines grün, prüft es nicht, was es soll.
 - Wo `uv` fehlt, tut es `python scripts/…`, wenn `playwright` bzw. `cairosvg` installiert sind.
