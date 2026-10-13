@@ -1223,6 +1223,8 @@ angesehen (Vampir, Wolf, Mensch, Maus, Löwe, Panda), dazu das Symbol in 512 px.
 
 **Nicht neu gebaut:** das README-Bild der Gebisse (`docs/bilder/gebisse.png`) — es zeigt das offene
 Maul, und das ist unverändert; `scripts/galerie.py` braucht `cairosvg`.
+**Nachgeholt am selben Tag:** der Auftraggeber hat `cairosvg` und die GTK-Laufzeit installiert
+(`winget install tschoonj.GTKForWindows`); das Bild ist neu gebaut, sichtbar unverändert.
 
 ## Nachtrag 13.10.2026 (gebaut): die Zahl der Bissgefahr ist nicht mehr zu sehen
 
