@@ -251,6 +251,12 @@ describe('Start ohne Netz (Service Worker)', () => {
     expect(await request('sounds/voices/wolf.mp3', { headers: { range: 'bytes=0-99' } })).toBeNull();
   });
 
+  it('lässt die Sicherung der Runden immer ans Netz (ein Stand aus dem Vorrat wäre ein alter)', async () => {
+    const { lifecycle, request } = worker(SITE);
+    await lifecycle('install');
+    expect(await request('api/log/kroko-abcd-efgh-2345')).toBeNull();
+  });
+
   it('räumt beim Aktivieren fremde Vorräte weg, ohne zu scheitern', async () => {
     const { lifecycle } = worker(SITE);
     await expect(lifecycle('activate')).resolves.toBeUndefined();

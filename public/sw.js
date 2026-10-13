@@ -39,6 +39,11 @@ const VOICES = [
 ];
 const VOICE_DIR = 'sounds/voices/';
 const ASSET_DIR = '_astro/';
+/**
+ * Die Sicherung der Runden (`worker/backup.js`) antwortet unter dem eigenen Ursprung. Sie geht
+ * immer ans Netz: ein Stand aus dem Vorrat wäre ein alter Stand, und der Abgleich schriebe ihn zurück.
+ */
+const API_DIR = 'api/';
 /** Unter diesem Schlüssel steht je Seite, welche Bausteine ihr letzter Stand nennt. */
 const ASSET_LIST_PREFIX = '__bausteine__/';
 /**
@@ -228,6 +233,9 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   // Fremde Ursprünge, Schreibzugriffe und Teilabrufe gehen unberührt ans Netz.
   if (request.method !== 'GET' || !request.url.startsWith(SCOPE) || request.headers.has('range')) {
+    return;
+  }
+  if (request.url.startsWith(SCOPE + API_DIR)) {
     return;
   }
   if (request.mode === 'navigate') {

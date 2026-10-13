@@ -293,6 +293,8 @@ const base = import.meta.env.BASE_URL;
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
     import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { requestPersistence } from '../infrastructure/storage/browserPersistence';
+    import { HttpRemoteLog, backupCode, backupUrl } from '../infrastructure/storage/httpRemoteLog';
+    import { wireBackup } from '../presentation/game/backupSync';
     import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
 
@@ -338,6 +340,23 @@ const base = import.meta.env.BASE_URL;
         album.paint();
       }
     });
+
+    // Sicherung außerhalb des Geräts — nur, wenn die Adresse einen Sicherungscode trägt (`?s=…`).
+    // Ein Profil, das seine Browserdaten verwirft, bekommt so beim Start seine Runden zurück;
+    // nach jedem Biss wird nachgesichert. Ohne Code geschieht hier nichts.
+    const code = backupCode(location.search, storage);
+    if (code) {
+      const backup = wireBackup({
+        local: log,
+        remote: new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)),
+        onLocalChange: () => {
+          controller.syncLog();
+          album.paint();
+        },
+      });
+      void backup.sync();
+      document.addEventListener('kroko:round-finished', () => void backup.sync());
+    }
 
     /** Blätter öffnen und schließen. */
     const sheetOf = (id: string): HTMLDialogElement | null =>

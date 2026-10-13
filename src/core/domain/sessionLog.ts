@@ -222,3 +222,35 @@ export function createRoundRecord(input: {
     pressOrder: [...input.pressOrder],
   };
 }
+
+/** Woran zwei Einträge als dieselbe Runde erkannt werden — die laufende Nummer gehört nicht dazu. */
+function roundIdentity(record: RoundRecord): string {
+  return [record.playedAt, record.creature, record.teeth, record.mode, record.pressOrder.join('-')].join('|');
+}
+
+/**
+ * Führt zwei Stände desselben Protokolls zusammen (Gerät und Sicherung). Der Stand der Sicherung
+ * bleibt, wie er ist; was nur das Gerät kennt — die Runden seit dem letzten Abgleich —, wird
+ * angehängt und weitergezählt. Gleiche Einträge zählen **je Vorkommen**: zwei Runden ohne
+ * Zeitpunkt (Kurzformat-Import) mit derselben Druckfolge sind zwei Runden, nicht eine.
+ */
+export function mergeRoundLogs(local: readonly RoundRecord[], remote: readonly RoundRecord[]): RoundRecord[] {
+  const unmatched = new Map<string, number>();
+  for (const record of remote) {
+    const key = roundIdentity(record);
+    unmatched.set(key, (unmatched.get(key) ?? 0) + 1);
+  }
+  const merged = [...remote];
+  let next = nextRoundNumber(remote);
+  for (const record of local) {
+    const key = roundIdentity(record);
+    const left = unmatched.get(key) ?? 0;
+    if (left > 0) {
+      unmatched.set(key, left - 1);
+      continue;
+    }
+    merged.push({ ...record, round: next });
+    next += 1;
+  }
+  return merged;
+}

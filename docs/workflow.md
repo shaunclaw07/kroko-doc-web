@@ -246,6 +246,7 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-blick.py` | Sonde: die Augen folgen dem Zeiger, die Pupille bleibt bei jedem Tier in der Linse, der Kiefer zittert mit der Bissgefahr | `uv run --with playwright python scripts/pruefen-blick.py` |
 | `pruefen-zoom.py` | Sonde: bei vollem Zoom bleibt jeder Zahn erreichbar — jedes Tier, zwei Zahnzahlen, drei Breiten | `uv run --with playwright python scripts/pruefen-zoom.py` |
 | `pruefen-offline.py` | Sonde: die **gebaute** Seite startet ohne Netz (vorher `pnpm build` und `pnpm preview --port 4322`) | `uv run --with playwright python scripts/pruefen-offline.py` |
+| `pruefen-sicherung.py` | Sonde: die Runden überstehen ein geleertes Profil — gegen die **gebaute** Seite und eine nachgestellte Sicherung (vorher `pnpm build` und `pnpm preview --port 4322`) | `uv run --with playwright python scripts/pruefen-sicherung.py` |
 | `pruefen-anzeige.py` | Sonde: Balken, Fortschritt und Bissgefahr an den berechneten Stilen | `uv run --with playwright python scripts/pruefen-anzeige.py` |
 | `pruefen-blaetter.py` | Sonde: bleiben die Blätter offen, solange man darin arbeitet | `uv run --with playwright python scripts/pruefen-blaetter.py` |
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |
@@ -255,6 +256,32 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-zeitgeber.cjs` | stellt den Zeitgeber-Fehler des Gates nach (Mechanismus, nicht Häufigkeit) | `node scripts/pruefen-zeitgeber.cjs` |
 | `doku-pruefen.sh` | Doku: Code-Zäune, Fließtext im Block, alte Werte | Rezept oben unter „Doku prüfen" |
 | `doku-pfade-pruefen.py` | Doku: zeigt jede genannte Pfadangabe auf eine Datei | `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` |
+
+## Die Sicherung der Runden
+
+Wozu und wie sie gebaut ist: `docs/architecture.md` und `AGENTS.md`. Was bei Cloudflare liegt
+(angelegt am 13.10.2026 über die Cloudflare-API, nicht über `wrangler`):
+
+| Was | Name |
+|---|---|
+| Worker | `zahn-agent-backup` — der Inhalt von `worker/backup.js`, unverändert, als Modul |
+| Bindung | `DB` → Datenbank D1 `zahn-agent-backup` |
+| Route | `zahn-agent.schaflabs.com/api/*` (Zone `schaflabs.com`) |
+| Tabelle | `logs (code TEXT PRIMARY KEY, body TEXT NOT NULL, updated_at TEXT NOT NULL)` |
+
+- **Der Worker wird nicht vom Push ausgeliefert.** `.github/workflows/pages.yml` veröffentlicht nur
+  die Seite. Wer `worker/backup.js` ändert, lädt die Datei danach bei Cloudflare neu hoch
+  (Dashboard → Workers → `zahn-agent-backup` → Code bearbeiten, oder über die API) und prüft die
+  echte Adresse: ein unbekannter Code muss `404` liefern, ein bekannter die Liste.
+- **Einen Code anlegen** heißt: eine Zeile in `logs` einfügen (Dashboard → D1 → Konsole). Der Code
+  besteht aus Kleinbuchstaben, Ziffern und Bindestrichen, 12 bis 64 Zeichen:
+  ```sql
+  INSERT INTO logs (code, body, updated_at) VALUES ('<code>', '[]', datetime('now'));
+  ```
+  Danach die Seite einmal mit `?s=<code>` öffnen — diese Adresse ist der Startpunkt des Geräts.
+- **Einen Code sperren** heißt: seine Zeile löschen. Die Runden darin sind dann weg.
+- **Prüfen ohne den echten Code:** `scripts/pruefen-sicherung.py` stellt die Sicherung nach und
+  rührt Worker und Datenbank nicht an (erwartet: dreizehn Zeilen `ok`, `Auffälligkeiten: 0`).
 
 ## Git
 

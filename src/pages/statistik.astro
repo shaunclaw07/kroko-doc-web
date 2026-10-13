@@ -62,6 +62,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <p class="small muted" id="data-status" role="status"></p>
       <p class="small muted" id="storage-status"></p>
+      <p class="small muted" id="backup-status" role="status" hidden></p>
     </section>
   </main>
 
@@ -69,12 +70,32 @@ import Base from '../layouts/Base.astro';
     import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { fromCsv, toCsv } from '../core/domain/sessionLog';
     import { requestPersistence } from '../infrastructure/storage/browserPersistence';
+    import { HttpRemoteLog, backupCode, backupUrl } from '../infrastructure/storage/httpRemoteLog';
+    import { backupNote, wireBackup } from '../presentation/game/backupSync';
     import { persistenceNote, renderDangerCurve, renderReport, sampleStatus } from '../presentation/stats/statsView';
     import { getCreature } from '../core/domain/creature';
     import { loadSettings } from '../infrastructure/storage/localStorageSettings';
     import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
 
     const log = new LocalStorageRoundLog(browserStorage());
+
+    // Sicherung außerhalb des Geräts — nur mit Sicherungscode (siehe Spielseite). Diese Seite
+    // sagt, ob sie geklappt hat; ohne Code bleibt die Zeile verborgen.
+    const backupStatus = document.getElementById('backup-status');
+    const code = backupCode(location.search, browserStorage());
+    const backup = code
+      ? wireBackup({
+          local: log,
+          remote: new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)),
+          onLocalChange: () => refresh(),
+          onStatus: (state) => {
+            if (backupStatus) {
+              backupStatus.hidden = false;
+              backupStatus.textContent = backupNote(state);
+            }
+          },
+        })
+      : null;
 
     // Die Gefahr-Kurve zeigt das eingestellte Gebiss — dieselbe Einstellung wie im Spiel.
     const settings = loadSettings(browserStorage());
@@ -137,16 +158,20 @@ import Base from '../layouts/Base.astro';
       log.save(merged);
       if (hint) hint.textContent = `${imported.length} Runden importiert.`;
       refresh();
+      void backup?.sync();
     });
 
     document.getElementById('clear-log')?.addEventListener('click', () => {
       if (confirm('Wirklich alle protokollierten Runden löschen? Damit verschwinden auch die Sterne im Tier-Album.')) {
         log.clear();
         refresh();
+        // Ersetzen statt abgleichen: sonst brächte die Sicherung die gelöschten Runden zurück.
+        void backup?.replace([]);
       }
     });
 
     refresh();
+    void backup?.sync();
     // Hält der Browser die Ablage dauerhaft? Die Antwort steht da, statt verschwiegen zu werden.
     const storageStatus = document.getElementById('storage-status');
     void requestPersistence().then((state) => {

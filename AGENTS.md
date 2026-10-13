@@ -51,6 +51,7 @@ uv run --with playwright python scripts/pruefen-blick.py       # Blick, Linsen-G
 uv run --with playwright python scripts/pruefen-zoom.py        # voller Zoom: bleibt jeder Zahn erreichbar? (Server muss laufen)
 pnpm build && pnpm preview --port 4322                         # der Service Worker läuft nur im Bau …
 uv run --with playwright python scripts/pruefen-offline.py     # … danach: startet die Seite ohne Netz?
+uv run --with playwright python scripts/pruefen-sicherung.py   # … und: überstehen die Runden ein geleertes Profil?
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -61,8 +62,8 @@ bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]  #
 
 ```
 src/core/domain/       Fachregeln in Reinform — kein DOM, keine Uhr, keine Pakete
-src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, SoundPort, HapticsPort)
-src/core/use-cases/    ein Use Case je Datei (playPress)
+src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, RemoteLogPort, SoundPort, HapticsPort)
+src/core/use-cases/    ein Use Case je Datei (playPress, syncRoundLog)
 src/contract/          der Außenvertrag der Bedienung (nur Typen und Formate)
 src/infrastructure/    die Adapter: crypto-Zufall, Web-Audio, Vibration, localStorage, Testattrappen
 src/presentation/      die Bedienung: Spielsteuerung, Statistikseite, Astro-Seiten
@@ -115,6 +116,28 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Herzschlag gibt es seit dem 12.10.2026 nicht mehr** (vom Auftraggeber abgewählt); seitdem
   wiederholt sich kein Klang mehr von selbst. Wer wieder einen einführt, lässt ihn ausfallen,
   solange der Kontext nicht `running` ist.
+
+## Sicherung der Runden (nur mit Sicherungscode)
+
+- **Anlass:** Das Kinderprofil eines Fire-Tablets verwirft beim Schließen des Browsers alle Daten
+  der Seite (gemeldet am 13.10.2026; im Elternprofil desselben Geräts bleiben sie). Die Bitte um
+  dauerhaften Speicher (`navigator.storage.persist`) hilft dagegen **nicht** — am Gerät geprüft.
+- **Lösung:** Trägt die Adresse `?s=<code>`, gleicht die Seite ihr Protokoll beim Start und nach
+  jedem Biss mit `worker/backup.js` ab (Cloudflare Worker `zahn-agent-backup`, Route
+  `zahn-agent.schaflabs.com/api/*`, Datenbank D1 `zahn-agent-backup`). Die Adresse steht außerhalb
+  der Ablage und übersteht das Leeren.
+- **Kein Angebot für alle.** Ohne Code ruft die Seite den Worker nie, und der Worker kennt nur
+  Codes, die als Zeile in der Tabelle `logs` stehen. Der Code ist das einzige Geheimnis und steht
+  **nirgends im Baum** — auch nicht in Tests, Doku oder Commit-Texten.
+- **Der Abgleich holt immer erst und führt zusammen** (`syncRoundLog`); nur „Protokoll löschen"
+  ersetzt die Sicherung, sonst brächte sie die gelöschten Runden zurück.
+- **`api/` geht am Service Worker vorbei** (`public/sw.js`): ein Stand aus dem Vorrat wäre ein
+  alter Stand, und der Abgleich schriebe ihn zurück.
+- **Ein Auftrag im Argument eines `?.()`-Aufrufs läuft ohne Zuhörer gar nicht.**
+  `onStatus?.({ rounds: await job() })` führte `job()` nur aus, wenn jemand zuhörte — die
+  Spielseite hört nicht zu und hätte nie gesichert. Erst ausführen, dann melden; der Test dazu
+  verdrahtet **ohne** `onStatus`.
+- Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden".
 
 ## Dreiunddreißig Fallen, die Zeit kosten
 

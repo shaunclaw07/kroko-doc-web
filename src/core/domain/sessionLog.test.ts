@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createRoundRecord, fromCsv, isPlausibleRecord, nextRoundNumber, toCsv } from './sessionLog';
+import { createRoundRecord, fromCsv, isPlausibleRecord, mergeRoundLogs, nextRoundNumber, toCsv } from './sessionLog';
 
 const record = createRoundRecord({
   round: 1,
@@ -125,5 +125,46 @@ describe('nextRoundNumber', () => {
   it('zählt ab der höchsten vorhandenen Nummer weiter', () => {
     expect(nextRoundNumber([])).toBe(1);
     expect(nextRoundNumber([record, { ...record, round: 7 }])).toBe(8);
+  });
+});
+
+describe('mergeRoundLogs', () => {
+  const at = (minute: number, round: number) =>
+    ({ ...record, round, playedAt: `2026-10-10T09:${String(minute).padStart(2, '0')}:00.000Z` });
+
+  it('ändert nichts, wenn beide Stände gleich sind', () => {
+    const stand = [at(1, 1), at(2, 2)];
+    expect(mergeRoundLogs(stand, stand)).toEqual(stand);
+  });
+
+  it('holt alles zurück, wenn das Gerät leer ist (geleertes Profil)', () => {
+    const sicherung = [at(1, 1), at(2, 2), at(3, 3)];
+    expect(mergeRoundLogs([], sicherung)).toEqual(sicherung);
+  });
+
+  it('hängt Runden an, die nur das Gerät kennt, und zählt sie weiter', () => {
+    // Das Gerät war leer und hat vor dem Abgleich schon zwei Runden gespielt (Nummern 1 und 2).
+    const merged = mergeRoundLogs([at(8, 1), at(9, 2)], [at(1, 1), at(2, 2), at(3, 3)]);
+    expect(merged.map((entry) => entry.round)).toEqual([1, 2, 3, 4, 5]);
+    expect(merged.map((entry) => entry.playedAt.slice(14, 16))).toEqual(['01', '02', '03', '08', '09']);
+  });
+
+  it('erkennt dieselbe Runde auch unter einer anderen laufenden Nummer', () => {
+    expect(mergeRoundLogs([at(1, 7)], [at(1, 1)])).toEqual([at(1, 1)]);
+  });
+
+  it('zählt gleiche Einträge je Vorkommen (Kurzformat-Import ohne Zeitpunkt)', () => {
+    const ohneZeit = { ...record, playedAt: '' };
+    const merged = mergeRoundLogs([ohneZeit, ohneZeit, ohneZeit], [ohneZeit]);
+    expect(merged).toHaveLength(3);
+    expect(merged.map((entry) => entry.round)).toEqual([1, 2, 3]);
+  });
+
+  it('lässt die Eingaben unverändert', () => {
+    const geraet = [at(8, 1)];
+    const sicherung = [at(1, 1)];
+    mergeRoundLogs(geraet, sicherung);
+    expect(geraet).toEqual([at(8, 1)]);
+    expect(sicherung).toEqual([at(1, 1)]);
   });
 });
