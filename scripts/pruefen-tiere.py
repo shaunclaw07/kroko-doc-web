@@ -25,14 +25,19 @@ import re
 import sys
 from pathlib import Path
 
+import json
+
 from playwright.sync_api import sync_playwright
+
+from freischaltung import ABLAGE, ALLE_OFFEN
 
 BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 ZIEL = Path(os.environ.get("TMPDIR", "/tmp")) / "zahn_agent-artwork" / "tiere-live.png"
 
-# Erwartet wird je Lebewesen des Katalogs ein Kopfbild in der Zeile. Die Liste muss dem Katalog
-# folgen (`core/domain/creature.ts`) -- sie ist die Gegenprobe, nicht die Quelle.
-ERWARTET = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion",
+# Erwartet wird je Lebewesen des Katalogs ein Kopfbild in der Zeile. Seit dem 13.10.2026 folgt die
+# Auswahl der Freischaltung (`UNLOCK_ORDER` in `core/domain/unlocks.ts`): erst die drei
+# Starttiere, dann das jeweils naechste Tier. Die Liste ist die Gegenprobe, nicht die Quelle.
+ERWARTET = ["crocodile", "mouse", "wolf", "shark", "panda", "human", "lion", "vampire",
             "panther", "sabertooth"]
 
 ZAEHLEN = """
@@ -92,6 +97,8 @@ def main() -> int:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": 390, "height": 844})
+        # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
+        page.add_init_script("if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);" % (ABLAGE, ABLAGE, json.dumps(ALLE_OFFEN)))
         page.goto(BASIS, wait_until="load")
         # „Welches Tier?" ist eine Kachel, die ein zweites Blatt oeffnet: erst antippen.
         page.click("#creature-open")

@@ -53,6 +53,7 @@ uv run --with playwright python scripts/pruefen-zoom.py        # voller Zoom: bl
 pnpm build && pnpm preview --port 4322                         # der Service Worker läuft nur im Bau …
 uv run --with playwright python scripts/pruefen-offline.py     # … danach: startet die Seite ohne Netz?
 uv run --with playwright python scripts/pruefen-sicherung.py   # … und: überstehen die Runden ein geleertes Profil?
+uv run --with playwright python scripts/pruefen-freischaltung.py  # … und: öffnen sich die Tiere über Sterne?
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
@@ -77,6 +78,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   gedrückt"). Ein Wert ohne Wort ist keine Aussage: der Balken sah jahrelang aus wie eine
   Fortschrittsanzeige, war aber ein Gefahrenmesser — und ein neuer Spieler konnte ihn deshalb nicht
   deuten. Füllung und Farbe dürfen **zwei verschiedene** Dinge sagen, aber beide müssen benannt sein.
+  **Eine Ausnahme, vom Auftraggeber entschieden (13.10.2026):** die Zahl der Bissgefahr
+  („Bissgefahr 8 %") ist nicht mehr zu sehen — sein Sohn störte sich daran, „das bringt den Kindern
+  keinen Mehrwert". Die Farbe des Balkens trägt die Gefahr jetzt allein; ihren Namen hat sie noch im
+  Regeln-Blatt, im einmaligen Hinweis unter dem Balken und für Vorleser (`#hud-tension` ist
+  `sr-only`, nicht entfernt — Tests und Sonde lesen den Wert dort weiter).
 
 - **Browser-Schnittstellen nie direkt in der Bedienung:** Ton läuft über `SoundPort`, Vibration über
   `HapticsPort` (`core/ports/haptics.ts`), umgesetzt in `infrastructure/`. Der Controller ruft
@@ -118,6 +124,54 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   wiederholt sich kein Klang mehr von selbst. Wer wieder einen einführt, lässt ihn ausfallen,
   solange der Kontext nicht `running` ist.
 
+## Das geschlossene Maul
+
+- **Ist das Maul zu, ist der Oberkiefer weg.** Er fährt zu (90 ms — das ist der Biss), dann
+  verschwinden sein Zahnfleischband und die Schnauzenfläche (`.creature.is-snapped .jaw__upper`,
+  `path.jaw__shell` in `presentation/styles/app.css`). Übrig bleiben das Lächeln des Unterkiefers,
+  die unteren Zähne und die Nase, die mit der Schnauzen-Gruppe nach unten rutscht. Bis zum
+  13.10.2026 blieb der herabgefahrene Oberkiefer als zweiter Bogen unter dem Lächeln stehen — beim
+  Vampir lag er auf dem roten Kragen und sah wie ein zweiter Mund aus (gemeldet mit Bild).
+- **Was bei offenem Maul verdeckt ist, kommt beim Zuschnappen ans Licht.** Die Ohren des Vampirs
+  liefen als Dreiecke bis unter die Augen; die Schnauzenfläche deckte den Fuß zu — bis sie nach
+  unten fuhr und zwei Striche quer durchs Gesicht standen. Wer in `body` zeichnet, sieht sich die
+  Zeichnung **auch geschlossen** an, nicht nur offen.
+- **Was sich mit dem Kiefer bewegen soll, gehört in dessen Ebene.** Der Schnurrbart des Menschen
+  lag im Gesichtsbereich (`face`, bleibt liegen) und blieb beim Zuschnappen am Hut hängen, während
+  die Nase nach unten fuhr. Er liegt jetzt in `upperExtra` — der Ebene der Nase.
+- **Ein Zahn genau im Maulwinkel gehört zum Oberkiefer.** Bei 12 Zähnen sitzt je einer bei 0° und
+  180°; der Sinus liefert dort keine glatte Null, also fiel der linke zum Unterkiefer und blieb
+  bei geschlossenem Maul allein neben dem Lächeln stehen (`splitByJaw` in `creatures/factory.ts`).
+- Dieselben Regeln stehen an drei Stellen und müssen zusammen geändert werden: im Stylesheet, in
+  `src/icon.test.ts` (das App-Symbol) und in `scripts/artwork-png.py` (der Rasterer).
+
+## Tiere freischalten
+
+- **Abgeleitet, nicht gespeichert.** Welche Tiere offen sind, folgt aus der Gesamtzahl der Sterne
+  (`core/domain/unlocks.ts`): Krokodil, Maus, Wolf am Start, dann Hai (3), Panda (5), Mensch (7),
+  Löwe (9), Vampir (11), Panther (13), Säbelzahntiger (15). Kein Schalter, kein eigener Speicher —
+  die Sicherung der Runden bringt die Freischaltungen von selbst mit.
+- **Die Währung sind Sterne insgesamt, nicht Drei-Sterne-Tiere.** Der dritte Stern gelingt je Runde
+  in 2,8–8,3 % der Fälle; alle zehn Tiere auf drei Sterne kosten im Mittel 246 Runden. Der
+  Auftraggeber: „Es soll ja nicht frustrierend sein für Kinder.“ Mit den gewählten Schwellen sind
+  nach 28 Runden (Median, simuliert) alle zehn offen.
+- **Sterne und Sperre malt ein Durchgang** (`presentation/game/albumBadges.ts`): beide setzen die
+  Beschriftung der Kachel; zwei Module überschrieben einander je nach Reihenfolge ihrer Zuhörer.
+- **Eine gesperrte Kachel ist nicht `disabled`.** Der Tipp muss ankommen, um sagen zu können, was
+  fehlt (`aria-disabled`, Marke an der Kachel, Satz für den Vorleser).
+- **Was nach dem Biss dazukommt, liegt über der Bühne, nicht im Ergebnis-Kasten.** Die Spielseite
+  scrollt auf keinem Gerät; jede Zeile mehr im Kasten bräche das auf kleinen Handys.
+- **Gefeiert wird nur nach einem eigenen Biss.** Runden von außen (Sicherung nach geleertem Profil,
+  anderer Tab, Import) öffnen die Tiere still — sonst fiele bei jedem Start im Kinderprofil Konfetti.
+- **Jede Browser-Sonde bringt ein Protokoll mit, das alle Tiere öffnet** (`scripts/freischaltung.py`).
+  Ohne es fällt ein eingestelltes gesperrtes Tier still auf das Krokodil zurück, und die Sonde
+  misst das falsche Tier, ohne zu scheitern.
+- **Das Skript einer `.astro`-Seite prüft kein Werkzeug des Gates.** `tsc` liest nur `src/**/*.ts`,
+  jsdom lädt das Seitenskript nicht. Beim Bau der Freischaltung stand `settings` hinter seiner
+  ersten Verwendung: Gate grün, Bau grün — und im Browser kein einziger Zahn („Cannot access …
+  before initialization“). Gefunden hat es erst die Sonde. Wer das Seitenskript umstellt, lädt die
+  gebaute Seite und sieht nach, ob Zähne auf der Bühne stehen.
+
 ## Sicherung der Runden (nur mit Sicherungscode)
 
 - **Anlass:** Das Kinderprofil eines Fire-Tablets verwirft beim Schließen des Browsers alle Daten
@@ -133,6 +187,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   `…/s/<code>` die Spielseite unverändert aus (zweite Route `zahn-agent.schaflabs.com/s/*`), und
   die Seite liest den Code auch aus dem Pfad. Das geht nur, weil jeder Verweis der Seite absolut
   über den Basis-Pfad läuft — ein relativer Verweis zeigte unter `/s/…` ins Leere.
+  **Am Gerät bestätigt** (Auftraggeber, 13.10.2026): mit `…/s/<code>` klappt alles über das
+  Kinderprofil.
 - **Kein Angebot für alle.** Ohne Code ruft die Seite den Worker nie, und der Worker kennt nur
   Codes, die als Zeile in der Tabelle `logs` stehen. Der Code ist das einzige Geheimnis und steht
   **nirgends im Baum** — auch nicht in Tests, Doku oder Commit-Texten.
@@ -420,6 +476,10 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger (`creatures/gaze.ts`); `gaze.test.ts`
   fällt sonst.
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
+   Und ein **Platz in der Freischaltung** (`UNLOCK_STEPS` in `core/domain/unlocks.ts`, mit Schwelle)
+   — `unlocks.test.ts` fällt, solange ein Katalogtier weder am Start noch in der Folge steht. Die
+   Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor). Ein Tier mit
+   weiblichem Namen braucht „zur“ und „mit der“ in `presentation/game/unlockNotice.ts`.
 4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
    zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
 5. Eine Stimme: Aufnahme mit freier Lizenz suchen, mit `scripts/stimme-schneiden.sh` nach
@@ -438,9 +498,12 @@ Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
 
 **Das App-Symbol hängt an der Zeichnung des Krokodils.** `public/favicon.svg` und
 `public/icon-maskable.svg` entstehen in `src/icon.test.ts` aus `creaturePortrait('crocodile', …)`
-mit den vier Regeln des Zustands „geschnappt" (geschlossenes Maul). Wer die Zeichnung des Krokodils
+mit den Regeln des Zustands „geschnappt" (geschlossenes Maul; seit dem 13.10.2026 gehört dazu,
+dass Oberkiefer und Schnauzenfläche verschwinden). Wer die Zeichnung des Krokodils
 ändert, erzeugt das Symbol neu — sonst fällt `src/icon.test.ts` (und das ist gewollt):
-`ICON_NEU=1 pnpm test:run`, dann `uv run --with cairosvg python scripts/icon-png.py`.
+`ICON_NEU=1 pnpm test:run`, dann `uv run --with cairosvg python scripts/icon-png.py`. Lässt sich
+cairosvg nicht laden (unter Windows fehlt ihm oft `libcairo-2.dll`), rastert dasselbe Skript mit
+dem Browser der Sonden: `python scripts/icon-png.py`.
 
 **Auch das Zeichen im Kopfbereich hängt an dieser Zeichnung.** Beide Seiten (`src/pages/index.astro`,
 `src/pages/statistik.astro`) zeigen dort `public/logo.svg` — **dieselbe Datei** wie das App-Symbol,

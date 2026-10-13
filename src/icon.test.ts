@@ -3,10 +3,11 @@
  * die ausgelieferten Dateien dazu passen.
  *
  * Das Symbol zeigt das Kopfbild (dieselbe Zeichnung wie die Tier-Auswahl — reine Zeichnung ohne
- * bedienbare Zähne) mit **geschlossenem Maul**. Die vier Regeln, mit denen die App beim Zuschnappen
+ * bedienbare Zähne) mit **geschlossenem Maul**. Die Regeln, mit denen die App beim Zuschnappen
  * das Maul schließt (`.creature.is-snapped …` in `presentation/styles/app.css`), sind hier
- * nachgebildet: Oberkiefer und Schnauze fahren um ihre Schließwege, Rachen und ruhende obere
- * Zahnreihe verschwinden.
+ * nachgebildet: Oberkiefer und Schnauze fahren um ihre Schließwege; Rachen, obere Zahnreihe,
+ * der Oberkiefer selbst und die Schnauzenfläche verschwinden (die letzten beiden seit dem
+ * 13.10.2026 — vorher standen sie als zweiter Bogen unter dem Lächeln).
  *
  * Neu erzeugen (nach jeder Änderung an der Zeichnung des Krokodils):
  *     ICON_NEU=1 pnpm vitest run src/icon.test.ts
@@ -40,17 +41,19 @@ const RUND = { zoom: 0.88, ecken: 14 / 64 };
 const MASKIERBAR = { zoom: 0.7, ecken: 0 };
 const LEBEWESEN = 'crocodile';
 
-/** Die vier Änderungen des Zustands „geschnappt" — Werte aus den Schließwegen der App. */
+/** Die Änderungen des Zustands „geschnappt" — Werte aus den Schließwegen der App. */
 function maulZu(markup: string, closeShift: number, shellShift: number): string {
   let zu = markup
     .replace(
       '<g class="jaw__upper">',
-      `<g class="jaw__upper" transform="translate(0 ${closeShift.toFixed(1)})">`,
+      `<g class="jaw__upper" transform="translate(0 ${closeShift.toFixed(1)})" opacity="0">`,
     )
     .replace(
       '<g class="jaw__shell">',
       `<g class="jaw__shell" transform="translate(0 ${shellShift.toFixed(1)})">`,
     );
+  // Die Schnauzenfläche ist ein Pfad in der Schnauzen-Gruppe; die Nase daneben bleibt.
+  zu = zu.replace('<path class="jaw__shell"', '<path class="jaw__shell" opacity="0"');
   for (const tag of [
     '<g class="mouth__hole">',
     '<g class="mouth__inner">',

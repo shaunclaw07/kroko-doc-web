@@ -36,6 +36,11 @@ describe('Spielseite', () => {
     expect(SEITE).not.toContain("'/sounds/");
     expect(SEITE).not.toContain('"/sounds/');
   });
+  it('zeigt die Zahl der Bissgefahr nicht mehr — für Vorleser steht sie weiter da', () => {
+    expect(SPIEL).toContain('<span id="hud-tension" class="sr-only">');
+    expect(SPIEL).toContain('<span id="hud-progress">');
+    expect(REGELN).not.toContain('als Zahl dabei');
+  });
   it('kennt die abgeschafften Anzeigen nicht mehr', () => {
     expect(SEITE).not.toContain('restart-round');
     expect(SEITE).not.toContain('hud-presses');
@@ -46,9 +51,25 @@ describe('Spielseite', () => {
     expect(buehne).toContain('id="star-toast"');
     expect(buehne).toContain('role="status"');
   });
+  it('trägt Fortschritt und Freischaltung über der Bühne — nicht im Ergebnis-Kasten, der sonst wüchse', () => {
+    const buehne = SPIEL.slice(SPIEL.indexOf('id="stage"'), SPIEL.indexOf('id="hud-stats"'));
+    for (const id of ['stage-notes', 'star-toast', 'unlock-progress', 'unlock-card', 'unlock-play']) {
+      expect(buehne).toContain(`id="${id}"`);
+    }
+    const ergebnis = SPIEL.slice(SPIEL.indexOf('id="result-panel"'), SPIEL.indexOf('id="hud-panel"'));
+    expect(ergebnis).not.toContain('unlock');
+  });
+  it('sagt dem Vorleser, was ein Tipp auf ein gesperrtes Tier ergibt', () => {
+    expect(SPIEL).toMatch(/id="lock-hint" role="status"/);
+  });
+  it('ordnet die Auswahl nach der Freischaltung und sperrt beim Start über die Ablage', () => {
+    expect(SEITE).toContain('UNLOCK_ORDER.map((id) => getCreature(id))');
+    expect(SEITE).toContain('settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked)');
+    expect(SEITE).toContain('isLocked: (creatureId: string) => album.isLocked(creatureId)');
+  });
   it('verdrahtet das Album mit derselben Ablage wie das Spiel', () => {
     expect(SEITE).toContain("from '../presentation/game/albumBadges'");
-    expect(SEITE).toContain('wireAlbum({ doc: document, log })');
+    expect(SEITE).toMatch(/wireAlbum\(\{\s+doc: document,\s+log,/);
   });
 });
 
@@ -78,6 +99,16 @@ describe('Regeln', () => {
   });
   it('rechnen nicht mehr mit vier Spielern', () => {
     expect(REGELN).not.toContain('4 Spielern');
+  });
+  it('erklären die Freischaltung mit Zahlen und Namen aus der Regel, nicht mit abgeschriebenen', () => {
+    expect(REGELN).toContain('<strong>Freischalten:</strong>');
+    // Kein Oberbegriff: unter den Neuen sind Mensch und Vampir.
+    expect(REGELN).not.toContain('Tiere freischalten');
+    expect(REGELN).not.toContain('neue Tiere');
+    expect(REGELN).toContain('{startList}');
+    expect(REGELN).toContain('{firstStep?.stars}');
+    expect(REGELN).toContain('{lastStep?.stars}');
+    expect(REGELN).toContain('Den dritten Stern');
   });
   it('erklären die drei Sterne beim Namen und sagen, dass sie Glück sind', () => {
     for (const wort of ['album-summary', 'gespielt', 'halb geschafft', 'bis zum letzten Zahn', 'Glück']) {

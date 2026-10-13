@@ -25,6 +25,8 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
+from freischaltung import ABLAGE, ALLE_OFFEN
+
 BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 HANDY = {"width": 390, "height": 844}
 BLICKE = [HANDY, {"width": 768, "height": 1024}, {"width": 1180, "height": 820}, {"width": 1366, "height": 1024}]
@@ -38,6 +40,8 @@ def offen(page, kennung: str) -> bool:
 def frisch(browser, blick, einstellungen=None):
     """Neue Seite; die Einstellungen werden nur gesetzt, solange noch keine gespeichert sind."""
     context = browser.new_context(viewport=blick)
+    # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
+    context.add_init_script("if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);" % (ABLAGE, ABLAGE, json.dumps(ALLE_OFFEN)))
     if einstellungen is not None:
         context.add_init_script(
             "if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);"

@@ -58,12 +58,18 @@ function shellMarkup(ring: RingGeometry, shell: BandSpec): string {
   return `<path class="jaw__shell" d="${d}" fill="${shell.fill}"${stroke}/>`;
 }
 
-/** Zähne oberhalb der Maulmitte gehören zum Oberkiefer und fahren beim Biss mit. */
+/**
+ * Zähne oberhalb der Maulmitte gehören zum Oberkiefer und fahren beim Biss mit — und die **auf**
+ * der Mitte ebenfalls. Bei 12 Zähnen sitzt je einer genau im Maulwinkel (0° und 180°); der Sinus
+ * liefert dort keine glatte Null, also fiel der linke zum Unterkiefer und der rechte zum
+ * Oberkiefer: bei geschlossenem Maul blieb links ein einzelner Zahn neben dem Lächeln stehen
+ * (im Bild gesehen, 13.10.2026). Ein halber Punkt Spielraum hält beide Winkel zusammen.
+ */
 function splitByJaw(placements: readonly ToothPlacement[], ring: RingGeometry): { upper: ToothPlacement[]; lower: ToothPlacement[] } {
   const upper: ToothPlacement[] = [];
   const lower: ToothPlacement[] = [];
   for (const placement of placements) {
-    (placement.y < ring.cy ? upper : lower).push(placement);
+    (placement.y < ring.cy + 0.5 ? upper : lower).push(placement);
   }
   return { upper, lower };
 }

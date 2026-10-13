@@ -28,6 +28,8 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
+from freischaltung import ABLAGE, ALLE_OFFEN
+
 URL = sys.argv[1] if len(sys.argv) > 1 else "https://zahn-agent.schaflabs.com"
 SETTINGS_KEY = "zahn_agent:settings:v1"
 
@@ -59,6 +61,7 @@ MESSUNG = """() => {
     tensionWert: stage.dataset.tension,
     fortschrittText: progress.textContent.trim(),
     gefahrText: tension.textContent.trim(),
+    gefahrTextBreite: tension.getBoundingClientRect().width,
     fuellBreite: fuellung.width,
     fuellFarbe: fuellung.backgroundImage,
     fuellAtmung: fuellung.animationDuration,
@@ -90,6 +93,8 @@ def main() -> int:
             seite.goto(URL, wait_until="load")
             seite.evaluate("([k, v]) => localStorage.setItem(k, v)",
                            [SETTINGS_KEY, json.dumps(einstellungen)])
+            # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
+            seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [ABLAGE, ALLE_OFFEN])
             seite.reload(wait_until="load")
             seite.wait_for_timeout(600)
             return seite
@@ -111,8 +116,10 @@ def main() -> int:
              "Der Balken liegt außerhalb der Bühne — deshalb müssen die Klassen am Kasten hängen"),
             (farben["danger"] in offen["fuellFarbe"] and farben["ok"] not in offen["fuellFarbe"],
              f"Bei 100 % Bissgefahr muss die Füllung die Gefahrfarbe tragen — sie zeigt „{offen['fuellFarbe']}\""),
-            (offen["gefahrTextFarbe"] == farben["danger"],
-             f"Bei 100 % Bissgefahr muss der Gefahrtext die Gefahrfarbe tragen — er zeigt „{offen['gefahrTextFarbe']}\""),
+            # Seit dem 13.10.2026 ist die Zahl nicht mehr zu sehen (vom Auftraggeber abgewählt);
+            # für Vorleser steht sie weiter im Dokument.
+            (offen["gefahrTextBreite"] <= 1,
+             f"Die Zahl der Bissgefahr soll nicht mehr sichtbar sein — sie ist {offen['gefahrTextBreite']} px breit"),
             (offen["fuellAtmung"] == "0.38s",
              f"Der Balken soll im Puls-Takt atmen (380 ms am Ende des Bereichs), tut aber {offen['fuellAtmung']}"),
         ])

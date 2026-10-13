@@ -1079,3 +1079,167 @@ nur ein Spielstand auf einem Server oder eine verpackte Android-App; beides ist 
 anbieten und ob die installierte App ihre Daten behält.
 
 Gate **430 Tests in 30 Dateien**. Nicht gepusht.
+
+## Nachtrag 13.10.2026 (gebaut): Tiere freischalten
+
+Auftrag: „ich würde gerne noch eine Mechanik implementieren, die quasi Modelle unlockt, wenn eine
+gewisse Anzahl von 3-Sterne-Modellen erreicht wurde.“ Davor das Sparring im `grill-me`-Stil: neun
+Fragen, jede einzeln vom Auftraggeber entschieden.
+
+**Entscheidungen (mit Grund) — alle vom Auftraggeber am 13.10.2026 bestätigt:**
+
+1. **Gesperrt wird ein Teil der zehn vorhandenen Tiere**; versteckte Bonus-Tiere kommen später
+   dazu (Entscheidung 8).
+2. **Die Währung ist die Gesamtzahl der Sterne, nicht die Zahl der Drei-Sterne-Tiere.** Der dritte
+   Stern ist reines Glück und selten — aus dem Modell gerechnet (`pressPositionDistribution`, Modus
+   „wie das Spielzeug“): Maus 8,3 % je Runde (im Mittel 12 Runden, 9 von 10 Spielern nach 27),
+   Wolf/Hai/Vampir/Panda/Löwe/Panther/Säbelzahntiger 4,2 % (24 / 55), Krokodil 3,3 % (30 / 68),
+   Mensch 2,8 % (36 / 82); alle zehn auf drei Sterne im Mittel 246 Runden. „Es soll ja nicht
+   frustrierend sein für Kinder.“ Die Regel „alle auf drei Sterne“ bleibt den Bonus-Tieren.
+3. **Am Anfang offen: Krokodil, Maus, Wolf.** Danach in fester Folge Hai, Panda, Mensch, Löwe,
+   Vampir, Panther, Säbelzahntiger — die drei Katzen nicht am Stück, der Säbelzahntiger als
+   Abschluss. Eine freie Wahl des nächsten Tiers bräuchte einen eigenen Speicher und ist abgesagt.
+4. **Schwellen: 3, 5, 7, 9, 11, 13, 15 Sterne insgesamt** für das vierte bis zehnte Tier. Simuliert
+   (20 000 Durchläufe, Modus „wie das Spielzeug“, zufälliger Wechsel zwischen den offenen Tieren):
+   erstes neues Tier nach 3 Runden (Median), alle zehn offen nach 28 Runden (Median) bzw. 42
+   (9 von 10 Spielern). Abgesagt: 3, 6, 9, … 21 — dort braucht das zehnte Tier 21 Sterne aus neun
+   offenen Tieren, also zwingend dritte Sterne (Median 93 Runden, 9 von 10 nach 153).
+5. **Die Sperre gilt für alle, ohne Schalter.** Sie wird aus dem Rundenprotokoll abgeleitet wie die
+   Sterne — kein eigener Speicher. Ein Schalter „Alle Tiere offen“ höbe die Mechanik für genau das
+   Kind auf, für das sie gebaut wird.
+6. **Gesperrte Tiere stehen als Schattenriss mit Schloss und Namen an ihrem Platz.** Das nächste
+   zeigt, was fehlt („Noch 2 Sterne“). Ein Tipp auf ein gesperrtes Tier wählt nichts, zeigt aber
+   den Satz dazu — ein Tier, das auf den Tipp nicht reagiert, wäre ein Bedienfehler.
+7. **Die Freischaltung wird gefeiert:** nach dem Biss das Kopfbild des neuen Tiers, der Knopf „Mit
+   dem Hai spielen“ und Konfetti über den ganzen Bildschirm. Kein selbsttätiger Wechsel.
+8. **Bonus-Tiere sind nicht Teil dieses Baus.** Eine Regel ohne Tier wäre toter Code; ein neues Tier
+   braucht Zeichnung, Stimme mit Lizenz und einen belegten Satz, muss also ein echtes Tier sein.
+   Offen für den späteren Bau: ganz versteckte Tiere jagt niemand, weil niemand von ihnen weiß.
+9. **Der Fortschritt steht nach jedem Biss mit neuem Stern da** („Noch 1 Stern bis zum Hai“) — mit
+   Sternsymbolen und dem Tier als Schattenriss, „da vielleicht noch nicht alle Kinder lesen können“.
+   Der Schattenriss statt des Kopfbilds: das Bild ist die Belohnung der Freischaltung.
+
+**Was daraus folgt (nicht gefragt, weil es aus den Regeln folgt):**
+
+- Die Sternregeln bleiben unverändert; jeder Modus und jede Spielerzahl zählt.
+- Ein gespeichertes Tier, das gesperrt ist, fällt beim Start auf das Krokodil zurück.
+- „Protokoll löschen“ sperrt die Tiere wieder.
+- **Gefeiert wird nur nach einem eigenen Biss.** Kommen Runden von außen (Sicherung nach geleertem
+   Profil, anderer Tab, Import), öffnen sich die Tiere still — wie die Sterne schon heute.
+- Konfetti fängt keinen Tipp ab, braucht kein Paket und entfällt bei „Bewegung reduzieren“.
+- **Ansage, Fortschritt und Freischaltung liegen über der Bühne, nicht im Ergebnis-Kasten.** Die
+   Spielseite scrollt auf keinem Gerät (gemessen, `scripts/pruefen-bedienung.py`); jede Zeile mehr
+   im Kasten bräche das auf kleinen Handys. Die Ansage eines Sterns liegt dort schon.
+- **„Noch 2 Sterne“ liegt als Marke über dem Kopfbild**, nicht als zusätzliche Zeile: die Kacheln
+   behalten ihre Maße.
+
+**Umsetzung (in dieser Reihenfolge, jeder Schritt mit Test zuerst):**
+
+1. **Regel im Kern** — `core/domain/unlocks.ts`: `STARTING_CREATURES`, `UNLOCK_STEPS` (Tier und
+   Schwelle), `unlockState(pages)` → Sterne, offene Tiere, nächstes Tier samt fehlender Sterne;
+   `newlyUnlocked(before, after)`. Tests: jede Schwelle an ihrem Rand; **jedes Katalogtier steht
+   genau einmal** in Start oder Folge (ein neues Tier fällt sonst auf); **keine Schwelle braucht
+   einen dritten Stern** (Schwelle ≤ 2 × offene Tiere davor); alte Runden gesperrter Tiere zählen mit.
+2. **Einstellungen** — `presentation/game/creatureChoice.ts`: ein gesperrtes Tier wird nicht
+   gewählt; `settingsWithUnlockedCreature` für den Rückfall beim Start.
+3. **Kacheln** — `presentation/game/albumBadges.ts` malt Sterne **und** Sperre in einem Durchgang
+   (zwei Module, die dieselbe Beschriftung setzen, überschrieben einander): Klasse `is-locked`,
+   `aria-disabled`, Schloss, Marke am nächsten Tier, Beschriftung für Bildschirmleser.
+   `quickControls.ts` fragt vor dem Wählen, ob das Tier offen ist, und meldet sonst den Tipp.
+4. **Ansage** — `presentation/game/unlockNotice.ts`: Satz zum Fortschritt, Karte der Freischaltung
+   (Kopfbild, Knopf), Hinweis beim Tipp auf ein gesperrtes Tier, Konfetti. Verdrahtet in
+   `albumBadges.ts` am Ereignis `kroko:round-finished`.
+5. **Seite** — `src/pages/index.astro`: Elemente über der Bühne, Rückfall beim Start, Verdrahtung;
+   ein Satz im Regeln-Blatt, dessen Zahlen ein Test gegen die Regel hält. Stile in
+   `presentation/styles/app.css`.
+6. **Sonden** — sieben Browser-Sonden wählen heute Tiere, die künftig gesperrt sind
+   (`pruefen-blick`, `-zoom`, `-halten`, `-anzeige`, `-bedienung`, `-blaetter`, `-tiere`). Sie
+   bekommen ein Protokoll, das alle Tiere öffnet (`scripts/freischaltung.py`), und werden danach
+   gefahren. Neu: `scripts/pruefen-freischaltung.py` — drei Tiere am Start, Tipp auf ein gesperrtes
+   Tier, Freischaltung nach dem Biss mit Knopf und Konfetti, kein Scrollen, kein verdeckter Griff.
+7. **Doku** — `docs/domain-model.md`, `docs/testing.md`, `README.md`, `AGENTS.md` (ein neues Tier
+   braucht einen Platz in der Folge), Nachweis in `docs/e2e-nachweise.md`.
+
+**Abnahme:** `pnpm gate` grün, `pnpm build`, alle berührten Sonden mit `Auffälligkeiten: 0`, die
+gesperrten Kacheln und die Freischaltung im gerasterten Bild angesehen.
+
+**Gebaut am 13.10.2026 — was beim Bau anders kam als geplant:**
+
+- **Der Hinweis beim Tipp auf ein gesperrtes Tier steht an der Kachel selbst** („Noch 9 Sterne“
+  über dem Schattenriss, darunter der Name), nicht als eigener Satz an anderer Stelle: auf dem Handy
+  liegt die Auswahl in einem Blatt über der Bühne, ein Satz dort wäre verdeckt. Der ganze Satz
+  („Löwe ist noch gesperrt. Noch 9 Sterne.“) geht an den Vorleser.
+- **Die Auswahl folgt der Freischaltung** (`UNLOCK_ORDER`), nicht mehr dem Katalog: so steht das
+  nächste Tier gleich hinter den offenen.
+- **Der Schattenriss ist hell, nicht schwarz.** Im gerasterten Bild bei 390 px war ein schwarzer
+  Umriss auf der dunklen Kachel kaum zu sehen; jetzt wird geschwärzt und umgekehrt. Im Satz zum
+  Fortschritt (heller Grund) bleibt er dunkel.
+- **Ein Fund beim Bau:** das Seitenskript nutzte `settings` vor seiner Definition — Gate und Bau
+  grün, im Browser kein Zahn. Die Sonde fand es (Falle in `AGENTS.md`).
+- **Zwei Funde der Sonde waren Messfehler der Sonde:** sie maß, bevor die Runde ausgewertet war
+  (das Maul ist zu, bevor die Runde im Protokoll steht) und mitten im Aufploppen der Karte. Sie
+  wartet jetzt auf die Ansage des Sterns; danach drei Läufe ohne Fund.
+
+Gate **516 Tests in 37 Dateien**, `pnpm build`, und alle zwölf Sonden, die die Seite laden, gegen
+die gebaute Seite ohne Fund (`pruefen-freischaltung.py`: 106 Zeilen `ok`; `pruefen-zahnsicht.py`
+misst nur die Zeichnungen und wurde nicht gefahren). Die Bilder von Start, Tipp,
+Fortschritt und Freischaltung auf 320, 390, 800 und 1180 px angesehen.
+
+**Offen — nur der Auftraggeber kann es beurteilen:** ob das Tempo am echten Kind stimmt (28 Runden
+im Median sind gerechnet, nicht erlebt) und wie das Konfetti auf dem Fire-Tablet läuft.
+
+**Nachtrag am selben Tag:** Die Karte hieß zuerst „Neues Tier: Hai!“ — bei „Neues Tier: Mensch!“
+meldete der Auftraggeber: „Das passt weder zum Mensch noch zum Vampir.“ Entschieden: **kein
+Oberbegriff** in der Freischaltung („Neu dabei: Mensch!“; im Regeln-Blatt „Freischalten: … kommen
+Neue dazu“). Der Knopf „Tier“, das Blatt „Welches Tier?“ und das Tier-Album bleiben.
+
+## Nachtrag 13.10.2026 (gebaut): das geschlossene Maul und zwei Zeichnungen
+
+Drei Meldungen des Auftraggebers beim Ausprobieren der Freischaltung, alle am geschlossenen Maul:
+
+1. **Mensch** — „der Bart des Menschen geht beim geschlossenen Mund gar nicht mit runter, sondern
+   bleibt oben am Hut“. Die beiden Formen waren als Schläferlocken gezeichnet (11.10.2026) und lagen
+   im Gesichtsbereich, der beim Biss liegen bleibt. Gelesen werden sie als Bart: sie heißen jetzt so
+   und liegen in `upperExtra`, der Ebene der Nase, und fahren mit ihr.
+2. **Vampir** — „sieht auch komisch aus, wenn sein Mund geschlossen ist“ (mit Bild). Die Ohren
+   liefen bis unter die Augen; bei offenem Maul deckte die Schnauzenfläche den Fuß zu. Sie enden
+   jetzt bei x 126 bzw. 514, die Schnittkante ohne Strich. Das offene Bild ist dasselbe geblieben
+   (Unterschied zweier Rasterungen: 225 Bildpunkte an den Ohrkanten).
+3. **Alle Tiere** — „der Mund, der nach unten klappt … das müsste gar nicht sichtbar sein, wenn der
+   Mund zu ist“. Vor dem Umbau wurde die Variante an Vampir, Wolf, Krokodil und Hai als Bild
+   nachgestellt und dem Auftraggeber vorgelegt; er hat sie samt neuem App-Symbol bestätigt.
+   **Entschieden:** der herabgefahrene Oberkiefer (Zahnfleischband und Schnauzenfläche) verschwindet
+   nach dem Zufahren. Dazu der einzelne Zahn im linken Maulwinkel, der bei 12 Zähnen stehen blieb
+   (`splitByJaw`).
+
+Das **App-Symbol** hängt an diesen Regeln und ist neu erzeugt (`favicon.svg`, `icon-maskable.svg`,
+`logo.svg`, vier PNG-Größen). `cairosvg` ließ sich auf dem Rechner nicht laden (`libcairo-2.dll`
+fehlt); `scripts/icon-png.py` rastert jetzt ersatzweise mit dem Browser der Sonden.
+
+Gate **516 Tests in 37 Dateien**, `pnpm build`; gegen die gebaute Seite ohne Fund:
+`pruefen-zahnsicht` (120 Zeichnungen), `-trefferflaeche`, `-zoom`, `-halten`, `-blick`,
+`-bedienung`, `-freischaltung`, `-offline`, `-anzeige`. Sechs Tiere offen und geschlossen als Bild
+angesehen (Vampir, Wolf, Mensch, Maus, Löwe, Panda), dazu das Symbol in 512 px.
+
+**Nicht neu gebaut:** das README-Bild der Gebisse (`docs/bilder/gebisse.png`) — es zeigt das offene
+Maul, und das ist unverändert; `scripts/galerie.py` braucht `cairosvg`.
+
+## Nachtrag 13.10.2026 (gebaut): die Zahl der Bissgefahr ist nicht mehr zu sehen
+
+Auftrag: „Mein Sohn hatte sich an dem Text für die Bissgefahr gestört, bsp.: ‚Bissgefahr 8 %‘.
+Können wir das entfernen, weil das den Kindern keinen Mehrwert bringt.“
+
+**Entschieden vom Auftraggeber** — gegen die eigene Regel „Anzeigen werden benannt“ (11.10.2026):
+die Zahl verschwindet aus dem Blick. **Wie:** `#hud-tension` bleibt im Dokument und wird `sr-only`.
+So behält die Farbe des Balkens für Vorleser ihren Namen, und Unit-Tests und Anzeige-Sonde lesen
+den Wert weiter. Die Farbregeln des Textes sind entfernt (toter Code). Auch „Runde beendet“ stand
+in diesem Feld und ist damit nicht mehr zu sehen — das Ergebnis darunter sagt „Zugeschnappt!“.
+
+**Bleibt:** der Fortschritt („6 von 10 gedrückt“), die Farbe und der Puls des Balkens, der
+einmalige Hinweis darunter, die Erklärung im Regeln-Blatt (ohne „im Spiel steht sie als Zahl
+dabei“) — und der **Mut der Runde** im Ergebnis („Dein mutigster Druck: 55 % Bissgefahr“). Den hat
+der Auftraggeber nicht genannt; er ist nicht angefasst.
+
+Gate **517 Tests in 37 Dateien**; `pruefen-anzeige.py` prüft statt der Textfarbe jetzt, dass die
+Zahl nicht mehr sichtbar ist, `pruefen-bedienung.py` ohne Fund.
+

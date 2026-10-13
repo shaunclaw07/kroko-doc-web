@@ -25,6 +25,8 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
+from freischaltung import ABLAGE, ALLE_OFFEN
+
 BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 BLICKE = [(320, 568), (360, 640), (390, 844), (412, 915), (768, 1024), (1024, 768), (820, 1180), (1180, 820)]
 SCHMAL = 640  # darunter öffnen sich die Köpfe als Blatt
@@ -87,6 +89,8 @@ BLATT = """
 
 def frisch(browser, w, h, einstellungen, ohne_vibration=False):
     ctx = browser.new_context(viewport={"width": w, "height": h}, has_touch=True)
+    # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
+    ctx.add_init_script("if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);" % (ABLAGE, ABLAGE, json.dumps(ALLE_OFFEN)))
     ctx.add_init_script(
         "if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);"
         % (SCHLUESSEL, SCHLUESSEL, json.dumps(json.dumps(einstellungen)))

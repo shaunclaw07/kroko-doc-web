@@ -4,6 +4,10 @@ Eine Anleitung zum Nachbauen — für dieses Projekt geschrieben, für andere ge
 was am 13.10.2026 für Zahn Agent gebaut wurde, in der Reihenfolge, in der man es wieder tun würde,
 und sagt bei jedem Schritt, ob er **gefahren** wurde oder nur beschrieben ist.
 
+**Ergebnis am Gerät** (gemeldet vom Auftraggeber am 13.10.2026): mit der Startadresse
+`…/s/<code>` klappt alles über das Kinderprofil. Mit der ersten Form `…/?s=<code>` klappte es
+nicht — die Freigabe verschwand wieder.
+
 ## Wann man das braucht
 
 Eine Webapp legt ihren Stand im Browser ab (`localStorage`), und auf einem bestimmten Gerät ist er
@@ -175,7 +179,8 @@ Sicherung **ersetzt** statt abgleicht.
 Der erste Entwurf trug den Code als Abfrage: `…/?s=<code>`. Im Kinderprofil als erlaubter
 Webinhalt freigegeben, **löschte das Tablet diese Freigabe nach einiger Zeit von selbst wieder**
 (gemeldet am 13.10.2026). Die Vermutung des Auftraggebers: der Abfrage-Teil in der Adresse. Das
-ist **nicht gemessen** — niemand hat dem Tablet dabei zugesehen.
+ist **nicht gemessen** — niemand hat dem Tablet dabei zugesehen. Der Umbau auf den Pfad hat
+geholfen; das stützt die Vermutung, beweist sie aber nicht.
 
 Die Antwort darauf ist eine Adresse, die wie eine gewöhnliche Seite aussieht: `…/s/<code>`. Eine
 statisch ausgelieferte Seite kennt solche Pfade nicht, also liefert der Worker dort die
@@ -186,7 +191,8 @@ Spielseite aus, und die Seite liest den Code aus dem Pfad. Zwei Bedingungen:
   HTML nachsehen (`grep -o '\(href\|src\)="[^"]*"' dist/index.html`).
 - **Die Abfrage-Form bleibt gültig.** Wer die alte Adresse schon eingetragen hat, verliert nichts.
 
-Ob das Tablet die Freigabe **dieser** Adresse behält, ist offen (Stand 13.10.2026).
+**Am Gerät bestätigt** (Auftraggeber, 13.10.2026): mit dieser Adresse klappt alles über das
+Kinderprofil. Wer nachbaut, nimmt gleich den Pfad und spart sich die Abfrage-Form als Startadresse.
 
 ## Die Fallen, in die wir getreten sind
 
@@ -227,13 +233,13 @@ Die Sonde `pruefen-sicherung.py` stellt genau den Anlass nach: Ablage leeren, Se
 öffnen, Runden **und Sterne** sind wieder da — über beide Formen der Adresse. Sie rührt den echten Worker und den echten Code
 nicht an.
 
-**Was keine Sonde zeigt** (Stand 13.10.2026 noch offen, nur am Gerät prüfbar):
+**Was keine Sonde zeigt** und nur am Gerät prüfbar ist — hier beides am 13.10.2026 vom
+Auftraggeber bestätigt, auf einem anderen Gerät wieder offen:
 
-- Behält das Kinderprofil die freigegebene Startadresse `…/s/<code>`? (Die Form `?s=<code>`
-  behielt es nicht.)
-- Lässt das Kinderprofil den Abruf an `api/…` durch?
+- Behält das Profil die freigegebene Startadresse? (`…/s/<code>`: ja. `…/?s=<code>`: nein.)
+- Lässt das Profil den Abruf an `api/…` durch? (Ja — unter demselben Ursprung.)
 
-Dafür gibt es die Zeile „Sicherung: …" auf der Statistikseite: fehlt sie, kam der Code nicht an;
+Für die Fehlersuche auf einem anderen Gerät gibt es die Zeile „Sicherung: …" auf der Statistikseite: fehlt sie, kam der Code nicht an;
 steht dort „nicht erreichbar", blockt das Profil den Abruf; steht eine Rundenzahl da, läuft es.
 
 ## In Betrieb nehmen

@@ -1720,3 +1720,42 @@ Auffälligkeiten: 0
 **Nicht geprüft:** die veröffentlichte Seite (GitHub Pages schickt `Vary: Accept-Encoding` statt
 `Vary: Origin`), Safari und der Silk-Browser, und ob ein Gerät die Installation anbietet. Die Sonde
 läuft auch gegen die veröffentlichte Adresse: `python scripts/pruefen-offline.py https://zahn-agent.schaflabs.com`.
+
+## 5ag. Tiere freischalten (13.10.2026)
+
+**Was geprüft wurde:** die Freischaltung der Tiere über Sterne (`core/domain/unlocks.ts`) an der
+**gebauten** Seite im echten Chromium, auf 320 × 568, 390 × 844, 800 × 1280 und 1180 × 820.
+
+```bash
+pnpm build && pnpm preview --port 4322
+python scripts/pruefen-freischaltung.py            # 106 Zeilen ok, Auffälligkeiten: 0
+```
+
+| Lage | Befund |
+|---|---|
+| Start, frische Seite | drei Tiere offen (Krokodil, Maus, Wolf), sieben als Umriss mit Schloss; die Auswahl in der Reihenfolge der Folge; gesperrte und offene Kacheln gleich groß; der Hai zeigt „Noch 3 Sterne“ |
+| Tipp auf den Löwen | auf der Bühne bleibt das Krokodil, das Auswahlblatt bleibt offen, die Kachel zeigt „Noch 9 Sterne“ |
+| Maus, ein Zahn, Biss | „Neuer Stern: Maus — gespielt!“ und darunter ☆☆, Umriss des Hais, „Noch 2 Sterne bis zum Hai.“ |
+| zwei Sterne vorhanden, Wolf, ein Zahn, Biss | Karte „Neu dabei: Hai!“ mit Kopfbild und Knopf „Mit dem Hai spielen“, Konfetti; der Knopf ist mindestens 48 px hoch, im Sichtfenster und vom Konfetti nicht verdeckt; die Seite scrollt nicht; „Neue Runde“ erreichbar |
+| Tipp auf den Knopf | auf der Bühne steht der Hai, eine neue Runde läuft |
+| Säbelzahntiger gespeichert, kein Protokoll | beim Start das Krokodil, und so steht es danach in der Ablage |
+| „Bewegung reduzieren“ | kein Konfetti, die Karte kommt trotzdem |
+
+**Gegenprobe der übrigen Sonden** (jede mit dem Protokoll aus `scripts/freischaltung.py`, das alle
+Tiere öffnet), alle gegen `http://localhost:4322`, alle Exit 0: `pruefen-tiere` (zehn Kacheln in
+der neuen Reihenfolge, Tipp auf Löwe und Panther wählt), `pruefen-blaetter`, `pruefen-bedienung`
+(Seite scrollt auf keiner Größe), `pruefen-blick` (35 Zeilen `ok`), `pruefen-zoom` (60 Messzeilen),
+`pruefen-halten` (16 Zeilen `ok`), `pruefen-anzeige`, `pruefen-trefferflaeche`,
+`pruefen-blattbreite`, `pruefen-offline`, `pruefen-sicherung`.
+
+**Zwei Funde auf dem Weg, beide vor dem Commit behoben:**
+
+1. **Kein Zahn auf der Bühne** — das Seitenskript nutzte `settings` vor seiner Definition
+   („Cannot access … before initialization“). Gate und Bau waren grün: `tsc` liest keine
+   `.astro`-Skripte, jsdom lädt sie nicht.
+2. **Die Sonde maß zu früh** — in einem von drei Läufen war der Knopf 45 statt 48 px hoch (mitten im
+   Aufploppen der Karte), in einem anderen fehlte die Karte ganz (das Maul ist zu, bevor die Runde
+   im Protokoll steht). Die Sonde wartet jetzt auf die Ansage des Sterns; danach drei Läufe ohne Fund.
+
+**Nicht geprüft:** wie flüssig das Konfetti auf dem Fire-Tablet läuft, Safari und der Silk-Browser,
+und ob das Tempo (28 Runden im Median bis zum zehnten Tier, simuliert) für ein Kind stimmt.

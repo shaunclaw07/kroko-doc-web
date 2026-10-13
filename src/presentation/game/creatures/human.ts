@@ -20,8 +20,8 @@ const SILHOUETTE =
  * endet bei y 80).
  *
  * **Rostrot** -- Gold traegt die Maehne des Loewen, Blau der Hai, Violett der Vampir, Gruen das
- * Krokodil. Braun waere am Menschen nicht zu unterscheiden: er hat keine gezeichneten Haare, nur
- * Brauen in `#c79b73`. Der Umriss ist `#8a3a2c` statt des harten `#2b2b33` -- der Mensch ist die
+ * Krokodil. Braun waere am Menschen nicht zu unterscheiden: Brauen und Schnurrbart sind schon
+ * `#c79b73`. Der Umriss ist `#8a3a2c` statt des harten `#2b2b33` -- der Mensch ist die
  * weichste Zeichnung im Katalog.
  */
 const HUT_KREMPE =
@@ -30,30 +30,27 @@ const HUT_KRONE = 'M 244 64 C 240 34 276 6 320 6 C 364 6 400 34 396 64 Z';
 const HUT_BAND = 'M 246 58 C 278 45 362 45 394 58';
 
 /**
- * **Die Haare** unter dem Hut. Der Kopf war kahl -- ausser den Brauen gab es nichts, was am
- * Menschen an Haare erinnerte (der Auftraggeber: "kann man ggf noch ein weiteres Accessoire was
- * das Modell noch menschlicher wirken laesst", 11.10.2026). Zwei **Schlaeferlocken**, die unter
- * der Krempe hervorschauen, machen den Kopf auf einen Blick menschlich.
+ * **Der Schnurrbart** neben der Nase. Entstanden am 11.10.2026 als zwei *Schlaeferlocken* unter
+ * der Krempe ("kann man ggf noch ein weiteres Accessoire was das Modell noch menschlicher wirken
+ * laesst") -- gelesen hat sie der Auftraggeber aber als **Bart**, und als solcher blieben sie beim
+ * Zuschnappen falsch: die Nase fuhr mit dem Oberkiefer nach unten, der Bart klebte oben am Hut
+ * ("der Bart des Menschen geht beim geschlossenen Mund gar nicht mit runter", 13.10.2026).
  *
- * Sie liegen im **Gesichtsbereich** (`face`) -- und das ist der Unterschied zum Hut. Die erste
- * Fassung stand in der Koerperebene, und im gerasterten Bild war unter der Krempe nichts zu sehen:
- * die *Schnauzenflaeche* des Mundes (`upperShell`, Fuellung `#f7cdaa` -- dieselbe Hautfarbe) wird
- * in der **Mundebene** gezeichnet, also **nach** der Koerperebene, und deckt dort alles zu
- * (mit einer Farbkarte gemessen: unter der Krempe lag bis y 110 nur Haut). Der Hut dagegen darf
- * nicht ins Gesicht: seine Krone ragte sonst ueber den Kopfumriss hinaus, und der Gesichtsbereich
- * wird auf die Silhouette beschnitten.
+ * Deshalb liegt er jetzt in `upperExtra` -- derselben Ebene wie die Nase -- und **faehrt mit ihr**
+ * (`jaw__shell`). Vorher stand er im Gesichtsbereich (`face`), der beim Biss liegen bleibt.
+ * In `body` darf er nicht: die Schnauzenflaeche des Mundes (`upperShell`, dieselbe Hautfarbe) wird
+ * danach gezeichnet und deckte ihn zu (am 11.10.2026 mit einer Farbkarte gemessen).
  *
- * Die **Oberkante** folgt genau der Unterkante der Krempe, damit diese nicht angeschnitten wird.
- * Die Locken bleiben **aussen** (x 202…276 und 364…438): in der Mitte sitzt die Nase
- * (`upperExtra`, x 282…358, y 68…112, Nasenloecher bei y 98), und eine durchgehende Franse hat sie
- * in der ersten Fassung zugedeckt -- im Bild gesehen. Nach unten enden die Locken bei y 116, die
- * Braue links endet bei x 214 (gemessen im gerenderten Bild: Nasenloecher (302,98) und (338,98)
- * unveraendert `(192,138,106)`).
- * Farbe wie die Brauen (`#c79b73`), damit Kopf und Brauen dieselbe Haarfarbe tragen.
+ * Die **Oberkante** folgt bei offenem Mund der Unterkante der Krempe, damit diese nicht
+ * angeschnitten wird. Die beiden Haelften bleiben **aussen** (x 202…276 und 364…438): in der Mitte
+ * sitzt die Nase (x 282…358, y 68…112, Nasenloecher bei y 98) -- eine durchgehende Form hat sie in
+ * der ersten Fassung zugedeckt. Nach unten enden sie bei y 116; das Zahnfleischband beginnt dort
+ * erst bei y 133 und liegt darueber.
+ * Farbe wie die Brauen (`#c79b73`), damit Bart und Brauen dieselbe Haarfarbe tragen.
  */
-const HAAR_LOCKE_LINKS =
+const BART_LINKS =
   'M 202 66 C 202 78 250 86 276 88 C 268 106 248 118 232 116 C 216 110 206 86 202 66 Z';
-const HAAR_LOCKE_RECHTS =
+const BART_RECHTS =
   'M 438 66 C 438 78 390 86 364 88 C 372 106 392 118 408 116 C 424 110 434 86 438 66 Z';
 
 export const humanArtwork: CreatureArtwork = {
@@ -78,16 +75,15 @@ export const humanArtwork: CreatureArtwork = {
   upperShell: { thickness: 44, fromDeg: 192, toDeg: 348, fill: '#f7cdaa', stroke: '#d9a186' },
   lower: { thickness: 26, fromDeg: 10, toDeg: 170, fill: '#f0959f', stroke: '#d98a99' },
   upperExtra:
+    // Der Schnurrbart in der Ebene der Nase: beide fahren beim Biss mit dem Oberkiefer nach unten.
+    `<path d="${BART_LINKS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
+    `<path d="${BART_RECHTS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
     '<ellipse cx="320" cy="90" rx="38" ry="22" fill="#f7cdaa" stroke="#d9a186" stroke-width="3"/>' +
     '<ellipse cx="302" cy="98" rx="11" ry="7" fill="#c08a6a"/>' +
     '<ellipse cx="338" cy="98" rx="11" ry="7" fill="#c08a6a"/>',
   face:
     '<path d="M 112 128 A 38 33 0 0 1 180 128" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
     '<path d="M 460 128 A 38 33 0 0 1 528 128" fill="none" stroke="#c79b73" stroke-width="6" stroke-linecap="round"/>' +
-    // Die Schlaeferlocken im Gesichtsbereich, hinter den Brauen -- sie liegen ueber der
-    // Schnauzenflaeche des Mundes (Begruendung oben bei HAAR_LOCKE_LINKS).
-    `<path d="${HAAR_LOCKE_LINKS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
-    `<path d="${HAAR_LOCKE_RECHTS}" fill="#c79b73" stroke="#a8804f" stroke-width="3"/>` +
     '<ellipse cx="146" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
     '<ellipse cx="494" cy="142" rx="33" ry="28" fill="#ffffff" stroke="#d9a186" stroke-width="3"/>' +
     '<circle cx="148" cy="145" r="15" fill="#5b86a8" class="pupil"/><circle cx="496" cy="145" r="15" fill="#5b86a8" class="pupil"/>' +

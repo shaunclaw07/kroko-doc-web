@@ -29,7 +29,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 477 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 517 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -110,7 +110,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **477 Tests in 35 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **517 Tests in 37 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -133,10 +133,10 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 - **Spielen:** allein oder zu zweit im Hot-Seat, Maul schnappt zu, Verlierer wird benannt.
 - **Für Kinder gebaut:** die Startseite zeigt Tier, Spielstand und drei große Griffe (Tier, Zähne, Neue
   Runde); nur Seltenes liegt hinter dem Zahnrad. Die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
-  Anzeigen sprechen in Worten („10 Zähne übrig", „Bissgefahr 20 %"). Die Technik-Erklärung
+  Anzeigen sprechen in Worten („10 Zähne übrig", „6 von 10 gedrückt"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
 - **Zehn Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
-  Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut und Schläferlocken), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
+  Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut und Schnurrbart), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne, mit
   Stehkragen und Monokel),
   Panda (12, 1–2 — breite Mahlzähne statt Reißzähne, schwarze Ohren und Augenflecken), Löwe
@@ -153,7 +153,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   liegt im selben Browserprofil wie das Rundenprotokoll — verwirft ein Browser beim Schließen seine
   Daten (gemeldet für das Kinderprofil eines Fire-Tablets), ist beides weg.
 - **Eigenes App-Symbol:** Tab, Lesezeichen und Startbildschirm zeigen den **Krokodilkopf aus der
-  eigenen Zeichnung** — mit geschlossenem Maul (dieselben vier Regeln, mit denen die App beim
+  eigenen Zeichnung** — mit geschlossenem Maul (dieselben Regeln, mit denen die App beim
   Zuschnappen schließt). **Auch das Zeichen im Kopfbereich der Seite ist dieselbe Datei**
   (`public/logo.svg`; dort stand bis zum 11.10.2026 ein von Hand gezeichnetes Krokodil ohne Bezug
   zur Zeichnung). Das Symbol wird **erzeugt**, nicht gemalt: `ICON_NEU=1 pnpm test:run`
@@ -198,7 +198,8 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   Spannung lauter und höher wird (die Spannung ist die Biss-Wahrscheinlichkeit des nächsten Drucks), Fakeout-Zucken des Mauls, eine Feder, die den Zahn in die Wurzel zieht, und die Pause vor jedem Urteil (ihre Länge sagt nichts über den Ausgang),
   Screen-Shake, Vibration bei jedem Zahndruck und beim Biss (wo der Browser sie kann), „Nur noch ein Zahn — der ist garantiert scharf!".
 - **Der Balken sagt zwei Dinge:** die **Füllung** ist der Fortschritt („6 von 10 gedrückt"), die
-  **Farbe** ist die Bissgefahr des nächsten Drucks („Bissgefahr 34 %") — er pulsiert mit steigender
+  **Farbe** ist die Bissgefahr des nächsten Drucks (die Zahl dazu steht seit dem 13.10.2026 nur
+  noch für Vorleser da, zu sehen ist allein die Farbe) — er pulsiert mit steigender
   Gefahr schneller, glüht ab 30 % und wird ab 50 % rot — einen Druck vor dem letzten, sodass ein roter
   Druck auch gutgehen kann. **Ist das Maul zu, entfällt die Gefahr-Aussage:** keinen nächsten Druck,
   also auch keinen Prozentwert — dort steht dann „Runde beendet", die Füllung bleibt der Fortschritt
@@ -219,6 +220,13 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   wird nach dem Biss beim Namen genannt („Neuer Stern: Maus — gespielt!"). Sie sind **abgeleitet**
   aus dem Rundenprotokoll, nicht gespeichert — und sie sind Glück, kein Können: der dritte Stern
   gelingt je Runde in 2,8 % (Mensch) bis 8,3 % (Maus) der Fälle.
+- **Tiere freischalten:** am Anfang sind Krokodil, Maus und Wolf offen. Die übrigen sieben öffnen
+  sich über die **Gesamtzahl der Sterne** — Hai bei 3, dann alle 2 Sterne ein Tier, der
+  Säbelzahntiger bei 15. Der seltene dritte Stern wird dafür nie gebraucht. Gesperrte Tiere stehen
+  als Schattenriss mit Schloss in der Auswahl, das nächste zeigt „Noch 2 Sterne“; nach dem Biss
+  steht der Weg dorthin über der Bühne (Sternzeichen, Schattenriss, Satz), und eine Freischaltung
+  bringt das Kopfbild, den Knopf „Mit dem Hai spielen“ und Konfetti. Auch das ist **abgeleitet**
+  aus dem Rundenprotokoll: kein eigener Speicher, kein Schalter.
 - **Statistik:** jede Runde wird lokal protokolliert; die Statistikseite wertet **je Gebiss** aus —
   Tier, Zahnzahl und Modus bestimmen eine Gruppe, die größte steht offen, die übrigen sind
   eingeklappt. Je Gruppe: Häufigkeiten, die **mutigste Runde** („Mutigste Runde", `bravestRound`),
@@ -237,7 +245,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **477 in 35 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **517 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |

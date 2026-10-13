@@ -247,6 +247,8 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-zoom.py` | Sonde: bei vollem Zoom bleibt jeder Zahn erreichbar — jedes Tier, zwei Zahnzahlen, drei Breiten | `uv run --with playwright python scripts/pruefen-zoom.py` |
 | `pruefen-offline.py` | Sonde: die **gebaute** Seite startet ohne Netz (vorher `pnpm build` und `pnpm preview --port 4322`) | `uv run --with playwright python scripts/pruefen-offline.py` |
 | `pruefen-sicherung.py` | Sonde: die Runden überstehen ein geleertes Profil — gegen die **gebaute** Seite und eine nachgestellte Sicherung (vorher `pnpm build` und `pnpm preview --port 4322`) | `uv run --with playwright python scripts/pruefen-sicherung.py` |
+| `pruefen-freischaltung.py` | Sonde: drei Tiere am Start, Schattenriss und Schloss, Tipp auf ein gesperrtes Tier, Fortschritt, Freischaltung mit Knopf und Konfetti, kein Scrollen — auf vier Größen | `uv run --with playwright python scripts/pruefen-freischaltung.py [--bilder <mappe>]` |
+| `freischaltung.py` | kein Aufruf: das Protokoll, das alle Tiere öffnet — jede Sonde, die ein anderes Tier als Krokodil, Maus oder Wolf braucht, legt es vor dem Laden in die Ablage | `from freischaltung import ABLAGE, ALLE_OFFEN` |
 | `pruefen-anzeige.py` | Sonde: Balken, Fortschritt und Bissgefahr an den berechneten Stilen | `uv run --with playwright python scripts/pruefen-anzeige.py` |
 | `pruefen-blaetter.py` | Sonde: bleiben die Blätter offen, solange man darin arbeitet | `uv run --with playwright python scripts/pruefen-blaetter.py` |
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |

@@ -90,9 +90,11 @@ def apply_state(svg: str, state: str) -> str:
         svg = svg.replace('class="creature"', 'class="creature is-snapped"', 1)
         svg = svg.replace(
             '<g class="jaw__upper">',
-            f'<g class="jaw__upper" transform="translate(0 {shift(svg, "close-shift")})">',
+            f'<g class="jaw__upper" transform="translate(0 {shift(svg, "close-shift")})" opacity="0">',
             1,
         )
+        # Seit dem 13.10.2026 sind Oberkiefer und Schnauzenfläche bei geschlossenem Maul weg.
+        svg = svg.replace('<path class="jaw__shell"', '<path class="jaw__shell" opacity="0"', 1)
         svg = svg.replace(
             '<g class="jaw__shell">',
             f'<g class="jaw__shell" transform="translate(0 {shift(svg, "shell-shift")})">',

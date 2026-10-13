@@ -26,6 +26,8 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
+from freischaltung import ABLAGE, ALLE_OFFEN
+
 URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 SETTINGS_KEY = "zahn_agent:settings:v1"
 TIERE = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion", "panther", "sabertooth"]
@@ -80,6 +82,8 @@ def main() -> int:
             seite = kontext.new_page()
             seite.goto(URL, wait_until="load")
             seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [SETTINGS_KEY, json.dumps(werte)])
+            # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
+            seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [ABLAGE, ALLE_OFFEN])
             seite.reload(wait_until="load")
             seite.wait_for_timeout(500)
             return seite

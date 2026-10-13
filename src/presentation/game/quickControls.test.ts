@@ -119,6 +119,30 @@ describe('Verdrahtung der Leiste', () => {
     expect(byId('teeth-value').textContent).toBe('5');
   });
 
+  it('ein Tipp auf ein gesperrtes Tier wählt nichts und lässt die Auswahl offen', () => {
+    document.body.innerHTML = DOM;
+    const start = settings();
+    const applied: GameSettings[] = [];
+    const tapped: string[] = [];
+    let chosen = 0;
+    wireQuickControls({
+      doc: document,
+      settings: start,
+      apply: (next) => applied.push(next),
+      portrait: () => '',
+      onCreatureChosen: () => {
+        chosen += 1;
+      },
+      isLocked: (id) => id === 'mouse',
+      onLockedTap: (id) => tapped.push(id),
+    });
+    (document.querySelector('#creature-list [data-creature="mouse"]') as HTMLButtonElement).click();
+    expect(applied).toEqual([]);
+    expect(chosen).toBe(0);
+    expect(tapped).toEqual(['mouse']);
+    expect(byId('creature-name').textContent).toBe('Krokodil');
+  });
+
   it('lässt die Bühne in Ruhe — auch sie trägt data-creature', () => {
     wire(settings());
     expect(document.querySelector('svg.creature')?.hasAttribute('aria-pressed')).toBe(false);

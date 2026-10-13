@@ -44,12 +44,24 @@ const KRAGEN_KANTE_LINKS = 'M 102 400 C 62 356 40 306 40 250 C 40 204 54 166 78 
 const KRAGEN_KANTE_RECHTS = 'M 538 400 C 578 356 600 306 600 250 C 600 204 586 166 562 132';
 
 /** Spitze Ohren, schraeg nach oben aussen — die Spitze liegt ausserhalb des Kopfumrisses.
- *  Breite Basis (58 px) und gut das Anderthalbfache hoch: eine Nadel (39 px Basis, 90 px hoch)
- *  sah im gerasterten Bild wie ein Horn aus. */
-const OHR_LINKS = 'M 156 226 L 60 148 L 104 200 Z';
-const OHR_LINKS_INNEN = 'M 142 216 L 78 158 L 108 194 Z';
-const OHR_RECHTS = 'M 484 226 L 580 148 L 536 200 Z';
-const OHR_RECHTS_INNEN = 'M 498 216 L 562 158 L 532 194 Z';
+ *  Breite Basis und gut das Anderthalbfache hoch: eine Nadel (39 px Basis, 90 px hoch) sah im
+ *  gerasterten Bild wie ein Horn aus.
+ *
+ *  **Das Ohr endet bei x 126 (rechts 514), unter der Schnauzenflaeche.** Bis zum 13.10.2026 lief
+ *  es als Dreieck bis (156,226) weiter: bei offenem Mund deckte die Schnauzenflaeche (`upperShell`)
+ *  diesen Fuss zu, beim Zuschnappen faehrt sie aber nach unten -- und die Ohrkanten liefen als
+ *  zwei Striche quer durchs Gesicht, unter den Augen hindurch (gemeldet vom Auftraggeber mit Bild:
+ *  "Beim Vampir sieht es auch komisch aus wenn sein Mund geschlossen ist"). Der Schnitt liegt bei
+ *  offenem Mund unter der Schnauzenflaeche (gerechnet gegen deren Aussenellipse, Ring + 40), das
+ *  offene Bild bleibt also gleich. Die Schnittkante traegt **keinen** Strich: bei geschlossenem
+ *  Mund geht das Ohr dort in die Haut ueber, statt mit einer Linie im Gesicht zu enden.
+ *  Deshalb zwei Pfade je Ohr: die Flaeche (geschlossen, ohne Strich) und die Kontur (offen). */
+const OHR_LINKS = 'M 126 201 L 60 148 L 104 200 L 126 211 Z';
+const OHR_LINKS_KONTUR = 'M 126 201 L 60 148 L 104 200 L 126 211';
+const OHR_LINKS_INNEN = 'M 126 201.5 L 78 158 L 108 194 L 126 205.6 Z';
+const OHR_RECHTS = 'M 514 201 L 580 148 L 536 200 L 514 211 Z';
+const OHR_RECHTS_KONTUR = 'M 514 201 L 580 148 L 536 200 L 514 211';
+const OHR_RECHTS_INNEN = 'M 514 201.5 L 562 158 L 532 194 L 514 205.6 Z';
 
 export const vampireArtwork: CreatureArtwork = {
   silhouette: SILHOUETTE,
@@ -63,10 +75,12 @@ export const vampireArtwork: CreatureArtwork = {
     'L 88 384 C 74 356 52 300 62 224 C 74 108 188 40 320 40 Z" ' +
     'fill="#efe4f2" stroke="#c1aed1" stroke-width="3"/>' +
     // Die Ohren ueber dem Kopf, aber in der Koerperebene (nicht beschnitten — Begruendung oben).
-    `<path d="${OHR_LINKS}" fill="#efe4f2" stroke="#c1aed1" stroke-width="3"/>` +
+    `<path d="${OHR_LINKS}" fill="#efe4f2"/>` +
     `<path d="${OHR_LINKS_INNEN}" fill="#f6c1c9"/>` +
-    `<path d="${OHR_RECHTS}" fill="#efe4f2" stroke="#c1aed1" stroke-width="3"/>` +
+    `<path d="${OHR_LINKS_KONTUR}" fill="none" stroke="#c1aed1" stroke-width="3" stroke-linejoin="round"/>` +
+    `<path d="${OHR_RECHTS}" fill="#efe4f2"/>` +
     `<path d="${OHR_RECHTS_INNEN}" fill="#f6c1c9"/>` +
+    `<path d="${OHR_RECHTS_KONTUR}" fill="none" stroke="#c1aed1" stroke-width="3" stroke-linejoin="round"/>` +
     // Umhangkragen: dunkelrot, mit heller Kante, damit er sich vom Gesicht abhebt.
     '<path d="M 92 388 C 150 372 254 366 320 366 C 386 366 490 372 548 388 ' +
     'L 588 452 L 52 452 Z" fill="#7d2231" stroke="#5c1723" stroke-width="3"/>' +

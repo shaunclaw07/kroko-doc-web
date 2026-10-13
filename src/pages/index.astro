@@ -1,9 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
-import { DEFAULT_CREATURE_ID, listCreatures } from '../core/domain/creature';
+import { DEFAULT_CREATURE_ID, getCreature } from '../core/domain/creature';
+import { STARTING_CREATURES, UNLOCK_ORDER, UNLOCK_STEPS } from '../core/domain/unlocks';
 import { creaturePortrait } from '../presentation/game/creatures';
 
-const creatures = listCreatures();
+// Die Auswahl folgt der Freischaltung: erst die Starttiere, dann das jeweils nächste Tier.
+const creatures = UNLOCK_ORDER.map((id) => getCreature(id));
+// Zahlen und Namen des Regeln-Blatts kommen aus der Regel selbst (core/domain/unlocks.ts).
+const startNames = STARTING_CREATURES.map((id) => getCreature(id).name);
+const startList = `${startNames.slice(0, -1).join(', ')} und ${startNames[startNames.length - 1]}`;
+const firstStep = UNLOCK_STEPS[0];
+const lastStep = UNLOCK_STEPS[UNLOCK_STEPS.length - 1];
 const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) ?? creatures[0];
 const base = import.meta.env.BASE_URL;
 ---
@@ -15,8 +22,8 @@ const base = import.meta.env.BASE_URL;
   <!--
     Das Spiel kommt zuerst: Tier und Spielstand. Was je Runde wechselt (Tier, Zähne, „Neue Runde")
     steht als große Griffe auf der Seite; hinter dem Zahnrad liegt nur, was je Sitzung gestellt
-    wird. Die zwei benannten Anzeigewerte (Fortschritt und Bissgefahr) bleiben wörtlich stehen —
-    sie tragen die Ehrlichkeitsregel.
+    wird. Der Fortschritt bleibt wörtlich stehen (er trägt die Ehrlichkeitsregel); die Bissgefahr
+    zeigt seit dem 13.10.2026 nur noch die Farbe des Balkens — die Zahl steht für Vorleser weiter da.
   -->
   <main class="app">
     <header class="topbar">
@@ -46,9 +53,20 @@ const base = import.meta.env.BASE_URL;
     <div class="play">
       <section class="stage" id="stage" data-status="open" aria-label="Spielbühne">
         <div id="croc-mount"></div>
-        <!-- Ansage eines neuen Sterns (Tier-Album). Liegt ÜBER der Bühne und ändert keine Maße;
-             sichtbar nur, solange das Maul zu ist (CSS an `data-status`). Fängt keinen Tipp ab. -->
-        <p class="star-toast hidden" id="star-toast" role="status"></p>
+        <!-- Meldungen nach dem Biss (Tier-Album): neuer Stern, der Weg zum nächsten Tier, die
+             Freischaltung. Sie liegen ÜBER der Bühne und ändern keine Maße — im Ergebnis-Kasten
+             brächte jede Zeile mehr die Spielseite auf kleinen Handys zum Scrollen. Sichtbar nur,
+             solange das Maul zu ist (CSS an `data-status`). Einen Tipp nimmt allein der Knopf der
+             Freischaltung an. -->
+        <div class="stage-notes" id="stage-notes">
+          <p class="star-toast hidden" id="star-toast" role="status"></p>
+          <p class="unlock-progress hidden" id="unlock-progress" role="status"></p>
+          <div class="unlock-card hidden" id="unlock-card" role="status">
+            <span class="unlock-card__icon" id="unlock-icon" aria-hidden="true"></span>
+            <p class="unlock-card__title" id="unlock-title"></p>
+            <button type="button" class="button--primary" id="unlock-play"></button>
+          </div>
+        </div>
       </section>
 
       <!-- Eine große Aussage, daneben wer dran ist. -->
@@ -84,7 +102,10 @@ const base = import.meta.env.BASE_URL;
         </div>
         <div class="meter-legend">
           <span id="hud-progress">0 von 10 gedrückt</span>
-          <span id="hud-tension">Bissgefahr 0 %</span>
+          <!-- Die Zahl der Bissgefahr ist nicht mehr zu sehen: der Auftraggeber hat sie abgewählt
+               („das bringt den Kindern keinen Mehrwert", 13.10.2026). Für Vorleser bleibt sie
+               stehen — die Farbe des Balkens hätte sonst gar keinen Namen mehr. -->
+          <span id="hud-tension" class="sr-only">Bissgefahr 0 %</span>
         </div>
         <p class="meter-hint hidden" id="hud-meter-hint">
           Je mehr Zähne getippt sind, desto sicherer schnappt es zu.
@@ -96,6 +117,8 @@ const base = import.meta.env.BASE_URL;
       <!-- Nur vor dem ersten Druck: danach macht die Anleitung Hinweis und Warnung Platz. -->
       <p class="how-to" id="how-to">Tippe oder halte einen Zahn. Einer ist der falsche — dann schnappt es zu!</p>
       <p class="sr-only">Mit der Tastatur: mit der Tabulatortaste einen Zahn auswählen, dann die Eingabetaste drücken.</p>
+      <!-- Was ein Tipp auf ein gesperrtes Tier sagt — sichtbar steht es an der Kachel selbst. -->
+      <p class="sr-only" id="lock-hint" role="status"></p>
     </div>
 
     <!--
@@ -240,6 +263,12 @@ const base = import.meta.env.BASE_URL;
         harmlos) und ★★★ <strong>bis zum letzten Zahn</strong>. Für den zweiten und dritten Stern
         braucht das Tier alle seine Zähne. Sterne sind Glück: welcher Zahn zuschnappt, weiß niemand.
       </p>
+      <p>
+        <strong>Freischalten:</strong> Am Anfang spielst du mit {startList}. Für Sterne
+        kommen Neue dazu — der Erste bei {firstStep?.stars} Sternen, der Letzte
+        ({lastStep && getCreature(lastStep.creature).name}) bei {lastStep?.stars}. Den dritten Stern
+        brauchst du dafür nie. Wer als Nächstes kommt, zeigt die Auswahl.
+      </p>
       <p class="muted small album-summary"></p>
     </div>
     <details>
@@ -265,8 +294,8 @@ const base = import.meta.env.BASE_URL;
       <p>
         <strong>Was der Balken zeigt:</strong> Er trägt zwei Aussagen. Die <strong>Füllung</strong> ist
         der Fortschritt — wie viele Zähne schon gedrückt sind. Die <strong>Farbe</strong> ist die
-        Gefahr: die Wahrscheinlichkeit, dass der nächste Druck das Maul zuschnappen lässt (im Spiel
-        steht sie als Zahl dabei). Sie wächst mit jedem Druck, wird spät gold und vor dem letzten Zahn
+        Gefahr: die Wahrscheinlichkeit, dass der nächste Druck das Maul zuschnappen lässt.
+        Sie wächst mit jedem Druck, wird spät gold und vor dem letzten Zahn
         rot — der letzte Zahn ist garantiert scharf. Der Balken pulsiert, und je höher die Gefahr,
         desto schneller. Und er hat einen Zweck: die Gefahr, die du überstehst, ist dein
         <strong>Mut</strong> — am Ende der Runde steht im Ergebnis, bei wie viel Prozent Bissgefahr
@@ -285,6 +314,9 @@ const base = import.meta.env.BASE_URL;
   <script>
     import { GameController } from '../presentation/game/gameController';
     import { wireAlbum } from '../presentation/game/albumBadges';
+    import { settingsAfterCreatureChoice, settingsWithUnlockedCreature } from '../presentation/game/creatureChoice';
+    import { albumFromRecords } from '../core/domain/album';
+    import { unlockState } from '../core/domain/unlocks';
     import { creaturePortrait } from '../presentation/game/creatures';
     import { wireQuickControls } from '../presentation/game/quickControls';
     import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from '../presentation/game/sheets';
@@ -299,11 +331,17 @@ const base = import.meta.env.BASE_URL;
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
 
     const storage = browserStorage();
-    const settings = loadSettings(storage);
+    const loaded = loadSettings(storage);
+    const log = new LocalStorageRoundLog(storage);
+    // Ein gespeichertes Tier, das (noch oder wieder) gesperrt ist, fällt auf das Krokodil zurück —
+    // etwa nach „Protokoll löschen". Welche Tiere offen sind, folgt allein aus den Sternen.
+    const settings = settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked);
+    if (settings !== loaded) {
+      saveSettings(storage, settings);
+    }
     // Die Tierstimmen sind Dateien unter dem Basis-Pfad der Seite (public/sounds/voices/).
     const sound = new WebAudioEngine({ muted: !settings.sound, voiceBaseUrl: import.meta.env.BASE_URL });
     const haptics = new BrowserHaptics();
-    const log = new LocalStorageRoundLog(storage);
     // Runden und Sterne sollen bleiben: ohne diese Bitte darf der Browser die Ablage bei knappem
     // Platz leeren. Was er geantwortet hat, zeigt die Statistikseite.
     void requestPersistence();
@@ -323,7 +361,17 @@ const base = import.meta.env.BASE_URL;
 
     // Das Tier-Album: Sterne an den Kacheln, abgeleitet aus derselben Ablage. Es hört selbst auf
     // `kroko:round-finished`; was von außen kommt (anderer Tab, Zurück-Taste), zieht `paint()` nach.
-    const album = wireAlbum({ doc: document, log });
+    // Dazu die Sperre der Tiere und, nach dem Biss, die Freischaltung mit ihrem Knopf.
+    const album = wireAlbum({
+      doc: document,
+      log,
+      portrait: creaturePortrait,
+      onPlay: (creatureId: string) => {
+        const next = settingsAfterCreatureChoice(settings, creatureId);
+        if (next) controller.applySettings(next);
+        quick.paint();
+      },
+    });
 
     // Das Protokoll kann sich außerhalb dieser Seite ändern: die Statistikseite löscht oder
     // importiert in einem anderen Tab (`storage`), oder diese Seite kommt über die Zurück-Taste
@@ -402,9 +450,11 @@ const base = import.meta.env.BASE_URL;
     // Die Leiste der Spielseite (Tier, Zähne): Regeln und Test stehen in quickControls.ts.
     // Ein Tipp auf eine Kachel wählt und schließt das Auswahlblatt — auf dem Tablet ist es gar
     // nicht offen, `closeSheet` tut dann nichts.
-    wireQuickControls({
+    const quick = wireQuickControls({
       doc: document,
       settings,
+      isLocked: (creatureId: string) => album.isLocked(creatureId),
+      onLockedTap: (creatureId: string) => album.lockedTap(creatureId),
       apply: (next: GameSettings) => controller.applySettings(next),
       portrait: creaturePortrait,
       onCreatureChosen: () => {

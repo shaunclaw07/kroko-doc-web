@@ -14,6 +14,7 @@
 | **Tier-Satz** | Katalogfeld `fact`: ein belegter Satz über das **echte** Tier, höchstens 110 Zeichen. Steht nach dem Biss als „Wusstest du? …" unter dem Ergebnis und sagt nie etwas über scharfe Zähne. |
 | **Tierstimme** | Der Laut eines Tiers (Datei, höchstens 1,5 s). Erklingt beim Wählen und kurz nach dem Biss — nie vor dem Urteil, sie ist kein Signal. |
 | **Stern** | Eine von drei Marken je Tier: **gespielt** (eine Runde mit dem Tier, egal mit wie vielen Zähnen), **halb geschafft** (mindestens die Hälfte der Zähne harmlos gedrückt) und **bis zum letzten Zahn** (erst der letzte Zahn schnappte). Die beiden letzten gelten nur mit dem **ganzen Gebiss** (Zahnzahl des Katalogs). Sterne sind Glück, kein Können. |
+| **Freischaltung** | Welche Tiere offen sind, **abgeleitet** aus der Gesamtzahl der Sterne (`core/domain/unlocks.ts`) — kein eigener Speicher, kein Schalter. Am Anfang offen: Krokodil, Maus, Wolf. Danach in fester Folge Hai (3 Sterne), Panda (5), Mensch (7), Löwe (9), Vampir (11), Panther (13), Säbelzahntiger (15). Keine Schwelle braucht einen dritten Stern (Schwelle ≤ 2 × offene Tiere). Alte Runden mit einem heute gesperrten Tier zählen mit. Wer das Protokoll löscht, sperrt die Tiere wieder; ein gespeichertes, gesperrtes Tier wird beim Start zum Krokodil. Gefeiert wird nur nach einem eigenen Biss — Runden von außen (Sicherung, anderer Tab, Import) öffnen still. |
 | **Album** | Die Sterne aller Tiere, **abgeleitet** aus dem Rundenprotokoll (`core/domain/album.ts`) — kein eigener Speicher. Wer das Protokoll löscht, löscht die Sterne; ein CSV-Import bringt sie mit. Runden ohne oder mit unbekanntem Lebewesen zählen für das Krokodil. |
 
 ## Zufallsmodelle
@@ -98,7 +99,9 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
 - **Der Balken hat einen Zweck:** die höchste überstandene Gefahr ist der **Mut** der Runde
   (`survivedDanger` = die Gefahr des letzten Drucks, der harmlos blieb). Weil die Gefahr mit jedem
   Druck steigt, ist dieser Wert zugleich das Maximum. Er steht als Satz im Ergebnis.
-- Beide Zahlen stehen als Text darunter („6 von 10 gedrückt" · „Bissgefahr 34 %"); der Balken pulsiert
+- Der Fortschritt steht als Text darunter („6 von 10 gedrückt"). Die Zahl der Bissgefahr
+  („Bissgefahr 34 %") ist seit dem 13.10.2026 **nicht mehr zu sehen** — vom Auftraggeber abgewählt
+  („das bringt den Kindern keinen Mehrwert") — und steht nur noch für Vorleser im Dokument; der Balken pulsiert
   mit steigender Gefahr schneller (`--beat-ms` aus `pulseInterval`).
 - **Gemessene Folge der 50-%-Schwelle:** der vorletzte Krokodil-Druck (55,0 %) ist rot, der achte
   (40,7 %) noch nicht. Rot kommt damit einen Druck früher als bei 60 % — und *kann* überstanden

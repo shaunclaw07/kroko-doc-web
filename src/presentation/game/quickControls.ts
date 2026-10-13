@@ -38,6 +38,10 @@ export interface QuickControlDeps {
   portrait: (creatureId: string, suffix: string) => string;
   /** Nach jedem Tipp auf eine Kachel — die Seite schließt damit das Auswahlblatt. */
   onCreatureChosen: () => void;
+  /** Ist dieses Tier gesperrt? Fehlt die Frage, ist jedes Tier offen. */
+  isLocked?: (creatureId: string) => boolean;
+  /** Ein Tipp auf ein gesperrtes Tier: gewählt wird nichts, die Auswahl bleibt offen. */
+  onLockedTap?: (creatureId: string) => void;
 }
 
 export function wireQuickControls(deps: QuickControlDeps): { paint: () => void } {
@@ -94,6 +98,11 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
 
   for (const tile of tiles()) {
     tile.addEventListener('click', () => {
+      const id = tile.dataset.creature;
+      if (id && deps.isLocked?.(id)) {
+        deps.onLockedTap?.(id);
+        return;
+      }
       const next = settingsAfterCreatureChoice(settings, tile.dataset.creature);
       if (next) {
         deps.apply(next);
