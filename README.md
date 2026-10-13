@@ -30,7 +30,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 522 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 526 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -111,7 +111,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **522 Tests in 37 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **526 Tests in 37 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -221,8 +221,9 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   für Ergebnis **und** Satz reicht, entfällt der Satz: auf Handys unter 700 px Höhe und auf Tablets
   quer unter 900 px (gemessen, `scripts/pruefen-bedienung.py`).
 - **Tier-Album:** jedes Tier kann drei Sterne sammeln — ★ **gespielt**, ★★ **halb geschafft** (die
-  Hälfte der Zähne war harmlos) und ★★★ **bis zum letzten Zahn**. Stern zwei und drei gibt es nur mit
-  dem ganzen Gebiss des Tiers. Die Sterne stehen an den Kacheln der Tier-Auswahl, ein neuer Stern
+  Hälfte der Zähne war harmlos) und ★★★ **bis zum letzten Zahn**. Stern zwei und drei gibt es ab
+  dem ganzen Gebiss des Tiers — mehr Zähne zählen mit; wer weniger einstellt, liest vor dem ersten
+  Druck „Nur der erste Stern: für alle drei braucht es mindestens 10 Zähne.“ Die Sterne stehen an den Kacheln der Tier-Auswahl, ein neuer Stern
   wird nach dem Biss beim Namen genannt („Neuer Stern: Maus — gespielt!"). Sie sind **abgeleitet**
   aus dem Rundenprotokoll, nicht gespeichert — und sie sind Glück, kein Können: der dritte Stern
   gelingt je Runde in 2,8 % (Mensch) bis 8,3 % (Maus) der Fälle.
@@ -251,7 +252,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **522 in 37 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **526 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |

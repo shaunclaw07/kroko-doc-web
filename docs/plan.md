@@ -1352,3 +1352,38 @@ Browser. Das README-Bild ist neu gebaut (zwölf Wesen, 4 × 3).
 **Abgenommen vom Auftraggeber** (13.10.2026, „passt für mich“): die beiden Zeichnungen und die
 zwei Stimmen. `cairosvg`
 findet die GTK-Laufzeit nur, wenn `C:\Program Files\GTK3-Runtime Win64\bin` im `PATH` steht.
+
+## Nachtrag 13.10.2026 (gebaut): Sterne auch mit mehr Zähnen, Warnung bei zu wenigen
+
+Auftrag: „Ich habe eben gemerkt, dass man beim Krokodil bei mehr als 10 Zähnen gar keine Sterne
+bekommt, wenn man alle bis auf einen Zahn übrig hat. Das sollten wir anpassen. Am besten auch mit
+einer Warnung, wenn man keine Sterne bekommt, wenn man weniger als die Standard-Anzahl der Zähne
+einstellt.“
+
+**Ursache:** `starsOfRound` verlangte für Stern zwei und drei **genau** die Zahnzahl des Katalogs
+(`round.teeth !== …`). Gedacht war das gegen den kurzen Weg (zwei Zähne, ein harmloser Druck); es
+traf aber auch 11 und 12 Zähne beim Krokodil, 7 bis 12 bei der Maus und 9 bis 12 bei der
+Venusfliegenfalle. Ein Test hielt das sogar fest („Krokodil, 12 Zähne, 12. Druck → nur gespielt“).
+
+**Entschieden** (ohne eigenes Sparring — der Auftrag nennt beides):
+
+1. **Ab dem ganzen Gebiss zählt jede Zahnzahl** (`earnsAllStars`: eingestellt ≥ Katalog). Gemessen
+   wird an der **eingestellten** Zahl: bei 12 Zähnen braucht „halb geschafft“ sechs harmlose
+   Drücke und „bis zum letzten Zahn“ den zwölften. Leichter wird es dadurch nicht — beim Krokodil
+   sinkt der dritte Stern von 3,3 % (10 Zähne) auf 2,8 % (12 Zähne). Alte Runden mit mehr Zähnen
+   bringen ihre Sterne **rückwirkend** mit, weil das Album abgeleitet ist.
+2. **Die Warnung steht an der Stelle der Anleitung** (`#how-to`), in der Farbe der Sterne: „Nur
+   der erste Stern: für alle drei braucht es mindestens 10 Zähne.“ Sie nennt die Zahl des
+   gewählten Tiers. Der Auftrag sagt „keine Sterne“ — den ersten Stern („gespielt“) gibt es
+   weiterhin mit jeder Zahnzahl, also sagt der Satz das so.
+
+**Warum keine eigene Zeile:** auf 320 × 568 liegen zwischen Anleitung und Leiste 17 px (gemessen:
+Unterkante 472, Leiste ab 489). Die Warnung ist so lang wie die Anleitung und belegt dieselbe Höhe;
+gemessen auf 320, 390 und 820 px: Unterkante unverändert, die Seite scrollt nicht.
+
+**Grenze, nicht behoben:** die Anleitung verschwindet nach dem ersten Druck — die Warnung mit ihr.
+Und bei **einem einzigen** Zahn steht dort von Anfang an „Nur noch ein Zahn — der ist garantiert
+scharf!“; für beide Sätze reicht der Platz auf dem kleinsten Handy nicht.
+
+Gate **526 Tests in 37 Dateien**, `pnpm build`; `pruefen-bedienung`, `-freischaltung`, `-anzeige`,
+`-tiere` gegen die gebaute Seite ohne Fund.

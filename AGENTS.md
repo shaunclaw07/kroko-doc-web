@@ -179,6 +179,18 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   65-px-Kachel in drei Zeilen — ihre Reihe wurde 13 px höher als die anderen. Gefunden haben es
   `pruefen-bedienung.py` und `pruefen-freischaltung.py`, kein Unit-Test. Deshalb trägt die Kachel
   einen Kurznamen (`shortName` im Katalog: „Fliegenfalle“); Sätze und Vorleser nennen den vollen.
+- **Stern zwei und drei gibt es ab dem ganzen Gebiss — nicht nur genau damit.** Die Regel hieß
+  erst „Zahnzahl gleich Katalog“ (damit zwei eingestellte Zähne kein kurzer Weg sind) und traf
+  dabei auch **mehr** Zähne: das Krokodil gab mit 12 Zähnen keinen Stern, obwohl erst der letzte
+  schnappte (gemeldet vom Auftraggeber, 13.10.2026). Jetzt `earnsAllStars` in
+  `core/domain/album.ts`: eingestellte Zahl ≥ Katalog, gemessen an der eingestellten Zahl. **Wer
+  eine Abkürzung sperrt, prüft, ob die Sperre auch den längeren Weg trifft.**
+- **Eine Regel, die still nichts gibt, wird gesagt.** Mit weniger Zähnen als das Gebiss gibt es
+  nur den ersten Stern — vor dem ersten Druck steht das an der Stelle der Anleitung
+  (`fewTeethWarning` in `presentation/game/quickControls.ts`, `#how-to` mit `how-to--warning`).
+  Derselbe Platz, dieselbe Höhe: eine eigene Zeile hätte auf 320 × 568 keinen Raum (17 px über der
+  Leiste). **Grenze:** bei einem einzigen Zahn steht dort „Nur noch ein Zahn — der ist garantiert
+  scharf!“, die Anleitung ist dann ausgeblendet und mit ihr die Warnung.
 - **Sterne und Sperre malt ein Durchgang** (`presentation/game/albumBadges.ts`): beide setzen die
   Beschriftung der Kachel; zwei Module überschrieben einander je nach Reihenfolge ihrer Zuhörer.
 - **Eine gesperrte Kachel ist nicht `disabled`.** Der Tipp muss ankommen, um sagen zu können, was

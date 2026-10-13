@@ -981,6 +981,11 @@ details[open] summary {
   color: rgba(255, 255, 255, 0.86);
 }
 
+/* Zu wenige Zähne für alle Sterne: derselbe Platz, dieselbe Größe — nur die Farbe der Sterne. */
+.how-to--warning {
+  color: #f2c94c;
+}
+
 /* Zahnrad in der Kopfzeile: der Weg zu dem, was je Sitzung gestellt wird. */
 .icon-button {
   display: inline-flex;

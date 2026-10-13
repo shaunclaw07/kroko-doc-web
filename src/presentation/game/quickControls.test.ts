@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest';
-import { effectiveTeeth, settingsAfterTeethStep, wireQuickControls } from './quickControls';
+import { effectiveTeeth, fewTeethWarning, settingsAfterTeethStep, wireQuickControls } from './quickControls';
 import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
 
@@ -20,6 +20,7 @@ const DOM = `
   <ul id="creature-list"><li><button type="button" data-creature="mouse"></button></li></ul>
   <p id="creature-detail-line"></p><p id="creature-detail-note"></p><p id="creature-detail-real"></p>
   <svg class="creature" data-creature="crocodile"></svg>
+  <p id="how-to">Tippe oder halte einen Zahn.</p>
 `;
 
 function wire(start: GameSettings): { current: GameSettings; applied: GameSettings[]; chosen: number } {
@@ -153,6 +154,33 @@ describe('Verdrahtung der Leiste', () => {
     expect(byId('creature-detail-line').textContent).toContain('6 Zähne');
     expect(byId('creature-detail-note').textContent).not.toBe('');
     expect(byId('creature-detail-real').textContent).toContain('Echtes Gebiss');
+  });
+
+  it('warnt an der Stelle der Anleitung, wenn die Zahnzahl nur den ersten Stern bringt', () => {
+    wire(settings());
+    const howTo = byId('how-to');
+    expect(howTo.textContent).toBe('Tippe oder halte einen Zahn.');
+    expect(howTo.classList.contains('how-to--warning')).toBe(false);
+    // Ein Zahn weniger als das Gebiss des Krokodils: die Warnung nennt die Zahl, ab der es zählt.
+    byId('teeth-minus').click();
+    expect(howTo.textContent).toBe('Nur der erste Stern: für alle drei braucht es mindestens 10 Zähne.');
+    expect(howTo.textContent).toBe(fewTeethWarning(10));
+    expect(howTo.classList.contains('how-to--warning')).toBe(true);
+    // Zurück auf das ganze Gebiss — und darüber hinaus: die Anleitung ist wieder da.
+    byId('teeth-plus').click();
+    expect(howTo.textContent).toBe('Tippe oder halte einen Zahn.');
+    byId('teeth-plus').click();
+    expect(byId('teeth-value').textContent).toBe('11');
+    expect(howTo.textContent).toBe('Tippe oder halte einen Zahn.');
+    expect(howTo.classList.contains('how-to--warning')).toBe(false);
+  });
+
+  it('misst die Warnung am Gebiss des gewählten Tiers, nicht an einer festen Zahl', () => {
+    // Sechs Zähne sind für die Maus das ganze Gebiss, für das Krokodil zu wenig.
+    wire(settings({ creature: 'mouse' }));
+    expect(byId('how-to').classList.contains('how-to--warning')).toBe(false);
+    wire(settings({ creature: 'crocodile', teethOverride: 6 }));
+    expect(byId('how-to').classList.contains('how-to--warning')).toBe(true);
   });
 
   it('sagt bei einem Vorbild ohne Zähne „keine Zähne" statt einer Null', () => {

@@ -35,13 +35,23 @@ export interface AlbumRound {
 }
 
 /**
- * Sterne einer einzelnen Runde. „Halb geschafft" und „bis zum letzten Zahn" gelten nur mit dem
- * **ganzen Gebiss** des Tiers: mit zwei eingestellten Zähnen wäre ein einziger harmloser Druck
- * schon beides.
+ * Zählt eine Runde mit dieser Zahnzahl für alle drei Sterne? Ja ab dem **ganzen Gebiss** des
+ * Tiers: mit zwei eingestellten Zähnen wäre ein einziger harmloser Druck schon „halb geschafft"
+ * und „bis zum letzten Zahn" zugleich.
+ *
+ * **Mehr Zähne zählen auch** (seit dem 13.10.2026, gemeldet vom Auftraggeber: das Krokodil gab mit
+ * 12 Zähnen keinen Stern, obwohl nur noch ein Zahn übrig war). Vorher galt nur genau die Zahnzahl
+ * des Katalogs. Leichter wird es mit mehr Zähnen nicht: die Hälfte ist mehr, und der letzte Zahn
+ * ist seltener der scharfe.
  */
+export function earnsAllStars(creature: string | undefined, teeth: number): boolean {
+  return teeth >= creatureOrDefault(creature).teeth;
+}
+
+/** Sterne einer einzelnen Runde; unter dem ganzen Gebiss gibt es nur „gespielt". */
 export function starsOfRound(round: AlbumRound): AlbumStar[] {
   const stars: AlbumStar[] = ['played'];
-  if (round.teeth !== creatureOrDefault(round.creature).teeth) {
+  if (!earnsAllStars(round.creature, round.teeth)) {
     return stars;
   }
   const harmless = round.pressIndex - 1;

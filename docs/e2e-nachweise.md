@@ -1797,3 +1797,21 @@ Zahnzahlen), 0 Auffälligkeiten.
 **Nicht geprüft:** wie die beiden Stimmen klingen und ob die Zeichnungen einem Kind gefallen — das
 kann nur der Auftraggeber. Ob 181 Runden (Median, simuliert) bis zum T-Rex als Ziel tragen oder
 ermüden, zeigt erst das Spielen.
+
+## 5ai. Sterne mit mehr Zähnen, Warnung bei zu wenigen (13.10.2026)
+
+Gate **526 Tests in 37 Dateien**, `pnpm build`, `pnpm preview --port 4322`. Im Browser gemessen
+(Krokodil, alle Tiere offen), je auf 320 × 568, 390 × 844 und 820 × 1180:
+
+| Eingestellt | Zeile vor dem ersten Druck | Farbe | Unterkante der Zeile (320 / 390 / 820) |
+|---|---|---|---|
+| 10 Zähne (Gebiss) | „Tippe oder halte einen Zahn. Einer ist der falsche — dann schnappt es zu!“ | weiß (86 %) | 472 / 522 / 766 |
+| 9 Zähne | „Nur der erste Stern: für alle drei braucht es mindestens 10 Zähne.“ | `rgb(242, 201, 76)` | 472 / 522 / 766 |
+| 12 Zähne | wieder die Anleitung | weiß (86 %) | 472 / 522 / 766 |
+| 1 Zahn | Anleitung ausgeblendet; es steht „Nur noch ein Zahn — der ist garantiert scharf!“ | — | — |
+
+Die Seite scrollt in keiner Lage (Seitenhöhe = Fensterhöhe). Dass eine Runde mit 12 Zähnen beim
+Krokodil alle drei Sterne bringen kann, belegen die Unit-Tests (`album.test.ts`), nicht der Browser
+— der Biss beim letzten Zahn lässt sich dort nicht erzwingen.
+
+`pruefen-bedienung`, `-freischaltung`, `-anzeige`, `-tiere`: alle Exit 0.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { albumFromRecords, newStars, starsOfRound } from './album';
+import { albumFromRecords, earnsAllStars, newStars, starsOfRound } from './album';
 import { listCreatures } from './creature';
 import { creatureKWeights, pressPositionDistribution } from './probabilities';
 import { RANDOM_MODES } from './teeth';
@@ -23,10 +23,33 @@ describe('Sterne einer Runde', () => {
     expect(starsOfRound(round('mouse', 6, 6))).toEqual(['played', 'halfway', 'lastTooth']);
   });
 
-  it('gibt mit eigener Zahnzahl nur „gespielt" — sonst wären zwei Zähne der kurze Weg', () => {
+  it('gibt mit weniger Zähnen nur „gespielt" — sonst wären zwei Zähne der kurze Weg', () => {
     expect(starsOfRound(round('crocodile', 2, 2))).toEqual(['played']);
-    expect(starsOfRound(round('crocodile', 12, 12))).toEqual(['played']);
-    expect(starsOfRound(round('mouse', 10, 10))).toEqual(['played']);
+    expect(starsOfRound(round('crocodile', 9, 9))).toEqual(['played']);
+    expect(starsOfRound(round('mouse', 5, 5))).toEqual(['played']);
+  });
+
+  it('zählt auch mehr Zähne als das Gebiss des Tiers — gemessen an der eingestellten Zahl', () => {
+    // Gemeldet: Krokodil mit 12 Zähnen, erst der letzte schnappte — und kein Stern.
+    expect(starsOfRound(round('crocodile', 12, 12))).toEqual(['played', 'halfway', 'lastTooth']);
+    expect(starsOfRound(round('crocodile', 11, 11))).toEqual(['played', 'halfway', 'lastTooth']);
+    // Die Hälfte ist die Hälfte der **eingestellten** Zähne: bei 12 braucht es 6 harmlose Drücke.
+    expect(starsOfRound(round('crocodile', 12, 6))).toEqual(['played']);
+    expect(starsOfRound(round('crocodile', 12, 7))).toEqual(['played', 'halfway']);
+    // „Bis zum letzten Zahn" heißt der letzte der eingestellten, nicht der zehnte.
+    expect(starsOfRound(round('crocodile', 12, 10))).toEqual(['played', 'halfway']);
+    expect(starsOfRound(round('mouse', 10, 10))).toEqual(['played', 'halfway', 'lastTooth']);
+  });
+
+  it('sagt für jede Zahnzahl, ob sie für alle Sterne zählt — die Grenze ist das Gebiss des Tiers', () => {
+    for (const creature of listCreatures()) {
+      for (let teeth = 1; teeth <= 12; teeth += 1) {
+        expect(earnsAllStars(creature.id, teeth), `${creature.id}/${teeth}`).toBe(teeth >= creature.teeth);
+      }
+    }
+    // Ohne oder mit unbekanntem Lebewesen gilt das Krokodil.
+    expect(earnsAllStars(undefined, 9)).toBe(false);
+    expect(earnsAllStars('einhorn', 10)).toBe(true);
   });
 
   it('zählt Runden ohne oder mit unbekanntem Lebewesen für das Krokodil', () => {

@@ -1,3 +1,4 @@
+import { earnsAllStars } from '../../core/domain/album';
 import { getCreature } from '../../core/domain/creature';
 import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
 import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
@@ -30,6 +31,16 @@ export function settingsAfterTeethStep(current: GameSettings, delta: number): Ga
   return { ...current, teethOverride: next === standard ? null : next };
 }
 
+/**
+ * Der Satz, der vor dem ersten Druck an der Stelle der Anleitung steht, wenn die eingestellte
+ * Zahnzahl nur den ersten Stern bringt. Ohne ihn spielte man Runde um Runde mit wenigen Zähnen
+ * und wunderte sich, dass kein Stern dazukommt (gemeldet vom Auftraggeber, 13.10.2026). Er nennt
+ * die Zahl, ab der es wieder alle drei gibt — und keinen Artikel, den jedes Tier anders bräuchte.
+ */
+export function fewTeethWarning(standardTeeth: number): string {
+  return `Nur der erste Stern: für alle drei braucht es mindestens ${standardTeeth} Zähne.`;
+}
+
 export interface QuickControlDeps {
   doc: Document;
   /** Dieselbe Referenz, die die Steuerung fortschreibt — `paint()` liest immer den Stand von jetzt. */
@@ -51,9 +62,18 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
   const tiles = (): HTMLButtonElement[] =>
     Array.from(doc.querySelectorAll<HTMLButtonElement>('button[data-creature]'));
 
+  // Die Anleitung steht im Markup der Seite; die Warnung tritt an ihre Stelle und gibt sie zurück.
+  const howToText = byId('how-to')?.textContent ?? '';
+
   const paint = (): void => {
     const creature = getCreature(settings.creature);
     const teeth = effectiveTeeth(settings);
+    const howTo = byId('how-to');
+    if (howTo) {
+      const few = !earnsAllStars(creature.id, teeth);
+      howTo.textContent = few ? fewTeethWarning(creature.teeth) : howToText;
+      howTo.classList.toggle('how-to--warning', few);
+    }
     const value = byId('teeth-value');
     if (value) value.textContent = String(teeth);
     const label = byId('teeth-label');
