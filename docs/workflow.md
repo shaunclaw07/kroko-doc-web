@@ -58,14 +58,14 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|293 Tests"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 # Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
-ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/plan.md docs/e2e-nachweise.md
+ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/e2e-nachweise.md
 python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
 ```
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
 zusätzlich noch stehende alte Werte. **`ALTE_WERTE_STRIKT=1` macht Treffer zum Fund (Exit 1)** — das
 gehört nur über die **Zahlendoku** (`README.md`, `docs/testing.md`): in `AGENTS.md`, in diesem Rezept
-und in den Aufzeichnungen stehen alte Zahlen absichtlich (als Lehre, im Aufruf-Beispiel, im Plan) und
+und in den Aufzeichnungen stehen alte Zahlen absichtlich (als Lehre, im Aufruf-Beispiel) und
 würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer nur und der Exit-Code
 bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
 nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
@@ -84,11 +84,16 @@ oder gemeinsam mit dem Nutzer, aber immer **vor** der Planungsphase:
   Antwort des Nutzers entscheidet. Mehrere Fragen auf einmal sind verwirrend.
 - **Allein** (wenn der Nutzer die Entscheidungen abgibt — „entscheide nach deinem Ermessen"): dieselben
   Fragen, aber jede Antwort mit einer **nachgeschlagenen Tatsache** aus dem Baum statt einer Vermutung.
-  Die Entscheidungen samt Grund gehören anschließend in `docs/plan.md`; Abgesagtes mit Begründung —
+  Die Entscheidungen samt Grund gehören anschließend in den Plan; Abgesagtes mit Begründung —
   eine Absage ist ein Ergebnis, kein Versäumnis.
 - **Fakten werden nachgeschlagen, nicht gefragt.** Was im Baum steht (Zahlen, Verträge, Grenzen,
   Protokollfelder), wird gelesen; gefragt wird nur, was eine **Entscheidung** ist.
 - Erst danach beginnt die Planungsphase: Plan in `docs/plan.md`, dann umsetzen.
+- **`docs/plan.md` ist eine Arbeitsdatei, kein Archiv** (seit dem 13.10.2026): sie trägt nur das
+  Feature, an dem gerade gearbeitet wird. Nach der Abnahme wandert das Bleibende an seinen Ort —
+  Regeln und Fallen nach `AGENTS.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach
+  `docs/e2e-nachweise.md`, Belege nach `docs/tier-quellen.md` — und die Datei wird geleert. Keine
+  andere Doku verweist auf ihren Inhalt: ein Verweis zeigte nach dem nächsten Feature ins Leere.
 
 Warum als eigener Schritt: in einer Runde wurden so acht Fragen entschieden — zwei Dinge gebaut, sechs
 begründet gelassen und eines (das „Weitergeben") **vor** dem Bau abgesagt, statt nachher einen
@@ -223,7 +228,7 @@ Der Satz unter dem Ergebnis ist das Feld `fact` im Katalog (`src/core/domain/cre
    umgekehrt („immer wieder" wurde so zu „viele Male in seinem Leben").
 2. Höchstens **110 Zeichen** (`MAX_FACT_LENGTH`), Punkt oder Ausrufezeichen am Ende, kein Wort
    über scharfe Zähne (`scharf`, `gefährlich`, `meist`, `häufiger`) — `creature.test.ts` prüft das.
-3. Quelle mit Fundstelle und Abrufdatum in `docs/plan.md` notieren.
+3. Quelle mit Fundstelle und Abrufdatum in `docs/tier-quellen.md` notieren.
 4. `pnpm gate`. Wer die Obergrenze anhebt oder den Ergebnis-Kasten ändert, **misst neu**:
    `python scripts/pruefen-bedienung.py` (der Server muss laufen) — der Satz entfällt heute unter
    700 px Höhe und auf Tablets quer unter 900 px, weil dort die Höhe nicht reicht (§5y).

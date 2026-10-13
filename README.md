@@ -217,7 +217,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   einen Zweck: die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird.
 - **Wusstest du?** Nach dem Biss steht unter dem Ergebnis ein Satz über das **echte** Tier („Die
   Nagezähne einer Maus wachsen ihr ganzes Leben lang. Darum nagt sie so viel.“). Je Tier ein Satz,
-  jeder mit Quelle belegt (`docs/plan.md`), keiner sagt etwas über scharfe Zähne. Wo die Höhe nicht
+  jeder mit Quelle belegt (`docs/tier-quellen.md`), keiner sagt etwas über scharfe Zähne. Wo die Höhe nicht
   für Ergebnis **und** Satz reicht, entfällt der Satz: auf Handys unter 700 px Höhe und auf Tablets
   quer unter 900 px (gemessen, `scripts/pruefen-bedienung.py`).
 - **Tier-Album:** jedes Tier kann drei Sterne sammeln — ★ **gespielt**, ★★ **halb geschafft** (die
@@ -357,9 +357,9 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
   gemeinfreie Aufnahmen gab es dafür nicht. Die Ausschnitte hat ein Programm gewählt; angehört
   und abgenommen hat sie der Auftraggeber am 12.10.2026 am lokalen Entwicklungsserver; am Handy
   sind sie nicht geprüft.
-- **Tier-Sätze („Wusstest du?"):** jeder ist belegt, die Quellen stehen in `docs/plan.md`. Die
+- **Tier-Sätze („Wusstest du?"):** jeder ist belegt, die Quellen stehen in `docs/tier-quellen.md`. Die
   Zahl „Echtes Gebiss: 32 Zähne" beim Krokodil ist dagegen **nicht** belegt und vermutlich zu
-  niedrig — sie steht als offener Punkt im Plan.
+  niedrig — sie steht dort als offener Punkt.
 - Veröffentlicht wird über GitHub Pages (siehe oben, ausgeliefert wird nur der gebaute Stand);
   einen eigenen Server gibt es nicht, und die Spieldaten bleiben im `localStorage` des Browsers.
 

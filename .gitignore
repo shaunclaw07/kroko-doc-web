@@ -5,3 +5,6 @@ dist/
 
 # Python-Zwischenstände der Sonden (scripts/freischaltung.py wird von ihnen eingebunden)
 __pycache__/
+
+# Arbeitspläne eines Werkzeugs (Superpowers) — gehören nicht ins Repo
+docs/superpowers/

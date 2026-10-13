@@ -35,7 +35,8 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Spielstand sichern, wenn das Gerät ihn wegwirft (Anleitung zum Nachbauen, auch für andere Projekte) | [`docs/sicherung-anleitung.md`](docs/sicherung-anleitung.md) |
 | Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) |
 | Warum das Spiel so ist (Charter) | [`README.md`](README.md) |
-| Plan, Annahmen, offene Punkte | [`docs/plan.md`](docs/plan.md) |
+| Belege der Tier-Sätze und Zahnzahlen | [`docs/tier-quellen.md`](docs/tier-quellen.md) |
+| Arbeitsdatei: Plan des gerade laufenden Features (sonst leer) | [`docs/plan.md`](docs/plan.md) |
 | Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | `../kroko-doc/README.md` |
 
 ## Befehle
@@ -503,7 +504,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
    `realTeeth`, `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen,
-   ohne ein Wort über scharfe Zähne; die Quelle gehört in `docs/plan.md`).
+   ohne ein Wort über scharfe Zähne; die Quelle gehört in `docs/tier-quellen.md`).
 2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen (vorher
    `docs/tiermodell-anleitung.md` lesen — dort steht, wohin die Augen dürfen): `body`, `holeFill`,
    `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
@@ -629,7 +630,7 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   korrekt 234 nannte; gefunden hat es erst ein unabhängiger Prüfer. Scharf prüfen (`ALTE_WERTE_STRIKT=1`)
   heißt: nur über die **Zahlendoku** (`README.md`, `docs/testing.md`). Über `AGENTS.md`,
   `docs/workflow.md` und die Aufzeichnungen wird **meldend** geprüft — dort stehen alte Zahlen
-  absichtlich (als Lehre, im Aufruf-Beispiel, im Plan) und würden falschen Alarm auslösen.
+  absichtlich (als Lehre, im Aufruf-Beispiel) und würden falschen Alarm auslösen.
 - **`getBoundingClientRect` an einem gedrehten SVG-Element ist kein Maß für eine Fläche.** Die
   Trefferbox sitzt auf dem Zahnring und ist gedreht; der Browser liefert das **Achsen-Rechteck**
   (Kante an Kante, 52,48 px), nicht die Trefferfläche. Die 44,15 px im README sind gerechnet

@@ -9,8 +9,8 @@
 # ALTE_WERTE_STRIKT: ohne die Variable werden Treffer alter Werte nur GEMELDET und zaehlen nicht als
 # Fund (der Exit-Code bleibt 0). Mit ALTE_WERTE_STRIKT=1 werden sie zum Fund (Exit 1) -- das gehoert
 # ueber die ZAHLENDOKU (README.md, docs/testing.md). Ueber AGENTS.md, docs/workflow.md und die
-# Aufzeichnungen (docs/plan.md, docs/e2e-nachweise.md) NICHT: dort stehen alte Zahlen absichtlich
-# (als Lehre, im Aufruf-Beispiel, im Plan) und wuerden falschen Alarm ausloesen. Genau so blieb
+# Aufzeichnungen (docs/e2e-nachweise.md) NICHT: dort stehen alte Zahlen absichtlich
+# (als Lehre, im Aufruf-Beispiel) und wuerden falschen Alarm ausloesen. Genau so blieb
 # "232 Tests" in der Startanleitung stehen, waehrend dieselbe Datei zweimal 234 nannte -- aufgefallen
 # ist es erst einem unabhaengigen Pruefer, weil der Aufruf mit >/dev/null nur den Exit-Code ansah.
 #

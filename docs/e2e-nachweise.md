@@ -213,7 +213,7 @@ Beispiel aus einem Bedienungs-Test: schnappt es beim dritten Druck, war Druck 2 
 Warum **nicht** mehr: das „Weitergeben" (Zug abgeben statt drücken) hätte den Balken zur echten
 Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus `pressOrder` ableitet
 (`round.ts`), und seine Wirkung ist nur an einem echten Tisch mit zwei oder mehr Spielern
-beurteilbar. Abgesagt, begründet in `docs/plan.md` und als zehnte Falle in AGENTS.md.
+beurteilbar. Abgesagt und begründet als zehnte Falle in AGENTS.md.
 
 ## 5f. Entscheidungen des Auftraggebers umgesetzt (11.10.2026)
 
@@ -226,14 +226,14 @@ Entscheidungen nehmen." — umgesetzt:
 | **Rotglut bei 50 %** statt 60 % | `HIGH_DANGER = 0.5` — der vorletzte Krokodil-Druck (55,0 %) ist rot und **kann überstanden** werden, der Mut reicht bis ins Rote | zwei Stolperdrähte fielen bewusst und wurden neu gefasst (`tension.test.ts`, `statsView.test.ts`, `gameController.test.ts`) |
 | **Mut auf die Statistikseite** | `bravestRound` (Kern) + Kachel „Mutigste Runde" und ein Satz in `statsView.ts` | drei neue Kern-Tests: leer → null, höchste überstandene Gefahr gewinnt, Runden mit Schnapp beim ersten Druck zählen nicht |
 | **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in AGENTS.md |
-| **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | in `docs/plan.md` begründet |
+| **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | begründet beim Sparring vom 11.10.2026 |
 
 ## 5g. Kinderfreundliche Oberfläche (11.10.2026)
 
 Auftrag: „Kannst du das User-Interface von Zahn Agent bisschen kinderfreundlicher machen? Es gibt
 viele Elemente die ablenken. Die Auswahl der Modelle ist auch schwer ohne vielleicht ein Icon von
 dem passenden Bild." Sparring (`grill-me`) mit dem Auftraggeber, vier Fragen, alle Empfehlungen
-angenommen — Entscheidungen in `docs/plan.md`.
+angenommen.
 
 **Befund am laufenden Gegenstand** (erster Browser-Screenshot der Seite, 390 × 844): das Spielfeld
 begann nach rund einer Bildschirmhöhe Einstellungen, das Tier war beim Öffnen nicht zu sehen; „Statistik"

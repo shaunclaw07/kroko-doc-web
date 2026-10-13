@@ -154,7 +154,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
     liveTeethMin: 1,
     liveTeethMax: 2,
     // Eine Pflanze hat keine Zähne: am Rand der Klappe stehen Borsten. Eine belegte Zahl je
-    // Blatthälfte gibt es nicht (docs/plan.md) — also steht hier keine erfundene.
+    // Blatthälfte gibt es nicht (docs/tier-quellen.md) — also steht hier keine erfundene.
     realTeeth: 0,
     note: 'Eine Pflanze, die zuschnappt: was wie Zähne aussieht, sind Borsten am Rand der Klappe. Nur acht davon — eine kurze Runde.',
     fact: 'Die Venusfliegenfalle ist eine Pflanze. Ihre Klappe schnappt in einer Zehntelsekunde zu.',
