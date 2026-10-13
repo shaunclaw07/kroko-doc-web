@@ -61,13 +61,15 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
       <p class="small muted" id="data-status" role="status"></p>
+      <p class="small muted" id="storage-status"></p>
     </section>
   </main>
 
   <script>
     import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { fromCsv, toCsv } from '../core/domain/sessionLog';
-    import { renderDangerCurve, renderReport, sampleStatus } from '../presentation/stats/statsView';
+    import { requestPersistence } from '../infrastructure/storage/browserPersistence';
+    import { persistenceNote, renderDangerCurve, renderReport, sampleStatus } from '../presentation/stats/statsView';
     import { getCreature } from '../core/domain/creature';
     import { loadSettings } from '../infrastructure/storage/localStorageSettings';
     import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
@@ -145,6 +147,11 @@ import Base from '../layouts/Base.astro';
     });
 
     refresh();
+    // Hält der Browser die Ablage dauerhaft? Die Antwort steht da, statt verschwiegen zu werden.
+    const storageStatus = document.getElementById('storage-status');
+    void requestPersistence().then((state) => {
+      if (storageStatus) storageStatus.textContent = persistenceNote(state);
+    });
     // Das Spiel in einem anderen Tab schreibt in dieselbe Ablage — die Auswertung zieht nach.
     window.addEventListener('storage', (event) => {
       if (event.key === null || event.key === STORAGE_KEY) {

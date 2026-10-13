@@ -6,6 +6,7 @@ import {
   dangerCurveHtml,
   dangerCurvePoints,
   renderDangerCurve,
+  persistenceNote,
   sampleStatus,
 } from './statsView';
 import { createRoundRecord } from '../../core/domain/sessionLog';
@@ -221,6 +222,20 @@ describe('sampleStatus', () => {
     expect(sampleStatus(gemischt)).toBe(
       '150 Runden ausgewertet — 1 von 2 Gebissen haben genug Runden für eine belastbare Aussage.',
     );
+  });
+});
+
+describe('persistenceNote', () => {
+  it('benennt jede Antwort des Browsers mit einem eigenen Satz', () => {
+    expect(persistenceNote('persistent')).toContain('zugesagt');
+    expect(persistenceNote('best-effort')).toContain('keine Zusage');
+    expect(persistenceNote('unknown')).toContain('sagt nicht');
+  });
+
+  it('nennt den CSV-Export als Ausweg, solange nichts zugesagt ist', () => {
+    expect(persistenceNote('persistent')).not.toContain('CSV');
+    expect(persistenceNote('best-effort')).toContain('CSV');
+    expect(persistenceNote('unknown')).toContain('CSV');
   });
 });
 

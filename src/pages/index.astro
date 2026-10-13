@@ -292,6 +292,7 @@ const base = import.meta.env.BASE_URL;
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
     import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { requestPersistence } from '../infrastructure/storage/browserPersistence';
     import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
     import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
 
@@ -301,6 +302,9 @@ const base = import.meta.env.BASE_URL;
     const sound = new WebAudioEngine({ muted: !settings.sound, voiceBaseUrl: import.meta.env.BASE_URL });
     const haptics = new BrowserHaptics();
     const log = new LocalStorageRoundLog(storage);
+    // Runden und Sterne sollen bleiben: ohne diese Bitte darf der Browser die Ablage bei knappem
+    // Platz leeren. Was er geantwortet hat, zeigt die Statistikseite.
+    void requestPersistence();
 
     const controller = new GameController({
       rng: new CryptoRandom(),

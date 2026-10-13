@@ -10,6 +10,7 @@ import {
   type SessionReport,
 } from '../../core/domain/statistics';
 import { getCreature } from '../../core/domain/creature';
+import type { PersistenceState } from '../../infrastructure/storage/browserPersistence';
 
 /** Unter dieser Rundenzahl gibt es bewusst keine Signifikanz-Aussage. */
 export const MIN_SAMPLE_FOR_VERDICT = 100;
@@ -198,6 +199,27 @@ export function sampleStatus(records: readonly RoundRecord[]): string {
     `${records.length} Runden ausgewertet — ${enough} von ${groups.length} Gebissen haben genug ` +
     'Runden für eine belastbare Aussage.'
   );
+}
+
+/**
+ * Der Satz zur Haltbarkeit der Ablage. Jede Antwort des Browsers bekommt ihren eigenen — ein
+ * Speicher, der still verschwinden darf, ist sonst eine Fehlersuche für den Nutzer.
+ */
+export function persistenceNote(state: PersistenceState): string {
+  switch (state) {
+    case 'persistent':
+      return 'Speicher: Der Browser hat zugesagt, Runden und Sterne nicht von selbst wegzuräumen.';
+    case 'best-effort':
+      return (
+        'Speicher: keine Zusage — der Browser darf Runden und Sterne löschen, wenn der Platz ' +
+        'knapp wird. Ein CSV-Export sichert sie.'
+      );
+    case 'unknown':
+      return (
+        'Speicher: Dieser Browser sagt nicht, wie lange er Runden und Sterne behält. ' +
+        'Ein CSV-Export sichert sie.'
+      );
+  }
 }
 
 /** Schreibt den Bericht in das übergebene Element. */
