@@ -30,7 +30,8 @@ from freischaltung import ABLAGE, ALLE_OFFEN
 
 URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
 SETTINGS_KEY = "zahn_agent:settings:v1"
-TIERE = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion", "panther", "sabertooth"]
+TIERE = ["crocodile", "wolf", "human", "shark", "mouse", "vampire", "panda", "lion", "panther", "sabertooth",
+         "flytrap", "trex"]
 BREITEN = [320, 390, 820]
 
 

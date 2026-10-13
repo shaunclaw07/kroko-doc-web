@@ -14,7 +14,7 @@ pnpm gate           # typecheck + tests
 
 - Node 26, pnpm 12, Astro 5, vitest 3, jsdom 30 als Testumgebung.
 - **Keine externen Schriften, Bilder, CDNs.** Die Zeichnung ist SVG-Markup, die Klänge sind
-  synthetisiert (Web Audio). **Einzige Ausnahme** sind die Tierstimmen: zehn kurze MP3 im eigenen
+  synthetisiert (Web Audio). **Einzige Ausnahme** sind die Tierstimmen: zwölf kurze MP3 im eigenen
   Baum (`public/sounds/voices/`), geschnitten mit `scripts/stimme-schneiden.sh` (braucht `ffmpeg`),
   jede mit Lizenzzeile in `public/sounds/voices/QUELLEN.md`.
 - `pnpm` blockiert Installationsskripte. **pnpm 12 liest das `pnpm`-Feld in `package.json`
@@ -31,7 +31,7 @@ pnpm vitest run src/render-probe.test.ts                     # je Lebewesen ein 
 uv run --with cairosvg python scripts/artwork-png.py \
   "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-  crocodile wolf human shark mouse vampire panda lion panther sabertooth  # README-Bild aus allen zehn
+  crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex  # README-Bild aus allen zwölf
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # liegt ein Zahn unter dem Gesicht?
 ```
 

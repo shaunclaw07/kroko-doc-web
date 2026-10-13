@@ -94,7 +94,7 @@ describe('Sterne an den Kacheln', () => {
     log.records = [played('mouse', 6, 6), played('crocodile', 10, 1)];
     wireAlbum({ doc: document, log });
     expect(document.querySelector('.album-summary')?.textContent).toBe(
-      '2 von 10 Tieren gespielt · 4 von 30 Sternen',
+      '2 von 12 Tieren gespielt · 4 von 36 Sternen',
     );
   });
 });
@@ -150,7 +150,7 @@ describe('Ansage eines neuen Sterns', () => {
 
 describe('Sätze des Albums', () => {
   it('zählt Tiere und Sterne', () => {
-    expect(albumSummary(albumFromRecords([]))).toBe('0 von 10 Tieren gespielt · 0 von 30 Sternen');
+    expect(albumSummary(albumFromRecords([]))).toBe('0 von 12 Tieren gespielt · 0 von 36 Sternen');
   });
 
   it('nennt nur das erste Tier, falls mehrere zugleich neue Sterne haben', () => {

@@ -83,7 +83,11 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
     const note = byId('creature-detail-note');
     if (note) note.textContent = creature.note;
     const real = byId('creature-detail-real');
-    if (real) real.textContent = `Echtes Gebiss: ${creature.realTeeth} Zähne.`;
+    if (real) {
+      // 0 ist keine Zahl zum Vorlesen: das Vorbild hat dann gar keine Zähne (Venusfliegenfalle).
+      real.textContent =
+        creature.realTeeth === 0 ? 'Echtes Gebiss: keine Zähne.' : `Echtes Gebiss: ${creature.realTeeth} Zähne.`;
+    }
   };
 
   const step = (delta: number): void => {

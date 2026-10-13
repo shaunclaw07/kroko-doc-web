@@ -7,8 +7,10 @@ import { getCreature } from './creature';
  * wieder, und eine Sicherung des Protokolls bringt die Freischaltungen von selbst mit.
  *
  * Die Währung ist die **Gesamtzahl** der Sterne, nicht die Zahl der Drei-Sterne-Tiere: der dritte
- * Stern ist reines Glück und selten (Krokodil 3,3 % je Runde). Keine Schwelle braucht ihn — ein
- * Kind soll nicht fünfzig Runden ohne Fortschritt spielen.
+ * Stern ist reines Glück und selten (Krokodil 3,3 % je Runde). Keine Schwelle der Stammtiere und
+ * auch nicht die Venusfliegenfalle braucht ihn — ein Kind soll nicht fünfzig Runden ohne
+ * Fortschritt spielen. **Die eine, benannte Ausnahme ist der T-Rex** (`FINAL_GOAL`): er ist das
+ * letzte Ziel und soll weit weg sein (vom Auftraggeber entschieden, 13.10.2026).
  */
 
 /** Am Anfang offen, in der Reihenfolge der Auswahl. */
@@ -34,7 +36,19 @@ export const UNLOCK_STEPS: readonly UnlockStep[] = [
   { creature: 'vampire', stars: 11 },
   { creature: 'panther', stars: 13 },
   { creature: 'sabertooth', stars: 15 },
+  // Die zwei Bonusfiguren. Simuliert (5 000 Durchläufe, zufälliger Wechsel): die Venusfliegenfalle
+  // nach 49 Runden, der T-Rex nach 181 (Median). 33 Sterne — „alle elf auf drei Sternen" — wären
+  // 761 Runden gewesen, weil die letzten dritten Sterne an ganz bestimmten Tieren hängen.
+  { creature: 'flytrap', stars: 20 },
+  { creature: 'trex', stars: 28 },
 ];
+
+/**
+ * Das letzte Ziel: der einzige Schritt, dessen Schwelle dritte Sterne **braucht** (mindestens
+ * sechs: 28 − 2 × 11 offene Wesen davor). Jeder andere Schritt ist ohne Glück beim letzten Zahn
+ * erreichbar — der Test hält beides fest.
+ */
+export const FINAL_GOAL = 'trex';
 
 /**
  * Reihenfolge der Tier-Auswahl: die Starttiere, dann die Folge. So steht das nächste Tier immer

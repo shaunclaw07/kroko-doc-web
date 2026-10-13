@@ -260,7 +260,7 @@ describe('Sätze der Freischaltung', () => {
     expect(lockedTileLabel('Hai', 1)).toBe('Hai, gesperrt — noch 1 stern');
   });
 
-  it('beugt jeden Namen der Folge richtig („bis zum Löwen", „mit dem Menschen")', () => {
+  it('beugt jeden Namen der Folge richtig („bis zum Löwen", „mit dem Menschen", „zur Venusfliegenfalle")', () => {
     const sentences = UNLOCK_STEPS.map((step) => {
       const name = getCreature(step.creature).name;
       return [
@@ -276,6 +276,8 @@ describe('Sätze der Freischaltung', () => {
       ['Noch 1 Stern bis zum Vampir.', 'Mit dem Vampir spielen'],
       ['Noch 1 Stern bis zum Panther.', 'Mit dem Panther spielen'],
       ['Noch 1 Stern bis zum Säbelzahntiger.', 'Mit dem Säbelzahntiger spielen'],
+      ['Noch 1 Stern bis zur Venusfliegenfalle.', 'Mit der Venusfliegenfalle spielen'],
+      ['Noch 1 Stern bis zum T-Rex.', 'Mit dem T-Rex spielen'],
     ]);
   });
 

@@ -1,6 +1,7 @@
 import { getCreature, listCreatures } from '../../../core/domain/creature';
 import { createCreatureView } from './factory';
 import { crocodileArtwork } from './crocodile';
+import { flytrapArtwork } from './flytrap';
 import { humanArtwork } from './human';
 import { lionArtwork } from './lion';
 import { mouseArtwork } from './mouse';
@@ -8,6 +9,7 @@ import { pandaArtwork } from './panda';
 import { pantherArtwork } from './panther';
 import { sabertoothArtwork } from './sabertooth';
 import { sharkArtwork } from './shark';
+import { trexArtwork } from './trex';
 import { vampireArtwork } from './vampire';
 import { wolfArtwork } from './wolf';
 import type { CreatureArtwork, CreatureView } from './types';
@@ -30,6 +32,8 @@ export const ARTWORKS: Readonly<Record<string, CreatureArtwork>> = {
   lion: lionArtwork,
   panther: pantherArtwork,
   sabertooth: sabertoothArtwork,
+  flytrap: flytrapArtwork,
+  trex: trexArtwork,
 };
 
 /**

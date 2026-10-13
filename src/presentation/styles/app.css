@@ -469,7 +469,7 @@ button:focus-visible,
 
 /* --- Gebiss-Auswahl: Bild-Kacheln statt Textliste ---
    Der Kopf des Tieres ist das Bild, das es im Spiel gibt — kein zusätzliches Asset.
-   Vier Spalten: alle zehn Köpfe stehen auf dem schmalsten Handy ohne Scrollen (gemessen,
+   Vier Spalten: alle zwölf Köpfe stehen in drei vollen Reihen auf dem schmalsten Handy ohne Scrollen (gemessen,
    scripts/pruefen-bedienung.py). */
 .creature-grid {
   display: grid;
@@ -1573,10 +1573,10 @@ textarea {
     display: block;
   }
 
-  /* Die Köpfe stehen offen: eine Reihe aus zehn. */
+  /* Die Köpfe stehen offen: eine Reihe aus zwölf. */
   .creature-rail {
     display: grid;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     margin: 0;
   }
 
@@ -1592,7 +1592,7 @@ textarea {
 /* Hohe Tablets hochkant haben Platz für große Köpfe in zwei Reihen. */
 @media (min-width: 640px) and (min-height: 1100px) and (orientation: portrait) {
   .creature-rail {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .creature-rail .creature-grid__name {

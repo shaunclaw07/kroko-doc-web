@@ -154,4 +154,11 @@ describe('Verdrahtung der Leiste', () => {
     expect(byId('creature-detail-note').textContent).not.toBe('');
     expect(byId('creature-detail-real').textContent).toContain('Echtes Gebiss');
   });
+
+  it('sagt bei einem Vorbild ohne Zähne „keine Zähne" statt einer Null', () => {
+    wire(settings({ creature: 'flytrap' }));
+    expect(byId('creature-detail-line').textContent).toContain('Venusfliegenfalle: 8 Zähne');
+    expect(byId('creature-detail-real').textContent).toBe('Echtes Gebiss: keine Zähne.');
+    expect(byId('creature-detail-real').textContent).not.toContain('0');
+  });
 });

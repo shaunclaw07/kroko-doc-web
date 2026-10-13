@@ -3,7 +3,8 @@
 **Zahn Agent** (technisch `zahn_agent`; bis 10.10.2026 `kroko-doc-web`, am 10.10. kurz `zahn-agent`) — das Zahn-Zufallsspiel um
 das Krokodil (Spielprinzip des Spielzeugs *Crocodile Dentist* /*Kroko Doc*,
 Hasbro, 1990) als Webapp: Blick von vorne oben in das offene Maul, tippen,
-bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther, Säbelzahntiger),
+bis ein Zahn das Maul zuschnappen lässt. Wählbare Gebisse (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther, Säbelzahntiger und die
+Bonusfiguren Venusfliegenfalle und T-Rex),
 Zahnzahl einstellbar. Dazu eine Statistikseite, die die eigenen Runden
 auswertet und ehrlich sagt, wenn die Daten für eine Aussage zu dünn sind.
 
@@ -55,7 +56,7 @@ uv run --with playwright python scripts/pruefen-offline.py     # … danach: sta
 uv run --with playwright python scripts/pruefen-sicherung.py   # … und: überstehen die Runden ein geleertes Profil?
 uv run --with playwright python scripts/pruefen-freischaltung.py  # … und: öffnen sich die Tiere über Sterne?
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-  crocodile wolf human shark mouse vampire panda lion panther sabertooth   # README-Bild der Gebisse
+  crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex   # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
 bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]  # Stimme schneiden (ffmpeg)
 ```
@@ -102,6 +103,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Nicht-stören-Modus und eine abgeschaltete Systemvibration. Safari auf iOS kennt sie nicht.
   Kein Gerät im Arbeitsumfeld: das Gefühl am Handy kann nur der Nutzer prüfen — ein Druck auf einen
   Zahn gibt die Rückmeldung sofort, er ist damit die beste Probe.
+- **Auch ein stummes oder ausgestorbenes Vorbild bekommt eine Datei — mit ehrlicher Zeile.** Die
+  Venusfliegenfalle summt wie ihre Beute (eine Fliege), der T-Rex brüllt mit der tiefer gelegten
+  Stimme des Alligators; `QUELLEN.md` sagt bei beiden, was es wirklich ist. Wikimedia Commons hatte
+  keine Fliege — gefunden bei BigSoundBank (CC0). Wer dort sucht, liest die Lizenzzeile der
+  einzelnen Seite, nicht die der Startseite.
 - **Tierstimmen sind Dateien — die einzigen.** Je Tier ein MP3 von höchstens 1,5 s unter
   `public/sounds/voices/`, jede mit Urheber, Lizenz und Quelle in `QUELLEN.md` daneben (ein Test
   liefert keine Datei ohne diese Zeile aus). Alle Spielklänge bleiben synthetisiert. Gespielt wird
@@ -149,12 +155,30 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 - **Abgeleitet, nicht gespeichert.** Welche Tiere offen sind, folgt aus der Gesamtzahl der Sterne
   (`core/domain/unlocks.ts`): Krokodil, Maus, Wolf am Start, dann Hai (3), Panda (5), Mensch (7),
-  Löwe (9), Vampir (11), Panther (13), Säbelzahntiger (15). Kein Schalter, kein eigener Speicher —
+  Löwe (9), Vampir (11), Panther (13), Säbelzahntiger (15), danach die zwei Bonusfiguren
+  Venusfliegenfalle (20) und T-Rex (28). Kein Schalter, kein eigener Speicher —
   die Sicherung der Runden bringt die Freischaltungen von selbst mit.
 - **Die Währung sind Sterne insgesamt, nicht Drei-Sterne-Tiere.** Der dritte Stern gelingt je Runde
-  in 2,8–8,3 % der Fälle; alle zehn Tiere auf drei Sterne kosten im Mittel 246 Runden. Der
+  in 2,8–8,3 % der Fälle; alle zehn Stammtiere auf drei Sterne kosten im Mittel 246 Runden — und
+  das nur, wenn man **gezielt** die Tiere mit fehlendem Stern spielt. Der
   Auftraggeber: „Es soll ja nicht frustrierend sein für Kinder.“ Mit den gewählten Schwellen sind
-  nach 28 Runden (Median, simuliert) alle zehn offen.
+  nach 28 Runden (Median, simuliert) alle zehn Stammtiere offen, nach 49 die Venusfliegenfalle.
+- **Der T-Rex ist die eine, benannte Ausnahme** (`FINAL_GOAL` in `unlocks.ts`, vom Auftraggeber
+  entschieden am 13.10.2026): er ist das letzte Ziel und braucht als einziger dritte Sterne
+  (mindestens sechs: 28 − 2 × 11). Simuliert sind das 181 Runden im Median. Der erste Wunsch war
+  „alle auf drei Sternen“ (33 Sterne) — das wären **761 Runden** gewesen (jedes zehnte Kind über
+  1 300), weil die letzten dritten Sterne an ganz bestimmten Tieren hängen und ein Kind seine
+  Lieblingstiere spielt, nicht die fehlenden. **Eine Schwelle wird simuliert, bevor sie
+  festgeschrieben wird — mit einem Spieler, der zufällig wechselt, nicht mit einem, der rechnet.**
+- **Die Sterne der Bonusfiguren zählen mit.** Es bleibt bei einer Währung: eine Sonderzählung
+  („nur die zehn Stammtiere“) ließe „Noch X Sterne“ nach einem Stern mit der Venusfliegenfalle
+  stehen bleiben — das versteht kein Kind.
+- **Eine neue Figur bricht die Auswahl dort, wo sie nur für die alte Zahl gebaut war.** Mit zwölf
+  statt zehn Wesen scrollte die Seite auf jedem Tablet hochkant (die Reihe war `repeat(10, …)`,
+  zwei Kacheln rutschten in eine zweite Zeile), und „Venusfliegenfalle“ brach auf der
+  65-px-Kachel in drei Zeilen — ihre Reihe wurde 13 px höher als die anderen. Gefunden haben es
+  `pruefen-bedienung.py` und `pruefen-freischaltung.py`, kein Unit-Test. Deshalb trägt die Kachel
+  einen Kurznamen (`shortName` im Katalog: „Fliegenfalle“); Sätze und Vorleser nennen den vollen.
 - **Sterne und Sperre malt ein Durchgang** (`presentation/game/albumBadges.ts`): beide setzen die
   Beschriftung der Kachel; zwei Module überschrieben einander je nach Reihenfolge ihrer Zuhörer.
 - **Eine gesperrte Kachel ist nicht `disabled`.** Der Tipp muss ankommen, um sagen zu können, was
@@ -165,7 +189,9 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   anderer Tab, Import) öffnen die Tiere still — sonst fiele bei jedem Start im Kinderprofil Konfetti.
 - **Jede Browser-Sonde bringt ein Protokoll mit, das alle Tiere öffnet** (`scripts/freischaltung.py`).
   Ohne es fällt ein eingestelltes gesperrtes Tier still auf das Krokodil zurück, und die Sonde
-  misst das falsche Tier, ohne zu scheitern.
+  misst das falsche Tier, ohne zu scheitern. **Wer eine Schwelle anhebt oder eine Figur ergänzt,
+  rechnet nach, ob dieses Protokoll sie noch öffnet** — es trug 16 Sterne, der T-Rex braucht 28
+  (jetzt: zehn Tiere mit je drei Sternen).
 - **Das Skript einer `.astro`-Seite prüft kein Werkzeug des Gates.** `tsc` liest nur `src/**/*.ts`,
   jsdom lädt das Seitenskript nicht. Beim Bau der Freischaltung stand `settings` hinter seiner
   ersten Verwendung: Gate grün, Bau grün — und im Browser kein einziger Zahn („Cannot access …
@@ -478,8 +504,14 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
    Und ein **Platz in der Freischaltung** (`UNLOCK_STEPS` in `core/domain/unlocks.ts`, mit Schwelle)
    — `unlocks.test.ts` fällt, solange ein Katalogtier weder am Start noch in der Folge steht. Die
-   Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor). Ein Tier mit
-   weiblichem Namen braucht „zur“ und „mit der“ in `presentation/game/unlockNotice.ts`.
+   Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor) — außer beim
+   letzten Ziel (`FINAL_GOAL`, heute der T-Rex). Ein Tier mit
+   weiblichem Namen braucht „zur“ und „mit der“: ein Eintrag in `FEMININE` in
+   `presentation/game/unlockNotice.ts` (so die Venusfliegenfalle). Ein Name mit mehr als rund
+   vierzehn Buchstaben braucht einen `shortName` für die Kachel. Hat das Vorbild gar keine Zähne,
+   ist `realTeeth` 0 — die Kurzinfo sagt dann „keine Zähne“. Und die Listen der Sonden
+   (`pruefen-blick.py`, `-zoom.py`, `-tiere.py`, `-freischaltung.py`) sowie die Spaltenzahl der
+   Tablet-Reihe (`.creature-rail` in `app.css`) hängen an der Zahl der Wesen.
 4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
    zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
 5. Eine Stimme: Aufnahme mit freier Lizenz suchen, mit `scripts/stimme-schneiden.sh` nach

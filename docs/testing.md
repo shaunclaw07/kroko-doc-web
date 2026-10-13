@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 37 |
-| Tests | 517 (37 Dateien) |
+| Tests | 522 (37 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -81,7 +81,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Das README-Bild der Gebisse entsteht aus denselben SVGs — als Skript im Baum, nicht von Hand:
    ```bash
    uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-     crocodile wolf human shark mouse vampire panda lion panther sabertooth  # Reihenfolge = Katalogreihenfolge
+     crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex  # Reihenfolge = Katalogreihenfolge
    ```
 4. **Symbolsonde** — das App-Symbol entsteht aus der Zeichnung und wird angesehen:
    ```bash
@@ -120,9 +120,9 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
    zählt dieselben Kennungen im ausgelieferten Bündel:
    `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
-   die veröffentlichte Seite). Erwartet: zehn Kacheln in der Reihenfolge der Freischaltung
-   (`UNLOCK_ORDER`: Krokodil, Maus, Wolf, dann die Folge), zehn sichtbare
-   Kopfbilder, zehn eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
+   die veröffentlichte Seite). Erwartet: zwölf Kacheln in der Reihenfolge der Freischaltung
+   (`UNLOCK_ORDER`: Krokodil, Maus, Wolf, dann die Folge), zwölf sichtbare
+   Kopfbilder, zwölf eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
    außerdem den Kern der Auswahl: Nach einem Tipp auf eine Kachel ist das **Auswahlblatt zu**, das
    gewählte Tier steht auf der Bühne und genau eine Kachel ist markiert; die Kurzinfo des gewählten
    Tiers ist gefüllt (sie steht seit dem Umbau im Regeln-Blatt). Die Bündel-Prüfung braucht den
@@ -169,13 +169,13 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    `Auffälligkeiten: 0` (Exit 0).
    `uv run --with playwright python scripts/pruefen-halten.py`
 
-12. **Blick-Sonde** — `scripts/pruefen-blick.py` bewegt den Zeiger über die Bühne aller zehn Tiere
-   und liest die berechneten Stile des Kiefers. Erwartet: 35 Zeilen `ok` und `Auffälligkeiten: 0`.
+12. **Blick-Sonde** — `scripts/pruefen-blick.py` bewegt den Zeiger über die Bühne aller zwölf Wesen
+   und liest die berechneten Stile des Kiefers. Erwartet: 41 Zeilen `ok` und `Auffälligkeiten: 0`.
    `uv run --with playwright python scripts/pruefen-blick.py`
 
 13. **Zoom-Sonde** — `scripts/pruefen-zoom.py` setzt den vollen Zoom für jedes Tier bei Standard-
    Zahnzahl und 12 Zähnen auf 320, 390 und 820 px und prüft, dass jeder Zahn in der Mitte seiner
-   Trefferfläche erreichbar bleibt. Erwartet: 60 Messzeilen und `Auffälligkeiten: 0` (Exit 0).
+   Trefferfläche erreichbar bleibt. Erwartet: 72 Messzeilen und `Auffälligkeiten: 0` (Exit 0).
    `uv run --with playwright python scripts/pruefen-zoom.py`
 
 14. **Offline-Sonde** — `scripts/pruefen-offline.py` lädt die **gebaute** Seite, wartet auf den

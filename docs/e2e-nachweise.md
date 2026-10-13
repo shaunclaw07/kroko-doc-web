@@ -1759,3 +1759,41 @@ der neuen Reihenfolge, Tipp auf Löwe und Panther wählt), `pruefen-blaetter`, `
 
 **Nicht geprüft:** wie flüssig das Konfetti auf dem Fire-Tablet läuft, Safari und der Silk-Browser,
 und ob das Tempo (28 Runden im Median bis zum zehnten Tier, simuliert) für ein Kind stimmt.
+
+## 5ah. Zwei Bonusfiguren: Venusfliegenfalle und T-Rex (13.10.2026)
+
+Gate **522 Tests in 37 Dateien**, `pnpm build`, dann `pnpm preview --port 4322`.
+
+**Zeichnung** — beide Wesen offen und geschnappt gerastert und angesehen
+(`scripts/artwork-png.py`), dazu `pruefen-zahnsicht`: **144 Zeichnungen** (zwölf Wesen × zwölf
+Zahnzahlen), 0 Auffälligkeiten.
+
+**Im Browser nachgestellt** (eigenes Skript mit vorbereitetem Protokoll, 320 × 568 und 390 × 844):
+
+| Lage | Beobachtet |
+|---|---|
+| 20 Sterne (zehn Tiere mit je zwei), Venusfliegenfalle eingestellt | auf der Bühne steht die Venusfliegenfalle mit 8 Zähnen; kein Seitenfehler |
+| Auswahl bei 20 Sternen | zwölf Kacheln in drei vollen Reihen, die Kachel der Falle heißt „Fliegenfalle“, der T-Rex ist ein Schattenriss mit „Noch 8 Sterne“ |
+| Tipp auf den gesperrten T-Rex | „T-Rex ist noch gesperrt. Noch 8 Sterne.“; Vorleser: „T-Rex, gesperrt — noch 8 sterne“ |
+| 20 Sterne, Falle mit einem Zahn, Biss | „Neuer Stern: Venusfliegenfalle — gespielt!“, darunter sieben ☆ und „Noch 7 Sterne bis zum T-Rex.“; Zeile 274 px breit im 320-px-Fenster, die Seite scrollt nicht |
+| 19 Sterne, Panther mit einem Zahn, Biss | Karte „Neu dabei: Venusfliegenfalle!“ mit Knopf „Mit der Venusfliegenfalle spielen“, Konfetti |
+| alles offen, T-Rex eingestellt | Kurzinfo „T-Rex: 12 Zähne — bei jedem Tipp sind 1–3 davon gefährlich.“, „Echtes Gebiss: 58 Zähne.“ |
+| Tablet 820 × 1180 und 1180 × 820 | zwölf Köpfe in 6 × 2 bzw. 3 × 4, nichts scrollt |
+
+**Sonden**, alle gegen `http://localhost:4322`, alle Exit 0: `pruefen-freischaltung` (106 Zeilen
+`ok`, neun gesperrte Kacheln am Start), `pruefen-bedienung`, `pruefen-tiere` (zwölf Kacheln),
+`pruefen-blick` (41 Zeilen `ok`), `pruefen-zoom` (72 Messzeilen), `pruefen-halten` (16 Zeilen
+`ok`), `pruefen-trefferflaeche`, `pruefen-offline`, `pruefen-anzeige`, `pruefen-blaetter`,
+`pruefen-blattbreite`.
+
+**Zwei Funde auf dem Weg, beide vor dem Commit behoben:**
+
+1. **Tablet hochkant scrollte** — die Reihe der Köpfe war für zehn gebaut (`repeat(10, …)`),
+   Venusfliegenfalle und T-Rex rutschten in eine zweite Zeile: 32 Funde in `pruefen-bedienung`
+   („die Seite scrollt (1061 px in 1024 px)“, „Griff 'trex' liegt außerhalb des Bildes“).
+2. **Ungleich hohe Kacheln** — „Venusfliegenfalle“ brach auf der 65-px-Kachel in drei Zeilen
+   (`pruefen-freischaltung`: Kacheln 65 × 87 und 65 × 100). Die Kachel trägt jetzt „Fliegenfalle“.
+
+**Nicht geprüft:** wie die beiden Stimmen klingen und ob die Zeichnungen einem Kind gefallen — das
+kann nur der Auftraggeber. Ob 181 Runden (Median, simuliert) bis zum T-Rex als Ziel tragen oder
+ermüden, zeigt erst das Spielen.

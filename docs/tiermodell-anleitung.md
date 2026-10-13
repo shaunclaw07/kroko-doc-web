@@ -74,7 +74,8 @@ Dann:
    an der Stirnmitte neben der Nase — dort ist der Streifen am breitesten.
 2. **Die Größe folgt dem Platz.** Heutige Linsen (rx × ry): Krokodil 33 × 29, Mensch und Wolf
    33 × 28, Vampir 30 × 26, Maus 28 × 25, Hai 28 × 25, Panther 27 × 24, Löwe 25 × 22,
-   Säbelzahntiger 24 × 21, Panda 18 × 17 im Fleck 29 × 26. Kleiner als etwa 24 × 21 wird ein Auge
+   Säbelzahntiger 24 × 21, Panda 18 × 17 im Fleck 29 × 26, T-Rex 27 × 24, Venusfliegenfalle
+   26 × 23. Kleiner als etwa 24 × 21 wird ein Auge
    auf dem Handy zum Punkt — dann lieber den Kopfumriss oben anheben, als das Auge weiter schrumpfen.
 3. **Das Auge bleibt eine Kullerlinse:** weiße Ellipse mit Umriss in der dunkleren Fellfarbe,
    Pupille (`class="pupil"`, dunkelbraun oder Farbe, nie schwarz, nie ein Schlitz), ein Glanzpunkt
@@ -105,8 +106,8 @@ uv run --with cairosvg python scripts/artwork-png.py \
 pnpm gate
 ```
 
-- **Die Sonde misst die Deckung im Browser** (jeder Zahn, jede Zahnzahl, 120 Zeichnungen bei zehn
-  Tieren) und nennt Tier, Zahnzahl, Zahn, Anteil und das deckende Element. Exit-Code 1 bei einem
+- **Die Sonde misst die Deckung im Browser** (jeder Zahn, jede Zahnzahl, 144 Zeichnungen bei zwölf
+  Wesen) und nennt Tier, Zahnzahl, Zahn, Anteil und das deckende Element. Exit-Code 1 bei einem
   Fund. Das untere Zahnfleischband deckt die Wurzeln der unteren Zähne zu 50 bis 72 % — das ist
   gewollt und wird nur als Zahl genannt.
 - **Das Bild ansehen, offen und geschnappt.** Geschnappt bleibt das Gesicht stehen, die Nase rutscht
@@ -129,7 +130,10 @@ pnpm gate
 
 ## 6. Stil in Kürze (Einzelheiten und Begründungen in `AGENTS.md`, „Freundliche Zeichnung")
 
-- Erst die **Silhouette** unverwechselbar, dann das Fell. Teilpfade der Silhouette gleichsinnig.
+- Erst die **Silhouette** unverwechselbar, dann das Fell. Teilpfade der Silhouette gleichsinnig —
+  oder gar keine Teilpfade: die Höcker des T-Rex stehen im **selben** Pfad wie der Kopf.
+- Was aus dem Kopf herausragt und **nicht** zum Maul gehört (die Ärmchen des T-Rex, Stiel und
+  Topf der Venusfliegenfalle), steht in `body` **vor** dem Kopf — der Kopf deckt den Ansatz zu.
 - Rachen warmes Rosenrot, Zahnfleisch die hellste Stufe, Zähne cremefarben und rund.
 - Umrisse in einer dunkleren Variante der Füllfarbe, nie schwarz.
 - Bühne 640 × 460, Ringmitte um x 320; alles spiegelsymmetrisch außer bewusstem Zubehör (Monokel).

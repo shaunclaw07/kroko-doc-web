@@ -36,6 +36,8 @@ const VOICES = [
   'lion.mp3',
   'panther.mp3',
   'sabertooth.mp3',
+  'flytrap.mp3',
+  'trex.mp3',
 ];
 const VOICE_DIR = 'sounds/voices/';
 const ASSET_DIR = '_astro/';

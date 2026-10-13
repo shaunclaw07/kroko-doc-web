@@ -14,6 +14,8 @@ export const CREATURE_VOICE_FILES: Readonly<Record<string, string>> = {
   lion: 'lion.mp3',
   panther: 'panther.mp3',
   sabertooth: 'sabertooth.mp3',
+  flytrap: 'flytrap.mp3',
+  trex: 'trex.mp3',
 };
 
 /** Obergrenze je Datei: 64 kbit/s sind 8000 Byte je Sekunde — das hält sie zugleich kurz. */

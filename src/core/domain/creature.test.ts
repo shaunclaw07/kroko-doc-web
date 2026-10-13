@@ -43,7 +43,10 @@ describe('Katalog der Lebewesen', () => {
   it('beschreibt jedes Lebewesen mit einem Satz', () => {
     for (const creature of CREATURES) {
       expect(creature.note.length).toBeGreaterThan(20);
-      expect(creature.realTeeth).toBeGreaterThanOrEqual(creature.teeth);
+      // 0 heißt „hat gar keine Zähne" (Venusfliegenfalle) — sonst nie weniger als im Spiel.
+      if (creature.realTeeth !== 0) {
+        expect(creature.realTeeth, creature.id).toBeGreaterThanOrEqual(creature.teeth);
+      }
     }
   });
 
@@ -65,6 +68,9 @@ describe('Katalog der Lebewesen', () => {
     const base = listCreatures()[0];
     if (!base) throw new Error('catalog is empty');
     expect(validateCreature({ ...base, fact: '  ' })).toContain(`${base.id}: fact is empty`);
+    // Die echte Zahnzahl: 0 heißt „hat gar keine" — alles andere unter der Spielzahl ist ein Fehler.
+    expect(validateCreature({ ...base, realTeeth: 0 })).toEqual([]);
+    expect(validateCreature({ ...base, realTeeth: base.teeth - 1 })).toHaveLength(1);
     expect(validateCreature({ ...base, fact: 'x'.repeat(MAX_FACT_LENGTH + 1) })).toContain(
       `${base.id}: fact is longer than ${MAX_FACT_LENGTH} characters`,
     );

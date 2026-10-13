@@ -218,6 +218,11 @@ describe('Zeichnungen der Lebewesen', () => {
       'lion/12',
       'panther/12',
       'sabertooth/12',
+      // Die Venusfliegenfalle trägt einen so engen Ring wie die Maus (Bogenlänge rund 997 gegen
+      // 999 Einheiten), der T-Rex den der Katzen (rx 200).
+      'flytrap/11',
+      'flytrap/12',
+      'trex/12',
     ]);
   });
 

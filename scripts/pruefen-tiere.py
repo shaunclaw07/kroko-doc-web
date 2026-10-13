@@ -38,7 +38,7 @@ ZIEL = Path(os.environ.get("TMPDIR", "/tmp")) / "zahn_agent-artwork" / "tiere-li
 # Auswahl der Freischaltung (`UNLOCK_ORDER` in `core/domain/unlocks.ts`): erst die drei
 # Starttiere, dann das jeweils naechste Tier. Die Liste ist die Gegenprobe, nicht die Quelle.
 ERWARTET = ["crocodile", "mouse", "wolf", "shark", "panda", "human", "lion", "vampire",
-            "panther", "sabertooth"]
+            "panther", "sabertooth", "flytrap", "trex"]
 
 ZAEHLEN = """
 () => {
@@ -144,7 +144,8 @@ def main() -> int:
         browser.close()
     print("Bild:", ZIEL)
     print("Namen im Seitentext fehlen:",
-          [k for k in ["Panda", "Löwe", "Panther", "Säbelzahntiger"] if k not in seite])
+          [k for k in ["Panda", "Löwe", "Panther", "Säbelzahntiger", "Venusfliegenfalle", "T-Rex"]
+           if k not in seite])
     # Vergleich ohne Gross-/Kleinschreibung: die Notiz beginnt mit "Vier Fangzähne", gesucht ist
     # das Wort -- sonst faellt die Sonde ueber ihren eigenen Suchtext.
     gut = (masse["ids"] == ERWARTET and masse["koepfe"] == len(ERWARTET)

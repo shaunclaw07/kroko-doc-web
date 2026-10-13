@@ -7,17 +7,27 @@ import type { NextUnlock } from '../../core/domain/unlocks';
  */
 
 /**
- * Namen im Dativ, wo er vom Katalognamen abweicht („bis zum Löwen", „mit dem Menschen"). Alle
- * Tiere der Folge sind männlich; ein weibliches Tier bräuchte „zur" und „mit der" — der Test
- * dazu fällt, sobald die Folge ein Tier bekommt, das hier nicht bedacht ist.
+ * Namen im Dativ, wo er vom Katalognamen abweicht („bis zum Löwen", „mit dem Menschen").
  */
 const DATIVE_NAMES: Readonly<Record<string, string>> = {
   human: 'Menschen',
   lion: 'Löwen',
 };
 
+/**
+ * Wesen mit weiblichem Namen: „bis **zur** Venusfliegenfalle", „mit **der** Venusfliegenfalle".
+ * Wer ein weiteres ergänzt, trägt es hier ein — der Test dazu nennt jedes Wesen der Folge beim
+ * Namen und fällt bei einem, das hier fehlt.
+ */
+const FEMININE: ReadonlySet<string> = new Set(['flytrap']);
+
 export function dativeName(creature: string, name: string): string {
   return DATIVE_NAMES[creature] ?? name;
+}
+
+/** Name im Dativ samt Artikel: „dem Löwen", „der Venusfliegenfalle". */
+function dativeWithArticle(creature: string, name: string): string {
+  return `${FEMININE.has(creature) ? 'der' : 'dem'} ${dativeName(creature, name)}`;
 }
 
 /** Die Zahl bekommt ihr Substantiv: „Noch 1 Stern", „Noch 2 Sterne". */
@@ -31,7 +41,8 @@ export function missingStarsSymbols(missing: number): string {
 }
 
 export function progressSentence(next: NextUnlock): string {
-  return `${missingStarsText(next.missing)} bis zum ${dativeName(next.creature, next.name)}.`;
+  const to = FEMININE.has(next.creature) ? 'zur' : 'zum';
+  return `${missingStarsText(next.missing)} bis ${to} ${dativeName(next.creature, next.name)}.`;
 }
 
 /** Beschriftung einer gesperrten Kachel für Bildschirmleser. */
@@ -51,7 +62,7 @@ export function unlockTitle(found: readonly { name: string }[]): string {
 }
 
 export function playLabel(creature: string, name: string): string {
-  return `Mit dem ${dativeName(creature, name)} spielen`;
+  return `Mit ${dativeWithArticle(creature, name)} spielen`;
 }
 
 /** Das Schloss der gesperrten Kachel. */

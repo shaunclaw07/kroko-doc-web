@@ -136,7 +136,7 @@ const base = import.meta.env.BASE_URL;
               <span class="creature-grid__icon" aria-hidden="true">
                 <Fragment set:html={creaturePortrait(creature.id, 'leiste')} />
               </span>
-              <span class="creature-grid__name">{creature.name}</span>
+              <span class="creature-grid__name">{creature.shortName ?? creature.name}</span>
             </button>
           </li>
         ))}
@@ -226,7 +226,7 @@ const base = import.meta.env.BASE_URL;
             <span class="creature-grid__icon" aria-hidden="true">
               <Fragment set:html={creaturePortrait(creature.id, 'kachel')} />
             </span>
-            <span class="creature-grid__name">{creature.name}</span>
+            <span class="creature-grid__name">{creature.shortName ?? creature.name}</span>
           </button>
         </li>
       ))}
@@ -265,9 +265,11 @@ const base = import.meta.env.BASE_URL;
       </p>
       <p>
         <strong>Freischalten:</strong> Am Anfang spielst du mit {startList}. Für Sterne
-        kommen Neue dazu — der Erste bei {firstStep?.stars} Sternen, der Letzte
-        ({lastStep && getCreature(lastStep.creature).name}) bei {lastStep?.stars}. Den dritten Stern
-        brauchst du dafür nie. Wer als Nächstes kommt, zeigt die Auswahl.
+        kommen Neue dazu — der Erste bei {firstStep?.stars} Sternen. Den dritten Stern brauchst du
+        dafür nie, mit einer Ausnahme: der Letzte
+        ({lastStep && getCreature(lastStep.creature).name}) kommt erst bei {lastStep?.stars} Sternen
+        — er ist das große Ziel, und dafür müssen auch dritte Sterne her. Wer als Nächstes kommt,
+        zeigt die Auswahl.
       </p>
       <p class="muted small album-summary"></p>
     </div>
@@ -284,8 +286,8 @@ const base = import.meta.env.BASE_URL;
         erwartete Drücke bis zum Biss = 3,97. Wer bis zum letzten Zahn überlebt, verliert garantiert.
       </p>
       <p>
-        <strong>Warum mehrere Lebewesen:</strong> Jedes Tier hat sein eigenes Gebiss. Krokodil und
-        Mensch stellen <strong>1–3 Zähne gleichzeitig scharf</strong>, alle anderen nur
+        <strong>Warum mehrere Lebewesen:</strong> Jedes Tier hat sein eigenes Gebiss. Krokodil,
+        Mensch und T-Rex stellen <strong>1–3 Zähne gleichzeitig scharf</strong>, alle anderen nur
         <strong>1–2</strong>: ihr Biss kommt seltener, dann sitzt er (erwartete Drücke bei 12 Zähnen
         5,42 statt 4,69). Die Maus hat nur <strong>sechs</strong> Zähne — die kürzeste Runde. Welcher
         Zahn scharf ist, entscheidet bei jedem Tier allein der Zufall: lange Fang- und Eckzähne sind

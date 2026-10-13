@@ -3,10 +3,11 @@
 Das Zahn-Zufallsspiel um das Krokodil — Spielprinzip des Spielzeugs *Crocodile Dentist*
 (bekannt als *Kroko Doc*) als Webapp: Zahn für Zahn antippen — einer ist der falsche, dann schnappt das Maul zu.
 Man schaut **von vorne oben in das offene Maul** und kann zwischen Gebissen wählen:
-Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther und Säbelzahntiger. Mit Ton, einer Pause vor jeder Auflösung, Screen-Shake und
+Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther und Säbelzahntiger — und wer genug
+Sterne sammelt, bekommt zwei Bonusfiguren dazu: die Venusfliegenfalle und den T-Rex. Mit Ton, einer Pause vor jeder Auflösung, Screen-Shake und
 einer Statistikseite, die eure eigenen Runden auswertet.
 
-![Zehn Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther und Säbelzahntiger](docs/bilder/gebisse.png)
+![Zwölf Gebisse, je mit offenem Maul: Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe, Panther, Säbelzahntiger, Venusfliegenfalle und T-Rex](docs/bilder/gebisse.png)
 
 **Warum es dieses Spiel gibt.** Ein Familienmitglied hat gefragt, ob man vorher berechnen
 kann, welcher Zahn das Maul schließt. Antwort: nein — das Spielzeug ist ein mechanischer
@@ -29,7 +30,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 517 Tests grün, Bau fertig in 2,1–3,0 s
+frei, 11.10.2026): `pnpm install` läuft durch, 522 Tests grün, Bau fertig in 2,1–3,0 s
 (Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
 im Arbeitsbaum).
 
@@ -72,9 +73,9 @@ Hinter dem **Zahnrad** oben rechts liegt nur, was man einmal je Sitzung stellt.
    hörst du einen Klang,
    gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
    nächste Zahn — erst nach einer Pause, die nichts über den Ausgang verrät — oder der **Biss** samt Screen-Shake und Vibration.
-2. **Tier wählen:** zehn **Bild-Kacheln** (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe,
-   Panther, Säbelzahntiger) mit dem Kopf aus der eigenen Zeichnung. Auf dem **Handy** öffnet der
-   Griff „Tier" die Auswahl, ein Tipp auf eine Kachel wählt und schließt sie (zwei Tipps, alle zehn
+2. **Tier wählen:** zwölf **Bild-Kacheln** (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe,
+   Panther, Säbelzahntiger, Venusfliegenfalle, T-Rex) mit dem Kopf aus der eigenen Zeichnung. Auf dem **Handy** öffnet der
+   Griff „Tier" die Auswahl, ein Tipp auf eine Kachel wählt und schließt sie (zwei Tipps, alle zwölf
    Köpfe ohne Scrollen). Auf dem **Tablet** stehen die Köpfe dauerhaft offen (ein Tipp); quer liegt
    die Bühne links und die Köpfe rechts. Die Kurzinfo zum gewählten Tier steht im Regeln-Blatt.
 3. **Zähne und neue Runde:** `−` / `+` stellen die Zahnzahl (erlaubt sind **1 bis 12**; ein anderes
@@ -110,7 +111,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **517 Tests in 37 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **522 Tests in 37 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -135,7 +136,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   Runde); nur Seltenes liegt hinter dem Zahnrad. Die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
   Anzeigen sprechen in Worten („10 Zähne übrig", „6 von 10 gedrückt"). Die Technik-Erklärung
   (Bumerang, Rechenwerte) steht eingeklappt unter „Für Große".
-- **Zehn Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
+- **Zwölf Gebisse:** Krokodil (10 Zähne, 1–3 gleichzeitig scharf), Wolf (12, 1–2 — zwei lange
   Fangzähne, drei breite Schneidezähne), Mensch (12, 1–3 — mit rostrotem Filzhut und Schnurrbart), Hai (12, 1–2 — runde Raubtierzähne, Kiemenschlitze am Kopf),
   Maus (nur 6 Nagezähne — die kürzeste Runde), Vampir (12, 1–2 — zwei lange Eckzähne, mit
   Stehkragen und Monokel),
@@ -143,11 +144,15 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   (12, 1–2 — Mähne aus Fellbüscheln, zwei lange Fangzähne und drei breite Schneidezähne),
   Panther (12, 1–2 — der melanistische Leopard: schwarzes Fell, gelbe Augen, **vier** Fangzähne,
   je einer oben und unten links und rechts), Säbelzahntiger (12, 1–2 — Smilodon mit zwei Säbeln
-  oben, beim echten Tier bis 20 cm lang, geflecktem Fell und kleinen dunklen Ohren). Jedes
+  oben, beim echten Tier bis 20 cm lang, geflecktem Fell und kleinen dunklen Ohren). Dazu zwei
+  **Bonusfiguren**, die sich erst spät öffnen: die Venusfliegenfalle (8, 1–2 — eine Pflanze im
+  Tontopf; was wie Zähne aussieht, sind Borsten am Rand der Klappe; ab 20 Sternen) und der T-Rex
+  (12, 1–3 — orangebraun mit Stirnstreifen, Höckern über den Augen und winzigen Ärmchen; ab 28
+  Sternen das letzte Ziel, im Median nach 181 Runden). Jedes
   Gebiss zeichnet sich selbst: Blick von vorne oben in den Rachen, eigenes Zahnprofil, eigene
   Kopfform, eigenes Zahnfleisch.
 - **Startet ohne Netz und lässt sich installieren:** ein Service Worker (`public/sw.js`, von Hand
-  geschrieben, ohne Paket) hält beide Seiten, ihre Bausteine, die Symbole und die zehn Tierstimmen
+  geschrieben, ohne Paket) hält beide Seiten, ihre Bausteine, die Symbole und die zwölf Tierstimmen
   vor. Mit Netz kommt die Seite immer frisch vom Server, ohne Netz aus dem Vorrat. Er wird nur im
   Bau angemeldet, nicht im Entwicklungsserver. **Gegen Datenverlust hilft er nicht:** der Vorrat
   liegt im selben Browserprofil wie das Rundenprotokoll — verwirft ein Browser beim Schließen seine
@@ -186,10 +191,11 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   in der Oberfläche „wie das Spielzeug") und `classic` (genau ein scharfer Zahn — „nur ein Zahn").
 - **Tierstimmen:** jedes Tier meldet sich, wenn es gewählt wird, und kurz nach dem Biss; wer ein
   anderes Tier wählt, bricht ab, was vom vorigen noch klingt. Das sind
-  die einzigen Klänge aus **Dateien**: zehn MP3 von höchstens 1,5 s (zusammen 95 KB) unter
-  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Neun sind gemeinfreie
-  Aufnahmen (Wikimedia Commons) — der Mensch sagt „Servus“, der Vampir lacht gruselig; **die Maus
-  ist vorerst ein generierter Platzhalter**.
+  die einzigen Klänge aus **Dateien**: zwölf MP3 von höchstens 1,5 s (zusammen 118 KB) unter
+  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Elf sind gemeinfreie
+  Aufnahmen (Wikimedia Commons, die Fliege von BigSoundBank) — der Mensch sagt „Servus“, der
+  Vampir lacht gruselig, bei der Venusfliegenfalle summt ihre Beute, und der T-Rex brüllt mit der
+  tiefer gelegten Stimme des Alligators; **die Maus ist vorerst ein generierter Platzhalter**.
   Geladen wird erst nach dem ersten Tipp und nur bei eingeschaltetem Ton.
 - **Nervenkitzel:** Halten statt Tippen (das Urteil kommt beim Loslassen), Augen, die dem Finger
   folgen, ein Kiefer, der mit der Bissgefahr zittert, eine Bühne, die ab 50 % Bissgefahr näher an das
@@ -245,7 +251,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **517 in 37 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **522 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |

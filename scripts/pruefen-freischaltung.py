@@ -37,7 +37,8 @@ if BILDER and BILDER in ARGUMENTE:
     ARGUMENTE.remove(BILDER)
 URL = (ARGUMENTE[0] if ARGUMENTE else "http://localhost:4322").rstrip("/") + "/"
 EINSTELLUNGEN = "zahn_agent:settings:v1"
-FOLGE = ["crocodile", "mouse", "wolf", "shark", "panda", "human", "lion", "vampire", "panther", "sabertooth"]
+FOLGE = ["crocodile", "mouse", "wolf", "shark", "panda", "human", "lion", "vampire", "panther", "sabertooth",
+         "flytrap", "trex"]
 GROESSEN = [(320, 568), (390, 844), (800, 1280), (1180, 820)]
 
 
@@ -121,8 +122,8 @@ def main() -> int:
             pruefe([k["id"] for k in kacheln if not k["gesperrt"]] == FOLGE[:3],
                    f"offen sind Krokodil, Maus, Wolf (offen: {[k['id'] for k in kacheln if not k['gesperrt']]})")
             gesperrt = [k for k in kacheln if k["gesperrt"]]
-            pruefe(len(gesperrt) == 7 and all("brightness(0)" in k["filter"] for k in gesperrt),
-                   "sieben Kacheln sind gesperrt und ihr Kopfbild geschwärzt")
+            pruefe(len(gesperrt) == 9 and all("brightness(0)" in k["filter"] for k in gesperrt),
+                   "neun Kacheln sind gesperrt und ihr Kopfbild geschwärzt")
             pruefe(all(k["schlossBreite"] >= 14 for k in gesperrt),
                    f"jedes Schloss ist sichtbar (schmalstes: {min(k['schlossBreite'] for k in gesperrt):.0f} px)")
             naechstes = [k for k in kacheln if k["naechstes"]]

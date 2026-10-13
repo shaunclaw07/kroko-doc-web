@@ -9,16 +9,19 @@ Protokoll in die Ablage:
     from freischaltung import ABLAGE, ALLE_OFFEN
     seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [ABLAGE, ALLE_OFFEN])
 
-Acht Tiere mit je zwei Sternen sind 16 Sterne — die letzte Schwelle liegt bei 15.
+Zehn Tiere mit je drei Sternen sind 30 Sterne — die letzte Schwelle (T-Rex) liegt bei 28 und
+braucht als einzige dritte Sterne. Bis zum 13.10.2026 genügten acht Tiere mit je zwei Sternen (16);
+damit blieben die beiden Bonusfiguren gesperrt, und eine Sonde hätte statt ihrer das Krokodil
+gemessen.
 """
 import json
 
 ABLAGE = "zahn_agent:rounds:v1"
 
-# (Kennung, Zahnzahl des Katalogs) — zwei Sterne gibt eine Runde mit ganzem Gebiss, in der mehr als
-# die Hälfte der Zähne harmlos war.
-_TIERE = [("crocodile", 10), ("mouse", 6), ("wolf", 12), ("shark", 12),
-          ("panda", 12), ("human", 12), ("lion", 12), ("vampire", 12)]
+# (Kennung, Zahnzahl des Katalogs) — drei Sterne gibt eine Runde mit ganzem Gebiss, die erst beim
+# letzten Zahn zuschnappt.
+_TIERE = [("crocodile", 10), ("mouse", 6), ("wolf", 12), ("shark", 12), ("panda", 12),
+          ("human", 12), ("lion", 12), ("vampire", 12), ("panther", 12), ("sabertooth", 12)]
 
 
 def runde(nummer: int, tier: str, zaehne: int, druck: int) -> dict:
@@ -30,4 +33,4 @@ def runde(nummer: int, tier: str, zaehne: int, druck: int) -> dict:
     }
 
 
-ALLE_OFFEN = json.dumps([runde(i + 1, tier, zaehne, zaehne // 2 + 1) for i, (tier, zaehne) in enumerate(_TIERE)])
+ALLE_OFFEN = json.dumps([runde(i + 1, tier, zaehne, zaehne) for i, (tier, zaehne) in enumerate(_TIERE)])

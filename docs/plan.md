@@ -1245,3 +1245,110 @@ der Auftraggeber nicht genannt; er ist nicht angefasst.
 Gate **517 Tests in 37 Dateien**; `pruefen-anzeige.py` prüft statt der Textfarbe jetzt, dass die
 Zahl nicht mehr sichtbar ist, `pruefen-bedienung.py` ohne Fund.
 
+
+## Nachtrag 13.10.2026 (gebaut und abgenommen): zwei Bonusfiguren — Venusfliegenfalle und T-Rex
+
+Auftrag: „ich möchte jetzt gerne noch zwei Tiere/Dinge hinzufügen als Bonus wenn man alle
+vorherigen Modelle auf 3 Sterne bekommen hat. Hast du da eine Idee die cool, schwer oder auch
+lustig ist?“ — danach Sparring (`grill-me`), dreizehn Fragen, jede vom Auftraggeber entschieden.
+
+### Entschieden
+
+| Frage | Entscheidung | Grund |
+|---|---|---|
+| Welche zwei? | **Venusfliegenfalle** (das „Ding“, lustig) und **T-Rex** (cool, das große Ziel) | die Falle ist das einzige Vorbild, das wirklich zuschnappt; der T-Rex ist die Endstufe nach dem Säbelzahntiger |
+| Beide erst bei „alle auf drei Sternen“? | **gestaffelt:** Falle zuerst, T-Rex als Krönung | sonst liegen zwischen Runde 28 und dem Bonus rund 220 Runden ohne Neues |
+| Zählen die Sterne der Falle mit? | **ja, eine Währung:** Sterne insgesamt, alles zählt | „noch X Sterne“ stimmt dann immer; eine Sonderzählung verstünde kein Kind |
+| Schwelle der Falle | **20 Sterne** | braucht keinen dritten Stern (2 × 10 Tiere davor) |
+| Schwelle des T-Rex | **28 Sterne** — erst 33 gewählt, nach der Simulation gesenkt | siehe „Simuliert“ |
+| Stimme des T-Rex | das gemeinfreie Alligatorbrüllen, **tiefer gelegt** | keine Aufnahme möglich; Lizenz geklärt; klingt verwandt mit dem Krokodil, aber größer |
+| Stimme der Falle | **Summen einer Fliege** | die Pflanze ist stumm; die Beute summt — beim Wählen und nach dem Biss, nie vor einem Urteil |
+| Gesicht der Falle | **Comic-Pflanze mit Augen**, Wangen, Stiel, Blättern und Tontopf | Blick und Zittern gelten ohne Ausnahme; der Topf macht die Silhouette |
+| Gebiss des T-Rex | 12 Zähne, **1–3 scharfe** | dritter Stern 2,8 % je Runde, der seltenste im Spiel; `MAX_LIVE_TEETH` bleibt 3. **Abgesagt:** 1–4 scharfe — Eingriff in eine Grenze, an der Modell und Auswahl schon zweimal auseinanderliefen |
+| Gebiss der Falle | **8 Zähne**, 1–2 scharfe | neue Rundenlänge zwischen Maus (6) und Krokodil (10); dritter Stern 6,3 % |
+| Vorher sichtbar? | **ja**, gesperrt wie alle anderen | die bestehende Regel; der T-Rex in der Auswahl ist der stärkste Grund weiterzuspielen. **Abgesagt:** Fragezeichen-Kacheln |
+| Aussehen des T-Rex | **Orangebraun** mit Stirnstreifen, Höcker über den Augen, winzige Ärmchen | farblich weg vom Krokodil. **Abgesagt:** Federkamm (für T. rex nicht belegt) |
+| Feier | **dieselbe** wie bei allen Tieren | kein gemerkter Zustand — Freischaltungen bleiben abgeleitet. Folge: wer schon 20 bzw. 28 Sterne hat, findet die Figur still offen vor |
+| Abnahme | **beide zusammen**, ein Push — erst nach dem Ja des Auftraggebers zu Bild und Klang | Zeichnung und Stimme kann nur er beurteilen; jeder Push auf `main` veröffentlicht |
+
+### Simuliert (5 000 Durchläufe, Modus „wie das Spielzeug“, volles Gebiss)
+
+Gegenprobe: alle zehn Stammtiere offen nach 28 Runden (Median) — wie im Baum.
+
+| Ziel | Runden (Median), zufälliger Wechsel | gezielt nur Tiere mit fehlendem Stern |
+|---|---|---|
+| Venusfliegenfalle, 20 Sterne | 49 | 44 |
+| T-Rex, 28 Sterne | 181 | 129 |
+| T-Rex, 30 Sterne | 290 | 176 |
+| T-Rex, 33 Sterne (alle elf auf drei) | **761** (jedes zehnte Kind über 1 300) | 254 |
+
+Die 246 Runden, die bisher für „alle zehn auf drei Sternen“ im Baum standen, gelten nur für
+gezieltes Spielen. Wer seine Lieblingstiere spielt, braucht das Dreifache — deshalb 28 statt 33.
+
+**Benannte Ausnahme:** die Regel „keine Schwelle braucht einen dritten Stern“ gilt für alle
+Schritte **außer dem letzten**. Der T-Rex braucht mindestens sechs dritte Sterne (28 − 2 × 11).
+
+### Belege
+
+- **Venusfliegenfalle:** „Der Fangmechanismus ist mit einer Dauer von bis zu 100 Millisekunden …“;
+  zuschnappen nach zwei Berührungen der Fühlborsten innerhalb von 20 Sekunden; Innenseite „bei
+  Sonneneinstrahlung innenseitig stark rot gefärbt“ (de.wikipedia, *Venusfliegenfalle*, abgerufen
+  13.10.2026). **Zähne hat sie keine** — es sind Randborsten; eine Zahl je Blatthälfte nennt weder
+  der deutsche noch der englische Artikel, also steht keine im Spiel (`realTeeth: 0`).
+- **T-Rex:** vier Zähne je Seite im Zwischenkieferbein, zwölf je Seite im Oberkiefer, dreizehn je
+  Unterkieferast — zusammen 58 (en.wikipedia, *Tyrannosaurus*); „Der größte gefundene Zahn wird
+  inklusive Zahnwurzel auf 30 cm Länge geschätzt“; Arme „nur einem Meter“; lebte „vor etwa 68 bis
+  66 Millionen Jahren“ (de.wikipedia, *Tyrannosaurus*, abgerufen 13.10.2026).
+- **Stimmen:** `public/sounds/voices/QUELLEN.md`.
+
+### Plan
+
+1. Katalog (`creature.ts`): `flytrap` und `trex`; `realTeeth: 0` erlauben und in der Kurzinfo als
+   „keine Zähne, sondern Borsten“ sagen.
+2. Freischaltung (`unlocks.ts`, Tests): Folge um 20 und 28 verlängern, Ausnahme benennen;
+   „zur Venusfliegenfalle“ / „mit der Venusfliegenfalle“ (`unlockNotice.ts`).
+3. Stimmen: schneiden, `CREATURE_VOICE_FILES`, `VOICES` in `public/sw.js`, `QUELLEN.md`.
+4. Zeichnungen: `flytrap.ts`, `trex.ts`, Registry; Zahnsicht für jede Zahnzahl, offen und
+   geschnappt als Bild ansehen.
+5. Auswahl mit zwölf Kacheln auf dem kleinsten Handy nachmessen; Sonden auf zwölf Wesen ziehen.
+6. Gate, Bau, Sonden gegen die gebaute Seite; README-Bild; Doku (`AGENTS.md`, `README.md`,
+   `docs/testing.md`, `docs/workflow.md`, `docs/domain-model.md`).
+7. Bilder und Stimmen dem Auftraggeber vorlegen — erst danach Commit und Push.
+
+### Gebaut
+
+Alle sieben Schritte, mit vier Dingen, die erst beim Bau auffielen:
+
+1. **Die Auswahl war für zehn gebaut.** Die Tablet-Reihe stand auf `repeat(10, …)`: mit zwölf
+   Wesen rutschten zwei Kacheln in eine zweite Zeile und die Seite scrollte auf 768 × 1024 und
+   820 × 1180 (32 Funde in `pruefen-bedienung.py`). Jetzt zwölf Spalten, hochkant auf hohen
+   Tablets 6 × 2, quer 3 × 4. Auf dem Handy sind es drei volle Viererreihen — gleich hoch wie
+   vorher mit zehn.
+2. **„Venusfliegenfalle“ bricht auf der 65-px-Kachel in drei Zeilen**, ihre Reihe war 100 statt
+   87 px hoch (`pruefen-freischaltung.py`). Die Kachel trägt deshalb den Kurznamen „Fliegenfalle“
+   (`shortName`); Sätze, Karte und Vorleser nennen den vollen Namen. **Selbst entschieden**, nicht
+   im Sparring gefragt — wer den vollen Namen auf der Kachel will, braucht eine dritte Textzeile
+   für alle Kacheln.
+3. **Das Protokoll der Sonden öffnete die Bonusfiguren nicht** (16 Sterne). Es trägt jetzt zehn
+   Tiere mit je drei Sternen (30).
+4. **Das Regeln-Blatt sagte „Den dritten Stern brauchst du dafür nie“** — das stimmt für den
+   T-Rex nicht mehr und ist umgeschrieben; „Krokodil, Mensch und T-Rex“ stellen 1–3 Zähne scharf.
+
+**Zeichnung:** der erste T-Rex las sich mit rundem Kopf und abgespreizten Armen wie ein **Frosch**
+(im gerasterten Bild gesehen). Danach: kantigerer Schädel mit eckigem Unterkiefer, kürzere, nach
+unten geknickte Ärmchen, bernsteinfarbener Irisring. Bei der Venusfliegenfalle stand die
+Mittelrippe in `upperExtra` und lag bei geschlossenem Maul als Strich mitten im Gesicht — entfernt.
+
+**Fortschrittszeile:** bis zum T-Rex fehlen nach der Venusfliegenfalle bis zu acht Sterne; die
+Zeile zeigt dann acht Sternzeichen. Gemessen mit sieben auf 320 px: sie bleibt im Kasten (274 px)
+und die Seite scrollt nicht.
+
+Gate **522 Tests in 37 Dateien**, `pnpm build`; gegen die gebaute Seite ohne Fund:
+`pruefen-zahnsicht` (144 Zeichnungen), `-freischaltung`, `-bedienung`, `-tiere`, `-blick`, `-zoom`,
+`-trefferflaeche`, `-halten`, `-offline`, `-anzeige`, `-blaetter`, `-blattbreite`. Beide Wesen
+offen und geschnappt als Bild angesehen, dazu Auswahl, Freischaltung und Tablet-Ansichten im
+Browser. Das README-Bild ist neu gebaut (zwölf Wesen, 4 × 3).
+
+**Abgenommen vom Auftraggeber** (13.10.2026, „passt für mich“): die beiden Zeichnungen und die
+zwei Stimmen. `cairosvg`
+findet die GTK-Laufzeit nur, wenn `C:\Program Files\GTK3-Runtime Win64\bin` im `PATH` steht.

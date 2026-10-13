@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { albumFromRecords, type AlbumRound } from './album';
 import { getCreature, listCreatures } from './creature';
-import { STARTING_CREATURES, UNLOCK_STEPS, newlyUnlocked, unlockState } from './unlocks';
+import { FINAL_GOAL, STARTING_CREATURES, UNLOCK_STEPS, newlyUnlocked, unlockState } from './unlocks';
 
 /** Eine Runde mit ganzem Gebiss, die genau `stars` Sterne bringt (1, 2 oder 3). */
 function round(creature: string, stars: 1 | 2 | 3): AlbumRound {
@@ -19,23 +19,30 @@ describe('Die Folge der Tiere', () => {
     expect(new Set(placed).size).toBe(placed.length);
   });
 
-  it('beginnt mit Krokodil, Maus und Wolf und endet mit dem Säbelzahntiger', () => {
+  it('beginnt mit Krokodil, Maus und Wolf und endet mit den Bonusfiguren, zuletzt dem T-Rex', () => {
     expect(STARTING_CREATURES).toEqual(['crocodile', 'mouse', 'wolf']);
     expect(UNLOCK_STEPS.map((step) => step.creature)).toEqual([
-      'shark', 'panda', 'human', 'lion', 'vampire', 'panther', 'sabertooth',
+      'shark', 'panda', 'human', 'lion', 'vampire', 'panther', 'sabertooth', 'flytrap', 'trex',
     ]);
+    expect(UNLOCK_STEPS[UNLOCK_STEPS.length - 1]?.creature).toBe(FINAL_GOAL);
   });
 
-  it('öffnet bei 3, 5, 7, 9, 11, 13 und 15 Sternen', () => {
-    expect(UNLOCK_STEPS.map((step) => step.stars)).toEqual([3, 5, 7, 9, 11, 13, 15]);
+  it('öffnet bei 3, 5, 7, 9, 11, 13 und 15 Sternen, die Bonusfiguren bei 20 und 28', () => {
+    expect(UNLOCK_STEPS.map((step) => step.stars)).toEqual([3, 5, 7, 9, 11, 13, 15, 20, 28]);
   });
 
-  it('braucht für keine Schwelle einen dritten Stern', () => {
+  it('braucht für keine Schwelle einen dritten Stern — außer für das letzte Ziel', () => {
     // Vor Schritt i sind die Starttiere und i frühere Tiere offen; jedes gibt ohne Glück beim
     // letzten Zahn höchstens zwei Sterne.
     UNLOCK_STEPS.forEach((step, index) => {
       const open = STARTING_CREATURES.length + index;
-      expect(step.stars, step.creature).toBeLessThanOrEqual(2 * open);
+      if (step.creature === FINAL_GOAL) {
+        // Die benannte Ausnahme: der T-Rex soll weit weg sein, bleibt aber erreichbar.
+        expect(step.stars, step.creature).toBeGreaterThan(2 * open);
+        expect(step.stars, step.creature).toBeLessThanOrEqual(3 * open);
+      } else {
+        expect(step.stars, step.creature).toBeLessThanOrEqual(2 * open);
+      }
     });
   });
 
@@ -72,12 +79,14 @@ describe('unlockState', () => {
     for (const [index, step] of UNLOCK_STEPS.entries()) {
       // Sterne der Reihe nach verteilen: je Tier zwei, in der Reihenfolge des Öffnens.
       const order = [...STARTING_CREATURES, ...UNLOCK_STEPS.map((entry) => entry.creature)];
+      // Das letzte Ziel braucht dritte Sterne — dort gibt jedes Tier bis zu drei.
+      const most = step.creature === FINAL_GOAL ? 3 : 2;
       const roundsFor = (total: number): AlbumRound[] => {
         const rounds: AlbumRound[] = [];
         let left = total;
         for (const creature of order) {
           if (left <= 0) break;
-          const take = Math.min(2, left) as 1 | 2;
+          const take = Math.min(most, left) as 1 | 2 | 3;
           rounds.push(round(creature, take));
           left -= take;
         }
@@ -90,12 +99,31 @@ describe('unlockState', () => {
     }
   });
 
-  it('hat mit 15 Sternen alle zehn Tiere offen und kein nächstes mehr', () => {
+  it('hat mit 15 Sternen alle zehn Stammtiere offen und nennt die Venusfliegenfalle als nächstes', () => {
     const all = listCreatures().slice(0, 8).map((creature) => round(creature.id, 2));
     const state = stateOf(all);
     expect(state.stars).toBe(16);
     expect(state.unlocked).toHaveLength(10);
-    expect(state.next).toBeNull();
+    expect(state.next).toEqual({ creature: 'flytrap', name: 'Venusfliegenfalle', stars: 20, missing: 4 });
+  });
+
+  it('öffnet die Venusfliegenfalle mit zwei Sternen je Stammtier — ganz ohne dritten Stern', () => {
+    const state = stateOf(listCreatures().slice(0, 10).map((creature) => round(creature.id, 2)));
+    expect(state.stars).toBe(20);
+    expect(state.unlocked).toContain('flytrap');
+    expect(state.next).toEqual({ creature: 'trex', name: 'T-Rex', stars: 28, missing: 8 });
+  });
+
+  it('zählt die Sterne der Venusfliegenfalle auf dem Weg zum T-Rex mit und kennt danach kein Ziel mehr', () => {
+    // Elf Wesen mit je zwei Sternen sind 22; sechs dritte Sterne fehlen — egal von welchem Wesen.
+    const two = listCreatures().slice(0, 11).map((creature) => round(creature.id, 2));
+    const five = listCreatures().slice(0, 5).map((creature) => round(creature.id, 3));
+    expect(stateOf([...two, ...five]).stars).toBe(27);
+    expect(stateOf([...two, ...five]).unlocked).not.toContain('trex');
+    const done = stateOf([...two, ...five, round('flytrap', 3)]);
+    expect(done.stars).toBe(28);
+    expect(done.unlocked).toHaveLength(12);
+    expect(done.next).toBeNull();
   });
 
   it('zählt alte Runden mit einem Tier mit, das heute gesperrt wäre', () => {

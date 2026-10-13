@@ -8,13 +8,22 @@ import { isValidToothCount } from './teeth';
 export interface CreatureDefinition {
   id: string;
   name: string;
+  /**
+   * Kurzer Name für die Kachel der Auswahl, wo der volle nicht passt: „Venusfliegenfalle" bricht
+   * auf der 65-px-Kachel in drei Zeilen und macht ihre Reihe höher als die anderen (gemessen,
+   * `scripts/pruefen-freischaltung.py`). Sätze und Vorleser nennen immer den vollen Namen.
+   */
+  shortName?: string;
   /** Drückbare Zähne im Spiel. */
   teeth: number;
   /** Untere Grenze gleichzeitig scharfer Zähne (Originalmodell). */
   liveTeethMin: number;
   /** Obere Grenze gleichzeitig scharfer Zähne (Originalmodell). */
   liveTeethMax: number;
-  /** Zahnzahl des echten Lebewesens — nur als Notiz in der Oberfläche. */
+  /**
+   * Zahnzahl des echten Lebewesens — nur als Notiz in der Oberfläche. `0` heißt: das Vorbild hat
+   * gar keine Zähne (die Venusfliegenfalle trägt Borsten); die Oberfläche sagt das dann so.
+   */
   realTeeth: number;
   /** Ein Satz für die Auswahl. */
   note: string;
@@ -136,6 +145,33 @@ export const CREATURES: readonly CreatureDefinition[] = [
     note: 'Zwei Säbel oben und zwei kurze Eckzähne unten: der längste Zahn im Spiel ist fast doppelt so lang wie der Fangzahn des Löwen.',
     fact: 'Seine Säbel ragten bis zu 20 cm aus dem Kiefer. Das Tier ist seit rund 12.000 Jahren ausgestorben.',
   },
+  {
+    id: 'flytrap',
+    name: 'Venusfliegenfalle',
+    shortName: 'Fliegenfalle',
+    // Bonusfigur (ab 20 Sternen). Acht Zähne: eine eigene Rundenlänge zwischen Maus und Krokodil.
+    teeth: 8,
+    liveTeethMin: 1,
+    liveTeethMax: 2,
+    // Eine Pflanze hat keine Zähne: am Rand der Klappe stehen Borsten. Eine belegte Zahl je
+    // Blatthälfte gibt es nicht (docs/plan.md) — also steht hier keine erfundene.
+    realTeeth: 0,
+    note: 'Eine Pflanze, die zuschnappt: was wie Zähne aussieht, sind Borsten am Rand der Klappe. Nur acht davon — eine kurze Runde.',
+    fact: 'Die Venusfliegenfalle ist eine Pflanze. Ihre Klappe schnappt in einer Zehntelsekunde zu.',
+  },
+  {
+    id: 'trex',
+    name: 'T-Rex',
+    // Bonusfigur und letztes Ziel (ab 28 Sternen): volles Gebiss **und** bis zu drei scharfe Zähne —
+    // der dritte Stern gelingt hier in 2,8 % der Runden, seltener als bei jedem anderen.
+    teeth: 12,
+    liveTeethMin: 1,
+    liveTeethMax: 3,
+    // Je Seite 4 Zähne im Zwischenkiefer, 12 im Oberkiefer, 13 im Unterkiefer: 2 × 29 = 58.
+    realTeeth: 58,
+    note: 'Der König der Dinosaurier: zwölf Zähne und 1–3 davon scharf. Wer hier bis zum letzten Zahn kommt, hat das größte Glück im Spiel.',
+    fact: 'Der längste Zahn eines T-Rex war mit Wurzel etwa 30 cm lang — so lang wie ein Lineal.',
+  },
 ];
 
 export function listCreatures(): readonly CreatureDefinition[] {
@@ -173,6 +209,9 @@ export function validateCreature(creature: CreatureDefinition): string[] {
   }
   if (creature.liveTeethMax > creature.teeth) {
     problems.push(`${creature.id}: liveTeethMax exceeds the number of teeth`);
+  }
+  if (!Number.isInteger(creature.realTeeth) || (creature.realTeeth !== 0 && creature.realTeeth < creature.teeth)) {
+    problems.push(`${creature.id}: realTeeth must be 0 (no teeth at all) or at least the number of teeth`);
   }
   if (creature.note.trim().length === 0) {
     problems.push(`${creature.id}: note is empty`);
