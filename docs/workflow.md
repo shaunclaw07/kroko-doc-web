@@ -259,7 +259,8 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 
 ## Die Sicherung der Runden
 
-Wozu und wie sie gebaut ist: `docs/architecture.md` und `AGENTS.md`. Was bei Cloudflare liegt
+Wozu und wie sie gebaut ist: `docs/architecture.md` und `AGENTS.md`; der ganze Weg zum Nachbauen
+steht in `docs/sicherung-anleitung.md`. Was bei Cloudflare liegt
 (angelegt am 13.10.2026 über die Cloudflare-API, nicht über `wrangler`):
 
 | Was | Name |

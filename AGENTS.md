@@ -31,6 +31,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git, Fallen) | [`docs/workflow.md`](docs/workflow.md) |
 | Tierstimmen ergänzen oder tauschen, Tier-Sätze, alle Skripte | [`docs/workflow.md`](docs/workflow.md) |
 | Herkunft und Lizenz der Tierstimmen | [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md) |
+| Spielstand sichern, wenn das Gerät ihn wegwirft (Anleitung zum Nachbauen, auch für andere Projekte) | [`docs/sicherung-anleitung.md`](docs/sicherung-anleitung.md) |
 | Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) |
 | Warum das Spiel so ist (Charter) | [`README.md`](README.md) |
 | Plan, Annahmen, offene Punkte | [`docs/plan.md`](docs/plan.md) |
@@ -137,7 +138,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   `onStatus?.({ rounds: await job() })` führte `job()` nur aus, wenn jemand zuhörte — die
   Spielseite hört nicht zu und hätte nie gesichert. Erst ausführen, dann melden; der Test dazu
   verdrahtet **ohne** `onStatus`.
-- Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden".
+- Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden". Der ganze
+  Weg zum Nachbauen, mit allen Aufrufen und Fallen: `docs/sicherung-anleitung.md`.
 
 ## Dreiunddreißig Fallen, die Zeit kosten
 
