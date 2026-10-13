@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import worker, { MAX_BODY_BYTES } from '../worker/backup.js';
 
 /**
@@ -38,6 +38,34 @@ function call(env: ReturnType<typeof fakeEnv>, path: string, init?: RequestInit)
 }
 
 describe('Sicherungs-Worker', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('liefert unter der Startadresse ohne Abfrage-Teil die Spielseite aus', async () => {
+    const fetched: string[] = [];
+    vi.stubGlobal('fetch', async (address: string) => {
+      fetched.push(address);
+      return new Response('<html>Spielseite</html>');
+    });
+    const env = fakeEnv({ [CODE]: '[]' });
+    expect(await (await call(env, `/s/${CODE}`)).text()).toBe('<html>Spielseite</html>');
+    expect(await (await call(env, `/s/${CODE}/`)).text()).toBe('<html>Spielseite</html>');
+    expect(fetched).toEqual([`${SITE}/`, `${SITE}/`]);
+  });
+
+  it('liefert unter der Startadresse nichts aus, was kein Code ist', async () => {
+    const fetched: string[] = [];
+    vi.stubGlobal('fetch', async (address: string) => {
+      fetched.push(address);
+      return new Response('');
+    });
+    const env = fakeEnv({ [CODE]: '[]' });
+    expect((await call(env, '/s/kurz')).status).toBe(404);
+    expect((await call(env, `/s/${CODE}`, { method: 'POST' })).status).toBe(404);
+    expect(fetched).toEqual([]);
+  });
+
   it('liefert das Protokoll eines bekannten Codes, ohne dass es zwischengespeichert wird', async () => {
     const response = await call(fakeEnv({ [CODE]: '[{"round":1}]' }), `/api/log/${CODE}`);
     expect(response.status).toBe(200);

@@ -7,17 +7,21 @@ import type { StorageLike } from './localStorageLog';
 export const BACKUP_CODE_KEY = 'zahn_agent:backup-code';
 /** So sieht ein Sicherungscode aus — dieselbe Regel wie im Worker (`worker/backup.js`). */
 const CODE_PATTERN = /^[a-z0-9-]{12,64}$/;
+/** Startadresse ohne Abfrage-Teil: `…/s/<code>` — der Worker liefert dort die Spielseite aus. */
+const START_PATH = /\/s\/([^/]+)\/?$/;
 
 /**
  * Der Sicherungscode dieser Sitzung, oder `null`: dann gibt es keine Sicherung und die Seite
  * verhält sich wie immer.
  *
- * Er kommt aus der Adresse (`?s=…`). Die steht außerhalb der Ablage und übersteht deshalb ein
- * Profil, das seine Browserdaten verwirft. Die Verweise zwischen Spiel und Statistik tragen ihn
- * nicht — dafür wird er zusätzlich abgelegt und gilt weiter, bis das Profil die Ablage leert.
+ * Er kommt aus der Adresse: als Pfad (`…/s/<code>`) oder als Abfrage (`?s=<code>`). Die Adresse
+ * steht außerhalb der Ablage und übersteht deshalb ein Profil, das seine Browserdaten verwirft.
+ * Der Pfad ist die Form für Geräte, die eine freigegebene Adresse mit Abfrage-Teil nicht
+ * behalten. Die Verweise zwischen Spiel und Statistik tragen den Code nicht — dafür wird er
+ * zusätzlich abgelegt und gilt weiter, bis das Profil die Ablage leert.
  */
-export function backupCode(search: string, storage: StorageLike | null): string | null {
-  const fromAddress = new URLSearchParams(search).get('s');
+export function backupCode(search: string, storage: StorageLike | null, pathname = ''): string | null {
+  const fromAddress = START_PATH.exec(pathname)?.[1] ?? new URLSearchParams(search).get('s');
   if (fromAddress !== null && CODE_PATTERN.test(fromAddress)) {
     try {
       storage?.setItem(BACKUP_CODE_KEY, fromAddress);

@@ -123,10 +123,16 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Anlass:** Das Kinderprofil eines Fire-Tablets verwirft beim Schließen des Browsers alle Daten
   der Seite (gemeldet am 13.10.2026; im Elternprofil desselben Geräts bleiben sie). Die Bitte um
   dauerhaften Speicher (`navigator.storage.persist`) hilft dagegen **nicht** — am Gerät geprüft.
-- **Lösung:** Trägt die Adresse `?s=<code>`, gleicht die Seite ihr Protokoll beim Start und nach
+- **Lösung:** Trägt die Adresse einen Code (`…/s/<code>` oder `?s=<code>`), gleicht die Seite ihr Protokoll beim Start und nach
   jedem Biss mit `worker/backup.js` ab (Cloudflare Worker `zahn-agent-backup`, Route
   `zahn-agent.schaflabs.com/api/*`, Datenbank D1 `zahn-agent-backup`). Die Adresse steht außerhalb
   der Ablage und übersteht das Leeren.
+- **Die Startadresse ist ein Pfad, keine Abfrage.** Die freigegebene Adresse mit `?s=…` löschte
+  das Kinderprofil nach einiger Zeit von selbst wieder (gemeldet am 13.10.2026; die Ursache ist
+  eine Vermutung des Auftraggebers, nicht gemessen). Deshalb liefert der Worker unter
+  `…/s/<code>` die Spielseite unverändert aus (zweite Route `zahn-agent.schaflabs.com/s/*`), und
+  die Seite liest den Code auch aus dem Pfad. Das geht nur, weil jeder Verweis der Seite absolut
+  über den Basis-Pfad läuft — ein relativer Verweis zeigte unter `/s/…` ins Leere.
 - **Kein Angebot für alle.** Ohne Code ruft die Seite den Worker nie, und der Worker kennt nur
   Codes, die als Zeile in der Tabelle `logs` stehen. Der Code ist das einzige Geheimnis und steht
   **nirgends im Baum** — auch nicht in Tests, Doku oder Commit-Texten.

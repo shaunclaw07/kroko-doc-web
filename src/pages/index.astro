@@ -341,10 +341,11 @@ const base = import.meta.env.BASE_URL;
       }
     });
 
-    // Sicherung außerhalb des Geräts — nur, wenn die Adresse einen Sicherungscode trägt (`?s=…`).
+    // Sicherung außerhalb des Geräts — nur, wenn die Adresse einen Sicherungscode trägt
+    // (`…/s/<code>` oder `?s=<code>`).
     // Ein Profil, das seine Browserdaten verwirft, bekommt so beim Start seine Runden zurück;
     // nach jedem Biss wird nachgesichert. Ohne Code geschieht hier nichts.
-    const code = backupCode(location.search, storage);
+    const code = backupCode(location.search, storage, location.pathname);
     if (code) {
       const backup = wireBackup({
         local: log,

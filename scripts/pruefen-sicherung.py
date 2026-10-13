@@ -13,6 +13,7 @@ Geprüft wird:
     1. ohne Code     → die Seite ruft die Sicherung nie
     2. mit Code      → Runden des Geräts liegen danach in der Sicherung
     3. Profil leer   → nach dem Leeren der Ablage sind Runden und Sterne wieder da
+    3b. Pfad         → dasselbe über die Startadresse ohne Abfrage-Teil (`s/<code>`)
     4. Statistik     → der Code gilt ohne `?s=` weiter, die Seite nennt die gesicherten Runden
     5. eine Runde    → nach dem Biss liegt sie in der Sicherung
     6. Löschen       → leert auch die Sicherung
@@ -67,6 +68,8 @@ def main() -> int:
         browser = p.chromium.launch()
         kontext = browser.new_context(viewport={"width": 390, "height": 844})
         kontext.route("**/api/log/**", beantworte)
+        # Unter `s/<code>` liefert der Worker die Spielseite aus — hier tut es die Sonde.
+        kontext.route("**/s/*", lambda route: route.fulfill(response=route.fetch(url=URL)))
         seite = kontext.new_page()
 
         def ablage() -> list:
@@ -97,6 +100,11 @@ def main() -> int:
         pruefe(warte_auf(lambda: len(ablage()) == 2), f"Ablage hat die Runden wieder (hat: {len(ablage())})")
         sterne = seite.locator("[data-creature='crocodile'] .album-star.is-earned").count()
         pruefe(sterne >= 2, f"das Krokodil trägt seine Sterne wieder (gefüllt: {sterne})")
+
+        print("3b — Startadresse ohne Abfrage-Teil")
+        seite.evaluate("localStorage.clear(); sessionStorage.clear()")
+        seite.goto(f"{URL}s/{CODE}", wait_until="load")
+        pruefe(warte_auf(lambda: len(ablage()) == 2), f"Ablage hat die Runden wieder (hat: {len(ablage())})")
 
         print("4 — Statistik ohne Code in der Adresse")
         seite.goto(f"{URL}statistik", wait_until="load")

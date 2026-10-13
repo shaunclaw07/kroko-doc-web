@@ -43,6 +43,20 @@ describe('backupCode', () => {
     expect(storage.data.get(BACKUP_CODE_KEY)).toBe(CODE);
   });
 
+  it('liest den Code auch aus dem Pfad — die Startadresse ohne Abfrage-Teil', () => {
+    const storage = memoryStorage();
+    expect(backupCode('', storage, `/s/${CODE}`)).toBe(CODE);
+    expect(backupCode('', memoryStorage(), `/s/${CODE}/`)).toBe(CODE);
+    expect(backupCode('', memoryStorage(), `/zahn_agent/s/${CODE}`)).toBe(CODE);
+    expect(storage.data.get(BACKUP_CODE_KEY)).toBe(CODE);
+  });
+
+  it('liest aus anderen Pfaden nichts heraus', () => {
+    expect(backupCode('', memoryStorage(), '/statistik')).toBeNull();
+    expect(backupCode('', memoryStorage(), '/s/kurz')).toBeNull();
+    expect(backupCode('', memoryStorage(), `/s/${CODE}/mehr`)).toBeNull();
+  });
+
   it('gilt weiter, wenn die Adresse ihn nicht mehr trägt (Wechsel zur Statistik)', () => {
     expect(backupCode('', memoryStorage({ [BACKUP_CODE_KEY]: CODE }))).toBe(CODE);
   });

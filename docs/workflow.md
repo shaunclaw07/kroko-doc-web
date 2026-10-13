@@ -267,7 +267,7 @@ steht in `docs/sicherung-anleitung.md`. Was bei Cloudflare liegt
 |---|---|
 | Worker | `zahn-agent-backup` — der Inhalt von `worker/backup.js`, unverändert, als Modul |
 | Bindung | `DB` → Datenbank D1 `zahn-agent-backup` |
-| Route | `zahn-agent.schaflabs.com/api/*` (Zone `schaflabs.com`) |
+| Routen | `zahn-agent.schaflabs.com/api/*` und `zahn-agent.schaflabs.com/s/*` (Zone `schaflabs.com`) |
 | Tabelle | `logs (code TEXT PRIMARY KEY, body TEXT NOT NULL, updated_at TEXT NOT NULL)` |
 
 - **Der Worker wird nicht vom Push ausgeliefert.** `.github/workflows/pages.yml` veröffentlicht nur
@@ -279,10 +279,11 @@ steht in `docs/sicherung-anleitung.md`. Was bei Cloudflare liegt
   ```sql
   INSERT INTO logs (code, body, updated_at) VALUES ('<code>', '[]', datetime('now'));
   ```
-  Danach die Seite einmal mit `?s=<code>` öffnen — diese Adresse ist der Startpunkt des Geräts.
+  Danach die Seite einmal unter `…/s/<code>` öffnen — diese Adresse ist der Startpunkt des Geräts
+  (`?s=<code>` gilt ebenfalls, wurde vom Kinderprofil als freigegebene Adresse aber nicht behalten).
 - **Einen Code sperren** heißt: seine Zeile löschen. Die Runden darin sind dann weg.
 - **Prüfen ohne den echten Code:** `scripts/pruefen-sicherung.py` stellt die Sicherung nach und
-  rührt Worker und Datenbank nicht an (erwartet: dreizehn Zeilen `ok`, `Auffälligkeiten: 0`).
+  rührt Worker und Datenbank nicht an (erwartet: vierzehn Zeilen `ok`, `Auffälligkeiten: 0`).
 
 ## Git
 

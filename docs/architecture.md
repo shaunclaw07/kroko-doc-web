@@ -20,7 +20,7 @@ ersetzt eine Ladefunktion (`loadVoice`) das Netz und `FakeAudioContext` das Deko
 
 **Sicherung der Runden.** Ein Kinderprofil verwirft beim Schließen des Browsers alles, was die
 Seite im Gerät ablegt — damit auch die Sterne, die aus dem Rundenprotokoll abgeleitet werden.
-Trägt die Adresse einen Sicherungscode (`?s=…`), gleicht die Seite ihr Protokoll deshalb mit einem
+Trägt die Adresse einen Sicherungscode (`…/s/<code>` oder `?s=<code>`), gleicht die Seite ihr Protokoll deshalb mit einem
 kleinen Worker ab (`worker/backup.js`, Cloudflare, unter dem eigenen Ursprung: `api/log/<code>`).
 Der Kern kennt davon eine Naht (`RemoteLogPort`: holen, schreiben), eine Regel
 (`mergeRoundLogs`: der Stand der Sicherung bleibt, was nur das Gerät kennt, wird angehängt) und

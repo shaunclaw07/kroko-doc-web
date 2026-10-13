@@ -82,7 +82,7 @@ import Base from '../layouts/Base.astro';
     // Sicherung außerhalb des Geräts — nur mit Sicherungscode (siehe Spielseite). Diese Seite
     // sagt, ob sie geklappt hat; ohne Code bleibt die Zeile verborgen.
     const backupStatus = document.getElementById('backup-status');
-    const code = backupCode(location.search, browserStorage());
+    const code = backupCode(location.search, browserStorage(), location.pathname);
     const backup = code
       ? wireBackup({
           local: log,

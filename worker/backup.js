@@ -1,12 +1,16 @@
 /*
- * Sicherung des Rundenprotokolls (Cloudflare Worker, Route `zahn-agent.schaflabs.com/api/*`).
+ * Sicherung des Rundenprotokolls (Cloudflare Worker, Routen `zahn-agent.schaflabs.com/api/*`
+ * und `zahn-agent.schaflabs.com/s/*`).
  *
  * Anlass: ein Kinderprofil, das beim Schließen des Browsers seine Daten verwirft — die Sterne des
  * Tier-Albums waren nach jeder Sitzung weg. Die Seite gleicht ihr Protokoll mit diesem Worker ab,
- * wenn ihre Adresse einen Sicherungscode trägt (`?s=…`); ohne Code ruft sie ihn nie.
+ * wenn ihre Adresse einen Sicherungscode trägt (`…/s/<code>` oder `?s=<code>`); ohne Code ruft
+ * sie ihn nie.
  *
  *   GET /api/log/<code>   → das Protokoll als JSON-Liste
  *   PUT /api/log/<code>   → ersetzt es durch die gesendete Liste
+ *   GET /s/<code>         → die Spielseite, unverändert — eine Startadresse ohne Abfrage-Teil
+ *                           (ein Kinderprofil verwarf die freigegebene Adresse mit `?s=…` wieder)
  *
  * Dies ist kein Angebot für alle: es gibt nur die Codes, die der Betreiber selbst angelegt hat
  * (eine Zeile je Code in der Tabelle `logs`). Ein unbekannter Code ist „nicht gefunden" — niemand
@@ -32,7 +36,16 @@ function answer(status, error) {
 
 export default {
   async fetch(request, env) {
-    const match = /^\/api\/log\/([^/]+)$/.exec(new URL(request.url).pathname);
+    const url = new URL(request.url);
+    const start = /^\/s\/([^/]+)\/?$/.exec(url.pathname);
+    if (start) {
+      if (request.method !== 'GET' || !CODE_PATTERN.test(start[1])) {
+        return answer(404, 'not-found');
+      }
+      // Die Seite selbst prüft den Code beim Abgleich; hier wird nur ausgeliefert, was unter `/` liegt.
+      return fetch(new URL('/', url).href);
+    }
+    const match = /^\/api\/log\/([^/]+)$/.exec(url.pathname);
     const code = match?.[1] ?? '';
     if (!CODE_PATTERN.test(code)) {
       return answer(404, 'not-found');

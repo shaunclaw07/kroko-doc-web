@@ -13,7 +13,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Größe | Wert |
 |---|---|
 | Testdateien | 35 |
-| Tests | 473 (35 Dateien) |
+| Tests | 477 (35 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
 
@@ -38,9 +38,9 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | `src/infrastructure/audio/webAudioEngine.test.ts` | **Tierstimmen**: nach der ersten Geste wird jede Datei genau einmal geladen, eine geladene Stimme spielt sofort (leiser als der Biss), eine noch ladende wird nachgereicht — aber nicht nach mehr als 0,5 s und nicht nach `stopAll()`; Ton aus lädt nichts, ein Fehlschlag wird beim nächsten Anlass erneut versucht. Dazu: Klänge synthetisch, stumm schaltet Knoten ab, Spannung macht das Knarren lauter, ohne Audio-Kontext keine Ausnahme, `webkitAudioContext`-Rückfall; **Freigabe**: vor der ersten Nutzergeste entsteht weder Knoten noch Kontext, die Klänge eines Tipps werden auch bei noch angehaltenem Kontext geplant, und `unlock()` bittet erneut um Freigabe (auch nach „interrupted") |
 | `src/infrastructure/storage/localStorageLog.test.ts` | Ablage, kaputtes JSON, privater Modus, Übernahme früherer Speicher-Schlüssel; Einträge, die kein Protokolleintrag sind, werden übergangen; scheitert das Schreiben über einem älteren Stand, gilt bis zum nächsten Erfolg der Arbeitsspeicher; Löschen räumt auch die früheren Schlüssel |
 | `src/infrastructure/storage/localStorageSettings.test.ts` | Einstellungen: Ablage, kaputtes JSON, Übernahme früherer Speicher-Schlüssel; die Grenzen 1 und 12 werden angenommen, darunter/darüber verworfen |
-| `src/infrastructure/storage/httpRemoteLog.test.ts` | Sicherungscode aus der Adresse (`?s=…`): gemerkt für den Wechsel zur Statistik, ohne Code keine Sicherung, was kein Code ist, wird abgewiesen und nicht abgelegt, gesperrte Ablage wirft nicht; Adresse über den Basis-Pfad; der Abruf übergeht, was kein Protokolleintrag ist, und wirft bei unbekanntem Code, Nicht-Liste und abgelehntem Schreiben |
+| `src/infrastructure/storage/httpRemoteLog.test.ts` | Sicherungscode aus der Adresse — als Pfad (`…/s/<code>`, auch mit Schluss-Schrägstrich und unter einem Basis-Pfad; aus anderen Pfaden wird nichts gelesen) oder als Abfrage (`?s=…`): gemerkt für den Wechsel zur Statistik, ohne Code keine Sicherung, was kein Code ist, wird abgewiesen und nicht abgelegt, gesperrte Ablage wirft nicht; Adresse über den Basis-Pfad; der Abruf übergeht, was kein Protokolleintrag ist, und wirft bei unbekanntem Code, Nicht-Liste und abgelehntem Schreiben |
 | `src/presentation/game/backupSync.test.ts` | Verdrahtung der Sicherung: die Anzeige zieht nur nach, wenn sich die Ablage geändert hat; zwei Abgleiche laufen nacheinander; ein Fehlschlag wird gemeldet, wirft nicht und wird beim nächsten Mal nachgeholt; Löschen ersetzt die Sicherung; der Abgleich läuft auch **ohne** Zuhörer für den Status (so ist die Spielseite verdrahtet); der Satz der Statistikseite nennt die Rundenzahl mit ihrem Substantiv |
-| `src/backupWorker.test.ts` | Sonde für `worker/backup.js` gegen eine nachgestellte Datenbank: ein bekannter Code liest und schreibt, ein unbekannter legt **nichts** an (weder beim Lesen noch beim Schreiben), nur JSON-Listen werden angenommen, zu große Sendungen und andere Methoden abgewiesen, die Antwort wird nicht zwischengespeichert |
+| `src/backupWorker.test.ts` | Sonde für `worker/backup.js` gegen eine nachgestellte Datenbank: unter der Startadresse `s/<code>` kommt die Spielseite, unter etwas, das kein Code ist, nichts; ein bekannter Code liest und schreibt, ein unbekannter legt **nichts** an (weder beim Lesen noch beim Schreiben), nur JSON-Listen werden angenommen, zu große Sendungen und andere Methoden abgewiesen, die Antwort wird nicht zwischengespeichert |
 | `src/infrastructure/storage/browserPersistence.test.ts` | Bitte um dauerhaften Speicher (`navigator.storage.persist`): Zusage, schon bestehende Zusage (keine zweite Bitte), Verweigerung als „best-effort", fehlende Schnittstelle, und ein Browser, der wirft oder ablehnt, hält nichts an |
 | `src/infrastructure/haptics/browserHaptics.test.ts` | Vibrations-Adapter: fehlende Schnittstelle ist kein Fehler, Muster werden durchgereicht |
 | `src/render-probe.test.ts` | Zeichnungs-Sonde: schreibt je Lebewesen ein SVG zum Ansehen und unter `zahnzahlen/` eines je Zahnzahl (1–12) für `scripts/pruefen-zahnsicht.py`; Katalog und Zeichnungen decken sich |
@@ -182,10 +182,11 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 15. **Sicherungs-Sonde** — `scripts/pruefen-sicherung.py` lädt die **gebaute** Seite und stellt die
    Sicherung nach (der echte Worker bleibt unberührt): ohne Code keine Anfrage; mit Code sichert
-   das Gerät; nach dem Leeren der Ablage sind Runden und Sterne wieder da; die Statistikseite
+   das Gerät; nach dem Leeren der Ablage sind Runden und Sterne wieder da — auch über die
+   Startadresse ohne Abfrage-Teil (`s/<code>`); die Statistikseite
    nennt die gesicherten Runden; eine gespielte Runde landet in der Sicherung; Löschen leert sie;
    ohne Server sagt die Seite es und das Spiel läuft weiter. Vorher `pnpm build` und
-   `pnpm preview --port 4322`. Erwartet: dreizehn Zeilen `ok` und `Auffälligkeiten: 0` (Exit 0).
+   `pnpm preview --port 4322`. Erwartet: vierzehn Zeilen `ok` und `Auffälligkeiten: 0` (Exit 0).
    `uv run --with playwright python scripts/pruefen-sicherung.py`
 
 ## Zwei Regeln für Zeitgeber in Sonden

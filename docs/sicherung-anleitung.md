@@ -31,13 +31,13 @@ Alles, was die Seite **im** Gerät ablegt, ist weg. Zwei Dinge überstehen das L
    gehört zu den Einstellungen des Profils, nicht zu den Daten der Seite;
 2. **ein Server**.
 
-Also trägt die Adresse einen Sicherungscode (`…/?s=<code>`), und der Stand liegt unter diesem Code
+Also trägt die Adresse einen Sicherungscode (`…/s/<code>`), und der Stand liegt unter diesem Code
 auf einem kleinen Server. Beim Start holt die Seite ihn, nach jeder Änderung schreibt sie ihn zurück.
 
 ```text
 Gerät (Ablage wird verworfen)                 Cloudflare
 ┌──────────────────────────────┐              ┌───────────────────────────────┐
-│ Start über …/?s=<code>       │  GET  ─────► │ Worker  /api/log/<code>       │
+│ Start über …/s/<code>        │  GET  ─────► │ Worker  /api/log/<code>       │
 │ Ablage (localStorage)        │ ◄─────  Liste│   └─ D1: logs(code, body, …)  │
 │ Zusammenführen, anzeigen     │  PUT  ─────► │                               │
 └──────────────────────────────┘              └───────────────────────────────┘
@@ -53,7 +53,8 @@ den Code trägt. Der Worker kennt nur Codes, die der Betreiber selbst angelegt h
   Nur dann kann ein Worker unter demselben Ursprung antworten (`<seite>/api/*`). Hier:
   `zahn-agent.schaflabs.com` → CNAME auf GitHub Pages, proxied.
 - Ein Cloudflare-Konto im kostenlosen Tarif genügt (Grenzen unten).
-- Wo die Seite ausgeliefert wird, ist gleich (hier GitHub Pages) — der Worker fängt nur `/api/*` ab.
+- Wo die Seite ausgeliefert wird, ist gleich (hier GitHub Pages) — der Worker fängt nur `/api/*`
+  und `/s/*` ab.
 
 **Warum derselbe Ursprung?** Ein Kinderprofil lässt oft nur freigegebene Domains durch; ein Abruf
 zu `*.workers.dev` könnte dort scheitern. Derselbe Ursprung braucht außerdem kein CORS. Ist der
@@ -72,7 +73,7 @@ claude mcp add --transport http cloudflare https://mcp.cloudflare.com/mcp
 Danach in Claude Code `/mcp` → `cloudflare` → anmelden (Browser, OAuth). Der Eintrag liegt in der
 privaten Konfiguration (`~/.claude.json`), nicht im Repo.
 
-Dieselben vier Schritte gehen auch im Dashboard oder mit `wrangler` — **diese beiden Wege sind
+Dieselben Schritte gehen auch im Dashboard oder mit `wrangler` — **diese beiden Wege sind
 hier nicht gefahren**. Gefahren wurden diese API-Aufrufe (`<konto>` = Konto-ID, `<zone>` = Zonen-ID):
 
 | # | Aufruf | Inhalt |
@@ -82,6 +83,7 @@ hier nicht gefahren**. Gefahren wurden diese API-Aufrufe (`<konto>` = Konto-ID, 
 | 3 | `POST /accounts/<konto>/d1/database/<uuid>/query` | `{ "sql": "INSERT INTO logs (code, body, updated_at) VALUES (?, ?, ?)", "params": ["<code>", "[]", "<zeitpunkt>"] }` |
 | 4 | `PUT /accounts/<konto>/workers/scripts/zahn-agent-backup` | `multipart/form-data` mit zwei Teilen: `metadata` (JSON, unten) und `backup.js` (die Datei `worker/backup.js`, Typ `application/javascript+module`) |
 | 5 | `POST /zones/<zone>/workers/routes` | `{ "pattern": "zahn-agent.schaflabs.com/api/*", "script": "zahn-agent-backup" }` |
+| 6 | `POST /zones/<zone>/workers/routes` | `{ "pattern": "zahn-agent.schaflabs.com/s/*", "script": "zahn-agent-backup" }` |
 
 Die `metadata` aus Schritt 4:
 
@@ -111,14 +113,23 @@ curl -s -w ' [%{http_code}]\n' $U/fremd-abcd-efgh-9999                    # {"er
 curl -s -w ' [%{http_code}]\n' -X PUT -d '[]' $U/fremd-abcd-efgh-9999     # {"error":"not-found"} [404]
 curl -s -w ' [%{http_code}]\n' -X PUT -d '[]' $U/<code>                   # [204]  — Probe wieder leeren
 curl -s -o /dev/null -w '[%{http_code}]\n' https://<seite>/               # [200]  — die Seite lädt weiter
+curl -s -o /dev/null -w '[%{http_code}]\n' https://<seite>/s/<code>       # [200]  — die Startadresse liefert die Spielseite
+curl -s -w ' [%{http_code}]\n' https://<seite>/s/kurz                     # {"error":"not-found"} [404]
 ```
+
+Eine neue Route greift nicht sofort: der erste Abruf von `/s/<code>` kam hier noch von GitHub
+Pages zurück (`404`, „File not found"), Sekunden später antwortete der Worker. Wer gleich nach dem
+Anlegen prüft, wiederholt den Abruf, bevor er einen Fehler sucht. Die Antwort auf `/s/<code>` wurde
+danach Byte für Byte mit der Spielseite unter `/` verglichen: gleich.
 
 ## Schritt 2 — der Worker
 
 Die ganze Datei: [`worker/backup.js`](../worker/backup.js), rund 70 Zeilen, ohne Abhängigkeiten.
 Was sie tut, und was davon nicht verhandelbar ist:
 
-- `GET /api/log/<code>` liefert den Stand, `PUT` ersetzt ihn. Mehr nicht.
+- `GET /api/log/<code>` liefert den Stand, `PUT` ersetzt ihn.
+- `GET /s/<code>` liefert die Spielseite unverändert aus (der Worker holt `/` vom Ursprung) — die
+  **Startadresse ohne Abfrage-Teil**, siehe „Die Startadresse" unten.
 - **Ein unbekannter Code ist „nicht gefunden" — beim Lesen und beim Schreiben.** Der Worker legt
   nie eine Zeile an. Sonst könnte sich jeder von außen Speicherplatz holen.
 - Angenommen wird nur eine JSON-Liste bis 1,9 MB (D1 nimmt je Zeile höchstens 2 MB).
@@ -136,7 +147,7 @@ Geprüft wird die Datei, die ausgeliefert wird, gegen eine nachgestellte Datenba
 
 | Baustein | Datei | Aufgabe |
 |---|---|---|
-| Code lesen | `infrastructure/storage/httpRemoteLog.ts` (`backupCode`) | `?s=` aus der Adresse, geprüft gegen die Code-Regel; zusätzlich abgelegt, damit er beim Wechsel zwischen den Seiten weiter gilt |
+| Code lesen | `infrastructure/storage/httpRemoteLog.ts` (`backupCode`) | aus dem Pfad (`…/s/<code>`) oder aus `?s=`, geprüft gegen die Code-Regel; zusätzlich abgelegt, damit er beim Wechsel zwischen den Seiten weiter gilt |
 | Adresse | dieselbe Datei (`backupUrl`) | `<Basis-Pfad>api/log/<code>` |
 | Abrufen, Schreiben | dieselbe Datei (`HttpRemoteLog`) | `fetch` mit `cache: 'no-store'`; was zurückkommt, geht durch dieselbe Prüfung wie jede andere Eingabe von außen |
 | Zusammenführen | `core/domain/sessionLog.ts` (`mergeRoundLogs`) | reine Funktion, siehe unten |
@@ -158,6 +169,24 @@ gewinnt, mit einem Zeitstempel). Das ist hier **nicht gebaut**.
 **Wann abgeglichen wird:** beim Laden jeder Seite, nach jedem abgeschlossenen Eintrag (hier das
 Ereignis `kroko:round-finished`), nach einem Import. „Löschen" ist der einzige Fall, der die
 Sicherung **ersetzt** statt abgleicht.
+
+## Die Startadresse: Pfad statt Abfrage
+
+Der erste Entwurf trug den Code als Abfrage: `…/?s=<code>`. Im Kinderprofil als erlaubter
+Webinhalt freigegeben, **löschte das Tablet diese Freigabe nach einiger Zeit von selbst wieder**
+(gemeldet am 13.10.2026). Die Vermutung des Auftraggebers: der Abfrage-Teil in der Adresse. Das
+ist **nicht gemessen** — niemand hat dem Tablet dabei zugesehen.
+
+Die Antwort darauf ist eine Adresse, die wie eine gewöhnliche Seite aussieht: `…/s/<code>`. Eine
+statisch ausgelieferte Seite kennt solche Pfade nicht, also liefert der Worker dort die
+Spielseite aus, und die Seite liest den Code aus dem Pfad. Zwei Bedingungen:
+
+- **Jeder Verweis der Seite ist absolut** (`/_astro/…`, `/favicon.svg`, `/statistik`). Ein
+  relativer Verweis zeigte unter `/s/<code>` auf `/s/_astro/…` — ins Leere. Vorher im gebauten
+  HTML nachsehen (`grep -o '\(href\|src\)="[^"]*"' dist/index.html`).
+- **Die Abfrage-Form bleibt gültig.** Wer die alte Adresse schon eingetragen hat, verliert nichts.
+
+Ob das Tablet die Freigabe **dieser** Adresse behält, ist offen (Stand 13.10.2026).
 
 ## Die Fallen, in die wir getreten sind
 
@@ -190,17 +219,18 @@ Sicherung **ersetzt** statt abgleicht.
 | Was | Womit | Erwartet |
 |---|---|---|
 | Regeln und Verdrahtung | `pnpm gate` | grün |
-| die gebaute Seite im echten Browser, Sicherung nachgestellt | `pnpm build`, `pnpm preview --port 4322`, dann `python scripts/pruefen-sicherung.py` | dreizehn Zeilen `ok`, `Auffälligkeiten: 0` |
+| die gebaute Seite im echten Browser, Sicherung nachgestellt | `pnpm build`, `pnpm preview --port 4322`, dann `python scripts/pruefen-sicherung.py` | vierzehn Zeilen `ok`, `Auffälligkeiten: 0` |
 | der Start ohne Netz nach der Änderung am Service Worker | `python scripts/pruefen-offline.py` | zehn Zeilen `ok`, `Auffälligkeiten: 0` |
 | der echte Worker | die `curl`-Zeilen aus Schritt 1 | wie dort notiert |
 
 Die Sonde `pruefen-sicherung.py` stellt genau den Anlass nach: Ablage leeren, Seite mit Code
-öffnen, Runden **und Sterne** sind wieder da. Sie rührt den echten Worker und den echten Code
+öffnen, Runden **und Sterne** sind wieder da — über beide Formen der Adresse. Sie rührt den echten Worker und den echten Code
 nicht an.
 
 **Was keine Sonde zeigt** (Stand 13.10.2026 noch offen, nur am Gerät prüfbar):
 
-- Bleibt der Code in der Startadresse des Kinderprofils erhalten?
+- Behält das Kinderprofil die freigegebene Startadresse `…/s/<code>`? (Die Form `?s=<code>`
+  behielt es nicht.)
 - Lässt das Kinderprofil den Abruf an `api/…` durch?
 
 Dafür gibt es die Zeile „Sicherung: …" auf der Statistikseite: fehlt sie, kam der Code nicht an;
@@ -210,8 +240,8 @@ steht dort „nicht erreichbar", blockt das Profil den Abruf; steht eine Rundenz
 
 1. Die Adresse mit Code einmal auf einem Gerät öffnen, das den Stand **hat** (hier das
    Elternprofil) — damit wandert er in die Sicherung.
-2. Dieselbe Adresse auf dem Gerät, das ihn verliert, als **Startpunkt** eintragen — mit dem
-   `?s=…` am Ende.
+2. Dieselbe Adresse auf dem Gerät, das ihn verliert, als **Startpunkt** eintragen — die Form
+   `…/s/<code>`, ohne Abfrage-Teil.
 3. Etwas spielen, den Browser ganz schließen, über den Startpunkt wieder öffnen.
 
 ## Grenzen und Kosten
@@ -248,6 +278,6 @@ Kostenloser Tarif, Zahlen aus der Cloudflare-Doku (abgerufen am 13.10.2026):
 
 ## Abbauen
 
-Route löschen, Worker löschen, Datenbank löschen — in dieser Reihenfolge, im Dashboard unter
+Routen löschen, Worker löschen, Datenbank löschen — in dieser Reihenfolge, im Dashboard unter
 *Workers & Pages* und *D1*. Die Seite braucht keine Änderung: ohne Code ruft sie die Sicherung
 nicht, und mit Code meldet sie „nicht erreichbar". (Nicht gefahren.)
