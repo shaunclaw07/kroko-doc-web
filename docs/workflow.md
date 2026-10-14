@@ -45,6 +45,8 @@ uv run --with cairosvg python scripts/artwork-png.py \
   "$TMPDIR/zahn_agent-artwork/wolf.svg" wolf.png geschnappt   # auch offen | gedrueckt
 uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
   crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex  # README-Bild aus allen zwölf
+# Achtung: galerie.py liest die SVGs aus $TMPDIR -- erst die Sonde, dann galerie.py im SELBEN $TMPDIR laufen
+# lassen. Sonst baut das Bild aus alten SVGs (am 14.10.2026 passiert: 657678 statt 657929 Bytes).
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # liegt ein Zahn unter dem Gesicht?
 ```
 

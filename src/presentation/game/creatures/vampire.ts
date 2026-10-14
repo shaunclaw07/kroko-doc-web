@@ -133,7 +133,10 @@ export const vampireArtwork: CreatureArtwork = {
       if (Math.abs(index - front) === 1) {
         return { kind: 'cone' as const, length: 86, width: 26 };
       }
-      if (index <= 1 || index >= count - 2) {
+      // Die Backenzaehne spiegeln ueber den Zwilling count - i: zu 1 gehoert count - 1 (die 0 ist
+      // ihr eigener Zwilling). Mit count - 2 lag einer der beiden Backenzaehne daneben
+      // (gefunden am 14.10.2026).
+      if (index <= 1 || index >= count - 1) {
         return { kind: 'square' as const, length: 44, width: 42 };
       }
       return { kind: 'flat' as const, length: 46, width: 34 };

@@ -1974,3 +1974,63 @@ Ihre Auskunftszeile sagt jetzt, dass der kurze Kachelname zu den beiden verkürz
 `docs/workflow.md` nennt ihr die richtige Adresse, und `AGENTS.md` führt die Falle als
 vierunddreißigsten Eintrag.
 
+## 5al. Unabhängige Fremdprüfung der Zeichnungen — und was davon echt war (14.10.2026)
+
+**Auftrag** (Board `t_ebc4d1ff`, gestellt am 11.10.2026): eine **Read-only-Fremdprüfung mit eigener
+Methode** zu Katalog/Registry, Windungsrichtung der Silhouette, Pixelmessung beider Augen,
+Galerie-Maßen, Schließweg-Tabelle und der Symmetrieregel i ↔ count − i für die zehn Zeichnungen.
+
+**Vorgehen.** Zwei unabhängige Prüfer (eigener Kontext, eigenes Terminal, **nur lesend** — keine
+Datei im Baum angefasst, Arbeitsdateien unter `$TMPDIR/fremdpruefung-a|b/`). Beiden war ausdrücklich
+verboten, die Sonden des Repos als Beleg zu benutzen (sie sind der Prüfgegenstand, nicht der Zeuge):
+Prüfer A rechnete die Quellen nach (eigene Parser, dynamischer Import der Module), Prüfer B maß die
+Artefakte (eigener XML-Parser + Shoelace für die Windung, eigenes Rastern und eigene Pixelanalyse,
+eigene Bildvermessung). Danach habe ich **jede** Behauptung selbst nachgeprüft (Regel aus
+`docs/pruefung-unabhaengig.md`) — mit einer dritten Methode: die `data-tooth`/`data-kind`-Attribute
+im erzeugten SVG auslesen, statt die Code-Logik nachzubauen.
+
+**Befunde und Einordnung**
+
+| Befund des Prüfers | Meine Nachprüfung | Einordnung |
+|---|---|---|
+| Katalog/Registry: 12 Lebewesen, alle Pflichtfelder, Kachelnamen ≤ 12 Zeichen, Katalog und Zeichnungen decken sich in beiden Richtungen | bestätigt (acht Tiere ohne kurzen Namen; Säbelkatze 10, Fliegenfalle 12 Zeichen) | **OK** |
+| Zahn-**Positionen** spiegeln exakt: x(i) = 640 − x(count − i), Fehler 1,1e−13 | bestätigt, bei mir **0,00** auf allen zwölf — die Gleichheit gilt für volle Ringe exakt | **OK** |
+| **Zahnarten** spiegeln nicht bei allen: Mensch (Paare (3,9) und (4,8)), Vampir ((2,10)) | bestätigt, und über **alle** Zahnzahlen: Mensch 7–12, Vampir 3/5/7–12; Panther und Säbelzahntiger nur bei **ungeraden** Zahlen | **echt — behoben** |
+| Schließweg-Tabelle: die sieben genannten Werte stimmen | bestätigt (232/226/222/222/222/220/220) | **OK** |
+| Schließweg-Tabelle ist unvollständig: fünf von zwölf fehlen | bestätigt: Hai 220, Maus 210, Vampir 198, Venusfliegenfalle 178, T-Rex 222 | **echt — behoben** |
+| Windung: „die runden Ohren laufen in gleicher Richtung" ist falsch — Maus, Löwe, Panda und Säbelzahntiger laufen **entgegen** und schneiden Fläche weg | bestätigt: die Ohren tragen `A … 0 1 0` (Gegenuhrzeigersinn), der Kopf läuft im Uhrzeigersinn; gleichsinnig ist nur der Panther | **echt — Doku korrigiert, Zeichnung bewusst gelassen** |
+| `clip-rule`/`fill-rule` steht in keinem SVG; eine evenodd-Fassung rendert pixelgleich | bestätigt (nonzero ist die Vorgabe; beide Regeln liefern hier dasselbe) | **OK** |
+| Beide Augen sind sichtbar, die Linsen spiegeln exakt (Abweichung 0) | bestätigt | **OK** |
+| Der Glanzpunkt sitzt auf beiden Augen oben links (nicht gespiegelt) | bestätigt | **OK** |
+| **Pupillen** spiegeln nicht (3–4 Einheiten gleichsinnig versetzt); die Anleitung nennt nur den Glanzpunkt als Ausnahme | bestätigt; das Verhalten ist gewollt (beide Augen schauen in dieselbe Richtung), der Wortlaut war unvollständig | **echt — Doku geschärft** |
+| „Kein Zahn verdeckt ein Auge" gilt nicht absolut: bei fünf Zähnen bis 1,29 % | bestätigt; bei der Standardzahnzahl 0 px, alles unter der 2-%-Schwelle der Sonde | **echt — Doku mit Zahlen geschärft** |
+| Galerie: der gestellte Befehl mit zehn Tieren ergibt ein anderes Bild | bestätigt — veraltet war der **Auftrag** (zehn Tiere), nicht die Datei: mit zwölf Tieren ist der Neubau bildgleich | **Fehlalarm (Auftrag stale)** |
+| Repo unverändert, keine Prozesse zurückgelassen | bestätigt (Prüfsumme `docs/bilder/gebisse.png` vor und nach dem Lauf gleich, `git status` leer) | **OK** |
+
+**Behoben (TDD, Test zuerst):** neuer Vertragstest in `creatureViews.test.ts` — „spiegelt die
+Zahnarten über die Zwillingsregel", geprüft bei der Standardzahnzahl **und** bei jeder geraden
+Zahnzahl. Rot vor der Korrektur: `human/12: Zahn 4 gegen Zwilling 10: expected 'cone' to be 'square'`.
+Dann die zwei Stellen im Baum: der Mensch spiegelte seine Eckzähne über `count − 1 − i` (die alte
+Regel, die am 11.10.2026 schon aus Wolf, Löwe und Panda entfernt wurde) und bekam mit `count − 4`
+den zweiten Eckzahn eine Position daneben; der Vampir hatte mit `count − 2` einen Backenzahn zu
+viel. Nach der Korrektur sind **alle geraden Zahnzahlen bei allen zwölf Lebewesen spiegelgleich**;
+bei ungeraden Zahlen bleiben nur die bewusst flankierenden Eckzähne von Vampir, Panther und
+Säbelzahntiger unsymmetrisch (die Ringmitte oben trägt dort keinen Zahn) — das steht jetzt in
+`AGENTS.md` und `docs/tiermodell-anleitung.md`.
+
+**Zwei Fallen in diesem Lauf, beide selbst getreten und festgehalten**
+
+- `scripts/galerie.py` liest die SVGs aus `$TMPDIR`. Wer die Sonde mit gesetztem `$TMPDIR` laufen
+  lässt und `galerie.py` ohne, baut das README-Bild aus **alten** SVGs — am 14.10.2026 passiert:
+  657678 Bytes (der alte Stand) statt 657929 Bytes. Das Rezept in `docs/workflow.md` warnt jetzt.
+- `scripts/pruefen-zahnsicht.py` nimmt **Tier-Filter**, keine Adresse. Mit einer Adresse als Argument
+  filtert sie auf null Tiere und meldet „0 Zeichnungen geprüft, 0 Auffälligkeiten" — ein **falsches
+  Grün**. Richtig aufgerufen: `TMPDIR=… uv run --with playwright python scripts/pruefen-zahnsicht.py`
+  → 144 Zeichnungen, 0 Auffälligkeiten.
+
+**Nachgeprüft nach den Korrekturen:** Gate grün **529 Tests in 37 Dateien** (der neue Test), Bau 2
+Seiten in 709 ms, `pruefen-zahnsicht` **144 Zeichnungen / 0 Auffälligkeiten**, `pruefen-freischaltung`
+(Kacheln gleich groß), `pruefen-tiere` (12 Kacheln, „in Ordnung"), Zahlendoku scharf Exit 0, Pfade
+32/32. Das README-Bild der Gebisse ist mit den korrigierten Mäulern neu gebaut
+(`docs/bilder/gebisse.png`, `b35bbb2e…`).
+

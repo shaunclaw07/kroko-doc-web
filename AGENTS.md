@@ -275,7 +275,13 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   von den Augen"). Kein Test sah es — sie prüfen Markup, nicht Deckung, und die Bilder der Sonde
   zeigen nur die Standard-Zahnzahl. Seitdem liegen alle runden Gesichtsformen außerhalb der
   Ringellipse (`creatureViews.test.ts`), und `scripts/pruefen-zahnsicht.py` misst die Deckung für
-  jede Zahnzahl im Browser (erwartet: 0 Auffälligkeiten). Anleitung: `docs/tiermodell-anleitung.md`.
+  jede Zahnzahl im Browser (erwartet: 0 Auffälligkeiten unterhalb der 2-%-Schwelle). **Nachgemessen am
+  14.10.2026** (unabhängiger Prüfer): bei der Standardzahnzahl deckt kein Zahn ein Auge (0 px), bei
+  **fünf** Zähnen ragen die verbreiterten Zahn-Ecken aber minimal unter den Augenrand — Panther
+  0,86 %, Löwe 0,66 %, Säbelzahntiger 1,29 % eines Zahns (der Vampir-Fall mit 1,88 % bei drei Zähnen
+  ist das Monokel, keine Deckung durch Zähne). „Kein Zahn verdeckt ein Auge" gilt also für die
+  Standardzahl exakt und für wenige Zähne mit dieser kleinen Restdeckung. Anleitung:
+  `docs/tiermodell-anleitung.md`.
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -284,8 +290,15 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   weggeschnitten — dem Panther fehlte im ersten Entwurf das rechte Auge (im gerasterten PNG
   gemessen: Pixel (470,166) war Fellfarbe statt Weiß, links dagegen korrekt). Teilpfade einer
   Silhouette immer **gleichsinnig** laufen lassen: die Spiegelung notiert man rückwärts durchlaufen
-  (letzten Punkt zuerst). Die runden Ohren der anderen Tiere sind Bogensegmente in gleicher
-  Richtung — deshalb fiel die Falle dort nie auf.
+  (letzten Punkt zuerst). **Nachgemessen am 14.10.2026** (unabhängiger Prüfer, dann eigene Rechnung an
+  den erzeugten SVGs): die Ohren von Maus, Löwe, Panda und Säbelzahntiger laufen **entgegen** dem Kopf
+  (`A … 0 1 0`), dort hebt sich die Fläche im Überlappungsbereich also wirklich auf (Maus 15,1 % des
+  Ohrs, Panda 30,7 %, Löwe 8,2 %, Säbelzahntiger 0,4 %) — im gerasterten Bild sichtbar als Kopflinie,
+  die durchs runde Ohr läuft; gleichsinnig sind nur die eckigen Panther-Ohren. Die alte Behauptung
+  „die runden Ohren der anderen Tiere sind Bogensegmente in gleicher Richtung" war falsch. Beim Panda
+  wirkt die Aufhebung als Schutz gegen die Zahnfleisch-Ebene über dem schwarzen Ohr — wer dort die
+  Laufrichtung umdreht, muss das Ohr nachprüfen. Die `clip-rule` ist dabei gleichgültig: die SVGs
+  tragen keine Angabe (nonzero), und eine evenodd-Fassung rendert pixelgleich (0 Unterschiede).
 
 - **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
   gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der

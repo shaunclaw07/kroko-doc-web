@@ -31,7 +31,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
 `dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
-`pnpm install` läuft durch, 528 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
+`pnpm install` läuft durch, 529 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
 Werte: 1,69 · 1,74 · 1,74 · 1,78 · 1,83 · 1,90 · 2,17 · 2,23 s sowie 2,84 s für den ersten Lauf eines
 kalten Baums).
 
@@ -116,7 +116,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **528 Tests in 37 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **529 Tests in 37 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -257,7 +257,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **528 in 37 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **529 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |
@@ -267,7 +267,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
 | 4 Spieler reihum | 33,9 % / 28,3 % / 20,7 % / 17,0 % | ebenda (Startspieler verliert am häufigsten) |
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
-| Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · Panther 220,0 · Panda 220,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
+| Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · T-Rex 222,0 · Hai 220,0 · Panther 220,0 · Panda 220,0 · Maus 210,0 · Vampir 198,0 · Venusfliegenfalle 178,0 SVG-Einheiten (**alle zwölf**) | berechnet als `2·ry − Banddicke oben − Banddicke unten`, am 14.10.2026 für alle zwölf nachgerechnet |
 | Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | **gerechnet**: 2 · Trefferradius 49,4 px · Skala (286/640) = 44,15 px. `getBoundingClientRect` eines `.tooth__hit` ist dafür **kein** Maß — die Trefferbox ist auf dem Ring gedreht, und der Browser liefert ihr Achsen-Rechteck (52,48 px, gemessen). Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
 | Tier-Auswahl der veröffentlichten Seite | **12 Kacheln** in der Reihenfolge der Freischaltung (Krokodil, Maus, Wolf, Hai … Panther, Säbelzahntiger, Venusfliegenfalle, T-Rex), 12 sichtbare Kopfbilder mit 12 **eigenen** Beschnitten, 71 px Kachelbild bei 390 px Breite, zwei Kacheln mit kurzem Namen („Säbelkatze“, „Fliegenfalle“), dazu die Notizen von Löwe und Panther im Blatt | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 14.10.2026 |
 

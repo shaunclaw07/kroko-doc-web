@@ -352,4 +352,34 @@ describe('Kopfbilder für die Auswahl', () => {
       }
     }
   });
+
+  it('spiegelt die Zahnarten über die Zwillingsregel (Zwilling von i ist count - i)', () => {
+    // Zahn 0 sitzt in der Ringmitte unten, Zahn count/2 in der Ringmitte oben. Der Spiegelpartner
+    // von Zahn i (im Markup 1-basiert) ist deshalb count + 2 - i.
+    //
+    // Geprüft wird bei der Standardzahnzahl jedes Lebewesens und bei jeder GERADEN Zahnzahl. Bei
+    // ungeraden Zahlen trägt die Ringmitte oben keinen Zahn (nur bei geraden liegt dort einer);
+    // dort flankieren die Eckzähne von Vampir, Panther und Säbelzahntiger bewusst die Mitte und
+    // sind dann nicht spiegelgleich — siehe AGENTS.md, „Freundliche Zeichnung".
+    const kindsOf = (markup: string): string[] =>
+      [...markup.matchAll(/data-tooth="(\d+)" data-kind="(\w+)"/g)]
+        .map((match) => [Number(match[1]), match[2] ?? ''] as const)
+        .sort((a, b) => a[0] - b[0])
+        .map(([, kind]) => kind);
+
+    for (const creature of CREATURES) {
+      const counts = new Set([creature.teeth, MAX_TEETH]);
+      for (const count of counts) {
+        if (count % 2 !== 0 || count < 2) continue;
+        const kinds = kindsOf(creatureView(creature.id, count).render());
+        expect(kinds, `${creature.id}/${count}`).toHaveLength(count);
+        for (let nr = 1; nr <= count; nr += 1) {
+          const partner = ((count - nr + 2 - 1) % count) + 1;
+          expect(kinds[nr - 1], `${creature.id}/${count}: Zahn ${nr} gegen Zwilling ${partner}`).toBe(
+            kinds[partner - 1],
+          );
+        }
+      }
+    }
+  });
 });

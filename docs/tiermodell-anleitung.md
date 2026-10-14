@@ -85,8 +85,12 @@ Dann:
    liegt die Braue als **Lid** direkt auf der oberen Augenkante (ein Bogen mit denselben Radien wie
    das Auge, z. B. `M 113 98 A 34 30 0 0 1 175 98`) oder entfällt (Löwe). Ein freier Strich würde
    vom Beschnitt angeschnitten.
-5. **Rechts ist gespiegelt:** `x_rechts = 640 − x_links`. Der Glanzpunkt bleibt auf beiden Augen
-   oben links (er wird nicht gespiegelt).
+5. **Rechts ist gespiegelt:** `x_rechts = 640 − x_links` — für Umriss, Linse und alles, was eine
+   Kontur hat. **Nicht** gespiegelt werden **Glanzpunkt** und **Pupillen-Versatz**: der Glanzpunkt
+   sitzt auf beiden Augen oben links, und die ruhende Pupille verschiebt sich auf beiden Seiten
+   gleichsinnig (damit beide Augen in dieselbe Richtung schauen). Gemessen am 14.10.2026: Linsen
+   spiegelgleich (Abweichung 0), Pupille um 3 bis 4 Einheiten gleichsinnig versetzt — auf dem Handy
+   unter 2 px.
 6. **Wangen** sind rosa Ellipsen (`#f2a8b6` bis `#f4a8b6`, Deckkraft 0,45 bis 0,5) im Fellstreifen
    seitlich **außerhalb** des Rings. Auf kräftigem Grün oder Blau wird halbdurchsichtiges Rosa
    schmutzig — beim Krokodil deshalb Deckkraft 0,85.
@@ -137,5 +141,10 @@ pnpm gate
 - Rachen warmes Rosenrot, Zahnfleisch die hellste Stufe, Zähne cremefarben und rund.
 - Umrisse in einer dunkleren Variante der Füllfarbe, nie schwarz.
 - Bühne 640 × 460, Ringmitte um x 320; alles spiegelsymmetrisch außer bewusstem Zubehör (Monokel).
+  Für die Zähne gilt die **Zwillingsregel**: der Spiegelpartner von Zahn i ist `count − i` (Zahn 0 in
+  der Ringmitte unten, Zahn `count/2` oben) — bewacht von `creatureViews.test.ts` bei der
+  Standardzahnzahl und bei jeder geraden Zahnzahl. Bei **ungeraden** Zahnzahlen trägt die Ringmitte
+  oben keinen Zahn; dort flankieren die Eckzähne von Vampir, Panther und Säbelzahntiger bewusst die
+  Mitte und sind dann nicht spiegelgleich.
 - Geometrie wird gerechnet, nicht gesetzt: Ring, Schließweg und Trefferflächen kommen aus
   `ring`, `upper.thickness` und `lower.thickness`.

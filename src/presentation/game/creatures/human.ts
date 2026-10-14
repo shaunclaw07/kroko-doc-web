@@ -91,10 +91,13 @@ export const humanArtwork: CreatureArtwork = {
   teethProfile: (count) =>
     Array.from({ length: count }, (_, index) => {
       // Mensch: hinten runde Backenzaehne, dann Eckzaehne, dazwischen Schneidezaehne.
-      if (index <= 2 || index >= count - 3) {
+      // Gespiegelt wird ueber die Ringmitte: der Zwilling von Index i ist count - i (Zahn 0 sitzt
+      // in der Ringmitte unten, Zahn count/2 oben). Die Eckzaehne liegen deshalb bei 3 und
+      // count - 3 -- mit count - 4 sassen sie eine Position daneben (gefunden am 14.10.2026).
+      if (index <= 2 || index >= count - 2) {
         return { kind: 'square' as const, length: 44, width: 42 };
       }
-      if (index === 3 || index === count - 4) {
+      if (index === 3 || index === count - 3) {
         return { kind: 'cone' as const, length: 54, width: 32 };
       }
       return { kind: 'flat' as const, length: 46, width: 36 };
