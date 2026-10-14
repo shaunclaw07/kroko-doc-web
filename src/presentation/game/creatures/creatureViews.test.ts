@@ -360,7 +360,8 @@ describe('Kopfbilder für die Auswahl', () => {
     // Geprüft wird bei der Standardzahnzahl jedes Lebewesens und bei jeder GERADEN Zahnzahl. Bei
     // ungeraden Zahlen trägt die Ringmitte oben keinen Zahn (nur bei geraden liegt dort einer);
     // dort flankieren die Eckzähne von Vampir, Panther und Säbelzahntiger bewusst die Mitte und
-    // sind dann nicht spiegelgleich — siehe AGENTS.md, „Freundliche Zeichnung".
+    // sind dann nicht spiegelgleich — siehe docs/tiermodell-anleitung.md, „Freundliche Zeichnung"
+    // (Abschnitt 7).
     const kindsOf = (markup: string): string[] =>
       [...markup.matchAll(/data-tooth="(\d+)" data-kind="(\w+)"/g)]
         .map((match) => [Number(match[1]), match[2] ?? ''] as const)

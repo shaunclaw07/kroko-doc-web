@@ -16,10 +16,10 @@ Gemeinsame Regeln für alle: [`docs/plaene/00-regeln.md`](plaene/00-regeln.md).
 
 | Paket | Inhalt | Datei | Braucht vorher | Risiko |
 |---|---|---|---|---|
-| 7 | `AGENTS.md` auf den Einstieg kürzen | [`docs/plaene/paket-7-agents-md.md`](plaene/paket-7-agents-md.md) | — | klein |
 | 8 | Linter ins Gate | [`docs/plaene/paket-8-linter.md`](plaene/paket-8-linter.md) | Entscheidung des Auftraggebers | klein |
 
-Empfohlene Folge: 1 → 2 → 3 → 4, dann 5; 6, 7 und 8 jederzeit dazwischen.
+Empfohlene Folge: 8, sobald der Auftraggeber entschieden hat (die Entscheidung steht in der
+Paketdatei).
 
 ## Eine Sitzung starten
 

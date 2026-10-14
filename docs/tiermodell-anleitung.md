@@ -132,7 +132,7 @@ pnpm gate
 - **Kommentare im Modul nachziehen.** Die Module erklären ihre Maße („der Maulrand liegt bei
   x 133") — eine verschobene Form mit altem Kommentar ist eine zweite Wahrheit.
 
-## 6. Stil in Kürze (Einzelheiten und Begründungen in `AGENTS.md`, „Freundliche Zeichnung")
+## 6. Stil in Kürze (die Einzelheiten und Begründungen stehen in Abschnitt 7, „Freundliche Zeichnung")
 
 - Erst die **Silhouette** unverwechselbar, dann das Fell. Teilpfade der Silhouette gleichsinnig —
   oder gar keine Teilpfade: die Höcker des T-Rex stehen im **selben** Pfad wie der Kopf.
@@ -148,3 +148,119 @@ pnpm gate
   Mitte und sind dann nicht spiegelgleich.
 - Geometrie wird gerechnet, nicht gesetzt: Ring, Schließweg und Trefferflächen kommen aus
   `ring`, `upper.thickness` und `lower.thickness`.
+
+## 7. Freundliche Zeichnung (für Kinder)
+
+Das Spiel ist für ein Kind gedacht: keine schwarzen Rachen, keine Spaltpupillen, keine
+riesigen Fangzähne. Regeln für neue Kunstwerke:
+
+- Rachen in warmem Rosenrot, nicht dunkel — es muss wie ein offener Mund aussehen, nicht wie ein Loch.
+- Zähne cremefarben, **rund** (Kegel mit runder Spitze), Umriss weich (`#dcd2b8`), niemals schneeweiß auf schwarz.
+- Zahnfleisch ist die **hellste** Stufe im Maul, damit die Zähne davor lesbar bleiben.
+- **Eine Katze erkennt man an den Ohren, nicht am Fell.** Der Panther trug zuerst die runden Ohren
+  des Pandas und las damit wie eine **schwarze Maus** (gemeldet vom Auftraggeber, 11.10.2026).
+  Katzenohren sind Dreiecke mit runder Spitze, nach außen gekippt; der Fuß liegt im Kopfumriss und
+  ist dort unsichtbar, nur die Spitze steht heraus. Dazu **Schnurrhaare** in dem schmalen
+  Fellstreifen neben dem Maul (auf fast schwarzem Fell brauchen sie einen mittleren Grauton).
+  Wer ein neues Tier zeichnet: erst die **Silhouette** unverwechselbar machen, dann das Fell.
+- **Zubehör gehört in die Körperebene.** Ein Hut (oder eine Brille) ragt über den Kopfumriss hinaus —
+  der Gesichtsbereich wird aber auf die Silhouette beschnitten (`factory.ts`, `mouthLayers`), dort
+  wäre die Krone abgeschnitten. Der **Mensch** trägt seinen rostroten Filzhut deshalb in `body`. In
+  die Silhouette gehört er nur, wenn ein Maulteil ihn erreicht; dann gilt die Gleichsinnigkeit
+  (Falle in `docs/fallen.md`: „Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins
+  Gesicht").
+- **Wer ist gemeint?** „Genau wie der Mensch … könnte man dem einen Hut anziehen" heißt *der Mensch*.
+  Ich hatte den Hut auf den Panther gesetzt (der Satz nannte beide), und der Nutzer musste
+  widersprechen. Bei „dem einen"/„dem anderen" in einer Nachricht mit **zwei** genannten Wesen:
+  nachfragen, statt zu raten.
+- **Was über der Schnauzenfläche liegen soll, gehört in den Gesichtsbereich.** Die Schnauzenfläche
+  (`upperShell`) wird in der **Mundebene** über die Körperebene gemalt — beim Menschen in derselben
+  Hautfarbe. Zubehör in `body` verschwindet darunter: die erste Haarfassung war im gerasterten Bild
+  unsichtbar (mit einer Farbkarte gemessen lag unter der Krempe bis y 110 nur Haut), obwohl der Pfad
+  korrekt im SVG stand. Der Hut bleibt trotzdem in `body`, weil seine Krone über den Umriss
+  hinausragt und der Gesichtsbereich beschnitten wird. Also: **Hut in `body`, Haare in `face`** —
+  je nachdem, was die Form braucht, und immer im gerasterten Bild nachsehen.
+  **Nachtrag 13.10.2026:** die Haare von damals liest der Auftraggeber als **Bart**, und im
+  Gesichtsbereich blieben sie beim Zuschnappen am Hut hängen, während die Nase nach unten fuhr.
+  Sie liegen jetzt in `upperExtra`, der Ebene der Nase. Die Regel dahinter steht unter „Das
+  geschlossene Maul": was sich mit dem Kiefer bewegen soll, gehört in dessen Ebene.
+- **Was über den Umriss hinausragen soll, gehört in die Körperebene — sonst schneidet der Beschnitt
+  es ab.** Die Ohren des Vampirs standen im Gesichtsbereich, und im gerasterten Bild fehlten ihre
+  Spitzen: die Spitze lag bei x 52, der Umriss bei y 116 aber erst bei x 110 — **58 px Ohren** schnitt
+  die Kontur weg. Gemessen, nicht am Code gesehen. Die **Gegenprobe ist billig**: das
+  Unterschieds-Rechteck zweier Rasterungen darf nur die geänderten Bereiche umfassen (der
+  Zuschnapp-Zustand des Vampirs änderte sich nur in x 24…616, y 111…396 — Kragen, Ohren, Monokel —,
+  die Maulmitte unten `(320,430)` blieb Pixel für Pixel gleich `(106,27,41)`).
+- **Der Stehkragen liegt in `body`, das Monokel in `face` — je nachdem, wer obenauf gehört.** Ein
+  Kragen, den man *hinter* dem Kopf trägt, muss in der Körperebene stehen (im Beschnitt wäre er
+  abgeschnitten, und der Kopf soll seine Innenkante verdecken); ein Monokel sitzt *auf* dem Auge und
+  bleibt innerhalb des Umrisses, gehört also über die Mundebene. Dieselbe Überlegung wie bei Hut
+  (`body`) und Haaren (`face`) des Menschen.
+- **Gleiche Rezeptur, gleiches Tier.** Ein Kreis mit rosa Innenkreis *ist* die Maus: der
+  Säbelzahntiger trug dieselbe Form (Kreis r 44, rosa Kreis r 20), nur etwas kleiner — im
+  Vierervergleich der Köpfe (Maus, Panther, Säbelzahntiger, Löwe) war er nicht zu unterscheiden, und
+  der Auftraggeber hat genau das gelesen. Köpfe unterscheiden sich über **Größe, Form und
+  Innenfarbe zusammen**: kleinere ovale Ohren (30 × 28) mit **dunkler** Innenfläche (`#b78243`) sind
+  Katzentier, große runde Kreise mit Rosa sind Maus. Maus und Löwe dürfen `#e8a0ae` behalten,
+  solange Form und Größe deutlich abweichen.
+- **Ein Fleck gehört dorthin, wo Fell ist — und er muss dort auch wirklich gezeichnet werden.**
+  Die Smilodon-Flecken sitzen als vierzehn Rosetten (Ring mit hellem Kern) nur im freien
+  Fellstreifen; im gerasterten Bild geprüft: Kern an der Position da, Ring über 72 Winkelgrade
+  abgetastet (alle vierzehn nachgewiesen, die vier am Fellrand zu 58–66 von 72 Grad, weil der
+  Kopfumriss sie anschneidet). Zwei Anläufe waren vorher falsch: **auf dem Ohr** (die Ohrenfläche
+  wird in der Körperebene *nach* den Flecken gezeichnet und deckte ihn zu — im Bild nicht zu finden)
+  und **auf der Stirn mit r 12/r 8** (der freie Fellstreifen ist dort nur rund 26 px breit, der Ring
+  lief über die Schnauzenkante; jetzt r 6).
+- **Die Doku-Prüfung nie mit `>/dev/null` laufen lassen.** `scripts/doku-pruefen.sh` meldet Treffer
+  alter Werte und **zählt sie nicht als Fund**, solange `ALTE_WERTE_STRIKT=1` fehlt — der Exit-Code
+  bleibt 0. So blieb „232 Tests grün" in der Startanleitung stehen, während dieselbe Datei zweimal
+  korrekt 234 nannte; gefunden hat es erst ein unabhängiger Prüfer. Scharf prüfen (`ALTE_WERTE_STRIKT=1`)
+  heißt: nur über die **Zahlendoku** (`README.md`, `docs/testing.md`). Über `AGENTS.md`,
+  `docs/workflow.md` und die Aufzeichnungen wird **meldend** geprüft — dort stehen alte Zahlen
+  absichtlich (als Lehre, im Aufruf-Beispiel) und würden falschen Alarm auslösen.
+- **`getBoundingClientRect` an einem gedrehten SVG-Element ist kein Maß für eine Fläche.** Die
+  Trefferbox sitzt auf dem Zahnring und ist gedreht; der Browser liefert das **Achsen-Rechteck**
+  (Kante an Kante, 52,48 px), nicht die Trefferfläche. Die 44,15 px im README sind gerechnet
+  (2 · Trefferradius 49,4 px · Skala 286/640) — die Zahl stimmte, die angegebene Herkunft nicht.
+  Wer eine Fläche behauptet, nennt die Rechnung; wer eine Messung behauptet, nennt das Werkzeug,
+  das sie wirklich liefert.
+- **Augen und Wangen liegen im Fellstreifen, nie auf dem Zahnring** — sonst verdecken sie je nach
+  Zahnzahl einen Zahn. Wo der Streifen schmal ist (Katzen, Panda, Hai), werden die Augen kleiner
+  und rücken neben die Nase; die Braue liegt dann als Lid auf der Augenkante.
+- Augen: weiße Linsen mit Glanzpunkt und rosa Wangen. Der Augapfel darf einen **hellblauen
+  Irisring** um die Pupille tragen (so sieht das Original-Spielzeug aus); die Pupille bleibt
+  dunkelbraun als Oval — kontrastarm, nie schwarz.
+- **Die Schnauze ist kein hellerer Fleck.** Beim Original ist der Kopf einfarbig, nur die Kontur
+  trennt Schnauze und Kopf. Falten werden als **Rille mit Grat** gezeichnet (dunkle Linie, helle
+  Linie darüber) — ein Paar gleich dicker Striche sieht wie ein Bewegungsschwung aus.
+- **Jedes Element gehört auf die Fläche, für die es gezeichnet ist.** „Sichtbar über dem Kieferband"
+  ist **keine** Platzierung: der Hai trug seine sechs Kiemenschlitze mitten im offenen Maul, weil sie nur
+  *über* einer Ebene lagen statt *außen* am Kopf. Gegen die Ringellipse rechnen (`ring.rx`/`ring.ry` um
+  `ring.cx`/`ring.cy`): was zum Kopf gehört, muss **außerhalb** liegen — und trotzdem Abstand zur
+  Silhouette, zu Augen, Ohren und Flossen halten (der Hai hat dafür nur eine Zone von rund 40 px).
+- Umrisse in einer dunkleren Variante der Füllfarbe (beim Krokodil `#5f8f1e` auf `#8fce33`), keine
+  schwarzen Linien.
+- Maul, Zähne und Gesicht werden in der Fabrik auf `silhouette` beschnitten — nichts darf
+  über den Kopf hinausragen, sonst hängen beim Zuschnappen rosa Bänder daneben.
+
+## 8. Das geschlossene Maul
+
+- **Ist das Maul zu, ist der Oberkiefer weg.** Er fährt zu (90 ms — das ist der Biss), dann
+  verschwinden sein Zahnfleischband und die Schnauzenfläche (`.creature.is-snapped .jaw__upper`,
+  `path.jaw__shell` in `presentation/styles/stage.css`). Übrig bleiben das Lächeln des Unterkiefers,
+  die unteren Zähne und die Nase, die mit der Schnauzen-Gruppe nach unten rutscht. Bis zum
+  13.10.2026 blieb der herabgefahrene Oberkiefer als zweiter Bogen unter dem Lächeln stehen — beim
+  Vampir lag er auf dem roten Kragen und sah wie ein zweiter Mund aus (gemeldet mit Bild).
+- **Was bei offenem Maul verdeckt ist, kommt beim Zuschnappen ans Licht.** Die Ohren des Vampirs
+  liefen als Dreiecke bis unter die Augen; die Schnauzenfläche deckte den Fuß zu — bis sie nach
+  unten fuhr und zwei Striche quer durchs Gesicht standen. Wer in `body` zeichnet, sieht sich die
+  Zeichnung **auch geschlossen** an, nicht nur offen.
+- **Was sich mit dem Kiefer bewegen soll, gehört in dessen Ebene.** Der Schnurrbart des Menschen
+  lag im Gesichtsbereich (`face`, bleibt liegen) und blieb beim Zuschnappen am Hut hängen, während
+  die Nase nach unten fuhr. Er liegt jetzt in `upperExtra` — der Ebene der Nase.
+- **Ein Zahn genau im Maulwinkel gehört zum Oberkiefer.** Bei 12 Zähnen sitzt je einer bei 0° und
+  180°; der Sinus liefert dort keine glatte Null, also fiel der linke zum Unterkiefer und blieb
+  bei geschlossenem Maul allein neben dem Lächeln stehen (`splitByJaw` in `creatures/factory.ts`).
+- Dieselben Regeln stehen an drei Stellen und müssen zusammen geändert werden: im Stylesheet
+  (`presentation/styles/stage.css`; `app.css` ist nur die Reihenfolge der Bauteile), in
+  `src/icon.test.ts` (das App-Symbol) und in `scripts/artwork-png.py` (der Rasterer).

@@ -72,19 +72,26 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|2,1–3,0 s|2,5 s|293 Tests|526 Tests|526 in 37|10 Kacheln|zehn Kacheln|neun gemeinfreie|10 sichtbare"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 # Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
-ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/e2e-nachweise.md
+ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/tiermodell-anleitung.md docs/workflow.md docs/e2e-nachweise.md
 python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
 ```
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
 zusätzlich noch stehende alte Werte. **`ALTE_WERTE_STRIKT=1` macht Treffer zum Fund (Exit 1)** — das
-gehört nur über die **Zahlendoku** (`README.md`, `docs/testing.md`): in `AGENTS.md`, in diesem Rezept
+gehört nur über die **Zahlendoku** (`README.md`, `docs/testing.md`): in `AGENTS.md`, in
+`docs/tiermodell-anleitung.md`, in diesem Rezept
 und in den Aufzeichnungen stehen alte Zahlen absichtlich (als Lehre, im Aufruf-Beispiel) und
 würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer nur und der Exit-Code
 bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
 nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
 Pfadangabe gegen das Dateisystem — eine Doku, die auf eine verschwundene Datei zeigt, fällt durch
 keine Zahlenprüfung auf.
+
+**Unter Windows läuft der Block nicht als PowerShell-Einzeiler:** `bash` ist dort WSL, und eine
+Umgebungsvariable aus PowerShell kommt darin **nicht** an (`ALTE_WERTE` ist leer; am 14.10.2026
+gemessen — mit `WSLENV='ALTE_WERTE'` käme sie an). Der Lauf endet dann mit Exit 0, obwohl er gar
+nicht nach alten Werten gesucht hat: eine stille Freigabe. Also den Block in eine `.sh`-Datei
+schreiben und die mit `bash <datei>` fahren.
 
 Ein Treffer **außerhalb der Zahlendoku** ist eine Kandidatenliste, kein Fehler: die Ausgabe wird
 angesehen und eingeordnet (Kommentarzeilen in Bash-Blöcken sind zum Beispiel korrekt).
@@ -105,7 +112,7 @@ oder gemeinsam mit dem Nutzer, aber immer **vor** der Planungsphase:
 - Erst danach beginnt die Planungsphase: Plan in `docs/plan.md`, dann umsetzen.
 - **`docs/plan.md` ist eine Arbeitsdatei, kein Archiv** (seit dem 13.10.2026): sie trägt nur das
   Feature, an dem gerade gearbeitet wird. Nach der Abnahme wandert das Bleibende an seinen Ort —
-  Regeln und Fallen nach `AGENTS.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach
+  Regeln nach `AGENTS.md`, Fallen nach `docs/fallen.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach
   `docs/e2e-nachweise.md`, Belege nach `docs/tier-quellen.md` — und die Datei wird geleert. Keine
   andere Doku verweist auf ihren Inhalt: ein Verweis zeigte nach dem nächsten Feature ins Leere.
 
@@ -280,8 +287,8 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 
 ## Die Sicherung der Runden
 
-Wozu und wie sie gebaut ist: `docs/architecture.md` und `AGENTS.md`; der ganze Weg zum Nachbauen
-steht in `docs/sicherung-anleitung.md`. Was bei Cloudflare liegt
+Wozu und wie sie gebaut ist: `docs/architecture.md` und `docs/sicherung-anleitung.md` — dort stehen
+die Regeln in Kürze und der ganze Weg zum Nachbauen. Was bei Cloudflare liegt
 (angelegt am 13.10.2026 über die Cloudflare-API, nicht über `wrangler`):
 
 | Was | Name |

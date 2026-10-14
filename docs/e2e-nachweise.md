@@ -213,7 +213,7 @@ Beispiel aus einem Bedienungs-Test: schnappt es beim dritten Druck, war Druck 2 
 Warum **nicht** mehr: das „Weitergeben" (Zug abgeben statt drücken) hätte den Balken zur echten
 Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus `pressOrder` ableitet
 (`round.ts`), und seine Wirkung ist nur an einem echten Tisch mit zwei oder mehr Spielern
-beurteilbar. Abgesagt und begründet als zehnte Falle in AGENTS.md.
+beurteilbar. Abgesagt und begründet als zehnte Falle in `docs/fallen.md`.
 
 ## 5f. Entscheidungen des Auftraggebers umgesetzt (11.10.2026)
 
@@ -225,7 +225,7 @@ Entscheidungen nehmen." — umgesetzt:
 | **Sattes Spielzeug-Grün** (die gegengerenderte Variante) | Krokodil-Farben `#8fce33` / `#a8dd4f` / `#5f8f1e`; Schnauzenband bleibt gleich der Körperfarbe | gerendert und angesehen (Dreier-Vergleich Original / weich / satt im Bericht); 18 Treffer der neuen Werte, 0 der alten |
 | **Rotglut bei 50 %** statt 60 % | `HIGH_DANGER = 0.5` — der vorletzte Krokodil-Druck (55,0 %) ist rot und **kann überstanden** werden, der Mut reicht bis ins Rote | zwei Stolperdrähte fielen bewusst und wurden neu gefasst (`tension.test.ts`, `statsView.test.ts`, `gameController.test.ts`) |
 | **Mut auf die Statistikseite** | `bravestRound` (Kern) + Kachel „Mutigste Runde" und ein Satz in `statsView.ts` | drei neue Kern-Tests: leer → null, höchste überstandene Gefahr gewinnt, Runden mit Schnapp beim ersten Druck zählen nicht |
-| **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in AGENTS.md |
+| **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in `docs/fallen.md` |
 | **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | begründet beim Sparring vom 11.10.2026 |
 
 ## 5g. Kinderfreundliche Oberfläche (11.10.2026)
@@ -743,7 +743,7 @@ fehlte damit das **rechte Auge**. Gemessen im gerasterten PNG (Pixelprobe, Maßs
 Weiß. Nach dem Umbau (beide Ohren gleichsinnig, das rechte rückwärts notiert, Ohren kleiner):
 `(470,166)` = `(74,51,32)`, `(490,166)` = `(255,255,255)` — beide Seiten gleich. Dazu kamen
 Schnurrhaare im Fellstreifen neben dem Maul (Maulrand dort bei x 120, Kopfrand bei x 88…96 — mehr
-als rund 30 px Länge gibt der Streifen nicht her). Die Falle steht in `AGENTS.md`.
+als rund 30 px Länge gibt der Streifen nicht her). Die Falle steht in `docs/fallen.md`.
 
 **Galerie:** `docs/bilder/gebisse.png` auf **zehn** Kacheln — 1970 × 566, 5 Spalten mal 2 Zeilen.
 Die Spaltenzahl rechnet `scripts/galerie.py` aus der Anzahl der Lebewesen (kleinste Teilerzahl ab
@@ -832,7 +832,7 @@ veröffentlichten Seite (10 Kacheln, 152 px, Katalogreihenfolge).
    dem Ring gedrehten Box — gemessen 52,48 px — und ist damit kein Maß für die Trefferfläche; die
    44,15 px sind gerechnet (2 · Trefferradius 49,4 px · Skala 286/640). Herkunft richtiggestellt.
 
-Beide Lehren stehen in `AGENTS.md`. Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
+Beide Lehren stehen in `docs/fallen.md`. Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
 (Audit-Kennung `sa-0-2a78f337`).
 
 ## 5q. Der Vampir bekommt Accessoires — und die Ohren durften endlich hinausragen (11.10.2026, spät)
@@ -865,7 +865,7 @@ ueberarbeiten?" Geworden sind es **Stehkragen und Monokel**, dazu die überarbei
   **`ERGEBNIS: in Ordnung`**. Kachel angesehen: Kragen, Ohrspitzen und Monokel sind auch bei 152 px
   zu erkennen.
 
-Die Lehren stehen in `AGENTS.md` („Was über den Umriss hinausragen soll, gehört in die
+Die Lehren stehen in `docs/fallen.md` („Was über den Umriss hinausragen soll, gehört in die
 Körperebene", „Stehkragen in `body`, Monokel in `face`").
 
 ## 5r. Der Säbelzahntiger wird gefleckt — und bekommt Katzentier-Ohren (11.10.2026, nachts)
@@ -1607,7 +1607,7 @@ Auffälligkeiten: 0
 ```
 
 **Die kleinste Trefferfläche über alle 60 Lagen** war **40,15 px** — 320 px Blick, Maus, 12 Zähne
-(vorher, ohne Zoom: 37,18 px; der halbe Zahnabstand ist dort die Grenze, siehe `AGENTS.md`). Bei
+(vorher, ohne Zoom: 37,18 px; der halbe Zahnabstand ist dort die Grenze, siehe `docs/fallen.md`). Bei
 390 px sind es 49,98 px, bei 820 px 101,93 px. Kein Zahn lief aus der Bühne, und in der Mitte jeder
 Trefferfläche lag weiterhin ihr eigener Zahn (`elementFromPoint`).
 
@@ -1971,8 +1971,7 @@ gefahren: `pruefen-bedienung` **0 Auffälligkeiten** (acht Größen, dazu „ohn
 und damit einen Fund — gegen dieselbe Seite **gebaut** war der Lauf grün. Die Sonde zählt den Katalog
 im ausgelieferten Bündel; im Entwicklungsmodus liefert Astro einzelne Module statt eines Bündels.
 Ihre Auskunftszeile sagt jetzt, dass der kurze Kachelname zu den beiden verkürzten Tieren gehört,
-`docs/workflow.md` nennt ihr die richtige Adresse, und `AGENTS.md` führt die Falle als
-vierunddreißigsten Eintrag.
+`docs/workflow.md` nennt ihr die richtige Adresse, und `docs/fallen.md` führt die Falle.
 
 ## 5al. Unabhängige Fremdprüfung der Zeichnungen — und was davon echt war (14.10.2026)
 
@@ -2016,7 +2015,7 @@ den zweiten Eckzahn eine Position daneben; der Vampir hatte mit `count − 2` ei
 viel. Nach der Korrektur sind **alle geraden Zahnzahlen bei allen zwölf Lebewesen spiegelgleich**;
 bei ungeraden Zahlen bleiben nur die bewusst flankierenden Eckzähne von Vampir, Panther und
 Säbelzahntiger unsymmetrisch (die Ringmitte oben trägt dort keinen Zahn) — das steht jetzt in
-`AGENTS.md` und `docs/tiermodell-anleitung.md`.
+`docs/tiermodell-anleitung.md` (Abschnitt 6 und 7).
 
 **Zwei Fallen in diesem Lauf, beide selbst getreten und festgehalten**
 
@@ -2156,6 +2155,65 @@ Refactoring gemäß `docs/plaene/paket-6-stylesheet.md`:
 **Hinweis für ältere Abschnitte:** wo oben noch `presentation/styles/app.css` als Ort einer Regel
 steht, ist damit der Stand **vor** dem 14.10.2026 gemeint — die Regeln stehen jetzt in der
 Bauteildatei, die `app.css` in seiner Importliste nennt.
+
+## 14.10.2026 — Paket 7: `AGENTS.md` auf den Einstieg gekürzt
+
+**Rückfrage an den Auftraggeber:** das Paket ließ offen, ob die Fallen in `AGENTS.md` bleiben
+(Rückfall der Vorlage, dann rund 450 Zeilen) — **entschieden wurde Fassung A**: die Fallen ziehen
+nach `docs/fallen.md`. Die erste Direktive in `AGENTS.md` sagt seitdem ausdrücklich, dass
+`docs/fallen.md` vor jeder Änderung am Code zu lesen ist.
+
+Verschoben (wörtlich, nur die Überschrift und wenige Verweise angepasst):
+- **`docs/fallen.md`** (neu): die 35 Fallen, Überschrift „Fallen, die Zeit kosten" — **ohne Zahl**
+  (die alte „Fünfunddreißig Fallen" wäre nach der nächsten Falle wieder falsch gewesen).
+- **`docs/rueckmeldung.md`** (neu): „Rückmeldung an den Nutzer (Ton, Vibration)", 8 Punkte.
+- **`docs/freischaltung.md`** (neu): „Tiere freischalten", 13 Punkte.
+- **`docs/tiermodell-anleitung.md`**: „Freundliche Zeichnung" als Abschnitt 7, „Das geschlossene
+  Maul" als Abschnitt 8; der Verweis in Abschnitt 6 zeigt nicht mehr auf `AGENTS.md`, sondern auf
+  Abschnitt 7; „Falle oben" zeigt auf `docs/fallen.md`.
+- **`docs/sicherung-anleitung.md`**: die Regeln als erster Abschnitt „Regeln in Kürze"; der
+  Selbstverweis („der ganze Weg zum Nachbauen …: `docs/sicherung-anleitung.md`") heißt jetzt
+  „der Rest dieses Blattes".
+- **`AGENTS.md`**: 715 → **164 Zeilen**. Geblieben sind Kopf, drei Direktiven, Index, Befehle,
+  Karte, „Ein neues Lebewesen ergänzen", Aufgaben-Tracking, Basis-Pfad, Veröffentlichen. Der Index
+  hat vier neue Zeilen und die Spalte **„Lies das, bevor du …"** — jede der 17 Zeilen sagt jetzt,
+  wann sie zu lesen ist.
+- **Querverweise nachgezogen:** `docs/e2e-nachweise.md` (acht Stellen „Falle in AGENTS.md" →
+  `docs/fallen.md`, „`AGENTS.md` und `docs/tiermodell-anleitung.md`" → nur letzteres),
+  `docs/workflow.md` (Ablage der Fallen beim Leeren der Arbeitsdatei, Verweis auf die
+  Sicherungs-Regeln, meldende Doku-Prüfung nennt jetzt `docs/tiermodell-anleitung.md` statt
+  `docs/fallen.md` — dort steht die alte Zahl aus der Doku-Prüfungs-Falle).
+
+**Abnahme:**
+- **`AGENTS.md` unter 200 Zeilen: 164.** Keine Überschrift mit einer Zahl, die mitwachsen müsste;
+  „Die Karte in sieben Zeilen" nennt die feste Zeilenzahl der Karte, keine Fallenzahl.
+- **Zählung aus Schritt 5:** vorher 81 `- **`-Zeilen in `AGENTS.md`; nachher 1 (`AGENTS.md`)
+  + 8 + 13 + 35 + 27 + 22 = **106** über `AGENTS.md` und die Zieldateien — dieselbe Summe wie
+  vorher (81 + 10 in `docs/tiermodell-anleitung.md` + 15 in `docs/sicherung-anleitung.md`).
+- **Pfadprüfung:** `python scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` →
+  „Pfad-Angaben geprueft: 179 / Alle genannten Pfade existieren", Exit 0.
+- **Doku-Prüfung** (Rezept aus `docs/workflow.md`, als `.sh`-Datei gefahren): Zahlendoku scharf
+  ohne Fund (Exit 0); meldend Treffer nur in Aufzeichnungen und im Rezept selbst (Exit 0).
+- **`pnpm gate` grün: 581 Tests in 48 Dateien** (Testzahl unverändert, deshalb keine Zahlen in
+  `README.md`/`docs/testing.md` nachzuziehen).
+- **Gegenprobe (nichts verloren):** jede der 81 Bullet-Zeilen aus dem alten `AGENTS.md` einzeln in
+  den Zieldateien gesucht — **0 fehlen**. Der Lauf meldete genau eine Zeile doppelt: „Ein Auftrag im
+  Argument eines `?.()`-Aufrufs …" steht in `docs/sicherung-anleitung.md` zweimal — als Regel in
+  „Regeln in Kürze" und als ausführlicher Bericht in „Die Fallen, in die wir getreten sind", den
+  es dort schon gab. Bewusst gelassen: der Bericht trägt Einzelheiten, die die Regel nicht hat.
+
+**Zwei Abweichungen von der Vorlage, beide begründet:**
+1. **Zwei Kommentare in `src/`** (keine Zeile Programmcode): `logFeed.ts` nannte „AGENTS.md,
+   „Tiere freischalten"", `creatureViews.test.ts` „AGENTS.md, „Freundliche Zeichnung"" — beide
+   hätten nach dem Umzug ins Leere gezeigt. Die Abnahme „Kein Quelltext geändert" ist deshalb als
+   „kein Verhalten, kein Programmcode" gelesen; `git diff -- src` zeigt zwei geänderte
+   Kommentarstellen und sonst nichts.
+2. **Ein neuer Hinweis in `docs/workflow.md`** (nicht in `AGENTS.md`): beim Fahren des Rezepts fiel
+   auf, dass eine Umgebungsvariable aus PowerShell **nicht** in WSL-`bash` ankommt. Gemessen: eine
+   `.sh`-Datei druckt `ALTE_WERTE=[]`, obwohl PowerShell sie gesetzt hat; mit `WSLENV='ALTE_WERTE'`
+   kommt sie an. Der Lauf endet dann mit Exit 0, obwohl er gar nicht nach alten Werten gesucht hat
+   — eine stille Freigabe, genau die Klasse Fehler, die dieses Projekt sammelt. Der Hinweis steht
+   beim Rezept (dort greift er), nicht in der Fallenliste.
 
 
 

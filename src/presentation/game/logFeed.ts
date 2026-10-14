@@ -1,7 +1,7 @@
 /**
  * Meldet Änderungen am Rundenprotokoll an die Bedienung.
  *
- * Fachliche Unterscheidung (AGENTS.md, „Tiere freischalten"):
+ * Fachliche Unterscheidung (docs/freischaltung.md, „Tiere freischalten"):
  * - `roundFinished`: nach einem eigenen Biss — Album kündigt neue Sterne an, zeigt die Karte
  *   des freigeschalteten Tiers und lässt Konfetti regnen.
  * - `changedOutside`: aus einem anderen Tab, über die Zurück-Taste oder durch den Abgleich

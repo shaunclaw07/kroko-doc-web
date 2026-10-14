@@ -8,6 +8,37 @@ und sagt bei jedem Schritt, ob er **gefahren** wurde oder nur beschrieben ist.
 `…/s/<code>` klappt alles über das Kinderprofil. Mit der ersten Form `…/?s=<code>` klappte es
 nicht — die Freigabe verschwand wieder.
 
+## Regeln in Kürze
+
+- **Anlass:** Das Kinderprofil eines Fire-Tablets verwirft beim Schließen des Browsers alle Daten
+  der Seite (gemeldet am 13.10.2026; im Elternprofil desselben Geräts bleiben sie). Die Bitte um
+  dauerhaften Speicher (`navigator.storage.persist`) hilft dagegen **nicht** — am Gerät geprüft.
+- **Lösung:** Trägt die Adresse einen Code (`…/s/<code>` oder `?s=<code>`), gleicht die Seite ihr Protokoll beim Start und nach
+  jedem Biss mit `worker/backup.js` ab (Cloudflare Worker `zahn-agent-backup`, Route
+  `zahn-agent.schaflabs.com/api/*`, Datenbank D1 `zahn-agent-backup`). Die Adresse steht außerhalb
+  der Ablage und übersteht das Leeren.
+- **Die Startadresse ist ein Pfad, keine Abfrage.** Die freigegebene Adresse mit `?s=…` löschte
+  das Kinderprofil nach einiger Zeit von selbst wieder (gemeldet am 13.10.2026; die Ursache ist
+  eine Vermutung des Auftraggebers, nicht gemessen). Deshalb liefert der Worker unter
+  `…/s/<code>` die Spielseite unverändert aus (zweite Route `zahn-agent.schaflabs.com/s/*`), und
+  die Seite liest den Code auch aus dem Pfad. Das geht nur, weil jeder Verweis der Seite absolut
+  über den Basis-Pfad läuft — ein relativer Verweis zeigte unter `/s/…` ins Leere.
+  **Am Gerät bestätigt** (Auftraggeber, 13.10.2026): mit `…/s/<code>` klappt alles über das
+  Kinderprofil.
+- **Kein Angebot für alle.** Ohne Code ruft die Seite den Worker nie, und der Worker kennt nur
+  Codes, die als Zeile in der Tabelle `logs` stehen. Der Code ist das einzige Geheimnis und steht
+  **nirgends im Baum** — auch nicht in Tests, Doku oder Commit-Texten.
+- **Der Abgleich holt immer erst und führt zusammen** (`syncRoundLog`); nur „Protokoll löschen"
+  ersetzt die Sicherung, sonst brächte sie die gelöschten Runden zurück.
+- **`api/` geht am Service Worker vorbei** (`public/sw.js`): ein Stand aus dem Vorrat wäre ein
+  alter Stand, und der Abgleich schriebe ihn zurück.
+- **Ein Auftrag im Argument eines `?.()`-Aufrufs läuft ohne Zuhörer gar nicht.**
+  `onStatus?.({ rounds: await job() })` führte `job()` nur aus, wenn jemand zuhörte — die
+  Spielseite hört nicht zu und hätte nie gesichert. Erst ausführen, dann melden; der Test dazu
+  verdrahtet **ohne** `onStatus`.
+- Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden". Der
+  ganze Weg zum Nachbauen, mit allen Aufrufen und Fallen: der Rest dieses Blattes.
+
 ## Wann man das braucht
 
 Eine Webapp legt ihren Stand im Browser ab (`localStorage`), und auf einem bestimmten Gerät ist er
