@@ -91,10 +91,10 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Was der Browser nicht kann, wird gesagt:** `isSupported()` entscheidet, ob der Schalter bedienbar
   ist. Safari auf iOS kennt keine Vibration — dann ist der Griff abgeblendet und es steht ein Satz
   dabei. Ein Schalter, der still nichts tut, ist ein Fehler und kostet den Nutzer eine Fehlersuche.
-- **Muster sind Absicht:** `TAP_VIBRATION_MS = 25` bei **jedem** Zahndruck — direkt aus der
+- **Muster sind Absicht:** `TAP_VIBRATION_MS = 25` (`core/ports/haptics.ts`) bei **jedem** Zahndruck — direkt aus der
   Fingerberührung heraus (seit dem Halten: beim **Auflegen** des Fingers, nicht beim Loslassen),
   ohne Verzögerung, das ist die zuverlässigste Stelle für einen Stoß —
-  und `BITE_VIBRATION_PATTERN = [120, 50, 220]` beim Zuschnappen. Kurze Stöße unter ~20 ms setzen
+  und `BITE_VIBRATION_PATTERN = [120, 50, 220]` (`core/ports/haptics.ts`) beim Zuschnappen. Kurze Stöße unter ~20 ms setzen
   manche Geräte gar nicht um.
 - Vibration ist ein Extra: Fehler daraus werden geschluckt, das Spiel darf davon nie anhalten.
 - **Belegte Grenzen der Schnittstelle** (MDN, `Navigator.vibrate`, Stand 30.11.2025): sie verlangt
