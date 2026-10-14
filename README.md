@@ -269,7 +269,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 | Letzter Zahn | 3,333 % und dann garantiert scharf | ebenda |
 | Schließweg des Oberkiefers | Krokodil 232,0 · Mensch 226,0 · Wolf 222,0 · Löwe 222,0 · Säbelzahntiger 222,0 · Panther 220,0 · Panda 220,0 SVG-Einheiten | berechnet als `2·ry − Banddicke oben − Banddicke unten`, abgelesen im erzeugten SVG |
 | Trefferfläche je Zahn | 44,15 px bei 320 px Blick · 50,1 px bei 360 px · 54,7 px bei 390 px (je 10 Zähne) | **gerechnet**: 2 · Trefferradius 49,4 px · Skala (286/640) = 44,15 px. `getBoundingClientRect` eines `.tooth__hit` ist dafür **kein** Maß — die Trefferbox ist auf dem Ring gedreht, und der Browser liefert ihr Achsen-Rechteck (52,48 px, gemessen). Test in `creatureViews.test.ts` auf der schmalsten Bühne 285 px |
-| Tier-Auswahl der veröffentlichten Seite | **10 Kacheln** in der Reihenfolge der Freischaltung (Krokodil, Maus, Wolf, Hai … Säbelzahntiger), 10 sichtbare Kopfbilder mit 10 **eigenen** Beschnitten, 71 px Kachelbild bei 390 px Breite, dazu die Notizen von Löwe und Panther im Blatt | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 13.10.2026 |
+| Tier-Auswahl der veröffentlichten Seite | **12 Kacheln** in der Reihenfolge der Freischaltung (Krokodil, Maus, Wolf, Hai … Panther, Säbelzahntiger, Venusfliegenfalle, T-Rex), 12 sichtbare Kopfbilder mit 12 **eigenen** Beschnitten, 71 px Kachelbild bei 390 px Breite, zwei Kacheln mit kurzem Namen („Säbelkatze“, „Fliegenfalle“), dazu die Notizen von Löwe und Panther im Blatt | `scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com` im echten Chromium, Messung 14.10.2026 |
 
 ---
 
@@ -355,8 +355,9 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
   Browser. Das übrige Verhalten ist in jsdom (Bedienungs- und Statistiksonde) und über gerenderte
   Standbilder der Zeichnung belegt (`pnpm vitest run src/render-probe.test.ts`, dann
   `scripts/artwork-png.py`); das Gefühl am Gerät in allen Feinheiten prüft nur ein Mensch.
-- **Tierstimmen:** neun gemeinfreie Aufnahmen und ein generierter Platzhalter (Maus), alle mit
-  Urheber, Lizenz und Quelle in [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md).
+- **Tierstimmen:** elf gemeinfreie Aufnahmen (acht Public Domain, drei CC0) und ein generierter
+  Platzhalter (Maus), alle mit Urheber, Lizenz und Quelle in
+  [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md).
   Das Heulen des Wolfs stammt aus dem Tonarchiv des Yellowstone-Nationalparks (**National Park
   Service** & MSU Acoustic Atlas / Jennifer Jerrett), die übrigen Aufnahmen von Wikimedia Commons.
   Der Panther faucht als Hauskatze, der Säbelzahntiger knurrt als Tiger, der Hai blubbert — echte

@@ -68,7 +68,7 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 
 ```bash
 # Zahlendoku scharf: hier ist jeder alte Wert ein Fehler
-ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|2,1–3,0 s|2,5 s|293 Tests"
+ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|2,1–3,0 s|2,5 s|293 Tests|526 Tests|526 in 37|10 Kacheln|zehn Kacheln|neun gemeinfreie|10 sichtbare"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 # Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
 ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/e2e-nachweise.md
