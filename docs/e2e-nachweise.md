@@ -2080,5 +2080,31 @@ Refactoring gemäß `docs/plaene/paket-2-seitenskripte.md`:
   - `scripts/pruefen-anzeige.py`: ERGEBNIS: in Ordnung
 - **Gegenprobe:** in `gamePage.ts` `quick.paint()` in `album.onPlay` auskommentiert → Fall (d) in `gamePage.test.ts` schlägt fehl mit `AssertionError: expected 'Krokodil' to be 'Hai'`.
 
+## 14.10.2026 — Paket 3: Einstellungen und Protokoll mit Anmeldung
+
+Refactoring gemäß `docs/plaene/paket-3-zustand.md`:
+- `GameSettings` und `DEFAULT_SETTINGS` nach `src/core/domain/settings.ts` verschoben; `localStorageSettings.ts` re-exportiert; Importe in der Presentation-Schicht angepasst.
+- `src/presentation/game/settingsStore.ts` mit `createSettingsStore(initial)` eingeführt (`get()`, `set()`, `subscribe(listener)`).
+- `GameController`: `GameDeps.settings` ist jetzt `SettingsStore`; `onSettingsChange` und `Object.assign` entfallen; Controller reagiert im Store-Listener auf Einstellungsänderungen und meldet sich bei `dispose()` ab.
+- `src/presentation/game/quickControls.ts`: hört direkt auf `SettingsStore` und aktualisiert sich selbst; externe `quick.paint()`-Aufrufe entfallen.
+- `src/presentation/game/logFeed.ts` eingeführt: `createLogFeed()` mit `roundFinished()` (eigener Biss mit Feier) und `changedOutside()` (stille Aktualisierung von Album und Controller bei storage/pageshow/backup).
+- DOM-Ereignis `kroko:round-finished` vollständig entfernt.
+- Neuer Test `(g)` in `gamePage.test.ts`: Runden von außen schalten Tiere still frei (kein Konfetti, keine Karte).
+
+**Abnahme:**
+- `git grep -n "kroko:" -- src`: leer (Exit 1).
+- `git grep -n "Object.assign" -- src/presentation`: leer (Exit 1).
+- `git grep -n "\.paint()" -- src/presentation src/pages`: zeigt nur noch Aufrufe innerhalb der Modultests (`albumBadges.test.ts` und `unlocks.test.ts`).
+- `pnpm gate` grün: 558 Tests in 43 Dateien, Typenprüfung fehlerfrei.
+- Alle 5 im Paket geforderten Sonden ohne Fund:
+  - `scripts/pruefen-bedienung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-freischaltung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-sicherung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-tiere.py`: ERGEBNIS: in Ordnung
+  - `scripts/pruefen-blaetter.py`: ERGEBNIS: in Ordnung
+- **Gegenprobe:**
+  - `git grep -n "kroko:" -- src` schlägt sofort an, wenn das alte DOM-Event wieder eingeführt wird (Exit 0 statt Exit 1).
+  - Ohne Anmeldung von `quickControls` an `settingsStore` schlägt Test (d) in `gamePage.test.ts` fehl mit `AssertionError: expected 'Krokodil' to be 'Hai'`.
+
 
 

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { STORAGE_KEY } from '../../infrastructure/storage/localStorageLog';
-import { DEFAULT_SETTINGS, type GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import { DEFAULT_SETTINGS, type GameSettings } from '../../core/domain/settings';
 import type { Backup } from '../game/backupSync';
 import { wireStatsPage } from './statsPage';
 

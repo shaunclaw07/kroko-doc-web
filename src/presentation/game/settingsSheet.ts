@@ -1,5 +1,5 @@
 import type { HapticsPort } from '../../core/ports/haptics';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 
 export interface WireSettingsSheetDeps {
   doc: Document;

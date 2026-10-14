@@ -6,13 +6,16 @@ import type { RemoteLogPort } from '../../core/ports/remoteLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import type { SessionMarkPort } from '../../core/ports/sessionMark';
 import type { SoundPort } from '../../core/ports/sound';
+import type { GameSettings } from '../../core/domain/settings';
 import { STORAGE_KEY, type StorageLike } from '../../infrastructure/storage/localStorageLog';
-import { loadSettings, saveSettings, type GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import { loadSettings, saveSettings } from '../../infrastructure/storage/localStorageSettings';
 import { wireAlbum } from './albumBadges';
 import { wireBackup } from './backupSync';
 import { settingsAfterCreatureChoice, settingsWithUnlockedCreature } from './creatureChoice';
 import { GameController } from './gameController';
+import { createLogFeed, type LogFeed } from './logFeed';
 import { wireQuickControls } from './quickControls';
+import { createSettingsStore } from './settingsStore';
 import { wireSettingsSheet } from './settingsSheet';
 import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from './sheets';
 
@@ -33,6 +36,7 @@ export interface WireGamePageResult {
   controller: GameController;
   album: ReturnType<typeof wireAlbum>;
   quick: ReturnType<typeof wireQuickControls>;
+  feed: LogFeed;
 }
 
 /**
@@ -45,37 +49,38 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   const loaded = loadSettings(storage);
   // Ein gespeichertes Tier, das (noch oder wieder) gesperrt ist, fällt auf das Krokodil zurück —
   // etwa nach „Protokoll löschen". Welche Tiere offen sind, folgt allein aus den Sternen.
-  const settings = settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked);
-  if (settings !== loaded) {
-    saveSettings(storage, settings);
+  const initialSettings = settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked);
+  if (initialSettings !== loaded) {
+    saveSettings(storage, initialSettings);
   }
+  const settingsStore = createSettingsStore(initialSettings);
+  settingsStore.subscribe((next) => saveSettings(storage, next));
+  const feed = createLogFeed();
 
   const controller = new GameController({
     rng,
     sound,
     haptics,
     log,
-    settings,
+    feed,
+    settings: settingsStore,
     session,
     document: doc,
-    onSettingsChange: (next: GameSettings) => saveSettings(storage, next),
   });
 
   controller.mount();
 
-  let quick: ReturnType<typeof wireQuickControls>;
-
-  // Das Tier-Album: Sterne an den Kacheln, abgeleitet aus derselben Ablage. Es hört selbst auf
-  // `kroko:round-finished`; was von außen kommt (anderer Tab, Zurück-Taste), zieht `paint()` nach.
-  // Dazu die Sperre der Tiere und, nach dem Biss, die Freischaltung mit ihrem Knopf.
+  // Das Tier-Album: Sterne an den Kacheln, abgeleitet aus derselben Ablage. Es hört auf den
+  // feed: nach einem eigenen Biss (`round-finished`) feiert es; was von außen kommt (`changed-outside`),
+  // öffnet die Tiere still.
   const album = wireAlbum({
     doc,
     log,
+    feed,
     portrait,
     onPlay: (creatureId: string) => {
-      const next = settingsAfterCreatureChoice(settings, creatureId);
+      const next = settingsAfterCreatureChoice(settingsStore.get(), creatureId);
       if (next) controller.applySettings(next);
-      quick.paint();
     },
   });
 
@@ -86,9 +91,9 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   // Die Leiste der Spielseite (Tier, Zähne): Regeln und Test stehen in quickControls.ts.
   // Ein Tipp auf eine Kachel wählt und schließt das Auswahlblatt — auf dem Tablet ist es gar
   // nicht offen, `closeSheet` tut dann nichts.
-  quick = wireQuickControls({
+  const quick = wireQuickControls({
     doc,
-    settings,
+    settings: settingsStore,
     isLocked: (creatureId: string) => album.isLocked(creatureId),
     onLockedTap: (creatureId: string) => album.lockedTap(creatureId),
     apply: (next: GameSettings) => controller.applySettings(next),
@@ -104,14 +109,12 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   // unverändert aus dem Zwischenspeicher des Browsers (`pageshow` mit `persisted`).
   win.addEventListener('storage', (event) => {
     if (event.key === null || event.key === STORAGE_KEY) {
-      controller.syncLog();
-      album.paint();
+      feed.changedOutside();
     }
   });
   win.addEventListener('pageshow', (event) => {
     if ((event as PageTransitionEvent).persisted) {
-      controller.syncLog();
-      album.paint();
+      feed.changedOutside();
     }
   });
 
@@ -121,18 +124,21 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
       local: log,
       remote,
       onLocalChange: () => {
-        controller.syncLog();
-        album.paint();
+        feed.changedOutside();
       },
     });
     void backup.sync();
-    doc.addEventListener('kroko:round-finished', () => void backup.sync());
+    feed.subscribe((event) => {
+      if (event === 'round-finished') {
+        void backup.sync();
+      }
+    });
   }
 
   // Schalter und Segmente mit den gespeicherten Einstellungen abgleichen
   wireSettingsSheet({
     doc,
-    settings,
+    settings: initialSettings,
     haptics,
     apply: (next: GameSettings) => controller.applySettings(next),
   });
@@ -154,5 +160,5 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   win.addEventListener('pointerup', unlockAudio);
   win.addEventListener('keydown', unlockAudio);
 
-  return { controller, album, quick };
+  return { controller, album, quick, feed };
 }

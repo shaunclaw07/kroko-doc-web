@@ -1,8 +1,10 @@
 import { earnsAllStars } from '../../core/domain/album';
 import { getCreature } from '../../core/domain/creature';
 import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 import { settingsAfterCreatureChoice } from './creatureChoice';
+
+import type { SettingsStore } from './settingsStore';
 
 /**
  * Die Leiste der Spielseite: Tier, Zahnzahl und (über die Steuerung) „Neue Runde".
@@ -43,9 +45,8 @@ export function fewTeethWarning(standardTeeth: number): string {
 
 export interface QuickControlDeps {
   doc: Document;
-  /** Dieselbe Referenz, die die Steuerung fortschreibt — `paint()` liest immer den Stand von jetzt. */
-  settings: GameSettings;
-  apply: (next: GameSettings) => void;
+  settings: SettingsStore;
+  apply?: (next: GameSettings) => void;
   portrait: (creatureId: string, suffix: string) => string;
   /** Nach jedem Tipp auf eine Kachel — die Seite schließt damit das Auswahlblatt. */
   onCreatureChosen: () => void;
@@ -55,8 +56,9 @@ export interface QuickControlDeps {
   onLockedTap?: (creatureId: string) => void;
 }
 
-export function wireQuickControls(deps: QuickControlDeps): { paint: () => void } {
+export function wireQuickControls(deps: QuickControlDeps): { paint: () => void; dispose: () => void } {
   const { doc, settings } = deps;
+  const apply = deps.apply ?? ((next: GameSettings) => settings.set(next));
   const byId = (id: string): HTMLElement | null => doc.getElementById(id);
   // `button[…]`, nicht `[data-creature]` allein: auch die Zeichnung auf der Bühne trägt das Attribut.
   const tiles = (): HTMLButtonElement[] =>
@@ -66,8 +68,9 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
   const howToText = byId('how-to')?.textContent ?? '';
 
   const paint = (): void => {
-    const creature = getCreature(settings.creature);
-    const teeth = effectiveTeeth(settings);
+    const current = settings.get();
+    const creature = getCreature(current.creature);
+    const teeth = effectiveTeeth(current);
     const howTo = byId('how-to');
     if (howTo) {
       const few = !earnsAllStars(creature.id, teeth);
@@ -89,7 +92,7 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
     if (icon) icon.innerHTML = deps.portrait(creature.id, 'wahl');
     byId('creature-open')?.setAttribute('aria-label', `Tier wählen, gerade: ${creature.name}`);
     for (const tile of tiles()) {
-      tile.setAttribute('aria-pressed', String(tile.dataset.creature === settings.creature));
+      tile.setAttribute('aria-pressed', String(tile.dataset.creature === current.creature));
     }
 
     const line = byId('creature-detail-line');
@@ -110,12 +113,13 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
     }
   };
 
+  const unsubscribe = settings.subscribe(() => paint());
+
   const step = (delta: number): void => {
-    const next = settingsAfterTeethStep(settings, delta);
+    const next = settingsAfterTeethStep(settings.get(), delta);
     if (next) {
-      deps.apply(next);
+      apply(next);
     }
-    paint();
   };
   byId('teeth-minus')?.addEventListener('click', () => step(-1));
   byId('teeth-plus')?.addEventListener('click', () => step(1));
@@ -127,15 +131,14 @@ export function wireQuickControls(deps: QuickControlDeps): { paint: () => void }
         deps.onLockedTap?.(id);
         return;
       }
-      const next = settingsAfterCreatureChoice(settings, tile.dataset.creature);
+      const next = settingsAfterCreatureChoice(settings.get(), tile.dataset.creature);
       if (next) {
-        deps.apply(next);
+        apply(next);
       }
-      paint();
       deps.onCreatureChosen();
     });
   }
 
   paint();
-  return { paint };
+  return { paint, dispose: unsubscribe };
 }

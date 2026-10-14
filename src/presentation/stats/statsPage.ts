@@ -4,7 +4,7 @@ import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
 import type { RemoteLogPort } from '../../core/ports/remoteLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { STORAGE_KEY } from '../../infrastructure/storage/localStorageLog';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 import type { PersistenceState } from '../../infrastructure/storage/browserPersistence';
 import type { Backup } from '../game/backupSync';
 import { backupNote, wireBackup } from '../game/backupSync';

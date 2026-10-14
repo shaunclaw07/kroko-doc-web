@@ -2,7 +2,8 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { effectiveTeeth, fewTeethWarning, settingsAfterTeethStep, wireQuickControls } from './quickControls';
 import { MAX_TEETH, MIN_TEETH } from '../../core/domain/teeth';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
+import { createSettingsStore } from './settingsStore';
 
 function settings(overrides: Partial<GameSettings> = {}): GameSettings {
   return { mode: 'original', players: 1, sound: true, vibration: false, creature: 'crocodile', teethOverride: null, ...overrides };
@@ -25,13 +26,19 @@ const DOM = `
 
 function wire(start: GameSettings): { current: GameSettings; applied: GameSettings[]; chosen: number } {
   document.body.innerHTML = DOM;
-  const state = { current: start, applied: [] as GameSettings[], chosen: 0 };
+  const store = createSettingsStore(start);
+  const state = {
+    get current() {
+      return store.get();
+    },
+    applied: [] as GameSettings[],
+    chosen: 0,
+  };
   wireQuickControls({
     doc: document,
-    settings: start,
-    // Wie die Steuerung: dieselbe Referenz wird fortgeschrieben.
+    settings: store,
     apply: (next) => {
-      Object.assign(start, next);
+      store.set(next);
       state.applied.push({ ...next });
     },
     portrait: (id, suffix) => `<svg data-portrait="${id}-${suffix}"></svg>`,
@@ -122,14 +129,17 @@ describe('Verdrahtung der Leiste', () => {
 
   it('ein Tipp auf ein gesperrtes Tier wählt nichts und lässt die Auswahl offen', () => {
     document.body.innerHTML = DOM;
-    const start = settings();
+    const store = createSettingsStore(settings());
     const applied: GameSettings[] = [];
     const tapped: string[] = [];
     let chosen = 0;
     wireQuickControls({
       doc: document,
-      settings: start,
-      apply: (next) => applied.push(next),
+      settings: store,
+      apply: (next) => {
+        store.set(next);
+        applied.push(next);
+      },
       portrait: () => '',
       onCreatureChosen: () => {
         chosen += 1;

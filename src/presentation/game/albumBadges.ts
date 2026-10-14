@@ -8,6 +8,7 @@ import {
 } from '../../core/domain/album';
 import { UNLOCK_STEPS, newlyUnlocked, unlockState, type UnlockState } from '../../core/domain/unlocks';
 import type { RoundLogPort } from '../../core/ports/roundLog';
+import type { LogFeed } from './logFeed';
 import {
   LOCK_ICON,
   launchConfetti,
@@ -55,6 +56,7 @@ export function newStarSentence(found: readonly NewStar[]): string {
 export interface AlbumDeps {
   doc: Document;
   log: RoundLogPort;
+  feed?: LogFeed;
   /** Kopfbild eines Tiers — für den Fortschritt (als Schattenriss) und die Freischaltung. */
   portrait?: (creatureId: string, suffix: string) => string;
   /** Tipp auf „Mit dem … spielen" in der Karte der Freischaltung. */
@@ -69,6 +71,7 @@ export interface Album {
   isLocked: (creatureId: string) => boolean;
   /** Ein Tipp auf ein gesperrtes Tier: die Kachel sagt, was fehlt. */
   lockedTap: (creatureId: string) => void;
+  dispose?: () => void;
 }
 
 export function wireAlbum(deps: AlbumDeps): Album {
@@ -216,19 +219,23 @@ export function wireAlbum(deps: AlbumDeps): Album {
 
   // Die Steuerung meldet jede beendete Runde, **nachdem** sie gespeichert hat. Nur hier wird
   // angesagt und gefeiert: kommen Runden von außen (anderer Tab, Import, Sicherung), ruft die
-  // Seite `paint()` — die Tiere öffnen sich dann still.
-  doc.addEventListener('kroko:round-finished', () => {
-    const before = shown;
-    const stateBefore = state;
-    paint();
-    const stars = newStars(before, shown);
-    const unlocked = newlyUnlocked(stateBefore, state);
-    announce(newStarSentence(stars));
-    showUnlock(unlocked);
-    // Die Karte ist die Nachricht dieser Runde; der Weg zum übernächsten Tier steht an der Kachel.
-    showProgress(stars.length > 0 && unlocked.length === 0);
-    if (unlocked.length > 0) {
-      launchConfetti(doc, deps.random);
+  // Seite `feed.changedOutside()` — die Tiere öffnen sich dann still.
+  const unsubscribeFeed = deps.feed?.subscribe((event) => {
+    if (event === 'round-finished') {
+      const before = shown;
+      const stateBefore = state;
+      paint();
+      const stars = newStars(before, shown);
+      const unlocked = newlyUnlocked(stateBefore, state);
+      announce(newStarSentence(stars));
+      showUnlock(unlocked);
+      // Die Karte ist die Nachricht dieser Runde; der Weg zum übernächsten Tier steht an der Kachel.
+      showProgress(stars.length > 0 && unlocked.length === 0);
+      if (unlocked.length > 0) {
+        launchConfetti(doc, deps.random);
+      }
+    } else {
+      paint();
     }
   });
 
@@ -251,5 +258,5 @@ export function wireAlbum(deps: AlbumDeps): Album {
   };
 
   paint();
-  return { paint, isLocked: (creatureId) => missingFor(creatureId) > 0, lockedTap };
+  return { paint, isLocked: (creatureId) => missingFor(creatureId) > 0, lockedTap, dispose: unsubscribeFeed };
 }

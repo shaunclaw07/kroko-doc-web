@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { settingsAfterCreatureChoice, settingsWithUnlockedCreature } from './creatureChoice';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 
 const CURRENT: GameSettings = {
   mode: 'original',

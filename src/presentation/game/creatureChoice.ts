@@ -1,5 +1,5 @@
 import { DEFAULT_CREATURE_ID } from '../../core/domain/creature';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 
 /**
  * Was ein Tipp auf eine Kachel der Tier-Auswahl an den Einstellungen ändert.

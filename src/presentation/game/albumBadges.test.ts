@@ -4,6 +4,7 @@ import { albumFromRecords } from '../../core/domain/album';
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { albumSummary, newStarSentence, wireAlbum } from './albumBadges';
+import { createLogFeed, type LogFeed } from './logFeed';
 
 const DOM = `
   <div id="stage" data-status="snapped"><p id="star-toast" class="star-toast hidden"></p></div>
@@ -44,11 +45,12 @@ function played(creature: string, teeth: number, pressIndex: number): RoundRecor
   };
 }
 
+let feed: LogFeed;
 const tiles = (id: string): HTMLButtonElement[] =>
   Array.from(document.querySelectorAll<HTMLButtonElement>(`button[data-creature="${id}"]`));
 const earned = (tile: Element): number => tile.querySelectorAll('.album-star.is-earned').length;
 const finish = (): void => {
-  document.dispatchEvent(new CustomEvent('kroko:round-finished'));
+  feed.roundFinished();
 };
 
 describe('Sterne an den Kacheln', () => {
@@ -57,6 +59,7 @@ describe('Sterne an den Kacheln', () => {
   beforeEach(() => {
     document.body.innerHTML = DOM;
     log = new MemoryLog();
+    feed = createLogFeed();
   });
 
   it('zeigt an jeder Kachel drei Plätze und füllt die verdienten', () => {
@@ -105,12 +108,13 @@ describe('Ansage eines neuen Sterns', () => {
   beforeEach(() => {
     document.body.innerHTML = DOM;
     log = new MemoryLog();
+    feed = createLogFeed();
   });
 
   const toast = (): HTMLElement => document.getElementById('star-toast') as HTMLElement;
 
   it('nennt nach dem Biss Tier und Stern beim Namen', () => {
-    wireAlbum({ doc: document, log });
+    wireAlbum({ doc: document, log, feed });
     log.records = [played('mouse', 6, 1)];
     finish();
     expect(toast().textContent).toBe('Neuer Stern: Maus — gespielt!');
@@ -119,14 +123,14 @@ describe('Ansage eines neuen Sterns', () => {
   });
 
   it('nennt mehrere Sterne einer Runde zusammen', () => {
-    wireAlbum({ doc: document, log });
+    wireAlbum({ doc: document, log, feed });
     log.records = [played('mouse', 6, 6)];
     finish();
     expect(toast().textContent).toBe('Neue Sterne: Maus — gespielt, halb geschafft, bis zum letzten Zahn!');
   });
 
   it('schweigt, wenn die Runde nichts Neues brachte — und räumt die alte Ansage weg', () => {
-    wireAlbum({ doc: document, log });
+    wireAlbum({ doc: document, log, feed });
     log.records = [played('mouse', 6, 1)];
     finish();
     log.records = [played('mouse', 6, 1), played('mouse', 6, 2)];
@@ -136,9 +140,9 @@ describe('Ansage eines neuen Sterns', () => {
   });
 
   it('sagt nichts an, wenn sich das Protokoll von außen ändert (anderer Tab, Import)', () => {
-    const album = wireAlbum({ doc: document, log });
+    wireAlbum({ doc: document, log, feed });
     log.records = [played('mouse', 6, 6)];
-    album.paint();
+    feed.changedOutside();
     expect(toast().classList.contains('hidden')).toBe(true);
     expect(earned(tiles('mouse')[0] as Element)).toBe(3);
     // Und der nächste Biss vergleicht mit dem Stand von **jetzt**, nicht mit dem vom Seitenstart.

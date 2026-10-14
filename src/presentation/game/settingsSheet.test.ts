@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest';
-import { DEFAULT_SETTINGS, type GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import { DEFAULT_SETTINGS, type GameSettings } from '../../core/domain/settings';
 import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics';
 import { wireSettingsSheet } from './settingsSheet';
 

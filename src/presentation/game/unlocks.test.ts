@@ -5,6 +5,7 @@ import { getCreature, listCreatures } from '../../core/domain/creature';
 import { UNLOCK_STEPS } from '../../core/domain/unlocks';
 import type { RoundLogPort } from '../../core/ports/roundLog';
 import { wireAlbum } from './albumBadges';
+import { createLogFeed, type LogFeed } from './logFeed';
 import {
   launchConfetti,
   lockedTileLabel,
@@ -66,11 +67,12 @@ function played(creature: string, stars: 1 | 2 | 3): RoundRecord {
   };
 }
 
+let feed: LogFeed;
 const tile = (id: string): HTMLButtonElement =>
   document.querySelector(`button[data-creature="${id}"]`) as HTMLButtonElement;
 const byId = (id: string): HTMLElement => document.getElementById(id) as HTMLElement;
 const finish = (): void => {
-  document.dispatchEvent(new CustomEvent('kroko:round-finished'));
+  feed.roundFinished();
 };
 const portrait = (id: string, suffix: string): string => `<svg data-portrait="${id}-${suffix}"></svg>`;
 
@@ -80,6 +82,7 @@ describe('Sperre an den Kacheln', () => {
   beforeEach(() => {
     document.body.innerHTML = DOM;
     log = new MemoryLog();
+    feed = createLogFeed();
   });
 
   it('lässt am Anfang Krokodil, Maus und Wolf offen und sperrt die übrigen sieben', () => {
@@ -148,6 +151,7 @@ describe('Freischaltung nach dem Biss', () => {
   beforeEach(() => {
     document.body.innerHTML = DOM;
     log = new MemoryLog();
+    feed = createLogFeed();
   });
 
   afterEach(() => {
@@ -156,7 +160,7 @@ describe('Freischaltung nach dem Biss', () => {
 
   it('zeigt Kopfbild, Namen und Knopf des neuen Tiers und wirft Konfetti', () => {
     log.records = [played('crocodile', 1), played('mouse', 1)];
-    wireAlbum({ doc: document, log, portrait, random: () => 0.5 });
+    wireAlbum({ doc: document, log, feed, portrait, random: () => 0.5 });
     log.records = [...log.records, played('wolf', 1)];
     finish();
     expect(byId('unlock-card').classList.contains('hidden')).toBe(false);
@@ -172,7 +176,7 @@ describe('Freischaltung nach dem Biss', () => {
   it('der Knopf meldet das Tier und räumt die Karte weg', () => {
     const chosen: string[] = [];
     log.records = [played('crocodile', 1), played('mouse', 1)];
-    wireAlbum({ doc: document, log, portrait, onPlay: (id) => chosen.push(id), random: () => 0.5 });
+    wireAlbum({ doc: document, log, feed, portrait, onPlay: (id) => chosen.push(id), random: () => 0.5 });
     log.records = [...log.records, played('wolf', 1)];
     finish();
     byId('unlock-play').click();
@@ -182,7 +186,7 @@ describe('Freischaltung nach dem Biss', () => {
 
   it('nennt zwei Tiere, wenn eine Runde zwei Schwellen nimmt', () => {
     log.records = [played('crocodile', 1), played('mouse', 1)];
-    wireAlbum({ doc: document, log, portrait, random: () => 0.5 });
+    wireAlbum({ doc: document, log, feed, portrait, random: () => 0.5 });
     log.records = [...log.records, played('wolf', 3)];
     finish();
     expect(byId('unlock-title').textContent).toBe('Neu dabei: Hai und Panda!');
@@ -190,7 +194,7 @@ describe('Freischaltung nach dem Biss', () => {
   });
 
   it('zeigt nach einem neuen Stern den Weg zum nächsten Tier — mit Sternzeichen und Schattenriss', () => {
-    wireAlbum({ doc: document, log, portrait });
+    wireAlbum({ doc: document, log, feed, portrait });
     log.records = [played('crocodile', 1)];
     finish();
     const line = byId('unlock-progress');
@@ -204,7 +208,7 @@ describe('Freischaltung nach dem Biss', () => {
 
   it('schweigt zum Fortschritt, wenn die Runde keinen neuen Stern brachte', () => {
     log.records = [played('crocodile', 1)];
-    wireAlbum({ doc: document, log, portrait });
+    wireAlbum({ doc: document, log, feed, portrait });
     log.records = [...log.records, played('crocodile', 1)];
     finish();
     expect(byId('unlock-progress').classList.contains('hidden')).toBe(true);
@@ -212,7 +216,7 @@ describe('Freischaltung nach dem Biss', () => {
 
   it('räumt die Karte der letzten Runde weg, wenn die nächste nichts öffnet', () => {
     log.records = [played('crocodile', 1), played('mouse', 1)];
-    wireAlbum({ doc: document, log, portrait, random: () => 0.5 });
+    wireAlbum({ doc: document, log, feed, portrait, random: () => 0.5 });
     log.records = [...log.records, played('wolf', 1)];
     finish();
     log.records = [...log.records, played('wolf', 1)];
@@ -221,9 +225,9 @@ describe('Freischaltung nach dem Biss', () => {
   });
 
   it('feiert nicht, wenn Runden von außen kommen (Sicherung, anderer Tab, Import)', () => {
-    const album = wireAlbum({ doc: document, log, portrait });
+    wireAlbum({ doc: document, log, feed, portrait });
     log.records = [played('crocodile', 2), played('mouse', 2), played('wolf', 2)];
-    album.paint();
+    feed.changedOutside();
     expect(tile('panda').classList.contains('is-locked')).toBe(false);
     expect(byId('unlock-card').classList.contains('hidden')).toBe(true);
     expect(byId('unlock-progress').classList.contains('hidden')).toBe(true);

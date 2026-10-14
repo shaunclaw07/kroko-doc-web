@@ -25,7 +25,9 @@ import { getCreature } from '../../core/domain/creature';
 import { playPress } from '../../core/use-cases/playPress';
 import { creatureView, type CreatureView } from './creatures';
 import { clientToViewBox, gazeOffset, midpoint, type Point } from './creatures/gaze';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
+import type { LogFeed } from './logFeed';
+import type { SettingsStore } from './settingsStore';
 
 export interface GameDeps {
   rng: RandomSource;
@@ -37,8 +39,8 @@ export interface GameDeps {
   /** Merkt sich den Balken-Hinweis für die Sitzung. Ohne diesen Port kommt kein Hinweis. */
   session?: SessionMarkPort;
   log: RoundLogPort;
-  settings: GameSettings;
-  onSettingsChange: (settings: GameSettings) => void;
+  feed?: LogFeed;
+  settings: SettingsStore;
   document: Document;
   /** Für Tests und Vorschauen austauschbar; Standard sind echte Timer. */
   wait?: (ms: number, run: () => void) => void;
@@ -91,6 +93,8 @@ export class GameController {
   /** Mitte zwischen den Pupillen des gezeichneten Tiers — von dort aus schaut es. */
   private eyes: Point | null = null;
   private records: RoundRecord[];
+  private unsubscribeSettings: (() => void) | null = null;
+  private unsubscribeFeed: (() => void) | null = null;
 
   constructor(deps: GameDeps) {
     this.deps = deps;
@@ -107,15 +111,25 @@ export class GameController {
     this.selector = deps.selector ?? new UniformLiveTeethSelector();
     this.records = deps.log.load();
     this.round = this.newRound();
+    this.unsubscribeSettings = this.deps.settings.subscribe((next, previous) => {
+      this.onSettingsChanged(next, previous);
+    });
+    this.unsubscribeFeed =
+      this.deps.feed?.subscribe((event) => {
+        if (event === 'changed-outside') {
+          this.syncLog();
+        }
+      }) ?? null;
   }
 
   private newRound(): RoundState {
+    const current = this.deps.settings.get();
     return openRound(
       {
-        creatureId: this.deps.settings.creature,
-        teeth: this.deps.settings.teethOverride ?? undefined,
-        mode: this.deps.settings.mode,
-        players: this.deps.settings.players,
+        creatureId: current.creature,
+        teeth: current.teethOverride ?? undefined,
+        mode: current.mode,
+        players: current.players,
       },
       { rng: this.deps.rng, selector: this.selector },
     );
@@ -236,7 +250,7 @@ export class GameController {
 
   /** Was der Finger sofort merkt: Stoß und Klang. Verrät nichts — es hängt nur an der Gefahr. */
   private feelPress(): void {
-    if (this.deps.settings.vibration) {
+    if (this.deps.settings.get().vibration) {
       this.vibrate(TAP_VIBRATION_MS);
     }
     this.deps.sound.play('tap', this.tension);
@@ -366,7 +380,7 @@ export class GameController {
     this.art?.classList.add('is-settling');
     this.wait(420, () => this.art?.classList.remove('is-settling'));
     this.deps.sound.play('settle', drama.reliefLevel);
-    if (this.deps.settings.vibration) {
+    if (this.deps.settings.get().vibration) {
       const stoß = RELIEF_VIBRATION_MIN_MS + Math.round((TAP_VIBRATION_MS - RELIEF_VIBRATION_MIN_MS) * drama.reliefLevel);
       this.vibrate(stoß);
     }
@@ -382,7 +396,7 @@ export class GameController {
     this.busy = false;
     this.endPressBeat();
     this.deps.sound.play('snap', 1);
-    if (this.deps.settings.vibration) {
+    if (this.deps.settings.get().vibration) {
       this.vibrate(BITE_VIBRATION_PATTERN);
     }
     this.art?.classList.add('is-snapped');
@@ -499,6 +513,10 @@ export class GameController {
    * Fall auf — so läuft kein Rückruf in eine schon abgebaute Umgebung.
    */
   dispose(): void {
+    this.unsubscribeSettings?.();
+    this.unsubscribeSettings = null;
+    this.unsubscribeFeed?.();
+    this.unsubscribeFeed = null;
     this.hold = null;
     this.stage?.removeEventListener('pointermove', this.onStagePointer);
     this.stage?.removeEventListener('pointerdown', this.onStagePointer);
@@ -532,7 +550,7 @@ export class GameController {
       }),
     );
     this.deps.log.save(this.records);
-    this.doc.dispatchEvent(new CustomEvent('kroko:round-finished', { detail: { records: this.records.length } }));
+    this.deps.feed?.roundFinished();
   }
 
   /**
@@ -562,14 +580,12 @@ export class GameController {
     this.render();
   }
 
-  applySettings(settings: GameSettings): void {
-    const modeChanged = settings.mode !== this.deps.settings.mode;
-    const playersChanged = settings.players !== this.deps.settings.players;
-    const creatureChanged = settings.creature !== this.deps.settings.creature;
-    const teethChanged = settings.teethOverride !== this.deps.settings.teethOverride;
-    Object.assign(this.deps.settings, settings);
-    this.deps.onSettingsChange(settings);
-    this.deps.sound.setMuted(!settings.sound);
+  private onSettingsChanged(next: GameSettings, previous: GameSettings): void {
+    const modeChanged = next.mode !== previous.mode;
+    const playersChanged = next.players !== previous.players;
+    const creatureChanged = next.creature !== previous.creature;
+    const teethChanged = next.teethOverride !== previous.teethOverride;
+    this.deps.sound.setMuted(!next.sound);
     if (modeChanged || playersChanged || creatureChanged || teethChanged) {
       this.resetRound();
       // Das neue Tier stellt sich vor. Der Tipp auf die Kachel ist die Nutzergeste — die Seite
@@ -578,11 +594,15 @@ export class GameController {
         // Was vom vorigen Tier noch klingt (seine Stimme, die Tonfolge nach dem Biss), bricht ab —
         // sonst reden beim schnellen Durchtippen der Köpfe mehrere Tiere durcheinander.
         this.deps.sound.stopAll();
-        this.deps.sound.playVoice(settings.creature);
+        this.deps.sound.playVoice(next.creature);
       }
-    } else if (!settings.sound) {
+    } else if (!next.sound) {
       this.deps.sound.stopAll();
     }
+  }
+
+  applySettings(settings: GameSettings): void {
+    this.deps.settings.set(settings);
   }
 
   private render(): void {

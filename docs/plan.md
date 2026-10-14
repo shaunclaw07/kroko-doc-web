@@ -15,7 +15,6 @@ ist alles erledigt, verschwindet der Ordner und diese Datei wird geleert.
 Gemeinsame Regeln für alle: [`docs/plaene/00-regeln.md`](plaene/00-regeln.md).
 
 | Paket | Inhalt | Datei | Braucht vorher | Risiko |
-| 3 | Einstellungen und Protokoll mit Anmeldung | [`docs/plaene/paket-3-zustand.md`](plaene/paket-3-zustand.md) | Paket 2 | mittel |
 | 4 | `gameController.ts` in vier Teile | [`docs/plaene/paket-4-steuerung.md`](plaene/paket-4-steuerung.md) | Paket 3 | mittel |
 | 5 | Gemeinsames Gerüst und ein Befehl für alle Sonden | [`docs/plaene/paket-5-sonden.md`](plaene/paket-5-sonden.md) | besser nach Paket 1 | klein |
 | 6 | `app.css` nach Bauteilen aufteilen | [`docs/plaene/paket-6-stylesheet.md`](plaene/paket-6-stylesheet.md) | — | klein |

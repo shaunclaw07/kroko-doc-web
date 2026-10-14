@@ -9,10 +9,11 @@ import type { LiveTeethSelector } from '../../core/ports/liveTeeth';
 import type { RandomSource } from '../../core/ports/random';
 import type { RoundRecord } from '../../contract/sessionLog';
 import type { RoundLogPort } from '../../core/ports/roundLog';
-import type { GameSettings } from '../../infrastructure/storage/localStorageSettings';
+import type { GameSettings } from '../../core/domain/settings';
 import type { SessionMarkPort } from '../../core/ports/sessionMark';
 import { creatureView } from './creatures';
 import { GAZE_MAX, gazeOffset } from './creatures/gaze';
+import { createSettingsStore } from './settingsStore';
 
 /**
  * Prüfsonde der Bedienung: sie drückt im echten DOM (jsdom) Zähne, bis das Maul
@@ -113,9 +114,8 @@ function build(
     sound,
     haptics,
     log,
-    settings: settings(overrides),
+    settings: createSettingsStore(settings(overrides)),
     session,
-    onSettingsChange: () => undefined,
     document,
     wait: waitOverride,
   });
@@ -183,8 +183,7 @@ function buildHold(
     sound,
     haptics,
     log: new MemoryLog(),
-    settings: settings(overrides),
-    onSettingsChange: () => undefined,
+    settings: createSettingsStore(settings(overrides)),
     document,
     now: () => clock.ms,
     wait: (ms, run) => {
@@ -326,8 +325,7 @@ describe('GameController in der Bühne', () => {
         selector: new FixedLiveTeethSelector([2]),
         sound,
         log: new MemoryLog(),
-        settings: settings(),
-        onSettingsChange: () => undefined,
+        settings: createSettingsStore(settings()),
         document,
       });
       controller.mount();

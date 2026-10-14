@@ -221,11 +221,11 @@ describe('gamePage', () => {
 
   it('(d) der Knopf der Freischaltkarte wechselt das Tier und die Leiste zeigt es', () => {
     log.records = [played('crocodile', 1), played('mouse', 1)];
-    setup();
+    const page = setup();
 
     // 3. Stern erreicht: Hai schaltet frei
     log.records = [...log.records, played('wolf', 1)];
-    document.dispatchEvent(new CustomEvent('kroko:round-finished'));
+    page.feed.roundFinished();
 
     const unlockCard = document.getElementById('unlock-card');
     expect(unlockCard?.classList.contains('hidden')).toBe(false);
@@ -239,21 +239,21 @@ describe('gamePage', () => {
     expect(sharkTile?.getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('(e) mit remote wird nach kroko:round-finished abgeglichen, ohne remote nie', async () => {
+  it('(e) mit remote wird nach roundFinished abgeglichen, ohne remote nie', async () => {
     const remote = new MockRemoteLog();
 
-    // 1. Ohne remote: kein Aufruf beim Start oder nach kroko:round-finished
-    setup();
-    document.dispatchEvent(new CustomEvent('kroko:round-finished'));
+    // 1. Ohne remote: kein Aufruf beim Start oder nach roundFinished
+    const withoutRemote = setup();
+    withoutRemote.feed.roundFinished();
     await new Promise((resolve) => setTimeout(resolve, 10));
     expect(remote.pullCalls).toBe(0);
 
-    // 2. Mit remote: Abgleich beim Start und nach kroko:round-finished
-    setup({ remote });
+    // 2. Mit remote: Abgleich beim Start und nach roundFinished
+    const withRemote = setup({ remote });
     await new Promise((resolve) => setTimeout(resolve, 10));
     expect(remote.pullCalls).toBe(1);
 
-    document.dispatchEvent(new CustomEvent('kroko:round-finished'));
+    withRemote.feed.roundFinished();
     await new Promise((resolve) => setTimeout(resolve, 10));
     expect(remote.pullCalls).toBe(2);
   });
@@ -264,5 +264,27 @@ describe('gamePage', () => {
 
     window.dispatchEvent(new Event('pointerup'));
     expect(sound.unlockCalls).toBe(1);
+  });
+
+  it('(g) eine Änderung von außen öffnet ein Tier still (kein Konfetti, keine Karte)', () => {
+    log.records = [played('crocodile', 1), played('mouse', 1)];
+    const page = setup();
+
+    const sharkTile = document.querySelector('#creature-rail button[data-creature="shark"]');
+    expect(sharkTile?.classList.contains('is-locked')).toBe(true);
+    expect(page.album.isLocked('shark')).toBe(true);
+
+    // Dritter Stern kommt von außen (anderer Tab, Sicherung)
+    log.records = [...log.records, played('wolf', 1)];
+    page.feed.changedOutside();
+
+    // Hai ist jetzt still freigeschaltet
+    expect(sharkTile?.classList.contains('is-locked')).toBe(false);
+    expect(page.album.isLocked('shark')).toBe(false);
+
+    // Keine Karte, kein Fortschritts-Text, kein Konfetti
+    expect(document.getElementById('unlock-card')?.classList.contains('hidden')).toBe(true);
+    expect(document.getElementById('unlock-progress')?.classList.contains('hidden')).toBe(true);
+    expect(document.getElementById('confetti')).toBeNull();
   });
 });
