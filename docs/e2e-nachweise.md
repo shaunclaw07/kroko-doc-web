@@ -1815,3 +1815,96 @@ Krokodil alle drei Sterne bringen kann, belegen die Unit-Tests (`album.test.ts`)
 — der Biss beim letzten Zahn lässt sich dort nicht erzwingen.
 
 `pruefen-bedienung`, `-freischaltung`, `-anzeige`, `-tiere`: alle Exit 0.
+
+## 5aj. Die Fassungen angehoben: Astro 7, vitest 5, TypeScript 7 (14.10.2026)
+
+**Auftrag:** „Falls du veraltete Software hast die hier eingesetzt wird, Update sie und aktualisiere
+die Doku." Vorher geprüft, was tatsächlich veraltet war (`pnpm outdated`), dann stufenweise angehoben
+und nach **jedem** Schritt das Gate gefahren — nicht alles auf einmal.
+
+| Abhängigkeit | vorher | nachher | Gate nach dem Schritt |
+|---|---|---|---|
+| `@types/node` | 26.6.4 | 26.6.5 | grün (526 Tests) |
+| `vitest` | 3.2.7 | **5.0.4** | grün (526 Tests) |
+| `astro` | 5.18.2 | **7.3.8** | grün (526 Tests), Bau grün |
+| `typescript` | 5.9.3 | **7.0.2** | erst **ein Typfehler**, dann grün |
+
+**Der eine echte Codefehler** (TypeScript 7 verschärft die seit 5.7 getrennte
+`ArrayBufferLike`/`ArrayBuffer`-Unterscheidung):
+
+```
+src/infrastructure/random/cryptoRandom.ts(16,30): error TS2345: Argument of type
+'Uint32Array<ArrayBufferLike>' is not assignable to parameter of type 'ArrayBufferView<ArrayBuffer>'.
+```
+
+Das Feld war als `private buffer: Uint32Array | null` deklariert — ohne Typangabe ist das
+`Uint32Array<ArrayBufferLike>`. Jetzt `Uint32Array<ArrayBuffer>` mit Begründung im Kommentar (der
+Puffer ist immer ein echter `ArrayBuffer`, nie ein `SharedArrayBuffer`). Nur der Typ wurde präzisiert,
+das Verhalten ist unverändert; eine eigene Testdatei hat diese Stelle nicht (sie wird von
+`src/pages/index.astro` benutzt).
+
+**Bauzeit vorher/nachher** (dieselbe Maschine, `pnpm build`, mit Python gestoppt):
+
+| | astro 5 | astro 7 |
+|---|---|---|
+| Arbeitsbaum | 3,57 · 3,71 · 3,81 s | **1,69 · 1,74 · 1,90 s** |
+| Baum ohne `node_modules` | — | 1,74 · 1,74 · 1,78 s (erster, kalter Lauf 2,84 s) |
+
+**Geprüft wurde die Ausgabe, nicht nur der Exit-Code** (der Bündler hat gewechselt — astro 7 bringt
+Rolldown mit):
+
+- `dist/index.html` nennt weiterhin `/statistik`, `/_astro/…`, `/favicon.svg`, `/logo.svg`,
+  `/manifest.webmanifest`; das CSS liegt jetzt als eigener Baustein unter `_astro/`
+  (`Base.DEXWpIHt.css`), der Skriptname hat einen neuen Hash (`DCu6Co8G`).
+- Der Service Worker liest die Baustein-Namen **zur Laufzeit** aus dem HTML — deshalb ist der neue
+  Hash kein Bruch. Die Offline-Sonde zeigt 4 Bausteine unter `_astro/` im Vorrat (vorher 3).
+- Baum ohne `node_modules`: `pnpm install` läuft durch, **keine** ignorierten Bau-Skripte (die
+  `allowBuilds`-Liste in `pnpm-workspace.yaml` blieb richtig), Gate grün, 526 Tests in 37 Dateien.
+- `pnpm dev`: `http://localhost:4321` → 200, `http://127.0.0.1:4321` → keine Antwort, `/statistik` →
+  200 — die dokumentierte Eigenheit gilt unverändert.
+
+**Zwölf Sonden gegen den gebauten Stand** (`pnpm build` + `pnpm preview --port 4322`, echtes Chromium):
+
+| Sonde | Ergebnis |
+|---|---|
+| `pruefen-offline` | **0 Auffälligkeiten** (SW steuert die Seite, beide Seiten und 4 `_astro/`-Bausteine im Vorrat, Zähne gezeichnet, Stylesheet geladen, ein Druck zählt, Statistikseite offline, keine gescheiterten Anfragen) |
+| `pruefen-anzeige` | in Ordnung (Farben grün/gold/rot an den berechneten Stilen) |
+| `pruefen-trefferflaeche`, `-blattbreite`, `-halten`, `-blick`, `-zoom`, `-blaetter`, `-tiere`, `-sicherung`, `-zahnsicht` | alle Exit 0 bzw. 0 Auffälligkeiten |
+| `pruefen-bedienung` | **2 Funde** — siehe unten |
+| `pruefen-freischaltung` | **2 Funde** — siehe unten |
+
+**Die zwei Funde sind Altbestand, dreifach gegengeprüft.** `pruefen-bedienung` meldet bei 320 × 568
+„das Blatt scrollt (521 px in 500 px)" und ohne Vibration „(562 px in 500 px)";
+`pruefen-freischaltung` meldet zweimal ungleich hohe Kacheln (65 px breit: 87 gegen 100 px; 115 px
+breit: 112 gegen 129 px). Gemessen in **vier** Läufen:
+
+| Lauf | Stand | Chromium | Ergebnis |
+|---|---|---|---|
+| 1 | Baum, astro 7 | 156 (Build 1248) | 2 Funde (521/562 px; 87/100 · 112/129 px) |
+| 2 | veröffentlicht, astro 5 | 156 (Build 1248) | **identisch** |
+| 3 | veröffentlicht, astro 5 | 153 (Build 1243) | **identisch** |
+| 4 | Baum, astro 7 | 156 | identisch |
+
+Damit ist beides weder dem Fassungssprung noch dem neuen Browser zuzuschreiben: es ist ein
+bestehender Zustand des Produkts bei 320 × 568 bzw. in der Kachelreihe. **Offen** — und im
+Widerspruch zur README-Zeile „Das Blatt scrollt auf keinem der gemessenen Geräte"; die Nachweisakte
+§5ai nennt für den 13.10. „alle Exit 0", was für `pruefen-bedienung` heute nicht mehr zutrifft
+(gemessen mit demselben Skript gegen dieselbe veröffentlichte Seite).
+
+**Umgebung nachgezogen:**
+
+- **Der Playwright-Browser war älter als das Werkzeug.** `uv run --with playwright` löst auf 1.64.0
+  auf (Browser-Build 1248), installiert waren 1228 und 1243 — die Kachel-Sonde brach mit
+  `BrowserType.launch: Executable doesn't exist at …/chromium_headless_shell-1248/…` ab.
+  `uv run --with playwright playwright install chromium` nachgeholt (119,9 MiB).
+- **Die Node-Anforderung ist gestiegen.** astro 7 verlangt `>=22.12.0`, vitest 5
+  `^22.12 || ^24 || >=26`, jsdom 30 `^22.22 || ^24.15 || >=26`: `engines.node` in `package.json`
+  ist jetzt `^22.22.2 || ^24.15.0 || >=26.0.0`, und README und `docs/workflow.md` nennen die neuen
+  Zahlen. Vorher stand dort „Node 20.3 oder neuer (Astro 5 …)" — mit astro 7 wäre eine solche
+  Installation nicht mehr gelaufen.
+
+**Doku geändert:** `README.md` (Voraussetzungen, getestete Fassungen, Bauzeiten, Abhängigkeitszeile,
+Fehlerhilfe „Node zu alt"), `docs/testing.md` (Stand-Kopf 14.10.2026, Bauzeit, neue Zeile
+„Abhängigkeiten"), `docs/workflow.md` (Umgebung, Playwright-Regel, Gegenprobe-Regel, Liste alter
+Werte um `2,1–3,0 s` und `2,5 s` erweitert), `package.json` (`engines.node`).
+

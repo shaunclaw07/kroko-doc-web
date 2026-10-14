@@ -2,7 +2,10 @@ import type { RandomSource } from '../../core/ports/random';
 
 /** Zufall aus der Krypto-Quelle des Browsers — kein seedbarer Pseudo-Zufall. */
 export class CryptoRandom implements RandomSource {
-  private buffer: Uint32Array | null = null;
+  // Immer ein echter `ArrayBuffer`, nie ein `SharedArrayBuffer`: `getRandomValues` verlangt
+  // `ArrayBufferView<ArrayBuffer>`. Ohne die Typangabe wäre der Puffer `Uint32Array<ArrayBufferLike>`
+  // und der Aufruf darunter fiele durch (seit TypeScript 5.7 getrennt, in 7 verschärft).
+  private buffer: Uint32Array<ArrayBuffer> | null = null;
   private cursor = 0;
 
   next(): number {

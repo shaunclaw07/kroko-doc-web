@@ -8,14 +8,15 @@ pnpm gate          # pnpm typecheck && pnpm test:run
 
 Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
-## Stand (letzter Lauf 13.10.2026)
+## Stand (letzter Lauf 14.10.2026)
 
 | Größe | Wert |
 |---|---|
 | Testdateien | 37 |
 | Tests | 526 (37 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
-| Produktionsbau | `pnpm build` → 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) |
+| Produktionsbau | `pnpm build` → 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) |
+| Abhängigkeiten | astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2 · @types/node 26.6.5 (angehoben am 14.10.2026) |
 
 ## Was wo geprüft wird
 

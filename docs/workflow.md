@@ -12,7 +12,10 @@ pnpm gate           # typecheck + tests
 
 ## Umgebung
 
-- Node 26, pnpm 12, Astro 5, vitest 3, jsdom 30 als Testumgebung.
+- Node 26, pnpm 12, Astro 7, vitest 5, TypeScript 7, jsdom 30 als Testumgebung (am 14.10.2026
+  angehoben von Astro 5 / vitest 3 / TypeScript 5 — der Bau wurde dadurch deutlich schneller). **Die
+  Node-Anforderung ist dadurch gestiegen: 22.22+ (oder 24.15+, oder 26+)**; `engines.node` in
+  `package.json` nennt die Schnittmenge, die die drei Abhängigkeiten verlangen.
 - **Keine externen Schriften, Bilder, CDNs.** Die Zeichnung ist SVG-Markup, die Klänge sind
   synthetisiert (Web Audio). **Einzige Ausnahme** sind die Tierstimmen: zwölf kurze MP3 im eigenen
   Baum (`public/sounds/voices/`), geschnitten mit `scripts/stimme-schneiden.sh` (braucht `ffmpeg`),
@@ -23,6 +26,16 @@ pnpm gate           # typecheck + tests
   bricht `pnpm install` mit `ERR_PNPM_IGNORED_BUILDS` ab. Die Form nicht raten:
   `pnpm approve-builds --all` schreibt sie selbst.
 - Tests mit DOM brauchen den Kopfkommentar `// @vitest-environment jsdom` in der Testdatei.
+- **Die Sonden brauchen den Browser zu der Playwright-Fassung, die `uv` auflöst.** `uv run --with
+  playwright` holt immer das neueste Werkzeug; ist dessen Browser nicht installiert, bricht die Sonde
+  mit `BrowserType.launch: Executable doesn't exist at …/chromium_headless_shell-<n>/…` ab (am
+  14.10.2026: Werkzeug 1.64.0 → Build 1248, installiert waren 1228 und 1243). Abhilfe, einmalig:
+  `uv run --with playwright playwright install chromium`.
+- **Eine Sonde, die neu ist, wird gegen die veröffentlichte Seite gegengeprüft, bevor ein Befund dem
+  Baum zugeschrieben wird.** Am 14.10.2026 meldeten `pruefen-bedienung.py` (Blatt scrollt bei
+  320 × 568) und `pruefen-freischaltung.py` (ungleich hohe Kacheln) je zwei Auffälligkeiten — auf dem
+  neuen Bau **und** mit identischen Zahlen auf der veröffentlichten Seite. Beides war also
+  Altbestand, kein Regress der Fassungsanhebung.
 
 ## Zeichnung prüfen (ohne Browser)
 
@@ -55,7 +68,7 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 
 ```bash
 # Zahlendoku scharf: hier ist jeder alte Wert ein Fehler
-ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|293 Tests"
+ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|2,1–3,0 s|2,5 s|293 Tests"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 # Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
 ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/workflow.md docs/e2e-nachweise.md

@@ -24,15 +24,16 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 | Voraussetzung | Prüfen mit | Nötig |
 |---|---|---|
-| Node.js **20.3 oder neuer** | `node -v` | ja (Astro 5 verlangt `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
+| Node.js **22.22 oder neuer** (oder 24.15+, oder 26+) | `node -v` | ja — die benutzten Fassungen verlangen es: Astro 7 `>=22.12.0`, vitest 5 `^22.12 \|\| ^24 \|\| >=26`, jsdom 30 `^22.22 \|\| ^24.15 \|\| >=26` |
 | pnpm **9 oder neuer** | `pnpm -v` | ja — oder ein Befehl: `corepack enable` |
 | Internet | — | **nur einmal** für `git clone` und `pnpm install` |
 | Datenbank, Server, Konto | — | nein. Alles läuft lokal im Browser, Daten bleiben im `localStorage` |
 
-Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (frischer Klon, `dist/`
-frei, 11.10.2026): `pnpm install` läuft durch, 526 Tests grün, Bau fertig in 2,1–3,0 s
-(Maschinenstreuung; gemessene Werte: 2,12 s im frischen Klon, 2,68 s · 2,86 s · 2,88 s · 2,98 s
-im Arbeitsbaum).
+Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
+`dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
+`pnpm install` läuft durch, 526 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; gemessene
+Werte: 1,74 · 1,74 · 1,78 · 1,90 s und 1,69 s im Arbeitsbaum — der erste Lauf eines kalten Baums war
+mit 2,84 s der Ausreißer).
 
 ### Die drei Befehle
 
@@ -55,7 +56,7 @@ sofort neu — du kannst also direkt im Browser daneben probieren.
 ### Ohne Entwicklungsserver (so wie es ausgeliefert wird)
 
 ```bash
-pnpm build      # statische Seite nach dist/  (fertig in ca. 2,5 s)
+pnpm build      # statische Seite nach dist/  (fertig in ca. 1,8 s)
 pnpm preview    # serviert dist/ auf http://localhost:4321
 ```
 
@@ -255,7 +256,8 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 | Tests | **526 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
-| Produktionsbau | 2 Seiten, 2,1–3,0 s (Maschinenstreuung; gemessen 2,12 · 2,68 · 2,86 · 2,88 · 2,98 s) | `pnpm build`, Arbeitsbaum und frischer Klon |
+| Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |
+| Abhängigkeiten | astro **7.3.8**, vitest **5.0.4**, TypeScript **7.0.2**, jsdom **30.1.2**, @types/node 26.6.5 | `package.json`, `pnpm-lock.yaml` (angehoben am 14.10.2026) |
 | Spannungsbalken | = Biss-Wahrscheinlichkeit des nächsten Drucks (Krokodil: 20,0 → 100 %) | `core/domain/tension.ts`, Kurve im Test festgenagelt |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
@@ -335,7 +337,7 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
 | Ein Tier bleibt stumm, die Spielklänge laufen | die Stimmdatei fehlt, ist noch nicht geladen oder kam mehr als 0,5 s zu spät | Netzwerk-Reiter der Entwicklerwerkzeuge: `sounds/voices/<tier>.mp3` muss mit 200 kommen; das Tier noch einmal wählen. Ohne Netz beim ersten Versuch wird beim nächsten Anlass neu geladen |
 | **Handy vibriert nicht** | Auf Android kann es das Gerät unterdrücken: die Vibration braucht **keine** Berechtigung, Chrome hat deshalb **keine** Website-Einstellung dafür. Laut MDN halten Stumm-/Nicht-stören-Modus und eine abgeschaltete Systemvibration sie zurück; auf iOS/Safari gibt es die Schnittstelle gar nicht | Der Schalter ist dann **abgeblendet** und die Einstellungen sagen es im Klartext. Auf Android bleibt sonst nur die Systemseite zu prüfen: Einstellungen → Töne und Vibration (Intensität nicht auf 0), Stumm-Modus auf Vibrieren, Nicht stören aus. Belegte Ursachen laut [MDN, `Navigator.vibrate`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate): Stumm- bzw. Nicht-stören-Modus und eine abgeschaltete Systemvibration |
 | Vibration sehr schwach | manche Geräte setzen kurze Stöße unter ~20 ms nicht um | die App nutzt 25 ms bei **jedem Zahndruck** und drei Stöße (120/50/220 ms) beim Biss |
-| Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node 20.3+ installieren (Astro 5: `18.20.8 \|\| ^20.3.0 \|\| >=22`) |
+| Node-Fehler beim Start („Unsupported engine") | Node zu alt | Node **22.22+** installieren (oder 24.15+, oder 26+; Astro 7 verlangt `>=22.12.0`) |
 | `pnpm install` scheitert an einem Firmennetz/Proxy | Registry nicht erreichbar | `pnpm config set registry https://registry.npmjs.org/` |
 
 ## Herkunft und Grenzen
