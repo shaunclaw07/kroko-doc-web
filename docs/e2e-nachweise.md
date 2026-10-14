@@ -2056,4 +2056,29 @@ Refactoring gemäß `docs/plaene/paket-1-katalog.md`:
 - `git grep -n "sabertooth" -- scripts src/presentation/styles src/pages`: nur noch Einzelfall-Stellen, keine Liste.
 - **Gegenprobe:** in `scripts/katalog.json` Tier entfernt → `src/katalog-json.test.ts` schlägt fehl (Exit 1).
 
+## 14.10.2026 — Paket 2: Seitenskripte in geprüfte Module
+
+Refactoring gemäß `docs/plaene/paket-2-seitenskripte.md`:
+- `src/presentation/game/settingsSheet.ts` mit `wireSettingsSheet({ doc, settings, haptics, apply })` extrahiert und mit `settingsSheet.test.ts` geprüft.
+- `src/presentation/game/gamePage.ts` mit `wireGamePage(deps)` kapselt die gesamte Spiellogik, Verdrahtung von Controller, Album, Leiste, Einstellungen, Dialogen, Tastatur/Zeiger-Freigabe und Sicherung.
+- `src/presentation/stats/statsPage.ts` mit `wireStatsPage(deps)` kapselt Gefahr-Kurve, Berichtsaktualisierung, CSV-Export (`zahn-agent-runden-<datum>.csv`), CSV-Import, Protokoll-Löschung und Sicherungsabgleich.
+- Beide `.astro`-Seitenskripte gekürzt:
+  - `src/pages/index.astro`: 30 Zeilen (28 Zeilen Skriptinhalt), kein `addEventListener`, kein `getElementById`.
+  - `src/pages/statistik.astro`: 23 Zeilen (21 Zeilen Skriptinhalt), kein `addEventListener`, kein `getElementById`.
+- `src/bedienleiste.test.ts` auf das extrahierte Modul `gamePage.ts` angepasst.
+
+**Abnahme:**
+- Beide Seitenskripte unter 30 Zeilen; kein `addEventListener` und kein `getElementById` mehr darin.
+- `pnpm gate` grün: 549 Tests in 41 Dateien, `tsc --noEmit` fehlerfrei.
+- Alle sieben Sonden ohne Fund:
+  - `scripts/pruefen-bedienung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-freischaltung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-blaetter.py`: ERGEBNIS: in Ordnung
+  - `scripts/pruefen-tiere.py`: ERGEBNIS: in Ordnung
+  - `scripts/pruefen-offline.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-sicherung.py`: Auffälligkeiten: 0
+  - `scripts/pruefen-anzeige.py`: ERGEBNIS: in Ordnung
+- **Gegenprobe:** in `gamePage.ts` `quick.paint()` in `album.onPlay` auskommentiert → Fall (d) in `gamePage.test.ts` schlägt fehl mit `AssertionError: expected 'Krokodil' to be 'Hai'`.
+
+
 

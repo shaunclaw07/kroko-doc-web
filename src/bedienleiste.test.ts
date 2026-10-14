@@ -8,6 +8,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const SEITE = readFileSync(new URL('./pages/index.astro', import.meta.url), 'utf8');
+const GAME_PAGE = readFileSync(new URL('./presentation/game/gamePage.ts', import.meta.url), 'utf8');
 const SPIEL = SEITE.slice(SEITE.indexOf('<main'), SEITE.indexOf('</main>'));
 const ZAHNRAD = SEITE.slice(SEITE.indexOf('id="settings-sheet"'), SEITE.indexOf('id="creature-sheet"'));
 const REGELN = SEITE.slice(SEITE.indexOf('id="rules-sheet"'), SEITE.indexOf('<script>'));
@@ -64,12 +65,12 @@ describe('Spielseite', () => {
   });
   it('ordnet die Auswahl nach der Freischaltung und sperrt beim Start über die Ablage', () => {
     expect(SEITE).toContain('UNLOCK_ORDER.map((id) => getCreature(id))');
-    expect(SEITE).toContain('settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked)');
-    expect(SEITE).toContain('isLocked: (creatureId: string) => album.isLocked(creatureId)');
+    expect(GAME_PAGE).toContain('settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked)');
+    expect(GAME_PAGE).toContain('isLocked: (creatureId: string) => album.isLocked(creatureId)');
   });
   it('verdrahtet das Album mit derselben Ablage wie das Spiel', () => {
-    expect(SEITE).toContain("from '../presentation/game/albumBadges'");
-    expect(SEITE).toMatch(/wireAlbum\(\{\s+doc: document,\s+log,/);
+    expect(GAME_PAGE).toContain("from './albumBadges'");
+    expect(GAME_PAGE).toMatch(/wireAlbum\(\{\s+doc,\s+log,/);
   });
 });
 

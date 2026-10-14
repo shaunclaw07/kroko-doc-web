@@ -323,174 +323,33 @@ const base = import.meta.env.BASE_URL;
   </dialog>
 
   <script>
-    import { GameController } from '../presentation/game/gameController';
-    import { wireAlbum } from '../presentation/game/albumBadges';
-    import { settingsAfterCreatureChoice, settingsWithUnlockedCreature } from '../presentation/game/creatureChoice';
-    import { albumFromRecords } from '../core/domain/album';
-    import { unlockState } from '../core/domain/unlocks';
-    import { creaturePortrait } from '../presentation/game/creatures';
-    import { wireQuickControls } from '../presentation/game/quickControls';
-    import { closeSheet, openSheet as showSheet, wireOutsideTapDismissal } from '../presentation/game/sheets';
-    import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { WebAudioEngine } from '../infrastructure/audio/webAudioEngine';
     import { BrowserHaptics } from '../infrastructure/haptics/browserHaptics';
-    import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { CryptoRandom } from '../infrastructure/random/cryptoRandom';
     import { requestPersistence } from '../infrastructure/storage/browserPersistence';
     import { HttpRemoteLog, backupCode, backupUrl } from '../infrastructure/storage/httpRemoteLog';
-    import { wireBackup } from '../presentation/game/backupSync';
+    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
+    import { loadSettings } from '../infrastructure/storage/localStorageSettings';
     import { browserSessionMarks } from '../infrastructure/storage/sessionStorageMarks';
-    import { loadSettings, saveSettings, type GameSettings } from '../infrastructure/storage/localStorageSettings';
+    import { creaturePortrait } from '../presentation/game/creatures';
+    import { wireGamePage } from '../presentation/game/gamePage';
 
     const storage = browserStorage();
-    const loaded = loadSettings(storage);
-    const log = new LocalStorageRoundLog(storage);
-    // Ein gespeichertes Tier, das (noch oder wieder) gesperrt ist, fällt auf das Krokodil zurück —
-    // etwa nach „Protokoll löschen". Welche Tiere offen sind, folgt allein aus den Sternen.
-    const settings = settingsWithUnlockedCreature(loaded, unlockState(albumFromRecords(log.load())).unlocked);
-    if (settings !== loaded) {
-      saveSettings(storage, settings);
-    }
-    // Die Tierstimmen sind Dateien unter dem Basis-Pfad der Seite (public/sounds/voices/).
-    const sound = new WebAudioEngine({ muted: !settings.sound, voiceBaseUrl: import.meta.env.BASE_URL });
-    const haptics = new BrowserHaptics();
-    // Runden und Sterne sollen bleiben: ohne diese Bitte darf der Browser die Ablage bei knappem
-    // Platz leeren. Was er geantwortet hat, zeigt die Statistikseite.
+    const settings = loadSettings(storage);
+    const code = backupCode(location.search, storage, location.pathname);
     void requestPersistence();
 
-    const controller = new GameController({
+    wireGamePage({
+      doc: document,
+      win: window,
+      storage,
+      log: new LocalStorageRoundLog(storage),
       rng: new CryptoRandom(),
-      sound,
-      haptics,
-      log,
-      settings,
+      sound: new WebAudioEngine({ muted: !settings.sound, voiceBaseUrl: import.meta.env.BASE_URL }),
+      haptics: new BrowserHaptics(),
       session: browserSessionMarks(),
-      document,
-      onSettingsChange: (next: GameSettings) => saveSettings(storage, next),
-    });
-
-    controller.mount();
-
-    // Das Tier-Album: Sterne an den Kacheln, abgeleitet aus derselben Ablage. Es hört selbst auf
-    // `kroko:round-finished`; was von außen kommt (anderer Tab, Zurück-Taste), zieht `paint()` nach.
-    // Dazu die Sperre der Tiere und, nach dem Biss, die Freischaltung mit ihrem Knopf.
-    const album = wireAlbum({
-      doc: document,
-      log,
       portrait: creaturePortrait,
-      onPlay: (creatureId: string) => {
-        const next = settingsAfterCreatureChoice(settings, creatureId);
-        if (next) controller.applySettings(next);
-        quick.paint();
-      },
+      remote: code ? new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)) : undefined,
     });
-
-    // Das Protokoll kann sich außerhalb dieser Seite ändern: die Statistikseite löscht oder
-    // importiert in einem anderen Tab (`storage`), oder diese Seite kommt über die Zurück-Taste
-    // unverändert aus dem Zwischenspeicher des Browsers (`pageshow` mit `persisted`).
-    window.addEventListener('storage', (event) => {
-      if (event.key === null || event.key === STORAGE_KEY) {
-        controller.syncLog();
-        album.paint();
-      }
-    });
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted) {
-        controller.syncLog();
-        album.paint();
-      }
-    });
-
-    // Sicherung außerhalb des Geräts — nur, wenn die Adresse einen Sicherungscode trägt
-    // (`…/s/<code>` oder `?s=<code>`).
-    // Ein Profil, das seine Browserdaten verwirft, bekommt so beim Start seine Runden zurück;
-    // nach jedem Biss wird nachgesichert. Ohne Code geschieht hier nichts.
-    const code = backupCode(location.search, storage, location.pathname);
-    if (code) {
-      const backup = wireBackup({
-        local: log,
-        remote: new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)),
-        onLocalChange: () => {
-          controller.syncLog();
-          album.paint();
-        },
-      });
-      void backup.sync();
-      document.addEventListener('kroko:round-finished', () => void backup.sync());
-    }
-
-    /** Blätter öffnen und schließen. */
-    const sheetOf = (id: string): HTMLDialogElement | null =>
-      document.getElementById(id) as HTMLDialogElement | null;
-    const openSheet = (id: string): void => showSheet(sheetOf(id));
-
-    // Schalter und Segmente mit den gespeicherten Einstellungen abgleichen
-    const soundBox = document.getElementById('opt-sound') as HTMLInputElement | null;
-    const vibrationBox = document.getElementById('opt-vibration') as HTMLInputElement | null;
-    if (soundBox) soundBox.checked = settings.sound;
-    if (vibrationBox) vibrationBox.checked = settings.vibration;
-    // Ehrlich statt still: kann der Browser nicht vibrieren (Safari auf iOS), sagen wir es und
-    // schalten den Griff ab — sonst sucht man den Fehler beim Handy oder im Spiel.
-    const vibrationHint = document.getElementById('vibration-hint');
-    if (vibrationBox && !haptics.isSupported()) {
-      vibrationBox.checked = false;
-      vibrationBox.disabled = true;
-      if (vibrationHint) {
-        vibrationHint.hidden = false;
-        vibrationHint.textContent = 'Dieser Browser kann nicht wackeln (z. B. Safari auf dem iPhone).';
-      }
-    }
-    document.querySelectorAll<HTMLButtonElement>('#opt-players [data-players]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(Number(button.dataset.players) === settings.players));
-      button.addEventListener('click', () => {
-        document.querySelectorAll('#opt-players [data-players]').forEach((other) => other.setAttribute('aria-pressed', 'false'));
-        button.setAttribute('aria-pressed', 'true');
-        controller.applySettings({ ...settings, players: Number(button.dataset.players ?? '1') });
-      });
-    });
-    document.querySelectorAll<HTMLButtonElement>('#opt-mode [data-mode]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(button.dataset.mode === settings.mode));
-      button.addEventListener('click', () => {
-        document.querySelectorAll('#opt-mode [data-mode]').forEach((other) => other.setAttribute('aria-pressed', 'false'));
-        button.setAttribute('aria-pressed', 'true');
-        controller.applySettings({ ...settings, mode: button.dataset.mode === 'classic' ? 'classic' : 'original' });
-      });
-    });
-    soundBox?.addEventListener('change', () => controller.applySettings({ ...settings, sound: soundBox.checked }));
-    vibrationBox?.addEventListener('change', () => controller.applySettings({ ...settings, vibration: vibrationBox.checked }));
-
-    // Die Leiste der Spielseite (Tier, Zähne): Regeln und Test stehen in quickControls.ts.
-    // Ein Tipp auf eine Kachel wählt und schließt das Auswahlblatt — auf dem Tablet ist es gar
-    // nicht offen, `closeSheet` tut dann nichts.
-    const quick = wireQuickControls({
-      doc: document,
-      settings,
-      isLocked: (creatureId: string) => album.isLocked(creatureId),
-      onLockedTap: (creatureId: string) => album.lockedTap(creatureId),
-      apply: (next: GameSettings) => controller.applySettings(next),
-      portrait: creaturePortrait,
-      onCreatureChosen: () => {
-        const sheet = sheetOf('creature-sheet');
-        if (sheet?.hasAttribute('open')) closeSheet(sheet);
-      },
-    });
-
-    document.getElementById('settings-open')?.addEventListener('click', () => openSheet('settings-sheet'));
-    document.getElementById('creature-open')?.addEventListener('click', () => openSheet('creature-sheet'));
-
-    document.getElementById('rules-open')?.addEventListener('click', () => openSheet('rules-sheet'));
-    document.querySelectorAll('[data-close-sheet]').forEach((button) => {
-      button.addEventListener('click', () => closeSheet(button.closest('dialog')));
-    });
-
-    // Ein Tipp neben das oberste Blatt schließt es — die Regeln stehen (geprüft) in sheets.ts.
-    wireOutsideTapDismissal(document);
-
-    // Browser geben Ton erst nach einer Nutzergeste frei. `pointerup` statt `pointerdown`: ein
-    // Finger, der nur scrollt, endet mit `pointercancel` und ist keine Freigabe — die Engine
-    // hielte sich sonst für freigegeben, während der Browser den Ton noch sperrt. Bei **jeder**
-    // Geste, nicht nur der ersten: die erste kann eine sein, die der Browser nicht zählt, und iOS
-    // hält den Ton nach einem Anruf wieder an (`unlock()` tut nichts, solange er läuft).
-    document.addEventListener('pointerup', () => sound.unlock());
-    document.addEventListener('keydown', () => sound.unlock());
   </script>
 </Base>

@@ -67,121 +67,25 @@ import Base from '../layouts/Base.astro';
   </main>
 
   <script>
-    import { LocalStorageRoundLog, STORAGE_KEY, browserStorage } from '../infrastructure/storage/localStorageLog';
-    import { fromCsv, toCsv } from '../core/domain/sessionLog';
-    import { requestPersistence } from '../infrastructure/storage/browserPersistence';
     import { HttpRemoteLog, backupCode, backupUrl } from '../infrastructure/storage/httpRemoteLog';
-    import { backupNote, wireBackup } from '../presentation/game/backupSync';
-    import { persistenceNote, renderDangerCurve, renderReport, sampleStatus } from '../presentation/stats/statsView';
-    import { getCreature } from '../core/domain/creature';
+    import { LocalStorageRoundLog, browserStorage } from '../infrastructure/storage/localStorageLog';
     import { loadSettings } from '../infrastructure/storage/localStorageSettings';
-    import { MAX_TEETH, MIN_TEETH } from '../core/domain/teeth';
+    import { requestPersistence } from '../infrastructure/storage/browserPersistence';
+    import { browserDownload, wireStatsPage } from '../presentation/stats/statsPage';
 
-    const log = new LocalStorageRoundLog(browserStorage());
+    const storage = browserStorage();
+    const code = backupCode(location.search, storage, location.pathname);
 
-    // Sicherung außerhalb des Geräts — nur mit Sicherungscode (siehe Spielseite). Diese Seite
-    // sagt, ob sie geklappt hat; ohne Code bleibt die Zeile verborgen.
-    const backupStatus = document.getElementById('backup-status');
-    const code = backupCode(location.search, browserStorage(), location.pathname);
-    const backup = code
-      ? wireBackup({
-          local: log,
-          remote: new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)),
-          onLocalChange: () => refresh(),
-          onStatus: (state) => {
-            if (backupStatus) {
-              backupStatus.hidden = false;
-              backupStatus.textContent = backupNote(state);
-            }
-          },
-        })
-      : null;
-
-    // Die Gefahr-Kurve zeigt das eingestellte Gebiss — dieselbe Einstellung wie im Spiel.
-    const settings = loadSettings(browserStorage());
-    const creature = getCreature(settings.creature);
-    const teeth = Math.min(MAX_TEETH, Math.max(MIN_TEETH, settings.teethOverride ?? creature.teeth));
-    const dangerMount = document.getElementById('danger-mount');
-    if (dangerMount) {
-      renderDangerCurve(dangerMount, {
-        creatureName: creature.name,
-        teeth,
-        mode: settings.mode,
-        liveTeethMin: creature.liveTeethMin,
-        liveTeethMax: creature.liveTeethMax,
-      });
-    }
-    const mountPoint = document.getElementById('report-mount');
-    const status = document.getElementById('data-status');
-
-    function refresh(): void {
-      const records = log.load();
-      if (mountPoint) {
-        renderReport(mountPoint, records);
-      }
-      if (status) {
-        status.textContent = sampleStatus(records);
-      }
-    }
-
-    document.getElementById('export-csv')?.addEventListener('click', () => {
-      const csv = toCsv(log.load());
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `kroko-doc-runden-${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
-      if (status) status.textContent = 'CSV exportiert.';
-    });
-
-    document.getElementById('toggle-import')?.addEventListener('click', () => {
-      document.getElementById('import-area')?.classList.toggle('hidden');
-    });
-
-    document.getElementById('import-run')?.addEventListener('click', () => {
-      const field = document.getElementById('import-text') as HTMLTextAreaElement | null;
-      const hint = document.getElementById('import-status');
-      if (!field) return;
-      const imported = fromCsv(field.value);
-      if (imported.length === 0) {
-        if (hint) hint.textContent = 'Keine gültigen Zeilen gefunden.';
-        return;
-      }
-      // Import hängt an und zählt die Rundennummern fortlaufend weiter.
-      const existing = log.load();
-      const start = existing.reduce((max, record) => Math.max(max, record.round), 0);
-      const merged = [...existing, ...imported.map((record, index) => ({ ...record, round: start + index + 1 }))];
-      log.save(merged);
-      if (hint) hint.textContent = `${imported.length} Runden importiert.`;
-      refresh();
-      void backup?.sync();
-    });
-
-    document.getElementById('clear-log')?.addEventListener('click', () => {
-      if (confirm('Wirklich alle protokollierten Runden löschen? Damit verschwinden auch die Sterne im Tier-Album.')) {
-        log.clear();
-        refresh();
-        // Ersetzen statt abgleichen: sonst brächte die Sicherung die gelöschten Runden zurück.
-        void backup?.replace([]);
-      }
-    });
-
-    refresh();
-    void backup?.sync();
-    // Hält der Browser die Ablage dauerhaft? Die Antwort steht da, statt verschwiegen zu werden.
-    const storageStatus = document.getElementById('storage-status');
-    void requestPersistence().then((state) => {
-      if (storageStatus) storageStatus.textContent = persistenceNote(state);
-    });
-    // Das Spiel in einem anderen Tab schreibt in dieselbe Ablage — die Auswertung zieht nach.
-    window.addEventListener('storage', (event) => {
-      if (event.key === null || event.key === STORAGE_KEY) {
-        refresh();
-      }
+    wireStatsPage({
+      doc: document,
+      win: window,
+      log: new LocalStorageRoundLog(storage),
+      settings: loadSettings(storage),
+      remote: code ? new HttpRemoteLog(backupUrl(import.meta.env.BASE_URL, code)) : undefined,
+      confirm: (message: string) => window.confirm(message),
+      download: browserDownload,
+      today: () => new Date().toISOString().slice(0, 10),
+      persistence: requestPersistence(),
     });
   </script>
 </Base>
