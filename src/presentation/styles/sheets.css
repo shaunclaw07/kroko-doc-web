@@ -1,0 +1,135 @@
+/* --- Bottom Sheet --- */
+dialog.sheet {
+  position: fixed;
+  inset: auto 0 0 0;
+  margin: 0;
+  width: 100%;
+  max-width: 620px;
+  max-height: 82vh;
+  max-height: 88dvh;
+  overflow: auto;
+  border: 0;
+  border-radius: 20px 20px 0 0;
+  padding: 1.1rem 1.1rem 1.6rem;
+  background: #101c22;
+  color: var(--ink);
+  box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.6);
+}
+
+dialog.sheet::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.sheet__grip {
+  width: 46px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0 auto 0.9rem;
+}
+
+/*
+ * Der Blattkopf bleibt beim Scrollen oben stehen (sticky). Er liegt über dem durchlaufenden
+ * Inhalt und braucht deshalb eine eigene Fläche, sonst scheint der Text durch. Der obere
+ * Innenabstand des Blattes wird mit negativem `top` ausgeglichen, damit der Griff ganz oben sitzt.
+ */
+.sheet__head {
+  position: sticky;
+  top: -1.1rem;
+  z-index: 3;
+  background: #101c22;
+  padding-top: 0.35rem;
+}
+
+.sheet__headrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sheet__head h2 {
+  flex: 1;
+  margin: 0;
+}
+
+/* Der Ausgang: 48 px Trefferfläche (Richtwert für Kinderfinger), ruhig gezeichnet. */
+.sheet__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+}
+
+.sheet__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sheet__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+/*
+ * Tablets und größer: das Blatt nutzt die Breite.
+ * Auf dem Handy ist `width: 100%` die volle Breite. Ab 640 px deckelte `max-width: 620px` das
+ * Blatt, und weil der Dialog mit `inset: auto 0 0 0` und `margin: 0` sitzt, klebte es danach am
+ * **linken** Rand — gemessen bei 1180 × 820: 0 px Luft links, 560 px rechts, 821 px Inhalt in
+ * einer Spalte in einem 672 px hohen Sichtfenster. Deshalb: mittig, höchstens 1,5 rem an die
+ * Ränder, und die Felder des Einstellungsblattes laufen in zwei bis vier Spalten. Maß ist die
+ * Spaltenbreite, nicht die Geräteklasse: `auto-fit` gibt so viele Spalten, wie hineinpassen.
+ *
+ * Die Mitte kommt aus `margin: 0 auto` und **nicht** aus `left: 50%` mit `transform`: ein
+ * `transform` auf einem modalen `dialog` ist genau die Stelle, an der ein Browser die Fläche
+ * anders rechnen kann als er sie zeichnet — dann liegt das gezeichnete ✕ nicht dort, wo der Tipp
+ * ankommt, und das Blatt lässt sich auf so einem Gerät nicht mehr schließen. `left: 0`/`right: 0`
+ * mit zwei automatischen Außenabständen teilt den Rest gleichmäßig auf und kommt ohne
+ * Umrechnung aus.
+ */
+@media (min-width: 640px) {
+  dialog.sheet {
+    inset: auto 0 1.5rem 0;
+    margin: 0 auto;
+    width: min(100% - 3rem, 620px);
+    max-width: none;
+    border-radius: 20px;
+  }
+
+  /* Das Einstellungsblatt stellt in Spalten — es ist das einzige Blatt, das breiter sein darf.
+     Der Selektor muss `dialog.sheet` aus dem Block darüber schlagen (gleiche Spezifität reicht
+     nicht: `dialog.sheet` wäre 0-1-1, `.sheet--columns` nur 0-1-0 — dann bliebe es bei 620 px).
+     `[open]` ist **Pflicht**: ein `display: grid` eines Autors hebt sonst das `display: none` der
+     Browser-Regel `dialog:not([open])` auf (Autoren-Regeln schlagen Browser-Regeln, egal wie die
+     Spezifität aussieht) — das geschlossene Blatt stand sichtbar auf jeder Tablettseite und ließ
+     sich nicht schließen, weil `close()` bei einem geschlossenen Dialog nichts tut. Gemessen beim
+     Laden, vor jedem Tipp: 1180 px → `display: grid`, 1132 × 525 sichtbar; 390 px → `display: none`. */
+  dialog.sheet.sheet--columns[open] {
+    width: calc(100% - 3rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    column-gap: 1.6rem;
+    align-content: start;
+  }
+
+  /* Kopf, Hinweiszeilen, Knöpfe und die Fußwege laufen über die ganze Breite. */
+  dialog.sheet.sheet--columns[open] > .sheet__head,
+  dialog.sheet.sheet--columns[open] > .sheet__actions,
+  dialog.sheet.sheet--columns[open] > .muted {
+    grid-column: 1 / -1;
+  }
+
+  /* Die Segment-Schalter ziehen sich sonst als leere dunkle Spur über die ganze Spalte,
+     während die Knöpfe links kleben. Sie sollen so breit sein wie ihr Inhalt. */
+  dialog.sheet.sheet--columns[open] .segmented {
+    align-self: start;
+  }
+}
+

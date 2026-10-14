@@ -1,0 +1,123 @@
+/* Zahn Agent — Jahrmarkt bei Nacht. Keine externen Schriften, keine Bilder. */
+
+:root {
+  --ink: #f4ecd8;
+  --ink-dim: #b9ae95;
+  --bg-0: #080f14;
+  --bg-1: #0d1a20;
+  --jw-green: #2f6b4f;
+  --jw-green-dark: #1c4531;
+  --jw-green-light: #4c8f6c;
+  --jw-belly: #d9cfa8;
+  --jw-mouth: #6d2230;
+  --gold: #e8b64c;
+  --danger: #ef7368;
+  --ok: #6fcf97;
+  --tension: 0;
+  --line: rgba(255, 255, 255, 0.14);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --radius: 14px;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(120% 80% at 50% 0%, #14262e 0%, var(--bg-1) 45%, var(--bg-0) 100%);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 1rem 1rem calc(5.25rem + env(safe-area-inset-bottom));
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand svg,
+.brand__mark {
+  width: 34px;
+  height: 34px;
+}
+
+.brand small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-dim);
+  letter-spacing: 0;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.35rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 0.6rem;
+}
+
+.muted {
+  color: var(--ink-dim);
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.spacer {
+  flex: 1;
+}
+

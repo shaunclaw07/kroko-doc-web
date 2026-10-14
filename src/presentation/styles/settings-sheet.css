@@ -1,0 +1,20 @@
+/* --- Einstellungsblatt (alles hinter dem Zahnrad) --- */
+.set {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+}
+
+.set__label {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Das Kopfbild: dieselbe Zeichnung wie die Bühne, nur als Bild ohne Bedienung. */
+.creature-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+

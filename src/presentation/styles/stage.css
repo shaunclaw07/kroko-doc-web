@@ -1,0 +1,218 @@
+/* --- Bühne --- */
+.stage {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 50% 20%, rgba(232, 182, 76, 0.16), transparent 60%),
+    linear-gradient(180deg, #12232b, #060c10);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.stage::after {
+  /* Vignette zieht sich mit der Spannung zu */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(0, 0, 0, calc(0.2 + 0.6 * var(--tension))) 100%);
+  transition: background 0.3s ease;
+}
+
+.stage.is-shaking {
+  animation: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  15% { transform: translate3d(-9px, 4px, 0) rotate(-0.6deg); }
+  30% { transform: translate3d(8px, -6px, 0) rotate(0.5deg); }
+  45% { transform: translate3d(-7px, 3px, 0) rotate(-0.4deg); }
+  60% { transform: translate3d(5px, -3px, 0) rotate(0.3deg); }
+  80% { transform: translate3d(-3px, 2px, 0); }
+}
+
+/* Heranzoomen bei Rot: die Steuerung schreibt --zoom (0..1, abgeleitet aus der Bissgefahr) an die
+   Bühne. Skaliert wird der **Behälter** der Zeichnung — die Zeichnung selbst (`is-lunging`) und die
+   Bühne (`is-shaking`) tragen eigene Transformationen. Höchstens 8 %: beim breitesten Kopf (Vampir,
+   x 24…616 von 640) bleibt der Rand damit gerade im Bild. Drehpunkt ist die Maulmitte. Wer den
+   Faktor anhebt, fährt scripts/pruefen-zoom.py. */
+#croc-mount {
+  transform-origin: 50% 58%;
+  transform: scale(calc(1 + 0.08 * var(--zoom, 0)));
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- Bühne: Blick von vorne oben in das offene Maul ------------------------------- */
+
+.creature {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+}
+
+/* Der Oberkiefer fährt beim Zuschnappen um --close-shift nach unten; die Schnauze
+   (Schnauzenspitze, Nase) fährt nur den Anteil --shell-shift mit. Beide Werte setzt die
+   Zeichnung des Lebewesens (aus Ring und Banddicken berechnet, s. creatures/factory.ts). */
+.jaw__upper,
+.jaw__shell {
+  transition: transform 90ms cubic-bezier(0.5, 0, 0.9, 0.4);
+}
+
+.creature.is-snapped .jaw__upper {
+  transform: translateY(var(--close-shift, 0px));
+}
+
+.creature.is-snapped .jaw__shell {
+  transform: translateY(var(--shell-shift, 0px));
+}
+
+/* Ist das Maul zu, ist der Oberkiefer **weg**: erst fährt er zu (90 ms, das ist der Biss), dann
+   verschwinden sein Zahnfleischband und die Schnauzenfläche. Bis zum 13.10.2026 blieben beide
+   unter dem Lächeln stehen — als zweiter Bogen, der beim Vampir auf dem roten Kragen lag und wie
+   ein zweiter Mund aussah (gemeldet mit Bild: „das müsste gar nicht sichtbar sein, wenn der Mund
+   zu ist"). Die Nase gehört zur Schnauzen-Gruppe und bleibt: sie rutscht mit nach unten.
+   Die Verzögerung steht nur hier, am Zielzustand: beim Öffnen ist der Kiefer sofort wieder da. */
+.creature.is-snapped .jaw__upper,
+.creature.is-snapped path.jaw__shell {
+  opacity: 0;
+  transition:
+    transform 90ms cubic-bezier(0.5, 0, 0.9, 0.4),
+    opacity 60ms ease-out 90ms;
+}
+
+/* Beim Zuschnappen verschwindet der Rachen — darunter erscheint die Kopffarbe. */
+.mouth__hole,
+.mouth__inner {
+  transition: opacity 70ms ease-out;
+}
+
+.creature.is-snapped .mouth__hole,
+.creature.is-snapped .mouth__inner {
+  opacity: 0;
+}
+
+/* Die ruhende obere Zahnreihe stört das geschlossene Maul nicht. */
+/* Beim Zuschnappen fährt der Oberkiefer über die obere Zahnreihe — sie verschwindet darunter. */
+.teeth--upper {
+  transition: opacity 90ms ease-out;
+}
+
+.creature.is-snapped .teeth--upper {
+  opacity: 0;
+}
+
+/* Das Tier spürt die Gefahr mit: der Oberkiefer zittert leicht über 30 % Bissgefahr und deutlich
+   ab 50 % (Klassen aus der Steuerung, dieselben Schwellen wie der Balken). Diese Regeln stehen mit
+   Absicht **vor** dem Zucken und vor der Pause: `is-twitching`, `is-pressing`, `is-settling` und
+   `is-clenching` animieren dasselbe Element mit gleicher Spezifität — die spätere Regel gewinnt,
+   und das Zittern darf keine von ihnen schlucken. */
+.creature.is-wary .jaw__upper {
+  --tremble: 2px;
+  animation: jaw-tremble 1.4s ease-in-out infinite;
+}
+
+.creature.is-trembling .jaw__upper {
+  --tremble: 3px;
+  animation: jaw-tremble 0.42s ease-in-out infinite;
+}
+
+@keyframes jaw-tremble {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(var(--tremble, 2px)); }
+  70% { transform: translateY(calc(var(--tremble, 2px) * -0.5)); }
+}
+
+/* Fakeout-Zucken: das Maul zuckt kurz, ohne zuzuschnappen. */
+.creature.is-twitching .jaw__upper {
+  animation: twitch 0.26s ease-in-out 2;
+}
+
+@keyframes twitch {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(9px); }
+}
+
+/* Bissmarkierung: pulsierender Ring an der Spitze des scharfen Zahns. */
+.creature__biter {
+  transition: opacity 0.15s ease;
+}
+
+.creature__biter-ring {
+  fill: none;
+  stroke: var(--danger);
+  stroke-width: 4;
+  stroke-dasharray: 6 5;
+  animation: biter 1.1s linear infinite;
+}
+
+.creature__biter-ring--outer {
+  stroke-width: 2;
+  opacity: 0.5;
+}
+
+.creature__biter-label {
+  fill: var(--danger);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+@keyframes biter {
+  to { stroke-dashoffset: -22; }
+}
+
+.creature.is-lunging {
+  animation: lunge 0.4s ease-out;
+}
+
+@keyframes lunge {
+  0% { transform: translateX(0) scale(1); }
+  35% { transform: translateX(-14px) scale(1.03); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+/* Zähne: große Trefferfläche, kleine Zeichnung */
+.tooth {
+  cursor: pointer;
+  /* Langes Halten ist eine Spielgeste — kein Auswahl- oder Systemmenü. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.tooth .tooth__shape {
+  transition: fill 0.2s ease;
+}
+
+.tooth .tooth__glow {
+  fill: none;
+}
+
+/*
+ * Nur die Zähne sind bedienbar — jede andere Ebene der Zeichnung ist Dekoration und darf keinen
+ * Tipp abfangen. Gemessen am 11.10.2026 im Browser: das untere Zahnfleischband (`jaw__band--lower`)
+ * wird NACH den unteren Zähnen gezeichnet und liegt deshalb über deren Trefferfläche; bei Zahn 2
+ * und Zahn 10 fiel die Mitte des Trefferkreises darauf, und ein Tipp dort tat **nichts**
+ * (`#hud-presses` blieb 0, Zustand `open`). Die Ausnahme unten stellt die Trefferfläche wieder her:
+ * `pointer-events: none` am Behälter, `all` am Trefferkreis — Kinder dürfen ihren Eltern widersprechen.
+ */
+.creature .creature__body,
+.creature .mouth__hole,
+.creature .mouth__inner,
+.creature .jaw__upper,
+.creature .jaw__lower,
+.creature .creature__face,
+.creature .creature__biter,
+.creature .rest-tooth {
+  pointer-events: none;
+}
+
+/* Trefferfläche: unsichtbar, aber deutlich größer als die Zahnzeichnung. */
+.tooth__hit {
+  fill: #000;
+  fill-opacity: 0;
+  pointer-events: all;
+}
+

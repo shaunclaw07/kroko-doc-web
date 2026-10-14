@@ -2106,5 +2106,56 @@ Refactoring gemäß `docs/plaene/paket-3-zustand.md`:
   - `git grep -n "kroko:" -- src` schlägt sofort an, wenn das alte DOM-Event wieder eingeführt wird (Exit 0 statt Exit 1).
   - Ohne Anmeldung von `quickControls` an `settingsStore` schlägt Test (d) in `gamePage.test.ts` fehl mit `AssertionError: expected 'Krokodil' to be 'Hai'`.
 
+## 14.10.2026 — Paket 6: `app.css` nach Bauteilen aufteilen
+
+Refactoring gemäß `docs/plaene/paket-6-stylesheet.md`:
+- `src/presentation/styles/app.css` (1 756 Zeilen) an den zwölf Abschnittsmarkierungen in zwölf
+  Dateien geschnitten: `base.css` (1–123), `controls.css`, `stage.css` (beide Bühnen-Abschnitte),
+  `settings-sheet.css`, `creature-grid.css`, `album.css`, `unlocks.css`, `hud.css`, `sheets.css`,
+  `stats.css`, `press-beat.css`, `game-layout.css`. Reihenfolge und Wortlaut unverändert.
+- `app.css` enthält nur noch die `@import`-Liste in genau dieser Reihenfolge (16 Zeilen). Die
+  Medienabfragen sind in ihrem Abschnitt geblieben — auch die `prefers-reduced-motion`-Abfrage, die
+  Regeln aus drei Bauteilen nennt (sie ist heute in `stats.css`).
+- `scripts/artwork-png.py`: neue Funktion `stylesheet_text()` liest die `@import`-Liste aus `app.css`
+  und fügt die Bauteile in dieser Reihenfolge zusammen; `relevant_css()` arbeitet darauf.
+  `scripts/galerie.py` nutzt sie über `prepare()` mit — die Umrechnung bleibt an einer Stelle.
+- Verweise nachgezogen (nur die Form, nicht die Aussage): `AGENTS.md` zweimal
+  `presentation/styles/app.css` → `presentation/styles/stage.css`, ebenso der Kommentar in
+  `src/icon.test.ts`; in `AGENTS.md` zusätzlich die dritte Stelle der Zustandsregeln benannt und
+  eine Falle zur Importliste und zum Kaskadenort ergänzt (Abschnitt „Fünfunddreißig Fallen“).
+
+**Abnahme:**
+- **Der erzeugte Stil ist inhaltsgleich.** `pnpm build` vor und nach dem Schnitt, die erzeugte
+  `dist/_astro/*.css` verglichen: 21 756 Zeichen, SHA256 `0706599e54a1…`, **derselbe Dateiname**
+  `Base.CMeXa5sZ.css` (der Bau hasht den Inhalt) — identisch, nicht nur ähnlich.
+- **Sechs Rasterbilder unverändert:** `python scripts/artwork-png.py <svg> <png> <zustand>` für
+  Krokodil, Vampir und T-Rex, je `offen` und `geschnappt` — alle sechs vorher/nachher byte-gleich
+  (SHA256 je Paar).
+- **Auch die Galerie:** `python scripts/galerie.py <temp>/gebisse.png` (nutzt dieselbe Funktion) —
+  SHA256 gleich dem ausgelieferten `docs/bilder/gebisse.png` (`05e5bd34…`).
+- `pnpm gate` grün: **581 Tests in 48 Dateien**, `tsc --noEmit` fehlerfrei. Die Testzahl ist
+  unverändert, deshalb in `README.md` und `docs/testing.md` nichts nachzuziehen;
+  `ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md` ohne Fund,
+  `python scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` „Alle genannten Pfade
+  existieren“.
+- **Sonden gegen die gebaute Seite** (`pnpm build`, `pnpm preview --port 4322`, Argument
+  `http://localhost:4322`): `pruefen-anzeige.py` „ERGEBNIS: in Ordnung“, `pruefen-blattbreite.py`
+  „Auffälligkeiten: 0“, `pruefen-bedienung.py` „Auffälligkeiten: 0“, `pruefen-zoom.py`
+  „Auffälligkeiten: 0“ — alle mit Exit 0, Ausgabe angesehen.
+- **Keine Datei über rund 400 Zeilen:** die größten sind `unlocks.css` und `game-layout.css` mit je
+  328 Zeilen, `stage.css` 218, `app.css` 16.
+- **Gegenprobe 1 — die Liste wird wirklich gelesen:** `relevant_css()` aus `artwork-png.py` über die
+  alte Einzeldatei (`git show HEAD:src/presentation/styles/app.css`) und über die neue Importliste:
+  beide **8 166 Zeichen, 159 Regeln, SHA256 `8e51750b…`** — gleich. `.tooth__hit` (aus `stage.css`)
+  und `.pupil` (aus `press-beat.css`) kommen an, also beide Enden der Liste.
+- **Gegenprobe 2 — ein fehlendes Bauteil fällt auf:** eine Kopie von `app.css` ohne
+  `@import './stage.css';` ergab einen Stilblock von 4 617 statt 8 173 Zeichen; im gerasterten
+  Krokodil fehlen Zahnfleischbänder und Maulfüllung, die Zähne werden schwarz (Bild angesehen),
+  die beiden Rasterungen sind nicht gleich. Wer ein Bauteil nicht einhängt, sieht es im Bild.
+
+**Hinweis für ältere Abschnitte:** wo oben noch `presentation/styles/app.css` als Ort einer Regel
+steht, ist damit der Stand **vor** dem 14.10.2026 gemeint — die Regeln stehen jetzt in der
+Bauteildatei, die `app.css` in seiner Importliste nennt.
+
 
 

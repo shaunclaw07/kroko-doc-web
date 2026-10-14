@@ -1,0 +1,56 @@
+/* --- Gebiss-Auswahl: Bild-Kacheln statt Textliste ---
+   Der Kopf des Tieres ist das Bild, das es im Spiel gibt — kein zusätzliches Asset.
+   Vier Spalten: alle zwölf Köpfe stehen in drei vollen Reihen auf dem schmalsten Handy ohne Scrollen (gemessen,
+   scripts/pruefen-bedienung.py). */
+.creature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.creature-grid button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  width: 100%;
+  padding: 6px 4px 8px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.creature-grid__icon {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.creature-grid__name {
+  min-height: 2.3em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  /* „Säbelzahntiger" passt in keine 65-px-Kachel: trennen statt abschneiden. */
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.creature-grid button[aria-pressed="true"] {
+  border-color: var(--jw-green-light);
+  box-shadow: 0 0 0 3px rgba(76, 143, 108, 0.35);
+  background: rgba(76, 143, 108, 0.16);
+}
+

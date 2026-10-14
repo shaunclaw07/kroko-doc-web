@@ -1,0 +1,328 @@
+/* --- Spielseite: Spielfeld und Griffe ---
+   Drei Stufen, Maß ist die Fläche und nicht die Geräteklasse:
+   unter 640 px  Leiste fest am unteren Rand, die Köpfe öffnen sich als Blatt;
+   ab 640 px     die Köpfe stehen dauerhaft offen, der Tier-Griff entfällt;
+   quer ab 900   zwei Spalten — links das Spielfeld, rechts Köpfe, Zähne, Neue Runde.
+   Alle Zahlen sind im Browser nachgemessen (scripts/pruefen-bedienung.py). */
+.play {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.round-tag {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+.round-tag strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Unter 640 px hat die Spalte keinen eigenen Kasten: die Leiste ist fest, die Reihe verborgen. */
+.side {
+  display: contents;
+}
+
+.creature-rail {
+  display: none;
+}
+
+.controls {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px max(1rem, calc((100vw - 760px) / 2 + 1rem)) calc(10px + env(safe-area-inset-bottom));
+  background: #0b151b;
+  border-top: 1px solid var(--line);
+}
+
+/* Jeder Griff der Leiste trägt sein Wort („Tier", „Zähne") — ein Bild ohne Wort ist kein Knopf. */
+.quick__label {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--ink-dim);
+}
+
+.quick-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 60px;
+  min-height: 56px;
+  padding: 4px;
+}
+
+.quick-pick__icon {
+  display: block;
+  width: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.quick-teeth {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.quick-teeth button {
+  width: 44px;
+  min-height: 56px;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.quick-teeth button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.quick-teeth__value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 34px;
+}
+
+.quick-teeth__value output {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.quick-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 56px;
+  padding: 0.3rem 0.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.quick-new svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+/* Maul zu: „Neue Runde" ist der nächste Schritt. */
+.quick-new.is-next {
+  background: linear-gradient(180deg, var(--jw-green-light), var(--jw-green-dark));
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Auf dem schmalsten Handy bleiben dem Knopf rund 82 px: das Zeichen weicht dem Wort. */
+@media (max-width: 359px) {
+  .quick-new svg {
+    display: none;
+  }
+}
+
+/* Das Zahnrad-Blatt: Ton und Wackeln nebeneinander, damit es auch bei 320 × 568 nicht scrollt. */
+.switches {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+@media (min-width: 640px) {
+  .app {
+    max-width: 760px;
+  }
+
+  .side {
+    display: block;
+  }
+
+  /* Die Köpfe stehen offen: eine Reihe aus allen Wesen. */
+  .creature-rail {
+    display: grid;
+    grid-template-columns: repeat(var(--rail-columns), minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .quick-pick {
+    display: none;
+  }
+
+  .controls {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+/* Hohe Tablets hochkant haben Platz für große Köpfe in zwei Reihen. */
+@media (min-width: 640px) and (min-height: 1100px) and (orientation: portrait) {
+  .creature-rail {
+    grid-template-columns: repeat(var(--rail-columns-tall), minmax(0, 1fr));
+  }
+
+  .creature-rail .creature-grid__name {
+    min-height: 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet quer: zwei Spalten. Die Breite des Spielfelds folgt der HÖHE des Fensters — die Zeichnung
+   ist 640 : 460, also 1,39 mal so breit wie hoch; 17 rem sind Kopfzeile, Spielstand und Abstände. */
+@media (min-width: 900px) and (min-height: 600px) and (orientation: landscape) {
+  .app {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    grid-template-areas: "top top" "play side";
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    align-items: start;
+    max-width: 1180px;
+    padding-bottom: 1rem;
+  }
+
+  .topbar {
+    grid-area: top;
+  }
+
+  .play {
+    grid-area: play;
+    justify-self: center;
+    width: 100%;
+    max-width: calc((100vh - 17rem) * 1.39);
+    max-width: calc((100dvh - 17rem) * 1.39);
+  }
+
+  .side {
+    grid-area: side;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .creature-rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .controls {
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .quick-teeth {
+    justify-content: center;
+  }
+
+  .quick-teeth button {
+    width: 64px;
+  }
+}
+
+/* Das Ergebnis der Runde: steht bei geschlossenem Maul an der Stelle des Spielstands. */
+.result {
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.result h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.1rem;
+}
+
+.result p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Der Satz zum echten Tier: abgesetzt und leiser als das Ergebnis — er ist die Zugabe. */
+.result .result__fact {
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Wo die Höhe nicht für Ergebnis **und** Satz reicht, entfällt der Satz — das Ergebnis geht vor.
+   Gemessen am 12.10.2026 mit dem längsten Ergebnis und dem längsten Satz
+   (scripts/pruefen-bedienung.py): 320 × 568 scrollte um 32 px, 360 × 640 um 20 px, 375 × 667 um
+   3 px. Ab 360 × 740 bleiben 85 px Luft. */
+@media (max-height: 700px) {
+  .result .result__fact {
+    display: none;
+  }
+}
+
+/* Tablet quer: dort folgt die Bühne der Fensterhöhe und lässt unter sich nur den Platz für das
+   Ergebnis (gemessen: 1180 × 820 scrollte mit Satz um 25 px). */
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 899px) and (orientation: landscape) {
+  .result .result__fact {
+    display: none;
+  }
+}
+
+/* Auf dem schmalsten Handy (320 × 568) bleiben dem Ergebnis rund 110 px über der Leiste: der
+   längste Text passt nur in kleinerer Schrift (gemessen, scripts/pruefen-bedienung.py). */
+@media (max-width: 359px) {
+  .result {
+    padding: 0.35rem 0.6rem;
+  }
+
+  .result h2 {
+    margin-bottom: 0.1rem;
+    font-size: 1rem;
+  }
+
+  .result p {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  /* Das Einstellungsblatt auf dem schmalsten Handy: hier brachen zwei Dinge auf und machten
+     zusammen 74 px zu viel — die zwei Segment-Knöpfe von „Wie gefährlich?" („wie das
+     Spielzeug" lief auf zwei Zeilen) und die drei Fußknöpfe auf zwei Reihen. Das Blatt ist auf
+     88 dvh begrenzt und scrollte deshalb um 21 px, mit dem Wackel-Hinweis um 62 px (gemessen am
+     14.10.2026 mit `scripts/pruefen-bedienung.py`: 521 bzw. 562 px Inhalt in 500 px Sicht).
+     Knapper wird nur die **Breite**: die Trefferflächen bleiben 48 px hoch (das `min-height` der
+     Knöpfe), damit Kinderfinger sie treffen. */
+  #opt-mode button {
+    font-size: 0.85rem;
+  }
+
+  .sheet__actions button,
+  .sheet__actions .button {
+    padding-inline: 0.5rem;
+  }
+
+  /* Etwas mehr Luft für den Wackel-Hinweis (Safari ohne `navigator.vibrate`): dort standen nach
+     der Regel oben noch 4 px zwischen Inhalt und Blattgrenze (496 in 500 px) — genug für die
+     Messung, zu wenig für ein Gerät, das die Sonde nicht nachstellen kann. Die zwei Zeilenabstände
+     geben rund 6 px. */
+  .set {
+    margin-top: 0.9rem;
+  }
+}
+
+/* Maul zu: der einmalige Balken-Hinweis erklärt einen nächsten Druck, den es nicht mehr gibt —
+   und stünde er weiter da, reichte bei 320 × 568 die Höhe nicht für das Ergebnis (gemessen:
+   Inhalt bis 524 px, Leiste ab 489 px). */
+.tension-panel.is-snapped .meter-hint {
+  display: none;
+}

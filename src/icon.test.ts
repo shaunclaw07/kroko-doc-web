@@ -4,7 +4,7 @@
  *
  * Das Symbol zeigt das Kopfbild (dieselbe Zeichnung wie die Tier-Auswahl — reine Zeichnung ohne
  * bedienbare Zähne) mit **geschlossenem Maul**. Die Regeln, mit denen die App beim Zuschnappen
- * das Maul schließt (`.creature.is-snapped …` in `presentation/styles/app.css`), sind hier
+ * das Maul schließt (`.creature.is-snapped …` in `presentation/styles/stage.css`), sind hier
  * nachgebildet: Oberkiefer und Schnauze fahren um ihre Schließwege; Rachen, obere Zahnreihe,
  * der Oberkiefer selbst und die Schnauzenfläche verschwinden (die letzten beiden seit dem
  * 13.10.2026 — vorher standen sie als zweiter Bogen unter dem Lächeln).

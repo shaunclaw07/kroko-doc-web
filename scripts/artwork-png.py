@@ -3,8 +3,10 @@
 Aufruf:
     uv run --with cairosvg python scripts/artwork-png.py <eingabe.svg> <ausgabe.png> [offen|gedrueckt|geschnappt]
 
-Die Stilregeln kommen aus src/presentation/styles/app.css (Pfad relativ zu diesem Skript, nicht
-fest verdrahtet), damit das Bild denselben Zustand zeigt wie im Browser. Die Eingabe-SVGs
+Die Stilregeln kommen aus src/presentation/styles/ (Pfade relativ zu diesem Skript, nicht
+fest verdrahtet): `app.css` ist nur die Reihenfolge der Bauteile — `stylesheet_text()` liest sie
+und fügt die Bauteile in genau dieser Reihenfolge zusammen, damit das Bild denselben Zustand
+zeigt wie im Browser. Die Eingabe-SVGs
 erzeugt die Zeichnungs-Sonde: `pnpm vitest run src/render-probe.test.ts`.
 
 Zwei Eigenheiten von cairosvg bestimmen die Umsetzung:
@@ -22,10 +24,14 @@ import sys
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
-CSS = PROJECT / "src/presentation/styles/app.css"
+STYLES = PROJECT / "src/presentation/styles"
+CSS = STYLES / "app.css"
+# `@import './base.css';` — die Reihenfolge der Bauteile. Genau so liest sie auch der Bau.
+IMPORT_RE = re.compile(r"@import\s+['\"]([^'\"]+)['\"]")
 TOKENS = (".creature", ".jaw", ".tooth", ".mouth")
 STATES = ("offen", "gedrueckt", "geschnappt", "pause")
-# Endpose der Pause: sie steht als Keyframe-Ende in app.css (jaw-crack, hold-breath, -.pupil).
+# Endpose der Pause: sie steht als Keyframe-Ende in press-beat.css (jaw-crack, hold-breath,
+# -.pupil).
 # Ein Standbild zeigt nur diese Endpose, nie die Bewegung — bei CSS-Änderung hier mitziehen.
 PAUSE_JAW_SHIFT = -3.0
 PAUSE_FACE_SHIFT = 7.0
@@ -51,9 +57,29 @@ def is_layout(declaration: str) -> bool:
     return prop.startswith(tuple(LAYOUT_PROPS))
 
 
+def stylesheet_text() -> str:
+    """Das ganze Stylesheet als ein Text: `app.css` nennt nur die Reihenfolge der Bauteile.
+
+    Eigene Funktion, weil `scripts/galerie.py` denselben Stil braucht — zwei Fassungen des
+    Zusammenfügens würden auseinanderlaufen. Steht in `app.css` kein `@import` (so war es bis
+    zum 14.10.2026), ist die Datei selbst der Stil.
+    """
+    text = CSS.read_text(encoding="utf-8")
+    imports = IMPORT_RE.findall(text)
+    if not imports:
+        return text
+    parts: list[str] = []
+    for name in imports:
+        path = STYLES / name
+        if not path.exists():
+            raise SystemExit(f"{CSS.name} nennt {name}, die Datei fehlt: {path}")
+        parts.append(path.read_text(encoding="utf-8"))
+    return "\n".join(parts)
+
+
 def relevant_css() -> str:
     """Zieht die Farb- und Formregeln der Zeichnung aus dem Stylesheet."""
-    text = CSS.read_text(encoding="utf-8")
+    text = stylesheet_text()
     keep: list[str] = []
     for block in re.finditer(r"([^{}]+)\{([^{}]*)\}", text):
         selectors, body = block.group(1).strip(), block.group(2).strip()
@@ -105,7 +131,7 @@ def apply_state(svg: str, state: str) -> str:
         svg = apply_state(svg, "gedrueckt")
         # Bewusst OHNE die Klasse `is-pressing`: cairosvg kennt `transform-origin` nicht und
         # würde die Pupillen-Regel um den Bildursprung skalieren. Die Pose kommt deshalb
-        # vollständig aus Attributen — dieselben Werte wie im Keyframe-Ende von app.css.
+        # vollständig aus Attributen — dieselben Werte wie im Keyframe-Ende von press-beat.css.
         svg = svg.replace(
             '<g class="jaw__upper">',
             f'<g class="jaw__upper" transform="translate(0 {PAUSE_JAW_SHIFT})">',

@@ -1,0 +1,100 @@
+/* --- Statistik --- */
+.bars {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr 4.6rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar__track {
+  height: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--jw-green-light), var(--gold));
+}
+
+.bar__fill--flat {
+  background: linear-gradient(90deg, #3d5a68, #6d8b98);
+}
+
+.tag {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tag--ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag--warn { background: rgba(232, 182, 76, 0.15); color: var(--gold); }
+.tag--bad { background: rgba(226, 87, 76, 0.15); color: var(--danger); }
+
+.report {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-x: auto;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.6rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Ohne Animation bliebe die Marke eines angetippten gesperrten Tiers unsichtbar: sie steht dann
+     einfach da, bis die Kacheln neu gemalt werden. */
+  .creature-grid button.is-hinting .lock-badge__text {
+    opacity: 1;
+  }
+
+  /* Ohne Übergang spränge die Bühne — bei reduzierter Bewegung rückt sie gar nicht heran. */
+  #croc-mount {
+    transform: none;
+  }
+}
+
+

@@ -1,0 +1,328 @@
+/* --- Freischaltung der Tiere (core/domain/unlocks.ts) ---
+   Ein gesperrtes Tier ist sein eigener Schattenriss: dieselbe Zeichnung, geschwärzt. Kein
+   zweites Bild — das wäre eine zweite Wahrheit neben der geprüften Zeichnung. */
+.creature-grid button.is-locked {
+  cursor: default;
+  border-style: dashed;
+}
+
+/* Auf der dunklen Kachel wäre ein schwarzer Umriss kaum zu sehen (im gerasterten Bild bei 390 px
+   nachgesehen): erst schwärzen, dann umkehren — ein heller Schatten auf dunklem Grund. */
+.creature-grid button.is-locked .creature-portrait {
+  filter: brightness(0) invert(1);
+  opacity: 0.3;
+}
+
+/* Im Satz zum Fortschritt steht der Umriss auf hellem Grund, dort bleibt er dunkel. */
+.unlock-progress__icon .creature-portrait {
+  filter: brightness(0);
+  opacity: 0.7;
+}
+
+.creature-grid button.is-locked .creature-grid__name {
+  opacity: 0.7;
+}
+
+/* Wer noch keinen Stern haben kann, zeigt auch keine leeren Plätze. */
+.creature-grid button.is-locked .album-stars {
+  display: none;
+}
+
+/* Schloss und Marke liegen ÜBER dem Kopfbild und ändern keine Maße (gemessen,
+   scripts/pruefen-bedienung.py); sie fangen keinen Tipp ab — der gehört der Kachel. */
+.lock-badge {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  left: 4px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.creature-grid button.is-locked .lock-badge {
+  display: flex;
+}
+
+.lock-badge svg {
+  width: 38%;
+  max-width: 34px;
+  min-width: 16px;
+  height: auto;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+
+.lock-badge__text {
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #f2c94c;
+  color: #0b1418;
+  font-size: 0.56rem;
+  font-weight: 800;
+  line-height: 1.25;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+/* Das nächste Tier sagt immer, was fehlt; die späteren erst auf einen Tipp. */
+.creature-grid button.is-next-unlock {
+  border-color: #f2c94c;
+}
+
+.creature-grid button.is-next-unlock .lock-badge__text {
+  opacity: 1;
+}
+
+.creature-grid button.is-hinting .lock-badge__text {
+  animation: lock-hint 2.6s ease-out both;
+}
+
+.creature-grid button.is-hinting {
+  animation: lock-shake 0.35s ease-in-out;
+}
+
+@keyframes lock-hint {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes lock-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+/* „Noch 1 Stern bis zum Hai": Sternzeichen, Schattenriss, Satz — für Kinder, die noch nicht lesen. */
+.unlock-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 0;
+  padding: 0.15rem 0.7rem;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.unlock-progress__stars {
+  color: #f2c94c;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+
+.unlock-progress__icon {
+  display: block;
+  width: 30px;
+  flex: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Die Karte der Freischaltung: das Kopfbild ist die Belohnung, der Knopf der kurze Weg dorthin. */
+.unlock-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: min(100%, 17rem);
+  padding: 10px 12px 12px;
+  border: 2px solid #f2c94c;
+  border-radius: 16px;
+  background: rgba(11, 20, 24, 0.94);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  animation: unlock-pop 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.unlock-card__icon {
+  display: block;
+  width: 84px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.unlock-card__title {
+  margin: 0;
+  color: #f2c94c;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.unlock-card button {
+  min-height: 48px;
+  width: 100%;
+}
+
+@keyframes unlock-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 640px) {
+  .unlock-progress {
+    padding: 0.3rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .unlock-progress__icon {
+    width: 40px;
+  }
+
+  .unlock-card__icon {
+    width: 120px;
+  }
+
+  .unlock-card__title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Konfetti über den ganzen Bildschirm. Es fängt keinen Tipp ab; die Schicht läuft so lange wie
+   ihr längstes Stück (0,9 s Verzögerung + 3,6 s Fall) und räumt sich dann selbst weg. */
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  overflow: hidden;
+  pointer-events: none;
+  animation: confetti-life 4.6s linear both;
+}
+
+.confetti i {
+  position: absolute;
+  top: -16px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.95;
+  animation-name: confetti-fall;
+  animation-timing-function: cubic-bezier(0.3, 0.1, 0.6, 1);
+  animation-fill-mode: both;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translate3d(var(--drift, 0), 105vh, 0) rotate(var(--spin, 540deg));
+    opacity: 0.9;
+  }
+}
+
+@keyframes confetti-life {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Die Kurzinfo zum gewählten Tier steht im Regeln-Blatt. */
+.creature-detail {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+}
+
+.creature-detail p {
+  margin: 0 0 0.4rem;
+}
+
+details summary {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  cursor: pointer;
+}
+
+details summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+details[open] summary {
+  margin-bottom: 0.35rem;
+}
+
+/* Der Weg zur Statistikseite liegt im Blatt — vorher lag ein Knopf über dem Maul. */
+.tooth:hover .tooth__shape,
+.tooth:focus-visible .tooth__shape {
+  fill: #fffdf3;
+}
+
+/* Gedrückt: der Zahn sinkt in sein Zahnfleisch (lokal in Richtung Wurzel, also für
+   jeden Zahn entlang seiner eigenen Achse). */
+.tooth.is-pressed .tooth__shape,
+.tooth[aria-pressed="true"] .tooth__shape {
+  transform: translateY(22px);
+  fill: #cfc7ac;
+}
+
+/* Gehalten: der Zahn sinkt schon, behält aber seine Farbe — entschieden ist noch nichts.
+   Erst der Zug färbt ihn (is-pressed). */
+.tooth.is-held .tooth__shape {
+  transform: translateY(22px);
+}
+
+.tooth.is-live .tooth__glow {
+  fill: var(--danger);
+  opacity: 0.45;
+  filter: blur(6px);
+}
+
+.tooth.is-live .tooth__shape {
+  fill: var(--danger);
+}
+
+.tooth[aria-disabled="true"] {
+  cursor: default;
+}
+
+.heart-pulse {
+  transform-origin: 150px 240px;
+  animation: beat var(--beat-ms, 900ms) infinite ease-in-out;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.18); }
+  26% { transform: scale(1.02); }
+  38% { transform: scale(1.12); }
+  60% { transform: scale(1); }
+}
+
+.steam {
+  opacity: 0;
+  animation: steam 2.6s ease-in-out infinite;
+}
+
+@keyframes steam {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  40% { opacity: 0.5; transform: translateY(-8px); }
+}
+

@@ -135,7 +135,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 - **Ist das Maul zu, ist der Oberkiefer weg.** Er fährt zu (90 ms — das ist der Biss), dann
   verschwinden sein Zahnfleischband und die Schnauzenfläche (`.creature.is-snapped .jaw__upper`,
-  `path.jaw__shell` in `presentation/styles/app.css`). Übrig bleiben das Lächeln des Unterkiefers,
+  `path.jaw__shell` in `presentation/styles/stage.css`). Übrig bleiben das Lächeln des Unterkiefers,
   die unteren Zähne und die Nase, die mit der Schnauzen-Gruppe nach unten rutscht. Bis zum
   13.10.2026 blieb der herabgefahrene Oberkiefer als zweiter Bogen unter dem Lächeln stehen — beim
   Vampir lag er auf dem roten Kragen und sah wie ein zweiter Mund aus (gemeldet mit Bild).
@@ -149,7 +149,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - **Ein Zahn genau im Maulwinkel gehört zum Oberkiefer.** Bei 12 Zähnen sitzt je einer bei 0° und
   180°; der Sinus liefert dort keine glatte Null, also fiel der linke zum Unterkiefer und blieb
   bei geschlossenem Maul allein neben dem Lächeln stehen (`splitByJaw` in `creatures/factory.ts`).
-- Dieselben Regeln stehen an drei Stellen und müssen zusammen geändert werden: im Stylesheet, in
+- Dieselben Regeln stehen an drei Stellen und müssen zusammen geändert werden: im Stylesheet
+  (`presentation/styles/stage.css`; `app.css` ist nur die Reihenfolge der Bauteile), in
   `src/icon.test.ts` (das App-Symbol) und in `scripts/artwork-png.py` (der Rasterer).
 
 ## Tiere freischalten
@@ -242,7 +243,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden". Der ganze
   Weg zum Nachbauen, mit allen Aufrufen und Fallen: `docs/sicherung-anleitung.md`.
 
-## Vierunddreißig Fallen, die Zeit kosten
+## Fünfunddreißig Fallen, die Zeit kosten
 
 - **Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet.** Der Service Worker
   (`public/sw.js`) bestand alle Fälle seiner nachgestellten Umgebung — und im echten Browser lud die
@@ -420,7 +421,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   gefunden hat das nicht ein Nutzer, sondern `document.elementFromPoint` in der Mitte jedes
   Trefferkreises (`uv run --with playwright python scripts/pruefen-trefferflaeche.py`, siehe
   `docs/e2e-nachweise.md` §5l). Seit dem 11.10.2026 bekommen alle Ebenen der Zeichnung außer den
-  Zähnen `pointer-events: none` (`presentation/styles/app.css`); `pointer-events: all` bleibt allein
+  Zähnen `pointer-events: none` (`presentation/styles/stage.css`); `pointer-events: all` bleibt allein
   am Trefferkreis. Ein unsichtbares Element, das Tipps schluckt, ist ein Bedienfehler.
 
 - **Eine Breite, die nur fürs Handy gedacht war, klebt auf dem Tablet am Rand.** Das
@@ -524,6 +525,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   []"), weil Astro dort einzelne Module statt eines Bündels liefert — derselbe Lauf gegen die gebaute
   Seite war grün. Eine Sonde, deren Ausgabe nicht zur Umgebung passt, schickt einen auf die falsche
   Spur; die Adresse gehört zum Rezept (hier: `pnpm preview --port 4322`).
+
+- **Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch.**
+  `app.css` ist seit dem 14.10.2026 nur noch die **Reihenfolge** (`@import`), die Regeln stehen je
+  Bauteil unter `src/presentation/styles/`. Die Reihenfolge *ist* die Kaskade: von zwei Regeln mit
+  demselben Ziel entscheidet die spätere (eine Klassenregel verlor schon einmal gegen einen
+  Element-Klassen-Selektor aus demselben Block, siehe oben). Wer ein Bauteil einfügt oder Regeln
+  verschiebt, hängt es an der richtigen Stelle ein — und `scripts/artwork-png.py` liest **dieselbe**
+  Liste, sonst fehlten die Regeln im Rasterbild, während der Browser sie zeigt. Der Beweis, dass
+  nichts verrutscht ist, ist nicht das Auge, sondern der Bau: `pnpm build` und die erzeugte
+  `dist/_astro/*.css` gegen die Fassung von vorher vergleichen (beim Aufteilen am 14.10.2026:
+  gleiche Bytes, gleiche SHA256, derselbe Dateiname).
 
 ## Ein neues Lebewesen ergänzen
 

@@ -1,0 +1,74 @@
+/* --- Tier-Album: Sterne liegen ÜBER der Kachel und ändern keine Maße (gemessen,
+   scripts/pruefen-bedienung.py). Sie fangen keinen Tipp ab — der gehört der Kachel.
+   Die Marke sitzt AUF der oberen Kante, halb über der Kachel: das Kopfbild beginnt 8 px unter der
+   Kante, die Marke endet davor. Im Bild selbst verdeckte sie auf der 65-px-Kachel ein Auge. */
+.album-stars {
+  position: absolute;
+  top: -9px;
+  right: 4px;
+  display: flex;
+  gap: 1px;
+  padding: 1px 4px;
+  border-radius: 999px;
+  background: #0b1418;
+  font-size: 0.6rem;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+.album-star {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.album-star.is-earned {
+  color: #f2c94c;
+}
+
+/* Die Ansage eines neuen Sterns: oben über der Bühne, nur bei geschlossenem Maul.
+   `.stage` ist schon `position: relative` — die Ansage richtet sich daran aus.
+   Mitte über beide Ränder und `margin: auto`, nicht über `left: 50%`: dort bekäme der Kasten nur
+   die halbe Bühnenbreite zum Schrumpfen (gemessen bei 320 px: 143 statt 272 px, drei Zeilen).
+   Klein und dicht gesetzt, solange die Bühne schmal ist: Ring und Beschriftung eines oberen
+   scharfen Zahns beginnen dort schon knapp unter der Kante. */
+.stage-notes {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  left: 6px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.star-toast {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.15rem 0.7rem;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #f2c94c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .stage-notes {
+    top: 10px;
+  }
+
+  .star-toast {
+    padding: 0.3rem 0.9rem;
+    font-size: 0.95rem;
+  }
+}
+
+.stage:not([data-status="snapped"]) .stage-notes {
+  display: none;
+}
+
