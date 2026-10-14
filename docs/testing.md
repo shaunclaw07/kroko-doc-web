@@ -120,8 +120,9 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
    Tier-Blatt von der Spielseite aus im echten Browser, zählt die Kacheln, liest Kennungen und Namen in der Reihenfolge,
    prüft, dass jede Kachel ein **sichtbares** Kopfbild und einen **eigenen** Beschnitt trägt, und
    zählt dieselben Kennungen im ausgelieferten Bündel:
-   `uv run --with playwright python scripts/pruefen-tiere.py` (mit einer Adresse als Argument gegen
-   die veröffentlichte Seite). Erwartet: zwölf Kacheln in der Reihenfolge der Freischaltung
+   `uv run --with playwright python scripts/pruefen-tiere.py` gegen die **gebaute** Seite (vorher
+   `pnpm build && pnpm preview --port 4322`; gegen `pnpm dev` meldet die Bündel-Zählung leer), mit
+   einer Adresse als Argument gegen die veröffentlichte Seite. Erwartet: zwölf Kacheln in der Reihenfolge der Freischaltung
    (`UNLOCK_ORDER`: Krokodil, Maus, Wolf, dann die Folge), zwölf sichtbare
    Kopfbilder, zwölf eigene Beschnitte, kein Tiername fehlt (Exit 0). Seit dem 12.10.2026 prüft sie
    außerdem den Kern der Auswahl: Nach einem Tipp auf eine Kachel ist das **Auswahlblatt zu**, das

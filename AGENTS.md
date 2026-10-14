@@ -514,7 +514,8 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
 
 - **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
-  auf die gebaute Seite.** Die Regel oben sagte „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
+  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" sagte früher „mehr als rund
+  vierzehn Buchstaben"; „Säbelzahntiger"
   hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
   13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
   sind gleich groß ([(65, 87), (65, 100)])" (gemessen am 14.10.2026). Die wirkliche Grenze sind

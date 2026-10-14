@@ -33,7 +33,9 @@ from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
 
-BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
+# Vorgabe ist die gebaute Seite (`pnpm preview --port 4322`) wie bei den anderen Sonden, die nur
+# dort gelten — gegen den Entwicklungsserver auf 4321 meldet die Bündel-Zählung leer.
+BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4322"
 ZIEL = Path(os.environ.get("TMPDIR", "/tmp")) / "zahn_agent-artwork" / "tiere-live.png"
 
 # Erwartet wird je Lebewesen des Katalogs ein Kopfbild in der Zeile. Seit dem 13.10.2026 folgt die

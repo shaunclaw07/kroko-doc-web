@@ -368,9 +368,9 @@ describe('Kopfbilder für die Auswahl', () => {
         .map(([, kind]) => kind);
 
     for (const creature of CREATURES) {
-      const counts = new Set([creature.teeth, MAX_TEETH]);
-      for (const count of counts) {
-        if (count % 2 !== 0 || count < 2) continue;
+      // Wirklich jede gerade Zahl: anfangs liefen hier nur Standard und 12 — der Kommentar oben
+      // versprach mehr, als der Test hielt.
+      for (let count = 2; count <= MAX_TEETH; count += 2) {
         const kinds = kindsOf(creatureView(creature.id, count).render());
         expect(kinds, `${creature.id}/${count}`).toHaveLength(count);
         for (let nr = 1; nr <= count; nr += 1) {
