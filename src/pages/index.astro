@@ -3,12 +3,14 @@ import Base from '../layouts/Base.astro';
 import { DEFAULT_CREATURE_ID, getCreature, tileLabel } from '../core/domain/creature';
 import { STARTING_CREATURES, UNLOCK_ORDER, UNLOCK_STEPS } from '../core/domain/unlocks';
 import { creaturePortrait } from '../presentation/game/creatures';
+import { joinNames, threeLiveNames } from '../presentation/game/unlockNotice';
 
 // Die Auswahl folgt der Freischaltung: erst die Starttiere, dann das jeweils nächste Tier.
 const creatures = UNLOCK_ORDER.map((id) => getCreature(id));
 // Zahlen und Namen des Regeln-Blatts kommen aus der Regel selbst (core/domain/unlocks.ts).
 const startNames = STARTING_CREATURES.map((id) => getCreature(id).name);
-const startList = `${startNames.slice(0, -1).join(', ')} und ${startNames[startNames.length - 1]}`;
+const startList = joinNames(startNames);
+const threeLiveList = threeLiveNames();
 const firstStep = UNLOCK_STEPS[0];
 const lastStep = UNLOCK_STEPS[UNLOCK_STEPS.length - 1];
 const first = creatures.find((creature) => creature.id === DEFAULT_CREATURE_ID) ?? creatures[0];
@@ -129,7 +131,13 @@ const base = import.meta.env.BASE_URL;
       Die Kacheln tragen weder `.creature` noch `.tooth` — die Steuerung fragt diese Klassen ab.
     -->
     <aside class="side" aria-label="Spiel einstellen">
-      <ul class="creature-grid creature-rail" id="creature-rail" role="group" aria-label="Lebewesen">
+      <ul
+        class="creature-grid creature-rail"
+        id="creature-rail"
+        role="group"
+        aria-label="Lebewesen"
+        style={`--rail-columns: ${creatures.length}; --rail-columns-tall: ${Math.ceil(creatures.length / 2)};`}
+      >
         {creatures.map((creature) => (
           <li>
             <button type="button" data-creature={creature.id} aria-pressed={creature.id === DEFAULT_CREATURE_ID}>
@@ -287,8 +295,8 @@ const base = import.meta.env.BASE_URL;
         erwartete Drücke bis zum Biss = 3,97. Wer bis zum letzten Zahn überlebt, verliert garantiert.
       </p>
       <p>
-        <strong>Warum mehrere Lebewesen:</strong> Jedes Tier hat sein eigenes Gebiss. Krokodil,
-        Mensch und T-Rex stellen <strong>1–3 Zähne gleichzeitig scharf</strong>, alle anderen nur
+        <strong>Warum mehrere Lebewesen:</strong> Jedes Tier hat sein eigenes Gebiss. {threeLiveList}
+        stellen <strong>1–3 Zähne gleichzeitig scharf</strong>, alle anderen nur
         <strong>1–2</strong>: ihr Biss kommt seltener, dann sitzt er (erwartete Drücke bei 12 Zähnen
         5,42 statt 4,69). Die Maus hat nur <strong>sechs</strong> Zähne — die kürzeste Runde. Welcher
         Zahn scharf ist, entscheidet bei jedem Tier allein der Zufall: lange Fang- und Eckzähne sind

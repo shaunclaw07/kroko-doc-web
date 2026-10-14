@@ -1578,10 +1578,10 @@ textarea {
     display: block;
   }
 
-  /* Die Köpfe stehen offen: eine Reihe aus zwölf. */
+  /* Die Köpfe stehen offen: eine Reihe aus allen Wesen. */
   .creature-rail {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--rail-columns), minmax(0, 1fr));
     margin: 0;
   }
 
@@ -1597,7 +1597,7 @@ textarea {
 /* Hohe Tablets hochkant haben Platz für große Köpfe in zwei Reihen. */
 @media (min-width: 640px) and (min-height: 1100px) and (orientation: portrait) {
   .creature-rail {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--rail-columns-tall), minmax(0, 1fr));
   }
 
   .creature-rail .creature-grid__name {

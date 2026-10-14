@@ -12,8 +12,8 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 | Größe | Wert |
 |---|---|
-| Testdateien | 37 |
-| Tests | 529 (37 Dateien) |
+| Testdateien | 38 |
+| Tests | 532 (38 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) |
 | Abhängigkeiten | astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2 · @types/node 26.6.5 (angehoben am 14.10.2026) |
@@ -81,8 +81,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
    Das README-Bild der Gebisse entsteht aus denselben SVGs — als Skript im Baum, nicht von Hand:
    ```bash
-   uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-     crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex  # Reihenfolge = Katalogreihenfolge
+   uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png  # Reihenfolge = Katalogreihenfolge
    ```
 4. **Symbolsonde** — das App-Symbol entsteht aus der Zeichnung und wird angesehen:
    ```bash

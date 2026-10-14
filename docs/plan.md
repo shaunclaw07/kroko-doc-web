@@ -16,7 +16,6 @@ Gemeinsame Regeln für alle: [`docs/plaene/00-regeln.md`](plaene/00-regeln.md).
 
 | Paket | Inhalt | Datei | Braucht vorher | Risiko |
 |---|---|---|---|---|
-| 1 | Der Katalog als einzige Quelle für ein Wesen | [`docs/plaene/paket-1-katalog.md`](plaene/paket-1-katalog.md) | — | klein |
 | 2 | Seitenskripte in geprüfte Module | [`docs/plaene/paket-2-seitenskripte.md`](plaene/paket-2-seitenskripte.md) | — | klein bis mittel |
 | 3 | Einstellungen und Protokoll mit Anmeldung | [`docs/plaene/paket-3-zustand.md`](plaene/paket-3-zustand.md) | Paket 2 | mittel |
 | 4 | `gameController.ts` in vier Teile | [`docs/plaene/paket-4-steuerung.md`](plaene/paket-4-steuerung.md) | Paket 3 | mittel |

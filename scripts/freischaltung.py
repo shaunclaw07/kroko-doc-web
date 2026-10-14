@@ -16,12 +16,9 @@ gemessen.
 """
 import json
 
-ABLAGE = "zahn_agent:rounds:v1"
+from katalog import LETZTE_SCHWELLE, TIERE, ZAEHNE
 
-# (Kennung, Zahnzahl des Katalogs) — drei Sterne gibt eine Runde mit ganzem Gebiss, die erst beim
-# letzten Zahn zuschnappt.
-_TIERE = [("crocodile", 10), ("mouse", 6), ("wolf", 12), ("shark", 12), ("panda", 12),
-          ("human", 12), ("lion", 12), ("vampire", 12), ("panther", 12), ("sabertooth", 12)]
+ABLAGE = "zahn_agent:rounds:v1"
 
 
 def runde(nummer: int, tier: str, zaehne: int, druck: int) -> dict:
@@ -33,4 +30,14 @@ def runde(nummer: int, tier: str, zaehne: int, druck: int) -> dict:
     }
 
 
-ALLE_OFFEN = json.dumps([runde(i + 1, tier, zaehne, zaehne) for i, (tier, zaehne) in enumerate(_TIERE)])
+_offene = []
+_sterne = 0
+for _i, _tier in enumerate(TIERE):
+    _offene.append(runde(_i + 1, _tier, ZAEHNE[_tier], ZAEHNE[_tier]))
+    _sterne += 3
+    if _sterne >= LETZTE_SCHWELLE:
+        break
+
+assert _sterne >= LETZTE_SCHWELLE, f"Katalog reicht nicht für letzte Schwelle ({_sterne} < {LETZTE_SCHWELLE})"
+
+ALLE_OFFEN = json.dumps(_offene)

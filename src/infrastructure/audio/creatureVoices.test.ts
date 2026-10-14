@@ -7,9 +7,10 @@ const FOLDER = new URL('../../../public/sounds/voices/', import.meta.url);
 const SOURCES = readFileSync(new URL('QUELLEN.md', FOLDER), 'utf8');
 
 describe('Tierstimmen als Dateien', () => {
-  it('gibt jedem Tier des Katalogs eine Datei — und keinem, das es nicht gibt', () => {
-    const ids = listCreatures().map((creature) => creature.id).sort();
-    expect(Object.keys(CREATURE_VOICE_FILES).sort()).toEqual(ids);
+  it('leitet für jedes Katalogwesen eine MP3-Datei gleichen Namens ab', () => {
+    for (const creature of listCreatures()) {
+      expect(voiceUrl('/', creature.id)).toBe(`/sounds/voices/${creature.id}.mp3`);
+    }
   });
 
   it('liefert jede Datei wirklich aus: vorhanden, MP3, klein genug', () => {

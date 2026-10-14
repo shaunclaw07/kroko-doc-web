@@ -20,6 +20,11 @@ export interface CreatureDefinition {
    * Katalog daran; das Maß selbst prüft weiterhin die Browser-Sonde.
    */
   shortName?: string;
+  /** Name im Dativ, wo er abweicht; feminine für „zur“/„mit der“. */
+  grammar?: {
+    feminine?: true;
+    dative?: string;
+  };
   /** Drückbare Zähne im Spiel. */
   teeth: number;
   /** Untere Grenze gleichzeitig scharfer Zähne (Originalmodell). */
@@ -76,6 +81,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
   {
     id: 'human',
     name: 'Mensch',
+    grammar: { dative: 'Menschen' },
     teeth: 12,
     liveTeethMin: 1,
     liveTeethMax: 3,
@@ -130,6 +136,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
   {
     id: 'lion',
     name: 'Löwe',
+    grammar: { dative: 'Löwen' },
     teeth: 12,
     liveTeethMin: 1,
     liveTeethMax: 2,
@@ -167,6 +174,7 @@ export const CREATURES: readonly CreatureDefinition[] = [
     id: 'flytrap',
     name: 'Venusfliegenfalle',
     shortName: 'Fliegenfalle',
+    grammar: { feminine: true },
     // Bonusfigur (ab 20 Sternen). Acht Zähne: eine eigene Rundenlänge zwischen Maus und Krokodil.
     teeth: 8,
     liveTeethMin: 1,

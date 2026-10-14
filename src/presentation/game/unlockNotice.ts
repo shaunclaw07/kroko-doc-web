@@ -1,3 +1,4 @@
+import { getCreature, listCreatures } from '../../core/domain/creature';
 import type { NextUnlock } from '../../core/domain/unlocks';
 
 /**
@@ -6,28 +7,14 @@ import type { NextUnlock } from '../../core/domain/unlocks';
  * allein `core/domain/unlocks.ts` — hier steht nur die Sprache dazu.
  */
 
-/**
- * Namen im Dativ, wo er vom Katalognamen abweicht („bis zum Löwen", „mit dem Menschen").
- */
-const DATIVE_NAMES: Readonly<Record<string, string>> = {
-  human: 'Menschen',
-  lion: 'Löwen',
-};
-
-/**
- * Wesen mit weiblichem Namen: „bis **zur** Venusfliegenfalle", „mit **der** Venusfliegenfalle".
- * Wer ein weiteres ergänzt, trägt es hier ein — der Test dazu nennt jedes Wesen der Folge beim
- * Namen und fällt bei einem, das hier fehlt.
- */
-const FEMININE: ReadonlySet<string> = new Set(['flytrap']);
-
 export function dativeName(creature: string, name: string): string {
-  return DATIVE_NAMES[creature] ?? name;
+  return getCreature(creature).grammar?.dative ?? name;
 }
 
 /** Name im Dativ samt Artikel: „dem Löwen", „der Venusfliegenfalle". */
 function dativeWithArticle(creature: string, name: string): string {
-  return `${FEMININE.has(creature) ? 'der' : 'dem'} ${dativeName(creature, name)}`;
+  const grammar = getCreature(creature).grammar;
+  return `${grammar?.feminine ? 'der' : 'dem'} ${dativeName(creature, name)}`;
 }
 
 /** Die Zahl bekommt ihr Substantiv: „Noch 1 Stern", „Noch 2 Sterne". */
@@ -41,7 +28,7 @@ export function missingStarsSymbols(missing: number): string {
 }
 
 export function progressSentence(next: NextUnlock): string {
-  const to = FEMININE.has(next.creature) ? 'zur' : 'zum';
+  const to = getCreature(next.creature).grammar?.feminine ? 'zur' : 'zum';
   return `${missingStarsText(next.missing)} bis ${to} ${dativeName(next.creature, next.name)}.`;
 }
 
@@ -50,15 +37,29 @@ export function lockedTileLabel(name: string, missing: number): string {
   return `${name}, gesperrt — ${missingStarsText(missing).toLowerCase()}`;
 }
 
+/** Zählt Namen auf: „A", „A und B", „A, B und C". */
+export function joinNames(names: readonly string[]): string {
+  if (names.length <= 1) {
+    return names[0] ?? '';
+  }
+  return `${names.slice(0, -1).join(', ')} und ${names[names.length - 1]}`;
+}
+
+/** Die Namen der Wesen mit 1–3 scharfen Zähnen als Aufzählung (für das Regeln-Blatt). */
+export function threeLiveNames(): string {
+  return joinNames(
+    listCreatures()
+      .filter((creature) => creature.liveTeethMax === 3)
+      .map((creature) => creature.name),
+  );
+}
+
 /**
  * Die Überschrift der Freischaltung — bewusst **ohne Oberbegriff**: „Neues Tier: Mensch!" passte
  * weder zum Menschen noch zum Vampir (gemeldet vom Auftraggeber am 13.10.2026).
  */
 export function unlockTitle(found: readonly { name: string }[]): string {
-  const names = found.map((entry) => entry.name);
-  const list =
-    names.length <= 1 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} und ${names[names.length - 1]}`;
-  return `Neu dabei: ${list}!`;
+  return `Neu dabei: ${joinNames(found.map((entry) => entry.name))}!`;
 }
 
 export function playLabel(creature: string, name: string): string {

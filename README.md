@@ -31,7 +31,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
 `dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
-`pnpm install` läuft durch, 529 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
+`pnpm install` läuft durch, 532 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
 Werte: 1,69 · 1,74 · 1,74 · 1,78 · 1,83 · 1,90 · 2,17 · 2,23 s sowie 2,84 s für den ersten Lauf eines
 kalten Baums).
 
@@ -116,9 +116,9 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **529 Tests in 37 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **532 Tests in 38 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
-| `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
+| `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
 | `bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer>` | eine Tierstimme schneiden (braucht `ffmpeg`) | `public/sounds/voices/<tier>.mp3: … Byte, Spitze vorher …` |
 | `uv run --with playwright python scripts/pruefen-bedienung.py` | Sonde im echten Browser: scrollt etwas, verdeckt die Leiste etwas (der Server muss laufen) | „Auffälligkeiten: 0" |
@@ -257,7 +257,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **529 in 37 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **532 in 38 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |

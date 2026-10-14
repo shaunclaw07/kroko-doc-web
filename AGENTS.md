@@ -56,8 +56,7 @@ pnpm build && pnpm preview --port 4322                         # der Service Wor
 uv run --with playwright python scripts/pruefen-offline.py     # … danach: startet die Seite ohne Netz?
 uv run --with playwright python scripts/pruefen-sicherung.py   # … und: überstehen die Runden ein geleertes Profil?
 uv run --with playwright python scripts/pruefen-freischaltung.py  # … und: öffnen sich die Tiere über Sterne?
-uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \
-  crocodile wolf human shark mouse vampire panda lion panther sabertooth flytrap trex   # README-Bild der Gebisse
+uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png  # README-Bild der Gebisse
 python scripts/stimme-suchen.py "wolf howl"                                # gemeinfreie Aufnahmen finden
 bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]  # Stimme schneiden (ffmpeg)
 ```
@@ -527,38 +526,32 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 ## Ein neues Lebewesen ergänzen
 
-1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
-   `realTeeth`, `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen,
-   ohne ein Wort über scharfe Zähne; die Quelle gehört in `docs/tier-quellen.md`).
+1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, optional `shortName` bei mehr als zwölf
+   Zeichen, optional `grammar` mit `dative`/`feminine`, `teeth`, `liveTeethMin/Max`, `realTeeth`,
+   `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen, ohne ein Wort
+   über scharfe Zähne; die Quelle gehört in `docs/tier-quellen.md`). Hat das Vorbild gar keine Zähne,
+   ist `realTeeth` 0 — die Kurzinfo sagt dann „keine Zähne“.
 2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen (vorher
    `docs/tiermodell-anleitung.md` lesen — dort steht, wohin die Augen dürfen): `body`, `holeFill`,
    `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
    keine Bänder neben dem Kopf hängen),
    `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
    `upperTeeth` (Verhältnis, nicht Anzahl), `face`, `ring`, `teethProfile(count)`.
-  Die beiden Pupillen tragen `class="pupil"` und liegen in einer weißen Linse (`fill="#ffffff"`) mit
-  mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger (`creatures/gaze.ts`); `gaze.test.ts`
-  fällt sonst.
+   Die beiden Pupillen tragen `class="pupil"` und liegen in einer weißen Linse (`fill="#ffffff"`) mit
+   mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger (`creatures/gaze.ts`); `gaze.test.ts`
+   fällt sonst.
 3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
    Und ein **Platz in der Freischaltung** (`UNLOCK_STEPS` in `core/domain/unlocks.ts`, mit Schwelle)
    — `unlocks.test.ts` fällt, solange ein Katalogtier weder am Start noch in der Folge steht. Die
    Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor) — außer beim
-   letzten Ziel (`FINAL_GOAL`, heute der T-Rex). Ein Tier mit
-   weiblichem Namen braucht „zur“ und „mit der“: ein Eintrag in `FEMININE` in
-   `presentation/game/unlockNotice.ts` (so die Venusfliegenfalle). Ein Name mit mehr als **zwölf**
-   Zeichen braucht einen `shortName` für die Kachel — gemessen am 14.10.2026: zwölf Zeichen füllen
-   die 65-px-Kachel in zwei Zeilen, dreizehn brechen die dritte auf und die Kachel wird 13,2 px
-   höher als ihre Nachbarn (`MAX_TILE_LABEL_LENGTH` in `creature.ts`, `creature.test.ts` hält den
-   Katalog daran; das Maß selbst prüft `scripts/pruefen-freischaltung.py`). Hat das Vorbild gar keine Zähne,
-   ist `realTeeth` 0 — die Kurzinfo sagt dann „keine Zähne“. Und die Listen der Sonden
-   (`pruefen-blick.py`, `-zoom.py`, `-tiere.py`, `-freischaltung.py`) sowie die Spaltenzahl der
-   Tablet-Reihe (`.creature-rail` in `app.css`) hängen an der Zahl der Wesen.
+   letzten Ziel (`FINAL_GOAL`, heute der T-Rex).
+   Danach `KATALOG_NEU=1 pnpm test:run`, um `scripts/katalog.json` für die Sonden nachzuziehen.
 4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
    zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
 5. Eine Stimme: Aufnahme mit freier Lizenz suchen, mit `scripts/stimme-schneiden.sh` nach
-   `public/sounds/voices/<id>.mp3` schneiden, in `CREATURE_VOICE_FILES`
-   (`infrastructure/audio/creatureVoices.ts`) eintragen und in `public/sounds/voices/QUELLEN.md`
-   Urheber, Lizenz und Quelle nennen — ohne Datei oder Lizenzzeile fällt `creatureVoices.test.ts`.
+   `public/sounds/voices/<id>.mp3` schneiden, in `public/sounds/voices/QUELLEN.md` Urheber, Lizenz
+   und Quelle nennen und in `VOICES` in `public/sw.js` eintragen — ohne Datei oder Lizenzzeile fällt
+   `creatureVoices.test.ts`, ohne Vorrat `offline.test.ts`.
    **Vorher die Dateiseite lesen, nicht nur den Titel:** „Mouse in Antefasy“ war kein Quieken,
    sondern das gesprochene Wort „Maus“ in einem madagassischen Dialekt (Kategorie „Malagasy
    language“). Und anhören kann eine Stimme nur der Auftraggeber.

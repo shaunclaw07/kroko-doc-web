@@ -4,8 +4,7 @@ Aufruf (Reihenfolge = Katalogreihenfolge aus `src/core/domain/creature.ts`, dies
 Reihenfolge nennt das README in der Bildunterschrift):
 
     pnpm vitest run src/render-probe.test.ts          # schreibt je Lebewesen ein SVG
-    uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png \\
-        crocodile wolf human shark mouse vampire panda lion panther sabertooth
+    uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png
 
 Zwei Fallen stecken darin, beide hier geloest:
 
@@ -27,6 +26,8 @@ import importlib.util
 import math
 import sys
 from pathlib import Path
+
+from katalog import TIERE
 
 PROJECT = Path(__file__).resolve().parents[1]
 # Zielbreite des Bildes (bisher vier Kacheln zu 492 px). Die Spaltenzahl wird aus der Anzahl der
@@ -92,11 +93,11 @@ def tile(
 
 
 def main() -> int:
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 2:
         print((__doc__ or "").strip())
         return 2
     target = Path(sys.argv[1])
-    creatures = sys.argv[2:]
+    creatures = sys.argv[2:] if len(sys.argv) > 2 else TIERE
     art = load_artwork_png()
     source_dir = svg_dir()
 

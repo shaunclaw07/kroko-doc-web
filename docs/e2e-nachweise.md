@@ -2034,3 +2034,26 @@ Seiten in 709 ms, `pruefen-zahnsicht` **144 Zeichnungen / 0 Auffälligkeiten**, 
 32/32. Das README-Bild der Gebisse ist mit den korrigierten Mäulern neu gebaut
 (`docs/bilder/gebisse.png`, `b35bbb2e…`).
 
+## 14.10.2026 — Paket 1: Der Katalog als einzige Quelle für ein Wesen
+
+Refactoring gemäß `docs/plaene/paket-1-katalog.md`:
+- Tierstimmen (`CREATURE_VOICE_FILES`) werden aus `listCreatures()` abgeleitet.
+- Grammatik (`grammar` mit `dative`/`feminine`) am Katalogeintrag (`human`, `lion`, `flytrap`); `DATIVE_NAMES` und `FEMININE` in `unlockNotice.ts` entfernt.
+- `joinNames(names)` und `threeLiveNames()` in `unlockNotice.ts` zentralisiert und in `index.astro` und `regeln.test.ts` verwendet.
+- Spaltenzahl der Leiste `--rail-columns` und `--rail-columns-tall` dynamisch aus `creatures.length` berechnet und über CSS-Variablen in `app.css` gesetzt.
+- `src/katalog-json.test.ts` erzeugt `scripts/katalog.json`; `scripts/katalog.py` stellt `TIERE`, `FOLGE`, `ZAEHNE`, `LETZTE_SCHWELLE` für Sonden bereit.
+- Python-Sonden (`pruefen-freischaltung.py`, `pruefen-blick.py`, `pruefen-zoom.py`, `pruefen-tiere.py`, `freischaltung.py`, `galerie.py`) nutzen `katalog.py`.
+- `scripts/galerie.py` nutzt standardmäßig `katalog.TIERE`; Galerie-Befehle gekürzt.
+
+**Abnahme:**
+- `pnpm gate` grün: 532 Tests in 38 Dateien, Typenprüfung fehlerfrei.
+- `pnpm build` grün: 2 Seiten gebaut.
+- `scripts/pruefen-bedienung.py`: Auffälligkeiten: 0 (Exit 0).
+- `scripts/pruefen-freischaltung.py`: Auffälligkeiten: 0 (Exit 0).
+- `scripts/pruefen-tiere.py`: ERGEBNIS: in Ordnung (Exit 0).
+- `scripts/pruefen-blick.py`: 41 Zeilen `ok`, Auffälligkeiten: 0 (Exit 0).
+- `scripts/pruefen-zoom.py`: 72 Messzeilen, Auffälligkeiten: 0 (Exit 0).
+- `git grep -n "sabertooth" -- scripts src/presentation/styles src/pages`: nur noch Einzelfall-Stellen, keine Liste.
+- **Gegenprobe:** in `scripts/katalog.json` Tier entfernt → `src/katalog-json.test.ts` schlägt fehl (Exit 1).
+
+

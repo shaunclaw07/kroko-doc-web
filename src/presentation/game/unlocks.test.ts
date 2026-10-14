@@ -13,6 +13,8 @@ import {
   playLabel,
   progressSentence,
   unlockTitle,
+  joinNames,
+  threeLiveNames,
 } from './unlockNotice';
 
 /** Die Auswahl mit allen zehn Tieren, die Meldungen über der Bühne und der Hinweis für Vorleser. */
@@ -289,5 +291,16 @@ describe('Sätze der Freischaltung', () => {
     expect(unlockTitle([{ name: 'Hai' }, { name: 'Panda' }, { name: 'Mensch' }])).toBe(
       'Neu dabei: Hai, Panda und Mensch!',
     );
+  });
+
+  it('zählt Namen auf: leer, einzeln, mit und, mit Komma', () => {
+    expect(joinNames([])).toBe('');
+    expect(joinNames(['A'])).toBe('A');
+    expect(joinNames(['A', 'B'])).toBe('A und B');
+    expect(joinNames(['A', 'B', 'C'])).toBe('A, B und C');
+  });
+
+  it('nennt die Tiere mit 1–3 scharfen Zähnen für das Regeln-Blatt', () => {
+    expect(threeLiveNames()).toBe('Krokodil, Mensch und T-Rex');
   });
 });

@@ -1,0 +1,116 @@
+{
+  "creatures": [
+    {
+      "id": "crocodile",
+      "name": "Krokodil",
+      "teeth": 10
+    },
+    {
+      "id": "wolf",
+      "name": "Wolf",
+      "teeth": 12
+    },
+    {
+      "id": "human",
+      "name": "Mensch",
+      "teeth": 12
+    },
+    {
+      "id": "shark",
+      "name": "Hai",
+      "teeth": 12
+    },
+    {
+      "id": "mouse",
+      "name": "Maus",
+      "teeth": 6
+    },
+    {
+      "id": "vampire",
+      "name": "Vampir",
+      "teeth": 12
+    },
+    {
+      "id": "panda",
+      "name": "Panda",
+      "teeth": 12
+    },
+    {
+      "id": "lion",
+      "name": "Löwe",
+      "teeth": 12
+    },
+    {
+      "id": "panther",
+      "name": "Panther",
+      "teeth": 12
+    },
+    {
+      "id": "sabertooth",
+      "name": "Säbelzahntiger",
+      "teeth": 12
+    },
+    {
+      "id": "flytrap",
+      "name": "Venusfliegenfalle",
+      "teeth": 8
+    },
+    {
+      "id": "trex",
+      "name": "T-Rex",
+      "teeth": 12
+    }
+  ],
+  "unlockOrder": [
+    "crocodile",
+    "mouse",
+    "wolf",
+    "shark",
+    "panda",
+    "human",
+    "lion",
+    "vampire",
+    "panther",
+    "sabertooth",
+    "flytrap",
+    "trex"
+  ],
+  "unlockSteps": [
+    {
+      "creature": "shark",
+      "stars": 3
+    },
+    {
+      "creature": "panda",
+      "stars": 5
+    },
+    {
+      "creature": "human",
+      "stars": 7
+    },
+    {
+      "creature": "lion",
+      "stars": 9
+    },
+    {
+      "creature": "vampire",
+      "stars": 11
+    },
+    {
+      "creature": "panther",
+      "stars": 13
+    },
+    {
+      "creature": "sabertooth",
+      "stars": 15
+    },
+    {
+      "creature": "flytrap",
+      "stars": 20
+    },
+    {
+      "creature": "trex",
+      "stars": 28
+    }
+  ]
+}

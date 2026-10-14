@@ -9,6 +9,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { listCreatures } from './core/domain/creature';
 import { expectedPresses, modeKWeights, pressPositionDistribution } from './core/domain/probabilities';
+import { threeLiveNames } from './presentation/game/unlockNotice';
 
 const SEITE = readFileSync(new URL('./pages/index.astro', import.meta.url), 'utf8');
 /** Das Blatt als eine Zeile — der Fließtext ist im Markup umbrochen. */
@@ -19,12 +20,11 @@ const MARKE = ' stellen <strong>1–3 Zähne gleichzeitig scharf</strong>';
 
 describe('Regeln-Blatt', () => {
   it('nennt genau die Tiere mit 1–3 scharfen Zähnen beim Namen', () => {
-    const ende = REGELN.indexOf(MARKE);
-    expect(ende, 'der Satz über die 1–3-Tiere fehlt').toBeGreaterThan(-1);
-    const satz = REGELN.slice(REGELN.lastIndexOf('.', ende) + 1, ende);
+    const satz = threeLiveNames();
     for (const creature of listCreatures()) {
       expect(satz.includes(creature.name), creature.name).toBe(creature.liveTeethMax === 3);
     }
+    expect(REGELN).toContain(`{threeLiveList}${MARKE}`);
   });
 
   it('nennt die erwarteten Drücke bei 12 Zähnen so, wie das Modell sie rechnet', () => {
