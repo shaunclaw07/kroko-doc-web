@@ -21,7 +21,6 @@ export interface HudView {
   snap(toothId: number): void;
   clench(): void;
   twitch(toothId: number, wait: (ms: number, run: () => void) => void): void;
-  tooth(toothId: number): SVGGElement | null;
 }
 
 const IDS = {
@@ -87,7 +86,6 @@ export function createHudView(
     setStage(nextStage: HTMLElement | null): void {
       currentStage = nextStage;
     },
-    tooth: toothElement,
 
     apply(model: HudModel): void {
       setText(IDS.remaining, String(model.remaining));
@@ -97,8 +95,12 @@ export function createHudView(
       setText(IDS.tension, model.tensionText);
       setText(IDS.turn, model.turnSentence);
 
+      // Das Ergebnis steht auf der Seite, solange das Maul zu ist — an der Stelle des Spielstands,
+      // denn bei geschlossenem Maul gibt es keine Zähne mehr zu zählen. Die neue Runde räumt es weg.
       doc.getElementById(IDS.resultPanel)?.classList.toggle('hidden', model.roundOpen);
       doc.getElementById(IDS.stats)?.classList.toggle('hidden', !model.roundOpen);
+      // „Neue Runde" steht immer in der Leiste. Bei geschlossenem Maul ist er der nächste Schritt
+      // und wird betont.
       doc.getElementById(IDS.newRound)?.classList.toggle('is-next', !model.roundOpen);
 
       const warn = doc.getElementById(IDS.warning);
@@ -112,6 +114,9 @@ export function createHudView(
       const meter = doc.getElementById(IDS.meter);
       meter?.style.setProperty('width', `${model.meterPercent}%`);
 
+      // Die Zustandsklassen gehören an den Kasten, der Balken und Zeile **enthält** (`#hud-panel`).
+      // An der Bühne hat sie keine Regel erreicht — der Balken liegt außerhalb von `.stage`, die
+      // Gefahrfarbe kam dort nie an (gemessen im Browser, `docs/e2e-nachweise.md` §5t).
       const panel = doc.getElementById(IDS.panel);
       panel?.style.setProperty('--beat-ms', `${model.beatMs}ms`);
       panel?.classList.toggle('is-tense', model.tense);
@@ -122,6 +127,8 @@ export function createHudView(
       liveArt?.classList.toggle('is-trembling', model.danger);
       liveArt?.classList.toggle('is-wary', model.tense && !model.danger);
 
+      // Die Bühne behält ihre eigenen Werte: `--tension` färbt das Bild dunkler, `--beat-ms` taktet
+      // den Puls, `data-status`/`data-tension` tragen die Sonden.
       const liveStage = resolveStage();
       liveStage?.style.setProperty('--tension', model.tension.toFixed(3));
       liveStage?.style.setProperty('--zoom', model.zoom.toFixed(3));
@@ -139,9 +146,15 @@ export function createHudView(
       }
       setText(IDS.resultTitle, resultTitle(round.players, loser.player));
       setText(IDS.resultText, resultText(round));
+      // Der Satz gehört zum Tier **dieser** Runde — nicht zur Einstellung, die sich ändern kann.
       setText(IDS.resultFact, resultFact(round.creatureId));
     },
 
+    /**
+     * Erklärt den Balken genau einmal je Sitzung — beim ersten Druck. Danach nie wieder: ein Hinweis,
+     * der in jeder Runde neu auftaucht, ist keine Hilfe mehr, sondern eine Zumutung. Antippen blendet
+     * ihn sofort weg.
+     */
     revealMeterHint(marks?: SessionMarkPort, wait?: (ms: number, run: () => void) => void): void {
       const hint = doc.getElementById(IDS.meterHint);
       if (!marks || !hint || marks.has(METER_HINT_KEY)) {
@@ -153,6 +166,10 @@ export function createHudView(
       wait?.(4000, () => hint.classList.add('hidden'));
     },
 
+    /**
+     * Richtet den Blick auf einen Punkt der Zeichnung (`null` = geradeaus). Der Versatz hängt nur
+     * an Augenmitte und Ziel — nie an den scharfen Zähnen.
+     */
     lookAt(target: Point | null, eyes: Point | null): void {
       const liveArt = resolveArt();
       const offset = target && eyes ? gazeOffset(eyes, target) : { x: 0, y: 0 };
@@ -160,6 +177,7 @@ export function createHudView(
       liveArt?.style.setProperty('--look-y', offset.y.toFixed(2));
     },
 
+    /** Zeigt Ring und Beschriftung an der Stelle des scharfen Zahns. */
     markBiter(toothId: number, anchor: Point): void {
       const group = doc.querySelector<SVGGElement>('.creature__biter');
       if (!group) {
@@ -183,6 +201,7 @@ export function createHudView(
       tooth?.setAttribute('aria-pressed', 'true');
     },
 
+    /** Zeigt die Pause im Bild: der Zahn sinkt, der Kiefer knarrt, das Tier hält den Atem an. */
     startPressBeat(beatMs: number): void {
       resolveStage()?.style.setProperty('--press-beat', `${Math.max(1, Math.round(beatMs))}ms`);
       resolveArt()?.classList.add('is-pressing');
@@ -229,6 +248,9 @@ export function createHudView(
       wait(320, () => liveArt?.classList.remove('is-twitching'));
       const tooth = toothElement(toothId);
       tooth?.classList.add('is-live');
+      // Immer zurücknehmen: dieser Zahn war harmlos. Die Bedingung „nur bei offener Runde" ließ das
+      // Glühen stehen, wenn der nächste Druck binnen 260 ms zuschnappte — im Endbild sah dann ein
+      // harmloser Zahn scharf aus.
       wait(260, () => tooth?.classList.remove('is-live'));
     },
   };

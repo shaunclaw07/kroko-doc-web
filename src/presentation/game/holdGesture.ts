@@ -7,6 +7,7 @@ export const HOLD_SINK_MS = 320;
  */
 export const HOLD_MAX_MS = 4000;
 
+/** Ein Finger liegt auf einem Zahn — entschieden ist noch nichts. */
 interface Hold {
   toothId: number;
   pointerId: number;
@@ -38,13 +39,19 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
   const { doc, wait, canPress, feel, onPress, onCancel } = deps;
   const now = deps.now ?? (() => doc.defaultView?.performance.now() ?? 0);
 
+  /** Das laufende Halten; höchstens eines zugleich. */
   let hold: Hold | null = null;
+  /** Nach `dispose()` beginnt kein Halten mehr. */
   let disposed = false;
 
   function toothElement(toothId: number): SVGGElement | null {
     return doc.querySelector<SVGGElement>(`.tooth[data-tooth="${toothId}"]`);
   }
 
+  /**
+   * Der Finger liegt auf: der Zahn sinkt, der Kiefer knarrt, das Tier hält den Atem an.
+   * Entschieden ist noch nichts — der Zug läuft erst beim Loslassen.
+   */
   function beginHold(toothId: number, pointerId: number): void {
     if (disposed || hold || !canPress(toothId)) {
       return;
@@ -53,6 +60,7 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
     hold = current;
     toothElement(toothId)?.classList.add('is-held');
     feel();
+    // Die Obergrenze gehört zu **diesem** Halten — ein späteres rührt sie nicht an.
     wait(HOLD_MAX_MS, () => {
       if (hold === current) {
         cancelHold();
@@ -60,6 +68,7 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
     });
   }
 
+  /** Der Zahn federt zurück, ohne Zug: Finger weggeschoben, Geste abgebrochen oder zu lange gezögert. */
   function cancelHold(): void {
     const current = hold;
     if (!current) {
@@ -80,7 +89,9 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
     onPress(current.toothId, Math.max(0, now() - current.startedAt), true);
   }
 
+  /** Liegt der Zeiger beim Loslassen noch auf dem Zahn? Wer ihn wegschiebt, nimmt den Druck zurück. */
   function releasedOnTooth(pointer: PointerEvent, toothId: number): boolean {
+    // jsdom kennt `elementFromPoint` nicht — dort gilt jedes Loslassen als auf dem Zahn.
     if (typeof doc.elementFromPoint !== 'function') {
       return true;
     }
@@ -107,6 +118,8 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
     }
   };
 
+  // Das Loslassen wird am Dokument gehört: mit der Maus endet es dort, wo der Zeiger gerade
+  // steht — nicht unbedingt auf dem Zahn.
   doc.addEventListener('pointerup', onPointerUp);
   doc.addEventListener('pointercancel', onPointerCancel);
 
@@ -117,12 +130,18 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
 
         tooth.addEventListener('pointerdown', (event) => {
           const pointer = event as PointerEvent;
+          // Nur der erste Finger bzw. die Haupttaste — ein zweiter Finger beginnt keinen Druck.
           if (!pointer.isPrimary || pointer.button !== 0) {
             return;
           }
           beginHold(id, pointer.pointerId);
         });
 
+        // Ein Finger, der beim Halten wackelt, ist kein Wischen: ohne dies brach der Browser das
+        // Halten nach rund 10 px Weg mit `pointercancel` ab — mitten auf der Trefferfläche und ohne
+        // dass die Seite scrollte (gemessen am 12.10.2026: 14 px Weg auf 65 px Fläche, kein Zug).
+        // `touch-action` hilft hier nicht, Chromium wertet es an Teilen einer SVG-Zeichnung nicht
+        // aus. Nur für den gehaltenen Zahn: von einem schon gedrückten aus lässt sich weiter scrollen.
         tooth.addEventListener(
           'touchstart',
           (event) => {
@@ -133,6 +152,8 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
           { passive: false },
         );
 
+        // Ein Zeiger-Tipp endet zusätzlich mit `click` (detail ≥ 1) — den Zug hat `pointerup` schon
+        // ausgelöst. Ein `click` ohne Zeiger (detail 0) kommt von Tastatur und Hilfstechnik.
         tooth.addEventListener('click', (event) => {
           if ((event as MouseEvent).detail === 0) {
             if (hold || !canPress(id)) {
@@ -142,6 +163,7 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
           }
         });
 
+        // Langes Halten darf kein Systemmenü öffnen.
         tooth.addEventListener('contextmenu', (event) => event.preventDefault());
 
         tooth.addEventListener('keydown', (event) => {
@@ -157,6 +179,7 @@ export function createHoldGesture(deps: HoldGestureDeps): HoldGesture {
       }
     },
 
+    /** Nimmt ein laufendes Halten still zurück (neue Runde) — ohne `onCancel`, die Bühne wird neu gebaut. */
     cancel(): void {
       const current = hold;
       if (!current) {

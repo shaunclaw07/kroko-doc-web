@@ -34,7 +34,9 @@ export function createRoundRecorder(deps: RoundRecorderDeps): RoundRecorder {
         return null;
       }
       // Erst lesen, dann anhängen: die Statistikseite (anderer Tab, oder vor der Zurück-Taste) kann
-      // das Protokoll inzwischen gelöscht oder per Import erweitert haben.
+      // das Protokoll inzwischen gelöscht oder per Import erweitert haben. Mit dem Stand vom
+      // Seitenstart überschrieb das Spiel beides (gemessen am 12.10.2026: 3 gelöschte Runden waren
+      // wieder da, 5 importierte weg).
       currentRecords = log.load();
       const record = createRoundRecord({
         round: nextRoundNumber(currentRecords),

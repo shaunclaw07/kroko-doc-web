@@ -50,6 +50,7 @@ export class GameController {
   private readonly holdGesture: HoldGesture;
   private readonly recorder: RoundRecorder;
   private readonly hud: HudView;
+  /** Nach `dispose()` rührt die Steuerung sich nicht mehr — späte Zeitgeber laufen ins Leere. */
   private disposed = false;
   private round: RoundState;
   private tension = 0;
@@ -285,6 +286,8 @@ export class GameController {
   };
 
   private vibrate(pattern: number | readonly number[]): void {
+    // Der Port kapselt die Browser-Schnittstelle: hier steht kein navigator-Zugriff mehr,
+    // damit die Bedienung auch ohne Vibration (iOS-Safari, Tests) prüfbar bleibt.
     this.deps.haptics?.vibrate(pattern);
   }
 

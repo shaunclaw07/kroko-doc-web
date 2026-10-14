@@ -23,8 +23,6 @@ if hasattr(sys.stderr, "reconfigure"):
 from freischaltung import ABLAGE, ALLE_OFFEN
 
 EINSTELLUNGEN = "zahn_agent:settings:v1"
-SETTINGS_KEY = EINSTELLUNGEN
-SCHLUESSEL = EINSTELLUNGEN
 
 STANDARD_ADRESSE = "http://localhost:4322"
 

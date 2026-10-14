@@ -26,7 +26,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
-from sonde import SCHLUESSEL, basis_adresse
+from sonde import EINSTELLUNGEN, basis_adresse
 
 BASIS = basis_adresse()
 BLICKE = [(320, 568), (360, 640), (390, 844), (412, 915), (768, 1024), (1024, 768), (820, 1180), (1180, 820)]
@@ -93,7 +93,7 @@ def frisch(browser, w, h, einstellungen, ohne_vibration=False):
     ctx.add_init_script("if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);" % (ABLAGE, ABLAGE, json.dumps(ALLE_OFFEN)))
     ctx.add_init_script(
         "if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);"
-        % (SCHLUESSEL, SCHLUESSEL, json.dumps(json.dumps(einstellungen)))
+        % (EINSTELLUNGEN, EINSTELLUNGEN, json.dumps(json.dumps(einstellungen)))
     )
     if ohne_vibration:
         ctx.add_init_script("delete Navigator.prototype.vibrate;")

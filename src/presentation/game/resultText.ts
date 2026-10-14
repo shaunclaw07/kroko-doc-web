@@ -6,6 +6,11 @@ export function playerName(player: number, players: number): string {
   return players === 1 ? 'Du' : `Spieler ${player}`;
 }
 
+/**
+ * Zugzeile. Bei einem Spieler heißt es „Du bist dran“ — die erste Fassung klebte „ ist dran“ an
+ * `playerName()` und schrieb damit „Du ist dran“. Bei mehreren Spielern genügt der Name: die
+ * Spielerzahl steht in den Einstellungen, sie muss nicht in jedem Zug wiederholt werden.
+ */
 export function turnSentence(round: Pick<RoundState, 'status' | 'players' | 'pressOrder'>): string {
   if (round.status === 'snapped') {
     return 'Maul zu';
@@ -15,6 +20,11 @@ export function turnSentence(round: Pick<RoundState, 'status' | 'players' | 'pre
   return round.players === 1 ? 'Du bist dran' : `${playerName(currentPlayer, round.players)} ist dran`;
 }
 
+/**
+ * Der Mut der Runde: die höchste überstandene Bissgefahr. Er gibt dem Gefahren-Balken einen
+ * Zweck — die Gefahr, die man übersteht, ist das, was am Tisch erzählt wird. Kommt aus derselben
+ * Kurve wie der Balken (`survivedDanger`), ist also dieselbe Wahrheit wie die Anzeige.
+ */
 export function mutSentence(
   round: Pick<RoundState, 'teeth' | 'mode' | 'liveTeethMin' | 'liveTeethMax' | 'players'>,
   pressIndex: number,

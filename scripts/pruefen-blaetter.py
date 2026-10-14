@@ -26,7 +26,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
-from sonde import SCHLUESSEL, basis_adresse
+from sonde import EINSTELLUNGEN, basis_adresse
 
 BASIS = basis_adresse()
 HANDY = {"width": 390, "height": 844}
@@ -45,7 +45,7 @@ def frisch(browser, blick, einstellungen=None):
     if einstellungen is not None:
         context.add_init_script(
             "if (!localStorage.getItem('%s')) localStorage.setItem('%s', %s);"
-            % (SCHLUESSEL, SCHLUESSEL, json.dumps(json.dumps(einstellungen)))
+            % (EINSTELLUNGEN, EINSTELLUNGEN, json.dumps(json.dumps(einstellungen)))
         )
     page = context.new_page()
     page.goto(BASIS, wait_until="load")
