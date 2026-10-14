@@ -138,7 +138,7 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   // Schalter und Segmente mit den gespeicherten Einstellungen abgleichen
   wireSettingsSheet({
     doc,
-    settings: initialSettings,
+    settings: settingsStore,
     haptics,
     apply: (next: GameSettings) => controller.applySettings(next),
   });
@@ -153,12 +153,13 @@ export function wireGamePage(deps: WireGamePageDeps): WireGamePageResult {
   // Ein Tipp neben das oberste Blatt schließt es — die Regeln stehen (geprüft) in sheets.ts.
   wireOutsideTapDismissal(doc);
 
-  // Browser geben Ton erst nach einer Nutzergeste frei.
-  const unlockAudio = (): void => sound.unlock();
-  doc.addEventListener('pointerup', unlockAudio);
-  doc.addEventListener('keydown', unlockAudio);
-  win.addEventListener('pointerup', unlockAudio);
-  win.addEventListener('keydown', unlockAudio);
+  // Browser geben Ton erst nach einer Nutzergeste frei. `pointerup` statt `pointerdown`: ein
+  // Finger, der nur scrollt, endet mit `pointercancel` und ist keine Freigabe — die Engine
+  // hielte sich sonst für freigegeben, während der Browser den Ton noch sperrt. Bei **jeder**
+  // Geste, nicht nur der ersten: die erste kann eine sein, die der Browser nicht zählt, und iOS
+  // hält den Ton nach einem Anruf wieder an (`unlock()` tut nichts, solange er läuft).
+  doc.addEventListener('pointerup', () => sound.unlock());
+  doc.addEventListener('keydown', () => sound.unlock());
 
   return { controller, album, quick, feed };
 }

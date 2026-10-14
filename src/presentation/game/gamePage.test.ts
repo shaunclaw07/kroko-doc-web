@@ -258,11 +258,12 @@ describe('gamePage', () => {
     expect(remote.pullCalls).toBe(2);
   });
 
-  it('(f) pointerup gibt den Ton frei', () => {
+  it('(f) pointerup gibt den Ton frei — einmal je Geste', () => {
     setup();
     expect(sound.unlockCalls).toBe(0);
 
-    window.dispatchEvent(new Event('pointerup'));
+    // Eine echte Geste trifft ein Element und steigt durch Dokument und Fenster auf.
+    document.body.dispatchEvent(new Event('pointerup', { bubbles: true }));
     expect(sound.unlockCalls).toBe(1);
   });
 

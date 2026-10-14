@@ -2,6 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { DEFAULT_SETTINGS, type GameSettings } from '../../core/domain/settings';
 import { RecordingHaptics } from '../../infrastructure/testing/recordingHaptics';
+import { createSettingsStore } from './settingsStore';
 import { wireSettingsSheet } from './settingsSheet';
 
 const DOM = `
@@ -25,9 +26,10 @@ function createFixture(initialSettings?: Partial<GameSettings>, supported = true
     ...initialSettings,
   };
   const haptics = new RecordingHaptics(supported);
-  const apply = vi.fn();
-  wireSettingsSheet({ doc: document, settings, haptics, apply });
-  return { settings, haptics, apply };
+  const store = createSettingsStore(settings);
+  const apply = vi.fn((next: GameSettings) => store.set(next));
+  wireSettingsSheet({ doc: document, settings: store, haptics, apply });
+  return { settings, store, haptics, apply };
 }
 
 describe('settingsSheet', () => {
@@ -88,6 +90,18 @@ describe('settingsSheet', () => {
     vibrationBox.checked = false;
     vibrationBox.dispatchEvent(new Event('change'));
     expect(apply).toHaveBeenCalledWith(expect.objectContaining({ vibration: false }));
+  });
+
+  it('übernimmt, was die Leiste inzwischen gestellt hat (Tier, Zähne), statt den Stand vom Start', () => {
+    const { store, apply } = createFixture({ creature: 'crocodile', teethOverride: null });
+    store.set({ ...store.get(), creature: 'wolf', teethOverride: 6 });
+
+    document.querySelector<HTMLButtonElement>('#opt-players [data-players="2"]')?.click();
+    (document.getElementById('opt-sound') as HTMLInputElement).click();
+
+    expect(apply).toHaveBeenLastCalledWith(
+      expect.objectContaining({ creature: 'wolf', teethOverride: 6, players: 2, sound: false }),
+    );
   });
 
   it('sperrt Wackeln und zeigt Hinweis, wenn Haptics nicht unterstützt wird', () => {
