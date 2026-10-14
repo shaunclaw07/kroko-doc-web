@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { DEFAULT_CREATURE_ID, getCreature } from '../core/domain/creature';
+import { DEFAULT_CREATURE_ID, getCreature, tileLabel } from '../core/domain/creature';
 import { STARTING_CREATURES, UNLOCK_ORDER, UNLOCK_STEPS } from '../core/domain/unlocks';
 import { creaturePortrait } from '../presentation/game/creatures';
 
@@ -136,7 +136,7 @@ const base = import.meta.env.BASE_URL;
               <span class="creature-grid__icon" aria-hidden="true">
                 <Fragment set:html={creaturePortrait(creature.id, 'leiste')} />
               </span>
-              <span class="creature-grid__name">{creature.shortName ?? creature.name}</span>
+              <span class="creature-grid__name">{tileLabel(creature)}</span>
             </button>
           </li>
         ))}
@@ -226,7 +226,7 @@ const base = import.meta.env.BASE_URL;
             <span class="creature-grid__icon" aria-hidden="true">
               <Fragment set:html={creaturePortrait(creature.id, 'kachel')} />
             </span>
-            <span class="creature-grid__name">{creature.shortName ?? creature.name}</span>
+            <span class="creature-grid__name">{tileLabel(creature)}</span>
           </button>
         </li>
       ))}

@@ -242,7 +242,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 - Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden". Der ganze
   Weg zum Nachbauen, mit allen Aufrufen und Fallen: `docs/sicherung-anleitung.md`.
 
-## Dreiunddreißig Fallen, die Zeit kosten
+## Vierunddreißig Fallen, die Zeit kosten
 
 - **Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet.** Der Service Worker
   (`public/sw.js`) bestand alle Fälle seiner nachgestellten Umgebung — und im echten Browser lud die
@@ -500,6 +500,17 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
   `uv run --with playwright python scripts/pruefen-bedienung.py` (erwartet: 0 Auffälligkeiten).
   Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
 
+- **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
+  auf die gebaute Seite.** Die Regel oben sagte „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
+  hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
+  13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
+  sind gleich groß ([(65, 87), (65, 100)])" (gemessen am 14.10.2026). Die wirkliche Grenze sind
+  **zwölf** Zeichen. Beim Suchen half die eigene Zählung der Sonde nicht: `pruefen-tiere.py` zählt den
+  Katalog im **ausgelieferten Bündel** und meldet im Entwicklungsmodus leer („Kennungen im Buendel:
+  []"), weil Astro dort einzelne Module statt eines Bündels liefert — derselbe Lauf gegen die gebaute
+  Seite war grün. Eine Sonde, deren Ausgabe nicht zur Umgebung passt, schickt einen auf die falsche
+  Spur; die Adresse gehört zum Rezept (hier: `pnpm preview --port 4322`).
+
 ## Ein neues Lebewesen ergänzen
 
 1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, `teeth`, `liveTeethMin/Max`,
@@ -520,8 +531,11 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
    Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor) — außer beim
    letzten Ziel (`FINAL_GOAL`, heute der T-Rex). Ein Tier mit
    weiblichem Namen braucht „zur“ und „mit der“: ein Eintrag in `FEMININE` in
-   `presentation/game/unlockNotice.ts` (so die Venusfliegenfalle). Ein Name mit mehr als rund
-   vierzehn Buchstaben braucht einen `shortName` für die Kachel. Hat das Vorbild gar keine Zähne,
+   `presentation/game/unlockNotice.ts` (so die Venusfliegenfalle). Ein Name mit mehr als **zwölf**
+   Zeichen braucht einen `shortName` für die Kachel — gemessen am 14.10.2026: zwölf Zeichen füllen
+   die 65-px-Kachel in zwei Zeilen, dreizehn brechen die dritte auf und die Kachel wird 13,2 px
+   höher als ihre Nachbarn (`MAX_TILE_LABEL_LENGTH` in `creature.ts`, `creature.test.ts` hält den
+   Katalog daran; das Maß selbst prüft `scripts/pruefen-freischaltung.py`). Hat das Vorbild gar keine Zähne,
    ist `realTeeth` 0 — die Kurzinfo sagt dann „keine Zähne“. Und die Listen der Sonden
    (`pruefen-blick.py`, `-zoom.py`, `-tiere.py`, `-freischaltung.py`) sowie die Spaltenzahl der
    Tablet-Reihe (`.creature-rail` in `app.css`) hängen an der Zahl der Wesen.

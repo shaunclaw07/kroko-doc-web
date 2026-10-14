@@ -13,9 +13,11 @@ gewaehlten Tier und dessen Kurzinfo — die Auskunft bleibt also erreichbar.
 Seit dem Umbau der Spielseite (12.10.2026, Bedienleiste) oeffnet sich das Auswahlblatt direkt von
 der Spielseite; die Kurzinfo steht im Regeln-Blatt.
 
-Aufruf (Server muss laufen; Standard ist der Entwicklungsserver):
+Aufruf (die **gebaute** Seite bzw. die veröffentlichte; der Katalog wird im ausgelieferten Bündel
+gezählt — im Entwicklungsmodus liefert Astro einzelne Module statt eines Bündels, dann meldet die
+Zählung leer und die Sonde schlägt fehl, obwohl der Baum in Ordnung ist):
 
-    uv run --with playwright python scripts/pruefen-tiere.py
+    uv run --with playwright python scripts/pruefen-tiere.py http://localhost:4322
     uv run --with playwright python scripts/pruefen-tiere.py https://zahn-agent.schaflabs.com
 
 Das Bild landet unter $TMPDIR/zahn_agent-artwork/tiere-live.png.
@@ -143,7 +145,11 @@ def main() -> int:
         fehlt = [k for k in ERWARTET if k not in im_buendel]
         browser.close()
     print("Bild:", ZIEL)
-    print("Namen im Seitentext fehlen:",
+    # Nur eine Auskunft, kein Urteil: zwei Tiere tragen auf der Kachel absichtlich den kurzen Namen
+    # (Säbelzahntiger → Säbelkatze, Venusfliegenfalle → Fliegenfalle), ihr voller Name steht in
+    # Sätzen, Regeln und Vorleser. Über die Kacheltreue wacht `pruefen-freischaltung.py`, über die
+    # Länge `creature.test.ts`.
+    print("Volle Namen, die im Seitentext fehlen (auf der Kachel steht der kurze):",
           [k for k in ["Panda", "Löwe", "Panther", "Säbelzahntiger", "Venusfliegenfalle", "T-Rex"]
            if k not in seite])
     # Vergleich ohne Gross-/Kleinschreibung: die Notiz beginnt mit "Vier Fangzähne", gesucht ist

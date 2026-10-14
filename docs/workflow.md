@@ -270,7 +270,7 @@ eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` feh
 | `pruefen-anzeige.py` | Sonde: Balken, Fortschritt und Bissgefahr an den berechneten Stilen | `uv run --with playwright python scripts/pruefen-anzeige.py` |
 | `pruefen-blaetter.py` | Sonde: bleiben die Blätter offen, solange man darin arbeitet | `uv run --with playwright python scripts/pruefen-blaetter.py` |
 | `pruefen-blattbreite.py` | Sonde: Breite und Zustand der Blätter auf Tablets | `uv run --with playwright python scripts/pruefen-blattbreite.py` |
-| `pruefen-tiere.py` | Sonde: alle Tiere mit Bild, ein Tipp wählt | `uv run --with playwright python scripts/pruefen-tiere.py` |
+| `pruefen-tiere.py` | Sonde: alle Tiere mit Bild, ein Tipp wählt; zählt den Katalog im **ausgelieferten Bündel** — deshalb gegen die gebaute oder veröffentlichte Seite, nicht gegen `pnpm dev` | `uv run --with playwright python scripts/pruefen-tiere.py [URL]` |
 | `pruefen-trefferflaeche.py` | Sonde: Trefferfläche je Zahn, kein Zahn verdeckt | `uv run --with playwright python scripts/pruefen-trefferflaeche.py` |
 | `pruefen-zahnsicht.py` | Sonde ohne Server: liegt ein Zahn unter dem Gesicht — jedes Tier, jede Zahnzahl, an den SVGs der Zeichnungs-Sonde; `--freiraum <tier>` zeigt, wo ein Auge Platz hat | `uv run --with playwright python scripts/pruefen-zahnsicht.py` |
 | `pruefen-zeitgeber.cjs` | stellt den Zeitgeber-Fehler des Gates nach (Mechanismus, nicht Häufigkeit) | `node scripts/pruefen-zeitgeber.cjs` |

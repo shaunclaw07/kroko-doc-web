@@ -31,9 +31,9 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
 `dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
-`pnpm install` läuft durch, 526 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; gemessene
-Werte: 1,74 · 1,74 · 1,78 · 1,90 s und 1,69 s im Arbeitsbaum — der erste Lauf eines kalten Baums war
-mit 2,84 s der Ausreißer).
+`pnpm install` läuft durch, 528 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
+Werte: 1,69 · 1,74 · 1,74 · 1,78 · 1,83 · 1,90 · 2,17 · 2,23 s sowie 2,84 s für den ersten Lauf eines
+kalten Baums).
 
 ### Die drei Befehle
 
@@ -75,7 +75,11 @@ Hinter dem **Zahnrad** oben rechts liegt nur, was man einmal je Sitzung stellt.
    gelegentlich zuckt das Maul (Fakeout), dann kommt entweder der
    nächste Zahn — erst nach einer Pause, die nichts über den Ausgang verrät — oder der **Biss** samt Screen-Shake und Vibration.
 2. **Tier wählen:** zwölf **Bild-Kacheln** (Krokodil, Wolf, Mensch, Hai, Maus, Vampir, Panda, Löwe,
-   Panther, Säbelzahntiger, Venusfliegenfalle, T-Rex) mit dem Kopf aus der eigenen Zeichnung. Auf dem **Handy** öffnet der
+   Panther, Säbelzahntiger, Venusfliegenfalle, T-Rex) mit dem Kopf aus der eigenen Zeichnung. Zwei
+   Kacheln tragen den **kurzen** Namen — „Säbelkatze" und „Fliegenfalle" —, weil der volle Name auf
+   der schmalen Kachel eine dritte Zeile bräuchte und seine Reihe höher machen würde als die anderen
+   (höchstens zwölf Zeichen, `MAX_TILE_LABEL_LENGTH` in `core/domain/creature.ts`; Sätze und
+   Vorleser nennen immer den vollen Namen). Auf dem **Handy** öffnet der
    Griff „Tier" die Auswahl, ein Tipp auf eine Kachel wählt und schließt sie (zwei Tipps, alle zwölf
    Köpfe ohne Scrollen). Auf dem **Tablet** stehen die Köpfe dauerhaft offen (ein Tipp); quer liegt
    die Bühne links und die Köpfe rechts. Die Kurzinfo zum gewählten Tier steht im Regeln-Blatt.
@@ -112,7 +116,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **526 Tests in 37 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **528 Tests in 37 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png <tier> …` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -253,7 +257,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **526 in 37 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **528 in 37 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `presentation/game/gameController.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |

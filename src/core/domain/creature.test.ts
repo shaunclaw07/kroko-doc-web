@@ -3,9 +3,11 @@ import {
   CREATURES,
   DEFAULT_CREATURE_ID,
   MAX_FACT_LENGTH,
+  MAX_TILE_LABEL_LENGTH,
   getCreature,
   isKnownCreature,
   listCreatures,
+  tileLabel,
   validateCreature,
 } from './creature';
 import { DomainError } from './errors';
@@ -62,6 +64,24 @@ describe('Katalog der Lebewesen', () => {
     for (const creature of listCreatures()) {
       expect(creature.fact, creature.id).not.toMatch(/scharf|gefährlich|meist|häufiger/i);
     }
+  });
+
+  it('beschriftet jede Kachel kurz genug, damit alle Reihen gleich hoch bleiben', () => {
+    for (const creature of listCreatures()) {
+      expect(tileLabel(creature).length, creature.id).toBeLessThanOrEqual(MAX_TILE_LABEL_LENGTH);
+    }
+  });
+
+  it('meldet einen zu langen Kachelnamen als Widerspruch', () => {
+    const base = listCreatures()[0];
+    if (!base) throw new Error('catalog is empty');
+    expect(validateCreature({ ...base, name: 'x'.repeat(MAX_TILE_LABEL_LENGTH + 1) })).toContain(
+      `${base.id}: tile label is longer than ${MAX_TILE_LABEL_LENGTH} characters`,
+    );
+    // Der kurze Name zählt, nicht der lange: mit `shortName` ist derselbe Eintrag wieder gültig.
+    expect(
+      validateCreature({ ...base, name: 'x'.repeat(MAX_TILE_LABEL_LENGTH + 1), shortName: 'kurz' }),
+    ).toEqual([]);
   });
 
   it('meldet einen leeren oder zu langen Satz als Widerspruch', () => {

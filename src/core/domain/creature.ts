@@ -12,6 +12,12 @@ export interface CreatureDefinition {
    * Kurzer Name für die Kachel der Auswahl, wo der volle nicht passt: „Venusfliegenfalle" bricht
    * auf der 65-px-Kachel in drei Zeilen und macht ihre Reihe höher als die anderen (gemessen,
    * `scripts/pruefen-freischaltung.py`). Sätze und Vorleser nennen immer den vollen Namen.
+   *
+   * Gemessene Grenze (14.10.2026, 320 × 568, Kachel 65,2 px, Schrift 11,52 px): **12 Zeichen**
+   * passen in zwei Zeilen, 13 nicht — jedes Zeichen darüber macht die Kachel 13,2 px höher als
+   * ihre Nachbarn. In der offenen Reihe (114,7 px, Schrift 14,4 px) passen zehn Zeichen in eine
+   * Zeile. Deshalb wacht `MAX_TILE_LABEL_LENGTH` über die Länge, und `creature.test.ts` hält den
+   * Katalog daran; das Maß selbst prüft weiterhin die Browser-Sonde.
    */
   shortName?: string;
   /** Drückbare Zähne im Spiel. */
@@ -33,6 +39,15 @@ export interface CreatureDefinition {
 
 /** Längster erlaubter Satz: mehr passt nach dem Biss nicht unter das Ergebnis (gemessen, Sonde). */
 export const MAX_FACT_LENGTH = 110;
+
+/**
+ * Längste erlaubte Beschriftung einer Kachel (`shortName ?? name`). Zwölf Zeichen sind das Maß der
+ * 65-px-Kachel: sie füllen genau zwei Zeilen, ein dreizehnter Buchstabe bricht die dritte auf und
+ * die Kachel wird 13,2 px höher als ihre Nachbarn — dann steht eine Reihe tiefer als die anderen
+ * (gemessen am 14.10.2026 mit `scripts/pruefen-freischaltung.py`). Wer den Katalog erweitert,
+ * kürzt hier über `shortName` statt die Zeile wachsen zu lassen.
+ */
+export const MAX_TILE_LABEL_LENGTH = 12;
 
 export const DEFAULT_CREATURE_ID = 'crocodile';
 
@@ -137,6 +152,9 @@ export const CREATURES: readonly CreatureDefinition[] = [
   {
     id: 'sabertooth',
     name: 'Säbelzahntiger',
+    // Der volle Name bricht auf der 65-px-Kachel in drei Zeilen: „Säbelkatze" ist der kürzere,
+    // ebenfalls gebräuchliche Name (Säbelzahnkatze) und passt in zwei Zeilen (gemessen 14.10.2026).
+    shortName: 'Säbelkatze',
     teeth: 12,
     liveTeethMin: 1,
     liveTeethMax: 2,
@@ -190,6 +208,14 @@ export function getCreature(id: string = DEFAULT_CREATURE_ID): CreatureDefinitio
   return found;
 }
 
+/**
+ * Die Beschriftung der Kachel: der kurze Name, wo einer hinterlegt ist. Eine Quelle für Kachel,
+ * Test und Prüfung — stand die Regel zweimal im Baum, konnten beide auseinanderlaufen.
+ */
+export function tileLabel(creature: CreatureDefinition): string {
+  return creature.shortName ?? creature.name;
+}
+
 /** Lebewesen einer Runde; fehlt die Kennung (Altdaten) oder ist sie unbekannt, gilt das Krokodil. */
 export function creatureOrDefault(id: string | undefined): CreatureDefinition {
   return getCreature(id !== undefined && isKnownCreature(id) ? id : DEFAULT_CREATURE_ID);
@@ -221,6 +247,9 @@ export function validateCreature(creature: CreatureDefinition): string[] {
   }
   if (creature.fact.length > MAX_FACT_LENGTH) {
     problems.push(`${creature.id}: fact is longer than ${MAX_FACT_LENGTH} characters`);
+  }
+  if (tileLabel(creature).length > MAX_TILE_LABEL_LENGTH) {
+    problems.push(`${creature.id}: tile label is longer than ${MAX_TILE_LABEL_LENGTH} characters`);
   }
   return problems;
 }

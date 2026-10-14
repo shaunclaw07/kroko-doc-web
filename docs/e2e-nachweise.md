@@ -1908,3 +1908,69 @@ Fehlerhilfe „Node zu alt"), `docs/testing.md` (Stand-Kopf 14.10.2026, Bauzeit,
 „Abhängigkeiten"), `docs/workflow.md` (Umgebung, Playwright-Regel, Gegenprobe-Regel, Liste alter
 Werte um `2,1–3,0 s` und `2,5 s` erweitert), `package.json` (`engines.node`).
 
+## 5ak. Kacheln gleich hoch, Zahnrad-Blatt ohne Scrollen (14.10.2026)
+
+**Anlass:** die zwei Funde aus §5aj. `pruefen-freischaltung.py` meldete ungleich hohe Kacheln,
+`pruefen-bedienung.py` ein scrollendes Einstellungsblatt bei 320 × 568. Beides war dort als
+Altbestand belegt — hier ist es behoben.
+
+**Erst gemessen, dann geändert** (eigene Diagnose gegen den Entwicklungsserver, nichts geschätzt):
+
+| Größe | Kacheln (Breite × Höhe) | Einstellungsblatt |
+|---|---|---|
+| 320 × 568 | 65,2 × 86,7 — **außer Säbelzahntiger: 99,9** | 521 px Inhalt in 500 px Sicht (562 px ohne Vibration) |
+| 360 × 640 | alles 75,2 × 93,9 | 463 in 463 |
+| 390 × 844 | alles 82,7 × 99,3 | 447 in 447 |
+| 800 × 1280 | 114,7 × 112,3 — **außer Säbelzahntiger: 128,9** | 343 in 343 |
+
+**Ursache 1 — der Name, nicht das Schloss.** Schloss und Sterne liegen `position: absolute` und
+ändern keine Maße, das Kopfbild ist bei allen Kacheln gleich. Der Unterschied war allein die
+**Zeilenzahl des Namens**: „Säbelzahntiger" braucht auf der 65-px-Kachel drei Zeilen (39,7 statt
+26,5 px — genau die gemeldeten 13,2 px), in der offenen Reihe zwei statt einer (+16,6 px). Die Grenze
+wurde mit einer Textprobe **im Browser ausgemessen**: zwölf Zeichen passen in zwei Zeilen, dreizehn
+nicht; in der offenen Reihe (114,7 px, Schrift 14,4 px) passen zehn Zeichen in eine Zeile.
+
+**Behoben mit dem Mittel, das schon da war** — demselben, mit dem die Venusfliegenfalle entschärft
+ist: `shortName: 'Säbelkatze'` (zehn Zeichen, der ebenfalls gebräuchliche Name der Säbelzahnkatze).
+Dazu die Regel im Katalog: `MAX_TILE_LABEL_LENGTH = 12`, geprüft von `creature.test.ts` und
+`validateCreature`; `tileLabel()` ist jetzt die **eine** Quelle für Kachel, Test und Prüfung (vorher
+stand `shortName ?? name` zweimal in `index.astro`). Die alte Regel in `AGENTS.md` lautete „mehr als
+rund vierzehn Buchstaben" — sie war um zwei Zeichen zu großzügig, und genau deshalb hatte der
+Säbelzahntiger nie einen `shortName`.
+
+**Ursache 2 — zwei Umbrüche im Blatt, keine zu kleine Grenze.** Das Blatt ist auf 88 dvh begrenzt
+(= 500 px bei 568 px Fenster). Bei 320 px brach zweierlei: die zwei Segment-Knöpfe von „Wie
+gefährlich?" („wie das Spielzeug" lief auf zwei Zeilen, +16 px) und die drei Fußknöpfe auf zwei
+Reihen (+58 px). Zusammen 74 px zu viel. **Behoben, ohne die Grenze zu verschieben:** unter 359 px
+eine kleinere Schrift für die Segment-Knöpfe und knappere Innenabstände (nur waagerecht) für die
+Fußknöpfe — die Trefferflächen bleiben 48 px hoch, weil das `min-height` der Knöpfe unangetastet
+ist. Dazu 0,2 rem weniger Abstand über den beiden `.set`-Blöcken: mit dem Wackel-Hinweis (Safari
+ohne `navigator.vibrate`) waren es nach der ersten Regel nur noch 4 px Luft (496 in 500 px).
+
+| Größe | Kacheln nachher | Blatt nachher |
+|---|---|---|
+| 320 × 568 | 65,2 × 86,7 (**ein** Maß) | **449 in 449** (490 mit Wackel-Hinweis; Grenze 500) |
+| 360 × 640 | 75,2 × 93,9 | 463 in 463 |
+| 390 × 844 | 82,7 × 99,3 | 447 in 447 |
+| 800 × 1280 | 114,7 × 112,3 | 343 in 343 |
+| 1180 × 820 | 101,3 × 112,7 | 283 in 283 |
+
+Die Kachel wurde dabei **nicht höher** — sie war schon 86,7 px, weil der Name zwei Zeilen Platz hat;
+nur die dritte Zeile ist weg. Damit schrumpfte auch das Tier-Auswahl-Blatt bei 320 × 568 von 448 auf
+435 px. Die README-Zeile „Das Blatt scrollt auf keinem der gemessenen Geräte" stimmt damit wieder.
+
+**Gate und Sonden** (14.10.2026): `pnpm gate` grün, **528 Tests in 37 Dateien** (die zwei neuen
+Katalogregeln), `pnpm typecheck` fehlerfrei, Bau 2 Seiten in 1,83 · 2,17 · 2,23 s. Alle Sonden
+gefahren: `pruefen-bedienung` **0 Auffälligkeiten** (acht Größen, dazu „ohne Vibration"),
+`pruefen-freischaltung` **0** (vier Größen, je genau ein Kachelmaß), `pruefen-anzeige`, `-halten`,
+`-blick`, `-zoom`, `-blaetter`, `-blattbreite`, `-trefferflaeche` und `-zahnsicht` grün;
+`pruefen-tiere`, `-offline` und `-sicherung` gegen die **gebaute** Seite
+(`pnpm build` + `pnpm preview --port 4322`) ebenfalls **0**.
+
+**Eine Falle auf dem Weg:** `pruefen-tiere.py` meldete gegen `pnpm dev` „Kennungen im Buendel: []"
+und damit einen Fund — gegen dieselbe Seite **gebaut** war der Lauf grün. Die Sonde zählt den Katalog
+im ausgelieferten Bündel; im Entwicklungsmodus liefert Astro einzelne Module statt eines Bündels.
+Ihre Auskunftszeile sagt jetzt, dass der kurze Kachelname zu den beiden verkürzten Tieren gehört,
+`docs/workflow.md` nennt ihr die richtige Adresse, und `AGENTS.md` führt die Falle als
+vierunddreißigsten Eintrag.
+

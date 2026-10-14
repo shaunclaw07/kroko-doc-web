@@ -1722,6 +1722,30 @@ textarea {
     font-size: 0.78rem;
     line-height: 1.3;
   }
+
+  /* Das Einstellungsblatt auf dem schmalsten Handy: hier brachen zwei Dinge auf und machten
+     zusammen 74 px zu viel — die zwei Segment-Knöpfe von „Wie gefährlich?" („wie das
+     Spielzeug" lief auf zwei Zeilen) und die drei Fußknöpfe auf zwei Reihen. Das Blatt ist auf
+     88 dvh begrenzt und scrollte deshalb um 21 px, mit dem Wackel-Hinweis um 62 px (gemessen am
+     14.10.2026 mit `scripts/pruefen-bedienung.py`: 521 bzw. 562 px Inhalt in 500 px Sicht).
+     Knapper wird nur die **Breite**: die Trefferflächen bleiben 48 px hoch (das `min-height` der
+     Knöpfe), damit Kinderfinger sie treffen. */
+  #opt-mode button {
+    font-size: 0.85rem;
+  }
+
+  .sheet__actions button,
+  .sheet__actions .button {
+    padding-inline: 0.5rem;
+  }
+
+  /* Etwas mehr Luft für den Wackel-Hinweis (Safari ohne `navigator.vibrate`): dort standen nach
+     der Regel oben noch 4 px zwischen Inhalt und Blattgrenze (496 in 500 px) — genug für die
+     Messung, zu wenig für ein Gerät, das die Sonde nicht nachstellen kann. Die zwei Zeilenabstände
+     geben rund 6 px. */
+  .set {
+    margin-top: 0.9rem;
+  }
 }
 
 /* Maul zu: der einmalige Balken-Hinweis erklärt einen nächsten Druck, den es nicht mehr gibt —
