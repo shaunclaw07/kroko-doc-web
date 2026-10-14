@@ -16,7 +16,6 @@ Gemeinsame Regeln für alle: [`docs/plaene/00-regeln.md`](plaene/00-regeln.md).
 
 | Paket | Inhalt | Datei | Braucht vorher | Risiko |
 |---|---|---|---|---|
-| 5 | Gemeinsames Gerüst und ein Befehl für alle Sonden | [`docs/plaene/paket-5-sonden.md`](plaene/paket-5-sonden.md) | besser nach Paket 1 | klein |
 | 6 | `app.css` nach Bauteilen aufteilen | [`docs/plaene/paket-6-stylesheet.md`](plaene/paket-6-stylesheet.md) | — | klein |
 | 7 | `AGENTS.md` auf den Einstieg kürzen | [`docs/plaene/paket-7-agents-md.md`](plaene/paket-7-agents-md.md) | — | klein |
 | 8 | Linter ins Gate | [`docs/plaene/paket-8-linter.md`](plaene/paket-8-linter.md) | Entscheidung des Auftraggebers | klein |

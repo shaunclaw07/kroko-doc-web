@@ -26,11 +26,11 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
+from sonde import SCHLUESSEL, basis_adresse
 
-BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
+BASIS = basis_adresse()
 BLICKE = [(320, 568), (360, 640), (390, 844), (412, 915), (768, 1024), (1024, 768), (820, 1180), (1180, 820)]
 SCHMAL = 640  # darunter öffnen sich die Köpfe als Blatt
-SCHLUESSEL = "zahn_agent:settings:v1"
 # Der ungünstigste Fall für die Breite: der längste Tiername und der längste Zug-Satz.
 ZWEI = {"creature": "sabertooth", "teethOverride": None, "sound": False, "vibration": False,
         "mode": "original", "players": 2}

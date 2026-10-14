@@ -26,17 +26,11 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-from freischaltung import ABLAGE, ALLE_OFFEN
 from katalog import TIERE
+from sonde import Sonde, basis_adresse, einstellungen, seite
 
-URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
-SETTINGS_KEY = "zahn_agent:settings:v1"
+URL = basis_adresse()
 BREITEN = [320, 390, 820]
-
-
-def einstellungen(tier: str, zaehne) -> dict:
-    return {"mode": "original", "players": 1, "sound": False, "vibration": False,
-            "creature": tier, "teethOverride": zaehne}
 
 
 MESSEN = """() => {
@@ -65,40 +59,36 @@ SKALA = """() => {
 
 
 def main() -> int:
-    funde: list[str] = []
-
-    def pruefe(gut: bool, text: str, laut: bool = True) -> None:
-        if laut or not gut:
-            print(("  ok    " if gut else "  FUND  ") + text)
-        if not gut:
-            funde.append(text)
+    sonde = Sonde("Zoom")
+    pruefe = sonde.pruefe
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
 
         def neue_seite(werte: dict, breite: int = 390, ruhe: bool = False):
-            kontext = browser.new_context(viewport={"width": breite, "height": 844},
-                                          reduced_motion="reduce" if ruhe else "no-preference")
-            seite = kontext.new_page()
-            seite.goto(URL, wait_until="load")
-            seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [SETTINGS_KEY, json.dumps(werte)])
-            # Seit dem 13.10.2026 öffnen sich die Tiere über Sterne — die Sonde bringt ein Protokoll mit, das alle öffnet.
-            seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [ABLAGE, ALLE_OFFEN])
-            seite.reload(wait_until="load")
-            seite.wait_for_timeout(500)
-            return seite
+            s = seite(
+                browser,
+                breite=breite,
+                hoehe=844,
+                tier=werte["creature"],
+                zaehne=werte["teethOverride"],
+                ruhe=ruhe,
+                url=URL,
+            )
+            s.wait_for_timeout(500)
+            return s
 
         print("A — Geometrie bei vollem Zoom")
         for breite in BREITEN:
             for tier in TIERE:
                 for zaehne in (None, 12):
-                    seite = neue_seite(einstellungen(tier, zaehne), breite)
-                    seite.add_style_tag(content="#croc-mount { transition: none !important; }")
-                    seite.evaluate("() => document.getElementById('stage').style.setProperty('--zoom', '0')")
-                    vorher = seite.evaluate(MESSEN)
-                    seite.evaluate("() => document.getElementById('stage').style.setProperty('--zoom', '1')")
-                    nachher = seite.evaluate(MESSEN)
-                    skala = seite.evaluate(SKALA)
+                    page = neue_seite(einstellungen(tier, zaehne), breite)
+                    page.add_style_tag(content="#croc-mount { transition: none !important; }")
+                    page.evaluate("() => document.getElementById('stage').style.setProperty('--zoom', '0')")
+                    vorher = page.evaluate(MESSEN)
+                    page.evaluate("() => document.getElementById('stage').style.setProperty('--zoom', '1')")
+                    nachher = page.evaluate(MESSEN)
+                    skala = page.evaluate(SKALA)
                     lage = f"{breite} px, {tier}, {len(nachher)} Zähne"
                     fremde = [z["zahn"] for z in nachher if not z["eigener"]]
                     kleiner = [n["zahn"] for v, n in zip(vorher, nachher)
@@ -113,33 +103,32 @@ def main() -> int:
                     kleinste = min(z["trefferBreite"] for z in nachher)
                     print(f"  gemessen  {lage}: kleinste Trefferfläche {kleinste:.2f} px, "
                           f"vorher {min(z['trefferBreite'] for z in vorher):.2f} px")
-                    seite.context.close()
+                    page.context.close()
 
         print("B — der echte Ablauf")
-        seite = neue_seite(einstellungen("crocodile", 10))
-        seite.wait_for_timeout(800)
-        pruefe(seite.evaluate(SKALA) == 1, f"zehn Zähne am Start: keine Skalierung ({seite.evaluate(SKALA)})")
-        seite.context.close()
+        page = neue_seite(einstellungen("crocodile", 10))
+        page.wait_for_timeout(800)
+        pruefe(page.evaluate(SKALA) == 1, f"zehn Zähne am Start: keine Skalierung ({page.evaluate(SKALA)})")
+        page.context.close()
 
-        seite = neue_seite(einstellungen("vampire", 1))
-        seite.wait_for_timeout(900)
-        pruefe(seite.evaluate(SKALA) == 1.08, f"ein Zahn: Skalierung 1,08 ({seite.evaluate(SKALA)})")
-        seite.click("#stage [data-tooth]")
-        seite.wait_for_timeout(2000)
-        status = seite.evaluate("() => document.getElementById('stage').dataset.status")
+        page = neue_seite(einstellungen("vampire", 1))
+        page.wait_for_timeout(900)
+        pruefe(page.evaluate(SKALA) == 1.08, f"ein Zahn: Skalierung 1,08 ({page.evaluate(SKALA)})")
+        page.click("#stage [data-tooth]")
+        page.wait_for_timeout(2000)
+        status = page.evaluate("() => document.getElementById('stage').dataset.status")
         pruefe(status == "snapped", f"der eine Zahn ließ sich bei vollem Zoom drücken (Status {status})")
-        pruefe(seite.evaluate(SKALA) == 1, f"nach dem Biss: keine Skalierung ({seite.evaluate(SKALA)})")
-        seite.context.close()
+        pruefe(page.evaluate(SKALA) == 1, f"nach dem Biss: keine Skalierung ({page.evaluate(SKALA)})")
+        page.context.close()
 
-        seite = neue_seite(einstellungen("vampire", 1), ruhe=True)
-        seite.wait_for_timeout(300)
-        pruefe(seite.evaluate(SKALA) == 1, f"reduzierte Bewegung: keine Skalierung ({seite.evaluate(SKALA)})")
-        seite.context.close()
+        page = neue_seite(einstellungen("vampire", 1), ruhe=True)
+        page.wait_for_timeout(300)
+        pruefe(page.evaluate(SKALA) == 1, f"reduzierte Bewegung: keine Skalierung ({page.evaluate(SKALA)})")
+        page.context.close()
 
         browser.close()
 
-    print(f"\nAuffälligkeiten: {len(funde)}")
-    return 1 if funde else 0
+    return sonde.abschluss()
 
 
 if __name__ == "__main__":

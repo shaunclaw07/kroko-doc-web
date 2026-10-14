@@ -69,6 +69,14 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 
 ## Prüfsonden (Nachweis am laufenden Gegenstand)
 
+Alle 13 Browser-Sonden auf einmal gegen die Vorschau fahren:
+```bash
+pnpm build && pnpm preview --port 4322   # Vorschau im Hintergrund
+pnpm probes                              # fährt alle 13 Sonden nacheinander, prüft Render-Probe vorab
+```
+
+Einzeln aufgerufen laufen die Sonden wie folgt:
+
 1. **Bedienungssonde** — `gameController.test.ts` lädt die Steuerung in jsdom, drückt echte
    Elemente an und belegt Zuschnappen, Tonfolge und Protokoll. Aufruf:
    `./node_modules/.bin/vitest run src/presentation/game/gameController.test.ts`

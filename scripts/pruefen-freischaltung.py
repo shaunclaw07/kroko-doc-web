@@ -30,20 +30,15 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, runde
+from katalog import FOLGE
+from sonde import EINSTELLUNGEN, Sonde, seite as oeffne_seite
 
 ARGUMENTE = [a for a in sys.argv[1:] if not a.startswith("--")]
 BILDER = sys.argv[sys.argv.index("--bilder") + 1] if "--bilder" in sys.argv else None
 if BILDER and BILDER in ARGUMENTE:
     ARGUMENTE.remove(BILDER)
 URL = (ARGUMENTE[0] if ARGUMENTE else "http://localhost:4322").rstrip("/") + "/"
-EINSTELLUNGEN = "zahn_agent:settings:v1"
-from katalog import FOLGE
 GROESSEN = [(320, 568), (390, 844), (800, 1280), (1180, 820)]
-
-
-def einstellungen(tier: str, zaehne) -> str:
-    return json.dumps({"mode": "original", "players": 1, "sound": False, "vibration": False,
-                       "creature": tier, "teethOverride": zaehne})
 
 
 KACHELN = """(liste) => Array.from(document.querySelectorAll(liste + ' button[data-creature]')).map((b) => {
@@ -65,27 +60,23 @@ KACHELN = """(liste) => Array.from(document.querySelectorAll(liste + ' button[da
 
 
 def main() -> int:
-    funde: list[str] = []
-
-    def pruefe(gut: bool, text: str) -> None:
-        print(("  ok    " if gut else "  FUND  ") + text)
-        if not gut:
-            funde.append(text)
+    sonde = Sonde("Freischaltung")
+    pruefe = sonde.pruefe
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
 
         def frisch(breite: int, hoehe: int, tier: str = "crocodile", zaehne=None, protokoll=None, ruhig=False):
-            kontext = browser.new_context(viewport={"width": breite, "height": hoehe},
-                                          reduced_motion="reduce" if ruhig else "no-preference")
-            seite = kontext.new_page()
-            seite.goto(URL, wait_until="load")
-            seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [EINSTELLUNGEN, einstellungen(tier, zaehne)])
-            if protokoll is not None:
-                seite.evaluate("([k, v]) => localStorage.setItem(k, v)", [ABLAGE, json.dumps(protokoll)])
-            seite.reload(wait_until="load")
-            seite.wait_for_selector(".creature [data-tooth]")
-            return seite
+            return oeffne_seite(
+                browser,
+                breite=breite,
+                hoehe=hoehe,
+                tier=tier,
+                zaehne=zaehne,
+                protokoll=protokoll,
+                ruhe=ruhig,
+                url=URL,
+            )
 
         def tier_auf_buehne(seite) -> str:
             return seite.evaluate("document.querySelector('svg.creature').dataset.creature")
@@ -211,8 +202,7 @@ def main() -> int:
 
         browser.close()
 
-    print(f"\nAuffälligkeiten: {len(funde)}")
-    return 1 if funde else 0
+    return sonde.abschluss()
 
 
 if __name__ == "__main__":

@@ -47,6 +47,7 @@ pnpm build        # statische Ausgabe nach dist/
 pnpm typecheck    # tsc --noEmit  — Teil des Gates
 pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # beides nacheinander
+pnpm probes       # alle 13 Browser-Sonden gegen http://localhost:4322 fahren (Server muss laufen)
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt ein Zahn unter dem Gesicht?
 uv run --with playwright python scripts/pruefen-halten.py      # Halten, Wegschieben, Obergrenze (Server muss laufen)

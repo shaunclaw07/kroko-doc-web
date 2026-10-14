@@ -29,16 +29,14 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
+from sonde import SETTINGS_KEY, basis_adresse, einstellungen
 
-URL = sys.argv[1] if len(sys.argv) > 1 else "https://zahn-agent.schaflabs.com"
-SETTINGS_KEY = "zahn_agent:settings:v1"
+URL = basis_adresse()
 
 # Ein Zahn am Vampir: der erste Druck schnappt garantiert zu (Gefahr genau 1).
-EIN_ZAHN = {"mode": "original", "players": 1, "sound": False, "vibration": False,
-            "creature": "vampire", "teethOverride": 1}
+EIN_ZAHN = einstellungen("vampire", 1)
 # Zehn Zähne am Krokodil: nach einem Druck 21,3 % — deutlich unter der 50-%-Schwelle.
-ZEHN_ZAEHNE = {"mode": "original", "players": 1, "sound": False, "vibration": False,
-               "creature": "crocodile", "teethOverride": 10}
+ZEHN_ZAEHNE = einstellungen("crocodile", 10)
 
 MESSUNG = """() => {
   const stage = document.getElementById('stage');

@@ -10,7 +10,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "typecheck": "tsc --noEmit",
-    "gate": "pnpm typecheck && pnpm test:run"
+    "gate": "pnpm typecheck && pnpm test:run",
+    "probes": "python scripts/pruefen-alle.py http://localhost:4322"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

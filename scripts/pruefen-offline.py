@@ -24,7 +24,9 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-URL = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4322").rstrip("/") + "/"
+from sonde import Sonde, basis_adresse
+
+URL = basis_adresse().rstrip("/") + "/"
 
 VORRAT = """async () => {
   const namen = await caches.keys();
@@ -37,12 +39,8 @@ VORRAT = """async () => {
 
 
 def main() -> int:
-    funde: list[str] = []
-
-    def pruefe(gut: bool, text: str) -> None:
-        print(("  ok    " if gut else "  FUND  ") + text)
-        if not gut:
-            funde.append(text)
+    sonde = Sonde("Offline")
+    pruefe = sonde.pruefe
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -99,8 +97,7 @@ def main() -> int:
 
         browser.close()
 
-    print(f"\nAuffälligkeiten: {len(funde)}")
-    return 1 if funde else 0
+    return sonde.abschluss()
 
 
 if __name__ == "__main__":

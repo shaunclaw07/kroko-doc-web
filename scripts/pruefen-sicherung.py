@@ -29,9 +29,10 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-URL = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4322").rstrip("/") + "/"
+from sonde import ABLAGE, Sonde, basis_adresse
+
+URL = basis_adresse().rstrip("/") + "/"
 CODE = "sonde-abcd-efgh-2345"
-ABLAGE = "zahn_agent:rounds:v1"
 
 
 def runde(nummer: int, minute: int) -> dict:
@@ -44,12 +45,8 @@ def runde(nummer: int, minute: int) -> dict:
 
 
 def main() -> int:
-    funde: list[str] = []
-
-    def pruefe(gut: bool, text: str) -> None:
-        print(("  ok    " if gut else "  FUND  ") + text)
-        if not gut:
-            funde.append(text)
+    sonde = Sonde("Sicherung")
+    pruefe = sonde.pruefe
 
     sicherung = {"liste": [], "erreichbar": True, "anfragen": 0}
 
@@ -146,8 +143,7 @@ def main() -> int:
 
         browser.close()
 
-    print(f"\nAuffälligkeiten: {len(funde)}")
-    return 1 if funde else 0
+    return sonde.abschluss()
 
 
 if __name__ == "__main__":

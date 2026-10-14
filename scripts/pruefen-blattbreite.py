@@ -20,17 +20,12 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
+from sonde import SETTINGS_KEY, Sonde, basis_adresse, einstellungen
+
+BASIS = basis_adresse()
 BLICKE = [(320, 720), (390, 844), (620, 900), (768, 1024), (820, 1180), (1024, 768), (1180, 820), (1366, 1024)]
 SCHMAL = 640  # darunter bleibt das Blatt ein Blatt am unteren Rand
-EINSTELLUNGEN = {
-    "creature": "crocodile",
-    "teethOverride": 10,
-    "sound": True,
-    "vibration": True,
-    "mode": "original",
-    "players": 1,
-}
+EINSTELLUNGEN = einstellungen("crocodile", 10, sound=True, vibration=True)
 
 MESSEN = """
 () => {
@@ -101,7 +96,7 @@ def main():
         for w, h in BLICKE:
             ctx = browser.new_context(viewport={"width": w, "height": h})
             ctx.add_init_script(
-                "localStorage.setItem('zahn_agent:settings:v1', %s)" % json.dumps(EINSTELLUNGEN)
+                "localStorage.setItem('%s', %s)" % (SETTINGS_KEY, json.dumps(EINSTELLUNGEN))
             )
             page = ctx.new_page()
             page.goto(BASIS, wait_until="load")

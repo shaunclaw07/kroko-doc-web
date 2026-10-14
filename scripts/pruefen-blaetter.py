@@ -26,11 +26,11 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from freischaltung import ABLAGE, ALLE_OFFEN
+from sonde import SCHLUESSEL, basis_adresse
 
-BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:4321"
+BASIS = basis_adresse()
 HANDY = {"width": 390, "height": 844}
 BLICKE = [HANDY, {"width": 768, "height": 1024}, {"width": 1180, "height": 820}, {"width": 1366, "height": 1024}]
-SCHLUESSEL = "zahn_agent:settings:v1"
 
 
 def offen(page, kennung: str) -> bool:
