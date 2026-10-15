@@ -99,8 +99,9 @@ export function resultText(
   }
   const live = [...round.live].sort((a, b) => a - b);
   const toothSentence = `Zahn ${loser.tooth} war der falsche`;
-  const presser =
-    round.players === 1 ? '' : `${playerName(loser.player, round.players)} hat ihn gedrückt`;
+  // Nur bei zwei Spielern: dort nennt der Titel den Gewinner. Bei drei und vier Spielern steht der
+  // Verlierer schon im Titel — der Text wiederholt ihn nicht.
+  const presser = round.players === 2 ? `${playerName(loser.player, 2)} hat ihn gedrückt` : '';
   // Ein einziger scharfer Zahn: „Scharf war 1 Zahn: 7" sagte nur die Zahl noch einmal, die schon
   // am Satzanfang steht.
   const sentence =

@@ -42,7 +42,7 @@ EIN_ZAHN = {**ZWEI, "teethOverride": 1}
 # Kein möglicher Ausgang: wer erst beim 12. Druck gebissen wird, hatte genau einen scharfen Zahn,
 # und eine überstandene Gefahr von 100 % gibt es nicht.
 LAENGSTES = ("Zahn 12 war der falsche — Spieler 2 hat ihn gedrückt. Scharf waren 3 Zähne: "
-             "10, 11 und 12. Mutigster Druck: Spieler 2 bei 100 % Bissgefahr — und der Zahn war harmlos.")
+             "10, 11 und 12. Mutigster Druck: Spieler 1 bei 100 % Bissgefahr — und der Zahn war harmlos.")
 # Der längste erlaubte Satz zum echten Tier (MAX_FACT_LENGTH = 110 in core/domain/creature.ts).
 # Kein echter Satz ist so lang — gemessen wird die Grenze, nicht der heutige Katalog.
 LAENGSTER_SATZ = "Wusstest du? " + ("Seine Säbel ragten bis zu 20 cm aus dem Kiefer. " * 3)[:110]

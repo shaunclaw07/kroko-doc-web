@@ -78,7 +78,9 @@ describe('resultText', () => {
     };
 
     expect(resultTitle(4, 3)).toBe('Spieler 3 hat verloren!');
-    expect(resultText(round)).toContain('Spieler 3 hat ihn gedrückt');
+    // Der Titel nennt den Verlierer schon — der Text wiederholt ihn nicht (E1).
+    expect(resultText(round)).not.toContain('Spieler 3');
+    expect(resultText(round)).toContain('Zahn 9 war der falsche. Scharf waren 2 Zähne: 3 und 9.');
   });
 
   it('sagt, welcher Zahn der falsche war — und wiederholt den Titel nicht', () => {
