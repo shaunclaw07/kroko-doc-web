@@ -87,7 +87,7 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 ## Ein neues Lebewesen ergänzen
 
 Der ganze Weg mit allen Befehlen, Grenzen und den Tests, die dabei bewusst fallen:
-**`docs/neues-tier.md`** (am 15.10.2026 mit einem Probetier durchgespielt). Die Stationen:
+**[`docs/neues-tier.md`](docs/neues-tier.md)** (am 15.10.2026 mit einem Probetier durchgespielt). Die Stationen:
 
 1. Entscheiden lassen: Tier, Stammtier oder Bonusfigur, Platz und Schwelle in der Freischaltung,
    Zahnzahl, scharfe Zähne.
