@@ -8,3 +8,7 @@ __pycache__/
 
 # Arbeitspläne eines Werkzeugs (Superpowers) — gehören nicht ins Repo
 docs/superpowers/
+
+# Arbeitsdateien von Agenten: Aufgabenliste und Pläne einzelner Pakete
+.pi/
+docs/plans/
