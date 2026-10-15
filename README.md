@@ -123,7 +123,8 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer>` | eine Tierstimme schneiden (braucht `ffmpeg`) | `public/sounds/voices/<tier>.mp3: … Byte, Spitze vorher …` |
 | `uv run --with playwright python scripts/pruefen-bedienung.py` | Sonde im echten Browser: scrollt etwas, verdeckt die Leiste etwas (der Server muss laufen) | „Auffälligkeiten: 0" |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
-| `pnpm gate` | Typen **und** Tests — die Prüfung vor jedem Commit | beides grün |
+| `pnpm lint` | Biome prüfen (Funde, kein Formatieren) | „Checked … files", keine Funde |
+| `pnpm gate` | Typen, Linter **und** Tests — die Prüfung vor jedem Commit | alle drei grün |
 | `bash scripts/doku-pruefen.sh …` | Doku prüfen: Code-Zäune, Fließtext im Block, alte Werte (`ALTE_WERTE="…"`) | „Zaeune: … (paarig)"; Exit 1 = es steht noch etwas drin |
 | `python3 scripts/doku-pfade-pruefen.py . …` | halten, ob jede in Backticks genannte Pfadangabe existiert | „Alle genannten Pfade existieren." |
 
@@ -260,6 +261,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 | Tests | **581 in 48 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `core/ports/haptics.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
+| Linter | keine Funde in 140 Dateien | `pnpm lint` (Biome, Regelsatz „recommended"; kein Formatierer) |
 | Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |
 | Abhängigkeiten | astro **7.3.8**, vitest **5.0.4**, TypeScript **7.0.2**, jsdom **30.1.2**, @types/node 26.6.5 | `package.json`, `pnpm-lock.yaml` (angehoben am 14.10.2026) |
 | Spannungsbalken | = Biss-Wahrscheinlichkeit des nächsten Drucks (Krokodil: 20,0 → 100 %) | `core/domain/tension.ts`, Kurve im Test festgenagelt |
@@ -378,5 +380,5 @@ git commit -m "…"
 git push                   # Hauptzweig ist `main`, direkte Commits
 ```
 
-Vor jedem Commit: `pnpm gate` (Typen + Tests). Architekturtests
+Vor jedem Commit: `pnpm gate` (Typen + Linter + Tests). Architekturtests
 (`src/architecture.test.ts`) dürfen nie rot sein — sie erzwingen die Schichtentrennung.

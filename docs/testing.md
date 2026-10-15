@@ -3,10 +3,17 @@
 ## Das Gate
 
 ```bash
-pnpm gate          # pnpm typecheck && pnpm test:run
+pnpm gate          # pnpm typecheck && pnpm lint && pnpm test:run
 ```
 
-Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
+Alle drei müssen grün sein — ein Testlauf allein ist kein Nachweis.
+
+**Der Linter** ist Biome (`biome.jsonc`, Regelsatz `recommended`, **kein** Formatierer) und prüft
+`src/**`, `public/sw.js` und `worker/**`. Regeln, die das Projekt bewusst nicht befolgt, stehen in
+`biome.jsonc` **abgeschaltet mit Begründung** (Lanczos-Koeffizienten, `vh`/`dvh`-Rückfallwerte,
+`!important` in `.hidden` und bei reduzierter Bewegung, die gewachsene CSS-Reihenfolge);
+`**/*.astro` ist von den „unbenutzt"-Regeln ausgenommen (Biome liest dort nur das Frontmatter),
+`**/*.test.ts` von `noNonNullAssertion`.
 
 ## Stand (letzter Lauf 14.10.2026)
 
@@ -16,7 +23,7 @@ Beides muss grün sein — ein Testlauf allein ist kein Nachweis.
 | Tests | 581 (48 Dateien) |
 | Typenprüfung | `tsc --noEmit`, keine Fehler |
 | Produktionsbau | `pnpm build` → 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) |
-| Abhängigkeiten | astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2 · @types/node 26.6.5 (angehoben am 14.10.2026) |
+| Abhängigkeiten | astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2 · @types/node 26.6.5 · @biomejs/biome 2.5.15 (Linter, am 14.10.2026 dazu) |
 
 ## Was wo geprüft wird
 

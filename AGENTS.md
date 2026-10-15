@@ -19,8 +19,8 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
    gekostet hat.
 2. **Sprache:** Code, Namen und Meldungen **englisch**; Kommentare, Doku, UI-Texte und
    Commit-Beschreibungen **deutsch**. → `docs/language-guidelines.md`
-3. **Das Gate ist beides:** `pnpm typecheck` **und** `pnpm test:run`. Ein grüner Testlauf
-   allein ist kein grünes Gate.
+3. **Das Gate ist dreierlei:** `pnpm typecheck`, `pnpm lint` **und** `pnpm test:run`. Ein grüner
+   Testlauf allein ist kein grünes Gate.
 
 ## Index
 
@@ -50,8 +50,9 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 pnpm dev          # Astro-Entwicklungsserver auf http://localhost:4321 (127.0.0.1 hört nicht!)
 pnpm build        # statische Ausgabe nach dist/
 pnpm typecheck    # tsc --noEmit  — Teil des Gates
+pnpm lint         # biome lint .  — Teil des Gates
 pnpm test:run     # vitest run    — Teil des Gates
-pnpm gate         # beides nacheinander
+pnpm gate         # alle drei nacheinander
 pnpm probes       # alle 13 Browser-Sonden gegen http://localhost:4322 fahren (Server muss laufen)
 pnpm vitest run src/render-probe.test.ts   # schreibt je Lebewesen ein SVG nach $TMPDIR/zahn_agent-artwork/
 uv run --with playwright python scripts/pruefen-zahnsicht.py   # danach: liegt ein Zahn unter dem Gesicht?
