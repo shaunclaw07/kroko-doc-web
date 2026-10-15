@@ -76,7 +76,7 @@ bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]  #
 
 ```
 src/core/domain/       Fachregeln in Reinform — kein DOM, keine Uhr, keine Pakete
-src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, RemoteLogPort, SoundPort, HapticsPort)
+src/core/ports/        die Nähte nach außen (RandomSource, LiveTeethSelector, RoundLogPort, RemoteLogPort, SoundPort, HapticsPort, SessionMarkPort)
 src/core/use-cases/    ein Use Case je Datei (playPress, syncRoundLog)
 src/contract/          der Außenvertrag der Bedienung (nur Typen und Formate)
 src/infrastructure/    die Adapter: crypto-Zufall, Web-Audio, Vibration, localStorage, Testattrappen
