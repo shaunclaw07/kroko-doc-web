@@ -291,7 +291,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   am 14.10.2026 (die Prüfung selbst gesehen / grob gezählt): `docs/testing.md` **0 / 73**,
   `docs/workflow.md` **0 / 50**, `README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** —
   Ausgabe trotzdem „Alle genannten Pfade existieren“, Exit 0. Aufgefallen ist es, als in der
-  Nachweisakte vier Verweise auf `docs/plaene/paket-*.md` stehen blieben, die es nicht mehr gibt.
+  Nachweisakte vier Verweise auf gelöschte Plan-Dateien stehen blieben.
   Seit dem 15.10.2026 entfernt die Prüfung die Zäune vorher und paart je Zeile (779 statt 179
   Angaben). Die Lehre bleibt: die erste Zeile der Ausgabe („Pfad-Angaben geprueft: …“) ansehen —
   eine Prüfung, die wenig sieht, meldet genauso „alles in Ordnung“ wie eine, die alles sieht.

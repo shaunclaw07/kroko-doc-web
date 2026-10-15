@@ -42,7 +42,7 @@ angelegt hat. `worker/` liegt außerhalb von `src/` und gehört zu keiner Schich
 
 ## Die Bedienung im Innern
 
-Seit dem Aufräumen vom 14.10.2026 (Pakete 2–4, Nachweise in `docs/e2e-nachweise.md`):
+Seit dem Aufräumen vom 14.10.2026 (Nachweise in `docs/e2e-nachweise.md`):
 
 - **Eine Quelle für die Einstellungen.** `presentation/game/settingsStore.ts` hält `GameSettings`
   (`get`, `set`, `subscribe`). Spielsteuerung, Schnellleiste und Einstellungsblatt melden sich dort

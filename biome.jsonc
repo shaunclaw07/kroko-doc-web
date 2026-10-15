@@ -31,8 +31,8 @@
         "noImportantStyles": "off"
       },
       "style": {
-        // Die Reihenfolge der CSS-Regeln ist aus dem gewachsenen Stylesheet übernommen (Paket 6 hat
-        // sie Byte für Byte geprüft). Umsortieren änderte die Kaskade — dafür gibt es die Sonden.
+        // Die Reihenfolge der CSS-Regeln ist aus dem gewachsenen Stylesheet übernommen (beim Aufteilen
+        // in Bauteile am 14.10.2026 Byte für Byte geprüft). Umsortieren änderte die Kaskade — dafür gibt es die Sonden.
         "noDescendingSpecificity": "off"
       }
     }
