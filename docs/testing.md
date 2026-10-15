@@ -82,6 +82,12 @@ pnpm build && pnpm preview --port 4322   # Vorschau im Hintergrund
 pnpm probes                              # fährt alle 13 Sonden nacheinander, prüft Render-Probe vorab
 ```
 
+**Die Sonden laufen nicht im Workflow** (`.github/workflows/pages.yml`, entschieden am 15.10.2026):
+dort hält nur `pnpm gate` das Ausliefern auf. Die Sonden brauchen einen Browser, eine laufende
+Vorschau und mehrere Minuten, und einige messen Zeit — ein Fehlalarm im Workflow hielte eine heile
+Seite zurück. Sie laufen deshalb **vor dem Push** von Hand, immer nach einer Änderung an Stil,
+Bedienung, `public/sw.js` oder einer Zeichnung.
+
 Einzeln aufgerufen laufen die Sonden wie folgt:
 
 1. **Bedienungssonde** — `gameController.test.ts` lädt die Steuerung in jsdom, drückt echte

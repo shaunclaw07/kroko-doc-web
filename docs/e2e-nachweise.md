@@ -2105,6 +2105,48 @@ Refactoring gemäß Paket 3 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1
   - `git grep -n "kroko:" -- src` schlägt sofort an, wenn das alte DOM-Event wieder eingeführt wird (Exit 0 statt Exit 1).
   - Ohne Anmeldung von `quickControls` an `settingsStore` schlägt Test (d) in `gamePage.test.ts` fehl mit `AssertionError: expected 'Krokodil' to be 'Hai'`.
 
+## 14.10.2026 — Paket 4: `gameController.ts` in Teilmodule aufteilen
+
+**Nachgetragen am 15.10.2026** — der Bau (`80aa064`) brachte keinen Eintrag mit; die Zahlen stammen
+aus dem Review (`66ba9ed`). Wortlaut des Plans: `git show b5a7a1d:docs/plaene/paket-4-steuerung.md`.
+
+- Herausgelöst: `holdGesture.ts` (209 Zeilen), `hudModel.ts` (93), `hudView.ts` (257),
+  `resultText.ts` (77), `roundRecorder.ts` (71) unter `src/presentation/game/`.
+
+**Abnahme:**
+- `gameController.ts` hat 392 Zeilen (Grenze 400), `render()` 12 (Grenze 15).
+- `gameController.test.ts` ist im Bau-Commit **unverändert** (`git diff 80aa064^ 80aa064` ohne
+  Ausgabe für die Datei) und grün.
+- Kein Teilmodul ruft `setTimeout` selbst (`git grep` leer); jeder verzögerte Rückruf läuft über
+  `wait` der Steuerung und prüft, ob seine Runde noch gilt — Stück für Stück gegen die alte Fassung
+  verglichen.
+- `pnpm gate` grün (581 Tests in 48 Dateien, damals noch ohne Linter), `src/architecture.test.ts`
+  eingeschlossen; `pnpm probes` gegen die Vorschau: alle 13 Sonden Exit 0, darunter die geforderten
+  `pruefen-halten`, `-blick`, `-zoom`, `-anzeige`, `-bedienung`, `-trefferflaeche`.
+- **Fund im Review:** beim Herauslösen waren die begründenden Kommentare weggefallen (die gemessene
+  `touchstart`-Falle, „erst lesen, dann anhängen“, Zustandsklassen am `#hud-panel`, keine Bissgefahr
+  bei geschlossenem Maul u. a.); sie stehen jetzt im Modul, dessen Code sie erklären. Zwei tote
+  Exporte (`formatTurnSentence`, `HudView.tooth`) entfernt.
+
+## 14.10.2026 — Paket 5: Gemeinsames Gerüst und ein Befehl für alle Sonden
+
+**Nachgetragen am 15.10.2026** — der Bau (`dc7c049`) brachte keinen Eintrag mit; die Zahlen stammen
+aus dem Review (`66ba9ed`). Wortlaut des Plans: `git show b5a7a1d:docs/plaene/paket-5-sonden.md`.
+
+- `scripts/sonde.py` ist das gemeinsame Gerüst (Browser, Prüfzeilen, Einstellungen und Protokoll
+  ablegen); `scripts/pruefen-alle.py` fährt alle 13 Sonden nacheinander (`pnpm probes`).
+
+**Abnahme:**
+- `pnpm probes` gegen `pnpm preview --port 4322`: **alle 13 Sonden Exit 0**.
+- `pnpm gate` grün (581 Tests in 48 Dateien).
+- **Funde im Review:** der Schlüssel der Einstellungen lief in `sonde.py` unter drei Namen
+  (`EINSTELLUNGEN`, `SETTINGS_KEY`, `SCHLUESSEL`) — jetzt nur `EINSTELLUNGEN`, vier Sonden
+  nachgezogen. Älter als das Paket: `pruefen-blattbreite.py` legte die Einstellungen als Objekt statt
+  als Text ab (gespeichert wurde `"[object Object]"`, die Seite fiel still auf ihre Vorgaben zurück —
+  unbemerkt, weil die Vorgaben dieselben Werte haben); behoben mit `json.dumps(json.dumps(…))`.
+- **Offen gewesen (Auftraggeber):** Sonden im Workflow? Entschieden am 15.10.2026: **nein**, siehe
+  `docs/testing.md`.
+
 ## 14.10.2026 — Paket 6: `app.css` nach Bauteilen aufteilen
 
 Refactoring gemäß Paket 6 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1e00b96:docs/plaene/paket-6-stylesheet.md`):
