@@ -414,17 +414,23 @@ describe('GameController in der Bühne', () => {
     expect(log.records[0]?.loserTooth).toBe(4);
     expect(log.records[0]?.pressIndex).toBe(3);
     expect(log.records[0]?.pressOrder).toEqual([1, 2, 4]);
-    // Druck 3 fällt bei zwei Spielern wieder auf Spieler 1 (reihum).
-    expect(document.getElementById('result-title')?.textContent).toContain('Spieler 1');
-    expect(document.getElementById('result-text')?.textContent).toContain('Zahn 4');
+    // Druck 3 fällt bei zwei Spielern wieder auf Spieler 1 (reihum). Der Titel nennt den
+    // **Gewinner** (Spieler 2), der Verlierer steht im Text — beide Namen kommen vor.
+    expect(document.getElementById('result-title')?.textContent).toContain('Spieler 2');
+    const ergebnisText = document.getElementById('result-text')?.textContent ?? '';
+    expect(ergebnisText).toContain('Spieler 1');
+    expect(ergebnisText).toContain('Zahn 4');
     expect(document.getElementById('result-panel')?.classList.contains('hidden')).toBe(false);
   });
 
-  it('nennt bei zwei Spielern den Verlierer des zweiten Drucks', () => {
+  it('nennt bei zwei Spielern den Gewinner im Titel und den Verlierer im Text', () => {
     build([7], { players: 2 });
     click(1);
     click(7);
-    expect(document.getElementById('result-title')?.textContent).toContain('Spieler 2');
+    const titel = document.getElementById('result-title')?.textContent ?? '';
+    expect(titel).toContain('Spieler 1');
+    expect(titel).toContain('gewonnen');
+    expect(document.getElementById('result-text')?.textContent).toContain('Spieler 2');
   });
 
   it('nennt im Ergebnis den Mut: die hoechste ueberstandene Bissgefahr', () => {

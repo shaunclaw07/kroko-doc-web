@@ -306,3 +306,16 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   nichts verrutscht ist, ist nicht das Auge, sondern der Bau: `pnpm build` und die erzeugte
   `dist/_astro/*.css` gegen die Fassung von vorher vergleichen (beim Aufteilen am 14.10.2026:
   gleiche Bytes, gleiche SHA256, derselbe Dateiname).
+
+- **Eine Sonde, die einen Wortlaut fest eingetragen hat, wird beim Umtexten mitgezogen.** Die
+  Bedien-Sonde setzt den Ergebnis-Kasten auf die **längste** Fassung des Ergebnistexts, weil der
+  Zufall sie nicht liefert (`LAENGSTES` in `scripts/pruefen-bedienung.py`). Wird der Text in
+  `src/presentation/game/resultText.ts` umgeschrieben und die Zeile in der Sonde bleibt stehen,
+  misst die Sonde weiter einen Satz, den es nicht mehr gibt: sie bleibt grün, und die Höhe des
+  **neuen** Textes hat nie jemand gemessen. Der Fehler ist unsichtbar, weil die Sonde nur „nichts
+  scrollt“ behauptet. Wer einen sichtbaren Text ändert, sucht seine Fassung in den Sonden
+  (`grep -rn "<Textstück>" scripts/`); im selben Lauf gibt es eine Gegenprobe: die Sonde verlangt,
+  dass `harmlos` im Ergebnis steht, damit ein leerer oder fremder Text auffällt. Am 15.10.2026 war
+  die Zeile eine **künstliche** Grenze (zwei Spieler, drei scharfe Zähne mit zweistelligen Nummern,
+  „100 %“) — das steht seitdem als Kommentar darüber, damit sie niemand für einen möglichen Ausgang
+  hält: wer erst beim 12. Druck gebissen wird, hatte genau einen scharfen Zahn.

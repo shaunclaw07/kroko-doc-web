@@ -35,9 +35,14 @@ SCHMAL = 640  # darunter öffnen sich die Köpfe als Blatt
 ZWEI = {"creature": "sabertooth", "teethOverride": None, "sound": False, "vibration": False,
         "mode": "original", "players": 2}
 EIN_ZAHN = {**ZWEI, "teethOverride": 1}
-# Die längste Fassung des Ergebnistexts (Wortlaut aus gameController.showResult).
-LAENGSTES = ("Zahn 12 hat zugeschnappt — der 12. Druck dieser Runde. Insgesamt 3 Zähne waren scharf "
-             "(10, 11, 12). Mutigster Druck: Spieler 2 bei 100 % Bissgefahr — und der Zahn war harmlos.")
+# Die längste Fassung des Ergebnistexts — künstlich aus den längsten Teilen zusammengesetzt
+# (zwei Spieler, drei scharfe Zähne mit zweistelligen Nummern, „100 %“ als breitester Prozentwert).
+# Der Wortlaut kommt aus `resultText.ts` und wird beim Umtexten mitgezogen — sonst misst die Sonde
+# einen Satz, den es nicht mehr gibt, und meldet grün (docs/fallen.md).
+# Kein möglicher Ausgang: wer erst beim 12. Druck gebissen wird, hatte genau einen scharfen Zahn,
+# und eine überstandene Gefahr von 100 % gibt es nicht.
+LAENGSTES = ("Zahn 12 war der falsche — Spieler 2 hat ihn gedrückt. Scharf waren 3 Zähne: "
+             "10, 11 und 12. Mutigster Druck: Spieler 2 bei 100 % Bissgefahr — und der Zahn war harmlos.")
 # Der längste erlaubte Satz zum echten Tier (MAX_FACT_LENGTH = 110 in core/domain/creature.ts).
 # Kein echter Satz ist so lang — gemessen wird die Grenze, nicht der heutige Katalog.
 LAENGSTER_SATZ = "Wusstest du? " + ("Seine Säbel ragten bis zu 20 cm aus dem Kiefer. " * 3)[:110]

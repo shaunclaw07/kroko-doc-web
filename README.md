@@ -31,7 +31,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
 `dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
-`pnpm install` läuft durch, 581 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
+`pnpm install` läuft durch, 587 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
 Werte: 1,69 · 1,74 · 1,74 · 1,78 · 1,83 · 1,90 · 2,17 · 2,23 s sowie 2,84 s für den ersten Lauf eines
 kalten Baums).
 
@@ -91,8 +91,9 @@ Hinter dem **Zahnrad** oben rechts liegt nur, was man einmal je Sitzung stellt.
    1–3 Zähne gleichzeitig gefährlich, „nur ein Zahn" = genau einer), Ton und Wackeln an/aus, die
    Regeln und der Weg zur Statistikseite. Der Weg zurück ins Spiel ist „Fertig", das ✕ oder ein
    Tipp neben das Blatt. Das Blatt scrollt auf keinem der gemessenen Geräte.
-5. **Nach dem Biss:** das Ergebnis (Verlierer, Zahn, mutigster Druck) steht auf der Seite, an der
-   Stelle des Spielstands — **kein Blatt**, das man wegtippen muss. „Neue Runde" in der Leiste ist
+5. **Nach dem Biss:** das Ergebnis steht auf der Seite, an der Stelle des Spielstands — **kein
+   Blatt**, das man wegtippen muss: bei zwei Spielern Gewinner und Verlierer, dazu der falsche Zahn
+   und der mutigste Druck. „Neue Runde" in der Leiste ist
    dann betont; ein Tipp startet die nächste Runde und räumt das Ergebnis weg.
 6. **Statistik** (im Zahnrad, für Große): Häufigkeiten je Zahn, Chi²-Test gegen Gleichverteilung und
    gegen das Zugmodell, Wilson-Intervalle, Mustersuche (Autokorrelation), Rohdaten,
@@ -116,7 +117,7 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm build` | statische Seite nach `dist/` bauen | „Complete!", `dist/` mit `index.html`, `statistik/` |
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
-| `pnpm test:run` | Tests einmalig | **581 Tests in 48 Dateien**, alle grün |
+| `pnpm test:run` | Tests einmalig | **587 Tests in 48 Dateien**, alle grün |
 | `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
 | `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
 | `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
@@ -137,7 +138,8 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 ## Was es kann
 
-- **Spielen:** allein oder zu zweit im Hot-Seat, Maul schnappt zu, Verlierer wird benannt.
+- **Spielen:** allein oder zu zweit im Hot-Seat, Maul schnappt zu — bei zwei Spielern werden
+  Gewinner und Verlierer benannt.
 - **Für Kinder gebaut:** die Startseite zeigt Tier, Spielstand und drei große Griffe (Tier, Zähne, Neue
   Runde); nur Seltenes liegt hinter dem Zahnrad. Die Tier-Auswahl sind Bild-Kacheln aus der echten Zeichnung, und die
   Anzeigen sprechen in Worten („10 Zähne übrig", „6 von 10 gedrückt"). Die Technik-Erklärung
@@ -258,7 +260,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 
 | Größe | Wert | Herkunft |
 |---|---|---|
-| Tests | **581 in 48 Dateien**, alle grün | `pnpm test:run` |
+| Tests | **587 in 48 Dateien**, alle grün | `pnpm test:run` |
 | Vibration | Port mit `isSupported()`; 25 ms bei jedem Zahndruck, [120, 50, 220] beim Biss | `TAP_VIBRATION_MS`/`BITE_VIBRATION_PATTERN` in `core/ports/haptics.ts`, Adapter mit eigenem Test |
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Linter | keine Funde in 140 Dateien | `pnpm lint` (Biome, Regelsatz „recommended"; kein Formatierer) |

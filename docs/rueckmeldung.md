@@ -14,6 +14,19 @@ Index folgt. Die Nähte nach außen (`SoundPort`, `HapticsPort`) stehen in `docs
   Regeln-Blatt, im einmaligen Hinweis unter dem Balken und für Vorleser (`#hud-tension` ist
   `sr-only`, nicht entfernt — Tests und Sonde lesen den Wert dort weiter).
 
+- **Der Ergebnissatz wiederholt den Titel nicht — und bei zwei Spielern nennt der Titel den
+  Gewinner.** Der Titel („Zugeschnappt!“ bzw. „Spieler 2 hat gewonnen!“) sagt den Ausgang, der Text
+  die Auskunft: welcher Zahn der falsche war, wie viele Zähne scharf waren — bei einem einzigen
+  heißt es „der einzige scharfe“, weil die Aufzählung sonst nur die Zahl wiederholt hätte, die schon
+  am Satzanfang steht — und bei zwei Spielern, wer ihn gedrückt hat. Beides steht in **einem**
+  Absatz und **einem** Element: jede zusätzliche Zeile im Ergebnis-Kasten bräche die Spielseite auf
+  320 × 568 (gemessen, `scripts/pruefen-bedienung.py`). Die Nummer des Drucks („der 3. Druck dieser
+  Runde“) ist nicht mehr zu sehen — sie ist die Zahl der gedrückten Zähne, steht vollständig im
+  Protokoll (`pressIndex`, siehe `docs/domain-model.md`, „Position“) und die Statistikseite zeigt
+  sie weiter. Bei **drei und vier Spielern** (nur im Protokoll, etwa aus einem Import) gibt es drei
+  Gewinner, dort bleibt es beim Verlierer-Satz. Wortlaut und Tests:
+  `src/presentation/game/resultText.ts`.
+
 - **Browser-Schnittstellen nie direkt in der Bedienung:** Ton läuft über `SoundPort`, Vibration über
   `HapticsPort` (`core/ports/haptics.ts`), umgesetzt in `infrastructure/`. Der Controller ruft
   `this.deps.haptics?.vibrate(...)` — ein `navigator`-Zugriff steht dort nicht.

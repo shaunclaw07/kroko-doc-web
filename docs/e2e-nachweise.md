@@ -2366,3 +2366,72 @@ eine Zeile in `CREATURE_VOICE_FILES` — die leitet sich seit Paket 1 aus dem Ka
 stattdessen der Eintrag in `VOICES` (`public/sw.js`). Und `AGENTS.md` nannte ein Feld `upperTeeth`,
 das es im Zeichnungsvertrag (`creatures/types.ts`) nicht gibt. Den Albumsatz in
 `albumBadges.test.ts` („0 von 12 Tieren gespielt · 0 von 36 Sternen“) nannte bisher keine Doku.
+
+## 15.10.2026 — Paket A, Schritt 1: Ergebnissatz und Gewinner (A1 + A2)
+
+**Was geprüft wurde:** der neue Ergebnistext und der neue Titel im echten Browser, und ob die
+Spielseite mit dem **neuen** längsten Ergebnis noch auf jeder Lage ohne Scrollen auskommt.
+
+**Was sich geändert hat** (Entscheidungen E1–E3, E4 des Auftraggebers):
+
+- `resultText()` wiederholt den Titel nicht mehr und nennt die Drucknummer nicht mehr; bei einem
+  einzigen scharfen Zahn heißt es „der einzige scharfe“ statt „Scharf war 1 Zahn: 7“, mehrere Zähne
+  werden in Worten aufgezählt (`joinNumbers`: „7“, „3 und 7“, „2, 5 und 7“). Bei zwei Spielern steht
+  im Text, wer gedrückt hat.
+- `resultTitle()` nennt bei **zwei** Spielern den Gewinner („Spieler 2 hat gewonnen!“), bei einem
+  Spieler bleibt „Zugeschnappt!“, bei drei und vier Spielern (nur im Protokoll, `MAX_PLAYERS = 4`)
+  bleibt der Verlierer-Satz — Gegenprobe als eigener Test.
+- `mutSentence()` ist unangetastet.
+- `LAENGSTES` in `scripts/pruefen-bedienung.py` wurde **vor** der Messung auf den neuen Wortlaut
+  gesetzt (die Sonde setzt den Kasten damit auf den längsten Text; der Zufall liefert ihn nicht) und
+  der falsche Kommentar darüber korrigiert: der Text kommt aus `resultText.ts`, und die Zeile ist
+  eine **künstliche** Grenze, kein möglicher Ausgang.
+
+**`pnpm gate` (vor dem Commit):** `tsc --noEmit` ohne Fehler, `biome lint --error-on-warnings .`
+„Checked 140 files in 65ms. No fixes applied.“, `vitest run` **587 Tests in 48 Dateien**, alle grün
+(vorher 581; sechs neue Tests für die Aufzählung, den Titel und die vier Spieler).
+
+**Testgetrieben gebaut:** zuerst `resultText.test.ts` auf den neuen Wortlaut gezogen — 6 von 10
+Tests rot —, dann `resultText.ts` umgebaut. Danach fiel `gameController.test.ts` an genau den zwei
+Stellen, die der Plan als K4 benannt hatte (Titel enthielt „Spieler 1“ bzw. „Spieler 2“); beide
+wurden **umformuliert** und prüfen weiterhin beide Spielernamen (Titel: Gewinner, Text: Verlierer).
+
+**Die Sonde** (`pnpm build && pnpm preview --port 4322`, dann
+`uv run --with playwright python scripts/pruefen-bedienung.py`) — wörtliche Ausgabe:
+
+```
+Bedien-Sonde gegen http://localhost:4322
+
+  320 × 568 | Bühne  288 px | Seite  568 in  568 | Inhalt bis  472.2, Leiste ab  489.3 (fest) | Tier 2 Tipp(s) | Zahnrad 440 in 440 px
+  360 × 640 | Bühne  328 px | Seite  640 in  640 | Inhalt bis  500.9, Leiste ab  561.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+  390 × 844 | Bühne  358 px | Seite  844 in  844 | Inhalt bis  522.5, Leiste ab  765.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+  412 × 915 | Bühne  380 px | Seite  915 in  915 | Inhalt bis  538.3, Leiste ab  836.3 (fest) | Tier 2 Tipp(s) | Zahnrad 447 in 447 px
+ 768 × 1024 | Bühne  728 px | Seite 1024 in 1024 | Inhalt bis  873.0, Leiste ab  947.0 (fest) | Tier 1 Tipp(s) | Zahnrad 343 in 343 px
+ 1024 × 768 | Bühne  648 px | Seite  768 in  768 | Inhalt bis  708.1, Leiste ab  570.8 (im Fluss) | Tier 1 Tipp(s) | Zahnrad 283 in 283 px
+ 820 × 1180 | Bühne  728 px | Seite 1180 in 1180 | Inhalt bis 1014.3, Leiste ab 1103.0 (fest) | Tier 1 Tipp(s) | Zahnrad 343 in 343 px
+ 1180 × 820 | Bühne  762 px | Seite  820 in  820 | Inhalt bis  789.8, Leiste ab  570.8 (im Fluss) | Tier 1 Tipp(s) | Zahnrad 283 in 283 px
+Ohne Vibration, 320 × 568: Zahnrad 481 in 481 px
+Handy quer, 844 × 390: Seite 957 in 390 px, Inhalt bis 306.0, Leiste ab 313.0
+
+Auffälligkeiten: 0
+```
+
+Die Seite scrollt in **keiner** der acht Lagen (`Seite` = `sicht`); Handy quer darf scrollen und tut
+es. Der neue Text ist also nicht höher als der alte — er ist kürzer, obwohl er den Gewinner nennt.
+
+**Doku-Prüfungen:** `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` →
+„Pfad-Angaben geprueft: **831** / Alle genannten Pfade existieren.“ (Exit 0);
+`bash scripts/doku-pruefen.sh AGENTS.md docs/tiermodell-anleitung.md docs/workflow.md docs/e2e-nachweise.md`
+→ alle Zäune paarig (Exit 0);
+`ALTE_WERTE="581" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md` → Exit 0
+(keine alte Testzahl mehr in der lebenden Doku). Die Dateizahl (48) ist unverändert geblieben, sie
+gehört deshalb **nicht** in `ALTE_WERTE`: mit `581|48 Dateien` meldete die Prüfung die neuen Zeilen
+selbst als alten Wert.
+
+**Nachgezogen:** `README.md` (Schritt 5 der Startanleitung und „Was es kann“, Testzahl dreimal),
+`docs/testing.md` (Testzahl, Zeile zu `resultText.test.ts`), `docs/rueckmeldung.md` (die Regel:
+Titel wird nicht wiederholt, bei zwei Spielern nennt er den Gewinner), `docs/fallen.md` (neue Falle:
+eine Sonde mit fest eingetragenem Wortlaut muss beim Umtexten mitgezogen werden).
+
+**Nicht geprüft:** der Blick am Gerät. Wie sich „Spieler 2 hat gewonnen!“ am Tisch anfühlt, sagt
+kein Test.
