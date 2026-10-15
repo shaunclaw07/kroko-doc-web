@@ -2458,3 +2458,21 @@ verschöben die Länge mitten in der Sitzung.
 Dateien** grün. `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` →
 „Pfad-Angaben geprueft: 835 / Alle genannten Pfade existieren.“ Keine Sonde gefahren: an der Seite
 hat sich nichts geändert.
+
+## 15.10.2026 — Paket A, Schritt 3: die Mausstimme (A3, wartet aufs Anhören)
+
+**Gefunden:** „Mouse screams“, BigSoundBank Nr. 0459, Joseph Sardin, **CC0** — Dateiseite gelesen
+(https://bigsoundbank.com/mouse-screams-s0459.html): „A little mouse, caught by a cat, screams when
+touched.“ 13 s, Mono, Studio. Eine erste Fassung von `QUELLEN.md` und `README.md` beschrieb sie als
+Maus „in der Hand eines Menschen“ — das steht nicht in der Quelle und ist beim Review berichtigt.
+
+**Geschnitten:** ab 3,50 s, 0,40 s, ein vollständiger Quiekser aus der Mitte (nicht die lauteste
+Stelle). Gemessen mit `ffprobe`/`wc -c`: `mouse.mp3` 0,444 s, 3 552 Byte (Grenze 16 000 Byte,
+K8); alle zwölf Stimmen zusammen 119 529 Byte, keine länger als 1,54 s. Lizenzen in `QUELLEN.md`:
+acht Public Domain, vier CC0.
+
+**`pnpm gate`:** grün, 587 Tests in 48 Dateien.
+
+**Offen:** der Auftraggeber hört die Stimme an (`docs/rueckmeldung.md`: wie eine Stimme klingt,
+prüft der Baum nicht). Dabei auch zu entscheiden: ob der Angstlaut einer gefangenen Maus in ein
+Kinderspiel passt. Committet ist die Datei auf Wunsch des Auftraggebers schon vorher; ungeprüft bleibt sie bis zum Anhören.

@@ -31,7 +31,7 @@ Frage, ob das eigene Krokodil ehrlich zufällig ist.
 
 Getestet habe ich die Anleitung mit **Node 26.5.1 und pnpm 12.6.0** (Baum ohne `node_modules` und
 `dist/`, 14.10.2026, mit **astro 7.3.8 · vitest 5.0.4 · TypeScript 7.0.2 · jsdom 30.1.2**):
-`pnpm install` läuft durch, 587 Tests grün, Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
+`pnpm install` läuft durch, alle Tests grün (damals 581, heute siehe „Alle Befehle“), Bau fertig in 1,7–2,9 s (Maschinenstreuung; neun gemessene
 Werte: 1,69 · 1,74 · 1,74 · 1,78 · 1,83 · 1,90 · 2,17 · 2,23 s sowie 2,84 s für den ersten Lauf eines
 kalten Baums).
 
@@ -199,11 +199,12 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
   in der Oberfläche „wie das Spielzeug") und `classic` (genau ein scharfer Zahn — „nur ein Zahn").
 - **Tierstimmen:** jedes Tier meldet sich, wenn es gewählt wird, und kurz nach dem Biss; wer ein
   anderes Tier wählt, bricht ab, was vom vorigen noch klingt. Das sind
-  die einzigen Klänge aus **Dateien**: zwölf MP3 von höchstens 1,5 s (zusammen 118 KB) unter
-  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Elf sind gemeinfreie
-  Aufnahmen (Wikimedia Commons, die Fliege von BigSoundBank) — der Mensch sagt „Servus“, der
-  Vampir lacht gruselig, bei der Venusfliegenfalle summt ihre Beute, und der T-Rex brüllt mit der
-  tiefer gelegten Stimme des Alligators; **die Maus ist vorerst ein generierter Platzhalter**.
+  die einzigen Klänge aus **Dateien**: zwölf MP3 von höchstens 1,5 s (zusammen 120 KB) unter
+  `public/sounds/voices/`, Herkunft und Lizenz daneben in `QUELLEN.md`. Alle zwölf sind
+  gemeinfreie Aufnahmen (Wikimedia Commons, die Fliege und die Maus von BigSoundBank) — der Mensch
+  sagt „Servus“, der Vampir lacht gruselig, bei der Venusfliegenfalle summt ihre Beute, die Maus
+  ist die Aufnahme einer echten Maus, und der T-Rex brüllt mit der
+  tiefer gelegten Stimme des Alligators.
   Geladen wird erst nach dem ersten Tipp und nur bei eingeschaltetem Ton.
 - **Nervenkitzel:** Halten statt Tippen (das Urteil kommt beim Loslassen), Augen, die dem Finger
   folgen, ein Kiefer, der mit der Bissgefahr zittert, eine Bühne, die ab 50 % Bissgefahr näher an das
@@ -365,15 +366,19 @@ Die Seite ist veröffentlicht: **<https://zahn-agent.schaflabs.com/>**
   Browser. Das übrige Verhalten ist in jsdom (Bedienungs- und Statistiksonde) und über gerenderte
   Standbilder der Zeichnung belegt (`pnpm vitest run src/render-probe.test.ts`, dann
   `scripts/artwork-png.py`); das Gefühl am Gerät in allen Feinheiten prüft nur ein Mensch.
-- **Tierstimmen:** elf gemeinfreie Aufnahmen (acht Public Domain, drei CC0) und ein generierter
-  Platzhalter (Maus), alle mit Urheber, Lizenz und Quelle in
+- **Tierstimmen:** zwölf gemeinfreie Aufnahmen (acht Public Domain, vier CC0), alle mit Urheber,
+  Lizenz und Quelle in
   [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md).
   Das Heulen des Wolfs stammt aus dem Tonarchiv des Yellowstone-Nationalparks (**National Park
   Service** & MSU Acoustic Atlas / Jennifer Jerrett), die übrigen Aufnahmen von Wikimedia Commons.
   Der Panther faucht als Hauskatze, der Säbelzahntiger knurrt als Tiger, der Hai blubbert — echte
-  gemeinfreie Aufnahmen gab es dafür nicht. Die Ausschnitte hat ein Programm gewählt; angehört
+  gemeinfreie Aufnahmen gab es dafür nicht. Die Maus ist die Aufnahme einer kleinen Maus, die eine
+  Katze gefangen hat und die bei Berührung quiekt (so beschreibt es die Quelle, BigSoundBank, CC0).
+  Die Ausschnitte hat ein Programm gewählt (den der Maus gezielt ein vollständiger Quiekser);
+  angehört
   und abgenommen hat sie der Auftraggeber am 12.10.2026 am lokalen Entwicklungsserver; am Handy
-  sind sie nicht geprüft.
+  sind sie nicht geprüft. **Die Mausaufnahme ist am 15.10.2026 dazugekommen und wartet noch auf
+  dieses Anhören** — bis dahin ist sie ungeprüft.
 - **Tier-Sätze („Wusstest du?"):** jeder ist belegt, die Quellen stehen in `docs/tier-quellen.md`. Die
   Zahl „Echtes Gebiss: 32 Zähne" beim Krokodil ist dagegen **nicht** belegt und vermutlich zu
   niedrig — sie steht dort als offener Punkt.
