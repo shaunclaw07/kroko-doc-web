@@ -1,0 +1,66 @@
+{
+  // Nur der Quelltext des Spiels: die Seiten- und Kernmodule, der Service Worker, der Cloudflare-Worker.
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "files": {
+    "includes": ["src/**", "public/sw.js", "worker/**"]
+  },
+  // Kein Formatierer: er schriebe beim ersten Lauf fast jede Datei um und machte `git blame` unlesbar.
+  "formatter": {
+    "enabled": false
+  },
+  // Auch keine Assists (Importe sortieren): dieselbe Überlegung wie beim Formatierer.
+  "assist": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        // Die Lanczos-Koeffizienten sind die veröffentlichte Tabelle; ihre letzten Stellen liegen
+        // unterhalb der Genauigkeit eines double. Sie zu kürzen verwischte nur die Herkunft.
+        "noPrecisionLoss": "off"
+      },
+      "suspicious": {
+        // Bewusste Rückfallwerte: `max-height: 82vh` vor `88dvh`, `max-width` mit `100vh` vor `100dvh`.
+        "noDuplicateProperties": "off"
+      },
+      "complexity": {
+        // `.hidden` muss jede andere Regel schlagen, und bei reduzierter Bewegung muss das
+        // Abschalten der Animation `!important` sein.
+        "noImportantStyles": "off"
+      },
+      "style": {
+        // Die Reihenfolge der CSS-Regeln ist aus dem gewachsenen Stylesheet übernommen (Paket 6 hat
+        // sie Byte für Byte geprüft). Umsortieren änderte die Kaskade — dafür gibt es die Sonden.
+        "noDescendingSpecificity": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // `.astro` liest Biome nur bis zum Frontmatter: was in der Vorlage darunter steht
+      // (`{title}`, `<Base …>`), gilt ihm sonst als unbenutzt.
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    },
+    {
+      // Tests nutzen `!` bewusst dort, wo die Alternative nur Umstand wäre.
+      "includes": ["**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noNonNullAssertion": "off"
+          }
+        }
+      }
+    }
+  ]
+}

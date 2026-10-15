@@ -2,7 +2,6 @@ import { creatureOrDefault } from './creature';
 import {
   creatureKWeights,
   expectedPresses as modelExpectedPresses,
-  modeKWeights,
   pressPositionDistribution,
 } from './probabilities';
 import type { RoundRecord } from './records';

@@ -12,7 +12,6 @@
  */
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { listCreatures } from './core/domain/creature';
 
 const SEITE = readFileSync(new URL('./pages/index.astro', import.meta.url), 'utf8');
 
@@ -36,9 +35,11 @@ describe('Auswahlblatt „Welches Tier?"', () => {
     expect(aktionen).toContain('data-close-sheet');
   });
   it('bietet jedes Lebewesen des Katalogs als Kachel an', () => {
-    for (const creature of listCreatures()) {
-      expect(AUSWAHL).toContain(`data-creature={creature.id}`);
-    }
+    // `AUSWAHL` ist Vorlagen-Text: die Kacheln entstehen aus der Schleife über den Katalog, im
+    // Markup steht deshalb genau diese eine Zeile. Dass es je Tier wirklich eine Kachel gibt,
+    // zählt `scripts/pruefen-tiere.py` in der gebauten Seite — hier stünde dieselbe Erwartung
+    // sonst nur einmal je Katalogeintrag.
+    expect(AUSWAHL).toContain('data-creature={creature.id}');
   });
   it('trägt keine Kurzinfo mehr — sie steht im Regeln-Blatt, damit alle Köpfe ohne Scrollen passen', () => {
     expect(AUSWAHL).not.toContain('creature-detail');

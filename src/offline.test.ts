@@ -268,6 +268,8 @@ describe('Installierbarkeit', () => {
     const layout = readFileSync(join(ROOT, 'src', 'layouts', 'Base.astro'), 'utf8');
     expect(layout).toContain("'serviceWorker' in navigator");
     expect(layout).toContain('import.meta.env.PROD');
+    // Der Vorlagen-Text in Base.astro ist der Prüfgegenstand — `${base}` ist hier Absicht.
+    // biome-ignore lint/suspicious/noTemplateCurlyInString: geprüft wird genau diese Zeichenfolge
     expect(layout).toContain('register(`${base}sw.js`, { scope: base })');
     expect(layout).not.toMatch(/register\(\s*['"`]\//);
   });

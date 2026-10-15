@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { mutSentence, playerName, resultFact, resultText, resultTitle, turnSentence } from './resultText';
-import type { RoundState } from '../../core/domain/round';
 
 describe('resultText', () => {
   it('formatiert Spielername für Einzel- und Mehrspieler', () => {

@@ -3,7 +3,6 @@ import { DEFAULT_SETTINGS, type GameSettings } from '../../core/domain/settings'
 import {
   MAX_SELECTABLE_PLAYERS,
   isValidToothCount,
-  type RandomMode,
 } from '../../core/domain/teeth';
 import type { StorageLike } from './localStorageLog';
 

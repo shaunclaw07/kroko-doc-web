@@ -9,7 +9,7 @@ import { VERDICT_GAP_MS, reliefLevel, type PressDrama } from '../../core/domain/
 import { hudModel } from './hudModel';
 import { createHudView, type HudView } from './hudView';
 import { createRoundRecorder, type RoundRecorder } from './roundRecorder';
-import { type SessionMarkPort } from '../../core/ports/sessionMark';
+import type { SessionMarkPort } from '../../core/ports/sessionMark';
 import { playPress } from '../../core/use-cases/playPress';
 import { creatureView, type CreatureView } from './creatures';
 import { clientToViewBox, midpoint, type Point } from './creatures/gaze';

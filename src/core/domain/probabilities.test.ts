@@ -49,7 +49,9 @@ describe('pressPositionDistribution', () => {
 
   it('klassisch (genau ein scharfer Zahn) ist über alle Drücke gleichverteilt', () => {
     const dist = pressPositionDistribution(10, modeKWeights('classic'));
-    dist.forEach((value) => expect(Math.abs(value - 0.1)).toBeLessThan(1e-12));
+    dist.forEach((value) => {
+      expect(Math.abs(value - 0.1)).toBeLessThan(1e-12);
+    });
   });
 
   it('nennt den letzten Druck nur bei genau einem scharfen Zahn möglich', () => {

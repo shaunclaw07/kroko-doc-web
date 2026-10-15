@@ -145,7 +145,9 @@ async function prune(cache) {
   for (const key of keys) {
     if (key.url.startsWith(SCOPE + ASSET_LIST_PREFIX)) {
       const list = await (await cache.match(key, ANY_VARIANT)).json();
-      list.forEach((url) => needed.add(url));
+      list.forEach((url) => {
+        needed.add(url);
+      });
     }
   }
   await Promise.all(

@@ -258,7 +258,9 @@ describe('GameController in der Bühne', () => {
     click(4);
     expect(spaet, 'ohne den späten Rückruf wäre der Test sinnlos').toHaveLength(1);
     controller.resetRound();
-    spaet.forEach((run) => run());
+    spaet.forEach((run) => {
+      run();
+    });
     expect(sound.voices).toEqual([]);
     expect(document.querySelector('.creature')?.classList.contains('is-clenching')).toBe(false);
   });
@@ -570,7 +572,9 @@ describe('GameController in der Bühne', () => {
     expect(tooth(1)?.classList.contains('is-live'), 'ohne Zucken wäre der Test sinnlos').toBe(true);
     click(2);
     expect(document.getElementById('stage')?.dataset.status).toBe('snapped');
-    held.forEach((run) => run());
+    held.forEach((run) => {
+      run();
+    });
 
     expect(tooth(1)?.classList.contains('is-live')).toBe(false);
     expect(tooth(2)?.classList.contains('is-live')).toBe(true);
@@ -770,7 +774,9 @@ describe('GameController in der Bühne', () => {
     const hint = document.getElementById('hud-meter-hint');
     expect(hint?.classList.contains('hidden')).toBe(false);
     expect(pending.length).toBe(1);
-    pending.forEach((run) => run());
+    pending.forEach((run) => {
+      run();
+    });
     expect(hint?.classList.contains('hidden')).toBe(true);
   });
 
@@ -979,7 +985,9 @@ describe('GameController in der Bühne', () => {
     expect(touchStart(2), 'nur der gehaltene Zahn').toBe(false);
 
     pointer('pointerup', toothElement(1));
-    waits.filter((entry) => entry.ms >= 1000).forEach((entry) => entry.run());
+    waits.filter((entry) => entry.ms >= 1000).forEach((entry) => {
+      entry.run();
+    });
     expect(touchStart(1), 'von einem gedrückten Zahn aus lässt sich scrollen').toBe(false);
   });
 

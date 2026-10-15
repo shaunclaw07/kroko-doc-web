@@ -7,7 +7,6 @@ import {
   teethScale,
   toothPath,
   toothPlacements,
-  toothSpacing,
   toothTip,
   type ToothPlacement,
 } from './geometry';

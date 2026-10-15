@@ -227,7 +227,7 @@ describe('Zeichnungen der Lebewesen', () => {
   });
 
   it('belegt, wo die Trefferfläche auf einem 320-px-Gerät endet (gemessen, nicht geschätzt)', () => {
-    const maus = ALL_ARTWORKS['mouse'];
+    const maus = ALL_ARTWORKS.mouse;
     expect(maus).toBeTruthy();
     if (!maus) return;
     // 10 Zähne schaffen die Vorgabe auf 285 px (44,0 px). Bei 12 Zähnen lässt der halbe Zahnabstand
@@ -247,8 +247,8 @@ describe('Zeichnungen der Lebewesen', () => {
   });
 
   it('belegt, wo die Grenze liegt (die Obergrenze ist gemessen, nicht geschätzt)', () => {
-    const crocodile = ALL_ARTWORKS['crocodile'];
-    const human = ALL_ARTWORKS['human'];
+    const crocodile = ALL_ARTWORKS.crocodile;
+    const human = ALL_ARTWORKS.human;
     expect(crocodile && human).toBeTruthy();
     if (!crocodile || !human) return;
     // Das Krokodil hat den größten Ring und verkraftet mehr Zähne als die Obergrenze erlaubt.

@@ -134,7 +134,9 @@ export function wireAlbum(deps: AlbumDeps): Album {
       if (!page) {
         continue;
       }
-      starsOf(tile).forEach((star, index) => star.classList.toggle('is-earned', index < page.stars.length));
+      starsOf(tile).forEach((star, index) => {
+        star.classList.toggle('is-earned', index < page.stars.length);
+      });
       const missing = missingFor(page.creature);
       const locked = missing > 0;
       tile.classList.toggle('is-locked', locked);

@@ -15,7 +15,7 @@ import { UNLOCK_ORDER, UNLOCK_STEPS } from './core/domain/unlocks';
 const PROJEKT = fileURLToPath(new URL('..', import.meta.url));
 const KATALOG_DATEI = join(PROJEKT, 'scripts', 'katalog.json');
 
-export function buildKatalogJson(): string {
+function buildKatalogJson(): string {
   const data = {
     creatures: listCreatures().map((creature) => ({
       id: creature.id,

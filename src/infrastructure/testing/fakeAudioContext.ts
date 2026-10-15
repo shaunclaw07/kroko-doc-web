@@ -77,7 +77,7 @@ export class FakeGainNode implements GainNodeLike {
   readonly connections: AudioNodeLike[] = [];
   disconnected = false;
 
-  constructor(private readonly context: FakeAudioContext) {
+  constructor(context: FakeAudioContext) {
     this.id = context.nextNodeId();
     this.gain = new FakeAudioParam(context, this.id, 'gain', 'gain');
     context.createdNodes.push(this);

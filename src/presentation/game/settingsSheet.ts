@@ -47,7 +47,9 @@ export function wireSettingsSheet({ doc, settings, haptics, apply }: WireSetting
     button.addEventListener('click', () => {
       doc
         .querySelectorAll('#opt-players [data-players]')
-        .forEach((other) => other.setAttribute('aria-pressed', 'false'));
+        .forEach((other) => {
+          other.setAttribute('aria-pressed', 'false');
+        });
       button.setAttribute('aria-pressed', 'true');
       apply({ ...settings.get(), players: Number(button.dataset.players ?? '1') });
     });
@@ -58,7 +60,9 @@ export function wireSettingsSheet({ doc, settings, haptics, apply }: WireSetting
     button.addEventListener('click', () => {
       doc
         .querySelectorAll('#opt-mode [data-mode]')
-        .forEach((other) => other.setAttribute('aria-pressed', 'false'));
+        .forEach((other) => {
+          other.setAttribute('aria-pressed', 'false');
+        });
       button.setAttribute('aria-pressed', 'true');
       apply({ ...settings.get(), mode: button.dataset.mode === 'classic' ? 'classic' : 'original' });
     });

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest';
-import { createHoldGesture, HOLD_MAX_MS, HOLD_SINK_MS } from './holdGesture';
+import { createHoldGesture, HOLD_MAX_MS } from './holdGesture';
 
 function setupDom(): void {
   document.body.innerHTML = `

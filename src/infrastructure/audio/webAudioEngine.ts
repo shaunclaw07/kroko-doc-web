@@ -61,7 +61,7 @@ export interface AudioContextLike {
     data: ArrayBuffer,
     onDecoded?: (buffer: AudioBufferLike) => void,
     onError?: (error: unknown) => void,
-  ): Promise<AudioBufferLike> | void;
+  ): Promise<AudioBufferLike> | undefined;
   resume(): Promise<void>;
 }
 

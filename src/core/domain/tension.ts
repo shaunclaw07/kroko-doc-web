@@ -71,7 +71,7 @@ export function pressBeatMs(args: { tension: number; rng: RandomSource }): numbe
   const level = clamp01(args.tension);
   const u = clamp01(args.rng.next());
   const exponent = 3 - 2 * level;
-  return Math.round(BEAT_MIN_MS + (BEAT_MAX_MS - BEAT_MIN_MS) * Math.pow(u, exponent));
+  return Math.round(BEAT_MIN_MS + (BEAT_MAX_MS - BEAT_MIN_MS) * u ** exponent);
 }
 
 /**
