@@ -274,8 +274,8 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
 
 - **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
-  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" (`AGENTS.md`) sagte früher „mehr als rund
-  vierzehn Buchstaben"; „Säbelzahntiger"
+  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" (`AGENTS.md`) sagte
+  früher „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
   hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
   13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
   sind gleich groß ([(65, 87), (65, 100)])" (gemessen am 14.10.2026). Die wirkliche Grenze sind
@@ -292,7 +292,9 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   `docs/workflow.md` **0 / 50**, `README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** —
   Ausgabe trotzdem „Alle genannten Pfade existieren“, Exit 0. Aufgefallen ist es, als in der
   Nachweisakte vier Verweise auf `docs/plaene/paket-*.md` stehen blieben, die es nicht mehr gibt.
-  Wer eine Pfadangabe verschiebt, sieht selbst nach; die Prüfung zu reparieren ist ein eigenes Paket.
+  Seit dem 15.10.2026 entfernt die Prüfung die Zäune vorher und paart je Zeile (779 statt 179
+  Angaben). Die Lehre bleibt: die erste Zeile der Ausgabe („Pfad-Angaben geprueft: …“) ansehen —
+  eine Prüfung, die wenig sieht, meldet genauso „alles in Ordnung“ wie eine, die alles sieht.
 
 - **Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch.**
   `app.css` ist seit dem 14.10.2026 nur noch die **Reihenfolge** (`@import`), die Regeln stehen je

@@ -50,7 +50,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 pnpm dev          # Astro-Entwicklungsserver auf http://localhost:4321 (127.0.0.1 hört nicht!)
 pnpm build        # statische Ausgabe nach dist/
 pnpm typecheck    # tsc --noEmit  — Teil des Gates
-pnpm lint         # biome lint .  — Teil des Gates
+pnpm lint         # biome lint --error-on-warnings .  — Teil des Gates (auch Warnungen fallen)
 pnpm test:run     # vitest run    — Teil des Gates
 pnpm gate         # alle drei nacheinander
 pnpm probes       # alle 13 Browser-Sonden gegen http://localhost:4322 fahren (Server muss laufen)

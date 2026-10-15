@@ -2035,7 +2035,7 @@ Seiten in 709 ms, `pruefen-zahnsicht` **144 Zeichnungen / 0 Auffälligkeiten**, 
 
 ## 14.10.2026 — Paket 1: Der Katalog als einzige Quelle für ein Wesen
 
-Refactoring gemäß `docs/plaene/paket-1-katalog.md`:
+Refactoring gemäß Paket 1 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1992fb8:docs/plaene/paket-1-katalog.md`):
 - Tierstimmen (`CREATURE_VOICE_FILES`) werden aus `listCreatures()` abgeleitet.
 - Grammatik (`grammar` mit `dative`/`feminine`) am Katalogeintrag (`human`, `lion`, `flytrap`); `DATIVE_NAMES` und `FEMININE` in `unlockNotice.ts` entfernt.
 - `joinNames(names)` und `threeLiveNames()` in `unlockNotice.ts` zentralisiert und in `index.astro` und `regeln.test.ts` verwendet.
@@ -2057,7 +2057,7 @@ Refactoring gemäß `docs/plaene/paket-1-katalog.md`:
 
 ## 14.10.2026 — Paket 2: Seitenskripte in geprüfte Module
 
-Refactoring gemäß `docs/plaene/paket-2-seitenskripte.md`:
+Refactoring gemäß Paket 2 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1992fb8:docs/plaene/paket-2-seitenskripte.md`):
 - `src/presentation/game/settingsSheet.ts` mit `wireSettingsSheet({ doc, settings, haptics, apply })` extrahiert und mit `settingsSheet.test.ts` geprüft.
 - `src/presentation/game/gamePage.ts` mit `wireGamePage(deps)` kapselt die gesamte Spiellogik, Verdrahtung von Controller, Album, Leiste, Einstellungen, Dialogen, Tastatur/Zeiger-Freigabe und Sicherung.
 - `src/presentation/stats/statsPage.ts` mit `wireStatsPage(deps)` kapselt Gefahr-Kurve, Berichtsaktualisierung, CSV-Export (`zahn-agent-runden-<datum>.csv`), CSV-Import, Protokoll-Löschung und Sicherungsabgleich.
@@ -2081,7 +2081,7 @@ Refactoring gemäß `docs/plaene/paket-2-seitenskripte.md`:
 
 ## 14.10.2026 — Paket 3: Einstellungen und Protokoll mit Anmeldung
 
-Refactoring gemäß `docs/plaene/paket-3-zustand.md`:
+Refactoring gemäß Paket 3 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1992fb8:docs/plaene/paket-3-zustand.md`):
 - `GameSettings` und `DEFAULT_SETTINGS` nach `src/core/domain/settings.ts` verschoben; `localStorageSettings.ts` re-exportiert; Importe in der Presentation-Schicht angepasst.
 - `src/presentation/game/settingsStore.ts` mit `createSettingsStore(initial)` eingeführt (`get()`, `set()`, `subscribe(listener)`).
 - `GameController`: `GameDeps.settings` ist jetzt `SettingsStore`; `onSettingsChange` und `Object.assign` entfallen; Controller reagiert im Store-Listener auf Einstellungsänderungen und meldet sich bei `dispose()` ab.
@@ -2107,7 +2107,7 @@ Refactoring gemäß `docs/plaene/paket-3-zustand.md`:
 
 ## 14.10.2026 — Paket 6: `app.css` nach Bauteilen aufteilen
 
-Refactoring gemäß `docs/plaene/paket-6-stylesheet.md`:
+Refactoring gemäß Paket 6 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1e00b96:docs/plaene/paket-6-stylesheet.md`):
 - `src/presentation/styles/app.css` (1 756 Zeilen) an den zwölf Abschnittsmarkierungen in zwölf
   Dateien geschnitten: `base.css` (1–123), `controls.css`, `stage.css` (beide Bühnen-Abschnitte),
   `settings-sheet.css`, `creature-grid.css`, `album.css`, `unlocks.css`, `hud.css`, `sheets.css`,
@@ -2283,6 +2283,28 @@ genannten Pfade existieren“ und Exit 0. Sichtbar wurde es an vier Verweisen au
 deshalb stehen bleiben (sie sind historisch: „Refactoring gemäß …“ beschreibt, was gelaufen ist).
 Die Reparatur des Prüfskripts gehört in ein eigenes Paket; die Falle steht mit Messwerten in
 `docs/fallen.md`, der Vorbehalt beim Rezept in `docs/workflow.md`.
+**Behoben am 15.10.2026** im Review der Pakete 6–8 (siehe dort).
 
+## 15.10.2026 — Review der Pakete 6–8
 
-
+- **Paket 6:** Die zwölf Bauteile in der Reihenfolge der `@import`-Liste aneinandergehängt sind
+  **zeichengleich** mit `app.css` vor dem Schnitt (`diff` ohne Ausgabe). Die Zustandsregeln
+  (`.creature.is-snapped .jaw__upper`, `path.jaw__shell`) stehen in `stage.css`, die Keyframes der
+  Pause in `press-beat.css` — so, wie die Verweise es sagen.
+- **Paket 7:** Jede Zeile der alten `AGENTS.md` (715) steht wörtlich in `AGENTS.md` oder einer der
+  fünf Zieldateien, außer Überschriften, Index und vier umgeschriebenen Querverweisen. Die
+  fett gesetzten Leitsätze: 81 vorher, 81 nachher. Nachgezogen: `docs/plan.md` und
+  `docs/workflow.md` schickten Regeln nach dem Abschluss eines Features noch „nach `AGENTS.md`“ —
+  das widersprach dem Ziel des Pakets; jetzt in die passende Datei unter `docs/`.
+- **Paket 8:** `README.md` nannte Biome nicht unter den Abhängigkeiten, `AGENTS.md` den Befehl ohne
+  `--error-on-warnings` — beides nachgezogen.
+- **Die Pfadprüfung ist repariert** (der offene Punkt aus Paket 8): `scripts/doku-pfade-pruefen.py`
+  entfernt Code-Zäune vorher und paart Backticks je Zeile; Platzhalter (`<id>`) überspringt es.
+  Über `README.md AGENTS.md docs/*.md` sieht sie jetzt **779** Angaben statt 179 (`docs/testing.md`
+  213 statt 0, `docs/workflow.md` 29 statt 0, `README.md` 16 statt 0, diese Akte 302 statt 1; gezählt auf dem Stand nach diesem Review). Gefunden
+  hat sie danach genau die vier Verweise auf gelöschte Plan-Dateien (oben umgeschrieben, mit dem
+  Weg zum Wortlaut) und zwei Platzhalter. **Gegenprobe:** ein Verweis auf eine erfundene Datei unter
+  `docs/` in einer Zeile unter einem Code-Zaun → Exit 1 mit genau diesem Fund; vor der Reparatur
+  Exit 0.
+- Die Plan-Dateien 6–8 und die gemeinsamen Regeln (`00-regeln.md`) sind wieder gelöscht (wie nach den Reviews
+  1–3 und 4–5), `docs/plan.md` steht auf dem Hinweistext.

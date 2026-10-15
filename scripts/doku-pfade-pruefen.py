@@ -7,8 +7,9 @@ Aufruf:
 Verfahren: In Backticks genannte Zeichenketten mit Verzeichnis-Praefix werden
 gesammelt, Klammer-Listen ({a,b}.ts) und Sternchen bzw. '...' expandiert und
 gegen das Dateisystem gehalten. Exit 0 = alles vorhanden, 1 = mindestens eine
-Angabe zeigt ins Leere. Die Ausgabe ist eine KANDIDATENLISTE: Routen (/plans/:id)
-und reine Dateinamen ohne Praefix werden bewusst uebersprungen, also jeden
+Angabe zeigt ins Leere. Code-Zaeune (```) werden vorher entfernt und Backticks je
+Zeile gepaart. Die Ausgabe ist eine KANDIDATENLISTE: Routen (/plans/:id),
+Platzhalter (<id>) und reine Dateinamen ohne Praefix werden bewusst uebersprungen, also jeden
 Treffer ansehen, bevor er als Fehler gilt.
 """
 import re
@@ -21,12 +22,33 @@ PRAEFIXE = (
 )
 
 
+def ohne_zaeune(text):
+    """Code-Zaeune und dreifache Backticks im Fliesstext entfernen.
+
+    Sonst verschiebt jeder Zaun die Paarung der Backticks um eins, und danach enthaelt jeder
+    "Span" Fliesstext und faellt durchs Sieb (gemessen am 14.10.2026: in docs/testing.md wurden
+    0 von 73 Angaben ueberhaupt angesehen).
+    """
+    zeilen = []
+    im_zaun = False
+    for zeile in text.splitlines():
+        if zeile.lstrip().startswith("```"):
+            im_zaun = not im_zaun
+            continue
+        if not im_zaun:
+            zeilen.append(zeile.replace("```", ""))
+    return zeilen
+
+
 def kandidaten(text):
-    for roh in re.findall(r"`([^`]+)`", text):
+    # Je Zeile paaren: eine vergessene Backtick verdirbt so hoechstens ihre eigene Zeile.
+    for roh in (r for z in ohne_zaeune(text) for r in re.findall(r"`([^`]+)`", z)):
         t = roh.strip()
         if not t.startswith(PRAEFIXE):
             continue
         if " " in t or ":" in t.split("/")[-1]:  # Route wie /plans/:id/tausch
+            continue
+        if "<" in t:  # Platzhalter wie public/sounds/voices/<id>.mp3
             continue
         yield t
 

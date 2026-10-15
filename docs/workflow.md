@@ -85,11 +85,10 @@ würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer 
 bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
 nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
 Pfadangabe gegen das Dateisystem — eine Doku, die auf eine verschwundene Datei zeigt, fällt durch
-keine Zahlenprüfung auf. **Aber nicht jede:** die Prüfung paart Backticks der Reihe nach, und ein
-Code-Zaun (```) verschiebt die Paarung; danach fallen die Angaben aus dem Raster. Gemessen am
-14.10.2026 sieht sie in `docs/testing.md` **0 von 73**, in `docs/workflow.md` **0 von 50**, in
-`README.md` **0 von 27** — und meldet trotzdem „Alle genannten Pfade existieren“. Wer eine
-Pfadangabe verschiebt, sieht deshalb selbst nach (offener Punkt, siehe `docs/e2e-nachweise.md`).
+keine Zahlenprüfung auf. Bis zum 15.10.2026 sah sie davon nur einen Bruchteil (ein Code-Zaun
+verschob die Paarung der Backticks; in `docs/testing.md` 0 von 73) und meldete trotzdem „Alle
+genannten Pfade existieren“ — seitdem entfernt sie die Zäune vorher. Die erste Zeile der Ausgabe
+(„Pfad-Angaben geprueft: …“) gehört zum Ansehen dazu; Falle in `docs/fallen.md`.
 
 **Unter Windows läuft der Block nicht als PowerShell-Einzeiler:** `bash` ist dort WSL, und eine
 Umgebungsvariable aus PowerShell kommt darin **nicht** an (`ALTE_WERTE` ist leer; am 14.10.2026
@@ -116,8 +115,9 @@ oder gemeinsam mit dem Nutzer, aber immer **vor** der Planungsphase:
 - Erst danach beginnt die Planungsphase: Plan in `docs/plan.md`, dann umsetzen.
 - **`docs/plan.md` ist eine Arbeitsdatei, kein Archiv** (seit dem 13.10.2026): sie trägt nur das
   Feature, an dem gerade gearbeitet wird. Nach der Abnahme wandert das Bleibende an seinen Ort —
-  Regeln nach `AGENTS.md`, Fallen nach `docs/fallen.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach
-  `docs/e2e-nachweise.md`, Belege nach `docs/tier-quellen.md` — und die Datei wird geleert. Keine
+  Regeln in die passende Datei unter `docs/` (der Index in `AGENTS.md` sagt, welche), Fallen nach
+  `docs/fallen.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach `docs/e2e-nachweise.md`,
+  Belege nach `docs/tier-quellen.md` — und die Datei wird geleert. Keine
   andere Doku verweist auf ihren Inhalt: ein Verweis zeigte nach dem nächsten Feature ins Leere.
 
 Warum als eigener Schritt: in einer Runde wurden so acht Fragen entschieden — zwei Dinge gebaut, sechs

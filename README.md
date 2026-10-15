@@ -263,7 +263,7 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 | Typenprüfung | keine Fehler | `pnpm typecheck` |
 | Linter | keine Funde in 140 Dateien | `pnpm lint` (Biome, Regelsatz „recommended"; kein Formatierer) |
 | Produktionsbau | 2 Seiten, 1,7–2,9 s (Maschinenstreuung; gemessen 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s, kalt 2,84 s) | `pnpm build`, Arbeitsbaum und frischer Baum |
-| Abhängigkeiten | astro **7.3.8**, vitest **5.0.4**, TypeScript **7.0.2**, jsdom **30.1.2**, @types/node 26.6.5 | `package.json`, `pnpm-lock.yaml` (angehoben am 14.10.2026) |
+| Abhängigkeiten | astro **7.3.8**, vitest **5.0.4**, TypeScript **7.0.2**, jsdom **30.1.2**, @types/node 26.6.5, @biomejs/biome **2.5.15** (Linter) | `package.json`, `pnpm-lock.yaml` (angehoben am 14.10.2026) |
 | Spannungsbalken | = Biss-Wahrscheinlichkeit des nächsten Drucks (Krokodil: 20,0 → 100 %) | `core/domain/tension.ts`, Kurve im Test festgenagelt |
 | P(Biss beim 1. Druck) | 20,0 % | Rechnung `core/domain/probabilities.ts`, geprüft gegen Python |
 | Erwartete Drücke bis zum Biss | 3,972222 (Krokodil, 10 Zähne) · 4,694444 (12 Zähne) | ebenda |
