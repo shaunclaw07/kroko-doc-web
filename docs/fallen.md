@@ -285,6 +285,15 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Seite war grün. Eine Sonde, deren Ausgabe nicht zur Umgebung passt, schickt einen auf die falsche
   Spur; die Adresse gehört zum Rezept (hier: `pnpm preview --port 4322`).
 
+- **Eine Doku-Prüfung, die nur jeden siebten Pfad ansieht, meldet trotzdem „alles in Ordnung“.**
+  `scripts/doku-pfade-pruefen.py` paart die Backticks der Reihe nach; ein Code-Zaun (```) verschiebt
+  die Paarung um eins, und danach enthält jeder „Span“ Fließtext und fällt durch das Sieb. Gemessen
+  am 14.10.2026 (die Prüfung selbst gesehen / grob gezählt): `docs/testing.md` **0 / 73**,
+  `docs/workflow.md` **0 / 50**, `README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** —
+  Ausgabe trotzdem „Alle genannten Pfade existieren“, Exit 0. Aufgefallen ist es, als in der
+  Nachweisakte vier Verweise auf `docs/plaene/paket-*.md` stehen blieben, die es nicht mehr gibt.
+  Wer eine Pfadangabe verschiebt, sieht selbst nach; die Prüfung zu reparieren ist ein eigenes Paket.
+
 - **Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch.**
   `app.css` ist seit dem 14.10.2026 nur noch die **Reihenfolge** (`@import`), die Regeln stehen je
   Bauteil unter `src/presentation/styles/`. Die Reihenfolge *ist* die Kaskade: von zwei Regeln mit

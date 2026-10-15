@@ -35,7 +35,7 @@ jobs:
           cache: pnpm
       - name: Abhaengigkeiten
         run: pnpm install --frozen-lockfile
-      - name: Typen und Tests
+      - name: Typen, Linter und Tests
         run: pnpm gate
       - name: Bauen
         run: pnpm build

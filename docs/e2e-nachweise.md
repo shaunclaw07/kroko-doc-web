@@ -2215,5 +2215,74 @@ Verschoben (wörtlich, nur die Überschrift und wenige Verweise angepasst):
    — eine stille Freigabe, genau die Klasse Fehler, die dieses Projekt sammelt. Der Hinweis steht
    beim Rezept (dort greift er), nicht in der Fallenliste.
 
+## 14.10.2026 — Paket 8: Linter ins Gate (Biome)
+
+**Rückfrage an den Auftraggeber** (das Paket verlangte drei Entscheidungen): **ja, ein Linter** —
+**Biome**, nur zum Prüfen, **kein Formatierer**. Nicht gepusht; der erste Push bleibt offen.
+
+Umgesetzt:
+- `@biomejs/biome` 2.5.15 als dev-Abhängigkeit; `biome.jsonc` mit Regelsatz `recommended`, ohne
+  Formatierer und Assists, geprüft werden `src/**`, `public/sw.js` und `worker/**`.
+- `"lint": "biome lint --error-on-warnings ."`, `"gate": "pnpm typecheck && pnpm lint && pnpm test:run"`.
+- Direktive 3 in `AGENTS.md` nennt jetzt drei Teile, der Befehlsblock führt `pnpm lint`; `README.md`
+  (Befehlstabelle, Kennzahlen) und `docs/testing.md` (Gate, ein Absatz zum Linter, Abhängigkeiten)
+  sind nachgezogen; der Workflow-Schritt heißt „Typen, Linter und Tests“.
+
+**Funde, in dieser Reihenfolge abgearbeitet** (erst zählen und ordnen, dann ändern):
+`biome lint .` sah in 140 Dateien **72 Funde in 16 Regeln** (27 Fehler, 40 Warnungen, 5 Hinweise).
+Nach den begründeten Abschaltungen blieben **24 in 10 Regeln**, alle behoben: neun `forEach`-Rückgaben
+(`public/sw.js`, `settingsSheet.ts`, `albumBadges.ts`, Tests), fünf unbenutzte Importe, eine
+`Math.pow`-Stelle, drei `['x']`-Zugriffe auf bekannte Schlüssel, `import type`, `| void` →
+`| undefined` in der Audio-Schnittstelle, ein unbenutzter privater Konstruktor-Parameter, ein
+`export` in einer Testdatei — und **eine tote Schleife in `auswahl.test.ts`**: sie prüfte je
+Katalogeintrag dieselbe Zeichenkette; die Erwartung bleibt, die Schleife ist weg (das ist die eine
+Teständerung, sie war nicht nötig, um grün zu werden, sondern der Fund selbst).
+
+**Abnahme:**
+- **`pnpm gate` grün einschließlich `pnpm lint`:** `tsc --noEmit` fehlerfrei, `biome lint
+  --error-on-warnings .` → „Checked 140 files“, 0 Funde, **581 Tests in 48 Dateien**, Exit 0.
+- **Jede abgeschaltete Regel ist begründet:** vier global (`noPrecisionLoss` — Lanczos-Koeffizienten
+  unterhalb der double-Genauigkeit; `noDuplicateProperties` — `vh`/`dvh`-Rückfallwerte;
+  `noImportantStyles` — `.hidden` und reduzierte Bewegung; `noDescendingSpecificity` — gewachsene
+  CSS-Reihenfolge, in Paket 6 Byte für Byte geprüft) und drei in Ausnahmen (`noUnusedImports` und
+  `noUnusedVariables` für `**/*.astro`, weil Biome dort nur das Frontmatter liest — gemessen:
+  `{title}`, `startList`, `<Base …>` sind in der Vorlage benutzt; `noNonNullAssertion` für
+  `**/*.test.ts`). Die Gründe stehen als Kommentar **an der Regel**; eine einzige
+  `// biome-ignore`-Zeile mit Grund steht in `offline.test.ts` (dort ist der Vorlagen-Text `${base}`
+  der Prüfgegenstand).
+- **Gegenprobe:** `const unbenutztFuerDieGegenprobe = 1;` in `pressBeatMs` (`tension.ts`) →
+  `pnpm gate` bricht mit **Exit 1** ab, die Ausgabe nennt `lint/correctness/noUnusedVariables`,
+  die Tests werden gar nicht mehr erreicht; nach `git checkout` ist der Lauf wieder Exit 0.
+- **Push-Workflow:** lokal nicht zeigbar. Ersatzweise frischer Klon von `cbbeb3e`:
+  `pnpm install --frozen-lockfile` (Exit 0) und `pnpm gate` (Exit 0, 140 Dateien gelintet,
+  581 Tests). Die Sperrdatei trägt `@biomejs/cli-linux-x64` für `ubuntu-latest`. Der erste
+  Workflow-Lauf bleibt offen — er braucht den Push.
+- **Zusatzprobe, weil `public/sw.js` angefasst wurde:** `pnpm build` + `pnpm preview --port 4322`
+  und `python scripts/pruefen-offline.py http://localhost:4322` → „Auffälligkeiten: 0“, Exit 0
+  (Vorrat vollständig, Spielseite zeichnet ohne Netz, ein Druck zählt).
+
+**Drei Abweichungen von der Vorlage, alle begründet:**
+1. **Die Konfiguration heißt `biome.jsonc`, nicht `biome.json`.** Biome 2.5 weist Kommentare in
+   `biome.json` ab („Expected a property but instead found '// …'“, gemessen). Weil die Begründung
+   jeder abgeschalteten Regel **an der Regel** stehen soll, ist es die JSONC-Fassung.
+2. **`biome lint --error-on-warnings .`** statt `biome lint .`. Ohne den Schalter hält die
+   Gegenprobe der Abnahme nicht: `noUnusedVariables` ist im Regelsatz `recommended` eine
+   **Warnung**, und Biome endet dann mit Exit 0 — gemessen: mit der ungenutzten Variable lief das
+   Gate durch. Eine Warnung, die das Gate nicht fallen lässt, ist genau die Art Regel, die still
+   nichts gibt.
+3. **Die 24 Funde stehen in einem Commit** statt in einem je Regel — bei dieser Größe wäre ein
+   Commit je Regel nur Rauschen; die Zuordnung steht oben und im Commit-Text.
+
+**Nebenbefund, nicht behoben (offener Punkt):** Beim Nachziehen der Pfadangaben fiel auf, dass
+`scripts/doku-pfade-pruefen.py` nur einen Bruchteil der Pfade überhaupt ansieht: es paart Backticks
+der Reihe nach, und jeder Code-Zaun (```) verschiebt die Paarung. Gemessen am 14.10.2026 (die Prüfung
+selbst gesehen / grob gezählt): `docs/testing.md` **0 / 73**, `docs/workflow.md` **0 / 50**,
+`README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** — die Ausgabe meldet trotzdem „Alle
+genannten Pfade existieren“ und Exit 0. Sichtbar wurde es an vier Verweisen auf
+`docs/plaene/paket-*.md` in der Nachweisakte, die es seit dem 14.10.2026 nicht mehr gibt und die
+deshalb stehen bleiben (sie sind historisch: „Refactoring gemäß …“ beschreibt, was gelaufen ist).
+Die Reparatur des Prüfskripts gehört in ein eigenes Paket; die Falle steht mit Messwerten in
+`docs/fallen.md`, der Vorbehalt beim Rezept in `docs/workflow.md`.
+
 
 

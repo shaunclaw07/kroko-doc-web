@@ -85,7 +85,11 @@ würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer 
 bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
 nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
 Pfadangabe gegen das Dateisystem — eine Doku, die auf eine verschwundene Datei zeigt, fällt durch
-keine Zahlenprüfung auf.
+keine Zahlenprüfung auf. **Aber nicht jede:** die Prüfung paart Backticks der Reihe nach, und ein
+Code-Zaun (```) verschiebt die Paarung; danach fallen die Angaben aus dem Raster. Gemessen am
+14.10.2026 sieht sie in `docs/testing.md` **0 von 73**, in `docs/workflow.md` **0 von 50**, in
+`README.md` **0 von 27** — und meldet trotzdem „Alle genannten Pfade existieren“. Wer eine
+Pfadangabe verschiebt, sieht deshalb selbst nach (offener Punkt, siehe `docs/e2e-nachweise.md`).
 
 **Unter Windows läuft der Block nicht als PowerShell-Einzeiler:** `bash` ist dort WSL, und eine
 Umgebungsvariable aus PowerShell kommt darin **nicht** an (`ALTE_WERTE` ist leer; am 14.10.2026
