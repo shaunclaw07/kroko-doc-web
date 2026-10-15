@@ -263,8 +263,8 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
 - **Ein Zeitgeber trägt die Runde, zu der er gehört.** Das Urteil eines Drucks kommt nach der Pause
   — startet in dieser Pause eine neue Runde („Neue Runde", eine Einstellung), traf es die **neue**:
   das Maul stand geschlossen über einer offenen Runde, deren Zähne sich weiter drücken ließen.
-  `handlePress` merkt sich den Rundenstand und die Rückrufe laufen ins Leere, wenn er nicht mehr
-  gilt. Jeder verzögerte Rückruf prüft, ob sein Anlass noch besteht.
+  `resolvePress` (`presentation/game/gameController.ts`) merkt sich den Rundenstand, und die
+  Rückrufe laufen ins Leere, wenn er nicht mehr gilt. Jeder verzögerte Rückruf prüft, ob sein Anlass noch besteht.
 
 - **Was oft gebraucht wird, gehört nicht hinter ein Blatt.** Tier, Zahnzahl und „Neue Runde" lagen
   hinter dem Zahnrad: gemessen am 12.10.2026 vier Tipps für ein anderes Tier, drei für die Zahnzahl,

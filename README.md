@@ -278,15 +278,21 @@ Baum". Dort steht auch Schritt für Schritt, wie man **eine Tierstimme ergänzt 
 ## Aufbau
 
 ```
-src/core/domain/       Fachregeln: Zähne, Runde, Wahrscheinlichkeiten, Spannung, Statistik
-src/core/ports/        Nähte: RandomSource, LiveTeethSelector, RoundLogPort, RemoteLogPort, SoundPort, HapticsPort
-src/core/use-cases/    playPress — ein Druck samt Dramaturgie
+src/core/domain/       Fachregeln: Katalog, Zähne, Runde, Wahrscheinlichkeiten, Spannung, Statistik,
+                       Album, Freischaltung, Einstellungen
+src/core/ports/        Nähte: RandomSource, LiveTeethSelector, RoundLogPort, RemoteLogPort, SoundPort,
+                       HapticsPort, SessionMarkPort
+src/core/use-cases/    playPress — ein Druck samt Dramaturgie; syncRoundLog — Abgleich mit der Sicherung
 src/contract/          Außenvertrag (Rundenprotokoll, CSV-Format)
-src/infrastructure/    crypto-Zufall, Web-Audio-Klänge, Vibration, localStorage, Testattrappen
-src/presentation/      Spielsteuerung, Statistikansicht, Astro-Seiten
+src/infrastructure/    crypto-Zufall, Web-Audio-Klänge und Stimmen, Vibration, localStorage, Sicherung, Testattrappen
+src/presentation/      Verdrahtung der Seiten, Spielsteuerung, Einstellungen, Statistikseite
   game/creatures/      je Lebewesen ein Zeichnungsmodul + Fabrik + Registry
+  styles/              Stile je Bauteil; app.css ist nur die Reihenfolge der Importe
+src/pages/             die zwei Astro-Seiten (Spiel, Statistik)
+worker/                Cloudflare-Worker der Sicherung (gehört zu keiner Schicht)
 public/sounds/voices/  je Lebewesen eine Stimme als MP3, Herkunft und Lizenz in QUELLEN.md
-scripts/               artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
+scripts/               pruefen-alle.py — alle 13 Sonden auf einmal (pnpm probes); sonde.py — ihr Gerüst
+                       artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
                        galerie.py — README-Bild der Gebisse aus den SVGs der Sonde bauen
                        pruefen-*.py — Sonden am lebenden Gegenstand (Tiere, Trefferfläche, Blatt)
                        pruefen-zahnsicht.py — liegt ein Zahn unter dem Gesicht (jede Zahnzahl)

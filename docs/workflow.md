@@ -264,12 +264,17 @@ Der Satz unter dem Ergebnis ist das Feld `fact` im Katalog (`src/core/domain/cre
 
 ## Skripte im Baum
 
-Alle Skripte liegen in `scripts/`. Die Sonden brauchen den laufenden Server (`pnpm dev`) und nehmen
-eine andere Adresse als Argument (z. B. die veröffentlichte Seite). Wo `uv` fehlt, tut es
+Alle Skripte liegen in `scripts/`. Die Sonden laufen gegen die **gebaute** Seite (`pnpm build`, dann
+`pnpm preview --port 4322` — ihre Vorgabe-Adresse; allein `pruefen-trefferflaeche.py` erwartet ohne
+Argument `pnpm dev` auf 4321) und nehmen eine andere Adresse als Argument (z. B. die
+veröffentlichte Seite). Wo `uv` fehlt, tut es
 `python scripts/<name>.py`, wenn `playwright` bzw. `cairosvg` im System-Python installiert sind.
 
 | Skript | Wozu | Aufruf |
 |---|---|---|
+| `pruefen-alle.py` | alle 13 Browser-Sonden nacheinander, je eine Zeile mit Exit-Code, Dauer und Ergebnis; fährt vorab die Zeichnungs-Sonde (`render-probe.test.ts`), damit die Zahnsicht frische SVGs hat | `pnpm probes` (= `python scripts/pruefen-alle.py http://localhost:4322`) |
+| `sonde.py` | kein Aufruf: das gemeinsame Gerüst der Sonden (Schlüssel der Ablage, Seite im Browser herstellen, Prüfzeilen sammeln) | `from sonde import …` |
+| `katalog.py`, `katalog.json` | kein Aufruf: die Tierdaten für die Python-Sonden; die JSON-Datei entsteht aus dem TypeScript-Katalog | `KATALOG_NEU=1 pnpm test:run` schreibt sie neu |
 | `stimme-suchen.py` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | `python scripts/stimme-suchen.py "wolf howl"` |
 | `stimme-schneiden.sh` | eine Tierstimme schneiden und nach `public/sounds/voices/` legen (braucht `ffmpeg`) | `bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer> [ausblenden]` |
 | `artwork-png.py` | ein Zeichnungs-SVG der Sonde in ein PNG rastern | `uv run --with cairosvg python scripts/artwork-png.py <svg> <png> [offen\|gedrueckt\|geschnappt]` |
