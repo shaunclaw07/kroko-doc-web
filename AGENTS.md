@@ -159,6 +159,7 @@ Manifest, Laufzeit-Abruf):
 
 Jeder Push auf `main` löst [`.github/workflows/pages.yml`](.github/workflows/pages.yml) aus:
 installieren → `pnpm gate` → `pnpm build` → ausliefern auf <https://zahn-agent.schaflabs.com/>.
+Lokal hält schon `.githooks/pre-push` den Push mit `pnpm gate` auf (eingehängt bei `pnpm install`).
 Die Domain gehört dem Repo über `public/CNAME`; der DNS-Eintrag liegt bei Cloudflare
 (`schaflabs.com`) als CNAME auf `shaunclaw07.github.io`. Schlägt `pnpm gate` fehl, wird **nicht**
 veröffentlicht — lokal grün muss also vor dem Push stehen. Manuell anstoßen geht über

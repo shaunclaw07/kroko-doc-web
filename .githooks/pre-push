@@ -1,0 +1,9 @@
+#!/bin/sh
+# Vor jedem Push dasselbe Gate wie im Workflow (.github/workflows/pages.yml): Typen, Linter, Tests.
+# Ein Push auf main veröffentlicht die Seite — was hier fällt, soll gar nicht erst dort landen.
+# Eingehängt über `git config core.hooksPath .githooks` (das `prepare`-Skript bei `pnpm install`).
+echo "pre-push: pnpm gate ..."
+if ! pnpm gate; then
+  echo "pre-push: pnpm gate ist rot - der Push ist abgebrochen." >&2
+  exit 1
+fi

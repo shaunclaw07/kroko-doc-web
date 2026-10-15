@@ -380,5 +380,6 @@ git commit -m "…"
 git push                   # Hauptzweig ist `main`, direkte Commits
 ```
 
-Vor jedem Commit: `pnpm gate` (Typen + Linter + Tests). Architekturtests
+Vor jedem Commit: `pnpm gate` (Typen + Linter + Tests); vor jedem Push läuft es über
+`.githooks/pre-push` von selbst und bricht bei Rot ab. Architekturtests
 (`src/architecture.test.ts`) dürfen nie rot sein — sie erzwingen die Schichtentrennung.

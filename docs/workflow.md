@@ -6,8 +6,9 @@
 pnpm dev            # http://localhost:4321 (127.0.0.1 hört nicht)
 pnpm build          # statisch nach dist/
 pnpm typecheck      # tsc --noEmit
+pnpm lint           # biome lint --error-on-warnings .
 pnpm test:run       # vitest run
-pnpm gate           # typecheck + tests
+pnpm gate           # typecheck + lint + tests
 ```
 
 ## Umgebung
@@ -326,6 +327,12 @@ die Regeln in Kürze und der ganze Weg zum Nachbauen. Was bei Cloudflare liegt
   git status --short
   ```
 - Erst committen, wenn `pnpm gate` grün ist.
+- **Vor jedem Push läuft `pnpm gate` von selbst** (`.githooks/pre-push`, seit dem 15.10.2026) und
+  bricht den Push ab, wenn es rot ist — dasselbe Gate wie im Workflow, nur bevor der Stand auf
+  `main` liegt und die Seite veröffentlicht. Eingehängt wird der Ordner über
+  `git config core.hooksPath .githooks`; das erledigt das `prepare`-Skript bei `pnpm install`, in
+  einem frischen Klon also von selbst. `git push --no-verify` umgeht den Hook — nur, wenn der
+  Auftraggeber das ausdrücklich will.
 
 ## Fallen
 

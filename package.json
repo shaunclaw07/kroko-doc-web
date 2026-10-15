@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --error-on-warnings .",
     "gate": "pnpm typecheck && pnpm lint && pnpm test:run",
+    "prepare": "git config core.hooksPath .githooks",
     "probes": "python scripts/pruefen-alle.py http://localhost:4322"
   },
   "devDependencies": {
