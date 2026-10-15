@@ -8,6 +8,7 @@
 | **Druck** | Ein Tippen auf einen noch nicht gedrückten Zahn. |
 | **scharfer Zahn** | Zahn, der das Maul zuschnappen lässt. Im Originalmodell sind **1 bis 3** gleichzeitig scharf. |
 | **Runde** | Von der offenen Maulstellung bis zum Zuschnappen. Endet spätestens beim n-ten Druck. |
+| **Rundenzahl in der Kopfzeile** | Die Zahl im Kopfbereich der Spielseite (`#hud-round`) ist die **Zahl der Einträge im Protokoll plus eins** (`recorder.count() + 1` in `presentation/game/gameController.ts`) — **nicht** die Rundennummer der Statistikseite und der CSV (`nextRoundNumber` = größte Nummer + 1). Beides fällt auseinander, sobald das Protokoll Lücken hat, etwa nach einem CSV-Import. Sie sagt also „so viele Runden liegen in diesem Browser“, nicht „das ist Runde N deiner Aufzeichnung“; nach „Protokoll löschen“ steht dort wieder 1. Für das Kind ist sie die verständliche Zahl („meine 47. Runde hier“), eine Umbenennung wäre im Zweispieler-Spiel falsch (wessen Runde?) — deshalb bleibt sie, wie sie ist (Entscheidung E5 vom 15.10.2026). |
 | **Position** | Nummer des Drucks, bei dem es schnappte (1-basiert) — die eigentlich aussagekräftige Größe. |
 | **Verlierer** | Der Spieler, der den scharfen Zahn gedrückt hat (`(position - 1) mod spieler + 1`). |
 | **Spannung** | 0..1; die **Biss-Wahrscheinlichkeit des nächsten Drucks**. Beim letzten Zahn genau 1. |

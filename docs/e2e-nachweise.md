@@ -2435,3 +2435,26 @@ eine Sonde mit fest eingetragenem Wortlaut muss beim Umtexten mitgezogen werden)
 
 **Nicht geprüft:** der Blick am Gerät. Wie sich „Spieler 2 hat gewonnen!“ am Tisch anfühlt, sagt
 kein Test.
+
+## 15.10.2026 — Paket A, Schritt 2: die Zahl in der Kopfzeile (A4, Absage)
+
+**Entscheidung E5 des Auftraggebers: Absage an der Beschriftung.** Am Code der Kopfzeile ändert
+sich **nichts** — die Zahl `Runde 47` bleibt, wie sie ist. Ein Satz im Vokabular von
+`docs/domain-model.md` (Zeile „Rundenzahl in der Kopfzeile“) benennt die Abweichung, statt sie zu
+beheben.
+
+**Warum:** die Zahl ist `recorder.count() + 1`, also „so viele Runden liegen in diesem Browser,
+plus eins“ — **nicht** die Rundennummer der Statistikseite und der CSV (`nextRoundNumber` = größte
+Nummer + 1). Dass beides auseinanderfällt, sobald das Protokoll Lücken hat, steht in
+`src/presentation/game/gameController.test.ts` („hängt an das Protokoll an, wie es jetzt in der
+Ablage steht“): der Test legt die Runden 7 und 8 in die Ablage, die nächste gespeicherte Runde heißt
+9, während die Kopfzeile die Zahl der **Einträge** plus eins zeigt. Für das Kind ist die Zahl der
+Kopfzeile die verständliche („meine 47. Runde hier“); „Deine 47. Runde“ scheidet aus, weil die Runde
+bei zwei Spielern nicht einem Kind gehört, und ein Sitzungszähler (je Sitzung bei 1 beginnen)
+bräuchte eine zweite Wahrheit im `SessionMarkPort` — Sicherung oder Import in einem anderen Tab
+verschöben die Länge mitten in der Sitzung.
+
+**`pnpm gate`:** `tsc --noEmit` ohne Fehler, Biome 140 Dateien ohne Funde, **587 Tests in 48
+Dateien** grün. `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` →
+„Pfad-Angaben geprueft: 835 / Alle genannten Pfade existieren.“ Keine Sonde gefahren: an der Seite
+hat sich nichts geändert.
