@@ -5,5 +5,8 @@
 echo "pre-push: pnpm gate ..."
 if ! pnpm gate; then
   echo "pre-push: pnpm gate ist rot - der Push ist abgebrochen." >&2
+  echo "pre-push: Die Funde oben im Code beheben, pnpm gate neu fahren, committen, erneut pushen." >&2
+  echo "pre-push: Regel abschalten, biome-ignore oder --no-verify nur mit Ja des Auftraggebers" >&2
+  echo "pre-push: (docs/testing.md, 'Wenn der Linter etwas findet')." >&2
   exit 1
 fi

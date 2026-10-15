@@ -20,7 +20,10 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 2. **Sprache:** Code, Namen und Meldungen **englisch**; Kommentare, Doku, UI-Texte und
    Commit-Beschreibungen **deutsch**. → `docs/language-guidelines.md`
 3. **Das Gate ist dreierlei:** `pnpm typecheck`, `pnpm lint` **und** `pnpm test:run`. Ein grüner
-   Testlauf allein ist kein grünes Gate.
+   Testlauf allein ist kein grünes Gate. **Fällt es — auch vor dem Push (`.githooks/pre-push`) —,
+   wird der Fund im Code behoben**, neu gefahren und erst dann committet bzw. gepusht. Nur mit dem
+   Ja des Auftraggebers: `git push --no-verify`, eine Regel in `biome.jsonc` abschalten, eine
+   `// biome-ignore`-Zeile, einen Test lockern. → `docs/testing.md`, „Wenn der Linter etwas findet“
 
 ## Index
 

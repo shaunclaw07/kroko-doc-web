@@ -15,6 +15,17 @@ Alle drei müssen grün sein — ein Testlauf allein ist kein Nachweis.
 `**/*.astro` ist von den „unbenutzt"-Regeln ausgenommen (Biome liest dort nur das Frontmatter),
 `**/*.test.ts` von `noNonNullAssertion`.
 
+**Wenn der Linter etwas findet** (im Gate oder vor dem Push — der Hook bricht den Push dann ab):
+jede Meldung nennt Datei, Zeile, Spalte und die Regel (`lint/correctness/noUnusedVariables`;
+`×` = Fehler, `!` = Warnung, beide lassen das Gate fallen). Der Fund wird **im Code behoben**, dann
+`pnpm gate` neu gefahren. `FIXABLE` heißt nicht, dass `biome lint --write` es tut: ungenutzte
+Importe und Variablen stuft Biome als unsichere Korrektur ein und lässt sie stehen (gemessen am
+15.10.2026) — also von Hand. Eine ungenutzte Variable ist oft ein Hinweis auf einen echten Fehler
+(ein Wert, der berechnet und dann vergessen wird): erst verstehen, dann löschen. **Nicht** ohne das
+Ja des Auftraggebers: die Regel in `biome.jsonc` abschalten, `// biome-ignore`, `--no-verify`.
+Passt eine Regel wirklich nicht zum Projekt, wird gefragt; abgeschaltet wird sie dann mit einem
+Satz Begründung an der Regel und hier im Absatz oben.
+
 ## Stand (letzter Lauf 14.10.2026)
 
 | Größe | Wert |
