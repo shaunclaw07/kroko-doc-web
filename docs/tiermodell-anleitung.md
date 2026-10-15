@@ -1,7 +1,7 @@
 # Anleitung: ein Tiermodell zeichnen
 
 Für jedes **neue** Lebewesen und jede Änderung an einem bestehenden. Die Schritte im Katalog, in
-der Registry und bei der Stimme stehen in `AGENTS.md` („Ein neues Lebewesen ergänzen"); hier steht,
+der Registry, bei der Freischaltung und der Stimme stehen in `docs/neues-tier.md`; hier steht,
 **wie die Zeichnung selbst entsteht**, damit sie zu den anderen passt und kein Zahn verdeckt wird.
 
 Anlass (12.10.2026): bei allen zehn Tieren lagen die Augen auf dem Zahnring. Je nach Zahnzahl

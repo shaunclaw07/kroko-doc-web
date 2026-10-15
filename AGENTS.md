@@ -33,6 +33,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Architektur (Schichten, Importregel, Schicht-Tabelle, Fehlerarten) | [`docs/architecture.md`](docs/architecture.md) | ein Modul anlegst oder eine Schichtgrenze überschreitest |
 | Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | [`docs/domain-model.md`](docs/domain-model.md) | eine Regel der Runde, der Spannung oder der Auswertung änderst |
 | **Fallen, die Zeit kosten** (jede mit Anlass, Messwert und Gegenprobe) | [`docs/fallen.md`](docs/fallen.md) | **irgendetwas am Code änderst** |
+| Ein neues Tier ergänzen, der ganze Weg (Infos, Zeichnung, Freischaltung, Stimme, Bild, Tests, Doku) | [`docs/neues-tier.md`](docs/neues-tier.md) | ein Lebewesen ergänzt |
 | Ein Tiermodell zeichnen (Ebenen, Zahnring als Sperrgebiet, Augen setzen, Stil, Prüfreihenfolge) | [`docs/tiermodell-anleitung.md`](docs/tiermodell-anleitung.md) | ein Lebewesen zeichnest oder eine Zeichnung änderst |
 | Rückmeldung an den Nutzer (Ton, Vibration, benannte Anzeigen) | [`docs/rueckmeldung.md`](docs/rueckmeldung.md) | Ton, Vibration oder eine Anzeige anfasst |
 | Freischaltung der Tiere (Sterne, Schwellen, Bonusfiguren) | [`docs/freischaltung.md`](docs/freischaltung.md) | an Sternen, Schwellen oder `UNLOCK_STEPS` drehst |
@@ -85,41 +86,20 @@ src/presentation/game/creatures/  ein Modul je Lebewesen (Zeichnung), Registry, 
 
 ## Ein neues Lebewesen ergänzen
 
-1. Eintrag in `src/core/domain/creature.ts` (`id`, `name`, optional `shortName` bei mehr als zwölf
-   Zeichen, optional `grammar` mit `dative`/`feminine`, `teeth`, `liveTeethMin/Max`, `realTeeth`,
-   `note`, `fact` — ein **belegter** Satz über das echte Tier, höchstens 110 Zeichen, ohne ein Wort
-   über scharfe Zähne; die Quelle gehört in `docs/tier-quellen.md`). Hat das Vorbild gar keine Zähne,
-   ist `realTeeth` 0 — die Kurzinfo sagt dann „keine Zähne“.
-2. Kunstwerk-Modul unter `src/presentation/game/creatures/` anlegen (vorher
-   `docs/tiermodell-anleitung.md` lesen — dort steht, wohin die Augen dürfen): `body`, `holeFill`,
-   `silhouette` (Kopfumriss als Pfad — dient als Beschnitt, damit beim Zuschnappen
-   keine Bänder neben dem Kopf hängen),
-   `inner`, `upper`/`lower` (Zahnfleischbänder), optional `upperShell` (Schnauze/Lippe),
-   `upperTeeth` (Verhältnis, nicht Anzahl), `face`, `ring`, `teethProfile(count)`.
-   Die beiden Pupillen tragen `class="pupil"` und liegen in einer weißen Linse (`fill="#ffffff"`) mit
-   mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger (`creatures/gaze.ts`); `gaze.test.ts`
-   fällt sonst.
-3. Eine Zeile in `ARTWORKS` (`creatures/index.ts`).
-   Und ein **Platz in der Freischaltung** (`UNLOCK_STEPS` in `core/domain/unlocks.ts`, mit Schwelle)
-   — `unlocks.test.ts` fällt, solange ein Katalogtier weder am Start noch in der Folge steht. Die
-   Schwelle darf keinen dritten Stern brauchen (höchstens 2 × offene Tiere davor) — außer beim
-   letzten Ziel (`FINAL_GOAL`, heute der T-Rex).
-   Danach `KATALOG_NEU=1 pnpm test:run`, um `scripts/katalog.json` für die Sonden nachzuziehen.
-4. Das README-Bild der Gebisse neu bauen (`scripts/galerie.py`, Rezept in `docs/workflow.md`) — sonst
-   zeigt es den Stand von gestern, während die Bildunterschrift das neue Tier schon nennt.
-5. Eine Stimme: Aufnahme mit freier Lizenz suchen, mit `scripts/stimme-schneiden.sh` nach
-   `public/sounds/voices/<id>.mp3` schneiden, in `public/sounds/voices/QUELLEN.md` Urheber, Lizenz
-   und Quelle nennen und in `VOICES` in `public/sw.js` eintragen — ohne Datei oder Lizenzzeile fällt
-   `creatureVoices.test.ts`, ohne Vorrat `offline.test.ts`.
-   **Vorher die Dateiseite lesen, nicht nur den Titel:** „Mouse in Antefasy“ war kein Quieken,
-   sondern das gesprochene Wort „Maus“ in einem madagassischen Dialekt (Kategorie „Malagasy
-   language“). Und anhören kann eine Stimme nur der Auftraggeber.
-Der Test `creatureViews.test.ts` prüft danach: Zahnzahl stimmt mit dem Katalog überein, alle
-Ebenen in der richtigen Reihenfolge, kein `undefined`/`NaN` im Markup, Anker innerhalb der
-Bühne, dass auch abweichende Zahnzahlen (1–12) sauber gezeichnet werden und dass keine runde
-Gesichtsform in den Zahnring ragt. Pfade (Brauen, Schnurrhaare) misst nur die Sonde:
-`uv run --with playwright python scripts/pruefen-zahnsicht.py`. Zeichnung ohne
-Browser ansehen: `docs/workflow.md` (SVG schreiben, mit `cairosvg` rendern).
+Der ganze Weg mit allen Befehlen, Grenzen und den Tests, die dabei bewusst fallen:
+**`docs/neues-tier.md`** (am 15.10.2026 mit einem Probetier durchgespielt). Die Stationen:
+
+1. Entscheiden lassen: Tier, Stammtier oder Bonusfigur, Platz und Schwelle in der Freischaltung,
+   Zahnzahl, scharfe Zähne.
+2. Belegen: `fact` und `realTeeth` mit Quelle in `docs/tier-quellen.md`.
+3. Katalogeintrag in `src/core/domain/creature.ts` — Kachel, Sätze, Statistik und Zuordnung der
+   Stimme leiten sich daraus ab.
+4. Zeichnung `src/presentation/game/creatures/<id>.ts` (vorher `docs/tiermodell-anleitung.md`) und
+   eine Zeile in `ARTWORKS` (`creatures/index.ts`).
+5. Schritt in `UNLOCK_STEPS` (`core/domain/unlocks.ts`).
+6. Stimme `public/sounds/voices/<id>.mp3`, Zeile in `QUELLEN.md`, Eintrag in `VOICES` (`public/sw.js`).
+7. `KATALOG_NEU=1 pnpm test:run`, README-Bild der Gebisse neu bauen, die Tests mit festen Listen
+   nachziehen, `pnpm gate`, `pnpm probes`, Zahl der Tiere in der Doku nachziehen.
 
 **Das App-Symbol hängt an der Zeichnung des Krokodils.** `public/favicon.svg` und
 `public/icon-maskable.svg` entstehen in `src/icon.test.ts` aus `creaturePortrait('crocodile', …)`

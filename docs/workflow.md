@@ -138,7 +138,9 @@ fertigen Umbau zu verwerfen.
 
 Die Tierstimmen sind die einzigen Klänge aus Dateien: je Tier ein MP3 unter `public/sounds/voices/`.
 Eine Stimme zu tauschen ist **kein Code** — neue Datei schneiden, Zeile in `QUELLEN.md` ändern. Ein
-**neues** Tier braucht zusätzlich eine Zeile in `CREATURE_VOICE_FILES`.
+**neues** Tier braucht zusätzlich einen Eintrag in `VOICES` (`public/sw.js`); die Zuordnung
+`CREATURE_VOICE_FILES` leitet sich seit dem 14.10.2026 aus dem Katalog ab. Der ganze Weg eines neuen
+Tiers: `docs/neues-tier.md`.
 
 **Was du brauchst:** `ffmpeg` und `ffprobe` im Pfad (`ffmpeg -version`; unter Windows z. B.
 `scoop install ffmpeg`) und Python 3 (nur Standardbibliothek).
@@ -217,10 +219,11 @@ Erwartet: jede Dauer höchstens rund 1,55 s (MP3 hängt wenige Hundertstel an), 
 In `public/sounds/voices/QUELLEN.md` die Zeile der Datei ändern oder ergänzen: Datei · Was ·
 Urheber · Lizenz · Quelle (ausgeschriebene Adresse) · Ausschnitt. Die Datei wird mit ausgeliefert.
 
-**6. Nur bei einem neuen Tier: die Zuordnung**
+**6. Nur bei einem neuen Tier: der Vorrat für den Start ohne Netz**
 
-In `src/infrastructure/audio/creatureVoices.ts` eine Zeile in `CREATURE_VOICE_FILES`
-(`<kennung>: '<kennung>.mp3'`).
+In `public/sw.js` `'<kennung>.mp3'` in `VOICES` eintragen — sonst fällt `offline.test.ts`. Die
+Zuordnung `CREATURE_VOICE_FILES` (`src/infrastructure/audio/creatureVoices.ts`) braucht keine Zeile
+mehr: sie entsteht aus dem Katalog (`<kennung>.mp3`).
 
 **7. Prüfen**
 

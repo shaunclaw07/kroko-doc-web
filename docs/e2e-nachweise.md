@@ -2350,3 +2350,19 @@ Die Reparatur des Prüfskripts gehört in ein eigenes Paket; die Falle steht mit
   Exit 0.
 - Die Plan-Dateien 6–8 und die gemeinsamen Regeln (`00-regeln.md`) sind wieder gelöscht (wie nach den Reviews
   1–3 und 4–5), `docs/plan.md` steht auf dem Hinweistext.
+
+## 15.10.2026 — Anleitung „Ein neues Tier ergänzen“ durchgespielt
+
+`docs/neues-tier.md` ist an einem Probetier geprüft, nicht nur aus der Doku abgeschrieben: in einem
+Wegwerf-Arbeitsbaum (`git worktree`, danach entfernt) ein Katalogeintrag `fox`, eine Kopie von
+`wolf.ts` als Zeichnung und eine Zeile in `ARTWORKS`. Danach `pnpm vitest run`: **9 von 582 Tests
+rot**, Typen und Linter grün. Mit Schritt in `UNLOCK_STEPS`, `VOICES`, Stimmdatei, `QUELLEN.md`-Zeile,
+`KATALOG_NEU=1` und Eintrag in der Liste knapper Trefferflächen blieben **7** — genau die Tests mit
+festen Listen und Zahlen, die die Anleitung in Schritt 7 nennt (`unlocks.test.ts` ×4,
+`albumBadges.test.ts` ×2, `presentation/game/unlocks.test.ts` ×1).
+
+Zwei Funde in der bestehenden Doku, behoben: `docs/workflow.md` verlangte für ein neues Tier noch
+eine Zeile in `CREATURE_VOICE_FILES` — die leitet sich seit Paket 1 aus dem Katalog ab; nötig ist
+stattdessen der Eintrag in `VOICES` (`public/sw.js`). Und `AGENTS.md` nannte ein Feld `upperTeeth`,
+das es im Zeichnungsvertrag (`creatures/types.ts`) nicht gibt. Den Albumsatz in
+`albumBadges.test.ts` („0 von 12 Tieren gespielt · 0 von 36 Sternen“) nannte bisher keine Doku.
