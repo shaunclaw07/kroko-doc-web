@@ -11,6 +11,17 @@ Anlass (12.10.2026): bei allen zehn Tieren lagen die Augen auf dem Zahnring. Je 
 rutschte ein Zahn darunter — beim Panda bis 100 %, beim Hai 82 %, beim Krokodil 49 %. Die Tests
 sahen nichts, weil sie Markup prüfen und keine Deckung.
 
+## Inhalt
+
+- [1. Die Ebenen — wer liegt über wem](#1-die-ebenen--wer-liegt-über-wem)
+- [2. Der Zahnring ist Sperrgebiet für das Gesicht](#2-der-zahnring-ist-sperrgebiet-für-das-gesicht)
+- [3. Augen setzen — erst messen, dann zeichnen](#3-augen-setzen--erst-messen-dann-zeichnen)
+- [4. Prüfen — in dieser Reihenfolge](#4-prüfen--in-dieser-reihenfolge)
+- [5. Danach](#5-danach)
+- [6. Stil in Kürze (die Einzelheiten und Begründungen stehen in Abschnitt 7, „Freundliche Zeichnung")](#6-stil-in-kürze-die-einzelheiten-und-begründungen-stehen-in-abschnitt-7-freundliche-zeichnung)
+- [7. Freundliche Zeichnung (für Kinder)](#7-freundliche-zeichnung-für-kinder)
+- [8. Das geschlossene Maul](#8-das-geschlossene-maul)
+
 ## 1. Die Ebenen — wer liegt über wem
 
 Die Fabrik (`src/presentation/game/creatures/factory.ts`) malt in fester Reihenfolge, das spätere

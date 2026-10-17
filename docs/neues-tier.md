@@ -20,6 +20,20 @@ dorthin:
 
 Die Kennung im Beispiel heißt `fox`. Code und Kennungen englisch, Name, Sätze und Kommentare deutsch.
 
+## Inhalt
+
+- [0. Vorher entscheiden (der Auftraggeber)](#0-vorher-entscheiden-der-auftraggeber)
+- [1. Infos sammeln und belegen](#1-infos-sammeln-und-belegen)
+- [2. Katalogeintrag](#2-katalogeintrag)
+- [3. Zeichnung](#3-zeichnung)
+- [4. Freischaltung](#4-freischaltung)
+- [5. Stimme](#5-stimme)
+- [6. Abgeleitete Dateien neu erzeugen](#6-abgeleitete-dateien-neu-erzeugen)
+- [7. Tests, die bewusst angepasst werden](#7-tests-die-bewusst-angepasst-werden)
+- [8. Prüfen](#8-prüfen)
+- [9. Doku nachziehen](#9-doku-nachziehen)
+- [10. Committen und veröffentlichen](#10-committen-und-veröffentlichen)
+
 ## 0. Vorher entscheiden (der Auftraggeber)
 
 Diese Fragen sind **Entscheidungen**, keine Fakten — sie werden gefragt, nicht geraten

@@ -11,6 +11,23 @@ und sagt bei jedem Schritt, ob er **gefahren** wurde oder nur beschrieben ist.
 `…/s/<code>` klappt alles über das Kinderprofil. Mit der ersten Form `…/?s=<code>` klappte es
 nicht — die Freigabe verschwand wieder.
 
+## Inhalt
+
+- [Regeln in Kürze](#regeln-in-kürze)
+- [Wann man das braucht](#wann-man-das-braucht)
+- [Die Idee](#die-idee)
+- [Voraussetzungen](#voraussetzungen)
+- [Schritt 1 — die Cloudflare-Seite](#schritt-1--die-cloudflare-seite)
+- [Schritt 2 — der Worker](#schritt-2--der-worker)
+- [Schritt 3 — die Seite](#schritt-3--die-seite)
+- [Die Startadresse: Pfad statt Abfrage](#die-startadresse-pfad-statt-abfrage)
+- [Die Fallen, in die wir getreten sind](#die-fallen-in-die-wir-getreten-sind)
+- [Prüfen](#prüfen)
+- [In Betrieb nehmen](#in-betrieb-nehmen)
+- [Grenzen und Kosten](#grenzen-und-kosten)
+- [Sicherheit, ehrlich](#sicherheit-ehrlich)
+- [Abbauen](#abbauen)
+
 ## Regeln in Kürze
 
 - **Anlass:** Das Kinderprofil eines Fire-Tablets verwirft beim Schließen des Browsers alle Daten

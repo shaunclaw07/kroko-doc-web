@@ -3,6 +3,21 @@
 > **Art:** Rezept — Zweck: Befehle, Umgebung, die Rezepte für Stimme und Tier-Satz, der Skript-Katalog und die Git-Regeln.
 > **Verwandt:** [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), [`docs/testing.md`](testing.md), [`docs/fallen.md`](fallen.md)
 
+## Inhalt
+
+- [Befehle](#befehle)
+- [Umgebung](#umgebung)
+- [Zeichnung prüfen (ohne Browser)](#zeichnung-prüfen-ohne-browser)
+- [Doku prüfen (nach jeder Änderung an Doku, Zahlen oder Rezepten)](#doku-prüfen-nach-jeder-änderung-an-doku-zahlen-oder-rezepten)
+- [Vor der Planung: das Sparring (`grill-me`)](#vor-der-planung-das-sparring-grill-me)
+- [Eine Fähigkeit ergänzen](#eine-fähigkeit-ergänzen)
+- [Eine Tierstimme ergänzen oder tauschen](#eine-tierstimme-ergänzen-oder-tauschen)
+- [Einen Tier-Satz ergänzen oder ändern („Wusstest du?")](#einen-tier-satz-ergänzen-oder-ändern-wusstest-du)
+- [Skripte im Baum](#skripte-im-baum)
+- [Die Sicherung der Runden](#die-sicherung-der-runden)
+- [Git](#git)
+- [Fallen](#fallen)
+
 ## Befehle
 
 ```bash
@@ -76,8 +91,9 @@ Innenkanten beider Bänder treffen; das prüft `creatureViews.test.ts`.
 ALT="196|2,29 s|Drei Gebisse|232 Tests|Acht Gebisse|acht Kacheln|vier breite Backenzähne|2,1–2,5 s|2,1–3,0 s|2,5 s|293 Tests|526 Tests|526 in 37|10 Kacheln|zehn Kacheln|neun gemeinfreie|10 sichtbare"
 ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md
 # Regeln, Rezepte und Aufzeichnungen meldend: dort stehen alte Werte absichtlich als Lehre
-ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/tiermodell-anleitung.md docs/workflow.md docs/e2e-nachweise.md
-python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
+ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/tiermodell-anleitung.md docs/workflow.md docs/e2e-nachweise.md docs/nachweise/2026-10.md
+python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md docs/nachweise/*.md
+python3 scripts/doku-inhalt.py --pruefen docs/*.md   # das "## Inhalt" passt zu den H2-Überschriften
 ```
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
@@ -300,6 +316,7 @@ veröffentlichte Seite). Wo `uv` fehlt, tut es
 | `pruefen-zeitgeber.cjs` | stellt den Zeitgeber-Fehler des Gates nach (Mechanismus, nicht Häufigkeit) | `node scripts/pruefen-zeitgeber.cjs` |
 | `doku-pruefen.sh` | Doku: Code-Zäune, Fließtext im Block, alte Werte | Rezept oben unter „Doku prüfen" |
 | `doku-pfade-pruefen.py` | Doku: zeigt jede genannte Pfadangabe auf eine Datei | `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` |
+| `doku-inhalt.py` | Doku: baut das „## Inhalt" aus den H2-Überschriften (Anker wie GitHub) und prüft es | `python3 scripts/doku-inhalt.py --pruefen docs/*.md` · `--schreiben` setzt neu |
 
 ## Die Sicherung der Runden
 
