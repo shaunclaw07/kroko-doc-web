@@ -94,6 +94,7 @@ ALTE_WERTE="$ALT" ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md doc
 ALTE_WERTE="$ALT" bash scripts/doku-pruefen.sh AGENTS.md docs/tiermodell-anleitung.md docs/workflow.md docs/e2e-nachweise.md docs/nachweise/2026-10.md
 python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md docs/nachweise/*.md
 python3 scripts/doku-inhalt.py --pruefen docs/*.md   # das "## Inhalt" passt zu den H2-Überschriften
+python3 scripts/wiki-stand.py                       # Hinweis, kein Fund: Exit 1 heißt "Wiki auffrischen"
 ```
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
@@ -319,6 +320,7 @@ veröffentlichte Seite). Wo `uv` fehlt, tut es
 | `doku-inhalt.py` | Doku: baut das „## Inhalt" aus den H2-Überschriften (Anker wie GitHub) und prüft es | `python3 scripts/doku-inhalt.py --pruefen docs/*.md` · `--schreiben` setzt neu |
 | `wiki-export.sh` | exportiert `openwiki/` als Webseite nach `public/wiki/` (Graph + Leseansicht, ohne externe Abrufe) | `bash scripts/wiki-export.sh` · `--pruefen` prüft nur |
 | `wiki-vendor.mjs` | kopiert die mitgelieferten Bibliotheken nach `public/wiki/vendor/` (läuft als erster Schritt von `pnpm build`) | `node scripts/wiki-vendor.mjs` |
+| `wiki-stand.py` | sagt, ob `openwiki/` gegenüber dem Baum veraltet ist (vier Auslöser, siehe AGENTS.md) | `python3 scripts/wiki-stand.py` · Exit 1 = auffrischen, `--streng` = Schwelle 15 Dateien |
 
 ## Die Sicherung der Runden
 

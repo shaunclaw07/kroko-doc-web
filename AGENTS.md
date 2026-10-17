@@ -174,8 +174,22 @@ OPENWIKI_MODEL_ID=deepseek-flash openwiki --update -l de
 ```
 
 Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Das Wiki ist
-**dauerhaft Teil des Repos** (entschieden am 17.10.2026), aufgefrischt wird es bei **größeren
-Umbauten** — nicht bei jeder Doku-Änderung.
+**dauerhaft Teil des Repos** (entschieden am 17.10.2026). **Wann aufgefrischt wird, ist eine
+Regel, keine Laune** — ein „größerer Umbau" ist genau einer dieser vier Fälle:
+
+| Auslöser | Warum |
+|---|---|
+| `docs/architecture.md`, `docs/domain-model.md` oder `docs/testing.md` geändert | die Architektur- und Testseiten fußen darauf (ihre `sources:`) |
+| ein Ordner unter `src/` kommt dazu oder fällt weg | die Schichtkarte im Wiki stimmt sonst nicht mehr |
+| ein öffentlicher Befehl in `package.json` kommt dazu oder fällt weg | „Befehle" ist eine der belegten Listen |
+| **mehr als 30 Dateien** aus `src/`, `worker/`, `public/sw.js`, `public/sounds/` seit dem letzten Lauf | zu viel Drift für eine Karte |
+
+**Kein** Auslöser: Tippfehler, Formulierungen, Links, neue Nachweise — und alles unter `docs/`
+außer den drei Kerndokus. Prüfen lässt sich das mit
+`python3 scripts/wiki-stand.py` (Exit 1 = auffrischen, `--streng` senkt die Schwelle auf 15
+Dateien). Es liest den dokumentierten Stand aus `openwiki/.last-update.json` und nennt den
+Auslöser im Klartext; ohne vollständige Historie (Flachklon) verweigert es den Vergleich, statt
+zu raten.
 
 **Zu lesen unter drei Adressen:**
 - <https://zahn-agent.schaflabs.com/wiki/> — Graph mit Seitenleser, geht auch am Handy
