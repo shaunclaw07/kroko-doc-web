@@ -317,6 +317,8 @@ veröffentlichte Seite). Wo `uv` fehlt, tut es
 | `doku-pruefen.sh` | Doku: Code-Zäune, Fließtext im Block, alte Werte | Rezept oben unter „Doku prüfen" |
 | `doku-pfade-pruefen.py` | Doku: zeigt jede genannte Pfadangabe auf eine Datei | `python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` |
 | `doku-inhalt.py` | Doku: baut das „## Inhalt" aus den H2-Überschriften (Anker wie GitHub) und prüft es | `python3 scripts/doku-inhalt.py --pruefen docs/*.md` · `--schreiben` setzt neu |
+| `wiki-export.sh` | exportiert `openwiki/` als Webseite nach `public/wiki/` (Graph + Leseansicht, ohne externe Abrufe) | `bash scripts/wiki-export.sh` · `--pruefen` prüft nur |
+| `wiki-vendor.mjs` | kopiert die mitgelieferten Bibliotheken nach `public/wiki/vendor/` (läuft als erster Schritt von `pnpm build`) | `node scripts/wiki-vendor.mjs` |
 
 ## Die Sicherung der Runden
 

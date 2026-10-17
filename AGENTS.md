@@ -170,7 +170,20 @@ OPENWIKI_MODEL_ID=deepseek-flash openwiki --update -l de
 
 Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Das Wiki ist
 **dauerhaft Teil des Repos** (entschieden am 17.10.2026), aufgefrischt wird es bei **größeren
-Umbauten** — nicht bei jeder Doku-Änderung. Eine Seite
+Umbauten** — nicht bei jeder Doku-Änderung.
+
+**Zu lesen unter drei Adressen:**
+- <https://zahn-agent.schaflabs.com/wiki/> — Graph mit Seitenleser, geht auch am Handy
+- `openwiki/quickstart.md` auf GitHub — Markdown direkt gerendert, ohne Werkzeug
+- lokal mit der CLI: `openwiki visualize openwiki --port 4400`
+
+**`public/wiki/` ist der Export für die Webseite** und wird **nicht von Hand** gepflegt:
+`bash scripts/wiki-export.sh` erzeugt es nach jedem Wiki-Update neu. Das Skript ersetzt die
+CDN-Adressen des Visualizers (jsdelivr, Google Fonts) durch die Kopien in
+`scripts/vendor/wiki/` und die Schrift durch den System-Stack — die Seite muss ohne externe
+Abrufe auskommen (Zusage im README). `public/wiki/vendor/` ist die Kopie und steht in
+`.gitignore`; `scripts/wiki-vendor.mjs` legt sie als ersten Schritt von `pnpm build` an.
+Eine Seite
 (`workflows/statistikseite`) trägt noch `openwiki_generated: true` — sie ist auch nach dem
 `--update`-Lauf vom 17.10.2026 code-abgeleitet geblieben; ein weiterer Lauf kann sie anreichern.
 Den CI-Workflow `openwiki-update.yml`, den das Werkzeug selbst anlegt, haben wir bewusst **nicht**

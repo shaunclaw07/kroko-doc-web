@@ -289,6 +289,7 @@ src/presentation/      Verdrahtung der Seiten, Spielsteuerung, Einstellungen, St
 src/pages/             die zwei Astro-Seiten (Spiel, Statistik)
 worker/                Cloudflare-Worker der Sicherung (gehört zu keiner Schicht)
 openwiki/              generiertes Projektgedächtnis (OpenWiki v0.7.2) — kein Regelwerk, Einstieg quickstart.md
+public/wiki/           Export davon für die Webseite (Graph + Leseansicht) — erreichbar unter /wiki/
 public/sounds/voices/  je Lebewesen eine Stimme als MP3, Herkunft und Lizenz in QUELLEN.md
 scripts/               pruefen-alle.py — alle 13 Sonden auf einmal (pnpm probes); sonde.py — ihr Gerüst
                        artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)

@@ -15,3 +15,6 @@ docs/plans/
 
 # Laufzeitzustand eines OpenWiki-Laufs (Checkpoint der laufenden Generierung)
 openwiki/.run.json
+
+# Kopien der Wiki-Bibliotheken: Quelle ist scripts/vendor/wiki/ (scripts/wiki-vendor.mjs kopiert)
+public/wiki/vendor/
