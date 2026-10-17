@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:4037d73dfb375661b60f98c063aafd41b5f9d9263a2f4d6029b257b5b8d3bbaa",
+  "claims": [
+    {
+      "id": "claim_472213af3a3846419ce35b4b4932282f",
+      "statement": "Das Seitenskript von index.astro baut ausschließlich die Adapter (loadSettings nur für die Startstummheit der Ton-Engine, backupCode und requestPersistence) und ruft wireGamePage genau einmal auf; der Rückgabewert wird nicht zugewiesen, und der HttpRemoteLog entsteht nur, wenn die Adresse einen Sicherungscode trägt.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L23-L44",
+          "version": "repo-lines-v1:sha256:afe1812c2d2f60a36e753c1539a7e13edbe1879a1d6cbfa9064a3c17558a6f8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmZWFkYzAzZWFmYTA1YjJjYTQ5NjNjYWM0YWUwYzJlYWQzYjZiMzFmMWVjNTE4ZTNhYzFmMWU1N2Q3NjU1OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0MmQ5YTIyOWNmNWI1MmJhODI5MzA2ODgyMTEzNjc2M2Q0MjUxMTQ5NzdkZTE5YmY0YzliY2E5MWQwMTNlY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0OTM4OWQwNjM0NDQ3NDU4NjI1YmZlMWY3NGRjZGNjNzdmMTRhNGM4MTVjZmYzYjk2NzE3YTA2YjcwNjg0MGQifQ"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L325-L354",
+          "version": "repo-lines-v1:sha256:171535413f175b15fe1bb0cd2298cc13dbaee367b3fb46400e4e976d9f5a3786:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjOWNjZThmNjEzMzkwZDI3NzhmZGVkNWY5YTVlYzE1NTVhYmI0OTAzNzdhNjEwYzE3MTMxZDQzZmU3ZjRiYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmZTM0MWJmODlkYTMyZmQ5MjZlNTRjNGFiY2RiZDhjODUxNjFkM2QyNGM0ZmZiMjY5N2RjYmNlMjEyYjM3ODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyMjYzZTYxYjFjNDViZGVjOWMxZGRlMGY1ODk1MTEwYzA3OGMwNWU0Y2YxZWU0NWEzYWViZGRiOGM4MGM5YWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MmFjYjZiMDMzYTgzNTM0MDZmOTFmOGVhZGQxNDYxNzQwYzg1MWVkZWIxOGFkYjhkZmE0M2Q5MWQ3NWEwYzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_be6413d5e0664350b0017d187e5a030d",
+      "statement": "wireGamePage verdrahtet in fester Reihenfolge: Einstellungen entschärfen und speichern, Store mit saveSettings-Abonnement, logFeed, GameController samt mount, Album, Schnellleiste, storage-/pageshow-Lauscher, Sicherung (nur mit remote), Einstellungsblatt, Dialogknöpfe samt Tipp-daneben, Ton-Freigabe — und gibt { controller, album, quick, feed } zurück, was die Seite ignoriert und nur die Tests nutzen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.test.ts#L172-L184",
+          "version": "repo-lines-v1:sha256:30522adf1c14092e643186b59ad639d11dcf33914659b4159e849c7406ae6156:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViMDdhOWQ5YjIwYjNkZDcyM2UwZjM3MmZjY2Y0ZGRkYmE5MjdjYWYzNmQyZWM3NGZjOGNmMWEyMTQ0NDkyYTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg3ZWZmY2JjNDFmYWRmMjU0MTEwZTZjYjUwMjZlOTNiN2ExYzk4Y2RhOTA1YjUzMTQ3MzFlMmUzNmU3MmE0NGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2NjZkNDU4NWE0MDE2NzAyYmI0MmVhMWRhNmIwYzQ0YzMzMGRlMjI5OTU4MWU4NzJiOWQzODEyOWI2YWI2MjIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L35-L40",
+          "version": "repo-lines-v1:sha256:6f327c16728231767f5f628c7f4f15dbaf14aee34e2bd50076dc624b37499a2c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmQzNmFiNWYyMDZhZTExYzYzOTI4YTVhNWUyYWEzZjZjNTY1YmQ4NDNhZGQ1ZWM3ZmEzZTgzMjVlZGE3MmE3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODk3N2EyZmJlY2NhMjI2MzFmMWNjOGJkZGY1MmVmOGZhNDM0M2VjYjNlODAzMjM4MzFjYmM5YjRkY2YwYTEzOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2Q4MmNjYjdmMjk5MTVlOGUxYzVjMDRmMjQ1OTgzZTkxMmJjMjljZTllYjI0NmE0NDYyM2M4ZTliM2Q4MmJjMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L46-L164",
+          "version": "repo-lines-v1:sha256:4c61afee64615e8434783686dc50e0b8f72887f365e574a45e84e92d380d8109:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2MDEzYTFkYzM2M2Y5OWE3MjBjN2Q4ZjM0OWRjZmY3NjM2MjhmOTIxNDE3YmM5MTUzYWQzOTJjMjI1ZDcwNzcxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5YjdlYzVmZTdmNTY5ODI4NWJkYjIzZTE2ZjA5Yjc1MzJjMjQwZWI5Y2EwOWM1ZDE5NDY0M2JhZTZlYmE2ZmQxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwYmFlNzVmZTFkMTZjNTFlMzliMGFjNmEzNWVkYTc4OGMwNTg4MmZjNzkwN2ZlYWZhNDNhZGFmNmFhMmU4ZWZhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_6e7b83f85e2e4ef68b0ee392c2779825",
+      "statement": "Beim Start fällt ein gespeichertes Tier, das nach dem Stand des Rundenprotokolls gesperrt ist, über settingsWithUnlockedCreature auf DEFAULT_CREATURE_ID (Krokodil) zurück und verliert seine Zahnzahl-Abweichung; nur wenn dabei eine neue Referenz entsteht, wird sofort gespeichert, sonst bleibt der geladene Stand ohne Schreibzugriff.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatureChoice.ts#L29-L38",
+          "version": "repo-lines-v1:sha256:6cc2aa9122a6b8535849d19af5d13c4f851190c9c6973dbf575f98106f471c39:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhOTA5OTQyYTE4Njk4MGU2NDAxMDlmYTc3MGI5ZTZlMzY3ZjFkZWI5ZDYyMWM4YzkzNTQxODk1OWE0OGQ3MDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.test.ts#L192-L210",
+          "version": "repo-lines-v1:sha256:2b250c1ed36bf750c9db9ad349c1b790a1bc6cd6f4c9149eee8d9edd2653d1b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlOWM2MDM0YTBmZWIwOTUwOWE1NGM0MTFjOTVhZGZlNjUzMDAyY2Y2ZDE5MWQ3N2ZhOGM4MzQzZTEzNDJkYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmOWUwNjc1YTMyOWNjMTJmZWRlZmI1ODQ4Y2E4NmVkYTZmMTE2ZDYxMmM3ZWY0OWMwNGQ3MjYxY2RjMDJkNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2MDcwM2MxMTdhOTJhMDFlNzQ3NjgxOTI5Y2U5NDgwNjYxNzY1MDJlN2ExNjUwODBkNDcxODUzYTgxYzBlNjAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L49-L57",
+          "version": "repo-lines-v1:sha256:7554dd8d8506930b5b5701e616652359f471e3ca5ffff7056543e0f53879e525:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM1ZjVjNjMzZGQxZDhiNzkwNzQzZDUwMGY1YWY1YjBjN2VhYjU0NGRiYWY0MDgzMDk2YzYwNjVkYmM0ZWM1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjg4ZWFkYzljOTk3YmJmMjEzOTJkMGE1MWIzZmJjYzkzNjMwNDg0Yjc1YmQxZTA5ZGY3YmU1NjQxZTFkZTg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDUwOTY4N2U3NmQyMmExOGE2M2I1MmY1YjQ1Y2JjNTllOGUyZTI5M2NiMTBhYzJiY2VhOGUwMzE5NjUwOTUxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWNlMjY5NjBmZmNjNTRkZjE4MjczNDEzMTcwZDdhOWZjZWZjYTI3YzRmZGNkMDMzNTJlNDQ0OTE3ZDNmOWJjYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_34b1b3199d8141919686d7bdbda3048d",
+      "statement": "settingsStore ist die eine Quelle der Einstellungen: get() liefert die aktuelle Referenz, set() mit inhaltlich gleichen Werten meldet niemanden, Zuhörer erhalten (next, previous), und jedes set() wird über das Abonnement der Verdrahtung in die Ablage geschrieben — einen zweiten Schreibweg gibt es nicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L56-L57",
+          "version": "repo-lines-v1:sha256:8d20ba1c0f91950b37bd99cfcc6447f0504230eedabd0d69c0fa1152c366a4eb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDZjY2ExNDE4NTAzNTg4ZTc2ZGM0NDg4Nzk1YzE3MDhmNTgzZjY4Y2Q0ZWIzZjg3ZTFlNWFhZGU4ZDJjMDc2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjg4ZWFkYzljOTk3YmJmMjEzOTJkMGE1MWIzZmJjYzkzNjMwNDg0Yjc1YmQxZTA5ZGY3YmU1NjQxZTFkZTg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWIzM2Y1ODE3NmY3NGMzYzg0YTI5OGNlZDJmOTMyYzMzMzdkMzhhZGUzNWJlNzFhOWJhMjJjODUxNjIyZDQ4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWNlMjY5NjBmZmNjNTRkZjE4MjczNDEzMTcwZDdhOWZjZWZjYTI3YzRmZGNkMDMzNTJlNDQ0OTE3ZDNmOWJjYyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsStore.ts#L12-L51",
+          "version": "repo-lines-v1:sha256:1082ec11e5755281da7851d556c8b1e0aefbec0508062ceeb3e8beb2777cafad:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYjk2NTE5NDI2MDFmOWE0Zjg1MDEwZGRmMTI0MTRhMTIwYzAwMWI0OTI3YWU5MjFhZDlhZjZjZDM4MzU3MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdmZTE0ZDY5OTllZGNkN2IwOThkOTk1M2YxZGNkMmIxMTMxMmMxN2FlY2ViMjQ1ZDI5YmEzNTNiYWNkMGI1Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5d0c008ab364460a8857f813c6ad406c",
+      "statement": "Alle Bedienteile lesen den Einstellungs-Stand im Augenblick des Griffs statt einer Kopie vom Seitenstart: das Einstellungsblatt nutzt settings.get() nur zum einmaligen Malen und baut jede Änderung auf dem aktuellen Stand auf, die Schnellleiste malt in einem Store-Abonnement, und der GameController startet bei Änderungen an Modus, Spielerzahl, Tier oder Zahnzahl eine neue Runde (sonst stoppt er nur den Ton).",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L347-L370",
+          "version": "repo-lines-v1:sha256:61a5167436378c4850fff174eabac4ec998543fe34f8cb7cd75b1636f802894f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1N2FkMGUwMGY2MWQ5YWNlZjRlMTYwMmU1ZmJlYjU0ZDA3NTZkYWFlOGMxMjQwNzEzMjYyNjVhNjA4OGRlOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMGVjODJjN2ZjYjY2NGE0ZDNlMDg2ZWY1NzkzMjU0N2M2ZDMxODI4NzZhMzk2NjQyYTk5YjFhZjhlYzMxZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZWVlZGJiNGQyMTU0YjI2ZjE5ODI5NDJkMzU1YjYyNzM2NDFkZmJlM2I3MTdjNTRhMWM2OTYwM2MyZTExNDEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L70-L116",
+          "version": "repo-lines-v1:sha256:673ebcc5fc072eca443791f91039502d60f1543825927b41874514f6debe867a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwNzRkZDVjZTgzYWEyZjQzZGVmZjVmN2M0NzI0ZjAxYjMxZjhhN2E0YzE0ZjYzNWIwZDNmMzc1NzRmYjllODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjNDkyYTAwNzc5YWU3MTA4NzQzMTg2ZTQ4ODE2YmUyYWYwMjY0NzNhOGY2Y2Y1YjkzY2FlOWQ2Mzg3Mzc1MTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxMzJjMWU0ZmExNGFhMzlmNTI4NGVlOTNhZTJhYzI1M2YzMzkxODc4YWU4NTMxZmQ4ZmNmODVmMzgyMmM0ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYjdjN2IwYmQyM2U3OGMyYzFiNzQzMzM1NDg3N2E5YTEwYjU0Njk5MmFlZWY0NzQ5N2EyMTY4NTJmMzc4MzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.ts#L45-L77",
+          "version": "repo-lines-v1:sha256:14e2653bbe226ff775532bb1d4552282d0ca56a0546a70b9a8a7f85c60d073a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwNjFkMDQyYjA5YmJiOWM4MGRiNzNmMDUxMWZiOTgyZDMxODRiM2YxMmY0NzRmYzJlMjc3ZmE5YjBjZDg5ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.ts#L5-L23",
+          "version": "repo-lines-v1:sha256:c3429e4338c2c6ebaf59c7ad077d991bce5eac57be422e50f63b260410ae8ce3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4NjYxODgyNGEyMWQ3NGU1YzJlZjA2ZDNkOWVkOGFjYzY4NWViZTI3NWJkYmQ0MDViMGY5OWE2Yjg3OTkzNDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE0YmU2YjkxMjczNzY1ZTBhMzMyMjQ4ZWE4M2U4OTAxNjhhZWYxOTBmMzU2Y2Y5MjdmYmM3MDE3MmNhMzM5ODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4NmU3ZWJhZmQ2M2Y5OTZhOGY4NzI5ZDBiZWU1MTYwMjk5NDJlMzM1OWQ3N2M3Yjc3MTM1MTQyYzdhZDM2YjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b934d5389a74a6582032d737f7937e8",
+      "statement": "Schnellleiste, Einstellungsblatt und der Knopf der Freischaltungskarte schreiben alle über controller.applySettings, das heißt über settingsStore.set — es gibt keinen Pfad, der den Store umgeht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L368-L370",
+          "version": "repo-lines-v1:sha256:3d9f9c697cc25107fbbde4e49864fdc54f5f44528953f398bc0c518bd0d38fd5:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTkzY2EwNGU0OGQyYzNiNDk4NjIxNDQ2M2Y5ZDMyOWYyZDJlYzJkY2Q5ODhjYzI1M2NlZDlkY2ZhYzI2OTcyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDZlZWVkYmI0ZDIxNTRiMjZmMTk4Mjk0MmQzNTViNjI3MzY0MWRmYmUzYjcxN2M1NGExYzY5NjAzYzJlMTE0MSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L76-L109",
+          "version": "repo-lines-v1:sha256:5a9dce120114594f6a0192fa627c5f2052e9055c7c9ae592ed3c7fef9e346b89:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NDkxOTYyOWIyYTIwMTE3NGZlNjRmZjBjYzc2ZjJjNTMzYjAwNmUxZGZlZTJiOTJhNzI3ZmI1NDUwNTQ2ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmYTFlZmM5ZjBlYmVlZDMxN2NhYzNlNThhMmY1ZmMyYmI1NzJhMzg2ZDc2ZTNkNjFjNWNiOGM2M2Y2MjJjYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwYmM2ZmMyNzY4OTk2OTA5MTI0YTA0ZDU1MzIzMjU2MWIzODljYmUxZTNiNTRmNzk3OGE3ZTA2MDU4OWMyOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2MWEyYjg2MGQ2MDNjZDJhZWJiNGI2MjRjZDYzOTU5YTY1OTRmNTc3MWVjN2UxMDUwOTZmZjA4YmY0ZDYzMTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_84ebf233187649a48f6c9777e16b6d06",
+      "statement": "logFeed ist der einzige Meldungsweg für Protokoll-Änderungen: roundFinished kommt vom roundRecorder nach dem Speichern des Bisses und löst Ansage, Karte, Konfetti und Sicherungsabgleich aus, changedOutside kommt von storage, pageshow mit persisted oder dem Sicherungsabgleich und lässt Album und Steuerung still nachziehen — ein DOM-Ereignis dafür gibt es nicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L222-L242",
+          "version": "repo-lines-v1:sha256:7eed7328cf77c2db56802a3b34a403c69d68f37fad0bef909f643a0145ed85d1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMjhiOWUzOTNjNTA5YjQ5Mjg5ZTMwOTFiNTFmMzljY2M4ZTU5OGFlMzE1NzI5MWU1YjdkNjI4MDhjZmVjZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhZjZjNzMzMDQzNmIwMTU0ZThhYjExOGNkNjYwOWJjOTU2ZWRjNGRlNDNjNmFkMDk3MDJiYWU5ZGNjMWJjMzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L106-L111",
+          "version": "repo-lines-v1:sha256:e7df9c9c8ef45d73dfe03f6c242c061d0620cc9c198e40d05cd928ece87c812b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQwYTAzZmY0NDA0N2Q1NmQwZDQzMTZlNGRmM2VjNmE1OThkZGIzNzFmN2EwYjVmYjgxNjA2Y2MwYWY4ZmI3OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTM2ODA2NWMyNTE1MjJkOWJjZWZjMDE4Y2Q2YThiMDc2YzcwMGQ3ZDViYWJjZTYzOTY2NTE4ZjI1YzQ0Njk4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWI5NTU3ZGU4YzkyYTFlNDJmYzk4MjNjOGIyMTM3OGU1OTJjODdhZWRkOWFmZDc2MDdlNDllNjcyYTE2ODY1NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTgxNmE5NDhmMDUyYTk2ZDRiMjFkZDBiY2ViNzM5ZGNjYWRkYjAxYWM2ZjNiZGNlYWIwZDU2MDVkZDk0MzdmOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/logFeed.ts#L1-L47",
+          "version": "repo-lines-v1:sha256:798a5c684a72197d15bb3f485945a066274d879310b7eb7e1c41732526a7e741:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L30-L57",
+          "version": "repo-lines-v1:sha256:704ca695ef954f3191c870ee3b8560319d7047f4c81d19c775430c0d04fc5e70:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NWZhMGYxMTE3YjVlYTQwNDM0MTQwZGRlMWEzNDBjNzIwZGRiZjMyNjIxMmUxOTE4MzhkNGIxNTZkMzE2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmMzJkYzZhN2RkNzQ2MmYyOTgyNGJlMTczZmMxMjI3NGNiNTNhZTExNWFjZWVhNmYxMDY3NTI2ZjAwYzVkMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYzAxNWQ1ZDY0OTgyYWFhMmQ4OWFjNWVlYWRlNmE5NDU5YmExOTViYzIzMjg4ZTFmYTY4NTk2Y2RjOTA0NDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_618e06064676499fa0b2dc73095478d7",
+      "statement": "Der storage-Lauscher der Spielseite reagiert nur auf event.key === null oder den Schlüssel des Rundenprotokolls; Einstellungen, die ein zweiter Tab schreibt, werden bewusst nicht übernommen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L5-L5",
+          "version": "repo-lines-v1:sha256:aa56f1f0fc0c32164ee8d80f3fd053f51f0361a8a2d675b3f856181f77df831e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWE1NmYxZjBmYzBjMzIxNjRlZThkODBmM2ZkMDUzZjUxZjAzNjFhOGEyZDY3NWIzZjg1NjE4MWY3N2RmODMxZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWE1NmYxZjBmYzBjMzIxNjRlZThkODBmM2ZkMDUzZjUxZjAzNjFhOGEyZDY3NWIzZjg1NjE4MWY3N2RmODMxZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDc2NmQyNTA0OTE1MDhiM2JmZTQyNmQ5ZjJmMjFlNGI4Zjc0ZjE1ZmE1YmU0MzBkMTU5NGJlYjczZjBiYjc5OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWVmNGRhMDQyMmZiNTYyYWRlODlkNGQ2OGNhZTUzY2QzOWEwZDY0MjdmNmJkOGI5Y2JjYjFhYTdjZmU5OTM3OCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L110-L119",
+          "version": "repo-lines-v1:sha256:5b1a1dadc9284244a5779b0304f5b99ff9bf896d657d11757d058b36f74f50f2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjZTBhZjhjNDc0MjVmNzNlZWNhZWYxZTc4ZGZkYjNjYzA5M2M4ODkzMGQ2ZTM5NmZlMTY5YTZjYzdjZWIyNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyYjdkMGUwYjZmNTUxMjI1YTVmY2NmYjY1ZDMwOGMwZGU4MDI1YzRhZTM2MDBlNzA0ZDYyM2E5NTc4OGVjNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExZjk5MTQ5ZjdmN2Y5YjNiYzEyOTAxMDJmOTFjMjRhMmJmZGZiZTA3ZDdmN2E1MzM0ZjY1ZjEyYjczZDZhNjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fdc800785f2849ba90384424d62f6fca",
+      "statement": "Die Sicherung wird nur eingehängt, wenn ein remote-Adapter existiert: sie gleicht beim Start und nach jedem roundFinished ab, reiht Abgleiche hintereinander und meldet eine lokale Änderung als changedOutside — ohne Sicherungscode gibt es keinen einzigen Abruf.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L31-L61",
+          "version": "repo-lines-v1:sha256:eeffb249a6ca46c62f232a52ba26f17df5cbd16f1b831af4c87704576f0aa463:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3NzA3ODRmY2ExYTAzODczNjU3ZjQ3MDU0NWYwMzVmMTljM2M1ZTFkZjhiNzUyMjkwNGIxMDlkMDE0M2IyYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NTNjZmNkMDY3OTI5ZmEwNTNlMGY3MGI4MzMwOTRmNDc3ZmNhOWIxYmE2NjM4NmM1NGU2Y2E3OTkxNDZkYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1OGI5NzMxYjRmZmZjZTUyNDBiNDhlNzkyN2U5Yjg2ODFhZDliNmI4NDBkZTM4ZTk1M2VjN2VkNmVlOGRhMzIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.test.ts#L242-L259",
+          "version": "repo-lines-v1:sha256:3c6937f54ec061041aff5277f59e339a8f772805e9a431308d64066d3414e7bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3NjQwMDhkNTA3ODViZDE3ZDg0NzUyODcwMTE3Mjg4ZTIwZTI4NzQxODI4MWRmZmZjYTMxMDM0OGQyMTIxOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc2MGIyYzJiOGE1ZmM0ZmUwNWY5MzYyNmViMDY1MGNjMzEzYTFkZmJiODI4OGNiYmU1MjRjNjRkYmYwOWY2ZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYjI1NWU2MDNlNTg3Y2MzNTdhMjgyN2FlMTM0ZjdhODU5Y2FmOGE3MWI1ODQ1NGI2NDg5MTNhOTk1NWI2ZTIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L121-L136",
+          "version": "repo-lines-v1:sha256:f3c8da310f2e9fdaa02e1c872e690bc7853fd881dff9082c433b1e1a85a92385:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwODk2N2M2YTIxZmVjN2U4Y2Q2MTBjODA1YmIzYzM0ODc5YmQ4MjA3OGExYmIxZjRmMzZkZjUyNTAzOWY2YzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczZjE1MzkwMTQ3M2RmZTk4NTgwMzJmNzBlOWMxMTYwNmQzZGNhNTViY2M3YjVjOTc4OGUxMTVjMjdlNTM5NTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_44577dad5c414390a3e2c2660999705a",
+      "statement": "Album und Schnellleiste wählen ihre Kacheln über button[data-creature] statt über [data-creature], weil auch die gezeichnete Bühne das Attribut trägt; die DOM-Zugriffe der Verdrahtung sind nachsichtig (getElementById mit ?.), sodass ein ausgeschnittenes Test-DOM die ganze Verdrahtung trägt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L82-L84",
+          "version": "repo-lines-v1:sha256:e2b4d74100417f87a57d6cbaed629542c51e9b511e6fd66b585827de90780fcb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDAwN2JmZGZmYzNmMmVjZWYxNmFjNTRiNGE3ZWZhYzA5MzVkNTc4OTVkMjc5NzVjNDQwMjg1YWE4NDhkMzE4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZThlZjI2M2M0Nzk5YTE2ZjZjZTkyNGYzMDJmNDcyMmQwNjAzNmI3ODkxMDRhMzZmY2Q0YzAxY2Q0YzI5OTI4YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmVhZWIzM2NiNDFlODJkZDZmMDUyYWU2MDk1NzgwMjBjNTVmZjhkY2M2NmQ3YmFkZDIyM2U4ZDMzMzhjOTVkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGIwMzQ2NjNiYWZmYjI1NmI3ZTJkMGVkMDJiMWFjNWNhMjFmZmZkMWU1OWNkZDVmYzdjMDQ4NWU1YWNkNjJjNSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L132-L132",
+          "version": "repo-lines-v1:sha256:ba8d5138ef1d6bebb2a430f082be3389685a96e3c205162045c74a9206ba63c7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmE4ZDUxMzhlZjFkNmJlYmIyYTQzMGYwODJiZTMzODk2ODVhOTZlM2MyMDUxNjIwNDVjNzRhOTIwNmJhNjNjNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmE4ZDUxMzhlZjFkNmJlYmIyYTQzMGYwODJiZTMzODk2ODVhOTZlM2MyMDUxNjIwNDVjNzRhOTIwNmJhNjNjNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjNmNmY4MmUzZDRhYmFjM2E3ZWU4NjdlOGY3MzNjMWRhNmE5YzFmZmI4Mzc1ODI4NzU1ZDYzMmU2MzNhM2RmZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTcwNWMwYzUzNjkyNWQ0N2E3YjRhMDE3NDkwYmZhYzZkZGU4NTk3OGUwOGYzMzVlNWRmZTRlNDg0MzExYmFkYiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L87-L89",
+          "version": "repo-lines-v1:sha256:1647534461a997011c7abb8b9d25a00830a4b18676bf30dfff239534b7b82106:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTdjOTJmZDJlMzlhYWE5ZmYyOGRlNjQ4NWIyNmMyMDMyNDZjODk0OTYyNzI1YzYyNzlhZWQ5YmVkY2VmYzIyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWJlMGZkZGM2ZTVlNGFiYzg2NTZlZTVjMGJjOWQ1NWM0ZjFjZDlhZTdhMjFkYTQ1MWE5NTU5MGExY2Q5MWQ4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDljZDMzYTQ5Y2NjYWNhZDI3ZWYxYjQxYzIyZDYyYzIyOWJjYjc0YzQ3YzI3NzQ5MmRiODM0NWNkZGRiOGEyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWQ4Mjk3YjVhNmQ2MzZjOGQyNmE3ZjY0OTQwZDcxMjkyNzU2NTAyOTRmYTg1YmMzMDc0NjRiMjUyNjBmNDVhOSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L63-L65",
+          "version": "repo-lines-v1:sha256:e2b4d74100417f87a57d6cbaed629542c51e9b511e6fd66b585827de90780fcb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDAwN2JmZGZmYzNmMmVjZWYxNmFjNTRiNGE3ZWZhYzA5MzVkNTc4OTVkMjc5NzVjNDQwMjg1YWE4NDhkMzE4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZThlZjI2M2M0Nzk5YTE2ZjZjZTkyNGYzMDJmNDcyMmQwNjAzNmI3ODkxMDRhMzZmY2Q0YzAxY2Q0YzI5OTI4YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjFiMWJhMzUwODQyNjA0ODkyZWYxZGRmNjU0OTlkMzViOGZlODhhZTU1NTQwYmU3M2Q3N2JlYWFlNjVhYWU0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmNmOGNlMzg5NjUyYTA5NDM2YjEzODU5ODI4YzVkYzdlMTE4OGZkODljYzgyYWM5MGE5NTQ1MGQzMDhkZTdhMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ae9d35e04824e53bb54eb1e51c755a5",
+      "statement": "Blätter öffnen und schließen über sheets.ts: jeder Knopf mit data-close-sheet schließt sein Dialog, ein Tipp daneben schließt in der Einfangphase nur das oberste offene Blatt (Dokumentreihenfolge ist Stapelreihenfolge), und die Schnellleiste schließt das Auswahlblatt nach einem Kachel-Tipp selbst.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L146-L154",
+          "version": "repo-lines-v1:sha256:93d805de8bf28014b4aa4ced838d04525d5e0653410868f24ede7d5cd7fe53f6:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2QyNDhjNDU1MDE1ODdmNGFmMjFmNTgzMDIwNTg5NjM3YTkxYjcxNDZlMDRhZjIwYjY2MWRkOTZlMWVkNDM0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWUxODM5N2IwM2Y3MTI1ZWE3NzM0MzI4Y2I1ZjBmZjkzMjZkYjg1YTAyOWYwMzZmMjY2ZGE5MTdjYzZiMGVhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmEyZjJkMjQwMjE2YmJkZWRiOWZiYzFlYTA1ZmM5Y2QzYTA1MzUzM2VjNjEyNzI2MWYzZjJmNzE2NzRkZWYzYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTRkODgzMjMwNTY2ZGE0NjI5YzVlMTQzNTgyODg4OGI1ODIzMjI1Y2Y2YzJkZmY5MTNhYmYxOTZjNzgyN2Y3YiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L94-L105",
+          "version": "repo-lines-v1:sha256:7c0b786f8ba008ba4be30ddb7559f37ccd183517b9df0b6dc1bde24844d6b800:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhNzQ3Yzk5NGQ0ZWVmOGRkMjFhZGY4ZWI2YWJhZjEzOWZiMGZhNTQwOTdkZWQ5ZjVmNDU1NTA4ZDQ1MDAxZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNDI0OTFhMzkxMjI2YTUzNGJmZjgxYjk0ZDc4ZWUwYzE1OTMwZjE3ZDExNGJhMjc0OTNkZDdjNjk0YjY3M2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3MmRmMGRhYmJlNTgxNDk2NDUwMzJlNzEwMzA0YTUzOGRmOTJiOTEwZDkzYjg0MzcxZDBlMDQwZDMwMTllMzUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/sheets.ts#L46-L98",
+          "version": "repo-lines-v1:sha256:0a618ac34b8ba6c237aea37e57a83cf87b441cedf13c2960edc7c68c00b8dfa0:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNTBmNGRlZjQ1ZWI0MjRiZTVmZmQ3OTYwMmI1NGNhZjU3YTcxNjA4ZWRlM2ZmMjI5ZjRlODQ3ZmZkMTFhZTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2e78ccdf7650461db4aef6c518606955",
+      "statement": "Die Ton-Freigabe hängt an pointerup und keydown des Dokuments und wird bei jeder Geste erneut versucht; pointerup statt pointerdown, weil ein scrollender Finger mit pointercancel endet und keine Freigabe ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.test.ts#L261-L268",
+          "version": "repo-lines-v1:sha256:a9bf3ad5af8ba42f375b3ad00ac8bdc53092ea8784995a38f5489599b9fef964:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZiNzFmMWY2YmY1OWM3ZWQzOTMyNDIyYWY5MTY4OTc5MGZkODBjN2ZmOTZiMDg3ZmFiM2UwMGI5ZTA2ODg3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWFmNGRhYWY2OWUwYzE2ZmFmN2ZiNzU1ODRkMTIzMDRkOTE1MTMzZGFiOThiMjEwYzQ3YjMyYjJhMmExOWUyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmQ2MzM5ZjE5OTNiMTgxYWM0OTIxM2VkOTBlOTNjZWE4NTU0MjI0ZGE5ZDczYWM2NDdiOTgwMDAwZTQ3MzVmNyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L156-L162",
+          "version": "repo-lines-v1:sha256:7de3e8f7ef9d92acfddea921d89acac2124729b5c514f0bf4a28b12448cf8991:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYThlYmY4ZmRmNWMwNDQ0MDQ1NDA3MmUwZjI0ODQ0N2JjMzU0ZjU2YTFkMGQ3MWNmZTU0OTk3ODVkZjBmMWZjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDhiYjc4NDYyNGJiNThjMmZhOThkZWE4YTM1ZTJjNjAzZDdhMmRmZTkxNDkxYzE5ODI0NTk2OTlkZWE2ZDZiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzg4MjFhYTI5YjYxZDc2MDY2N2RhNmVhYzZlMzU0NzZmOWU5OTA3NmFkMjlkYmVmNmFlYzU3YzJhMmU0N2I2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjRhMTAwZWFlMjM1NTkwNzE1ZDg5NTY1ZThmN2VlOGI2YmVjN2U5MGQ0YzBiOWNhNzY1MmQ0MDUwOWNjNjk2MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_553288263c314b1d8a65a2e797894edf",
+      "statement": "Das Seitenskript einer .astro-Seite prüft kein Gate: tsconfig nimmt nur src/**/*.ts auf, jsdom lädt das Skript nicht, und die Tests lesen index.astro nur als Text — der Fehler „settings vor seiner ersten Verwendung“ kam deshalb bis in den Browser, und die Gegenprobe ist die gebaute Seite samt Browser-Sonden.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L58-L62",
+          "version": "repo-lines-v1:sha256:e264600d48c062c4bf535b2167d0cf9181e91380262bf9307dda5a65c21a1cff:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzJlMDNlZmY0NmQ2YmZjNDVkNjAxNDAwZDMzMjlkMjUzZWFhMjhmNzA1NDU0ODA0NWYwMDk2Yjg3N2EyOTNkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQ0NDgzNzdhZGEwZDY2M2FjODU3NDEzNzhiNjYzYWY1NjFmMzg3YzQyMTFmZGUzYjM5ZDE2NmYwMjViMDZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDkwZDg1MzFkMGFmYjEzM2M3NDlkOGVjZTAwN2Q3M2U1OGQ4NDg4ZGU2MTY3NDI5MmVkOTE4NmEwNjAzMjc2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/bedienleiste.test.ts#L1-L14",
+          "version": "repo-lines-v1:sha256:c53de64d60a624c4ac45d0731c978993d5bf81fadcfc884b18bd1417eeb7f8b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxM2ZkNmZhZTNiY2M4ZWY3OWRjN2JkNTdjYjI4MGExNTQxOGZhYWU5ZTYwZWE5NzNlNTljNjQzZjU5MThkZmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4MWIxNDdmMTc3YjMwNTBmMzZmOThiNDU0YTMyMzU2NTIxMTVhOGU1YjlhYTdiYjE3MmZiNzJiZGYzMzc0MmQifQ"
+        },
+        {
+          "resource": "repo://tsconfig.json#L7-L7",
+          "version": "repo-lines-v1:sha256:64faead5088c7b0964914dd1295b5bcdf7f6824c6f31c03889dfbb6d3c7ee3e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRmYWVhZDUwODhjN2IwOTY0OTE0ZGQxMjk1YjViY2RmN2Y2ODI0YzZmMzFjMDM4ODlkZmJiNmQzYzdlZTNlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRmYWVhZDUwODhjN2IwOTY0OTE0ZGQxMjk1YjViY2RmN2Y2ODI0YzZmMzFjMDM4ODlkZmJiNmQzYzdlZTNlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGY1ZWYzZGVmN2Y1OGQxOWZhNjliYjJhYmExOGQ2OTI1NzJmOGYwZjkxYmI0ZTI0ODk2YzhiMjFjMGJjMmFhNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzU1YzgyNzcxYjFiZDI5Mjg4MDYwZjM5YjdmNzc5MzM0M2JjYzJjYTYzMGFkNjJhNTU1YjlkMWJiODU4NTlhZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f3623dba14ed4cc7b21a9ec00514a62f",
+      "statement": "Im Seitenskript steht heute ein Typ-Widerspruch, den kein tsc sieht: browserStorage() liefert StorageLike | null, das Dep-Feld storage verlangt StorageLike — folgenlos nur, weil wireGamePage den Wert ausschließlich an loadSettings und saveSettings weiterreicht, die null ausdrücklich annehmen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L102-L108",
+          "version": "repo-lines-v1:sha256:e9ddaf9e30adf407271339ad46c2854a5aaf18b64660b6fdefd57515cae416e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODRmMGI2ZDY2NzlhNjE4MTA2MDA1NWNmYzhlMzlhNzAwNDE3MGU2NmU4ODcyZTFhZGEwOTI2MTEzNWVmMjdhNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.ts#L18-L18",
+          "version": "repo-lines-v1:sha256:4b81356ee5c13bdc83dd5180c785fe2c1373be66cccf8b030b03d9729735e95e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGI4MTM1NmVlNWMxM2JkYzgzZGQ1MTgwYzc4NWZlMmMxMzczYmU2NmNjY2Y4YjAzMGIwM2Q5NzI5NzM1ZTk1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGI4MTM1NmVlNWMxM2JkYzgzZGQ1MTgwYzc4NWZlMmMxMzczYmU2NmNjY2Y4YjAzMGIwM2Q5NzI5NzM1ZTk1ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI1YTFmZGEzMjJjMDQ1NzMxM2IyN2Y5OTQ2OTY3YTIzMTE5OTg0YTg1OWVkZDk1ZjgxYmUxYjUxN2VmNWUwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTVlYjViOGFjNzM0ODc3NWRlZGE1NjE3NTU4MjAyZDAxZDdjMDA1MTA0ZTA4Njc2YzJjNGI2M2E4YjBlOGJjZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L22-L33",
+          "version": "repo-lines-v1:sha256:4bc5e8c42b908a0a5b79827fd4809cd5370aa801ee2a6b87de5eeabe390d8757:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwZTAxNmE0OWQ4ZDI2ZjQxM2IyNTYyNzlkYjdkMThjNTBhZjk3ZDJkNzdjZWU5NDUwYWNhZGMxZDNhMmRkYjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFhNjFjOGU4NzIzMmJhZjExYjc4MTBiMjNjNjc2ODk1OWViMjRlYjNmN2Q1M2NhMWMxMTQ3ZTBjNjAyZDQ4ZGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMTViY2YzN2MxOWVkZjJlMTgwM2ZhYmM0Yzc3Y2VkMWE3ZDcyOWNkYWY0NTAwZmMxNGViZjI3NDZlOWM0N2YifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L49-L57",
+          "version": "repo-lines-v1:sha256:7554dd8d8506930b5b5701e616652359f471e3ca5ffff7056543e0f53879e525:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM1ZjVjNjMzZGQxZDhiNzkwNzQzZDUwMGY1YWY1YjBjN2VhYjU0NGRiYWY0MDgzMDk2YzYwNjVkYmM0ZWM1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjg4ZWFkYzljOTk3YmJmMjEzOTJkMGE1MWIzZmJjYzkzNjMwNDg0Yjc1YmQxZTA5ZGY3YmU1NjQxZTFkZTg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDUwOTY4N2U3NmQyMmExOGE2M2I1MmY1YjQ1Y2JjNTllOGUyZTI5M2NiMTBhYzJiY2VhOGUwMzE5NjUwOTUxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWNlMjY5NjBmZmNjNTRkZjE4MjczNDEzMTcwZDdhOWZjZWZjYTI3YzRmZGNkMDMzNTJlNDQ0OTE3ZDNmOWJjYyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

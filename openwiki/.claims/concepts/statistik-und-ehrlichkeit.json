@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:46032e6232d6200a529ea3c1828551a3da4c07977291196f0233f109afdb53c6",
+  "claims": [
+    {
+      "id": "claim_3160046ec181424da7ea2de896896ea6",
+      "statement": "`src/core/domain/statistics.ts` ist reine Mathematik über Rundendaten: keine DOM-, Uhr- oder Zustandsabhängigkeit, nur Importe aus der Domain-Schicht (`creature`, `probabilities`, der Typ aus `records`, `teeth`, `tension`); die Schichtregel A8 wird von `src/architecture.test.ts` als Textsuche über die Schichten `domain` und `use-cases` erzwungen.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L115-L132",
+          "version": "repo-lines-v1:sha256:25005ca8270c3761a9946dda9b3f821ba9781d82d65e2bb4b5baaa845fcd427d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YWY4YjcyY2JmZDQ3NTUzY2FiNDY1MmRkZDI5MjVkZWViNTk2YzE3MTgxODYzMjI3ZWJkMDZjNWIwNzI5NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNjMzOTU3ZjFlNDkzZmU1YmZkNmM4ZDc5NmY1Mzg1ZmRjZThjMmM4OWVlMjM2YThlZTg5YzY5MGViYTA3NmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L1-L9",
+          "version": "repo-lines-v1:sha256:0d454a587dc80c74a0e2223f150be5318db9e403c1eff6cafbaec3dbe108fe7e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2E1MGU0YjRkY2U1YjY5OWU3NTJkZDdlYmZkZjNmNWU2MDNiZjRkODY0NmM1MzEzMmEwNmExZWVhNDE1ZTgyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDRhNzU1NGEzY2MxOWMwZDU0YWZhYjJjOTE5ODRkY2UxYzkxNTk1ODBjZWE0ZDY1N2JhZjBhNzg3ODU3MGFiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTI1YmFjYmU1NWNlYjAxNWZiZmIyYThjZTJkYjQ5YmQ5YmY2MDQ5MDdmNTFmNjhmM2U2ODZkYjQxMjBiZTM4NiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L11-L14",
+          "version": "repo-lines-v1:sha256:6b71fb159d753bda78c85b3a18c7cb728258716e12fbf857f026ba967a78b014:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTI4NjIxMDM2MWIxZjY1MWQxOWI2OTIwMzMwYmY5YjQ2MWIxOTE2ZGEyZjk3MjJjYzBkMmQ5MjIzMjhkNjZiYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzEyZTc0OTQ3Nzg0MzI5NGJjYWIwYzBjMDFjYzI5NjJmMGUxYWFjNWIwZGUxMDkzZmJmNWEyYzIzZjY4N2M0OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_13da0b8128244e8ea1b0e44c24d3871d",
+      "statement": "Den p-Wert liefert `chiSquareSurvival(x, df)` als regularisierte obere unvollständige Gammafunktion `Q(df/2, x/2)` mit eigenem Unterbau (`logGamma` als Lanczos-Näherung mit `LANCZOS_G = 607/128`, `gammaSeries`, `gammaContinuedFraction`, `gammaUpper`), weil `Math.lgamma` in Node 26 fehlt; `df <= 0` oder `x < 0` ergibt `NaN`, `x = 0` ergibt genau `1`.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L1626-L1626",
+          "version": "repo-lines-v1:sha256:7d6cbfbf741ccf191c797db904cfb94c3de1710934a564c0883655fb5fd60a51:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2Q2Y2JmYmY3NDFjY2YxOTFjNzk3ZGI5MDRjZmI5NGMzZGUxNzEwOTM0YTU2NGMwODgzNjU1ZmI1ZmQ2MGE1MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2Q2Y2JmYmY3NDFjY2YxOTFjNzk3ZGI5MDRjZmI5NGMzZGUxNzEwOTM0YTU2NGMwODgzNjU1ZmI1ZmQ2MGE1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2EyZmQ1ZWY5M2RiMTVlOGU1NTU1MDA2MWU4NGE5YWNmYTljN2UyNDQzYzZhMDViYWY1MjY1OTE5ZTg4YzJjZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTRjNjY4OWRmMzc1NjQ4NzY2Y2Q2NTM3NWVjMmE2MTRkZGIzZjkzOWJiMDJiODAzYTI4YjZlZGJiODM3MTkzNiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L30-L53",
+          "version": "repo-lines-v1:sha256:c48857d83fe4d9141a9f2a701b62953e3aab285e1b915a9240520df20b7c5f84:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhOWY0N2U2ZWRiMWNlNTNiM2YxZWY2MDA4MzE1YzJhN2M5NDNiYjM4MmVhZDcxNjg5YjgxNTlkYmM2NjNjMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjOTQ3MmE5ZWViZmM2NDYxNjgyYzA1NmZlZmM0ZTI4ODZlMmFjOTRmYTU5MDcxODEzMTBkNmY1ZDI0MDc4NDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUwMmUwZDJkZGZkYjQyNzdkMWJjYmYxMzU2MzRmZTUzYzkyYjY1Njc0ZjUwMjhjOTc4ODFmODgxODc1ZWY3OGEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L66-L152",
+          "version": "repo-lines-v1:sha256:c17b6613a05b27b893158b5f1e782976aaf14c31675ae03af177958507a78233:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwNjg5YTM2YzJhNzEzNTc5MzNjM2YxYTljNDc5YjBmZjhkODNmN2EyNzE2MGJmOTkwNjRhNDJiNGExNzE2MmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZGJlNTM3ZTliYWJkOTI4MjljNGFiM2UwOGU1Yjc1NTg4MTBlMzUxZDg5NmFjODQ0YjZkZGI2ZDYyNGRlN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhNjY2OWRjZDQ4MjZkNzAzZmU4ZDUwYmNhYTI1ZWQ5MjYxMTY2Mzg1NGJiNGE1ZTAwNzcwYzMwYmM4ODQ2N2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bd7a0e0030e44b75b42f20f430ef6147",
+      "statement": "`chiSquareGoodnessOfFit` bildet Erwartungen aus `'uniform'` oder einem Wahrscheinlichkeitsvektor (mit der Summe multipliziert), setzt `df = Zellen − 1` ohne Freiheitsgrad-Korrektur und `significant = pValue < 0.05`; es antwortet `null` bei weniger als zwei Zellen, Summe `<= 0`, abweichender Vektorlänge oder einer Erwartung `<= 0`.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L55-L100",
+          "version": "repo-lines-v1:sha256:caa56a428c6cf25843a22bd4a03539002ae79a75fa3603deb4cc5e1606318f3d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0YmY1MTE2ZDU1YjRlNDUzYjEwMDM3M2U4MWVmODY2MzUyNWNhNzgzZDNhNWVjNWQ4MzNiZGRlNTQ1ZjMwNmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiMDZlNGJiYmE2MThhOGY0Mzg2Y2M2YmE1MDEwNDVjZWY2YmM5YmRkNDQ2OGY2NjBkYjQ4ZGFhN2QzZTIxY2QifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L154-L193",
+          "version": "repo-lines-v1:sha256:1ef6bfd797b0f6e8f5dd0b57fe17030a79231a1fcea3a19ebc811165b644b65d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjZmM1MTA1ZTI3N2E2OTMwNjAyNGZjN2MzZmVlZTYxNjllYmFlYmFiMjQzMWRiYTBjYzBhNDM0MmRlNDNmZmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkM2M0NDhlMDIwYTFiMWZmNmJhNzA0ZmVkMDJhZjM4ZDhmN2M1YzFkMjk5NTMwOGM4YzEyNjUxNmZkNTY3NWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e48a98d3164946d5957214ad2253656c",
+      "statement": "`wilsonInterval(successes, trials, z = 1.96)` liefert Anteil und auf `[0, 1]` geklemmten 95-%-Bereich (bei `trials <= 0` alles `0`) und ist gegen ein Referenzintervall geprüft; die Statistikseite rendert jedoch kein Markup dafür — der Baustein ist vorhanden, aber nicht verdrahtet.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L102-L116",
+          "version": "repo-lines-v1:sha256:1d33b93dde9bf9f63c0341c88f202b8c821c00ed7e932fcf8594d062d28775ce:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYjU1MjBmNDg5ZTIxM2Y1YmNjOGEyMmYzNzg5ZTE3MzI2ZGM3YWFhYTc2Mzg5NTAxYWFiM2Q5Yzk3ZTE1NjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkZWY5OTIwZDQ1Yzg5YWFiNjFiNTdhNDlmZWI1NjJmZTFhODFjNDQxZTUyNjFmNjRjNjIyMTk5NzdlNjRkMjMifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L195-L215",
+          "version": "repo-lines-v1:sha256:d0540e7c8b2c0c74829bcdb8e983011ecc260e81e13eb478618cfe7514334895:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2ZTJmNDU1YThlYzAzZWJlMTQ2ZDNhMDFiMmMxNGI5MGRjYzZjNDM0OGYwYzA0YmZkYjM5Mjc4YjcyNmM0NTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkYTE2NTZmMDE1N2IzNjNjYzU5MWQxMzE0MTgxNmU0YmI5ODVlYjQ0MjU0MjJmNWUxZmJhMGY5ZjM5Mjk3NTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZmYjJhNDc1NzVjODQ1OTIzNmI5ZTU5YzVlYjM0OTMxMGJlYmY4MWViOTJhMjIwZWY2NTY2NzJjZTNlNjdkYjIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L100-L140",
+          "version": "repo-lines-v1:sha256:6181935d5b8688288e2eefe504061d00a8cb554d58d18b72b3058f695a4dc816:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2NDQ5MzJkYzE4Y2ZlOTRkYzc0OWNmMzg0ZDEwZGQwYjEyOTExZWNhNmViNDA2N2RjMjY3ZjY2MTkxOGQwNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxOWE0Nzg2MDhhN2JjZDI3MTlmOTMyN2Q0Yjc0NmMwZDM0ODc4MDEzMjE3Y2M5OTcyZWJiYjBiZmI0ZDVlZDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_46dec654ac4a423fa2879e8cfe8d5240",
+      "statement": "`autocorrelation(series, lag)` liefert `null` bei zu kurzer Reihe (`n <= lag + 2`), ungültigem Lag oder konstanter Reihe; `analyseSession` prüft sechs Versätze gleichzeitig und markiert einen Wert als `remarkable`, wenn sein Betrag über `2.64 / √n` liegt — der Bonferroni-Schwelle, damit bei fairen Daten nicht rund jede vierte Auswertung allein durch die Mehrfachprüfung anschlägt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L217-L236",
+          "version": "repo-lines-v1:sha256:94865f75209d67e6a5e7508e229dc4e298c4ae7dca2a82991ee6e2ea9d3bbb5b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlMWE2MThiODM0YTMwZTY0MTE3Y2VjZWUzZjNhMTYyYjUyOTYyM2M4ZGU2YWVlMTU3MzdjYzY3MmE3ODUyNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3YjUzOGZhN2ZkYmRmMzQ5MjJhOGYxMWU4NzI5ZGU3OWE3YTgwZTM4NjM1ZGZjYWNkMTFjM2RiYWFkNzhlYmIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L302-L351",
+          "version": "repo-lines-v1:sha256:5a4eb4aa4ca8303edd0f71fc82e7790a3d0224359e78dc1eb05167e4285a0a75:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmOGQ3NTEzOTlhMmY1NzkwODgxMDc0YjY1YmI1ZTFiYzExN2NhYmY2ZWE4OTY3MDMxNzRmYmZiMThjZWVhMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMzUwNTQ5ODkwZTUyYjZkNDYyNjIyOGFiZjNmMmIwYzAxMTIyZWMyNDZkZGRlMjgwNjlmZjIzMTkxNGIzZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhYjM3ZDJmNDIzYjU2MmU3MzJjYTkzM2Y4YjY3Yzg5ODg1NmFlYWNlM2I1YzgzZjI5NzAyYjNmNjM2NGE3OGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliNWZiNDgyYjg0OWIyODlkMzk5YzVjNTJjOTUyYzZiZTEyZjA0MGQ2ZTUyZWI4NWZhYmQ2ZDljNzQxOGZiOTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dd385ee3380e42af91cf59e63b1eba02",
+      "statement": "`groupRounds` teilt ein Protokoll nach dem Schlüssel `Tier|Zahnzahl|Modus`, gibt die größte Gruppe zuerst aus (stabiler Sort, bei Gleichstand die zuerst gespielte) und zählt fehlende oder unbekannte Lebewesen über `creatureOrDefault` zum Krokodil; ohne diese Trennung schlagen beide Tests auf fairen Daten an (300 gemischte faire Runden: Zahn-Test p = 6e-13, Modell-Test p = 1e-5), während 360 faire Runden je Gruppe unauffällig bleiben — inklusive Mustersuche.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L227-L230",
+          "version": "repo-lines-v1:sha256:daea6b7c5a8442ff8a93ca69c72efe0269596f148d87ae6020afeedb4560f104:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzk3NjRlOWUxZjQ2YTY5YmZkNTJiNmViZjQ3MDk1MjdjNzU4MTczMDIzYzkxY2ExMjZkZmFkZmM5Mzc0NjNlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTllNmE5ODMxZDRkNTg1OTQxMTQwZGRiOTIxZmQ5ZmFhMWM0OTQ1M2I2MzAyZDY0MTI2MTJjMjY0NWZlN2FmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjM3ZTU0MTA4OTc4ZmQwMzgwZTdjNmJmMzFhY2RmZDQ5OTFiYzY0ODk2MjIyMGVjYWZiZTY5YzM4ZDcxYTE0MCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L259-L321",
+          "version": "repo-lines-v1:sha256:a56ff7f3bafc0fca3936dec014b2dba9eb7c095cafb44aeade4c78ebe2f7c6a4:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3MDAwMzQxNTg2NjE0ZTQzZGZiNzIwOWQ2NWM4YjU4M2FjMTNmMjkxMjAxY2Y2NGE4NTIxNzIzNGE2ZjZhMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzNDVlMmZkYjAxZDBiZThkMGJjNWM0Njc0NGE1OTVkY2RkMGZmYTIyNTY4MzFjMTI1MzlkN2IxYzI5NzQ4OTIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L250-L281",
+          "version": "repo-lines-v1:sha256:d3008bf2901b03884f6d190a286b92707ff58d834f5ad4cb79ca9b6f8e577a8f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NDFmYjEzZWQ0NmMxZTMwMWE3NWNmZGYyYWIzOGZiNWUzZTU3YjkzOGIzMTA1NTAwMGM4MjYyM2IyYzIxZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmMDJlYTM2ZjBmNDg3Njg5MGI4ZmRiNzU5MDk4Y2QxZTkzYjFiNTliZmUxZmQ5YWI2ZGQwOGU2M2I4MDMxNDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMTY5YjU0NGM5NjU1ZWQ3ZjgyODBhYTUwMDc1NWI1OGI1ZmYzZWQwYWRiOTRlNzRmOGMyOTY2ZTkwMzM5ZjcifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L258-L264",
+          "version": "repo-lines-v1:sha256:92301a12787eacd5c7df43e240cf4f2fddd1892643cb1b7e8bfade348294068f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTM3MTc5ZjBkOGFjNzA0MDZmNmMwMDU4NmM2ZDA0NWVmZWUwOGVlOWZmZmVmOGNlOTAzODNkZGQwZjg5NzNiZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTM0MWJlOTRlMGQ2ZmEwMjRhY2RhZjBmYmI4ODQ0N2MxNjEzODVhMGZiNWY1OGE1YWM0MjY0ZGE1NjRhMzM5NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_70b024db3a9a4c6fa5e1d0585b520240",
+      "statement": "`analyseSession` leitet Tier und Modus aus der ersten Runde und die Zahnzahl als Maximum ab, zählt Verliererzahn und Druckposition über `countBy` in die Domäne `1..teeth` und baut `model` aus `pressPositionDistribution(teeth, creatureKWeights(creature, mode, teeth))`; derselbe `model`-Vektor ist die Verteilung, gegen die `modelTest` prüft und die die Anzeige als Modellbalken beschriftet (Wolf 5,42 statt 4,69) — die Gruppierung ist Pflicht des Aufrufers, `analyseSession` prüft die Passung der Runden nicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L323-L330",
+          "version": "repo-lines-v1:sha256:b3e130a2a7e96362f4ec57d97cb44c05fb376501d5cb24c76602ac1e1821cf8f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWYxYzdhMGQxYjkwZTNjZTA0ODcwYjZmMzA0YTQzZDY3OWM2OWEzZjMwZmM2MGFkNDM3MmI5ZTI5MTU4NmI0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQxZjFkZmFlMmU1NTFmMzFmMjFlMDg2YmYyN2IyNDY3Zjg4MzRkMWQyOWRhNDg3YjljODNlOGY0NGJlZjA2MyJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L238-L248",
+          "version": "repo-lines-v1:sha256:c8b34367504292800bae1ae09425cc49e26b218e5d0b2f79b8426a15e6b00120:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMWMzOTgwMzlkMTQ1MzY1NjM4ZjBlNTFiN2RkZWFlMGQ1Zjc4MDYyMTA2NDJjNDVmMDYxMjc0MWM4MGNlYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2MTNlYWVkZjUwNTVjMjYwNTljYWY0ZjgxNmJjZGU3MmIxYmQxNzlkZmI5YmQxOTFiNmYzNWRjOTBlNGVkNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJlMzU0Njc5Nzc1OTRjMmFlOTI5NjA4YzRkZGU2NTM5MDI4YmFlNDdkMWEzNjFmOGE4MGIwMTYzYTMyNTBhMDIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L283-L381",
+          "version": "repo-lines-v1:sha256:939d7296dbb5b7f9759a477147610b81be94e0642653a2bda462df3193ea47b4:eyJzZWxlY3RlZExpbmVDb3VudCI6OTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0ZThiOGM0ZGI0OTZjNGM2ZjQxZGNlZTg0MTlmNGY4OTk2NGY4MDM5YWY4YTVjYjZmYTIyODIzNjBlZjk4YzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk0YzQxNTNlODJlYjY4YTFjNGQzODFkZGJkM2RjNmEwMDBhNjQ1ZmY1OTc0NDAxNjI0Zjk5OTBjMDc5ZjQ2NDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwYzNjMWE1ZWVhZmVlMzdhMmNhOGYzMzQ3YTc1N2RjNTlkZWQ0ZjBkODgyMzUyNGFiMDM4MDgyNzBlMjA3YjUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L100-L127",
+          "version": "repo-lines-v1:sha256:39e4d9b88ec1fd66bef4b2ae9c151b6b6ed9e8fcde7fb20b3df0d72a598a5e66:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyODYxZTFjZTcyZjJmMDY4ZmE4ZDhjMjljMmJmYjEzYmQ5ODI3NDc0Y2UxZDRjMjY0MWJmYWYzNmNhODcyYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2NDQ5MzJkYzE4Y2ZlOTRkYzc0OWNmMzg0ZDEwZGQwYjEyOTExZWNhNmViNDA2N2RjMjY3ZjY2MTkxOGQwNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyZmY0ZGQyYzMzMWRhYWZmMGU1ODIwNDhkOWQwNWQ0NDNjZDg2NDBlZjQ2ODcwOGQ5NWZiMjY4MjEyNzhhZDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8a1bfbe6976343faa88f54cc19a036c8",
+      "statement": "Von den drei Chi²-Tests läuft `toothTest` gegen die Gleichverteilung der Verlierer-Zähne und `modelTest` gegen das Zugmodell, `pressIndexTest` dagegen nur im Modus `classic`: im Originalmodell ist die Druckposition absichtlich nicht gleichverteilt, ein Gleichverteilungstest wäre dort auf fairen Daten immer auffällig — deshalb fehlt die Zeile in der Anzeige ganz und `verdict` schweigt dazu.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L332-L336",
+          "version": "repo-lines-v1:sha256:8ed44f28b4ec779cc7609b03b663c013f6a85228307b04beacc3d64caba66bc1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTEwOWEzMTU4Y2I3ZWZmODk2MzExNWI1YTlmMzI0Y2ZkNTM5NmE5MzQ2ZWRkYWQ5MGNhMGFiNWUwMTU5MTkyMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzkyNjYyMGE5NTM3NDVmNzkyM2Y4MDk5OTQwNWU1YzU5ZGRiZmVjOTI5NWZkYzBkMzc2NjI5YWE0MjUyOTNmMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTI0NzNjNTUxMzIyYjg3ZTExNmYyZWJhOGIxMjM1ZjgxYTg4ODRkMWU4YmIwZjBkM2VhNGY0ODI0NWRmOTk0ZSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L338-L343",
+          "version": "repo-lines-v1:sha256:bfd03bcb0c4392d5e53e38fa8449c8d7ad58d95c3904378712acbaa257847372:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjc5ZTM0MTkwNjE0ZWU3YWQ5Njg1MGJlOTExMTU4NTJiNmRjYmE3ZTIyNjYyMzNkNzZhYjgxYzYwODdhZDcyOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQ5MjVhODQ0OGY4NjliZWY2YjE4Y2I0YTBmNzZhNjk0M2ZhMmQwYzI4NDY1M2Q2NmZkNjBkYWFhNGU2MzgwMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE4ODE4NjI0ZThkZGFhOTQwMjljZjVhMzc2NzBhNGVkZWYwYWZhMmYxZmNiNmJlZDkyODVjNTU4YTk1ZmExYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2Y5MDA1YWZlMDU3YjdmYTI2ZTAyYmUxNWI5N2IyYzA3NDk1N2I0OGY4MzIxMmU2YThiY2YzZDEwYWJhYThhNSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L128-L134",
+          "version": "repo-lines-v1:sha256:255abb10deaddf1bb3d17f8ea6dd734b624296a668c31abc59c1f01cdd5047c3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M4OWQxNzY2NGEzY2VlZDFhOTUxMTM5NGYzNGRhZmViNDA0MDA4ZDAxYTQ4ODU3NTdlMTUxNWJkN2QwZmFmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNmNjA5MTAxNWZjZDhhZjUxNDY4MTJhZDg2ZDk0YzVlMzAxN2RhZjYzNWFjMDU5Y2QxMzZiNTJmM2QyMTBlZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTQ2YzY3NmJiMjM0YmJhYTQ3YjIzZjZjNjJhMmZkNmFmNGE5YzllZDZlNWY4YjhiY2RlMDU0YTQ4ZWYyZTI3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTBiMWQ2MjA3MDk4ZWFjMDg5N2NjNjRkMzI2NDM3NGQ4OWMyNzFiNGZiODkyNzc1OTM3MjJjZjQ1NmUwMmFmNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d2e77576f6034b15b35da0c716cfd011",
+      "statement": "Die Mindeststichprobe hat zwei Adressen: `DEFAULT_MIN_SAMPLE = 30` als Vorgabe des Kerns und `MIN_SAMPLE_FOR_VERDICT = 100`, das die Statistikseite an `analyseSession` und `verdict` übergibt; darunter werden alle drei Chi²-Tests `null`, `autocorrelations` ist eine leere Liste, und das Fazit besteht nur aus dem „Noch zu wenig Daten“-Satz, während Zählungen, Modell, Kennzahlen und `mostLikelyTooth` samt Kachel bestehen bleiben.",
+      "evidence": [
+        {
+          "resource": "repo://docs/domain-model.md#L44-L49",
+          "version": "repo-lines-v1:sha256:e25a590d322ea0cc97ed3454e4443005316e985a6cc864f1ee82746500cbe5b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzViNGE3NzQ4N2NkMWRlOWFjZGRiZWQ2Yjc0ZGNlMDk1NzM1MzgxN2UwOThlNGMzZWEzM2JhOTIzNDAwNzZiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmQ2ZjhmZGViMzM3NDI0NjkxZTlmMTlkMDMzNmVhMDBjMGVjM2FmM2UxZDlhYzUzNDljODgxZmJlNmJmNjM5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdlMThhMjhhZTViYTg3YTlmNjNlZjgxYzgwMjZlYTFjMzlhYWUwZjNhYzIxZDU0MTk0MDA0YjdmYjFmZDMzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjE2NmI2NWExMWVlMTRhMjE1NzhlNDAwNDRmNzJjMGFlOTI5OWQxMTAzNTlkNTE0NTJkZjE5ZTI3Mjc5ZTNkMiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L324-L351",
+          "version": "repo-lines-v1:sha256:dd280ed49ee1ed71c7eedeba082a9a9b1e36ef9a60e29bd8df1cd4961e1ea41d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlZTRhZTkzOTU2ZDJlNWVkZjM3YmIxZmM1OTg3ZjFlMmQ5NDE0YTI5NGVjODY2YjQ0YTU4MjViNTJhYmYzOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMzUwNTQ5ODkwZTUyYjZkNDYyNjIyOGFiZjNmMmIwYzAxMTIyZWMyNDZkZGRlMjgwNjlmZjIzMTkxNGIzZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViMTZlNWZmYTEyNzg2NDgwN2EzZGY4ZThmMDkwOWVlZmJmOGM4ZjE3Y2QwM2UwZmNlNGQ5YTJmOGFhYmFjYTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliNWZiNDgyYjg0OWIyODlkMzk5YzVjNTJjOTUyYzZiZTEyZjA0MGQ2ZTUyZWI4NWZhYmQ2ZDljNzQxOGZiOTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L388-L392",
+          "version": "repo-lines-v1:sha256:fe407065398407753d53a687dd0c62dc4e20d04c58e630f284edaa92e72a2f41:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2I5YzA5NzQyYWIzYzIzMTIzMDVhOGRmOWI2ZGY0ZWVmNDVjNWVlYzNlY2FiODc0Y2JkOTg4Njk5N2Y3ZWYxOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWVjNTEyMjYwZTI3ZmFlMjc3ODQzMmZjMWZhNzE0NjhiYTdhZDBjZjM1MjZiNTNmOTg5MmJkMjFjNDhmZjkzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTJhYmU4OTNkODcwYmRlNmQ1ODllMjFmZDk3OGU3NWM1NDY0NWM4ZWUxM2UzYTFkY2M2ZjZhZGE1YmY3NDMyNCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L57-L58",
+          "version": "repo-lines-v1:sha256:ffdab7d288c54e11fb4f051d3bc354cfbc8821207a8456851cbaa500035e4812:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRlNWJiNTcyZGZlZjkzNGZhNzZiNjY1NTdjZTdkMzE1NTI4OWRiMjlhMmE5MThjNmMxN2NjOGJlZDdjNDk4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzJiMzg2ZmUyNGU4ZDMzYzFmZDBhY2YyZWRiNGFlZWRhYzcyMjAwMmRhNjY3NmU5MjU2ODU4ZGZjZTRjNjU3MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk4MmU1YzhkYzc5YjA0NzgwNDA4NDg3OGJlZTI0MGFlNzI1YmU2NDhhZTU5MTEzMDBmOWFmNTNjNzM2ZGFmYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDc2ZGQyM2Q0ZmQ1ZTg1MDRlMTJmZmY3MzI3MWE2ZWU2NTI3Y2Y1ZWViYzAxN2QyNDRiNTAxYzAyMzU5MTQ0MyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L105-L124",
+          "version": "repo-lines-v1:sha256:fd83048d4e80d7eebc0ec3ed633e13ad2973d04f1657af872ca3630d4a1b0fb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjZWRjZThmMjkxYTNmMjhlN2UyMmUwNGQ1NzE0M2Q4YTA1NWRiMDAwYTJhMmQyNWU5YzE5NDNjNmY5YjUwMTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0MjAzZmExNzg0MTEwMjljOGRjOTVhZTEzZGNiNmFmMzUxODE0MWRiNzVlMjkyZTdlZTUxMDM1ZjA5YjM5MjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM4NjY4ZDU2ZTI0ZGMzOTYwYjQzYTQwOTQ0YzViODBlMWY4ZjlhOGFjZDkyYTY0NjkzMTU4OGIyODBhNDY0MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0NmM2NzZiYjIzNGJiYWE0N2IyM2Y2YzYyYTJmZDZhZjRhOWM5ZWQ2ZTVmOGI4YmNkZTA1NGE0OGVmMmUyNzgifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L15-L16",
+          "version": "repo-lines-v1:sha256:694214f210586c77cd312f5d63d6ba86a5bbb7808b8a1402f443fb6b59c685a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjFiNjdhYWQxY2MxN2IzYTJhZmQ1YWIxNGNhNDY2NjAxZWYzYmI5NWNiOGM1ZDNhNGM4MTg0YzAzMDNhZGE2MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWU2MThkMmM3OGFjOTg0ZGY1Y2I4NGZhNGI5ODk3NmRkY2I0Zjk2MjQ3YTExN2I2MzkyN2Y2ZmE0MTNkMGUyNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjU2NTk2Y2RjMGU1YTNiNTJlNGZkOWZmMGRkMzJhZmExNmQ3ZWFlZjU0MzVmZTM4YjQ4NDA0OTNiNTg0ZTUzZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmYwZTYwZjMzNDA4N2EzNmY3NmM5ODRjNDMwOTJmNjcwZDE0MzE1MmU5ODViN2JhYzQ1Y2MyODAyZDJhYjBiMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_de4e5721451e4787ba57716341f1685a",
+      "statement": "„Nicht prüfbar“ und „zu wenig Daten“ sind getrennte Zustände: `testTag(result, enough)` etikettiert ein fehlendes Ergebnis je nach Stichprobengröße, und `verdict` hat für jeden `null`-Test einen eigenen Satz („lässt sich bei diesem Gebiss nicht prüfen“), sodass „passt zu den Daten“ oder „vereinbar“ nur nach einer wirklich gelaufenen Prüfung dasteht — erzwungen durch den Test mit 100 Runden und einem einzigen Zahn.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L343-L352",
+          "version": "repo-lines-v1:sha256:f66a7a08d0de248717678d5a522eed72d57a91b6b7106e842c56774b9c01b696:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlMzc5OGI5NDNmYmEzZTMzYTk0ZjI2OGQwZDhiYmQ3N2JhN2I5YzVjZTY4MmI1YjRmMWY3YWQ1NjYxODViYjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxZGMwZjExMjljYWYzN2RmMDczYzg5YmJiNjc2ZmJlMTc0NjM1ZWViMzk1ZGIzNTQxM2EyNmI2OTE2NWZjOTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiZDc5MGYxODBhZTc5YjdhMDE2Mjk5ZDZlODM3N2YxMmM2ZjU0ZWMxOTI5ZDEyYWJkMzgwYWM5YTU3Y2E3OTIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L383-L427",
+          "version": "repo-lines-v1:sha256:6227513ce06935fd5682a9f9fa5d2f0959ae90a3dd8fd0d86570ca69676494f6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZWYwMWJjMDhkYmMzYjYzZTRlNzVlYTNkMjZhNWI5NDE4OTE4NzdlMjdhZDg5MTMyOWM4NDExZDdkOGRjNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcxNDhiZmYzODIwMTUwNzNkMzY2NjNkY2RhMDU4MmRhNTAyMTE1NWQ5ZDk1ZDJmZmJiMTRlYWJiNzI1ZDBhYTAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L242-L254",
+          "version": "repo-lines-v1:sha256:2e20548adcbfe5dd8d7aee1ede81358e8ac7d59ada8d55283d1f4d07d94aa2f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2MjI4YjdiNjVkNGUwMmQ1ZTA1ZDQ5YTYyNWNjZTA5MDk4MDY1ZWJmNDk3NTBkZDkzMGJhMWQ5Yzk4ZmVhMDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L26-L36",
+          "version": "repo-lines-v1:sha256:8b6d23d2ad3593fa728d0310305e4ff3536b29273e99a8186a17580c81895531:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmNWZhNjkxY2EwOGQ3MGY4NTA5ZDI2MTBmZTI4ZTFkZTRhMTBlMTRjNzQ2NGZlZmM4ODNmNTRjNTZlOGI5ZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlMGJiN2ZhZTY3OWViOGE4MWI5MGY4MmNmZDIzYjYyMjhlZGMxYTA5N2Y3ZDc0YTM0MTYyY2YyZjUyNTc0NWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxMTg4MmM0NzQ5OTVmMDhhODk3MTlkODY0MmQzM2VmMDhjMmI2MWVhNzg3ZjZkZTNjNzM2NjkzMzliZjk3ZTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6fbfd3b8f3624af084787089bb7df719",
+      "statement": "Das Mustersuche-Fazit unterscheidet drei Lagen: sind alle sechs Werte `null`, sagt es „Eine Mustersuche ist bei diesen Daten nicht möglich.“; gibt es einen auffälligen Wert, ist „ein Muster nicht ausgeschlossen“; sonst steht „Keine auffällige Autokorrelation — kein erkennbares Muster.“ — eine fehlende Prüfung wird also nicht als bestandene gelesen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L420-L427",
+          "version": "repo-lines-v1:sha256:f8f1bf81366cae884d0ef9a294c17de8b6f8ca29195dbeb5b1dcac00e6a77450:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzcxZWVmMmYyOTc2YzEwY2Q3MzNjMjI2MGViZDFlMDQ4OGM0ZTM3MDcyYTM3NDk5MDk5Mzk2N2E1YzJkNTkyYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVlZjAxYmMwOGRiYzNiNjNlNGU3NWVhM2QyNmE1Yjk0MTg5MTg3N2UyN2FkODkxMzI5Yzg0MTFkN2Q4ZGM0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWRiM2U3Y2QwYzNhNjIzMDQ3NjY4MTYxZDEwNGU5OWQ4NjIwOWNhM2U3NzU0YTI1YjExOWE0OTA3ODc4MDQyNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzE0OGJmZjM4MjAxNTA3M2QzNjY2M2RjZGEwNTgyZGE1MDIxMTU1ZDlkOTVkMmZmYmIxNGVhYmI3MjVkMGFhMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_96e53c57c29643239c20f1219b98f4c7",
+      "statement": "`bravestRound` liefert die Runde mit der höchsten überstandenen Bissgefahr aus `survivedDanger` (Gefahr des letzten harmlosen Drucks), übergeht Runden mit Schnapp beim ersten Druck, bleibt bei Gleichstand bei der ersten gefundenen Runde und ergibt `null`, wenn nichts überstanden wurde oder das Protokoll leer ist; unbekannte Lebewesen gelten als Krokodil. Die Seite zeigt den Wert als Kachel und Satz mit dem ausdrücklichen Hinweis, dass ein Einzelwert kein statistischer Befund ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.test.ts#L236-L257",
+          "version": "repo-lines-v1:sha256:bdc1d2576e56a076a15e17c2f89ca7d7f47aef69ede3d56df3912e87cd8a4ad7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzMDdmYmYwNGE1ZmE0ZmZjNGMwNmFmOWUzMDYyMjcwODIxYWUyMWU1MDJkMWY3M2NjNGNjMjUxYzlmNzg4MDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkZTU5NDVhNTNkYjc0ZWIzODQwN2M5ODNiZWJiZjE0NjI2ZTQ1ODU3OThmNGFmZGU3MTgwYjVkYTYyNjY2MDEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L16-L48",
+          "version": "repo-lines-v1:sha256:ab0ffa432453ee00aacaccb60c5cfb4087bed83f129299db6338a9fee162ade1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiNmNhNGNiNTg2NmEyZTMyYzU3YTc3NjE4MzM4NmI5ZWE1ZDBkN2Y2ODBlMGIyZjM5ZGQ2OGMzODgxZjY3YWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlMjJlMjE0ZTJhMGZhMmFiMjU5ZmE3NTZmYmQ3N2VjYmQyMzdkOTE2OTAzNTQxMDg4NmIwMWI3YjEzNmNjMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0ZjQ4MWJmMjg0OGU0ZTllMzM4M2U1M2ZmM2Y5MjE4Yjg2OGRlZjY4MThhMzc5YmViNDM1M2ZmNzlhOWYxY2QifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L111-L131",
+          "version": "repo-lines-v1:sha256:a7ba99ec89ec3ee4f2ae915cb468d0b10e657148b18a9133a8eb0f6a78c9406e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZiMmI1NGU0ZjFhZDA3MGJjZGJhMDQ3MmQ0MTE2OGNhMDRiYWMzM2EwNTRhNWM0MjFkZWRlODQ3ZTJlYWU4MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwMDliM2YwZDI0ODg3MmE5MzM0ZGZiNjRlOTdlZWUxZjdjMzU4NjU0OTEwNjU1ODFlYjA0NGVjZGQwYmMxYWYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L141-L157",
+          "version": "repo-lines-v1:sha256:56d318ca39b8b694ba1b3f6f1f4d0d512cbc27c28916dc6f8ca1f2bdc47cc2d4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkNGE3MWUwYzU3ZTQ4YjdkNTNjOTU4Y2FhN2FiZjI4YmM4M2M5NTVhM2RiYmYwMTJjMTkxZWIwM2QxNjU0MmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2MmE3NjRjNjMyMTZjMTFlODFjNmRhYWFlOGE2MGVjMDBjOTZiY2M4OWRlYzRlMzY0M2ZkYTZkNDQ5MGIwMjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmNmJiZmU4ZTE4OTEwM2IxMTdjOWU2ODdjMTY2MjY2YTljYzg1MTYwYzEyNjEwNmI2NTQyYTU5N2QwMWVlODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyYjcwMjVhMzBkMjQyMGU2NmNkZDg5YjRlMTg4ZjY4ODlmZDY5NmNjOGJlNmNiMjU3YjBmNDAyN2JiMzQ0NjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ebef90f2c6c6429f8bad37bd0270fc88",
+      "statement": "`sampleStatus` zählt die Mindeststichprobe je Gebiss statt über die Gesamtsumme: 150 Runden aus zwei Gebissen zu 80 und 70 melden „das größte hat 80 von 100 Runden“, und nur Gruppen über der Schwelle gelten als ausgewertet.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L208-L226",
+          "version": "repo-lines-v1:sha256:2de41acf40683f52f31c3a0b638afe871d074acaadf52155a67cdb16ad5e3339:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhNmYxNDA5ODk4M2YyOGY5MjE0NTQ4YTJiZWM4M2E3NjRmN2IzZTBmYjMzMjE5NDRkOGJmMjJiMDQ3YTc4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0MmQyOGFmNjJmNGVmM2RmYzhjNTk5YTUyYWI4OGI5MTUxMzI1ZWU4ZGE5ZTI3MzU2MDUxZTg3ZmRiNTI1NTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L179-L202",
+          "version": "repo-lines-v1:sha256:112748e14ee57063ff88c76f6154bdcafe0498f6374887f5a97e6d10bc0702b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmNmJiZmU4ZTE4OTEwM2IxMTdjOWU2ODdjMTY2MjY2YTljYzg1MTYwYzEyNjEwNmI2NTQyYTU5N2QwMWVlODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljZjQwMDRlNzlkYTMxZDg3ODllZjI4Mzk4MmM1ZTY1ZTcwYTMwNTUyYWYwZWU5NWYzMTNjMGJiMmQ0MTliOGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b6019b7fc0b64d9c87482198ea6b0130",
+      "statement": "Die Gefahr-Kurve der Statistikseite ist Modellrechnung, nicht Auswertung des Protokolls: `dangerCurvePoints`/`dangerCurveHtml` rufen `tensionForPress` für das eingestellte Gebiss auf, weshalb die Kurve auch ohne gespielte Runden stimmt und getrennt vom `SessionReport` bleibt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L81-L137",
+          "version": "repo-lines-v1:sha256:6acd978cb5a1948deb5773173d476f6d911f2e8ce76aaba15e33f7494e225b8a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMWNkN2ZlMDVmMjYzMTcwNDVkMWJkYzg3MzJkYzFiNTZhYzZmMzA0YjNhMmNhODQyMTI0NzVhZjVmNjBiYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwY2QwMDk5NWNmZWMwMWU3M2JkZjVkOTY0ZTc4NWY4YmFhNmZhOWM3MjQyMjhkZWY0MmYzMmEyZDFjMGRkNTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L234-L283",
+          "version": "repo-lines-v1:sha256:d61d992cc95c24c0a1f2dbe6d60d9f210ed1ce44d6af8bccf4239435177204af:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNmU2OWM1YTlkOTdlNDYwM2JjZDY0ZmEyNDEyODMxMTJmYTM4Y2Y5NWE2ZDQ5M2Q0YjU0NmMxOTQ2YjIxY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3MjE4NGMyZjllYjM3MDMxOGQ2ZDc3Y2ExNjk5NzI0MDE4YzM1ODhlODVlNDY1NThmMWRhMTM2YjczNGFmMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZjA2MmNkNDdiZjkyYjFlNWMzZTFjNGZmZmRmNzhmZmQ3OWJkOGFjYzI2ZmZlMWNlMGUyYWU3N2ZkYjgwY2QifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

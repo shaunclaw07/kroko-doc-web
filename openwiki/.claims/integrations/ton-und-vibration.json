@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a831a5296aaf6944b843cb036bde19088a1d040a75a0249d8dcfcfc6d7e943b3",
+  "claims": [
+    {
+      "id": "claim_7a815b0be21d49aab0359db8e3dddeb7",
+      "statement": "Ton und Vibration erreichen das Spiel ausschließlich über die Ports `SoundPort` und `HapticsPort`; der `GameController` nimmt `sound` verpflichtend und `haptics` optional und ruft Vibration über `this.deps.haptics?.vibrate(...)`, sodass ein fehlender Adapter kein Fehler ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L1-L11",
+          "version": "repo-lines-v1:sha256:921c183fef9a02853913549b4e4d54f7c2ca21e0bc4a09f00134abbb0f45126a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0MDU4NjlkNWNiMzQ2YTJhNWE4YWNiYWJmZTBhMTA3ZmU5NGNmZmJlNzZjMGIzZDA5NWUzOWVlMWYxNzE2YzUifQ"
+        },
+        {
+          "resource": "repo://src/core/ports/sound.ts#L12-L30",
+          "version": "repo-lines-v1:sha256:8efbd089e8c3d6362cb9db5577b9453b1de3c7b6853da93273afe861fbcbd79f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0ZTk3Y2UxZTdlYmNiYTRhYzdlOWI1NTk5ODY3MjY0YjNjN2E3ZTJmM2E3ZDU1NWMyYWI1Y2UxYjU1YWNiZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxMTdkMTMxYzIzNmVjYTk5MTJlZmRhYTA3ZDYxNDJiNDkzOWUwZDY0NzQ5YmRlMjI2ZGZiYTRjYWNhZDhjODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L21-L38",
+          "version": "repo-lines-v1:sha256:bd64b2c181426ae57d3cf02ee19c172f1cb029767aa431434b9c28d370eb2345:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlYjMwYTI5YzdkMDhiNTBiOTRmNTU5YTBiODE5Zjg3YmFhNDVhMmQ4ZTQwYWJlN2ZjYWM1Y2Y2ZjlkZWVhOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0NmFkZDE2ZDI2MDU5MDViM2U5NjMwMDA1ODIyODcxOWFhMDhlNDkxN2RhNGVmMzVjMGU4MzFiZTc2MTVkNmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxNGNlYTRjOTU4OTNkNDBmMGM0M2Q5YTk4MjJjMzIyZjRjMzFiMGJhNDEwOWJlODcxYTBjMjU4ODA1YmY0N2EifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L288-L292",
+          "version": "repo-lines-v1:sha256:3e535fe9694ac90c0c22a20e787cd0e8296bda49e8cc706033ef190e6da19035:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmJjNjhhYTBhODExMTA5OGQ2OWUwMDg3MDhhMzYzNTFiMjI4MjRiNzI2MmY3NjRjNjdmZDRmZjFmOTVjNjVlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTFlMzcyNWRhMDAyYjQ2ZWQ4YjRkZTg4MDAzYWQ5NzEwZGNhZjE4ZDU3YzQ3MDFkYzNiZWZmMGIyYzVjYjEzZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGY0MmZhYzdhYzY3Y2UxNzlkZjUwMDgyNGVmZTk3YjQ0ZTk2YmNlZWIzNjA0YWQ3N2ZhZmE3MmQxMzFjYTQ1MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fdb74c653f0c409b883fe6e3423e3474",
+      "statement": "`WebAudioEngine.play()` und `playVoice()` tun vor `unlock()` nichts: kein Knoten, kein Abruf, nicht einmal ein Audio-Kontext; der Test belegt 51 Aufrufe ohne erzeugten Knoten und ohne Kontext-Fabrikaufruf.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L63-L83",
+          "version": "repo-lines-v1:sha256:2855709778e134402b83dc3b00fb602928f0444de318e350ff787bec701ee284:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkMjM5YzU5MTg5YTlmMWIyNzZhZGFlODA1N2RhNjk2YzhlYmE5MWRhMGRlMTAyYTQ4NGYzZDJjMzY4NjQ2NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyMTdjMjBkMmU0MTYxMGI3Y2YyMDBjNWU5YzgyYzA5ZGM1M2JmMjQ0NGYyZTc4YjNiZDc1ZDg5NjZmZWQ4MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxMGIyNDU3MTRhZmVkYWMyMjZjNzhmY2M1OGFiOWFmYmRmZDY3N2ExNzAzMTE5NTM2ZjQ1YjlkNzYzMzI4MGUifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L157-L163",
+          "version": "repo-lines-v1:sha256:a2e80e599ffa4b5e056e2747c0aaba2c2b840d5f0b394d6787446693de4b5bd9:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzU3YTExZWJhYWE1MDRiNGVlMzk4Mzc4ZGUxYmQzYmIzMjQ3ZjIwZWVmODU3MWE1MDEyNDc4OTZiNjc3M2VhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODIzYjVlYzcwNThmZWQ3MGMyYzQ3ZDI3MDc5MTE1ZDliMDExYjQzNmJhMjg2ZDI5ODBlMzYxMzM5MDM4MzgxMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGE5ZmNmNGRhMGU2Yjc5MTAzYjVjZTE2NzA3YzVlNWI1MGVmN2E5YTExMmVjNjhiODkzMWNlMGZhODM3YmZiZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjkyYWVmNjU0ZWY2NmI0ZWRlN2U2MzI4NTUyYzJlYTE0NmM4MGI2OGFiNWI1YTk4N2IwOTJjYzM5YTNmOWFiOCJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L199-L202",
+          "version": "repo-lines-v1:sha256:600b1a9d296d7561726b0b9475f1f9b586c812eeaef25b44ccc2c3bd01af5bf5:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2U1MGI4Y2Y1NWVhMWNmZWJhNjcyNTM1OWExYzY2NTNmZDFkZWY4YmE4NGJmNzZkZjU5NWEwMThkYWU3YjdlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzZkYjU2YzVkMjFhZDcxMDJhNTFlNWM0NDFmODZlY2VmN2U0YjZkYjNjZTk0Y2E3ZmNkODVmZWUwZmVmZjczZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ4YWNjYjU0MDQ1NDQ3ZDE3NmIwNGIyOWE1N2IwNmIzZTU1ODAxOWU4Yjc3MTZhMmQ3Y2FlY2ZhNGRlNzA2ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e6b35ca8e0b24941bb5ec987993507c3",
+      "statement": "`unlock()` setzt `unlocked`, erzeugt den Kontext bei Bedarf, fordert die Stimmen an und ruft `resume()`, solange `context.state` nicht 'running' ist — bewusst bei jedem Aufruf, damit iOS den Kontext nach einem Anruf ('interrupted') erneut freigibt; Fehler von `resume()` werden geschluckt.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L94-L109",
+          "version": "repo-lines-v1:sha256:d437a6a1b45a9f63f601c4b6ecbed6381904d2dcaba39180df4e1ddbb4e64247:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMjQwZDI5M2I4NTQ2ZTNmOGI4ODcyODhiOWE0MTg3MTUwZWQ2ZGQ4MjAwNGQwYjZhOGIyNTRmZjEzYzk1YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyMjRiMWFiY2M3MDllOWI4YjM1MjU0Njk1NDk0Y2IwMDgxZmE1NDhlMWU1ZTAyMmEzNTgxMjc4Njc0NjM3N2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZmODY0MTNkYTVkNDAyZTRhMjczNzg3NzA4MmZkYTc3MDBhNzc1YmQwYzJhNjQ4OTRhZDM2YWFmMjJjNDJlMTEifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L251-L269",
+          "version": "repo-lines-v1:sha256:fe8b6ed5666f1dccec0ea3ca5b6f16b87fb900e57e17ba586d2e7892595e342f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzOThhM2QzNjhjMmJmNDk1ZWQ2OTE2NDcyMjdmZjViYzgwNTgyMjg2YTNlN2FiNzBhNDNiMDMyZmIyZWEyYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxNzc5ODE5NjJhNjE4MjQzYTQxM2JiODczYTMwZWZkMGVkZThhNDRkNTg1ZGZlOTVkMWYzYmY2YjgyMTYzZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2MmQzZmVlMDRlNGUyNzQ5NDI3YjdhNTc5OTAzMzliODRkNGIwNTljNGI1YjYwYTdhZmFiNjFmZTQ2NzA3NTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_15e5e98e5181442ca7ec7c560eff452b",
+      "statement": "Die Spielseite ruft `sound.unlock()` bei jedem `pointerup` und jedem `keydown` — nicht bei `pointerdown`, weil ein nur scrollender Finger mit `pointercancel` endet — zusätzlich ruft die Steuerung `unlock()` beim ersten Zahnkontakt und beim Loslassen, wenn der Klang dort noch nicht kam; ein Test hält fest, dass eine Geste genau einen Aufruf ergibt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L81-L99",
+          "version": "repo-lines-v1:sha256:164cceb2416cfa9f963169619a6c4ea28288890bdf96246b425e50b4f79a7052:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MzZlOGU3NWM4ODcyNDlmYzY2MjEyYTU1ODI3OTI5MmIzNWYxMzYyYzIyMTliNDAyMTBlY2ZiMDg2M2U0ZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzYzc1NzVkYTMzZDNjMGJiNzE2NDA0NzBmOTYxMGVjNTc5OTk0NWViOWZmZWQ3MTdmODZlODAxOTk0M2NkNTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjYjEzMjVkODU4ODdlYjhkMjI3MjRmY2IxYjhlZjE0YWU4ZjI4YjA1NTVhZWZmYzdmNjhjMjU3YzdlMDRkZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyNjQ2MmU5YjVlOWU3ODU1YmQxNjgzM2JhOTViZDFhN2YxMDU1OTg3NTk0MThhMTA2OGJkZjk4N2UzNDI2NTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.test.ts#L261-L268",
+          "version": "repo-lines-v1:sha256:a9bf3ad5af8ba42f375b3ad00ac8bdc53092ea8784995a38f5489599b9fef964:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZiNzFmMWY2YmY1OWM3ZWQzOTMyNDIyYWY5MTY4OTc5MGZkODBjN2ZmOTZiMDg3ZmFiM2UwMGI5ZTA2ODg3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWFmNGRhYWY2OWUwYzE2ZmFmN2ZiNzU1ODRkMTIzMDRkOTE1MTMzZGFiOThiMjEwYzQ3YjMyYjJhMmExOWUyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmQ2MzM5ZjE5OTNiMTgxYWM0OTIxM2VkOTBlOTNjZWE4NTU0MjI0ZGE5ZDczYWM2NDdiOTgwMDAwZTQ3MzVmNyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L156-L162",
+          "version": "repo-lines-v1:sha256:7de3e8f7ef9d92acfddea921d89acac2124729b5c514f0bf4a28b12448cf8991:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYThlYmY4ZmRmNWMwNDQ0MDQ1NDA3MmUwZjI0ODQ0N2JjMzU0ZjU2YTFkMGQ3MWNmZTU0OTk3ODVkZjBmMWZjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDhiYjc4NDYyNGJiNThjMmZhOThkZWE4YTM1ZTJjNjAzZDdhMmRmZTkxNDkxYzE5ODI0NTk2OTlkZWE2ZDZiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzg4MjFhYTI5YjYxZDc2MDY2N2RhNmVhYzZlMzU0NzZmOWU5OTA3NmFkMjlkYmVmNmFlYzU3YzJhMmU0N2I2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjRhMTAwZWFlMjM1NTkwNzE1ZDg5NTY1ZThmN2VlOGI2YmVjN2U5MGQ0YzBiOWNhNzY1MmQ0MDUwOWNjNjk2MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9d69577dec0249b98a1f9952cc86bb4c",
+      "statement": "Die Freigabe existiert, weil ein angehaltener Audio-Kontext seine Uhr anhält und alles vorher Geplante gleichzeitig startet; der frühere, ab Seitenstart laufende Herzschlag erzeugte nach 20 s Leerlauf 50 überlagerte Schläge (Spitzenpegel 6,6 statt 0,26) und wurde am 12.10.2026 abgewählt — seither wiederholt sich kein Klang von selbst.",
+      "evidence": [
+        {
+          "resource": "repo://docs/rueckmeldung.md#L65-L72",
+          "version": "repo-lines-v1:sha256:dd7a8ee22eab143117f2ba9379d8a667157076743f493c193c0351dba7ff1687:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQxMjQ4YzkwZDcwZjI5NGY0MzFiYjA3MGQ1YmZlMGQ2MWI4NzViMzY5MzBiMjNhMGJkYmY2NWI1MTQyMDc0ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTAwZjJiZWNjMjI3OWEyY2ExNDUwNzkxNGM3MGU4YjFhNDUwZGNhNGRjMzE4Zjc0ZjM2OTVjZjk0ZDljZWJiNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjg4OTcwOTQwMzJhNjkyYmZmZDUxZjQ0M2I4MTg1MjViOWMxYWNlNTk2NDU2NjU0MDAxNGI3ZjMwZjNkNWU0NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTQwOTI0MGRhN2U5ZTE2MTJiM2MwZWI3ZGNjOTU3MDBhMjJjNGY5N2VlZWUzZjg2MDg2YTQxMGU4MmYzZmE1NyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L306-L316",
+          "version": "repo-lines-v1:sha256:bb295577fe14d0ee98a0a0d50e0b6bd9a0a0618beb87d4a6eae60b82945024a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzODhhYTlhM2QwODcxZmNlYzk2YmZkOTIwOGQ2ZTk1ZDA0ZjlkMTI1YjM2MDU4OTQ2YTgwNjQ3OGZiYjFjOTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkYWM0NmNlNzhmODUxOWIzZTM5YTEzN2YxOTcyYjQ0NjQxNTZjNjNkMTFmNjE5ZDFiYThiMzEzM2E0ZmVkZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwMTZhMjY2MTJkMzZmNjNhMTUwNzQ1N2IyNDVkZGJlNDM0MzA5ZDY2Mzc3Y2M0YzlmYzBlMWNkNmYzMzE1MmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b1abd1e345b845d6aa38ff25ef481705",
+      "statement": "Alle Spielklänge außer den Tierstimmen werden im Adapter synthetisch erzeugt; bei `setMuted(true)` entstehen gar keine Knoten und keine Abrufe, und ohne verfügbaren `AudioContext` wirft keine Operation der Engine.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L146-L158",
+          "version": "repo-lines-v1:sha256:c93055ecccfd3c1ed8fb7d33e6d39fc46b827d3b80965056504b89f8344001c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiZDhmNjZjYmQ2M2QyNTNmNGM5OGRmNmViNDhjOTAyMGRhMGI5MWMwZTg3Y2Q2ZmZiYjhmYmZlZjBjZDM3ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1OTk4Zjk5NmQxZjU4ZDJmMGNkYzEzMzdjMjUyZGNlN2M2MzVkYmJmOTNiNzc3YmQ0M2Q1MDA4NmEzYmIyZmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM3YzU3NGNhYWQ2NzkxNzMzNGU5OTY2N2FmYmEzZDI1ZDFkYTgwMjdiZTFhMjI5MDE5NTFlYWJhNTVlOTA4NGYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L183-L209",
+          "version": "repo-lines-v1:sha256:e4af5faf18e6719d848fa7da1d41e2b0928076b44d59f002f7767a434f624a31:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4OTUxOGY1YzU2NDRjNWVjYmRmZDg4YTk1ODhjMTkzMDY4MzQ1OWI5MjliOTYyZDVmMmIyNGI0OWRhMDYxNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyZTc1MDZjYzhjMjg1Y2JjZWFmZTlkMTM1Y2ZiZjVmZGQ4NDhiY2Y2ZWRlYjYwNDE4Nzc4YThiZmYwZTNhNDIifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L127-L197",
+          "version": "repo-lines-v1:sha256:bf47a9fc790e4a8215d6817fb3ace998d1e1951bbf7027592ef91ef33b79a6d7:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjMjA0YWMyNDZkMmI0ZWQ0ODlkNTc0OWZiZTNkODUzOTE1NWM4OTQ2ZjBmOTIyOTg0NTE0MjcxNWYzY2IxZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2MzRlZTlmZGNmMTg5ZWYyYTkzZjAwOGM2NjBjNzY3YWIxMjI4N2M2YzQ1YTU4NDQzZjM4MWVhYTI4N2VhZjAifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L225-L231",
+          "version": "repo-lines-v1:sha256:5121f8387647fabffd2a77f8e0297e42264aeaa863be5a90ab9e260e524c55a7:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGJiMjIwNGUwNjZiYTVkMDc1YzhjZjRkOTNiNGIwOTRjNWFiMDIwMTkzYTQyZjJjZDMzMDI3ZGJiNTIzY2NjOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWQ5MDY2MjVkMDZjOTAxZTY0MzQzYTI3YmFkYTI5ZTFhNDcwZjI1NTVmZDljMTkyOGU4M2Q5Y2VmYmZiZDliYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTk5YzNjNjQ5MjUxMDk1ZjRjNDhiN2JiNjJlNTcwOTMyMjg5Yzk2ODY5MDI1N2E3OTBiZWIxMWRmZTMyMjEzOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b5a1a9bd3b2947d2a47a42ef8a0b1098",
+      "statement": "Klangpegel: `intensity` wird auf 0..1 geklemmt (Vorgabe `DEFAULT_INTENSITY = 0.5`), `setTension` speichert nur einen Pegel und verändert künftiges `creak` und `breath`, exponentielle Rampen enden auf `SILENCE = 0.0001`, und `stopAll()` stoppt und trennt alle in `active` gesammelten Quellen und erhöht `voiceEpoch`.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L108-L125",
+          "version": "repo-lines-v1:sha256:9524844c98cfe2437d945d0889fbfc357a16b339860db37c6dd82ecc78b7e860:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiYmRmNzM0YjU3YTY1N2JmYWUyMTM1M2RjM2EyMDQ2N2JjZTJjMzE1OGU5YzQ1N2Y2YzM0NGEzOWQ2NmVkZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjMWMzNTNlYWY5OWQ1YTc1ZDVjMGY1YzUzOTNjZWFjNWQ2NzcxYThkNGRjNTk0YTEyOGU3YWI5MjQyMGRjODgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2YTI5ZjAzMDg2ZmI3M2MxNjFlNTg0MWQzOGFhMWI1ZDM4N2M4NDVjMGZhZjVkMzkwNGUxMmIyOTkyMzI5NzAifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L144-L147",
+          "version": "repo-lines-v1:sha256:6425462fe5cfb47764ecac8e622463157e85ace396831b43a4d6e9a3898a22b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBhOTk2YTE1NWRhM2NlYjg4NTUzNjFlZWRkMzBlMTJlMDk1MDYxNDdkMjI1YjRjYmRiMDY3MjI1M2EyYjM1NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2IwZTdlZDhhMGEwMjhiYzM4ZmMzMTE4ODg2OTVkN2E0MzY2OGI3MzM3ZWQ4NTFkYzkyMDRkYWM1OTViZjEwNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTlmMjFjOTQ4ZThkOTZhMTRmOWY2MGI4ZGU5YjRkZTZmYmY3MzEyZjg3ZWFlMjhkMmU5ZGQ1MDAzYzgzNWU2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTQxZTZmMTAzNjRkNmYwZTUwM2IzYjNmYzc4YWM1M2U3YzZlYWY0YTI2N2E5OWNmYTIwZTI0OWU2NDRmNzk3NiJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L221-L249",
+          "version": "repo-lines-v1:sha256:687b67521812635d6afe2916ed2ef3b95dc5aa1996201ae45b67cae17c250661:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3YzhkYjk3ZWNlNTFmM2EyNzIwMWQ5NzJiYjc3ZGNlYTc1NzM0YjVkMzlkNWE2ZGI2ODIwOWEyMDU5YjRmNzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTJiNjExODk0M2UzMGMwMDY4MzNlNzgxNjMwYTUzYjMyZjQxN2VmNWY5Nzk1YzNmMTJmMzMwODAyNGM1ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZTMyMDFlYjU1MDIwMzdmY2Y4M2Q5NmQ2NGVlNzFjYjk1ODBkMzE0ZjE1YTdmY2ZjMDVlOGI3MGEwNjc0ZjgifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L349-L385",
+          "version": "repo-lines-v1:sha256:6959da59c221a7ca38797d72d91f13d19acefa4168bd2bb39be51a9d2498923f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5MjcyZDQwNTRmMjRhYTZmZWE5YTk5MGEyYmE4MjJlYTgwZjRkZjdmNDg0NTNhMWJhNjE0MGY4ZmRkZmU0MTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViZDIwOTViNjUyNzA2NWUyNWQ0Nzk5OWQ4MjVhMmRjOGQ4MTk4NGU2MTdhNzE0ZWYxM2FjYjFkNWFhZGE5YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5ZmMwYmYyYTgyY2Q2ZTNjMzI3NjRmZjQ2NGRhMWIxMmJlYWUyYTViODE3NTNkNWVjN2IwMmRiMWRkOTYxYzIifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L446-L461",
+          "version": "repo-lines-v1:sha256:c97f2b5723408d6a63ab147e767964cd4538ae2ea7d1897b9492f12b61f6a2a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlZjgwYWYxNDA4Y2EzYjM1Nzc1NjNiZDJjNDhjYzdiMWZiODc5NDQ2ZjE0MTk5MTk5N2JjODE0ZGVmZWIwMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzYWVlMzlmZjAxMmUxMDQ2ZDc3NThkYjY5NDNjYTg3NjUyMTZiN2VkNDEwNzE5ODliYzViNzQ3NWQ5N2JiODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3NDRiZDZhZTc0OTgzMWY1MDU5NTQyYWU5NTIzMjcwZDk3ZmM2Mjc2NzYzYjZlYjBkY2ZlYmRmNGM0MzcxNDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8af42824fca14ddba9dc5d29c6cb8b2d",
+      "statement": "Die Stimmenzuordnung leitet sich aus dem Katalog ab (`CREATURE_VOICE_FILES`, Kennung `wolf` → `wolf.mp3`), die Adresse entsteht als `${baseUrl}sounds/voices/<id>.mp3`, ein unbekanntes Tier ergibt `null`, und ohne `voiceBaseUrl` bleibt die Engine still.",
+      "evidence": [
+        {
+          "resource": "repo://src/bedienleiste.test.ts#L35-L39",
+          "version": "repo-lines-v1:sha256:7b953beddfa66254997b97bc102177ab39a08618c23e50ee790d7a2d85443e76:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzY2YjE2M2Y2MGRlMDMzZjY2MzkzYmQ0Mjk5YjFiZGM3NTE3ZjE1NGE3YzIzNmM0YmYxMzg0YmE5N2VkMDQ0MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGJjYTg1YjIwZmRjN2JmZWJiNTJjNGJlMDE5M2RhN2FiNjRlOWJkOGUyMDBlMDJlMGIxMWJmYjEyYzZkNjZkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmVjNzhiOGE5MzhlMWZjNWQxNGRmMTdjYjlhYTk4OGQxYTg3NTU1YWY2MGQzZTBhMDY4NDU2NDljZDE2MTRlNSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.test.ts#L38-L42",
+          "version": "repo-lines-v1:sha256:7399e3cc2c8465cf502bd67ab146e0692af115e9b0fbd3f8125a86f94225a75b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI3M2M3NDYzOTVkYTIxNGI4ZDNlODI0MWUzNzEzOWU2ZDFiM2QwNmIyYjk0NmMwNjM2MWMwNDk4NWZkZjVlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L8-L19",
+          "version": "repo-lines-v1:sha256:8a0a1dc5cc084c8b293886f555bb88db06ea21f9fd2487bd5c086970612a0dad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0NjQyMTIxNmVjOGY1OTc4NmFlYWY0ZGIwOWFiYjA3ZmU1OTE4OGIwNjI1MGE3YjNjNGFhOTU5NTUyNDRlNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjZjM5Nzk5YWI0NTlmODE1MzUyZTkzOGVlZjQ1NzJhOWMwYTAzNzk3ZGUyMDkxMGIzMGExNmZmYTRiZmYwZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L149-L155",
+          "version": "repo-lines-v1:sha256:3bf4e7e83e050c684c6b111de97cd15535b253e12783395614f63d1298fbf2a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdjZWE4ZWUyYWYxMjQzZDkzZTBkMDUyZTI1Yjg1OGNkNmMxMjM0MTYxNWJlODg3ZDQwYzRmMTE1OTBiOTViMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWJjODBmNjUxOWU5ZDgxNTQ0ZGI1N2RmYmNkMjVkZTE5MmQ5NWIxOWVkNDg4MWQ2OTVkMWE2NDRmNmFmYzBiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTI5ZGM3ZGM1NThiNGEyMDYyZTRmMGU1ZjA2MTc5ZTY0MWI2ZTc5MzY5N2M2MGExOGY2YjYxNTVkNmIwNGI2OCJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L68-L77",
+          "version": "repo-lines-v1:sha256:0e5ed6b28de3831fc7e5bb9d553a9a1d4cc993e89c41b8b1224b955a732b78a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlY2Q3ZmNjMmRkNDYwMmMzMGM3MTk5ZDIyNDdhZmY3OTkxYjMwZDcxNzU0Mjg1Y2VhNzk0ZDRmMzEwZTlmY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5YjkzZTNkODNjODExNjYzMGZjNjM5MTcwM2NhNWNjMjcxYmY4NTU1NDA2YmFlNDZlMTQ0NmJlYzI1NjE5MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZTU5ODhiZjVmYTNkZDZlZTM0YzhhZjYyODdkNTIwYWZlY2M5MTBmYzY4M2IyMWMxZTQxZjgxZGM5NTk0ZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e50db3f43324d4cbab051bb6b8a586e",
+      "statement": "Jede Stimmdatei ist ein MP3 zwischen 1000 und `MAX_VOICE_BYTES = 16000` Byte mit gültigem MP3-Rahmen und braucht eine Zeile mit Lizenz und Quelle in `public/sounds/voices/QUELLEN.md`; der Test prüft das für jedes Katalogtier, sonst wird die Datei nicht ausgeliefert.",
+      "evidence": [
+        {
+          "resource": "repo://public/sounds/voices/QUELLEN.md#L3-L6",
+          "version": "repo-lines-v1:sha256:6f281b7174f9215c24f944297175e08dac7e470d2f7f50d62e0326a9baa01e94:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWViMGQ3MDUzYTJjY2ViYmEyMDczYjc1ODA5NzZkNjkxNjA0MGU0ZjYzY2ZiYTM0MmUzZGY3MDI5ZmQ3MzNlMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODZkM2QxMjc2MjY5NGQ3YmYzYjI3NDMwMDU3ODFmNTdhZmJjZmE0ZjZiZGNiNzBiMmVmYjQ3MjczNjU4ZmI4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGI1NzM4OWQwZGZhNmQxOGZhNzNiNmJhYTc4M2FhNGJlNTBhZGZhNmM3MThlMmEyZjI2NjRjNTIzMmE4Y2NhMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWM5OTRiNjY1ODQyMjUwMTY0YzYxY2JjOTdmYzMxOWIyZTdjMjc5MWQ4YzMxNmYxZDdjNWRjZmJkODg3OGY0ZCJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.test.ts#L16-L36",
+          "version": "repo-lines-v1:sha256:b58e378eac75cb7470df050c7bc309a63d2516dc665f9a8d64415994a6669451:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzMmEyODIwYmIzZTI4NTEwMjZiYmE0NjQ5NzdkYjIzNzFlMWQzZDE1NTI1NmYwNmUxODYxNWVjNjBkOTE3MTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiNWU2OTU1MmEyNThmMjc5YjA4NDg4ZDEyNmJmYjg4OGE3NzdmNDAzNzM5ODYzZTBiNWZjZWJhNTY4NjM4NDMifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L12-L13",
+          "version": "repo-lines-v1:sha256:9b0c61533af9700d832edcd7b2cd94f381025389f4198cc4c8857a3378efa9b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU4OTBkM2IyNDE3ZGU0ZDUzOGRhNzQzYzI1NDkxNzcyYWZiY2ZhYTYwZjlhMjViZTBjZmZjYzJhMzRlOGEzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDc3Yzg2ODJhNDNjZGEzZjQ0YmY2YmZlNzg2MDM2OTUxN2Q5Y2NmOGJlMjYwYzhiYzNmMmM4YzQ1OTVhZmM5YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODBmNDgzYzNlMDlmZWI5NWY2ZmJlYzczNWI2ZDZmOTEyNWFlOTJjZTcwNDZlMTgyMTI1ODU3NjViNGM0ZmZlMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGY4N2VjZjkwMzVmMzMwNzNiZGQ2ZGRhNzY3ZThiYTdiNTY3YTZlMzllNmUwMGJiMDg3ODY2ZmQ5ZTA3NjU1MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_37b5af53229d48ab9426402cbd478088",
+      "statement": "Nach der ersten Geste und nur bei eingeschaltetem Ton fordert die Engine einmalig alle Katalogstimmen an (`voicesRequested`); ist der Ton beim Freigeben aus, kehrt `requestVoices` vor dem Setzen des Merkers zurück, sodass ein späteres Freigeben die Dateien nachholt. Dekodiert wird über `decodeAudioData` (Versprechen und ältere Rückruf-Form), gleichzeitige Abrufe je Tier werden über `voiceLoads` zusammengelegt, und Laden wie Dekodieren legen keinen Knoten an.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L256-L267",
+          "version": "repo-lines-v1:sha256:7a10907d4eccabb241e215aa4033397463c7f5148b99027194a21316b04d38a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NjhhNGQyODg4ZmVlZGE5MWI2MjUwYWVjNjI0YjM1ZTk3NzkyY2U3M2EwYTU2MGU0YTZjYzViNDdjYjg2ZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRiY2RlMjBiNGUyZWQ5ZDljNDhlOGM1N2Q2NDdkOGM2MjlkODExZjg4NzgxYzM1MzU1MzY1MGUzY2I0YWIzODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmZGZkNDdmMTIwZmQ1MzkxYmU0MzkxYmIzOGUyMzIxZmRlYjVlZTA1YmVmYzI0ZmYyMzhlNzVjYzNlNzUyODkifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L113-L120",
+          "version": "repo-lines-v1:sha256:b2178acf479537ca631c75832dc621ef17b215a17eebe04db6a19e01466dea76:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzg0NmI0MjJjNmYzNGFkZmE4ODdlZDI5YTllMzA3MWRkMTAwMDMyOGRmMWVmM2YxMDQ2MDljYWFkMzVjZWQ3YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODA2MmE2NTk1NGUzZGUxOGVkMDY2MmQ2MDczZDMwNzYxODVhY2E0N2M2MWJhNDVhZDAyMmM3YzY2NzU3YjhmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY1MGU2MDI5OGRmZGNmMTBhMjNlZDVkMzYxYWQzMWQ0NjQ1N2RmMDdjZWU5YTM5MTY3MGExYzVjZWUzNGEzYSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L285-L309",
+          "version": "repo-lines-v1:sha256:eae4184f7c184d69bc87b01b5c45f4671b52b1c104967a5ee16739303a3cc0db:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2MTJlNDhkMWNjMjc2OTJjZGFjNDMzNTU5YzIzNWYxY2E0Zjk0ODA3YWU0MWE5N2MyNmRlYzk0MTUxZTJjNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlYzI1MjIyN2NkZmYzYzAwMjVhMjlhNWFlZWVmMzQ0MGMyZmIxYmFjM2Y0MTVmNjRmMjk5YTQ4MjFmYmZiOGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwMTQ3YmIxYjU4Yzg1Zjg3Y2Q2YzBlMjg0ZDU4NzhiZmM3MTA4M2I4ZGRjNzdmNGJiZmU1ZDcyMTlhOTIwOTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ffa7ecb7e29d47a5ad0071a1674054b4",
+      "statement": "Ein Ladefehler wird nicht gemerkt: `fetchVoice` liefert `null`, trägt nichts in `voices` ein und räumt `voiceLoads`, sodass der nächste Anlass es erneut versucht; eine Stimme, die mehr als `VOICE_LATE_LIMIT_S = 0.5` s nach ihrem Anlass kommt oder deren Anlass von `stopAll()` überholt wurde (Epochenvergleich), wird nicht mehr gestartet, bleibt aber geladen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L281-L327",
+          "version": "repo-lines-v1:sha256:294abc6cd8332d248d9195257c9f67b6e787483c6301051235de0b52de633c5c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5NGIyNjcyOTQ3MjM4YjdjNzFjNjdjNzI2MTBjZDczZjgwNDNhZTg4ZjIyMTZmM2Y0MDk1OTU4YTQ4ZTlkZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0NGNlN2U1MzEwZDg5OGEwZjEwMThmYzU3Y2QzOGZhYzUyMzNjODUyN2MwMzcyODJiMjRlYmQyMjc4NTIzMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4NTE1Y2JlZDA4ZjA2ZmY0ODRkMDI3ODg5Yzk2MGM3MzA2OTVlYzMyZDc4MWFiNWEyMjI0ZjQxMjZmNTczNTYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L199-L219",
+          "version": "repo-lines-v1:sha256:deda9d0bf67cb7c15ef64bde6c90e2c2afa5c9daedd4e781feead920a8b7e8e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNTBiOGNmNTVlYTFjZmViYTY3MjUzNTlhMWM2NjUzZmQxZGVmOGJhODRiZjc2ZGY1OTVhMDE4ZGFlN2I3ZWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyYzNhODE5YTQxNDlhNTJjNTI4Y2E5NTJhYTNlMzkzNjdkOGM4YWNjMjg1MmUxZmQ5MTZmZDc3MzViY2Q2ZGYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L294-L309",
+          "version": "repo-lines-v1:sha256:045941fa9815356939bbb8c0dc6eae5d51d6b7201c8aa2a386c10e9ae9e000ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ZWYzYzU3OTdkZjg1ZTA4ZTg3NjllZmQyZjkyMTU5NDViMDIwYmM5ZWRhZGNmZjMwMjcwMWU0NTNlNjU4MGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwMTQ3YmIxYjU4Yzg1Zjg3Y2Q2YzBlMjg0ZDU4NzhiZmM3MTA4M2I4ZGRjNzdmNGJiZmU1ZDcyMTlhOTIwOTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_44a5d5cc9a084579ab2377b3c6933987",
+      "statement": "Eine geladene Stimme spielt sofort im selben Audio-Kontext mit `VOICE_GAIN = 0.6` und ihrer Pufferlänge (`length / sampleRate`) — leiser als der Biss mit 0,9, damit sie nicht erschreckt; der Test prüft gestartete Quelle, Dauer und Spitzen-Gain.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.test.ts#L269-L279",
+          "version": "repo-lines-v1:sha256:4205a87da3a51a264b02e3d22c41036027b31a60f4b8d827af829eddc7a5e7d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmZGU4OTIyZTUyOWVlMmM2OWE4NzU3ZTFlOTRmODA0OTM3ZDc2NGM0ZGM2ODRlZWUzN2MxZDM3MzM1YjU2YWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmYTljMzRlNjY0M2RlNzFmMmIxYTViMmY5YjQ5Yjc0MjdiZTM0NGRlYThmM2I4NWYyNjljNmRlOTllMjM3YjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyNjdmYWM5MTU0NzAwYzU5Y2JkOGVlOThjOTY2NDg1MGFkODc0ZjJhNTUwOTY2MzA5MjUxZThmYzM5MjFmMTAifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L108-L111",
+          "version": "repo-lines-v1:sha256:82b530bc915fd6ad00adc6fe9b3ba798a4c3d722c7d0c2e9a6a56610120cef14:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJiZGY3MzRiNTdhNjU3YmZhZTIxMzUzZGMzYTIwNDY3YmNlMmMzMTU4ZTljNDU3ZjZjMzQ0YTM5ZDY2ZWRkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JjNmQ0OWIwMTAyYzdiY2EzOTQxOWZhOTM0ZTEwYTJkZjlmYjlmYmNlYTdiMzZjM2I1NmI0YzI2N2VjODBlZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjRjYzMyNDU3ZjAxNGE1NjQ0ZDRmNjE3ZWI1ZGNjYTFiMmRjMjJmYzhjZGEzYTg2ZjMzMWQzOTAwZWFmMDcyOSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L311-L324",
+          "version": "repo-lines-v1:sha256:d29d679a84718c2f97e1090500ab9567c16b6bbdffbf928c1981d0eb686d8bed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1ZWZiMjBjYTEwMGIxNTMzYWIzMWI0Mzg2MDhkMWNiNWVjZmYxZWZkYTliMWRhNDE4NzdlMDg5ZmM5ZTFlNzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkOWY2YTlkZWY2NjIwOGJiMzNiNDI0N2Y0NjkyYmZhNTEwZDllM2U0YTNhZGY0Nzc3YWE5YTUzZDI2OWE5ZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3M2JmZTZlY2I1N2U0NjkyMzJkN2JkNGM2YWE2NWU5ZDBlZjg1ZWI0ZWRjYWYzMGI0MWFmYmIxNzA4YWJkNDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a47ba993381a4f7ba640d5d2259561a7",
+      "statement": "Die Tierstimme erklingt beim Wählen eines anderen Tiers — nach `stopAll()`, damit der Abbruch nicht die neue Stimme trifft — und 120 ms nach dem Biss (`BITE_LATCH_MS`), wo der Rückruf prüft, ob seine Runde noch läuft; sie erklingt nie vor einem Urteil, nie bei einem harmlosen Zahn und bei ausgeschaltetem Ton gar nicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L235-L304",
+          "version": "repo-lines-v1:sha256:bee6b5da8b3295e28278790b32d32cbf34af23e6e06ce057e9eb34eadf0ff1ff:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4YWNlYzE5ZDVmZDc4NTg4YTQwMDc5Nzc5NGE1YWYzMTJmZTEwYTg4NzI4YjVlYTlkNWZlMzI2ZTIwODAxMTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2ZDM5MjQzNjdhMzUxYjU5OGU5NmJiZTZkOGE5NDljYzE2NGZkNmU3NDFiOGI4NDkzZTkzY2EwOWJiZGU5OGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkYzNhN2FiZjhkNWIyMGM2NGRlY2QwNTU3MDdkOWNkZDNhNGJiZWI3ZmIzM2RjZmQ0NDE3NzgzMDAxMDlmZmYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L244-L269",
+          "version": "repo-lines-v1:sha256:4958c7e4f7238edcd85dfd5f35e868b829097bb7e75223f65d3e377a50037298:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiYmQxY2MzYmExYTBiM2U5NzU2OGNjNDk3MTNiZTAxYzM5YjE0MmY2OWI3ZTYxNWMzZDM1ZmY3NTNhZWI4OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwZGI0ZmRlNmVhZjIyNDE0OWQ2NWQyZWY0NWUwYTFjNGM3N2Y2YjM5NWMxZjU1MzI5NGE4ZWVjNWRmOTI2NWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiZTIzMjQxNDQzNjZlM2QyYWUzYWU4OGExNThmMTBmOTdkOWUwMjhlNjIzMTE3YzlhYWY3YzQxOGMyMTUwYzYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L347-L366",
+          "version": "repo-lines-v1:sha256:4c277d937602ec23de9014c52b2a4c6cae6361d1b12722f0409057d89654dc3c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1N2FkMGUwMGY2MWQ5YWNlZjRlMTYwMmU1ZmJlYjU0ZDA3NTZkYWFlOGMxMjQwNzEzMjYyNjVhNjA4OGRlOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMGVjODJjN2ZjYjY2NGE0ZDNlMDg2ZWY1NzkzMjU0N2M2ZDMxODI4NzZhMzk2NjQyYTk5YjFhZjhlYzMxZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhkYzM2NjJjZWJiM2NkNmIwZmRhZDE5YTZlZWFjNzMwMGU4OTkwOGM3NWYzMjdlYTA0NDgyMjRiY2IwMDE5MDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e196f0f08ca84987b12136788258d948",
+      "statement": "`BrowserHaptics` bindet `navigator.vibrate` an `navigator`, reicht `readonly`-Muster als echte Liste weiter, schluckt Ausnahmen und meldet ohne Vibrationsschnittstelle `isSupported() === false` bei einem No-op-`vibrate()`.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/haptics/browserHaptics.test.ts#L18-L46",
+          "version": "repo-lines-v1:sha256:93fac71e60a7cb341fef730cd1eaad8b1a17dca0297070dd1792a9c639b62a99:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkYmRkOGU4OWM0NjExMTM4NmNhMDU4MGI2YWFmOWU4NzkwMjYxYjlhYmI3MTM5Y2Q4M2Y3MmU2NzcwMmFmZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExYzRmNTdiYjVkNmFjMzcwMTc3OGRlMWE2NmYxZDFmNTJkZDg4YmMzZTc0NGUxNDIyZmIwNjMwYTQxZmUzMjQifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/haptics/browserHaptics.ts#L16-L38",
+          "version": "repo-lines-v1:sha256:597a85654b1efdfd7dc21eb3c8ef9a94a3f6d5f078537cefc5b2a313cbf436f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzODE2ZjUzYzI2OWE0MWUxZmQ4OWJmYThmNjIwZTc0MDdiMGE1MjMyZjU3NGI3ODdlZGRkZjBjNTE5YjBhYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5NDRmYzJlNTEzMWFkNjFlNzcxMGYxMjhhMzU0MTFiODU5M2ViNDg4OTUwZWY1OGI3YTUyYTA5MTk3OGY3MzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4acccc77101e4f009fac8df53efa63af",
+      "statement": "Die Vibrationsmuster stehen als Konstanten im Port: `TAP_VIBRATION_MS = 25` bei jedem Zahndruck (beim Auflegen des Fingers), `BITE_VIBRATION_PATTERN = [120, 50, 220]` beim Zuschnappen und `RELIEF_VIBRATION_MIN_MS = 12` als Untergrenze eines mit `reliefLevel` bis 25 ms wachsenden Stoßes; der Controller fragt vor jedem Stoß `settings.get().vibration` ab.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L13-L20",
+          "version": "repo-lines-v1:sha256:ec1eeba102413837596dc79f5c4a8b2b84329fd811345389c22bec6664e39bdc:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljZDVmMWY3YTRhODI5NGJkYTM1ZTAyNzI4NWRhNTliNmMyMGNmZWUzNjk3YWRjMTZkZjBkODEyZDJiNDRjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg1MzU2MmY4YTI1NGI0MzAwYWE5MmY2Yzg5NmI0YjhhOGUyZTdiYTVhNTJhODM5MGNhZjYxZmY4YTkyNmM4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzA5ZTQxZDJhZDdhNzgzYjkwYjU2YzkzNmU4NzY0ZWI1Y2MwYzc4MmRmZWEzYWNiZDJlMTc1YmQxYzE1ZDZmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L346-L372",
+          "version": "repo-lines-v1:sha256:28492fa05a8e59aa72531d3485db3a6566350e7bdf513d6b2aea9934ce06a0f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxNDc2MmQzNzUzMjZjMWFkNDQ0ZTJhMjAwYTFkMDI1ODA4MWMzMTY0YzM2OWZjNTY2Y2ExMTgyOTFkMzFkYzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxM2ExMDQ2ZDU4YzM2MWE4NmY0MzBkODAxYjVmN2FiM2VmNmEwOTM2Y2IzMmE3NGZkNTI0Zjk4MDcyOWVjMjcifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L166-L174",
+          "version": "repo-lines-v1:sha256:9ff23fc676560bbcc5b291e115d7c051dd57d198ee34986820d11e88ab553523:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM2NGIzOTRkNTMxYTYzMTI2YzI5NGFhNzc3ZWUxOTZjNjMwOGI5YWFjZGZkZjVlZjFhNzgyMTcxZDQ2NzFhNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2ZkMjUxOGMzYTI3ODlmYjI1MDlhYzUwYzhmNjNiMzhkN2Q1ZDVjZThhZTRjMmEwYWZmMDhkZDhjZWYyY2FlMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ3YWE4M2QwOGE5ZjI0ZmI2ZDU5YWNmYzU1ZmEyMTY3YjY4NmM1MDk5ZGUxYjZhNjE3M2JlOWVmNWVjNjBhMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L228-L249",
+          "version": "repo-lines-v1:sha256:e513a69aa8f37ae47f24be3c41ac5d9857449aef01b1c6af8a4019d8d38d9e24:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlNzExMjdmN2Y1ZjE3MTdiOTZlN2U5NzY5MGE3ZDE4MWE1MDcyMzdmY2FkMTg4NDBiYmIwOTM0MDIyYTkyMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjZGE2NTliNTg1MDg0NTFjYTI3NTFhYWFkOGQ4ODIxNDRmNzQ2NjMzZDYzZDc2ZjRhOTJjYTM5NTZhMDZmNTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZmNjE5NWQ3OTQ1NjhiZTIyOGQ3YjA0YWI4NTg2MDg0NDk3ZjgyZjg4YzQyNzg0M2I3MzM4YmJkNmQ5YmQ1MzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e7ddb9a0d2614daa8a8958628e3df714",
+      "statement": "Ohne Vibrationsschnittstelle blendet das Einstellungsblatt den Schalter `#opt-vibration` ab, wählt ihn ab und zeigt den Hinweistext in `#vibration-hint`; das Spiel läuft ohne Vibration fehlerfrei bis zum Ergebnis weiter, ein fehlendes Extra ist also kein Fehler.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L374-L379",
+          "version": "repo-lines-v1:sha256:28e06bd0dfb784edc98192e53fa5d687430209648af0ad2a8d7143a070c766b1:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmYwOTY5MzVjOWNlZWJkMzU5MmJlNmZkYTg1Zjk2YWJjYTJmYjliY2RhNzAzMzg1ZmE0ZjUxNzUyYmJhNTBlOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDk3N2ViNzZhMGRkYzYxODI5ZTgwZWM2NDJmNDljN2Q4N2QzYjU0MDAwMDMzMGEzZjI0YmQ4NjZjYzY4NDM5MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzk0ZTNkNjFmNDFkN2ZmZjAyZjUwNzdkM2RjYzYyM2M1OWI2ZTM2NzkxMWE0OTc3N2Q0MTk4YTIxYzZhN2ViMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.test.ts#L106-L116",
+          "version": "repo-lines-v1:sha256:5e8cdd5812f4530788501ff3841268750cc7205710699833a7dd4f320139f030:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0MWM3YzA4YTMxZGI0YzZmZTU3N2E2MzQ2YzBiYjhhOWIwMWQzZmIzN2M1MDRlYmU4OTMwZjc2ZjJmY2YzOGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2Y2YxYzc5MGVlZTFjNWY3ZmE4MDIwOGY4MGFmYjcyYWYzMmZiOTA4ZGJlMDc0NTQyZjA2OWExZjk5ZmQ4OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4MTdmYmI3M2M5MmIzNmQ1ZTQ4OTZmZjUxYzFiNThlZWMzMzBiYmU5NjFiYTA1ZmM2MjA1Zjg2N2VhMWJjZjYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.ts#L33-L43",
+          "version": "repo-lines-v1:sha256:7dd7b5726e9af514c77c63a1b48d4f4a3d1911ef59aca5d541ca7052405f4095:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4MWMyMmQxYmMyYWM2NDBmZTdiYjBiMDYxNzhjYWU3MThlZDIwZmM1ZTRjZGMxMTVlNjA3M2ExYTc4NjEwMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiYzY5NTMyNDIwNDFmNjc0ZWQ2NDljYTcxYzIwNmFmYjAzNGM0ZWJmYTUwZTg1YWYyMGZiODc1MjU3YTM3YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwYjgwMTMyM2JhMTczOWQzYWJiODVhN2M3NWY3OGJkMjlhZjU3YjZiODA4NDNkNWE4M2M3M2QxMmUxZDFhYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e589b35728df4312a223e405517988d9",
+      "statement": "Der Service Worker legt die zwölf Tierstimmen beim Installieren in seinen Vorrat; seine Liste `VOICES` muss mit `CREATURE_VOICE_FILES` übereinstimmen, weil die Seite die Stimmen erst nach der ersten Geste lädt und ohne Vorrat offline stumm bliebe.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L137-L143",
+          "version": "repo-lines-v1:sha256:6cd351b02d7c6072142680589ec779d87e15b9daa065b15ed56f0ea9be3035a8:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzVhNzFiMTYyNTgzZjU1NTA0MzFhYzhiOTkyNmFiNTY3MWQwYWViMDJmYzE5NGIwOWNlYjMyMTE2ZDQ3NDViMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzM0Zjc2NGE1ZGM4NzdjOTdmZTkxOTJhNDAzOTQ3YWZjNjllM2M3MzYwNDYzNWE5YTZiN2YwMzdkN2IwMTc5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmRiMGExMmQxMDhlZTJhY2NkYzU0NmExZDA3NDk0MWFhNTA0ZmY3MTVlZDJhZTZkOTA1NTVkYTEzNjNmOGRkNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjJiM2VjYTRkNWU1M2I3NGVhNTFjZWY0YzFmNTE5MDI1M2NhZTMwNTA5ZmNjMGMzYzEzNTI5ZjAxOWY2MTNkMiJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L24-L42",
+          "version": "repo-lines-v1:sha256:8dfdb8e3e294b982c3f30950cc0cd513a0b9920f0177fae501ef81fa9d2217ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MTk4YjViMmZlOGNmOWUwYTRjN2QyNGZjNWJkYmMwZTExOTQyY2JkYzgwNTIyMGM5NzkwNzBhMjZiYmZkMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NWQ5ZmNjNTBlN2QyYTlkNDZiNjdlMTYxMjlmYzIwYTUwN2YwNWUxN2I2ODg4YWVhMTFmNzUzMWE5MzNhOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYzhhYTcyZTE2N2M5MDdhNjcwNzkwYzg4NzY0ZGVkZDYxZjdhOGEwOTY1YTJkN2JkNTMwMzVjZDA3Yjk1MTYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L8-L10",
+          "version": "repo-lines-v1:sha256:276680d5ec4c7138f50ce12d158553b7f396b6f0d0051fa350b442ed9276bcc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTQ2NDIxMjE2ZWM4ZjU5Nzg2YWVhZjRkYjA5YWJiMDdmZTU5MTg4YjA2MjUwYTdiM2M0YWE5NTk1NTI0NGU0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDk5NjdlYzFlZDM4MzZmOGViMTdhZmYxNzJiNWJmZWY3ZGU2MDQ4NWE0MzljNmNhMTFjNTkxZTE3NTU3MzlhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWNmMzk3OTlhYjQ1OWY4MTUzNTJlOTM4ZWVmNDU3MmE5YzBhMDM3OTdkZTIwOTEwYjMwYTE2ZmZhNGJmZjBmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzE1NTY0NDQzMGY4YTY1NTEwMmMxZjNjNTU5NTVjNGQ1YzE3MDQ5MGRjMWMyZGQ2MzRkMWM1Y2FjMzA0Y2MyOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b805e5714b046ca82bba5d9f6a7134f",
+      "statement": "Die Engine ist über `WebAudioEngineOptions` (`createContext`, `muted`, `loadVoice`, `voiceBaseUrl`) injizierbar; `FakeAudioContext` hält `currentTime` auf 0, dekodiert jedes Byte als einen Abtastwert und protokolliert Parameterereignisse und startbare Quellen, sodass Klang- und Stimmtests deterministisch bleiben.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L68-L77",
+          "version": "repo-lines-v1:sha256:0e5ed6b28de3831fc7e5bb9d553a9a1d4cc993e89c41b8b1224b955a732b78a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlY2Q3ZmNjMmRkNDYwMmMzMGM3MTk5ZDIyNDdhZmY3OTkxYjMwZDcxNzU0Mjg1Y2VhNzk0ZDRmMzEwZTlmY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5YjkzZTNkODNjODExNjYzMGZjNjM5MTcwM2NhNWNjMjcxYmY4NTU1NDA2YmFlNDZlMTQ0NmJlYzI1NjE5MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZTU5ODhiZjVmYTNkZDZlZTM0YzhhZjYyODdkNTIwYWZlY2M5MTBmYzY4M2IyMWMxZTQxZjgxZGM5NTk0ZTYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/testing/fakeAudioContext.ts#L214-L276",
+          "version": "repo-lines-v1:sha256:d3994cfb45d5ee4df82b476571cc030fde1c6fc775120b6a66faf09a24dc89db:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

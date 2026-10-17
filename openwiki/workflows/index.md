@@ -1,0 +1,6 @@
+# Dateien
+
+- [Ein neues Lebewesen ergänzen](neues-lebewesen.md) - Die Reihenfolge, in der ein neues Tier in den Zahn-Agent kommt — Entscheidungen, Belege, Katalogeintrag, Zeichnung samt Registry, Freischaltung, Stimme mit QUELLEN-Zeile, abgeleitete Dateien, die Tests mit festen Listen, Gate und Sonden, Doku — samt den Kopplungen, die ohne Fehlermeldung brechen.
+- [Spielseite verdrahten (wireGamePage)](spielseite-verdrahtung.md) - Wie das Seitenskript von index.astro die Adapter baut und mit einem einzigen wireGamePage-Aufruf Spielsteuerung, Tier-Album, Schnellleiste, Einstellungsblatt, Blätter und Sicherung verbindet — samt Start-Rückfall, logFeed als Meldungsbus und der Warnung, dass dieses Skript kein Gate prüft.
+- [Ein Spielzug von der Berührung bis zum Protokolleintrag](spielzug.md) - Der Laufzeitpfad eines einzelnen Drucks — holdGesture erkennt Auflegen, Halten und Wegschieben, playPress samt tension.ts liefert Urteil und Dramaturgie, der GameController wartet über wait und prüft die Runden-Identität, danach snap oder settle mit Ton, Vibration und HUD und zuletzt roundRecorder und logFeed, einschließlich Abbruch-, Wegschiebe- und dispose-Pfad.
+- [Statistikseite: Bericht, Verlauf, Import/Export und Löschen](statistikseite.md)

@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:64ecd06b743dec78c792d11e9453f0a46bced91da8e6edb7af18dcf449c91c9a",
+  "claims": [
+    {
+      "id": "claim_c0eb7e0eba674b339bc52a6459ba0edd",
+      "statement": "Der Bau ist rein statisch (`output: 'static'`): `astro build` erzeugt zwei Seiten (`dist/index.html`, `dist/statistik/index.html`); ausgeliefert wird `dist/` über GitHub Pages, und es gibt keinen Server-Anteil, der eine Runde entgegennimmt, bewertet oder speichert.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L36-L44",
+          "version": "repo-lines-v1:sha256:8cf2b5a75b814a7ea781108792dcd78737e6a320d89b7c38db19238e6ec7cf72:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGViMzJkOTc2MmMwYTMyYTFiNWEzZWI5NzczMmY2MWY3NzUzMjlkY2NkNzM4NDMwMzFlNmFjZmNhNTNhOTY4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTI1ZDRhZDY2MWEyNGRkOTcwYzY1ZTYxYzBiZjVhNmU3NzE1MTFjNTY4YmJiNGU2ZmE5ZDBkNTgxN2RmYTVjNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjExM2E0ZmYyNTA0ZDM1NTI2NGQ2Zjc3MjAwY2FhMDAyMGNhZjZlYmE3N2E5MzYxMGMxM2I4ZWMyYzc2ZDYxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTA4NWNmMTZjOWI2NDZmODIxZDI3YzFiZDNmYzAyYmQ0NThmYjZhYzBlNDlkZDc3OWFiN2YwODNkMTUxMWMyYyJ9"
+        },
+        {
+          "resource": "repo://astro.config.mjs#L19-L23",
+          "version": "repo-lines-v1:sha256:18803284c5d757fa8804b5c9b2d3eacbc998253d5e09e276132b25345307c55c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjJjZWNiMTQ0YTQ2ZjVkY2YxMmE2MTY5ZmNlZWQ3Njk1ZTgyOTRiMDkwZGU3NmYzNjYxY2RkMDI0OTMwMDE0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzE4Y2E4MTAyNTUzM2FiZGU2OWFiMjUzN2I4NjU1OTMxMWVjODBmZDUwMThhOWI3MmQ4ODJhZjdjZmFlOGNkMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZjMDU2NTkxZjVlMzcxYWEyNTlkZTQzYzRiMWQ4ZjNlZWYyMGIzNmNiNzA3YWFkYTZhZTdmMmVjYjllNDU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6bb4337ef427448582b7964e680b6a52",
+      "statement": "`src/pages/index.astro`, `src/pages/statistik.astro` und `src/layouts/Base.astro` gehören zu keiner Schicht (`FOLDER_LAYER` listet nur `*.ts`-Mappen); ihr Skript baut ausschließlich Adapter und ruft **eine** Verdrahtungsfunktion der Bedienung auf (`wireGamePage` bzw. `wireStatsPage`), weil das Skript einer `.astro`-Seite weder `tsc` noch jsdom prüft.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L18-L22",
+          "version": "repo-lines-v1:sha256:88cfda0b01d600a1161356bd6efc506f961c99e8b5657c036e5f0540773fac0b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWVjZmZhOTc1Y2FhM2JiOTBjMmFkNTI5ZDQ2ZWZjNDc4NDYyYWI5MjlhNTI1ZmVmNmY5NTA5ZTZjMTRmMjViYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWI2N2ZmZGU1MTQwNGJmYTM3NzkxYmRiZTU3MTJkMDlhMWE2YjNjMWEyZDEwMDk3Njk0N2RjODI4OWE4YWNlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODYwMzUxOGU5ZGJiZGJmZTA4OWUyZjdkMDkxMzVkZDFlYjNlZDdlZjAyYjdmMGE4YTY1YjM1NTJmNzhmOTFlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JjMDBhYzQwYjllYjAyMGIzZDE3YzlhMzdiYjc0OWY2MzdmOTFhZWM2Mjc3OTYwYzAwY2VmYmEwZTc2ZGNkYiJ9"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L14-L27",
+          "version": "repo-lines-v1:sha256:f9573f6eaf6393ef39a4aae238ee027f3f263c79584332327332e240bf762dbf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhZmM1NzMwNjc2YzIxMGU1NGU2ODBjNzA5ZTBmYWI3NTk4MTQyMmZhMDc4ZDc3ZDBlOGYyYjUzYzgwNWI5ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1MDk5MjYwOWM1YWRhNjk2NWNkNTc2YmE5N2FjYjdlYTZkOTM2M2Y3OTk0M2U0OGEyNjU1MzA4MTE5M2U1NWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0ODhlYjliYTYwN2ZhYmQyMzQ4YzU3NzJmYjYyOTdiNzQ4ZmJlYzMyZmNjZGE4MDJiZDMyZjU4YzUwYTc5ZGUifQ"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L325-L354",
+          "version": "repo-lines-v1:sha256:171535413f175b15fe1bb0cd2298cc13dbaee367b3fb46400e4e976d9f5a3786:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjOWNjZThmNjEzMzkwZDI3NzhmZGVkNWY5YTVlYzE1NTVhYmI0OTAzNzdhNjEwYzE3MTMxZDQzZmU3ZjRiYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmZTM0MWJmODlkYTMyZmQ5MjZlNTRjNGFiY2RiZDhjODUxNjFkM2QyNGM0ZmZiMjY5N2RjYmNlMjEyYjM3ODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyMjYzZTYxYjFjNDViZGVjOWMxZGRlMGY1ODk1MTEwYzA3OGMwNWU0Y2YxZWU0NWEzYWViZGRiOGM4MGM5YWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MmFjYjZiMDMzYTgzNTM0MDZmOTFmOGVhZGQxNDYxNzQwYzg1MWVkZWIxOGFkYjhkZmE0M2Q5MWQ3NWEwYzgifQ"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro#L69-L90",
+          "version": "repo-lines-v1:sha256:490aa8a4d1e147485c4818b30496b0fd622b3935ddc9a39b1f40ad984ce4aa86:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjOWNjZThmNjEzMzkwZDI3NzhmZGVkNWY5YTVlYzE1NTVhYmI0OTAzNzdhNjEwYzE3MTMxZDQzZmU3ZjRiYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmZTM0MWJmODlkYTMyZmQ5MjZlNTRjNGFiY2RiZDhjODUxNjFkM2QyNGM0ZmZiMjY5N2RjYmNlMjEyYjM3ODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzODNlMWU1NmJkY2MwYzU2NWQ0NjlhNjM2NGQ5ODcwYTUxNDVkNWQxMzdiYmEzZDZkMGY0MDdlYjhhMWM2ZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MmFjYjZiMDMzYTgzNTM0MDZmOTFmOGVhZGQxNDYxNzQwYzg1MWVkZWIxOGFkYjhkZmE0M2Q5MWQ3NWEwYzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4644563ad62402db134d76ed407e3f8",
+      "statement": "Die Schichten `domain` und `use-cases` enthalten keinen Browser- und keinen Uhr-Zugriff: `src/architecture.test.ts` sucht als Textsuche nach `document`, `window`, `localStorage`, `navigator`, `performance.now` und `new Date(` und schlägt bei einem Treffer fehl.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L115-L132",
+          "version": "repo-lines-v1:sha256:25005ca8270c3761a9946dda9b3f821ba9781d82d65e2bb4b5baaa845fcd427d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YWY4YjcyY2JmZDQ3NTUzY2FiNDY1MmRkZDI5MjVkZWViNTk2YzE3MTgxODYzMjI3ZWJkMDZjNWIwNzI5NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNjMzOTU3ZjFlNDkzZmU1YmZkNmM4ZDc5NmY1Mzg1ZmRjZThjMmM4OWVlMjM2YThlZTg5YzY5MGViYTA3NmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9817b47338b4dd3a6a92b01eaeade16",
+      "statement": "Zufall, Ton, Vibration, Rundenablage, Sicherung und Sitzungsmarken kommen über die sieben Ports aus `core/ports` herein; ihre Vertreter (`CryptoRandom`, `WebAudioEngine`, `BrowserHaptics`, `LocalStorageRoundLog`, `HttpRemoteLog`, `browserSessionMarks`) werden in den `wire…`-Funktionen gebaut und hineingereicht, nicht vom Kern importiert.",
+      "evidence": [
+        {
+          "resource": "repo://src/pages/index.astro#L326-L353",
+          "version": "repo-lines-v1:sha256:ddd6619509e7acb94f9056b3347c80ab9de07304518ef644750d3f10f07122cc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ZTkyMGJkMjY2YjE2MGIyODlmMmRkM2IxODExNzUwNmM3NDUyYWU0ZDdiMWYxMzUxMGQyZGRjMjUwYTdmYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjOWI3N2Y2OWQ0YjI2NzQ4OTg1NzdjNGM3NTAwNWNjZWQ0MTk2MTVjMjhhZmJhMjQxMTNlOTU5NGUzMjY5Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0ZjhlY2ZmMDRiNmMwMjI1M2M2NzJmZmNjNWZiMzYyOTUyZmI0ZGZiNWQ3NjU0MjRjMzA3MmQ4ZWQ4MWViOTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L46-L71",
+          "version": "repo-lines-v1:sha256:5afb27da7a6240c04869c75b5962e78910b6c8f385d863b81db52e0f11a6d3f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwMTNhMWRjMzYzZjk5YTcyMGM3ZDhmMzQ5ZGNmZjc2MzYyOGY5MjE0MTdiYzkxNTNhZDM5MmMyMjVkNzA3NzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNzE5Y2ViMzBhNWEyMTNlMTYwYjYwMDk2ZmZiOGQ3OGQ5ODc4ZjA5OTYyMzE1MGZlZDRhZDc1NzBlMzQ5YjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiYWU3NWZlMWQxNmM1MWUzOWIwYWM2YTM1ZWRhNzg4YzA1ODgyZmM3OTA3ZmVhZmE0M2FkYWY2YWEyZThlZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5YzVhZGQ4MGZjOTUyOGQ4YWJhNDZlYmQwNGNhNTkwZGI1MzU3OGU3N2U1ZGNkYjNlOWY4NjY1YzkzYmE2YmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a891de8cd8ec46898d060477fde6c463",
+      "statement": "Der Service Worker wird nur im gebauten Stand angemeldet: `Base.astro` prüft `import.meta.env.PROD` und `'serviceWorker' in navigator`, meldet `${base}sw.js` erst beim `load`-Ereignis mit `scope` gleich dem Basis-Pfad an und schluckt einen Fehlschlag, damit die Seite ohne ihn läuft.",
+      "evidence": [
+        {
+          "resource": "repo://src/layouts/Base.astro#L28-L38",
+          "version": "repo-lines-v1:sha256:39cb625c89dea3741bff4a4c1649da9b60f42f0215d49e2cf076f462869272f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YjhmNGUwMDg0MzkwOTc4MzgxZjVjOGIzMmEzNWEwMzc2N2M1MTE2MzY0YmY4YTJiMzA2ODk5NjYwNGFiNjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2YmY4MWM5ZmVlYzg4YjgwMTFjMTg4MzdjNWViNWM0Yjc4MjE0NjllNTI1M2ZkNDg4NzI4MmE5MGU3MWIzYjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5MDM0MWQ5MmY5ZmEwM2RiM2ZiZTBlOTIzYWYwZGQwY2Y4NjRiZWQ0NGFiMjc2ZjZjZDkxN2EzNzFlNDRkZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YmJlMWFlYjMwMTg5YTk1Y2U0NDM0MDZlZjU3Mzg3YmU4MmI0ZDhiMzEyYjFkYTQyMWExN2Q4Mjg5OTU3MmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_444b60b07adb4739847f7a7732d2a631",
+      "statement": "`public/sw.js` kennt keine Liste der gebauten Dateien: er liest die `_astro/`-Bausteine aus dem HTML der Seiten und zusätzlich aus den Importen der Skripte, legt je Seite eine Liste unter `__bausteine__/…` ab und räumt bei jeder gespeicherten Seite Bausteine weg, die keine Seite mehr nennt.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L116-L158",
+          "version": "repo-lines-v1:sha256:91c55de042b8aee98d4ccf9e67b6e1658bda2dda24ca3cc6ceb40365323789e6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNGY4ZmQ4YTY3NmZkOThlMjU5MmMyYTkyYjQ1NzQ1YjY4ZGRhNGY3MDZkMGI1N2NhNWVjYTVkZDRiODQ1YzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmMjFkZWIzY2FhYWY4YzJkYjcyNTg0MjhlODI2Y2JlNWNlOTM0NWZmZjBiY2FiZDc3YjQ4MDYxMzBmODg0MjAifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L59-L90",
+          "version": "repo-lines-v1:sha256:98d8fdc23a6e5203ff48bed6b612f2026bed9b166f41c616773a0ced63a20d1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4ZGU1NzM1MmYxMmVhZjVhNjk2YmRkMDA5ZDdjNjBjMWVkNWJkZTIwYTUxZWJiZDgwNzkzNGU2Nzc3ZmYzODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNTQzMTQzNWJiZDQ3ZmU2MDg0MGE5NTQ5MmRkZGQxNTU0ZTE0M2Y4NWFmNWM0YmQwNmUyZGQ4NTIwYjJjNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg3YzliYzcwOTI1NGE4NGU5NzliMmFlNDBhODBlM2Y5MTg3Mzc3MjJjZGJhNDAyYzhmMjI5OTc4MTZlOTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8e54b48aea82422c8004af4a31c9255b",
+      "statement": "Der Service Worker hat drei Regeln: Navigation erst ans Netz (bei Fehler Vorrat, notfalls die Startseite), `_astro/…` erst aus dem Vorrat, alles andere vom selben Ursprung sofort aus dem Vorrat mit Auffrischung im Hintergrund; fremde Ursprünge, Nicht-GET-Anfragen, Teilabrufe mit `Range` und alles unter `api/` gehen unberührt ans Netz.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L176-L221",
+          "version": "repo-lines-v1:sha256:af9107a13581988f94bef5b968e514dd5015319c50fa81f23e7170ccce74a4fb:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyNmZlZTFmNGZjMjJhNWE4YmY1Y2RiYTA3MzczOTUxNGUyNTZjZTNhMzljMWJkNmI2OWQ3MWJmYTU2ZjBlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzNjlmNjJjMWU4NWY3MzNlZDk5ZDBmODNiNTA3NTIxYjNiNDQ2NzVlZTY4OWQxY2JhNWMwMDY1ZWNhNDQ1ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3MjhkMjgxNWYzYjFlMzg5MTkwYmU0MTQ0ZjU2OTI1NDVlZWZlZWYwM2ExYzc5ZjU0MTBhMjE3YWNiMDNiMTgifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L236-L252",
+          "version": "repo-lines-v1:sha256:98483d71dc1c6bb5648660a207d8f2abddc5c72fced75815a316891ce2f99d78:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1OTFjMTgzNDczNWI2OThmYTI1ZDFlZjZkOWEwYTAyZTc4Nzk4YWM1ZGY2YTNiOGMzMGZkODRlZmQ0ZTVjNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4MGQyZGQ0ZjI4OWQyNmRjNzU3YzJiNjVhMDZjMzkyMjdhNjcxN2M0YjQ4YjVhMzk3OTJjOWYxMWU0MWFlYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ec893767e9ec48ed9e79eecee57d311f",
+      "statement": "Bei der Installation legt der Service Worker beide Seiten (`''` und `statistik`) samt Bausteinen, die Shell-Dateien und die zwölf Tierstimmen ab; ein fehlendes Extra darf die Installation nicht verhindern. Beim Aktivieren löscht er fremde Vorräte und übernimmt die offenen Fenster.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L160-L174",
+          "version": "repo-lines-v1:sha256:4a23f4512ba2eafc67ae6b61de9903fd1caf95cafacfafb53f2af83777f6555f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMmUzZjNiZDc0MjIzMDM2Y2VjZGZhOGE5ZmI2YjE4YjY2ZWEwNzgwZmZjZWZiNGViOGJkMDcxNGM2Y2YwNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxNmIyMGM0NDg1YmEzMmNkN2M1OWFlOWFhNDBhMDE3NmNhYTFlYjg4ZTAzODA4NDc1YzgyNTFiNTM4NGI0MDAifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L223-L234",
+          "version": "repo-lines-v1:sha256:6888ec3909c6c148bfcf53cb8104a5bf5016dcd8b4eb9457174b474b322fab12:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2YWQ0OWI0ZDBmMjA2ODEzZDU5MDk3NmFjOTAxYTlmOWY1MDQ5MDEwMGNlY2RiNmU4ZTBhMmM0M2RhOWQzNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1MjU0YmQzNDBhYzU2MTQzYjM0MDY1NmIwZjZmMTZkNjU2NTNjMzYzYWQzMjY4NTliNDQ0ZDNkY2ZiZTM1MjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwODc2MDc1N2IxOWJmNGRiYTc4ZDk4MDQxMTIxODg4ZTFlY2ExYzNiNDJiMzNiOTEzODg4MDUzOWI0MTY0YmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ae773948050146ec98eff0f3eaf94455",
+      "statement": "Der Vorrat des Service Workers liegt im Browserprofil und ist deshalb kein Schutz gegen Datenverlust: ein Profil, das beim Schließen seine Daten verwirft, verwirft auch ihn — gegen den Verlust der Runden hilft nur die Sicherung außerhalb des Geräts.",
+      "evidence": [
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L49-L55",
+          "version": "repo-lines-v1:sha256:de82de9e5df58c4c79c397fc17acec39916364c98e57be238e30926d20ce2461:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJjYjJhYmFhMDBhZTUzYTY1ZjgwMzkyZjM2NzA2MWNmODRjMWFhOTg0ZTdhNWE2Y2IyZWVjYzhlOTU1NWVhZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmFmOGIxZDEzNWVkMTJhZTAxYTU3NjBlZDY3OTJiZWIwNGY3ZjNiZDBhYTdhNWI4NzIyYzgyNzcxM2M0Zjg2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWQxOThiODAzOTFkNDQ1MjkxMzYwNTYxMGRhNGUxMDY2MGMyMzNmNTNmODU5NmRiOTRjNTQ4YTFlYmFiODRhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA2YmI1ZjY1Y2U0N2I4MmY5ZjM4MDJjNzdmODNlNjE0MjA1YTBhMWQwMzZhYTU4MTM3YTZiYWYwMjU5ODkwMCJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L12-L16",
+          "version": "repo-lines-v1:sha256:a4449f380b01e64b943f137ef22ed16f02d41f40fb86d93b56d25ee5e8543235:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQxZjRiMTc4NmEyY2EwZjk2ZjJjYzhlNzFiNzNkY2QzMTZlMjY0NTM5MTBiYWUzZWJjOTg4MmNiYzBkYTNiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZjNjU4NGViNjZmM2JiMWQ1MGJiNTNiODM1MGEzNzRmNjc1MjIyODg4MzMzZGZiM2ExMjBmYzZjZTFjMTdiZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTM1MTdhMzBlNjJlYzI1NDk2OGRiN2ZkOTczMGZiOGRlYTQ0NmFkYWFlODY2ZjI4YjFjYTExMWM3MWEwMzU5ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY3ZDFhMDA5NGRiMGVjM2I0NDdiZWVjNWQwNzg2ZjE4NWQ4MGI1MGUxYmIyOWE0ZTFjZDU1NTU1NDNmN2Q1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3ba6e89263c54a4ca3f396f66040c640",
+      "statement": "`worker/backup.js` bedient unter dem eigenen Ursprung der Seite genau zwei Adressfamilien: `GET`/`PUT /api/log/<code>` für das Protokoll und `GET /s/<code>`, das die Spielseite von `/` unverändert ausliefert, damit die Startadresse ohne Abfrage-Teil auskommt.",
+      "evidence": [
+        {
+          "resource": "repo://worker/backup.js#L37-L52",
+          "version": "repo-lines-v1:sha256:b4570e4932fdd33e693c9896b709bb3eed06d355b83135ef0af3ffbe08441f33:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMjdiNmMyNmNjYTI4MDRiMjY2YTc3YTJhNGYxMTU1NTBkOTNiNmUyYzI3MjI4MmJiMGJjZjY0OWQ1Y2MzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiOTcwYmQxNDJlNzNlZjc0OGYzMDNkYzM1OTZhNGI4NWRkY2I1YTgyYzViNTRkOGJlMTQ3ODM2NDlmOTY5YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllZjNmNzQ2MGE1MjgxYjRiYTYwNzdjNmE1ZTA0YTJhNzVkY2Q0NGVjOWI5OGIzODQ3YmU0MmIzNWE1MjIxNzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c0c675f1a11541318294aee555db8f47",
+      "statement": "Der Sicherungs-Worker kennt nur Codes, die der Betreiber als Zeile in der D1-Tabelle `logs` angelegt hat: ein Code, der das Muster `^[a-z0-9-]{12,64}$` verletzt oder keine Zeile hat, ergibt 404 — von außen lässt sich kein Speicherplatz anlegen.",
+      "evidence": [
+        {
+          "resource": "repo://worker/backup.js#L26-L31",
+          "version": "repo-lines-v1:sha256:5bf940d7f4156e1417f89ad5915a878e1647c3622a12c0fad3b6d725cf9378e5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODQ3YjZkZjFlMWQyOWY0ZTU0YzgyZjUwMjI5ODdmNGFiNmQyOGRjMjRkMGIwYTgwNDUyYjRlMjcwNTMwODRlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODJiNjQ5ZjNhNWU4ZGZjNWY1MzE1MTdhNmU0NjAyY2NiMzUyMjdhZWQxNmQwOTQwZGE0OGEyNjBhNGFmNzc0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzM1ZmVhYWFiYzlmZmE4MmJiODFhZGJlZmFiMDk0ZThkNWMyODZmNDA1YTdkZTI0OTFmNWQ2OTFlNWIyMDgzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWQ1ZGJkMDk5Mjg3Zjk2NjhjMTU1OTczMDQzMTU1N2ExMDA4MjY2ZDdjMDBiNjFkYzNlMmIxMGM0OGE3YjRhNSJ9"
+        },
+        {
+          "resource": "repo://worker/backup.js#L53-L56",
+          "version": "repo-lines-v1:sha256:f186099417b01c1ca6a471d540d2b0b2dd2eb8c58c81d256e1cf04fb6660efbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzAyM2Q2MWFjMDZmMzU0ODYyMzJmYmE1NDY5MWI1OTJhMjQ0YWIzNzA1OTAyNjNkOTFiMmQ3MGVmMDU1MDY0MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI2NmYwZDZmNTU5MDY4NmI1Mjc1NWM1MDlmM2ViMDRhY2M0NjE1NmY2MmNmNTQ3YTEzMjE3OTdlOTM4MWY0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDE2NWE4MmNhZmIzZTdlMmU3YzI3NDVmYjJkZDIwYmI1OTA5OTU5ZTg2OTc4N2I2OGExMzkzMDU5NGFlYzFkOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c18b7f74950c4f39a783f663667d33c9",
+      "statement": "Ein `PUT` ersetzt das Protokoll nur, wenn der Rumpf eine JSON-Liste innerhalb von `MAX_BODY_BYTES` (1 900 000 Bytes ≈ 11 000 Runden) ist und antwortet dann mit 204; zu groß ergibt 413, ungültiges JSON oder keine Liste 400, andere Methoden 405, und alle Antworten tragen `cache-control: no-store`.",
+      "evidence": [
+        {
+          "resource": "repo://worker/backup.js#L57-L80",
+          "version": "repo-lines-v1:sha256:cd6efdbb05fa6d4270c6a09f1d6de67937fcd09cb063bd48a794a4e8978036d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1YWFlOGUxNzA3NGNmYzEyYTg1OTdkZDMxZjFlNWYyZjYxMTYwZjMwZjRlMjdkMTY5ZDgwNjk3NjNiYTc2ZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMDMzYTkyMzAwZDI0NmEwNGJlY2QwYmVhY2UzMzcxOWFmOTcyOTU2MWY3NDMyZjIzNGIyODNlOWQ3NGQxNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_db9954852b8441eab8db0665e54ef3ee",
+      "statement": "Der Sicherungscode kommt aus der Adresse (`…/s/<code>` oder `?s=<code>`, geprüft gegen dasselbe Muster wie im Worker) und wird zusätzlich unter `zahn_agent:backup-code` abgelegt, weil die Verweise zwischen Spiel und Statistik ihn nicht tragen; ohne Code baut die Seite keinen `HttpRemoteLog` und ruft den Worker nie.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L13-L44",
+          "version": "repo-lines-v1:sha256:b6f80345a8de30ebd6d38f5756e4e1bacb75396d31e55402802883601d6b4f8e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2NjE2ZjBiN2QwYmVkZmE1NDA5NTdiMjRmYmQ0YjlkYjhjYzA4MTExNmM5NjVkNDNjNDg1MjUxNTM2ZGFmZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0OTM4OWQwNjM0NDQ3NDU4NjI1YmZlMWY3NGRjZGNjNzdmMTRhNGM4MTVjZmYzYjk2NzE3YTA2YjcwNjg0MGQifQ"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L337-L352",
+          "version": "repo-lines-v1:sha256:13198f75e6ba0b4744b86df5d3febc609c086b5dac43a7a3dc9a0f245b97506e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ZDExYTUxZmQxYjdhMTk2NzlmYjljODkyZDBjM2QyZTdlNTAzZDJiY2Y3Y2JjNzQwNWU3MTE3YjJiZGEwYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyNTRjZmRhN2Y1NmFlN2FkZGJhNzBhYmRkNDNmZWRlZTk2ZTA5Njg3NWZjMDc1ZjdjMDJkN2IzZWI2OGFhYzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkMDc0Y2RhZDdjNDNkOWJiNTQ5ODdlMzc0NTIzNTlmMTk2YzgyZDhmOGEzYTdjYTk5MmY0ZGM4MDllNjBlMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2MWJhNTI5MTkzNWE2ZjBkZDY1NDIzNTVmMmQ0YTQzZDY3YjgzMzUxNzgxMTI5ZWUxMzE2NTRlMDE1ZDNkNzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0bcbbe2415e642cfb5ebb632bf9bb92a",
+      "statement": "Abgleiche mit der Sicherung laufen nacheinander in einer Warteschlange, und `syncRoundLog` holt erst, liest dann die Ablage, führt zusammen und schreibt nur, wo sich etwas ändert — so kann ein während des Abrufs beendeter Zug nicht von einem älteren Stand überschrieben werden.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L13-L32",
+          "version": "repo-lines-v1:sha256:9045f37fd1a208751603860e6f753c254f78e3c750199c6e725dbb7c1c3d8b09:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxZWQ5NGQwZDY4MjE3OGZjZjUzZTQ5ODdiMDE0ZDQ0NDVjZTlkMDlhOTYwNDM4OTQ1NWFiYzc4NTI1NWNhNTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxOGNlMGIyOGZmODNiNGZjYmE0YmRjYWVjYTFjYTVmZmQ1MmJiZTVmZGMyMGJmZmZhMDQzZWU0MGU2ODAzY2MifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L24-L61",
+          "version": "repo-lines-v1:sha256:845ac36d158a88eb41f09efe8e7249264082ff3aab386200292b32fa5683b539:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlZjgyMTQ5ZGQ5ZTRmNjBkNjVmMzM2ZGVmMGUxYmQ4MTU4MTIxZDY3ZDg5NDc1MmNhN2NiMGJlOTA3NWQ2NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1OGI5NzMxYjRmZmZjZTUyNDBiNDhlNzkyN2U5Yjg2ODFhZDliNmI4NDBkZTM4ZTk1M2VjN2VkNmVlOGRhMzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e5b4a2178cb842c69ba78a2ddcec6320",
+      "statement": "Beim Biss schreibt `roundRecorder.record` das Protokoll fort, indem er es unmittelbar vor dem Anhängen neu aus der Ablage liest (Löschen oder Import in einem anderen Tab gehen so nicht verloren), den neuen `RoundRecord` anhängt und über den `LogFeed` (`round-finished`) meldet.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/logFeed.ts#L1-L23",
+          "version": "repo-lines-v1:sha256:3acdd2da2050bd6f9faba9d8ecfac60727bc5f3947427d72ffe1108df6e4dfe1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkYmZkNTZhOTAzZTI3NDM4MmU0MTQxNjlkYTc1MzczM2ViMDg3N2M1YTg1NTBjN2UzNzQxMWMwMjY2NzA1OTQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L21-L57",
+          "version": "repo-lines-v1:sha256:775ba23e1b3f162619b6e70cd648b1e7010be906810eccf0290db2d74d10b0fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2ZmZjNmZiOTgzYWQxMTRjMjk3ZTM5MjY5YjA0ZWQ3NmQ3ZTNiNmZlMjE5MjQyYTk1MDQ2MzA5ZWNmNDE5MWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYzAxNWQ1ZDY0OTgyYWFhMmQ4OWFjNWVlYWRlNmE5NDU5YmExOTViYzIzMjg4ZTFmYTY4NTk2Y2RjOTA0NDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_73ab4369ff2d49848ae485f4b5d0f53a",
+      "statement": "Album (Sterne, Freischaltung) und Statistikseite leiten sich aus demselben Rundenprotokoll ab und halten keinen eigenen Stand; deshalb löscht „Protokoll löschen“ die Sterne mit und **ersetzt** die Sicherung (`backup.replace([])`), statt sie abzugleichen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/album.ts#L3-L11",
+          "version": "repo-lines-v1:sha256:2160aee0e4fe2fbf11274b1ddd1e1f57ab61a8ad6530f9fa1f469295f9accdf3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTExODZmNzgwMGM5YWZkZjc2ZmJmZWQzYWZiMGY1OTI0YmVjMTIzYmEzMjcwMzNiMmRjZmE0YWNmMGMzZGVmZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTJkOWI3MmYwZDA3ZDY2MTM4NTg4MjBkM2NmOTJlMjRmM2YwZGNiYjM2MmI3M2UyNjFmZWQ3YWRjODMwNzkwZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRmNTY3YTMyNzFlYmNmMjFmNTdlYzhkOWMyOGRkMzk4ZDUyMGM2NjI1NjNhZGNhZTAzOGU0MDJlODM5YTcyNSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L126-L133",
+          "version": "repo-lines-v1:sha256:bbd75747df3c3599ece125006a4008203a80f0a14cd88b1bb9fd0ef36d16419f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA2NDBkZDM4MTc5ZjliMzM4NTQyZDAyMjk4MGYwOTA4Mzc2NWRhNmRkMjJiZmIyODkxOTU3MDJhM2I5NzkwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljZGZiNGRjNDlhM2Y0ZTEyZWUzZDViNmFkZTUxYWI4MjZjYzUwYTc0ZDU3NzUyYzViNDZhYWE4ZDNmOWI1NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZjczMzQzZTE2MDlmZDRiY2VmZGY0ZDY3N2YwZTUzNjM2OGIzZTU3ZDExNDA4MjQwNTU1NmM3OTJiZTUyZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8dec85b127044ae95e0b942a631e341",
+      "statement": "Die Entscheidung „schnappt dieser Druck zu?“ bleibt im Kern: `playPress` berechnet aus dem Rundenstand die Dramaturgie und liefert dem Aufrufer nur Zeiten, Pegel und das Ergebnis, nie das Wissen um die scharfen Zähne vorab.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/playPress.ts#L14-L38",
+          "version": "repo-lines-v1:sha256:d771e45045826f12e5ed9a4e515d80d5b16545aaa816f3d92d3cc387ae4753ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzYjk0ODUwOGUyOWQ2MGNiNThhZDUzZWEyZDVjMzhhNDk0ZGMyZDMzZjYxN2RlMWMxYmFkNWNlODEyZjJiMjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_692f4adecabc45159480e204eb6d5c4e",
+      "statement": "Jeder verzögerte Rückruf der Spielsteuerung prüft vor seiner Wirkung, ob seine Runde noch die aktuelle ist; startet während der Pause eine neue Runde oder ein anderes Tier, laufen Biss, Erleichterung und Nachziehen ins Leere.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L202-L222",
+          "version": "repo-lines-v1:sha256:3f78605912c589010364d2583b57a01d636b2f25640e940e242597111bbc1392:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxOTUyN2QzMmNiMzJhZjEzZDg3ZDMyZGRkMGE5OTFmNTQ1NDlmMDc1NGM0MjNlNDZjOGQ1ZTEyNDlmYmRlNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI1YTE4OWVhZTg5YWY0NDUzZjI1YmI2YTlmYTYxYTRhYjFiZDY2YzhjNWNlODM5OTRlZjcyOTc3NDk1YjAzZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhOTI5M2ZkODA1NGI2ZTQ3MjQ4MzczZjM5ZjRkZDc3ODAwMTA1ZWI3NTgzNDg2ODcyNTQyODVjZDEyODJiNzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c16917c2a56c4e769b17036e44a97318",
+      "statement": "Alle internen Verweise entstehen aus `import.meta.env.BASE_URL`; `ASTRO_BASE` erlaubt einen Unterpfad, muss mit `/` beginnen (sonst bricht der Bau ab) und wird auf einen Schluss-Schrägstrich normalisiert, weil sonst `${BASE_URL}statistik` die falsche Adresse ergäbe.",
+      "evidence": [
+        {
+          "resource": "repo://astro.config.mjs#L12-L23",
+          "version": "repo-lines-v1:sha256:8d2c1a17d26172d0b4c38b658d69205583a535c7781a134ebf05ecfe6180ea1e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkNjM3YzM4YTM1MTMyY2NmMDUxYzgzMzlmOWE2ZGU2OGRlYmQ3YzM4NDk4NjVhNGVmZmU1MTY5MDExMzRkODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxOGNhODEwMjU1MzNhYmRlNjlhYjI1MzdiODY1NTkzMTFlYzgwZmQ1MDE4YTliNzJkODgyYWY3Y2ZhZThjZDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwMTUzZTVmMGMyZTc3ODY4NGE2ZDE5YWEyZjMyNzVlMmExNTFkZWU5YjI5OTVmYzA0NjI0ZjFjMzgzMTZmZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6afa842b98a64f9e889e6e25606b760c",
+      "statement": "`src/offline.test.ts` fährt `public/sw.js` in einer nachgestellten Worker-Umgebung (unter anderem Vorrat bei Installation, beide Seiten ohne Netz, Bausteine aus Skript-Importen, `api/` vorbei am Vorrat) und prüft im Seitengerüst die Anmeldung nur im Bau über den Basis-Pfad sowie die Gleichheit der Stimmliste mit `CREATURE_VOICE_FILES`; `src/backupWorker.test.ts` fährt `worker/backup.js` gegen eine nachgestellte D1 und deckt Routen, unbekannte Codes, Fehlerfälle und `/s/<code>` ab.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L40-L111",
+          "version": "repo-lines-v1:sha256:a7324586baab151bdb1b8a60019ecf3088f2ead1d26a2a56c1704f779539447d:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiMjkyMDRhNGNmMGZlZjQ4OGJjMDJlNjFmNjUyYzRhZTFmYTg3MjJlNmI3Y2JkZTk1YTFjM2I2NmVmMmNkYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0MjRjNjRjZTM5YmU2ZDlhNjBjNmRlYmZiZjJiNWE2ZmYwYTk3NWI3ZmJiMzM3MjhkNDhhNzU4YmQwNDUxMjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L155-L299",
+          "version": "repo-lines-v1:sha256:fd535ba17ada7ed6eeb0be15832fb7fb97b43324403a896b2b80439b78c69671:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxNGNiMDBkOGE1MDU1YjAwMTQwOTMwOTc2NzUzZjgyMGQ3NmU5NTI4NGIyMDlhYzQ2MGFhMGE4MDllYTFiY2ExIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzYTNlNDZmOTQyNzZiNmY2ZjRlZDFmMDJhZjc4YmVmNmEyZWUxYzQzOWRkNTU4NGI5NzM5NDgzMTMyMTRkMmI3IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1ZTRiMTVhMmQ0Y2FiZTkxYTA2NTc4ZDk1ZjBjN2VmZThlYzg5ODcyMDg0OGJlMmVjY2Q0NDZhMzY3MDhjNmExIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmNmY1YjQwYjE1ODQ1N2QxNzg2NGYyMTc5MDc4NmRkNWEyZWNkYjY0YjY2YTY1MWY3ODhkNGUyNWNkMzMwM2QyIn0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

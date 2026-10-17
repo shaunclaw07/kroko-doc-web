@@ -1,0 +1,4 @@
+# OpenWiki-Pilot zahn_agent: Build-Artefakte und Lockfile draußen halten
+dist/
+pnpm-lock.yaml
+data/

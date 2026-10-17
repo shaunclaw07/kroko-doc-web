@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:4d64ad2dc31d8cd6e733e69dcff8914994c57d72ed2acc619aac42f52937da0e",
+  "claims": [
+    {
+      "id": "claim_d3f86ba4865442fbbbcb03d7d053d169",
+      "statement": "Der Cloudflare-Worker `worker/backup.js` beantwortet drei Anfragen unter dem eigenen Ursprung: `GET /api/log/<code>` liefert den gespeicherten Body, `PUT /api/log/<code>` ersetzt ihn, und `GET /s/<code>` liefert die Spielseite unverändert, indem er `/` vom Ursprung holt — die Startadresse ohne Abfrage-Teil.",
+      "evidence": [
+        {
+          "resource": "repo://worker/backup.js#L10-L13",
+          "version": "repo-lines-v1:sha256:ef996668e57523551b6dbdb913ac6ae36423e0fc5e99ecc6187c1582918dd418:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzMzYzYjA5YTYyZDUxZGFiYzU3Yzc1MjJjM2JjY2NhZTUwM2EyMmM4NGZiMDM5ZDMyZjEzN2U0YWVmZDRjZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2ZkNjYyZmNkNTQwYzY0MGRhNGU1YmJhMDlhMjNkZjNjZGIwMzYwNDg4NGEwNjYxNDAxMWU4MzU1ZmI4OThlMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGNhNThjODgwNWQxNWZiNWU0MjhmNjJlNWJmMWY1NWM1MGVhYWM0ZmE3YjE1ZDczZGFlYTE2MjFlOGZmYjAzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjEwMzliMGNjOTAxMjI0ODU2ZTI4OWU0MzcyOTFkZDg1NDk0Y2JlZjlkZDA1M2I4Zjk3Mjk5Mzg1MzM5OTZiMyJ9"
+        },
+        {
+          "resource": "repo://worker/backup.js#L37-L80",
+          "version": "repo-lines-v1:sha256:755bf049679ad850631a042961086384dee50204ef520ad3e4cfeadd2d281278:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMjdiNmMyNmNjYTI4MDRiMjY2YTc3YTJhNGYxMTU1NTBkOTNiNmUyYzI3MjI4MmJiMGJjZjY0OWQ1Y2MzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiOTcwYmQxNDJlNzNlZjc0OGYzMDNkYzM1OTZhNGI4NWRkY2I1YTgyYzViNTRkOGJlMTQ3ODM2NDlmOTY5YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2eb21d211a93413f8d1f83bfe8bbe643",
+      "statement": "Ein unbekannter Code ist beim Lesen wie beim Schreiben `404 not-found`: der Worker prüft die Zeile in `logs` vor der Methode und schreibt ausschließlich per `UPDATE`, legt also nie eine Zeile an — niemand kann sich von außen Speicherplatz anlegen.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L83-L89",
+          "version": "repo-lines-v1:sha256:e04891c6ca972077dda3f36ac33864fbe906522a02f63d5322a0467abfd8b59e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDVkYjIwNTAwN2Q2YjFmZGJlNTZjZDMxZDg4N2M1MzlhZWMyMDcyYTcyYTIyYjZhMjczN2FkMjExYTQ5NWM5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjhlMWRkZGFmMmQ3YzY3Yjc3NjA2MzUzN2Q0OGUwOTI4NmQxNTBlYjFhMDk5YmRmZWJkZjdlOWMzYzQ3NzE0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTkzYzlmNTE5MDZhYTExNzk3MmY0MWU1ZWIyYzcwODUwMTI3NjNjNjcwYTUzMmE5MjIxZmFhOTk0OGIxOTA2YiJ9"
+        },
+        {
+          "resource": "repo://worker/backup.js#L48-L79",
+          "version": "repo-lines-v1:sha256:1e71b797c4d65e31a607ed386953dffd2cc6407a576b1101bcf18f7a692a7f8d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczNTc2MGZiNzQ5N2E2NWIxZWQzMWYzM2EwMmY1ZDBmZDQ4ZDJjNGJmYWMyNWE4NmRkNDQyODNkMmJiN2Y0NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmOGQzNGFkMDg5NDk5ZDQyODBkMDlkNDEyODc2N2NjYzk5Y2U4ODQ5ZTIxNGFiMjAwNzhjZTRkZTA5MmQ0ZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiNzBkYmJkZDNlOTc1NjhjZDNhN2RmZWI5NGFiMGQxMzFmMzBiNWVhODg1ODI1NTgxMjAyMTI4YWRlMjQwNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5YjFiYTIzZjkyNjI1OTk4NzExZTg4ZmQ1YjI5MDVkZmM1M2ZiMjhjNzVkNWNhZWUyNzRkMDVlM2E1NTc5NGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_928f6a0d0a974764867a20f17a0c4974",
+      "statement": "Der Worker nimmt nur eine JSON-Liste bis `MAX_BODY_BYTES` = 1 900 000 Byte an (sonst `400 invalid-json`/`not-a-list` bzw. `413 too-large`), weist andere Methoden auf bekanntem Code mit `405` ab, trägt `cache-control: no-store` auf jeder `/api/log`-Antwort und prüft den Code mit `/^[a-z0-9-]{12,64}$/` — dieselbe Regel steht im Seiten-Adapter und muss mitgeändert werden.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L6-L11",
+          "version": "repo-lines-v1:sha256:5677942d322d89d3ffb2764797ff401d3416b04ac0fff57ce39a451f471a50f5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzYwODEzZWY4MWMzMTc5MjY5MzEyMzAzYjY4MzA0NzcyZWQ3YmJiNTlkMDcxMjUxMTczMzgwYzJkZDBhOGVjYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGRmNzkyYTI3NDg5Y2RkN2U5OWU1YTFlZDBhYmZkOGQyZTlkOTY2NWM1NDIwOTZhMmY3OTMzMjZlZDE3NTUyZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDFjYTdhYmQxNDJiYWY2ZmNhZDM1NTU4MDYxZjIxNjM0M2I3YzZkYzRkNjI5NDA5YTYxMjE4ZTQ2ODg2NDhmZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2I5MWRiNDkzYThlM2YzZDVmZDkxNzNjY2VlZjY5OGIyOTFmMzY2MGNiNjliYTM1ZGUwYjFhNDFjZmRlOTEzZSJ9"
+        },
+        {
+          "resource": "repo://worker/backup.js#L26-L35",
+          "version": "repo-lines-v1:sha256:bd5ed0cc75fd229b5fec7232c107180132cdcb115ea456e851950fac1d65e21d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0N2I2ZGYxZTFkMjlmNGU1NGM4MmY1MDIyOTg3ZjRhYjZkMjhkYzI0ZDBiMGE4MDQ1MmI0ZTI3MDUzMDg0ZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzNWZlYWFhYmM5ZmZhODJiYjgxYWRiZWZhYjA5NGU4ZDVjMjg2ZjQwNWE3ZGUyNDkxZjVkNjkxZTViMjA4M2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyNjQ2NjZhMTE1Mjk4MTZiZTk1ZjE0MWJhOGQzNzE0ODhhZTk4OGYwNzI2NWRlOTEzMDIzMmFjOGVlMmI0ZjIifQ"
+        },
+        {
+          "resource": "repo://worker/backup.js#L60-L79",
+          "version": "repo-lines-v1:sha256:23e4726d3669124098738c25717a3fe7e1c101c05ded05df21841cf3748f2931:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkYmZlZGQ4NTkzMGY4MGYyZTM4N2E2ZDMwYzBhNGNjMmY0ZWM5MWQzODliNWZiZmEyM2FjNGEyYzNmMDBhZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmOGQzNGFkMDg5NDk5ZDQyODBkMDlkNDEyODc2N2NjYzk5Y2U4ODQ5ZTIxNGFiMjAwNzhjZTRkZTA5MmQ0ZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxNjVhODJjYWZiM2U3ZTJlN2MyNzQ1ZmIyZGQyMGJiNTkwOTk1OWU4Njk3ODdiNjhhMTM5MzA1OTRhZWMxZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5YjFiYTIzZjkyNjI1OTk4NzExZTg4ZmQ1YjI5MDVkZmM1M2ZiMjhjNzVkNWNhZWUyNzRkMDVlM2E1NTc5NGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_afc878132e874c5c9ba9b2c41b713d71",
+      "statement": "`GET /s/<code>` prüft nur Methode und Format des Codes, nicht die Tabelle: ein wohlgeformter unbekannter Code bekommt die Spielseite, deren Abruf dahinter dann mit `404` endet, während ein Code außerhalb der Regel oder eine andere Methode `404` liefert, ohne den Ursprung überhaupt abzufragen.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L45-L67",
+          "version": "repo-lines-v1:sha256:1f898fe8ff403fcfaad5e73e3659c0e4b0556faa89f33502e2190dbaa300511d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3YWJiNjNkMjUwZmE2ZTg1MDM5MmU1ZDJhODhkYjg1NmEzZmExMmFhMTU3MDExY2MzYjZlOGMwY2Q0YzA1NTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1NTk5NWIwYmVhZDU1NzBhODk0OGIzOTRkYmNlMzhhNTRlNmE1MGM1ZDA0ZmIzNmNhNWJkOGJjOTU2ODg5YmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjNzk2ZGE3NmQzM2I2YzIxMmM5ZGJjOWIwODI2YTAwNGI2NWU4ODgzOGFjZjVjMWYzNDA5YzZhNjVkMmU5ZjYifQ"
+        },
+        {
+          "resource": "repo://worker/backup.js#L40-L47",
+          "version": "repo-lines-v1:sha256:47ddb0c1c8f13dc3fe4d09ceaf1d28d73d43a9259b9b36eb6fd25621c21ebbba:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEwZDZjM2JjMWUyMjJjYzc3ZDUzMGZmY2ZiYWI0NjkzMGY5ZjBmMGE4Yjc0ZjQ2YzMyNDk0OGE0ZDgwZDUxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGQxMTA3YmU0ZjRhZDE0ZTk3MGY0MDk3MzliZDQ1ZWIzZmRkMWFlNmMwNTFkMjBkM2E5ODRlNTBiNzdjN2ViOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzEyNjY0ZTcyNzM0MTkyNjkxMmE1NjQzMjBhZjMxM2RlYWM5YTUzODYwZDA3ZmU0ZDE1OTQ3YWUwNGQwZWY5MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_88917d3ac6fa49539a3cabc9f78d4236",
+      "statement": "`backupCode(search, storage, pathname)` liest den Sicherungscode aus dem Pfad (`/s/<code>`, auch unter einem Basis-Pfad) oder aus `?s=`, akzeptiert nur die Code-Regel und legt einen gültigen Code unter `zahn_agent:backup-code` ab, damit er beim Wechsel zur Statistikseite gilt; ungültige Werte ergeben `null` und werden nicht gespeichert, eine gesperrte Ablage wird abgefangen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.test.ts#L39-L87",
+          "version": "repo-lines-v1:sha256:53109dcb494fc7ecd163c833ece9ab0cb41c9b4ac6acd6468e347c1831e8d7a2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYjlmNDFiMzZjNmU0ZmVmNjMwODQxYjMzMDdkOWZiY2U3ZGQwYTI0YWNmYWRhNjljY2U4MDVjNDVmMGNjNTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxYTJmOTdmY2U5ZGJiZDY4ODdiNDQyODQzYjk3OTE5YzJkNjI3ZTNlYmIzMWExMGQ5MTJhMTBiYmI2MmMxM2IifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L6-L39",
+          "version": "repo-lines-v1:sha256:a8c7d426330e4069b4b5a51f64a122ed261cea85d784f3192fbb138bf2069413:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2MDgxM2VmODFjMzE3OTI2OTMxMjMwM2I2ODMwNDc3MmVkN2JiYjU5ZDA3MTI1MTE3MzM4MGMyZGQwYThlY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxY2E3YWJkMTQyYmFmNmZjYWQzNTU1ODA2MWYyMTYzNDNiN2M2ZGM0ZDYyOTQwOWE2MTIxOGU0Njg4NjQ4ZmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYWQ3Y2Q5ZGUyYWUwNjFhNzFiMTc4Mjg2ZjlhOWNmMTgyODFhY2FiNTBlNzIwN2M5YzU0ZDE3ZDg3NzJiMDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_da80f8a377b64074b62a3e113721a285",
+      "statement": "`backupUrl(baseUrl, code)` baut `<Basis-Pfad>api/log/<code>`, und `HttpRemoteLog` holt mit `cache: 'no-store'`, verlangt `response.ok` und eine Liste, filtert die Einträge durch `isPlausibleRecord` und schreibt die ganze Liste per `PUT` mit JSON-Kopfzeile; Holen wie Schreiben werfen bei Ablehnung, und der `fetch`-Aufruf läuft über einen Pfeil, weil der Browser `this === window` verlangt.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.test.ts#L96-L121",
+          "version": "repo-lines-v1:sha256:3da955b3238abccda12bb81d5dc37306812dd30cc480137621b6dcbef74967ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhODMyNDU2ZTk0YTU3NDE5N2ZhZTY0OGZlZTExM2RjZTBjZWJlYjU2NDgwOTM5N2ZkYzc3MWZmMjBhYmMyYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L41-L78",
+          "version": "repo-lines-v1:sha256:4a31a29f7938483fc3f8cc92607e004d46b555def866446d335facb9bee6c94a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YWRkZjI0ZWE0M2ZkZjc0YThhYzVlZjU0YWEzYTc4M2M4NTRkN2UyZmY1YTExNjZmM2FlYmVkYjAxNmQ1MjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_250560e2b00c459aa794151308245c87",
+      "statement": "`RemoteLogPort` ist die Naht der Sicherung: `pull()` und `push()` werfen bei Nichterreichbarkeit oder unbekanntem Code, und der Aufrufer entscheidet, was dann gilt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/remoteLog.ts#L7-L10",
+          "version": "repo-lines-v1:sha256:785258ddbd71e7b440ef6d32ed87293f48473ccefa3446ca4b02a06d79d538b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWMwYmQ1OGI5ODcwNDNlNjNhYTUzMmQxM2M2NmFiODhhNjkxMTI4ZGY3ZGQyYWY1ODRmN2E2MGE1NWNkM2FjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGIwYjcwZWIxYjQ3NWVhZDMyMWIwNDhkNGYyZWI0YWZhNWI1MTRmNGEzZjAzMjgyYzU1MjcxZTFlZDVhZTQ2MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b9450b6244ea4cfca61d2ee0ae608a40",
+      "statement": "`syncRoundLog` holt zuerst (`remote.pull()`), liest die Ablage erst danach, führt mit `mergeRoundLogs` zusammen, speichert nur bei Änderung (Vergleich über `JSON.stringify`) und schreibt nur zurück, wenn die zusammengeführte Liste länger ist als die der Sicherung — so geht keine Runde verloren, die während des Abrufs zu Ende geht, und ein leeres Gerät überschreibt keine gefüllte Sicherung.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.test.ts#L74-L91",
+          "version": "repo-lines-v1:sha256:1757108cf0239c42f5251ad1ef7597bdf5feacb99055432e2782a4752eb90a0b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5NTI0MmYwYjk4YTY1ZmE3M2YzYWJmODQ1NzY1MGI1YTFkOTMyM2Y5NjFiNjJiMzY2YThhYjc2OTlkZWEyMGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTQxMjQyM2I4ZmNlYTRkOTYyOGZjYjQyZWM5NmY4MGYzYWFhNDZkYTY0Y2ExMzg4OWM0NjY5YzU4OTEyZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L20-L32",
+          "version": "repo-lines-v1:sha256:be170c5153bc5e86e9764fd786ffdfe05730f23a5d44114b22e77ef05a16b212:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjOTViY2FjZDY3N2I2YjdhNTVlYTIyOWY5ZjJmNmZhYmFkOTJlYjZmYmVlODQ3ZTUxNzk3MDIyYjQzZjIyMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjOWU1NDIwYTRhZWU3M2RmNGRjOWQwZmVlNmJhZDQxZGU4NDc5NzIzMDdhYTUyOWFhZTM2NTQ0MmRiNzBhNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxOGNlMGIyOGZmODNiNGZjYmE0YmRjYWVjYTFjYTVmZmQ1MmJiZTVmZGMyMGJmZmZhMDQzZWU0MGU2ODAzY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a0fea7c71b054c7697bbae42ab3e2f92",
+      "statement": "`mergeRoundLogs` lässt den Stand der Sicherung unverändert, hängt nur die lokalen, dort unbekannten Runden an und numeriert sie ab `nextRoundNumber(remote)` fort; die Identität eines Eintrags kommt aus `playedAt|creature|teeth|mode|pressOrder`, nicht aus `round`, und gleiche Einträge zählen je Vorkommen — die Regel passt damit für ein Anhänge-Protokoll, nicht für einen einzelnen Zustand.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L226-L256",
+          "version": "repo-lines-v1:sha256:68e3ec14fa5133797e08d69512bdcf6497171d39007ea0130cf3c83e7bcbb493:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZTBlNDg0MDM2YjM2NjNiNjI0YmJkZWZiNzg3MTY2NzY0M2ZhNGY0OGFmYzE4OTA3ZDkxMzI1NjVkMjg4YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e8dce3bc6b684b82bc8aa92065f75b55",
+      "statement": "`wireBackup` reiht `sync` und `replace` in eine Promise-Kette, damit Abgleiche nacheinander laufen; parallel gestartete Abgleiche läsen beide den alten Stand der Sicherung, und der langsamere schriebe ihn über den neuen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.test.ts#L80-L89",
+          "version": "repo-lines-v1:sha256:8edfafccd4b65e777135a1224c15aec067e644b97efc2ad6db0d20943a3867c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIzOGE5NmRjYzU2NDQ5ZDBmN2IxNzYyNzU0OTgwMzg1OWE3NTljZjhiNzM1ZTQzNzQxMzU5YTdiZjQ3MTg0M2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjVhMWNjMTBhNDNlZTJjYmQxZjkwNGJmODhkNzBjNWY0MzMyZDNmYjVmYzY2MzVlN2RhYmI0MWZlNDQ2NjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiYzEwYmMyNTdjNjljODNjNTMxYjhiYWMzMzVjOTc5Y2EwMmMxODMzMWRmN2EzYTgzOTgyYjkyZmNhZjRjODQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L31-L46",
+          "version": "repo-lines-v1:sha256:8285c01654124077fe8d80b408fee447990e30705b790abb4a9e8c6ff9a6f0c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3NzA3ODRmY2ExYTAzODczNjU3ZjQ3MDU0NWYwMzVmMTljM2M1ZTFkZjhiNzUyMjkwNGIxMDlkMDE0M2IyYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NTNjZmNkMDY3OTI5ZmEwNTNlMGY3MGI4MzMwOTRmNDc3ZmNhOWIxYmE2NjM4NmM1NGU2Y2E3OTkxNDZkYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhMmVmMTQ4MjVkOTFkOGVkZDEyZjM4ZjUyNmI5OGZlN2MyMzk1NDcyNmY1NTA0ZTczYjg2YjIyNWYzZWNlOTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_152b50e5e783411faa1e99b16e3886ef",
+      "statement": "Der Auftrag wird im Rumpf ausgeführt und das Ergebnis danach an `onStatus?.()` gemeldet, nicht als Argument des Aufrufs: `onStatus?.({ rounds: await job() })` führte den Auftrag nur bei vorhandenem Zuhörer aus, und die Spielseite übergibt keinen — sie hätte nie gesichert.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.test.ts#L80-L89",
+          "version": "repo-lines-v1:sha256:8edfafccd4b65e777135a1224c15aec067e644b97efc2ad6db0d20943a3867c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIzOGE5NmRjYzU2NDQ5ZDBmN2IxNzYyNzU0OTgwMzg1OWE3NTljZjhiNzM1ZTQzNzQxMzU5YTdiZjQ3MTg0M2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjVhMWNjMTBhNDNlZTJjYmQxZjkwNGJmODhkNzBjNWY0MzMyZDNmYjVmYzY2MzVlN2RhYmI0MWZlNDQ2NjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiYzEwYmMyNTdjNjljODNjNTMxYjhiYWMzMzVjOTc5Y2EwMmMxODMzMWRmN2EzYTgzOTgyYjkyZmNhZjRjODQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L33-L46",
+          "version": "repo-lines-v1:sha256:62c59199c419e7ed64c81658e39231eba026eac2506ea9afdd939ff987cb95dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1MjNlNTY4MmYyMzMyNGU0MGNmYTk5Y2JlYTNiOTQwYTI2YWYyNjVkZWVmYWE2M2QyZWMwNzViNzVhYzMyZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzNDNiMmYyMzUyZWVlNTgyY2M0YWU0MGM3NzEzNzBmMjdjOWRiMzgzMGJmZDU1NWE4OGIxZDc3YjgzZDljZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhMmVmMTQ4MjVkOTFkOGVkZDEyZjM4ZjUyNmI5OGZlN2MyMzk1NDcyNmY1NTA0ZTczYjg2YjIyNWYzZWNlOTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4d01d878ce74b3fa8729007fd61b882",
+      "statement": "`wireBackup` fängt jeden Fehler und meldet `{ state: 'failed' }`, ohne zu werfen; ein späterer Abgleich holt nach und meldet `{ state: 'saved', rounds }`. Nur wenn der Abgleich die Ablage des Geräts verändert hat, ruft es `onLocalChange()` — nach reinem Sichern nicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.test.ts#L54-L103",
+          "version": "repo-lines-v1:sha256:cf4fb7c196cbf95d00be3b1aea7786cdc316ef181ff59e66c0eed91365e5a254:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMmIxOGNjYTlkNWMxMTc4MWQ3MDMzYTJkMTQxZjgyYzE2ZTQ4NDg5MDdiNzM4ZDE1Zjk1OWNlMWI2ZGI4ZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5YmViZDk3NDAzYjRiODk5ODVlNDFiNjdhNDlhZGRiMTU2ZmNhZjY2MDkxYTcxYjI3ZWZmNjFlNmQ2M2QzYzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2NmM1MTZmMWU0OTMyM2I1MjEyNTExMjRjOTJkYmIxODE1NWEyY2Y4ODEyMzc5ZDQ1YTFkNTNkNGQ1YzA3ZjMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L33-L61",
+          "version": "repo-lines-v1:sha256:06fd6957d3e77ebcc1d3ac6e64e61bd7f4a41fdc22feb50e3ccff6f5dbe9b4f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1MjNlNTY4MmYyMzMyNGU0MGNmYTk5Y2JlYTNiOTQwYTI2YWYyNjVkZWVmYWE2M2QyZWMwNzViNzVhYzMyZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzNDNiMmYyMzUyZWVlNTgyY2M0YWU0MGM3NzEzNzBmMjdjOWRiMzgzMGJmZDU1NWE4OGIxZDc3YjgzZDljZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1OGI5NzMxYjRmZmZjZTUyNDBiNDhlNzkyN2U5Yjg2ODFhZDliNmI4NDBkZTM4ZTk1M2VjN2VkNmVlOGRhMzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_810cd8b450fc451d859bcedcdb2c9a4b",
+      "statement": "`replace(records)` schreibt die Liste ohne vorherigen Abgleich und ist ausschließlich fürs Löschen gedacht — ein Abgleich nach dem Löschen brächte die gelöschten Runden zurück.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.test.ts#L105-L113",
+          "version": "repo-lines-v1:sha256:39f7fa7a531ca6ce54aae77f3722bd61be92f50ab8f17c8273a053606bb607c3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODQ3NTFjYmZmY2VlNmRmZTIyMzRmYjlkMWU2OWQyZDNmNGJhNzQyOGM4MWUwMTk2ODEwZTRmZDFjM2UzZGRkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk1M2E1NzI4ODE1YmIyNjJhM2Y1YjhlMTVmMjQ0MGRiNmJhOTk1MTBlNTdhODBmNzkxYmNhZTQwNWI2OTliYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDI2MThkZDgwOWRmYmI5MmQxMDZjOWEzM2I3ZTMzYjEwNjliODk0N2U2Y2M2ZjhmY2M1ZGI2YzZiNTdiODMyZCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L56-L60",
+          "version": "repo-lines-v1:sha256:0d8aeb4a30b9cbad8ed97db3a1e32da75929f628b343e8c8ea2b1e37e5ee23f7:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTVkOTZmNmY5MDVhYTY3NGY3YTgyYzk5ZDM5ZGJhYjlkYWZhOWYwZmQ0ZWE4NzI0MjNkYTY2ODUxZGI0NzdmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY3N2QyZjAzMWU5OGI1ZTkxMWM1YWQ0ZmI5YjIxODZhOTMyNTIyZThmNDZlZTQwYmFiZmFlM2RhMDBmYzEyMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmU4ZmYwN2ZkYzg3MTYyNzFhYWU4NTUzYmE0ZmFiM2MwYzc1YzZjNDZhZjNmZWM4ODg0MTcyZDRhNWQ1NDk3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L126-L133",
+          "version": "repo-lines-v1:sha256:bbd75747df3c3599ece125006a4008203a80f0a14cd88b1bb9fd0ef36d16419f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA2NDBkZDM4MTc5ZjliMzM4NTQyZDAyMjk4MGYwOTA4Mzc2NWRhNmRkMjJiZmIyODkxOTU3MDJhM2I5NzkwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljZGZiNGRjNDlhM2Y0ZTEyZWUzZDViNmFkZTUxYWI4MjZjYzUwYTc0ZDU3NzUyYzViNDZhYWE4ZDNmOWI1NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZjczMzQzZTE2MDlmZDRiY2VmZGY0ZDY3N2YwZTUzNjM2OGIzZTU3ZDExNDA4MjQwNTU1NmM3OTJiZTUyZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2ee41fe1ff8c45b1865415362a74cde2",
+      "statement": "Der Sicherungsstatus wird nur auf der Statistikseite sichtbar: `backupNote` macht aus `saved`/`failed` den Satz für `#backup-status` (mit Singular und Null), während die Spielseite bewusst keinen `onStatus` übergibt und deshalb nichts von der Sicherung anzeigt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L64-L72",
+          "version": "repo-lines-v1:sha256:6e8c214c2469f501d6f8adf9fe39a13ba3f94cc0b30eb67b2668dfed7c78d3ee:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDUzOTM4ODE4ZjMxYTRkYTc5OTYyMzlkOGZhZDYzMWQyNjlhYTNlOTcwYWJhZTk2ZGZmMTcxN2IyOGM2ODU0ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L121-L136",
+          "version": "repo-lines-v1:sha256:f3c8da310f2e9fdaa02e1c872e690bc7853fd881dff9082c433b1e1a85a92385:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwODk2N2M2YTIxZmVjN2U4Y2Q2MTBjODA1YmIzYzM0ODc5YmQ4MjA3OGExYmIxZjRmMzZkZjUyNTAzOWY2YzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczZjE1MzkwMTQ3M2RmZTk4NTgwMzJmNzBlOWMxMTYwNmQzZGNhNTViY2M3YjVjOTc4OGUxMTVjMjdlNTM5NTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L59-L75",
+          "version": "repo-lines-v1:sha256:9e0b4b50a53f982a3239f00ef41f7672e138dd9452e52df577afacf4182a702d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNjllZTU1YjFjZjZkYmU1NGUzZTU5YTRkZDQ0NDIwNWQzYzM5ZGI4MWNmYjdkYmYxZjU5YjcxOGY2YzRjZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZWFkZjBiMWJlMjBmYTk4MzgzNTE1Y2U4MzY3ODdkNzVmNWI5ZWJiOWE1MmVjOWE5MTRlYTJkYzZmNDQxYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5MGM3OWEwOWQwNDBkYmNiMTQxMWM4MDcyZGNhYzY2ODg5NDljYjRkMmNjZGU4ODY1YjZmNzY2ODc5ZTdhODgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_676853e1579e4813aace7eb7e5b0b3ba",
+      "statement": "Beide Seiten erzeugen `HttpRemoteLog` nur, wenn `backupCode(...)` einen Code liefert — ohne Code gibt es keinen Adapter und damit keinen Abruf. Die Spielseite gleicht beim Start und nach jedem `round-finished` ab, die Statistikseite beim Start und nach einem Import.",
+      "evidence": [
+        {
+          "resource": "repo://src/pages/index.astro#L337-L353",
+          "version": "repo-lines-v1:sha256:0e7725c0726d85bd811d69e3b4f8b170a8bd616d35bd71474de183f558599668:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ZDExYTUxZmQxYjdhMTk2NzlmYjljODkyZDBjM2QyZTdlNTAzZDJiY2Y3Y2JjNzQwNWU3MTE3YjJiZGEwYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkMDc0Y2RhZDdjNDNkOWJiNTQ5ODdlMzc0NTIzNTlmMTk2YzgyZDhmOGEzYTdjYTk5MmY0ZGM4MDllNjBlMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0ZjhlY2ZmMDRiNmMwMjI1M2M2NzJmZmNjNWZiMzYyOTUyZmI0ZGZiNWQ3NjU0MjRjMzA3MmQ4ZWQ4MWViOTMifQ"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro#L76-L89",
+          "version": "repo-lines-v1:sha256:57605b2034d74440900e56af95f794361215b3172862b0536a607e854c675458:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ZDExYTUxZmQxYjdhMTk2NzlmYjljODkyZDBjM2QyZTdlNTAzZDJiY2Y3Y2JjNzQwNWU3MTE3YjJiZGEwYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1ZDczZDVkYjdlNGQzNGVmNWY2MGVlYjMwY2U1YjQzY2E0Y2E2NDk3ZmY4ZmEyM2RjMzRiMWNkZmY4NDc1OWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0ZjhlY2ZmMDRiNmMwMjI1M2M2NzJmZmNjNWZiMzYyOTUyZmI0ZGZiNWQ3NjU0MjRjMzA3MmQ4ZWQ4MWViOTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L121-L136",
+          "version": "repo-lines-v1:sha256:f3c8da310f2e9fdaa02e1c872e690bc7853fd881dff9082c433b1e1a85a92385:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwODk2N2M2YTIxZmVjN2U4Y2Q2MTBjODA1YmIzYzM0ODc5YmQ4MjA3OGExYmIxZjRmMzZkZjUyNTAzOWY2YzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczZjE1MzkwMTQ3M2RmZTk4NTgwMzJmNzBlOWMxMTYwNmQzZGNhNTViY2M3YjVjOTc4OGUxMTVjMjdlNTM5NTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L103-L136",
+          "version": "repo-lines-v1:sha256:c59fbd14dd9b2d73bc7b31245149dbb9f28e5938bb959bbcb15e0f85572f01c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxM2NjZDEzOTA3NWQ1MmU2ZjllZjBlYjM2NGVlYTZjOWQwNDQyMDA0ZjM3MzE4ZjlkM2E1NWYxZGU2MjUzZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxNTZhN2FkN2ZjNDBmNGE0OTFhOGJjOWM5NDJjYzRhOTAzMGE4NTRhZDlhZGVhMTk0MGU2NDJiMjdiNGZlNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4ZjMwYWZhMzhlOGFiMWUzMDgyZjVjMmE0YzgyYmIxZDZhMzM2Mjc1OTE2YjY1ZTgxYmY1ZDQxNDU0MTliNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YjQyZDVhMGVmZGE5MTc2ZGIwZmEwYWU1YzY5N2VlNjRkZGY2M2UxYTJkM2RiOWYzN2IwZDQ2Y2M2NDkxY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a6da9d999f6045ba81025121e650f6dd",
+      "statement": "Der Service Worker lässt Anfragen unter `api/` unberührt ans Netz, weil ein Stand aus dem Vorrat ein alter Stand wäre, den der Abgleich zurückschriebe; `src/offline.test.ts` hält fest, dass `api/log/<code>` keine Worker-Antwort bekommt.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L236-L244",
+          "version": "repo-lines-v1:sha256:df9675a663957d9a4cd6fa95c8746d5f61b375fae41178b6a8b2bb1547cce5a9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU5MWMxODM0NzM1YjY5OGZhMjVkMWVmNmQ5YTBhMDJlNzg3OThhYzVkZjZhM2I4YzMwZmQ4NGVmZDRlNWM0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgwZDJkZDRmMjg5ZDI2ZGM3NTdjMmI2NWEwNmMzOTIyN2E2NzE3YzRiNDhiNWEzOTc5MmM5ZjExZTQxYWVhNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzBhZGQ1OTVlZWVjOWYxMmI1NmJkODQ4NjE2NTllMzRkYTYwZmQ1ZGEzNTY2MjMyOTcxZTcxYzc3ZTQ4ZmNmNyJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L44-L48",
+          "version": "repo-lines-v1:sha256:6e57072afb5903c512b68d8b7aab3ec4c198bf05b416d81a7c7d348c4c57f4ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2UwZDM0ZDAyNTBjOTMyNGUwNjJkOTkyZjY3ZDY3ZWE0YWExNDJmOWUwNDljNGZiNDI2MjFmOTQ5MDY1ZDFmMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDk3M2U4YTgyYjMzYWZmMDM3NzE2ZWJiNmMwYTMzYWZlMjA0ZWU1ODEyMGFhYmFlMjQ4ZDFhYzRhNjkwZjIwZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzdhZDJhNTZiOTFjNWI3MGY0NjRiYmY2NThhN2I2ZTRlMGY3ODg0ZDhkNjJkNzIxZDAyNDExZmYxMjZjOTAzYiJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L254-L258",
+          "version": "repo-lines-v1:sha256:d6e96a0a1bdb179074317c62b097738046942bc1e492b48e8805bec91372882d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjBjYzkwNjg0NjRjMjk3M2EyZDQ4ZTA2MmJmMGEyZDBjN2M3ZTNlNTgxNGM2ZjYzMGM3MDNhNjFmN2NmZjZhYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDE2YzcwNmZjNTY2N2EzNGYwODI0ZDc1ZDVhNWFlMDIzOGFkNjliYzYzZWJlYmQ4NTkwNTBlM2Y3Njg5YjgxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJkYzcyNWUwOTc3ZThiNGRlNzZmZWVjMTZhODY3M2ZiZDI3MzhjOTVkMWMzZGJlMjk1ODVhMWE1MDQ0ODAyMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_75442711cfa040169c92f4fc7136f802",
+      "statement": "Die Datenbank hält je Code genau eine Zeile in `logs (code TEXT PRIMARY KEY, body TEXT NOT NULL, updated_at TEXT NOT NULL)`; weil der Worker nur `UPDATE` kennt, ist einen Code anlegen ein `INSERT` von Hand, einen Code sperren das Löschen seiner Zeile, und der Worker wird nicht mit der Seite ausgeliefert, sondern muss nach einer Änderung selbst neu hochgeladen werden.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L301-L327",
+          "version": "repo-lines-v1:sha256:56e820079824e862f7bc873e876752c50868d6ab4ccb27bf1bcb80227ee711f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwYjdlMWVkMWMzYjYzNzcxOThlYThjOTEzZjJjZDkzYzUyNmU5ODcwYjc2NTYwN2I4MmRiZWFlYmJkN2JkYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2M2Y2ODVkMWVhMjgwYWZlNDk1ZGFjMzgzNTc1ZmQ4NjI0ZTY4ZDY1NDk1N2U0MmU3N2RmMTAzOTg1MjgzZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiZDk2YTViZjI1ZWVjMzZlNzcyYzA0ZjY1YmQzMzc1YjZhNWQ1MGVhYmI2ZWEwNDc1YzQ5N2Q0M2UzOWQ2ZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhMmIzYWRjZWEwNzAyMTc5Yzk0YjVkZTY4ZTUxNzQzYzZiNmYxZTY4NGRjMTFiZDUyZmU0ZDZiYjA1NTc3ZmMifQ"
+        },
+        {
+          "resource": "repo://worker/backup.js#L20-L23",
+          "version": "repo-lines-v1:sha256:5b7580d1a35d3d8c70e8cc5442452efb5ab3f76af60973f19fe858b7480bbf3f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNhYTdhMzI1ZjE2ZTllZjNhMGZmZTQyZWU0ODI1YTc1ZjBmZGQyMzA1MzBlNjJiY2NiNzYzZjk2ZmIwZTUwMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWExNTMyNWEwMGZmOTk2MTU4NTVkNGI5YTY5ODUyMDcwZGQ3OTJmMDU4MzA2YTdhYjI0NDg5Zjk1ZGZiOTVjMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2JlMTYwNjcyZWU0OWYzNzNlODNjOTk1N2EwMGFiYWQ1MDNlY2I4ZDc2MWU5YTI5ZTE5NTcxOTIzNzM3ZWQ5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmFkMTFlOTBjN2JiZGQ3NGEyNGQ0YzJhMTY2N2YyODlkZmZjYjk2MjAxMGJiZTA0ZDBjNzM3MzZlNWVlN2U2MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_384a9897d39e4b84940a4368fbd87fe4",
+      "statement": "D1 wurde statt KV gewählt, weil KV nur irgendwann einheitlich ist: ein Lesen kurz nach einem Schreiben könnte den alten Stand liefern und würde beim Löschen die gelöschten Runden zurückbringen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L173-L176",
+          "version": "repo-lines-v1:sha256:88fed38423bebb85a5e8bf86ea7cdab2e537e927404f6e20861debd639b43e7e:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjA1ZGQ0ODlhYWVjYmVmODUwMDlhMzJhMjY0NjkyOTQxY2M5ZjMxZmQ3MzU3M2MwZDk2NTQ3NDMxYzMxZTBmMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkzYWZhZGI1MTVlZTM5MGRkZDFlNGNjNGVlY2U3NWQ3YzJhMjBkNDhiMjFlMzM3YmZlNDIyMTNlNWE2YjU5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTdjYzdhNjVlMmY4YjE1OWMzNjA4ZmM5NmY0NzM1MGY5ZjZlOTEyOWYzYmQxYzVhNTBkNTA0OWZkMDc4NzcyMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGVmZTJhNjI3NDM1MTUzYzZkMjE2NWI5OTBkNGUzMmJhOGZkZGQ0M2RjY2QzYmY5ZjU0MWM4NzdhZGJhZjkzOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_06a5bed2b1af41d9b724afa741a22042",
+      "statement": "Ein Abgleich ist eine Anfrage zum Holen und höchstens eine zum Schreiben; weil der Stand als eine Zeile liegt, reichen 1,9 MB bei rund 170 Byte je Runde für etwa 11 000 Runden, danach lehnt der Worker mit `413` ab und die Statistikseite meldet „nicht erreichbar“.",
+      "evidence": [
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L284-L303",
+          "version": "repo-lines-v1:sha256:b4487de4154ba5b447fd29904a8209c4b57bb3fe461eb5aed10d2c627c20494a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiZGY3OTk3YzgxNmY5Zjk1NTkxMjdlOTI5MDI2YjFmZDMyMTdhNmExODg2MmQ3ODBkZmYyNDgwMzM4MGNkYWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjZGJmNzFhZmRmNDRjMWQ3NmJjMjk0ZGY0Y2FkNWI1ZDg0OGFmMTc0ZmZhNWMwNWE2M2I0ODI0MzNmNTc1OWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJiZGIxZDZkYWE2NmQwZjE3NGU4ZTllMjhlODI3MDAyN2Q0Njk2OGE3Zjg0ZDkyZDQ3NTMxMzA5ODFhYzBmNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjYmM1NDNiNTNkZTk5NGJlY2U0YmY1NjA0MTg5NGRlNjg4ZDNjMDZkMDRlZjBkZGZlOTc1ODljYWNlNWViOTAifQ"
+        },
+        {
+          "resource": "repo://worker/backup.js#L28-L29",
+          "version": "repo-lines-v1:sha256:117d1c249b1e9ac6ec340c83b33c21342439fb6c83c92670e59f9d6006562f25:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDA3MWFkN2QwYWYyZjgwZDY1ODg1ZWIwYjJkNWNiYjBmOTQ4MGM2MDE0ZTVhZmJlN2M1OTU1OWYzYTkzMjY3NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTBiMGVjNDVlYTlkNjUwZWI4MTU0YjdkMTFkMmNlYTZlMjA4ZDYzZDBhMDBkNGFkMWI3ZTE5ZmNiOTY2YzQ5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDc0Y2I4NDI3MzliNDdmYjA1NjQzZDEzMWQ2YzliNzc2YjAxZWQ0N2MxYjU5MTY4ZjRmMTNlY2QxMWJkY2VmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmE3ZDhiYTNkOWQ5ZTdjOTMyOGU0Mzc2ZTlhYjE5ZDkyODFiYzVmMTY3Njc0NmJmOGQxMGUxMGQ4MjdjNDkxOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5bf16b8ef75644518209d09e19397a23",
+      "statement": "Der Code ist das einzige Geheimnis und steht in der Adresse, also auch im Browserverlauf und in Bildschirmfotos; es gibt keine Bremse gegen Ausprobieren, die Länge (zwölf Zeichen aus 31, rund 59 Bit) ist der Schutz, und ohne Zeile in `logs` gibt es nur `404` — die Sicherung ist kein Angebot der öffentlichen Seite.",
+      "evidence": [
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L305-L314",
+          "version": "repo-lines-v1:sha256:548601635acbfbdd96c9c512b0ee694a33ce82ba70f9c665d58e9b545e70ab41:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2NmI3NDIxNGI1MzcxZTM3YWY0M2Y0ZmUzMDIzZDczNDRmMzNiNmQ1NDE2YWQ0ZDVkN2JmMmE4ZWFkZDA1ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjNmVjOTNhZjBjM2YyODhhNjFkNGYwODRiOWM0OTMzM2RjYmIwMmZhYzc0NDYzYzIzYTQwNWM4OGNhOGQ2OTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjMjQ2ZTZlNGU1NGJkZGIwMjBjNDU2NGRjNzAwZTY4YmI5NzkwZDg5YzgyYjhkZTA1MGM4MjZiMjNhNDk2YjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2NTY1NTFkOTg4NTUwNjFiMTc4MDg3YzA1ZjkxYzhlNzk5ZTA1YmMwZGM4Y2M2NTllZmUyZTVkZGU5ZTVmMjcifQ"
+        },
+        {
+          "resource": "repo://worker/backup.js#L15-L18",
+          "version": "repo-lines-v1:sha256:16829fe4aa613c107eeaa0576f1aef2414f92ea9e914a87cabd44cd50464dd88:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzFjOTk0NmI0NjdiNmE1NDkzMmJhNDk3MjQ0MzE1NDA4OWM2YjMyYTU2ZTM1MWE1NmVlZGQ3ZDcyMDJjZWIxZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2QyODgzNjYyYzI3NTU5MDY0ZjhiZDA0MDI1MDgwYjY3MzM3YjEyYjMwOTkzZjczZTYwNWVjODZhZWNlMjA5MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTYyN2E0MjBmYjMwYzNmN2M1NzIwZDYwOGY2NjZlYTljMzNkNDE1NmZhZGE0MGNkNGI4Mjk1ODk3ZDNlYjU0YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFjY2YwNTZjYzA0NzM4NzEyMjk2MGVkYmZlNDgxOGQwZmYyMjk5YjIwYjllYTZhODhlNTA4MGRhMmMzNzUwMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_828acb6e134f43b69edd9a5577df21a6",
+      "statement": "`src/backupWorker.test.ts` lädt die ausgelieferte Datei selbst gegen eine nachgestellte Datenbank, die jede Anweisung ablehnt, die nicht mit `UPDATE` beginnt — ein `INSERT` fiele im Test auf; der echte Cloudflare-Lauf bleibt der Sonde und den `curl`-Prüfungen vorbehalten.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L1-L38",
+          "version": "repo-lines-v1:sha256:60d7b3bb9c93a3ffeb707a30a2d5d5a818ae7d53546c5622b0f20f9df0ef5524:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZDBkMmE3MjMxZTI2OTRjODhjZGQ1NWNlZTE1OGRmMjUxOTg0YTc5ZjQ0YTUyNTgwYTI3YmUwOWQ5NmIyN2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwYTVmMzk0M2Q0YWQ5YjE0OTRmODU5ZjBjYTA5MDQzOGNhMTBiMmFjMzJmMDZhMjMzNTY1YTU5NzliMGEzZTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1bf6dd6d7e4d43fa9d8c9272b8c9d3ae",
+      "statement": "`scripts/pruefen-sicherung.py` stellt die Sicherung im echten Browser nach und prüft: ohne Code keine einzige Anfrage, mit Code gesichert, nach geleertem Profil Runden und Sterne wieder da (über `?s=` und über `s/<code>`), Code gilt auf der Statistikseite weiter, Löschen leert die Sicherung, und bei totem Dienst sagt es die Seite, während das Spiel weiterzeichnet.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-sicherung.py#L1-L26",
+          "version": "repo-lines-v1:sha256:cf885974b7d2f1b2fa53208c4f234837fe027ad9dfcd768d8b30dd50ebf11c64:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3N2E5YWNkM2Q0NmVmY2U4ZWI1YWJmMjFkOTMyODQ0Nzk3ZDcyNjNiYWY5NTY0ODJiZTFiMjcyNGY1N2ZmZjAifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-sicherung.py#L83-L142",
+          "version": "repo-lines-v1:sha256:17792b21ca43681b7095752f0151c6269c70c7d9259e56fa584682c418339015:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlYTMyYWJiYTk4ZDg5YTIyODYwYmMxMzNkZDQ4M2Y5MjcxN2NjMWVhNDZlZmNkMTAxNDRhZmI2NDYzMWQ3ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxZGQ1YTZiMDMyYWI4ZDNiOWQyYzc0MDQ0NTM2MTY2NTlkOGRjODA2N2I2YmY1ZjYzZTY3YzU3ODE1MjM3NjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5OWUwZjkyMWVmMDc1YzJjMmQ5MjA0MDBlODNjMzkwZGMwZTA3ZWZiODQyYjQxZWJmZGE1YzRkN2MzZDYzYTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0ZDdlMDU3ZGY2ZThjYWE5NzkyZmJhOTdlMWM2NzM5YmI3MDBiZGY1MGJiMGMwOTUzM2Q0M2FiMzVhNjFjMjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85ab78a637a84085a10e18043a7f636e",
+      "statement": "Der Kern kennt von der Sicherung nur den Port `RemoteLogPort`; `worker/` liegt außerhalb von `src/` und damit außerhalb der Schichtprüfung von `src/architecture.test.ts` — eine andere Speicherart braucht nur eine neue Port-Umsetzung, keine Änderung an `syncRoundLog` oder den Seiten.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L31-L41",
+          "version": "repo-lines-v1:sha256:1b98ee6f491c0286fae1ae7b75048cc91b1fc087d01309a9be401755d43634dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4OTRlOTUxZTVhMzU1NTdiOTkyNmYyYmYyMzRiMDRjYjRiNmUzNjgwYzgyMzQwNmEwODkyMjBkMzc1MTk1NDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYzNmMzM4MDRlYjU2NDZjYTE5NDQ3OTQxMjYwOWNiZTJkZWJmNWQwN2YwYThhNDU1NTE4MzNiMDBmYzZlNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2MjlmZmFmOWZkYWRjNmUzZjFkMmVjNTViMDVjMzBhNjA3OWZmNDBmYWU0NTM4NWFmMDhmYzk1NmQ1YWRmMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyZTg2Nzg1MDkxMDk1YmY3NDE5OWU3MzVhMDQ5MzVlZWQ4YmVjZDM5YTY5MTBkMmIwMmE0ODgxMmVmNGViMDMifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L11-L37",
+          "version": "repo-lines-v1:sha256:c95ddb026ced8d477f976e5943a58ec020fbfbef16c95df2c93abb2f009524f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkNjljZDhiYTZlMDc3MDgyMTA2MWYzYTA3OWNhYjBhNjJkNWFjY2VkMjRhYTkxMTViNGNiZjRiNDg3ZDYyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzZmY2ZGQ5OGMxMzA2OWEzY2VmYjY2MTVhM2JkNmE2YWFkMmMyYmE2ODI3ZmFmOGJlNjBmZDZlZTBjYzlmMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2NmQ2ZmY4MjY2NGNhZmI3M2FhOGZlZDVkMjQwZTczNDUwN2E5N2Y3Nzc5NDA5YzA3OTU2YmM0OGJkNGQzMTgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

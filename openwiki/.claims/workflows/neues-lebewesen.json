@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ab433b8143018f816548acec3477ddb3cc7e26471e1505e5ed27e15b88b5db42",
+  "claims": [
+    {
+      "id": "claim_b6c96f560c8d4d5cb7e3ab2d83475143",
+      "statement": "Der Katalogeintrag in `CREATURES` (`src/core/domain/creature.ts`) ist die einzige Quelle für Kachelbeschriftung, Kurzinfo, Grammatik der Sätze, Statistikseite und Stimmdateizuordnung; `CREATURE_VOICE_FILES` leitet `<kennung>.mp3` aus `listCreatures()` ab, sodass für eine neue Stimme dort keine Zeile nötig ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L59-L60",
+          "version": "repo-lines-v1:sha256:1c02af7b8e4a06f1cbbeaa42c256ae5997f29af4e0a4cd065154821a0654da7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDkxMWM2NzNlMGM0NWRkYWZjZDI4ZGZiMjYyOGFjMTlmNDlmYzAxOGU5ZjVmZWU4YjJiZmNjN2JhODYyM2IzOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmExZGNiZmM2NTBhYTVkN2EwM2Q4ZDI0MzgzODIzMzI2ZWI0Y2Y4ZGQ1MWJmMjNjZWU5MzBiZTRlODk3ODdhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2RhZmE5YzBlODIxYThhMDg4OTNjMGNmYmQ1OTgxYzUwNGNmNDQ5ODkzMzcxMzVjMGUwZWIwYzVjOTI0ZGEzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjI2MmE3ZWUzNGYyZTljYmVjZThmM2UyOTY1OTMzNDUwYjJlY2FjNDNmNGY4NWE2YjZmYWUxZTM5MTFjYjUwNSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L8-L10",
+          "version": "repo-lines-v1:sha256:276680d5ec4c7138f50ce12d158553b7f396b6f0d0051fa350b442ed9276bcc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTQ2NDIxMjE2ZWM4ZjU5Nzg2YWVhZjRkYjA5YWJiMDdmZTU5MTg4YjA2MjUwYTdiM2M0YWE5NTk1NTI0NGU0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDk5NjdlYzFlZDM4MzZmOGViMTdhZmYxNzJiNWJmZWY3ZGU2MDQ4NWE0MzljNmNhMTFjNTkxZTE3NTU3MzlhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWNmMzk3OTlhYjQ1OWY4MTUzNTJlOTM4ZWVmNDU3MmE5YzBhMDM3OTdkZTIwOTEwYjMwYTE2ZmZhNGJmZjBmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzE1NTY0NDQzMGY4YTY1NTEwMmMxZjNjNTU5NTVjNGQ1YzE3MDQ5MGRjMWMyZGQ2MzRkMWM1Y2FjMzA0Y2MyOSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlockNotice.ts#L10-L33",
+          "version": "repo-lines-v1:sha256:bc12d1f3ab340b1d0ab747940e16f3253f30753c4a14d1f756f4ffccd47cd8a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0NGVhMTY4ZThiNzE0NzUzNDg2NjkwNDc1M2I4Mzg1ZGI3YWU4Y2Y1YzZiMTYyZDQ5N2E0MTE2M2IxNzM2MzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMWEyY2Q3MTU1MTZiY2I2Yzk3ZGUyZWY3MWZkMWY0MTViOTRmYjdhMGJiNDgxOWMwYmY4NzAzMWFkZTQxNDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczN2RhNmJhZjBhYjk3ZTUxMDBiMmYxZGQwNzY4YzNkYjY1MTNhYzU0ZjYzNDNiNzJhN2IyMjMxYmIzZjc4NzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c97d1bb6c7f641b590e520485a96e838",
+      "statement": "Die Katalogreihenfolge entscheidet über die Stammtiere: `src/core/domain/unlocks.test.ts` nimmt `listCreatures().slice(0, 8)`, `.slice(0, 10)` und `.slice(0, 11)` als Stammtiere, deshalb muss ein Stammtier vor den Bonusfiguren (`flytrap`) stehen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/neues-tier.md#L56-L57",
+          "version": "repo-lines-v1:sha256:6d7c9172372941858c0ba589314c37f041c139ecfc39a91e9eaee93aaa0ef040:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzU1MGY0Nzc4YTQ2NjI0MDEyYjQ1NjgxZTBmN2U1OGQyMDc4MDY5NmQ5YzA2ZjVkOWI2ZWExNmNjNGMxNGM4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGRjM2NmYzIxZTliNzVhNjUzYzA2MjgzNjMxNDMyOTBlM2M4YWNhMDY2OWZhOTdjNzJlNDk3NjMxYWJmNWVlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2U2M2I2YjYyODQwYzE4ODEwNDljODQ2OGRiZTI2MjhhY2YyZWI2NWFkMTY0ZTgwNzE5ZWY1ODAzMjQzNjQ3YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDNiY2M0ZTNmODAwNGUwMzIwMTI5NGQ2MmJhZWZjODc3MGYxMWY2NGJhM2RlN2ZmMTI1ODM3Mjc2N2Y2ZTI2NCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L102-L115",
+          "version": "repo-lines-v1:sha256:1362f543d83617a7e3feee074661693b1afb887dfbf792ccd7ff5e1953da2ae4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4MWEwOGFkYTY5ZTIxODEzNTFjNmY1Yjg5NTRjYjFlN2NmYjU0ZTlkZTFiODU4ZDYxNDEzOWNlOWVlNTMyNjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwNGFjODM2N2QyZGZmMWNkOTY5NjliZGQwNDU1ODUwYzk3YTRiMzFiNzk4NDhkNWNiNWZiN2FjZTg4M2ZlZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2a711cf825f54cbd98cbac83737c0126",
+      "statement": "`MAX_TILE_LABEL_LENGTH` = 12 begrenzt die Kachelbeschriftung `tileLabel()` = `shortName ?? name`; ein dreizehnter Buchstabe bricht auf der 65-px-Kachel die dritte Zeile auf und macht die Kachel 13,2 px höher als ihre Nachbarn — `validateCreature()` meldet das, `creature.test.ts` prüft jeden Eintrag.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.test.ts#L69-L85",
+          "version": "repo-lines-v1:sha256:5488b03607cdc8888cfd1c38af83c2c1935ecd1960d31c3699a9531d09c64704:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxMTcwMzk5ODc2YjJjZGI2ODMzMDc4MzdhMjg1YTQ2OGM2MDIwMzllZjUxYTc2ZDk4YWNjZTE5ZTM4MWViZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmYWUzMmJhN2UzYmM1Yzc0ZTg0ZjQ0YTMyNTQzZTY4NWU2OWU2OTJlYmVlMTYwOWU5YzdkYWFmNmFlYjE4ZmQifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L223-L225",
+          "version": "repo-lines-v1:sha256:268f30d4b96b9c7352079ddbcba450bca04e3c80d843eff3316f0fd2eff6615b:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU2ZGMyNjIwNThlNzM5OTEyZGMyZDMwMDQwZDgyMGE5YjNjZWUxNzhlMmExMzgxZmVlNmFlYTg1YmFhZGMxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjFjZGJhMzFiOGE1YjE4MGFjMjgzYWM3ZjJlYWZlNmY2MDBlZTBkZmE4NmQxZTM0YWJkNWUxOGRmYjAzZWIxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjVmNWM3ZmM2NjYwMWY1MzBiYmFmZGZmNTg2NTAxNGQ0ODgyNWY4M2RkNmMyNWYzYmM4YTM1MTE2OTE5ZWE3OSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L259-L261",
+          "version": "repo-lines-v1:sha256:974b169b876b522be6141f021fdacead993d4ae577ee862e7ed1232fed4b4af1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNhNjgyMTdlMjJiMmY2ODdhNDgyZWU1YTgzZmJjOGE3ZGY0YTA4ZDkxMGQ0Y2ZlYWZmNzY0MWU2MjkxNTYxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDc5NWExM2FlNDc4ZGFlNGE3YmFlMmE3ZDRjZGIwMmE3NDQ3ZDRmYTRlMTg1OTNkNTcyNzJkMzQ0MTA5YjhjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTY1NjA1MmQ3ZDkyNGU4Y2QzNjgwOTQ0MTY3OGFhMjg5OTYxZGMxM2RjOGFjM2FiOTcxNjkzZjU0YzhiOGZjMiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L48-L55",
+          "version": "repo-lines-v1:sha256:667bfb8ddaa176d71f6466400e55a90fed83eb1e90549162634c077b92612c4c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM1ZTkyNjU0ZTM0ODVjNzNjYWZmYTIxM2U4MzkzYWVkOTdjNDMzYzBlY2JiNDQ4MjY5MzIyMTdmMWUyN2ViMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmFjOWJiYzFjYjYwYTMwN2JjNTFhN2RmNmNjY2M3YzQzNjViYWUxMzY0Y2MxNGYxOWJkYjhlYjRlY2YyNjE2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2RhZmE5YzBlODIxYThhMDg4OTNjMGNmYmQ1OTgxYzUwNGNmNDQ5ODkzMzcxMzVjMGUwZWIwYzVjOTI0ZGEzZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_536b0dc612aa4ad193e7254fe5756dbc",
+      "statement": "Die Satzregeln des Katalogs sind testbewacht: `fact` höchstens `MAX_FACT_LENGTH` = 110 Zeichen und auf Punkt oder Ausrufezeichen endend, kein `fact` mit `scharf`, `gefährlich`, `meist` oder `häufiger`, und keine `note` mit `meist`/`häufiger`.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.test.ts#L55-L67",
+          "version": "repo-lines-v1:sha256:e12f3162f08cd1e1ef554672550700960c1e324ef35084a46db10d2a08bd0d62:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkMDY1MTk0OTdjNDA5NTMwNTY3ZTQ4MDlkODY0ZGU4MjRkYjcyMDA0NzhmMGZhYzcxOTU1ZWMzNDdhOTFiZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI1OWY5OGQ2ODMzNGJlZDk4NThjODQ1YzRjNWVhYWNlNjI1NmQ3MTMyYTI5YjM5OGJlMTQ1ZTk2NTZhZTgxMGQifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L253-L258",
+          "version": "repo-lines-v1:sha256:4633708c60a0cf9236334fe893a1a9b98cebd0628af9efee1e0fc539b87df837:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGQ3OGZhYThlNGVlMTYxMTA2MzU3MzdkNmFjM2EwN2E3NmEwMDVjZWQzMTRkZDg2ZjM3OTZkZjNkZGM0ZTBiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODEzNzA3ZTNiNDU2MjQ1NDBlNGE0N2Y4OGIxNmM2N2M4NzQzOGU1YzQ1ODIxYjFkZjQwMjNkYzUxOTcxYzUwZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTc0YjE2OWI4NzZiNTIyYmU2MTQxZjAyMWZkYWNlYWQ5OTNkNGFlNTc3ZWU4NjJlN2VkMTIzMmZlZDRiNGFmMSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L45-L46",
+          "version": "repo-lines-v1:sha256:8fb1bd3ba33d1755725291f06e795b0bee56279e3a947308900709b281d31de1:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjljYzc1MjA3N2M3OTNmMWQyNjA1OGQ2YTE3Mzk3NTU0M2IyODdlMzM1ODY1MmZhZTBiOGUwNmI3OTdhZDkyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTJmNTRkMjFiZmViNTNmZTUwMDcyNTk4OTBiNmQ0MDYyYjUwN2YxOTUwOThlNWNjNDZiMjljNGU3M2I3ZmFmZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTg4YWZkNDhlNGMwYzZlZTM5YmM4MGE1YjQwNzg1MDQwZTNkYTJkMzE0ZWQyN2U4OTY4ZjY5ZWZjN2E2M2NhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTUyOWM0YzQ1NGE4MmRkYmU4ZmNjZWE2MjU5MzZkNWNmZTkyZDkzZTcwMWJlZWMyZWFhZmExMjcwNWNjZjBmYiJ9"
+        },
+        {
+          "resource": "repo://src/regeln.test.ts#L37-L41",
+          "version": "repo-lines-v1:sha256:67e5fa05ee4e5ca8dde1a8c68969d7d088fc77881d4eb141eeef868feb463052:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU3YmE0NzI0Zjg5ZGVjMWMyNjlkOTBmYzkxNDM5ZmMyZTM1MDIzOGMyODc4ZmNlNTk5YTNmZWIyODJkNzZhMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmI1ZjZjZTNiNTI4ZWQ2MDgwODVhMGMxY2MyMzU2MTg2YWU1ZDBkNzBlYjI1ODBiZmQ0ZGQyYWY5MWUwMWIyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGY5M2NmN2I2ZTQyZjE1NTU2YmU2MTZkMjlhYjFlOTkyYjQ0OWNlN2ZlYjdhZmU4ZDg0ZTkzYWU2NGVjNTFkOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dfcfb1198e6c4677a1848051ccbec6b3",
+      "statement": "`realTeeth` darf nur `0` (Vorbild ohne Zähne) oder mindestens `teeth` sein, sonst meldet `validateCreature()` einen Widerspruch; belegt wird der Wert mit Fundstelle und Abrufdatum in `docs/tier-quellen.md`, wo auch jeder `fact` seine Quelle hat.",
+      "evidence": [
+        {
+          "resource": "repo://docs/tier-quellen.md#L1-L15",
+          "version": "repo-lines-v1:sha256:6fe4a76e8da08418147f034fd5fa160b8afc69bdea05baaaf9ed7067ed4857e9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjZjE5NGZlMzM2ODNhNGJiMWVkMTQ1MWUwYjkwNTk3ZmNmMWZkZmY5MmQ0MGI5MGE3M2E2NGJmNDMzNDA4MDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOWYxNDVlMjQ3NjQwYTk0YjM0ZDA5MjU2MWE5NDUxNzllM2IwZWExYWYxYmY1ZTcwMzUwOTQ2Y2QxZGQxZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmYWMwNDllMjc0YTg3ZjZmODhjMGRlZWNhNTJjNDVkZmNjYjA3ODIxNTBmMDdiNDU2ZDFhNDdlMzQzODU4OTQifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L247-L249",
+          "version": "repo-lines-v1:sha256:e90277a1d8334f15c6ec4f27e36b98e14aaa37b0158b71372d0f2059eb529439:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzVmOTE5NTdlMzI1ODdmMTU2MmQxYzdlYmRlZWNjM2NiZGJhMWM3ZTYyZDBiM2E1OWVmMTA3ZmY0MDVjNmQ5ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjIyMmI4NDg4OGIyOWRlYTU5NGY1M2JjYjY5OGVmZmZjODFmNjQ2MWU3M2U5MGQ2NWM2YzA2NDhlNWE1NTE1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODEzNzA3ZTNiNDU2MjQ1NDBlNGE0N2Y4OGIxNmM2N2M4NzQzOGU1YzQ1ODIxYjFkZjQwMjNkYzUxOTcxYzUwZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c6a4cb9cb2e48c8ba44289f4eeed319",
+      "statement": "`ARTWORKS` in `src/presentation/game/creatures/index.ts` und der Katalog müssen deckungsgleich sein: fehlt die Zeile, wirft `creatureView` beim Seitenaufbau `creature '<id>' has no artwork`, und `creatureViews.test.ts` prüft beide Richtungen sowie die Katalogreihenfolge von `listCreatureViews()`.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L18-L23",
+          "version": "repo-lines-v1:sha256:b8d86a1d0b829fdeed9b40eef3b5214e3d94e2b2f420c2d004619eb7f952d98e:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzA0MWQ0OTNhN2U5MWQzNWE1Nzk2MGVhYjZjM2MxZTdjYmUzODk4OGYwNzUyNDJkYmMzNjI3YzMwM2ZlN2QzZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZiNzkxNjczYjY3NjYxNDNjMmI4MDY0MmE0YjM4MTViZDA1MzIwZjNhZTg1OGJkZmYwYjU5OWYzYmU0NGEzYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Y5ZTI0YTU5NjcyMWNhNDFjZmQ4NjY3ZDcxMTBjMDJiYTI2N2ZmYzBlYTVhYWEwYmYxNmE5YjkxOTIwMzBjOSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/index.ts#L17-L51",
+          "version": "repo-lines-v1:sha256:5ee885d8ba568958186ce61de26e6369e54e2f9ef8e5d06218e7364de1aae53a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiZDA1ZDhmYTRjZDE3YmYzNmU5NDE1OThiNjkxNjQ4NzcyZDFlZWUyNDM0ZGM1Mjg1YzNiNjUwZTQyMDMwMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMGY3MjQ2M2ViMTk0NzBhYzlkNGU3YjNlZDVkMDQxYjgzZWYwZDNiMDI0ZWFjOGI2ZDQ1NDE2YWU4MDk0ODAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_459dce59286043bcab80a77d18261d65",
+      "statement": "Ein Zeichnungsmodul muss `teethProfile(count)` für jede Zahnzahl 1–12 liefern, spiegelgleich nach der Zwillingsregel (Partner von Zahn i ist `count − i`), und beide Pupillen als `class=\"pupil\"` in einer weißen Linse mit mindestens 4 Einheiten Luft führen; `creatureViews.test.ts` prüft die Zwillingsregel bei jeder geraden Zahnzahl.",
+      "evidence": [
+        {
+          "resource": "repo://docs/neues-tier.md#L81-L96",
+          "version": "repo-lines-v1:sha256:15fcee7dbc8782990742c5018d1228f2cf4e742a2689eae627b18786c4f3d6c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzMmFkOWE4Zjc0YmE5MmQ2M2YwMmZiMWI5YTUyYzAyZTE5ODRjYWI2YTQ1Zjk3YWUxMDhlZDQ3NTU0ZjkwZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMTc1Nzg4ZGEzNGI3NDJjNjA4NzBhNzEzYjA0NWE3M2JlOTg4MzIyYWE4ZTY3YzQyMWZlMzc4MjBjYzBmYzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNTRjYzIxOWJlNjEwZDk0NmQ4OGFlMzU0MjZkZjA3MGVhNDc0ODQyODI3YzM1ZGIyZWQ3NTE3YzRhNjY0OTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4NzNlNjFhMjI0Yzg4OGM5YjkwNDQ5Y2VhMDJlZTU2MWNkYWQzYjc4YzdjODk1ZTMzN2UwNDE2MGFmOWY5YzkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L356-L385",
+          "version": "repo-lines-v1:sha256:5be5975f4394b44025eb59b77aa86a487abeba5f25c559ecd09bc67434473f2f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwZjIyZGUwN2FiNzBjYjNlMDU4MDFjZDBkOTkzYzc5YzE0ZjFiMTk1NmRlYjI5YmNjMWRkODExZmYwMWY5YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2bb3acc18e0e4330ba27df20ff9d9a9a",
+      "statement": "Ein neues Tier bekommt einen Schritt in `UNLOCK_STEPS` (`src/core/domain/unlocks.ts`) mit streng steigender Schwelle; `trex` bleibt der letzte Schritt und `FINAL_GOAL`, und der Simulationskommentar über der Folge wird nachgezogen oder als nicht neu gemessen gekennzeichnet.",
+      "evidence": [
+        {
+          "resource": "repo://docs/neues-tier.md#L111-L116",
+          "version": "repo-lines-v1:sha256:15107d4540f10e464c66ee2eb20238364bd8190ea492bad244a2074247d5b104:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWUwNDNiYjIyMGE5ZWE1YTNkNzcyOTg0NmNkNTRmYWFjNDU1ODM4MWE5ZmM0OTc4ZjgyMzA4M2NmNzM0YjQ3NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E0NDljOTNlZWNkZTI4NzRmOWQ2NmM5NWI2ZTUxMTQ5NGU1YjE1NmFmNmJlNDEyN2U5ZTlmMjVhMzk2MmUxYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTg0ZWE1NjEzNzRmYTViMjhiMDY2ZTg5NDY1NmFlZDFhNmU4NDQxYzIxODJjM2Q4NmJkZGM1MTllMmFhMTIzZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAwOTZjNjRmZjdmYzkwMjc1MGEzYjQwYzQwMzgyMjZjNjBjMDRjMjYyOWMxZmNiY2VkYWZhOGY1NDJiMGU0NSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L26-L51",
+          "version": "repo-lines-v1:sha256:e6e634f5fec5c8da34db00e93be525a4f06fea0df38a61e9f23c7aac8261ba22:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMTllMzZlOThkM2E0Yjc5M2YyOTcxMzVmYzEzZmJmNzdkOGY3NmQ1NWQzMjE0ZjBjYTU2MmQ1ZjQ5YzM3MGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZDdkZmY0M2VkYzBhYTU1ZDk2ZTNlNzRkYjZmOTJkN2M3NGU4MGE5ZmFhMzVlYmIwZmUzYmY5OTJlZTA0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1OTU1NmE4ZjhkNWE3NDZjNzQzY2VmZWYyNjMwZGVjMDM4OTcxNmZkYWMyZWYxNGQ2MWRmODdiOWQyMjM1NmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ce3526939318492882971913bf46a348",
+      "statement": "`scripts/freischaltung.py` baut das Rundenprotokoll der Browser-Sonden aus der letzten Schwelle (`LETZTE_SCHWELLE`) selbst — je Katalogtier drei Sterne, bis die Schwelle erreicht ist — und bricht über `assert`, wenn der Katalog dafür nicht reicht; nach einer neuen Figur oder angehobenen Schwelle muss diese Rechnung erneut stimmen, sonst misst eine Sonde still das Krokodil.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L53-L57",
+          "version": "repo-lines-v1:sha256:dd8a520fa420eb1b4e4667ccd7443cef48ab3f54543dafad293a832beabeff04:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU4YjhkOTg5NWE2Mjc1MTFjMWU2MTFkNjgwZWY2MTU0NjRlOTFiNGE0YmYzM2NmNGYzMzBlOTdmNjc0YzlmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGVkMTFmZTg1ZmVjNmQwZDdmOTlhMzE2MTBjMmE1MTE3NDc0NGJhZDM4ZTJkNTQ3MDZjYzA5MDM5ZDE3NmJhYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ4YzI5OTc5ZjZhYWFiZjdiMjg2MTZjNzhlYjAwMThkNmY1YTdkMDU1Mjk0NzhlNDUwYTA5YzVmZTg5MmI4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I0YzhmN2QzMmQ3MzVhYzliODVjNGE3OWE2OGIwOTNhNzNiZjMzYThmZmY3ZjhmMTIwMDRkNDg4Zjk3YTE2MCJ9"
+        },
+        {
+          "resource": "repo://scripts/freischaltung.py#L33-L43",
+          "version": "repo-lines-v1:sha256:9f22682c478d202ad236310ac0af65e8b54ee266bc1a152df3ded40d0365d162:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxNGNiMTBhYjM5ODRjOGVmOGE2NTI1OWVhZjc1NmI5MmFlNmE2MmNlOGZjNGNlY2NjNTA0Y2RmMGQ1YWM5NWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3MzQ0ODAyMTdjMjc4NGMyMGQ5NTc3MGMzYTJiNzczMjg0ZmJjM2Q0M2RhZWJiN2QyMmM5OTRiN2JhZTUzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmYmQwMDkzMTRiYzI3MDg0MTY3MzRhMDJhZTVmZjM5YTFlNDhhMDUwYmU5MWY0M2IyZmFhOTIwMDJjNjJiZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e6a7eadad0ef4e8eb8f297af8a0938cb",
+      "statement": "`scripts/katalog.json` wird in `src/katalog-json.test.ts` aus `CREATURES`, `UNLOCK_ORDER` und `UNLOCK_STEPS` erzeugt (`KATALOG_NEU=1 pnpm test:run`) und sonst Zeichen für Zeichen verglichen; `scripts/katalog.py` liest daraus `TIERE`, `FOLGE`, `ZAEHNE` und `LETZTE_SCHWELLE` als einzige Tierdaten-Quelle der Python-Sonden.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/katalog.py#L1-L17",
+          "version": "repo-lines-v1:sha256:46d5efccc493d9dd10a5d6d265358fdabc20f0622941dbdafe91cc6e12247dc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiYzRkNGUxNjFiZmE1MzVhMWY0NjM3YWUxZGQ2ZTkyYWM3OWEyZDI0MWEzNzcxYTg1MTg1NDQxMTBiZDEzNzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxYzkzMGM2NTQyMDYwNGM2NjE1ZmViODM5OTg3NzA0MjkyNjhjOGM5NDQxZGE0YWZiMjQxMzY0ZmY3NDk3OTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/katalog-json.test.ts#L18-L46",
+          "version": "repo-lines-v1:sha256:daa4d24ed22a251156fe9c1659001791cb981a47bc004aec10aa3d3e59449809:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4Y2Q0NzQ5MjE3YTU4Yzc1OTRmOTAyNTE1YmZmOTAyYzAxYjc0Mjc4YzIyYmIwNTNlZDNhZWY4NTAzMDBiNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5MmRhYjNkMTliZTEyYWQwZDAzZDk1YWZjYjIwNzYxYThlMmQwNmFhODBjYzFhMTI5MGYwMjA0ZjcyNWJhMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e9d3789480d43a3b2868e37526b7d7f",
+      "statement": "Jedes Katalogtier braucht `public/sounds/voices/<id>.mp3` (MP3-Rahmen, 1000 bis `MAX_VOICE_BYTES` = 16 000 Byte) mit Lizenz- und Quellenzeile in `QUELLEN.md`, und `VOICES` in `public/sw.js` muss genau `CREATURE_VOICE_FILES` entsprechen — sonst fehlt die Stimme ohne Netz.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L24-L41",
+          "version": "repo-lines-v1:sha256:34a34dfc520bef2969ddc8ca844221a790dd261796ac28dbba398c140fcd83d1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NWQ5ZmNjNTBlN2QyYTlkNDZiNjdlMTYxMjlmYzIwYTUwN2YwNWUxN2I2ODg4YWVhMTFmNzUzMWE5MzNhOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlNmM2NmJkNGYxNTZkMmUxNTRiNjQ5NTZjM2RhZmYzNzNkZGQ4OTBlZTEyODQzOGU5ZTdjYjExNDMwODQzOTEifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.test.ts#L16-L36",
+          "version": "repo-lines-v1:sha256:b58e378eac75cb7470df050c7bc309a63d2516dc665f9a8d64415994a6669451:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzMmEyODIwYmIzZTI4NTEwMjZiYmE0NjQ5NzdkYjIzNzFlMWQzZDE1NTI1NmYwNmUxODYxNWVjNjBkOTE3MTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiNWU2OTU1MmEyNThmMjc5YjA4NDg4ZDEyNmJmYjg4OGE3NzdmNDAzNzM5ODYzZTBiNWZjZWJhNTY4NjM4NDMifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L8-L19",
+          "version": "repo-lines-v1:sha256:8a0a1dc5cc084c8b293886f555bb88db06ea21f9fd2487bd5c086970612a0dad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0NjQyMTIxNmVjOGY1OTc4NmFlYWY0ZGIwOWFiYjA3ZmU1OTE4OGIwNjI1MGE3YjNjNGFhOTU5NTUyNDRlNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjZjM5Nzk5YWI0NTlmODE1MzUyZTkzOGVlZjQ1NzJhOWMwYTAzNzk3ZGUyMDkxMGIzMGExNmZmYTRiZmYwZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L285-L290",
+          "version": "repo-lines-v1:sha256:85056e9e323820e9501b12fb688d698c2f12866eb11ddb6a36caf1c04f8aa82a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTlhMjEwMDY5ZDkzNmFlNWE4NzgyY2VhYzk3MGYzOGNkNjI0ZDMzYjRkMGNiY2E1NmIzNmI3ZjZjODI4OGExMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWM3YWRhOWVjZmUwOTE5MjYwMmYwYzA5ODljMTM4Nzc3YTVmNTI0M2JjNDc1ZTRlNDM3OGJlNzg3ZDNhNTE3OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_508aa4b3ee894b2dbaed6d7ca5987845",
+      "statement": "`src/render-probe.test.ts` schreibt je Lebewesen ein SVG und je Zahnzahl eines nach `$TMPDIR/zahn_agent-artwork`; `scripts/galerie.py` liest sie von dort, rechnet Spalten und Kachelmaße aus der Zahl der Lebewesen und schreibt `docs/bilder/gebisse.png` — in einem anderen `$TMPDIR` entsteht das README-Bild aus alten Zeichnungen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L43-L49",
+          "version": "repo-lines-v1:sha256:c6eba7de71441681f37e031d6577ae432cca5ff40dd7eea853c980a949e3ea99:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzA3MjYyN2ExZTEyZWIxMDYxNTBjMzUwZmY3MzA2YWM4YmY2ZDYxYmNkZjFhYzA0NGQxNGViYmZjZjAzMWYyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWNmZmEwZmY5MWZjNzA3NmI1NWJhNzY1NGZmZTJjYjUyYTExMmQwMDA5MjhjYTE0MDAzNDFhYTFkYjcwNzIyZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzBiYmMwODdlMzA0ZmZhNWJkMmY5YWQwZjc1ZjU3MDBlNzAzY2I5MzdkYjI1NzcwMTkwNDZhMzQyMWU0NTdhZCJ9"
+        },
+        {
+          "resource": "repo://scripts/galerie.py#L32-L51",
+          "version": "repo-lines-v1:sha256:a90c521be22f2a4522704799b3aff680e36bb1f6454664f9b5fd51295dd03c90:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkZmQ5NGNjOWE5NzFiMjhiNjM4YTVjN2I2MmYzZDNmNGFlYzczNjljN2JhYTIwZjg0MTc4MWE1OGRjYWI2MWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyODBiODYxMzRhNjM3OGFmZWY4Mzk2YWRlZDA0YTU4N2RiYTk5YjdmOTgyZmVkYWU1NmEwNjUxYWEwMjY0NDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmMTU5ODVmYTVkZjdiNjk4ZTNjYTJmNmNhZmNmYzY5OGFhZTQxOTI2YjNjZDhjNDgxNjY1MGJhM2UzOGViNGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkNGVjYzQyNTk5Zjg1NzhjYjU5ZGNmZDk1Zjc3MmY2YTg0YzFkMjliY2RiMzYzODBlZTkyMzkxMWUyOTY2ZWMifQ"
+        },
+        {
+          "resource": "repo://scripts/galerie.py#L95-L139",
+          "version": "repo-lines-v1:sha256:a951186e56a569d492ee17cdf0698ab2cfa54cf2ff4edaf71a5a1615a8d5d3c0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiMzk3OTMzYTI0YTgwMWVlOTIzMzI3YmQ2OWEwMTA0OWMwNzc5MTUwMjFjZjJlYzM5ZGRhNGY4MWFhODM3ZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2MjMzYjNmZmVhMzJhMjNkZjUzMDY1MzQzNDhmMmRlZTc3NmE1YTZmNzRmYjUzMzE3NWRkYzUzOWE4ZmU0NjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyNWQ1MWE3NzU0NDczNTExNWEyY2U0NjhlNzc0M2M0ZTM4NjJiODg3Y2ZmZDE2NGY1ODBjOTM5OWU3NjUwMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkNDEzNDBjYzIzOWExNTljZTliNjAyMmU5ZjYzMjI4MzJlMmVhZDc2Y2FlOWU0NzU0ZDIxMGViOGZiNmQ1ZTgifQ"
+        },
+        {
+          "resource": "repo://src/render-probe.test.ts#L22-L48",
+          "version": "repo-lines-v1:sha256:fe933d8db886ee5e6c4eee6a58383d82aaa25175f1c48d3c928f5c29eb79f69e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhZDdmZjM4NGJmZTI4ZDU3N2M3MzAxNmYzYjQxOTk1NmIxNjYwNDU5MjNjZDZjNzI5NzQ1ZDNhMWNjODhhYTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3ODYwMGE1ZjgxMTE1ODEyNmIzMzdkMDgwN2MzNWFlNmI3ZjZhMDUyOTA2OWZjMmRlNjEyNzQxNDcyNDcxYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyZjE4ZTY2ZjAzZTkxNmRmM2MyMjhkZTAyNzUyM2M1MmMwZmQ5MjJhNDA4OTZlYjExODczNWI3M2JjZjUzM2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_34824a1271634265b4d7a1ddc1fe09fb",
+      "statement": "`public/favicon.svg`, `public/icon-maskable.svg` und `public/logo.svg` entstehen in `src/icon.test.ts` aus dem Krokodil-Kopfbild (`creaturePortrait('crocodile', …)`) und werden byteweise mit der gerechneten Fassung verglichen; wird die Krokodil-Zeichnung berührt, erzeugt erst `ICON_NEU=1` sie neu, danach rastert `scripts/icon-png.py` die PNGs.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L104-L111",
+          "version": "repo-lines-v1:sha256:7bbaa3b862e677112c9823883df599a8062d77377f098ff5a6652a8f5ff92022:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQxYzViYmNiMzFkNjE4NTMzMzdiODA2MDk2ZWY1MTFhZTNjNTRmNDc4YWQ0YjdhMzg5MzdkNzQwM2Q1OTY1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdkNmZiNTNkYjlkMTgxOWUwYzc3ZTFhMDI0MmNkZDc5ODFiMzg2ODJhZDc1YmMzMTNmNzIxNzU2YTQ4NTUwNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2U3YzUzNjE1N2QxZjVhYjQwMDlkNDI5YmU1NmIwMTIyOGI1NGIyOTgxMGVlZWFiZTA3NmE3NzJiODkxYWVlMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjc2MmE5ZTQ0YTkzNWY2YmU4ZjBhMzUwYzVkMzVjNmMwYmUxZGQ0MmZiMmIwZDA3ODAyMGI2ODM3ZTg4M2VmNyJ9"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L100-L122",
+          "version": "repo-lines-v1:sha256:dec772b2ebc557ff7dea2befb29c54710666eba259af9f545d2e15fe204d0aee:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YmNmNWJiYTU3ZDUyYWEwZDIxMDNmMDljZDQ4MmJhMmFlZTRlOGY4OTBiODY0MGU5N2JhMWQyZWY3ZjUzNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjNmZhZDQ5MjY4ZmY0NDUxZTE1Nzg1M2MxZDRhNmFlZGFkZGQyMWY2NTU4ZTQxZmY5OGI2OGUyOWQyYTQ3NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlMzNiYWExODUzMjMyMmZmNmJkN2MyMGU3ZmU1ZDQ0NDUzODM0M2I2YTVlYTcwOTk4YjQ4NTU1NGQ0MzAyMmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e0f2371165a4b8f89ca02f71dd573be",
+      "statement": "`creatureViews.test.ts` trägt eine feste Liste knapper Trefferflächen (`'wolf/12'` bis `'trex/12'`, dazu `/11` bei engen Ringen), gerechnet auf `MIN_STAGE_WIDTH_PX`; ein neues Tier fällt dort hinein und die Erwartung wird mit Begründung ergänzt — besser noch der Ring breiter gezeichnet, damit die Liste nicht wächst.",
+      "evidence": [
+        {
+          "resource": "repo://docs/neues-tier.md#L158-L158",
+          "version": "repo-lines-v1:sha256:72583b3335f375a8353b7df7a054e25b6312a9e7e05e84d89c7f7b870b1605f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzI1ODNiMzMzNWYzNzVhODM1M2I3ZGY3YTA1NGUyNWI2MzEyYTllN2UwNWU4NGQ4OWM3ZjdiODcwYjE2MDVmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzI1ODNiMzMzNWYzNzVhODM1M2I3ZGY3YTA1NGUyNWI2MzEyYTllN2UwNWU4NGQ4OWM3ZjdiODcwYjE2MDVmNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2YzMWU3MjM4N2U5ODNlYjBiMTQzZTZhYWM3OWY3NmJkYTlmODE2NGMxOGE2MTdhOTJlYTVmYjI0NjY0YjlkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGQzMDBjNGFjMTQ1YWVjMGE0ZWY4NmMwMDUyYTE1MjA1MDdhMmVlNDNmYWM3MjY4N2YwYmE3ZTMwMGYyZGNiZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L187-L227",
+          "version": "repo-lines-v1:sha256:961765bc868c0f1012216bd05cb0d27c72a0f0c9107e1a2482ebb05293186f09:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4YmU5MmQxZTY5ZTQ1NmQ5Y2E5MzVkOWZmNjI5ODcxNzRhODk3YzdlMWIzMTJlODI2YWNmMWMyY2U1MDNlY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1ZmQyNDI4ZDRkNDg5YzJkNjk2NzcyMjQ5MmNjYTk5OTE3MjVkNGYzZGFmY2U1YzNjYmExMmNmZjQzYTdlNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4ODM1YzczNzNhMDQ1MjJlMjY0MDhmMTZkYzI4ZjYxMGNjN2Q5MzVkMTliOGU3ZmEzNzgzZDI0Yzg2NjMyYzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_67bd847efe6c443593d5c7659a51e222",
+      "statement": "`src/core/domain/unlocks.test.ts` hält die Folge (`'shark'` bis `'trex'`) und die Schwellen `[3, 5, 7, 9, 11, 13, 15, 20, 28]` fest; ein neues Tier mit neuer Schwelle ändert beide Listen und die Rechnungen über die ersten Katalogtiere.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L22-L32",
+          "version": "repo-lines-v1:sha256:e1abe6e9f51605769ee3200efe116178caa66bc00778f467544447bc8c2d2a1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2ZjNlYTBlMDhmNzc2ZjFlZGI2ZTRhMjhjYTI1MDY3ZTM1NGE0ODNjN2YwNzZjZWYxYWVkMWZkNzA2Y2RmMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlMjMyNWM5ZThhMWE1MTFkNmI4MDRmMjAxNDM2NjAwMzNjMmY1YmZlNjVjYjJmNTA2NThhMDhkMjhkMDA2MzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiNGVkNmZiN2VlYmRhNmZiOGJkMmJjMDVjMWIxMGQ3MTE5NWM5NzEzZjA3M2M2OTBkMDUzMWIzZjUwNWE0MjIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L34-L53",
+          "version": "repo-lines-v1:sha256:8390ad3a124f3c7e249066dbcb2224df29a654d1a9c7bce58adb5fce121a994e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMTQ1OWI2ZmE5ODA2YjJkODJiY2MxZjg0OGRkNTUzY2ZkNTdkZDVjM2U5ZDlhNjk1YjU3MDY2ZDRkMTAzMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1Mzc0ZDUzMjIwMTFkZTQ3NTdhZGJhYjM4NmQ0YzVjMDQxOGZlY2M2ODYyN2JlMTExN2ZiZDlmMWUwMGMzYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmYjBkYjRmNDE5Yjc3ZmMzNDNkNDU3N2E0MjdmMDNjMTJkNjc1OTkzODBiNzQ5MzZhYjAwODBhMjQ0Nzc0MmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c71b7528764d4c288861fba0d97ea61c",
+      "statement": "`src/presentation/game/unlocks.test.ts` hält je Tier der Folge die Sätze aus `progressSentence` und `playLabel` fest — dort zeigt sich ein falscher Dativ oder ein fehlendes `feminine` — und ebenso die Liste `threeLiveNames()` der Tiere mit drei scharfen Zähnen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/unlocks.test.ts#L269-L288",
+          "version": "repo-lines-v1:sha256:14dc7ed4fe685326617af1ef2f8d516783b7a192718ca835a2ab6ee46d82eae8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlMTg0ZjFjMDE3NzMyZTQ5M2ZlZmYwNWYzMWFhODMxMjkwMTBjYWY0OTIwMzU5YzE0NWUzNDNjYTZhYTI0MDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0OWM5OTBjY2RiYjQ5ZmNmNWNmODE2OGU0NzFhODNlZTM3MGZhMmY3YWE1NzYyNDA4MmQwZDYxOTkyNjU3YzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1NTExMWQxZDZjMTBmZGUyYTlhZDJkOWE4MWI3NzcwYjIwZTI3OGRkNTlhODY2MmE2Yjg2Mzk2MDc4MGM2MmUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlocks.test.ts#L307-L309",
+          "version": "repo-lines-v1:sha256:c6c4beecec8dec5e73d5ca2da0702baacb8df3f309c01ab551581e97df679652:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmEzMzIxMmI5MjZiZGY4ZTkyZWEwZDQ4MGQ2YWJlZmYyZGM4ODAzOGRiNTI1N2M5MDZmMzRjYzA1MjdlNzhjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmM3MTEzOTA5MzFkMGRjNjhmNDg3YjkyZGZkNjllYjk3ZjdmMDk5OGNjZDZlMDY3YWNhOTY3OGZlYjcyMjk4ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e758097418af465cb1e4c07f346cbdb8",
+      "statement": "`albumSummary` rechnet „x von N Tieren gespielt · y von 3N Sternen“ aus `pages.length`, weshalb `albumBadges.test.ts` bei einem neuen Tier von „0 von 12 Tieren gespielt · 0 von 36 Sternen“ auf 13 Tiere und 39 Sterne wandert.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.test.ts#L155-L158",
+          "version": "repo-lines-v1:sha256:14c5fa22951f76987b4f29ef87661b2a622b9015f11a89dd0eaa5d254800023c:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTc5YTk3MWY3OTAxZDhhMDlkZjA2MTc0Zjk0NWI4OWQ0Yzc4NDdjYzA2YTAzZTE3ODY1ZGJlZDA3ZjI5OTk5MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjc3OWQxMThkNmUzY2JmNDUwNTM5NzQ4ZGVlN2E0MzA3YWNiZTY0NDZjYmEyOTdmMjc2MGZhNWQwYmJhMWJjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzgwMjAwMDk0YzFjODY5MWEzMWFkZWU1ZDZiM2M1MWQxNmZjOGFkYzNkYmRlYjg1YTFmMTcyNzViM2Q5NTQyYyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.test.ts#L96-L102",
+          "version": "repo-lines-v1:sha256:010d79383e21888da707e475761470e34c742ef0f8e14795cc5720f758594fe0:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmRhYTYxNzZjNDRkMjBkMDEyYjg0ODk5ZGVmNzc4YWExYTlmOTEyODMyYjZmODYyMTlkMzc2YTk3ZDExMzMwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmQ3OGJiN2Q5YzJkZjUwYjczMDUxNDZhZWMyMWU2MGY3YTYzYjE5N2E3MGFjZjY0YzhiNTE2OTI0MGJkYTIxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzU5YTk0MDlkMmFkODE4MzAwOWY1Mzc2NmYxOGI0ZDRiZDdlNTVlZTIxNzhmNmVkNWVjYTc2ZDI5YWE1OTgxOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L40-L44",
+          "version": "repo-lines-v1:sha256:e80a501bb5957a322fad0794e698e477667e31045f64f61efc9481e05be4ee14:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzI4ZTQyZjQ5NWI1MDgyYWYzZmVjMTA4NTc0MWUzMzg1NmY5NzA0OTE3NTMwZTA5OTZiM2ZkODEyOWIyOTAwZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGRjOTZkMjUyNWM0ZjYxODdhYTk4MjAxMzEzMGFiZWRkNDk0NzEyOTZhZmNiODQ0NmJmZDYxYWZiMjJjOWVlOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzZiNTM3ZGM1M2ZiYWFkOTkxMTQyYjZmNjEyMTg5YmMxN2Y1ZjE4Zjg5NDZjNDcyZDM0YWM2ZGNjZmU3M2ZjOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eea2e478672e4e5bab63319710eda074",
+      "statement": "`pnpm gate` (Typen, Linter, Tests) und `pnpm probes` bleiben nach einem neuen Tier Pflicht; `pnpm probes` fährt über `scripts/pruefen-alle.py` 13 Browser-Sonden und ruft vorher `src/render-probe.test.ts` auf, damit die SVGs für die Zahnsicht bereitliegen.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L6-L17",
+          "version": "repo-lines-v1:sha256:64c954a525ff4402ac2129e62572ebe74a1c3d6129b8c1415cc59cde1c4917da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMzJiMjI2Y2Q4Njg0MjQ5MzZjYTEyNTMxOWRjM2JiMjczNjdmODNkZjc3ZjAxYjU0NTVlMGE2M2EyODNjM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlMTc4Mzg0ODIzMzc3OGRjNDk3MWM3MjVmZDE4MDQ2MzE1ZjJjMTZkNmIwMGZhZWE0MmRmOWU1ZDlmYWViNTMifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-alle.py#L17-L59",
+          "version": "repo-lines-v1:sha256:c9674802b7fbda94af01dabb36653e3a3fcae2e1b97e94e293478aa93b98b8d3:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczMDI2ZDIyZmEyNWYwMWU0ZDc5YWFiMzYwYjIyOWMyNzliOWVmMzE1ZDJiZGJjZWMxZDcyMmExYTQyNGE1ZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIzMDg2NmUxYmNjNWFiNzZlM2VmNTkwMTJkMGFkMzlhNjg3YWJlMDAyM2I0MzhhY2IxMTMwYTE4ODI1ZTgxOTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0Y2U5Nzk4ZmYyMDQyMzZjMjNiZGI4MTgxZWIwN2E1NWVmMDY4ZDFkYjBjNWU0MTliM2NmZTY5N2MyODE4MGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4NDliNzJjMWNiN2VlMmQ0ODc0YWY3NmM4ZTczNTM1NmI5NGRmYjk0NTk0ZmJlOGU2Y2I4NmZmMGQ4YzhhYWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ba741042489647fe9134c8d21b3e4b56",
+      "statement": "Die Kachelreihe der Spielseite leitet ihre Spaltenzahl aus `creatures.length` ab (`--rail-columns` in `src/pages/index.astro`); ein neues Tier ändert damit das Layout, und ein solcher Bruch wurde schon einmal nur von `pruefen-bedienung.py` und `pruefen-freischaltung.py` gefunden, nicht von einem Unit-Test.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L27-L32",
+          "version": "repo-lines-v1:sha256:c640238a84a3207372146c50147bc06439ad432f7bd599f104e252b523e8d5e7:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNThhNGZlZWFkMzdmN2M1MjY5NjQyZDQxNjFiMjQ5ODJiODIxMTllYjk1NDM4NTE1NzVjMDBkY2NmNzJmMTZiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMxNWIxZTEyY2U5NTc5YzkwN2Q1NDBkMzk5N2M1NjRhNzJjMGU3ZDFkMDlhYmY2NWE3ZDc1NmQyM2Q0OTE1ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI4ZjQ3M2E3NDYwOTE5MmFlZGIxNGQ2MjRlNTI3YWMwZTkwNGQ0MTBlM2I5ZTliOTljMDJlZDJmODIzODhkNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQwYjA5OGVkZDVmYzk1MTM5NDkxYmEwM2FkOGM0NzVjN2QwMmUzYzExN2RjZmIyYjFkN2Y1YTE4OTUzNTRlNiJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L139-L139",
+          "version": "repo-lines-v1:sha256:5d18cafaca2c3b1c45001d9299fb8c9aac5b4951396f4a632a8e9d0be86f47b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQxOGNhZmFjYTJjM2IxYzQ1MDAxZDkyOTlmYjhjOWFhYzViNDk1MTM5NmY0YTYzMmE4ZTlkMGJlODZmNDdiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQxOGNhZmFjYTJjM2IxYzQ1MDAxZDkyOTlmYjhjOWFhYzViNDk1MTM5NmY0YTYzMmE4ZTlkMGJlODZmNDdiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGViMTViYzdkMjA0MjU2OTNmMjg1NTlhNDg2OWNlYjNmYzI5MTQ1NGY2YjhlZWI2ZmQ2OGQ0YTdjYjU0ZTEyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODBjNGU1ZDg0MjY4NThjMGFhYjEyMjc3ZmIwOWIxNDY5ZWFjOTA3MDI1YzVjYzdkMTAzM2UwODU5NDRlMTMxOSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/styles/game-layout.css#L156-L156",
+          "version": "repo-lines-v1:sha256:1426b457dd7f5ad900a806e593673f0c93d58b5e2af813cc12af805336efbf75:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTQyNmI0NTdkZDdmNWFkOTAwYTgwNmU1OTM2NzNmMGM5M2Q1OGI1ZTJhZjgxM2NjMTJhZjgwNTMzNmVmYmY3NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTQyNmI0NTdkZDdmNWFkOTAwYTgwNmU1OTM2NzNmMGM5M2Q1OGI1ZTJhZjgxM2NjMTJhZjgwNTMzNmVmYmY3NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjM5NmQ2ZGVlYzNhZmQ4MzBmNjA5N2QwYWMxMmEyY2QyZGUxYmNmZmI5MzNlNjE4ODExNzAyNGFhOTdjYThkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2MyN2I0ODMzN2Y2OTRmYzljZjU5YWIwMTBlOWI5ZDcwZjU5OTY5OGYyMWM3MDQxM2ZiNWEzMjQ0MDQ3Y2UxZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c04bcbebb637483283e96a172f094fc5",
+      "statement": "Die Zahl der Tiere steht als Wort in `README.md`, `AGENTS.md`, `docs/freischaltung.md`, `docs/tiermodell-anleitung.md` und `docs/testing.md` (dort auch die erwartete Kachelzahl der Tier-Sonde) und wird von Hand nachgezogen; `ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh` und `scripts/doku-pfade-pruefen.py` prüfen das, während `docs/e2e-nachweise.md` als Akte die alte Zahl behält und einen neuen Eintrag bekommt.",
+      "evidence": [
+        {
+          "resource": "repo://docs/neues-tier.md#L179-L198",
+          "version": "repo-lines-v1:sha256:354cfcf191b19e294ca85fac02419279b7c73be109321dfa415ab38ab0c5fbca:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5YTNkNWI5MjIxODdiMDMwYjU3MmY0ODVmY2U2ZTljOTBkOTVmMjcwZDVmZGVhZGY2MDFmYTZmNjk5OWJjNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwOWQzYjBjZGMzYmEyYTE2ZmE3YzFkYjhlZjQ3NzZkYWU1YTExOTA5MTJlZmNiZTNiMjg4MzY4NTJlNTRhMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyYjE1MTJlZGVhZWFmNGNiMzlmMzZlYmE4ZjViMjRkMTM0NzAwNTg5MmEyY2ZjNzNlYzM2ODRkMzAyNjU0YmQifQ"
+        },
+        {
+          "resource": "repo://docs/testing.md#L162-L174",
+          "version": "repo-lines-v1:sha256:4b81150395f87d233238ee76f4a0c4535b6af0a0b10f08f3faa96c00e8013af6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1YjFkNTQxMWUwNDNlZDhmY2NhYTIwMTQ0NzIyYjg4ZTUyZWZmMjY3OWVmNjBiOWI1OGUxZmZlNDVmMmY5YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMWE2NjIyYzdjNDJkNzdkNzY2YjI3OTAzODZjZjkyMDE4NGRlYmUxNGRhN2VmNzBhNWQ2ZmJkNzQ1MzVhOTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2NTRhMDdhNGRiODZkNDMxMjQ4ODhjZjAzNTRhZjhhY2JmNGYwZjY5NjJjZDEzZGQ5YjcxOTQ4MGZhZmI1MTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlNDE2YjE4NDU1YzY2YWJkN2E4OTNlNTNkNjk3NmVhYjlhZTcwMGViMTU1YTViNWVlYjA4MjFhYjQ2Y2U0YTMifQ"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L69-L78",
+          "version": "repo-lines-v1:sha256:63af3ad5ab86fc7dbf481258a9433331e801b6ab54acf593f57025d7e7a8d955:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjNWM4N2I5YWQwMmU5NDA5NzRjMGM5NDZjMjVjNDhmM2M4NGJmYzVjYmJjYjY0OTc0NTg0NGE2ZDM0YzdhYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlOTVjODgwYzgwNDUwNTRkYmQwODQyNDI3NTg0N2M2YzdlMjRhYWIzZDRlOWIxZjllYTk3OTkzYWNkNzcyZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlZDBjOGI2NjE1YWNhNmQ5YzQ5Y2QwYTBmOTZiODgzMmM5MWQ1MWIxMmQ4ZGNlMTZjYzk1YThkMDY1ZGRiOTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8aca7ad2b0e2413da113d3eabd5598b2",
+      "statement": "`.githooks/pre-push` fährt vor jedem Push `pnpm gate`, und ein Push auf `main` veröffentlicht die Seite — der letzte Schritt des Rezepts braucht deshalb das Ja des Auftraggebers.",
+      "evidence": [
+        {
+          "resource": "repo://.githooks/pre-push#L1-L12",
+          "version": "repo-lines-v1:sha256:08fa262841d8948921ac333de5d526445d84abcd6d6ed85e95f9fcd768ea2f61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDc2ZDNkMjhkMjFlMDIwMTJiMjBlYWY3ZGJmNzU0MDlhNjI3NzEzNDQzOTAyNWYyODJlMzY4ZTMzMDVhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://docs/neues-tier.md#L200-L205",
+          "version": "repo-lines-v1:sha256:2cc0fc3ae735662538d4e3caea4afac101eb6eabca9bc3c84e0ad4f2dd93c44a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRjNmRkZWZjZjRiMzVlMjE0NTc4ZmIzYjk5NDc5MjRjM2EyZDlmYTMzNzNkMjU1ZDc2NDRjMjMxODEzMDlkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGMxOWMyYzVkMWU5M2M2MWQ1Mzc3Njk0NTdiYWNhMDY1NGQ4OWJhMTg0NWVmZDdhYmIxZTRhNmZhZGViMzFkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmI3YTY2MWI3OTJjNGFkMjg4ZTVlOWRiNjg5YmMxNzg0NTE0ZmUxMDgyMWI2YTEzOTgwZjQ0MGRlYTc4MDMzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

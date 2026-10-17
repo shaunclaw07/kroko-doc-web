@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:055874142cf79110b6d5e23c826d794f61fcb8c134f8e51834a6f75422a79c6f",
+  "claims": [
+    {
+      "id": "claim_176ea1ccff604cdb8a22ac17cb480fc3",
+      "statement": "Das Gate ist als Kette `pnpm typecheck && pnpm lint && pnpm test:run` definiert und wird von zwei Stellen vollstreckt: dem pre-push-Hook (eingehängt über `git config core.hooksPath .githooks`) und dem Job `bauen` in pages.yml, dessen abhängiger Job `ausliefern` ohne grünes Gate nicht startet.",
+      "evidence": [
+        {
+          "resource": "repo://.githooks/pre-push#L1-L12",
+          "version": "repo-lines-v1:sha256:08fa262841d8948921ac333de5d526445d84abcd6d6ed85e95f9fcd768ea2f61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDc2ZDNkMjhkMjFlMDIwMTJiMjBlYWY3ZGJmNzU0MDlhNjI3NzEzNDQzOTAyNWYyODJlMzY4ZTMzMDVhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/pages.yml#L38-L45",
+          "version": "repo-lines-v1:sha256:378ed54260ef05b95768ba1555e2a51f8735f5e262f094b82683f722d221aaba:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjc5YzliZjAwMTVmYWI3MDk5MGMxNTBlYmFlYmY3YWU3Yzc4ZTA5MGNiNWU0MmE3ZjFmMWYzZjU3YzA5OWY1OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTQ2ODIzM2Q2NGE1MTczZWEyZGJkMzdmMDFmZjZmN2E2MjI1YjIxNTU5YjZkYjI4MGMzZjk1OTljZTZhMmZlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjVkNDdmMmYzYmRlYTAwMzRkOTk1NGU1MDg2NWJhYjc0YTkwN2U0ZWIwZjJhYTYwNmVhNmE5YTgxMWFkYmY1ZiJ9"
+        },
+        {
+          "resource": "repo://package.json#L6-L17",
+          "version": "repo-lines-v1:sha256:64c954a525ff4402ac2129e62572ebe74a1c3d6129b8c1415cc59cde1c4917da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMzJiMjI2Y2Q4Njg0MjQ5MzZjYTEyNTMxOWRjM2JiMjczNjdmODNkZjc3ZjAxYjU0NTVlMGE2M2EyODNjM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlMTc4Mzg0ODIzMzc3OGRjNDk3MWM3MjVmZDE4MDQ2MzE1ZjJjMTZkNmIwMGZhZWE0MmRmOWU1ZDlmYWViNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c7dd9506a704ecfae396ef24ca46215",
+      "statement": "`pnpm lint` ist `biome lint --error-on-warnings .` und liest nur `src/**`, `public/sw.js` und `worker/**`; Formatierer und Assists sind abgeschaltet, vier Regeln sind mit Begründung an der Regel deaktiviert, und zwei Overrides entschärfen die „unbenutzt“-Regeln für `**/*.astro` sowie `noNonNullAssertion` für `**/*.test.ts`.",
+      "evidence": [
+        {
+          "resource": "repo://biome.jsonc#L1-L65",
+          "version": "repo-lines-v1:sha256:e1c9ac9447b48059aa9b55f3a5d1f8dd6e48f430fad34bebe6e1ef4870c8a421:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwNjQ4Zjc3ZmQ1YTljNjNiM2NkZDBhZjQ5ZGFhMTI5OTIyMGI3NTQxZTg4Y2ExN2VmZTFhNmExMTRiOWZmMmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://package.json#L13-L13",
+          "version": "repo-lines-v1:sha256:632fc2de2482465c517f3a8abd2ff0cb5ad4e6f2f4601c09c95b2b0a1cdb39c4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjMyZmMyZGUyNDgyNDY1YzUxN2YzYThhYmQyZmYwY2I1YWQ0ZTZmMmY0NjAxYzA5Yzk1YjJiMGExY2RiMzljNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjMyZmMyZGUyNDgyNDY1YzUxN2YzYThhYmQyZmYwY2I1YWQ0ZTZmMmY0NjAxYzA5Yzk1YjJiMGExY2RiMzljNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgwMTYzNzkyZDdkZDE2ZjdhOTZmMGJiYTQ4MjRkODViYzNjNTk2MGY0ZWZjYjU1NTM3NzAzN2YyMDIwMTE0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTQxNGZjYmZhMzVkOGJkOWIyNGNjZWQ0OWJjZDI0MWI4OTRmMjE5ZTI0NWJmNzYxNGRkNzdkNjE0NjlmYjZjMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a8d8a65babf425a8ef937809a23b5c2",
+      "statement": "Für einen Lint-Fund gilt die Rotfall-Regel: der Fund wird im Code behoben und das Gate neu gefahren, eine ungenutzte Variable wird erst verstanden und dann gelöscht; das Abschalten einer Regel, `// biome-ignore` oder `--no-verify` brauchen das Ja des Auftraggebers und werden zusätzlich in `docs/testing.md` begründet. `FIXABLE` hilft bei ungenutzten Importen und Variablen nicht, weil Biome sie als unsichere Korrektur einstuft.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L18-L27",
+          "version": "repo-lines-v1:sha256:550ff8a6e930d2031e05bb15ef98e1a43109a4b4b7ece9bb1b392c533b13751f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxZjY5MjIwMDAzZGIzMGY5NWI4YWIwNzE4YmI4YjYyOThlZmIwMjNlYjk0NGMzNWU5ODI1ZDdkYTU0ZGU4MGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlOWQzNWIxNmY5MWJlOGRkZGIzMzc0NzczNTQzNTdmNjEzOTU2Mjc1OTM1NGE4NmM5NWQyNzUyY2YzMDcxZGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2ZTVhMzVmNDk3OWI1YWY5OTVkZjgxNjg4ZmM3YjQ4OTc4NzBjMTQ4MTU0OWVmNjZhYjZlMzFmNzZmZGIzMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmNTFmNmUzOWY5YTEzMzZlMzgyZTU0YTg4YWIwODdhZjUyNTk4MGE0OTRhYjg3OTg5NjIzZDE3ZjNjMmI1ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d77e5ce72deb45fcae0fa3be272156cf",
+      "statement": "Die Testumgebung ist in `vitest.config.ts` global `node` mit `include: ['src/**/*.test.ts']`; einzelne Dateien wechseln per Kopfkommentar `// @vitest-environment jsdom` in den DOM, während `src/backupWorker.test.ts` und `src/offline.test.ts` `node` ausdrücklich nennen. Die Wahl der Umgebung ist damit eine Entscheidung je Datei in Zeile 1.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L1-L1",
+          "version": "repo-lines-v1:sha256:4cd0d2a7231e2694c88cdd55cee158df251984a79f44a52580a27be09d96b27f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNkMGQyYTcyMzFlMjY5NGM4OGNkZDU1Y2VlMTU4ZGYyNTE5ODRhNzlmNDRhNTI1ODBhMjdiZTA5ZDk2YjI3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNkMGQyYTcyMzFlMjY5NGM4OGNkZDU1Y2VlMTU4ZGYyNTE5ODRhNzlmNDRhNTI1ODBhMjdiZTA5ZDk2YjI3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWY4NmI3YWE4ODA0ZDRlYjA5ZGZlNmY5OGFlMjNlNWU3YTA3MjNlOGFkZmQwMWI4ODc1NjNlNTYwMDA4NDRmZiJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L1-L1",
+          "version": "repo-lines-v1:sha256:4cd0d2a7231e2694c88cdd55cee158df251984a79f44a52580a27be09d96b27f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNkMGQyYTcyMzFlMjY5NGM4OGNkZDU1Y2VlMTU4ZGYyNTE5ODRhNzlmNDRhNTI1ODBhMjdiZTA5ZDk2YjI3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNkMGQyYTcyMzFlMjY5NGM4OGNkZDU1Y2VlMTU4ZGYyNTE5ODRhNzlmNDRhNTI1ODBhMjdiZTA5ZDk2YjI3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGZmNzU0ODY0ODI4NzQ0NjMxZGU0MTUwYWFkNjM0ZTA3NThhNjNjYjUxYjk5MDQxODUyZmQyZWYxNjIxNGUwOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1-L1",
+          "version": "repo-lines-v1:sha256:8e517231884f5aee75dd3b0509f10b318c87d19f7f3d49a452f86ec583b381cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGU1MTcyMzE4ODRmNWFlZTc1ZGQzYjA1MDlmMTBiMzE4Yzg3ZDE5ZjdmM2Q0OWE0NTJmODZlYzU4M2IzODFjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGU1MTcyMzE4ODRmNWFlZTc1ZGQzYjA1MDlmMTBiMzE4Yzg3ZDE5ZjdmM2Q0OWE0NTJmODZlYzU4M2IzODFjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzE0ZDY1MWU1NTAzMjk2YjM0MWMzODc0YjVkYTc0NGI2OWMxNzJiMzRjYjQyOGI5MDliMmQxMzg3NWRkYzgyMiJ9"
+        },
+        {
+          "resource": "repo://vitest.config.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:ff4c6dc3c7b91e5c152cba9e5daad9a2d76e6e8c00d6d090183f253e70eefdb2:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRhMTkyMTFjM2EwM2I5ODc5NDdmMjRiNjliZGNjNDY5ZjQ3OTQ4MjlhNWY1YTRhMTg4ZWEyZTE4MTY1NGI5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7bb5d1464ee049239a7566c0df62aa90",
+      "statement": "`src/architecture.test.ts` vollstreckt die Schichtregeln aus `FOLDER_LAYER` und `ALLOWED` in drei Tests: jede Mappe unter `src/` braucht einen Eintrag, jede Importkante muss in `ALLOWED` stehen (`node:*` nur in `infrastructure`), und `domain`/`use-cases` dürfen weder `document`, `window`, `localStorage`, `navigator`, `performance.now` noch `new Date(` enthalten; Testdateien sind von der Prüfung ausgenommen.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L14-L37",
+          "version": "repo-lines-v1:sha256:887568148ed5d291f8a14127ded7734dfd0407825c6d93380eb535df6a829f4f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhZmM1NzMwNjc2YzIxMGU1NGU2ODBjNzA5ZTBmYWI3NTk4MTQyMmZhMDc4ZDc3ZDBlOGYyYjUzYzgwNWI5ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1MDk5MjYwOWM1YWRhNjk2NWNkNTc2YmE5N2FjYjdlYTZkOTM2M2Y3OTk0M2U0OGEyNjU1MzA4MTE5M2U1NWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2NmQ2ZmY4MjY2NGNhZmI3M2FhOGZlZDVkMjQwZTczNDUwN2E5N2Y3Nzc5NDA5YzA3OTU2YmM0OGJkNGQzMTgifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L55-L61",
+          "version": "repo-lines-v1:sha256:d9d22d41aeba385c083b3590bab9e6149d4a6a3710bfddd16c27bf1dbb5f4746:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDMyMGJmMjRlM2JkMjc3ZGQwMWQ3MGYyZjI2OGE1ZTk4ZjE4NmQ2YjFiMTFhN2MyNjJiMTA5YTFhNDk0OGEwMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDk5NjdlYzFlZDM4MzZmOGViMTdhZmYxNzJiNWJmZWY3ZGU2MDQ4NWE0MzljNmNhMTFjNTkxZTE3NTU3MzlhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjkyMDI3MDdlNGZmMGZlN2NiYTMzM2Y5YjJiMmE2MTVkNTIwZDc1MzA2ZDVjZTVmMGZmODM5M2UwZWMwMDBkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODI5Zjc1ZTc2MTQwYTJmM2NjYWJmMWI5ODIzZmFmMTAyOWJkYjRmNTEwMWU2YjM5MjgyNjVjNjg1ZmE1Zjc1YyJ9"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L85-L132",
+          "version": "repo-lines-v1:sha256:00c93028d2f0bb34e9be5d068f1013449f789e27054e4531ae443dc7cfc38a64:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMTAwMzc2ODEzNTkxNGEyMjliOWE3Nzc0NWZhNTVhN2MxNjM5ODRkZGI1MzI5Njc1OTNjYTkwNTg5MDgxZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3OTM4ZTE3OTA3NDRhOTc4MjQ0YjIzYzc5NTFmZDhhODRmZmJhZmUyN2U1ZDFlMWI1Y2RjMWRlYWRmYTVmMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_47b78b86dd9440b983eb1f3aca9f9641",
+      "statement": "`src/offline.test.ts` lädt `public/sw.js` per `new Function` in eine nachgestellte Worker-Umgebung mit einem `FakeCache`, der ohne `ignoreVary` nichts findet (Vary-Verhalten wie ein echter Server), und prüft Vorratsaufbau bei der Installation, Ausliefern ohne Netz, Aufräumen alter Bausteine, unberührte fremde Ursprünge/Schreibzugriffe/Teilabrufe sowie dass `api/…` (die Sicherung) immer ans Netz geht.",
+      "evidence": [
+        {
+          "resource": "repo://src/offline.test.ts#L246-L258",
+          "version": "repo-lines-v1:sha256:12be0a8ae85bb504995516ace2db8c6e27596c01e892a039c519c270ca5be9dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiOTQxMjZmYjk0YWFhYTU4OWU3YzhlZWU5NmJkMzNkMGZlN2UxZTgyYzM2MGQ1NjliMzczYzNiMDk0ZWU2MWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdlMTU4M2JhMzdjNDMwYzRkNTRhZmY0MDNmOTM0MjFjNzI4MDc5NjJmNDY5ZWE2ZWE4YjE1N2VjMjgyNzQyN2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViZGM3MjVlMDk3N2U4YjRkZTc2ZmVlYzE2YTg2NzNmYmQyNzM4Yzk1ZDFjM2RiZTI5NTg1YTFhNTA0NDgwMjEifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L7-L137",
+          "version": "repo-lines-v1:sha256:2b375be85813bc4f8aa98a225a19372a75f8b1e08cb7a0041dbf01caaa9e1c3b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4YzhjNzE4YzI3MjkzODI1NGY0MzIxNTIyMzg0Zjg2MjEzODg5MjI5OGI4MDg3OGYzNGU0ZjhmN2Y1YWY2OTJkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJkOGI4YzgyMGZlMDdhMDcxNzIzNjY2YWNmMmM0ZGU2Y2FmOGI2NjNkNDU4NGZmYmQyYTNiZTMzZTM4OThhMmYyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_ebd4fbdbd5704a018a870437fc2fd639",
+      "statement": "`src/backupWorker.test.ts` lädt `worker/backup.js` — dieselbe Datei, die bei Cloudflare läuft — gegen eine nachgestellte D1-Datenbank und belegt: bekannter Code liest und schreibt, unbekannter Code legt nichts an, nur JSON-Listen werden angenommen, zu große Sendungen ergeben 413, andere Methoden 405, und die Antwort trägt `cache-control: no-store`.",
+      "evidence": [
+        {
+          "resource": "repo://src/backupWorker.test.ts#L1-L9",
+          "version": "repo-lines-v1:sha256:c16ca351ae8190e1f78bf2e8623be8af4dffabb73271b43a81a28548bcb0ce7c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNkMGQyYTcyMzFlMjY5NGM4OGNkZDU1Y2VlMTU4ZGYyNTE5ODRhNzlmNDRhNTI1ODBhMjdiZTA5ZDk2YjI3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQzYzRjNzhmYzU2ODEzZWJhMWJlOGU1MWE5ZGRjOTVjMzNiMDhiMzY3NzkxMTJlMWM4MmI2YzUxN2ExZWM3OCJ9"
+        },
+        {
+          "resource": "repo://src/backupWorker.test.ts#L69-L111",
+          "version": "repo-lines-v1:sha256:f268b4b5f523c670646381028d8c395c21a7d26da05772eb43c8e044aefe8bec:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0YzA2YmE2ZWJhODk2ODA4NjcxMjkxNDcyMTJhNGNjYTg2NTU4MjRhN2QwYTY1YTJjZGVjMzMyMDM0ZmY0NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhNGIwZWE5MDY3ZTQ2ZTlmZDQwNmUxYWI2ODA1YjM4NmY1NGM1N2Y3ZWFmNDQ0Y2U3YjUzOTI0MDE4NWQyNGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2fa10b75d52d49e98beaaf5a8d33a28d",
+      "statement": "`src/icon.test.ts` ist eine Golden-File-Sonde: sie rechnet das App-Symbol aus dem Kopfbild des Krokodils mit den Schließwegen des Zustands „geschnappt“ und hält `public/favicon.svg`, `public/icon-maskable.svg` und `public/logo.svg` Zeichen für Zeichen daran fest; `ICON_NEU=1` schreibt die Dateien neu, ohne den Schalter prüft der Test nur. Zusätzlich prüft sie Kopfbereich beider Seiten, Manifest-Einträge und die Kantenlängen der PNGs aus dem IHDR-Block.",
+      "evidence": [
+        {
+          "resource": "repo://src/icon.test.ts#L1-L18",
+          "version": "repo-lines-v1:sha256:b5788cbb15d4680aecfd679ef99a35e7671532d8726a77c04250554cc7dc0dbe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4NTUxZGU4ZTgzMTdkZDhjZDU0MGQ1MWIxNjdhZGRkMDczMzY2NmVmY2ViN2JjZTdjMTQ5NWEyZDFjMmI3MGYifQ"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L100-L122",
+          "version": "repo-lines-v1:sha256:dec772b2ebc557ff7dea2befb29c54710666eba259af9f545d2e15fe204d0aee:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YmNmNWJiYTU3ZDUyYWEwZDIxMDNmMDljZDQ4MmJhMmFlZTRlOGY4OTBiODY0MGU5N2JhMWQyZWY3ZjUzNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjNmZhZDQ5MjY4ZmY0NDUxZTE1Nzg1M2MxZDRhNmFlZGFkZGQyMWY2NTU4ZTQxZmY5OGI2OGUyOWQyYTQ3NWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlMzNiYWExODUzMjMyMmZmNmJkN2MyMGU3ZmU1ZDQ0NDUzODM0M2I2YTVlYTcwOTk4YjQ4NTU1NGQ0MzAyMmMifQ"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L188-L216",
+          "version": "repo-lines-v1:sha256:c2a32ef395090afde1b389a97b396f6bfac56bf3356657cfe7b59d80b5a0432f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMTM2MTg0Yzc3NTdhNmM5ZjQ5MzdjZDEzOWI1ZTY1ZGZiMDQxNzQzYjAzZTE0ZTMzZmRmOWYwMDgyODlmOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f0ba67b1944e42368f68a35624a6e944",
+      "statement": "`src/render-probe.test.ts` ist eine erzeugende Sonde ohne Optik-Urteil: sie schreibt je Lebewesen ein eigenständiges SVG nach `$TMPDIR/zahn_agent-artwork/` und unter `zahnzahlen/` eines je Zahnzahl 1–12, damit `scripts/pruefen-zahnsicht.py` die Verdeckung messen kann; geprüft wird nur, dass Markup, Schließweg und Katalogabdeckung stimmen.",
+      "evidence": [
+        {
+          "resource": "repo://src/render-probe.test.ts#L1-L48",
+          "version": "repo-lines-v1:sha256:72d79e5b13d8f984b86ef03b4051ebefeef70c5140e61fee78d5cbf1df9a2f81:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyZjE4ZTY2ZjAzZTkxNmRmM2MyMjhkZTAyNzUyM2M1MmMwZmQ5MjJhNDA4OTZlYjExODczNWI3M2JjZjUzM2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9888996a95c2448f9651dbb8ba241a01",
+      "statement": "`src/presentation/game/creatures/creatureViews.test.ts` prüft den Zeichnungsvertrag und zwei Geometrieregeln: die Trefferfläche bleibt auf der schmalsten Bühne (285 px) bei 44 px, außer der halbe Zahnabstand ist enger (dann gewinnt der Abstand), und keine Ellipse oder kein Kreis der Gesichtsebene ragt in die Ringellipse — kein Zahn liegt unter dem Gesicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L119-L155",
+          "version": "repo-lines-v1:sha256:6eb59aba5e54a5f0e5e17b81dd8aeb3d13eef1ea72e4a0b8d0ce7432b88a5df3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmMmViN2MyNGRlNTc1ZGVlZjI2YThlZWJlZTFjNTUwY2E2YzgyNWM5MGY3NmUxYTM5NWQwNjJhMTIyY2M5M2EifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L173-L201",
+          "version": "repo-lines-v1:sha256:a9ffb3b9f608af21e31d1b6af855242fbca772ed8225c9fc3ff9acea545ff067:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTljZjAzMjNlODg5ZTE2NjdhN2JlYzIxYzU4NmViNmY1MTlkMjZlZmEwMDI2NzJmYmZlZjZmYjllNGY1MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2NDA4Njk3MzNkMGI0YjJkNTEzMjlkYjZiYTUxOTM5NjY5NDkyZmNkYTcxODg5NDI0OGI3ZDNkNGQwZDM0ZGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_92627590e3cd4fb6824283e9a2351b49",
+      "statement": "Der gemeinsame Unterbau der Browser-Sonden ist `scripts/sonde.py`: `Sonde.pruefe` druckt `ok` oder `FUND` und sammelt Funde, `Sonde.abschluss` druckt `Auffälligkeiten: N` und liefert Exit 1 bei jedem Fund, `basis_adresse()` nimmt eine Adresse als Argument und fällt sonst auf `http://localhost:4322` zurück, und `seite()` legt vor dem Laden Einstellungen und Rundenprotokoll in `localStorage`, lädt neu und wartet auf den ersten `.tooth`.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/sonde.py#L25-L99",
+          "version": "repo-lines-v1:sha256:171007ba8651b9d6df8d08661065da4a0a05e53ce214b7696ce0a5eeab9841c2:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1ODQ0Y2M2ZDE3OTkwNzVkNDEwN2IwY2JhZmQ5MjlkODA0MjFhYzIwOWJkMjQ0NzliNjdjNzkxMTRkODAwZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4ZmFmMDBhMDgxMTkzMWFkNTNiODRlMjhkMmE5OWVkOGUwNTU2MDZhMjIzMTdkZmE4MGVkZDU4N2Y2NWI3ZjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiM2I1ODEwZDkyN2VhZmQxYTExMGE3N2JhMTJlZmQ0NWRkODlhM2Q0YjYzNDg0NGRiNjM5MzI2MjczNjY4NTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_04d1f8ead7ed4af7b3237acf1858cbf2",
+      "statement": "`scripts/freischaltung.py` liefert mit `ALLE_OFFEN` ein Rundenprotokoll, das alle Tiere freischaltet, weil auf einer frischen Seite nur Krokodil, Maus und Wolf wählbar sind und eine Sonde sonst ohne Fehlermeldung das Krokodil statt des gewünschten Tiers messen würde; eine Zusicherung stellt sicher, dass der Katalog für die letzte Schwelle reicht.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/freischaltung.py#L1-L41",
+          "version": "repo-lines-v1:sha256:f605a6d92aa15e476927426ca56c125674d5d38dcd96e7a9b546e406e77133e4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxOTQwMTExMjhiYjQyNTg1M2RhNzY3NjZkMjM2ZGRmYjE2NTExNzg1N2U0YWVkNmE3Mjc0ZGVhMmM1MTI1MjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMzIwNGY2OWZlOWM4OGE4NmQ5OTY0ZDBkODhlY2ZmMWU2MzI2N2NiMDgyNzNiMThhOWY1MjM2NmMwZmY3MmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5d228bb475544651ac0585292c9845bc",
+      "statement": "Die Python-Sonden beziehen ihre Tierdaten nicht aus einer zweiten Liste, sondern aus `scripts/katalog.json`, das `src/katalog-json.test.ts` aus Katalog und Freischaltungsfolge erzeugt (`KATALOG_NEU=1`) und sonst Zeichen für Zeichen vergleicht; `scripts/katalog.py` liest daraus `TIERE`, `FOLGE`, `ZAEHNE` und `LETZTE_SCHWELLE`.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/katalog.py#L1-L17",
+          "version": "repo-lines-v1:sha256:46d5efccc493d9dd10a5d6d265358fdabc20f0622941dbdafe91cc6e12247dc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiYzRkNGUxNjFiZmE1MzVhMWY0NjM3YWUxZGQ2ZTkyYWM3OWEyZDI0MWEzNzcxYTg1MTg1NDQxMTBiZDEzNzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxYzkzMGM2NTQyMDYwNGM2NjE1ZmViODM5OTg3NzA0MjkyNjhjOGM5NDQxZGE0YWZiMjQxMzY0ZmY3NDk3OTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/katalog-json.test.ts#L34-L46",
+          "version": "repo-lines-v1:sha256:6cf2e375af4c4beb0e4540ad2b0452e368380ddc47b42f5c73266ed6f26b3d44:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhNmIwZjFjNzQxNDljZDFiYmRlYjY0YWQzNTUzNjg1NWJiYmUwNTQwNzc5ZGRjMDQyMGIyYTRhOTY2ZDZkZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiZTQ2OTZhMzhmOTg1ZTBmZWQ2NTQwMjc5MDAyMTBmODU5NjZkZGQ2YzEzMTJmZTY2NTM3NjkzZDk5M2JlOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d25b21fc4354433fb5ea319ef2bc6184",
+      "statement": "`scripts/pruefen-alle.py` fährt zuerst `src/render-probe.test.ts` (die Zahnsicht-Sonde braucht die SVGs) und danach die dreizehn Skripte aus `SONDEN` in fester Reihenfolge, je Skript eine Zeile mit Exit-Code, Dauer und letzter Ausgabezeile; jeder Fehlschlag landet gesammelt im Exit-Code. `pnpm probes` ist genau dieser Aufruf gegen `http://localhost:4322`.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L16",
+          "version": "repo-lines-v1:sha256:741a0cbab5546c709309de34f0c3121c3e8ff68f0dbc2d37db74d27c336e7b96:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQxYTBjYmFiNTU0NmM3MDkzMDlkZTM0ZjBjMzEyMWMzZThmZjY4ZjBkYmMyZDM3ZGI3NGQyN2MzMzZlN2I5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQxYTBjYmFiNTU0NmM3MDkzMDlkZTM0ZjBjMzEyMWMzZThmZjY4ZjBkYmMyZDM3ZGI3NGQyN2MzMzZlN2I5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzA4YWMxYjJlOThiMTZiN2FhNjgxMDM2YmYwZThkNjhlOTViNWJlOTFmODhjNjJiODE3Y2I3YWE1ZWVlYWI2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmFhNjJjOTM4NmQ3ZDJjZTM1MDk1YmU5ZTZiODVhMzg2NjUwOTUzZjdiMWE5NmFiMGYyMjUxM2FmZWEyZTdlMiJ9"
+        },
+        {
+          "resource": "repo://scripts/pruefen-alle.py#L17-L31",
+          "version": "repo-lines-v1:sha256:6c8c0b572b3a127237c8a1e6b3a4eba1da53a4f27dd314cbfe63ebb9516114df:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczMDI2ZDIyZmEyNWYwMWU0ZDc5YWFiMzYwYjIyOWMyNzliOWVmMzE1ZDJiZGJjZWMxZDcyMmExYTQyNGE1ZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0Y2U5Nzk4ZmYyMDQyMzZjMjNiZGI4MTgxZWIwN2E1NWVmMDY4ZDFkYjBjNWU0MTliM2NmZTY5N2MyODE4MGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0OGQ3NDgzZDA2MGYxNzIyZTI0NTM2ODg4MzM0MjU2YjU0OTBlOGJiZTg2OTgyMDY3NmNhOWVhZjM1MDljYzkifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-alle.py#L45-L104",
+          "version": "repo-lines-v1:sha256:59ca43bdae3743548cda7b0a925ae1de03ee256995e21dcfbe80907e40bacdb4:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjNTk0YTkzNDI2NWFlNmI4OTY3NmNjMjA2YzFkMDg5MDIwYjVhYWQ1ZjRjZWJiZjI4NmUxNjFmMjllZmY4MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NzBkMWQ0MjQ4M2M4MGEyODFiMDRhOGZlMzBkMTE0OTIwMzAwOWIyNGVhMjdkYWE1OTQwYTRkOGU1NjY1ZmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjNzFkZWJhY2Y1MTk2MzAxZTNmNjk4YTIyZGQyYTFiMjI2ODdmNjU1ODYyMWYxNjMxMTRiNzljOWE1YTJhYmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1NzIyYjhjNGYyODMxYTA4YTZmZjE2OGQxNjUxMTRiNmZkYmFjZjk4NDIxNTM2NjI3NzY5M2JkY2IzYmQwMjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_26937785fa784215acbb5dcdd647d626",
+      "statement": "Die Browser-Sonden laufen bewusst nicht im Workflow (entschieden am 15.10.2026): sie brauchen einen Browser, eine laufende Vorschau und mehrere Minuten, und einige messen Zeit, sodass ein Fehlalarm eine heile Seite zurückhielte. Sie laufen von Hand vor dem Push, immer nach Änderungen an Stil, Bedienung, `public/sw.js` oder einer Zeichnung, gegen `pnpm build && pnpm preview --port 4322`.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L92-L104",
+          "version": "repo-lines-v1:sha256:d19498a9e07776932c0a60ef447f547862e12b50560624e3a2072169e5c86a97:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MGM3YmFlOGNiMjdlY2ViYmQ5MTEyNzUxNGIwNjE3NWMxYmFiOWRkYWYwMDA5ZDYyMWE2ODE1NGY5OTliZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjdjNzZkNDY0YzBjNDZlZmM5MzU4Y2M0YmYxNDVjY2M2ZmU1M2Q1MmU4MGJhMWE4MzQxNjM4ZTI4MzhmZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyNjAxZDA4ZDU4MmIwMTU1ODdhYTQxY2VmYWFmYWRkMmEzMWFiYWY3N2VjYzY4YjAxZjNiMWEzOWNkMjhhNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxNjc4YWY1MTY4YjFmOTU5ZDdiNTEyMGUzNzdjOTUxYjRiMjJmYWJlZDNhNDg5YzcxNTlkN2JjNzlhNGYzZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e5ae2bdb8bb74827b5619cc799505405",
+      "statement": "Mehrere Sonden setzen den Bau voraus, nicht den Entwicklungsserver: der Service Worker wird nur in `import.meta.env.PROD` angemeldet, und `pruefen-tiere.py` zählt die Tierkennungen im ausgelieferten Bündel, das gegen `pnpm dev` leer bleibt; `pruefen-trefferflaeche.py` misst nur das lebende DOM und hat deshalb `http://localhost:4321` als Vorgabe.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-tiere.py#L16-L39",
+          "version": "repo-lines-v1:sha256:41f4ca790b080c46c2e8c5497be2b7fef35ab7e6f12db4aa02445ff784d69125:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMGRmZmQzNzgyNWVhNWMxNGE1ZDI4OTFmMTkxYjJiNmEyMjI5MThkYjU3OGM3NjAzZGE0ZTk3NjMwMTIzNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkZjk5Njk1Y2Q1MGIyNjJlYjcyNTliNmRkMGYzMTYyOTU3OWVmZmYwMjdmYjBjMTBkYTQyM2VkOWY0MjY4NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2ODkxOWE2YWZiZGEyZDhlZmZjNjczOWNkZjYxNWUzNGJhY2Y4MDg0OWI5NGQ1NGVmODczZDExYjA4ODEyMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyNTUxMmNlNDRmZGJiNWUyOGU4YTdlNmFlYmFjYzQ1NmE5OWI5MTdmNWEyYzVjN2ZmZDgyMmEyNDkyNDliOTYifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-trefferflaeche.py#L16-L17",
+          "version": "repo-lines-v1:sha256:ef776327ffd73a81f1ad59a6419a3a73837f12f7b5a10df837287f6faf7652a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTllMjE3YTNlNDhjMjcxYjBlNmI0YjlkMzAyYTEyNWMwYzU0OWEzNjg4N2Q3ODJhNDJlMDc1ZjRlMDgxY2ZmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U5ZWJlODVmZWE3YWVlM2MxZTlmZGFiYjhkZGRhMzliZGUzODI1NGViZjk0OTVkZGFmZjgzMTM1NGZmZjdmNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2YzNzAxZTEzYjhlMGY5ZDY4MDBmZTM2YjRlNDM2YTdhMmExNWExMDU1ODNhNzc2MDUxNThmMjRlNTc3NDM2ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmNmMjA5MjgyZWIyMGUxN2U3Yzg3ZDk5ZGU2NWNlMmJhYWNlNjc2ZDU5NzdiYWE1NGM4Zjg5MWRlMDg2NTY1OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a11c4084891948bd81a805f1dc48e641",
+      "statement": "Sonden dürfen nicht würfeln: `pruefen-anzeige.py` zieht für die Gegenprobe „zehn Zähne, ein Druck“ mit frischer Seite bis zu zehnmal neu, bis die Runde offen bleibt, nennt den Versuch im Titel und meldet andernfalls ausdrücklich, dass kein verwertbarer Zustand entstand; deterministisch hergestellte Zustände (ein Zahn beim Vampir) sind der andere Weg.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-anzeige.py#L125-L140",
+          "version": "repo-lines-v1:sha256:50e7d68f51d03e29d0ee3cac6ed47369a5b68a63eee22831c93e8bcd0ad5605c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4NGMxNmY1NDUwNDM1ODI0NDc2MTY2NmU1ODZiMzMzMmFkYzdmNzdlZDNhNWYzNGQxYWRiNjUwOGU3NzhiYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkMzBjNDk4YThmZTFkMjY0OTRhMGVjNmJmMjhmN2MzYTk5NGI0ZjE1NDkyMWJjYjdkN2U4MDlmMTkxN2M2OWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1ZTFjMmUwZTg5MTg1OWZlMjg2ZTAzNDA5ZGI3MWI3YjZmMmE2OTUzNzgwYTM3NjkyNjRiOTE3NWYyNmRjODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5NTA3NDAzNTkxZDA3ZDVmYmU2ZjFmZmQ1OTQ4MGQ3YzIwOWJmNGZhMDU4YjljZTRmMmUwMjkwYzdiM2JhMDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8361d267e6ef420281c7ad2531af746e",
+      "statement": "Auch lange sichtbare Texte werden von der Sonde gesetzt statt erhofft: `pruefen-bedienung.py` trägt die längste Fassung des Ergebnistexts und den längsten erlaubten Tier-Satz selbst ein; die Kehrseite ist, dass ein dort abgeschriebener Text beim Umtexten mitgezogen werden muss.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-bedienung.py#L34-L50",
+          "version": "repo-lines-v1:sha256:6dd43621edb7c7b14ba1402becc00b29d8235fd1053c6880d06e00f5ac522d52:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwM2Y3YjBmZWM3NDJjMzc4MzdhN2ZlZDgzMThkODcyMjY1OWM3OTUxNzMxNzQ2ZTc1MDUzMzg1OTE4ZjJjYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzNzMyMWQwMGNjZDE3YTFlOGE2MjM2NjNiYWRjMTgwYjhlYWViN2U4MmFkOWE1YmNiMzk4NDNkMzI1NWZiYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3ODNmNDU3OGJiZDhlNTY1MGEyZTMwNGQwOGI4ZDc1OGZiMjQ0Y2YzMWYzMmZjOTkwZjFhYzdkMDAwMGM1ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZWRhMzBhOTU5ZjVhNzBkM2VjMGQ2M2MxNDlkMDIxZjk2M2M3MTQ5ZjBlYmEyNzMyOGEzMjg3ZDNiMGM1MjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_78c8bb6ed28b4c4f97c56d30153950be",
+      "statement": "Zeitgeber-Regel: jede Steuerung wird nach jedem Fall abgehängt (`afterEach` ruft `dispose()` über die gesammelten Steuerungen), und `GameController` hängt seine Zeitgeber am Fenster des Dokuments (`this.doc.defaultView`) statt am globalen `window` auf; Wartezeiten der Steuerung prüft ein Test mit `vi.useFakeTimers()`/`vi.advanceTimersByTime` oder einer hereingereichten `wait`-Attrappe. Der Mechanismus ist in `scripts/pruefen-zeitgeber.cjs` nachgestellt.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-zeitgeber.cjs#L1-L11",
+          "version": "repo-lines-v1:sha256:609d3ca58ba1628254d67f94a884045a0d4cd857237e1497e24ed3a83ca7b60b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllMjUzODRjODIxZjM5NWQyYmNlNDk4MTliZDZmMGNjYzU4ZmRmMTNlMGZjZmNjMmNkMWNhNWFhMWFiZWZmMTIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L205-L214",
+          "version": "repo-lines-v1:sha256:53a3fca073911801e224a4e08f3bd1e897c05f764f952941a805c46b84a14c85:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjZTJmYjFiMzMwMzBhNDJiMDZlMDViOTNmZmExYjc3NWZiOTNlNGE1NzAxOTQ3NDA0NjBkOWNhYTFkNGExOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlYWQyZDM0ZDVmMGYxMDFiYzEwOGVkMTY5NzFjNDJhYmRiNjI0NDZlODJmZTFjYWUyMTFjM2I2MWFiNTc1ZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhYTAzMmU2MmViYzE4NTYxMjZlMjNiODI5MzcxNmYxYzJmMjZkZmY3MDM5ZTIzYzFmNDMzM2M1YTJlMTAxNDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L87-L92",
+          "version": "repo-lines-v1:sha256:501fecf53b8fa4549c8249bdf2b3294b590cab19a6cfa94f84494b3ce7adc5cb:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODUwMmQzODJiOTZiNzNlN2JiMzI5NGIzOTk5ZDI4MTcxNDMxMTAyMjEwYzhhZDIyNTVhNTA0YmUzNjRkZmFhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWFmNjk3MWEwMDNmYTFmYzQ3ZTgzZjhkYTk0OTk4NDI2NDEyNDY0YzA1ZmI3NjY4OWU1NmM5MDRmNTE1MDA0ZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L294-L316",
+          "version": "repo-lines-v1:sha256:4aa940a5ca45cf7566a1a63f56a3ab4371f9b7b49d72acef6ad07ffb2b0fd9e2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxN2Y4ZTY1ZWU4MjQ4ZmNiZjFlNzU2OTE1Nzk1M2RlMzQyNDc1MTY5NmRkZmYyYmZiMjUxNjQzY2FmN2FlYTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzYTFkNTkwOTdjOGQ2NWViNWVhZTVmODU4NTJkMWNjYTA1NzA1ZGI3OWRlZTM0NjRiNDRkN2M1ZTA2NzFhYWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ff5d45ebbaaa41939cd4641715fb522f",
+      "statement": "Zahlen in der Doku stammen aus einem ausgeführten Kommando; geprüft wird das mit `scripts/doku-pruefen.sh` in einem Lauf über Zaun-Parität, Fließtext innerhalb von Codeblöcken (sprachbewusst) und alte Werte per `ALTE_WERTE`, wobei `ALTE_WERTE_STRIKT=1` einen Treffer zum Fund macht und nur über die Zahlendoku (`README.md`, `docs/testing.md`) gehört. Der Lauf ist manuell — weder `pnpm gate` noch der Workflow führen ihn aus.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L14-L14",
+          "version": "repo-lines-v1:sha256:aa34cbc50fe474ebbf0c2f20e830e109263f9c0b2fd08567b5bf4389343b9481:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEzNGNiYzUwZmU0NzRlYmJmMGMyZjIwZTgzMGUxMDkyNjNmOWMwYjJmZDA4NTY3YjViZjQzODkzNDNiOTQ4MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEzNGNiYzUwZmU0NzRlYmJmMGMyZjIwZTgzMGUxMDkyNjNmOWMwYjJmZDA4NTY3YjViZjQzODkzNDNiOTQ4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWY3MGRmNGZhM2Q4MGZlZjZhNmVhNjlkMmY0Yzk0ZDQyNjQxMjM1ZTU2N2NlMjRkN2YzYWVmYTQ3MDU5NzY5MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzM5NTM0NGYyOTUyZjY5MWFmMTQ5ODk3ZmI0MDdkODExZTFkZWQxMGRmOGFjNjJhNTY4NDM0Y2Y2OWJlNTczOCJ9"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L1-L25",
+          "version": "repo-lines-v1:sha256:542b6c673d7c1530c058497b9f3329054a86918db733b498363cca30476aeb83:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkOTVmYzA0YTgwYzk1MmY0OWNlNDE4ODYyN2M1M2IwZmJlOGM0NDA0MWI5NTJkNTkyYWNkMWRlOTk4NjE0NjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViMmZhODQ3ZmNlMzUwOGZjY2I5N2Q0ODZkMTBmZDJlZmM0NmViNzE0MzhmOWIxZDhmYjc3ZGM0OGYzZTQxNjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmYjBhOGFiNDVlMmYwMTdlOTNiNjBmMDBmNDU5ZTY4MmEwMzI0ZTg2NzE3OWQ3ZGMwMzNkZGRlOGJiNTVmNzYifQ"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L42-L70",
+          "version": "repo-lines-v1:sha256:7e26f6e5a57f5663b3535724b51dbaedc7912ed4e6581cafbbc607f8d2aa2c59:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3OTU1ZTI4MmNiOTI4ZGQzOWZhOGM5MGI5Y2FhNzQxMGViZDZkNTM3NDRlZjIzZGUxYmQxM2EzZjg5NGQ3MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1ZmM5MGZmOGE0NDE0YzU0NDFkMGY2NzdjNWNiZmRhMzhiNDc0ZTUxYmZkNTU5YTU1NTlkZTBmODc3MDU1MjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzOTFmMjMzMzAzMDk0ZmU4MjQxNGUwMDZmOTJhMDIzNDZmNDBiZGQ1YjdhODU2MmY2YjI3MzZhMGNmMjJmYzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMDJiMGNmNjVhNjNhMjAxMmY2NWE5MTk3N2Q4NTM4M2U3NzkxYWZmY2FiOWM0ZGEzNTA1M2I3Yzc0MGJmZjkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

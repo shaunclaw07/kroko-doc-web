@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a6153275cb51677063082a5fa72dc5c4b49fa0ff01b5843af3c57f07f4b35a80",
+  "claims": [
+    {
+      "id": "claim_bde26461261b4657b4c8642d08209e7a",
+      "statement": "Der Bau ist rein statisch: `astro.config.mjs` setzt `output: 'static'`, die öffentliche Adresse `site: 'https://zahn-agent.schaflabs.com'` und `devToolbar: { enabled: false }`; `pnpm build` erzeugt `dist/index.html` und `dist/statistik/index.html` und kopiert die Dateien aus `public/` (Symbole, `manifest.webmanifest`, `sw.js`, Tierstimmen, `CNAME`) unverändert mit nach `dist/`.",
+      "evidence": [
+        {
+          "resource": "repo://astro.config.mjs#L19-L24",
+          "version": "repo-lines-v1:sha256:c2b3263be9c92ffe52f87ee870972db9550623ef5f9f305f34ec0254f64f778a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjJjZWNiMTQ0YTQ2ZjVkY2YxMmE2MTY5ZmNlZWQ3Njk1ZTgyOTRiMDkwZGU3NmYzNjYxY2RkMDI0OTMwMDE0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZjMDU2NTkxZjVlMzcxYWEyNTlkZTQzYzRiMWQ4ZjNlZWYyMGIzNmNiNzA3YWFkYTZhZTdmMmVjYjllNDU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://docs/testing.md#L111-L115",
+          "version": "repo-lines-v1:sha256:b2c6b9fb188c50c9795f03b7d6029b70ee8d99009117514948b6256eed756d71:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzU3OGYxOWQzZDA5MWMxODg5YWMzODQ5ZmYwZDBhMzMzMzlmZWM4MDBlZTQyNTY0M2U3ZDMzOTVhZGQyMjI1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDY5MmU5MTkyNDExZGRlNjBjNmYwNGI0NzNiMjdjNjlhN2NhOWVmOTY0ZGYyYmJiODljZGY0ZDJkNTZlYmYwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBkMGNkMjBiNjVlNzMxZDI3MzUwNDgwOWRmNzIzMDM4N2I1Y2M5YjU0NDIyNGU5MmI0NTNkMTBhN2RhNGZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWZjMTZiMzhmN2MyMzRhNDY2NDlhMDQ5OTA2OGFiMDMzMWI3ZTBjYmU2MjkxM2EwNjg1ZjEyMTQ0MjFiNjAyMSJ9"
+        },
+        {
+          "resource": "repo://public/CNAME#L1-L1",
+          "version": "repo-lines-v1:sha256:60e346f32b2db3901103b3646fac5ecd73162fbbb4e25fa896488360185a48ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBlMzQ2ZjMyYjJkYjM5MDExMDNiMzY0NmZhYzVlY2Q3MzE2MmZiYmI0ZTI1ZmE4OTY0ODgzNjAxODVhNDhmZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBlMzQ2ZjMyYjJkYjM5MDExMDNiMzY0NmZhYzVlY2Q3MzE2MmZiYmI0ZTI1ZmE4OTY0ODgzNjAxODVhNDhmZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f1b076f0e20b45f595dcae5701864aa9",
+      "statement": "`dist/` steht in `.gitignore`; veröffentlicht wird nur das Artefakt des Workflows, nie ein eingecheckter Bau. Weil kein Serveranteil existiert, läuft `dist/` auch hinter einem beliebigen statischen Server — nur die Sicherung (`api/…`) braucht den Cloudflare-Worker.",
+      "evidence": [
+        {
+          "resource": "repo://.gitignore#L1-L4",
+          "version": "repo-lines-v1:sha256:16e86b8f1b17abbad9cd57c0348897be880b287f73c4471a26e0ad4f3f5aca09:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Njk1MmIwZmIxM2JmOGY5YjZjMTNhNmQ0YzM0YTA3NWJhYzNhZjQ0NzYzNmExZGY0MzM1ZDc1NzZlMmY5NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjg5YjhjNWYyNGFjOGIzNGY5NGEzNWMwMWYxYTQ5MTZlMTRiOTIxN2FhYTIzODA0Mjk0MDMzZjBmYTBkYWQ0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGI4ZGI3NWMwOWUyNGU5NjRiMDg0YmUyMGI2MTUyYTVmYzM4NzhlYWFhYjZiOTg5NmQ5Njk2YjI0YjI3NWQzMCJ9"
+        },
+        {
+          "resource": "repo://README.md#L341-L341",
+          "version": "repo-lines-v1:sha256:ddeb28986fd414961b4d18f2f006b557beaf845264fbd96387abafcee54bc6a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGRlYjI4OTg2ZmQ0MTQ5NjFiNGQxOGYyZjAwNmI1NTdiZWFmODQ1MjY0ZmJkOTYzODdhYmFmY2VlNTRiYzZhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGRlYjI4OTg2ZmQ0MTQ5NjFiNGQxOGYyZjAwNmI1NTdiZWFmODQ1MjY0ZmJkOTYzODdhYmFmY2VlNTRiYzZhNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmUwYjg2OTM1ZmMzNGMxYWRiNjYzNDRhYjBlYjg5ZGUyNTRiNjYwYmQ2NjJmZTAwZTlkMzMxZGQ2OTY5OGQxNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzZlY2Q1YTlkYTE1N2U1NTBkNmExM2Q0YmUyZWU5YjYzZTA1YzJhYjJhMGYxMzMyMTg3ZDY2NDdjMDYwM2Y0NiJ9"
+        },
+        {
+          "resource": "repo://README.md#L63-L64",
+          "version": "repo-lines-v1:sha256:1165849f604450a1fa773cb4a113571fc3da33d2e0a039d489b8309b2854b9e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZiODA5ZDIxMzVhNTZjODQyNTZiMTU1MWE0ZDVhZGIzODBjYWYwYmU1OGQ4MWUwYjNiZjI2M2ZjNTg5NzBmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWE3Y2NhZDJlZjkxMTNhYjY1ZTc3NThlMjEyNDQ3NjdjOGQxNGQxMDlhMjY1MzRlNzQyNjMxZjg2NTQ2MzJlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmJmNzI0NzI0NDZkNmZjM2Y5OGM1NDQwYzlkNWYzYzdlMDM4ZWZhMzYzZTg5YTEzZmViMTUwZTE1MmQ3MGRkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODMzZDE4OTIzYjljNGQ4ZWE1OTVjMWNlZGU2MWMzMGIxZGM5NjU2Y2ZhN2E1NjBlNTc1NmUyMzQwMDg3MjEzYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cfadbff79b5a4398a1294aa72be79aea",
+      "statement": "Weil Astro jede Datei in `src/pages/` als Seite baut, liegen Tests und Gehilfen der Seiten neben diesem Ordner und nicht darin; eine neue Seite ist damit auch ein neuer Pfad, der im Vorrat des Service Workers auftauchen muss.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L70-L70",
+          "version": "repo-lines-v1:sha256:b31385fea33758defb72235f521b95e7ab06188ae1b765fb0cd171cedf932ba8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjMxMzg1ZmVhMzM3NThkZWZiNzIyMzVmNTIxYjk1ZTdhYjA2MTg4YWUxYjc2NWZiMGNkMTcxY2VkZjkzMmJhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjMxMzg1ZmVhMzM3NThkZWZiNzIyMzVmNTIxYjk1ZTdhYjA2MTg4YWUxYjc2NWZiMGNkMTcxY2VkZjkzMmJhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQzMDMyYmU2MDlmM2E5YzExN2IwZmM0MGZiMzA0YmRkOTY1ODgxYWQ2NGYxMTljODk1N2JmYzgxYmEyN2JkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjkyMmM3N2M5NjlkM2Y3NDE0ODZiYTA0MDZmZDAxOGU4YjM4NDhkNzVmNDVhNDI0ZmU5YmY3YmYzODU4NGRjZCJ9"
+        },
+        {
+          "resource": "repo://src/bedienleiste.test.ts#L1-L6",
+          "version": "repo-lines-v1:sha256:4ca20cc096ac7d7c4232e8b89eb2f8eb128151e1b3fbfaa3456527786fd9905a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRlNjRkYWQzNTRlY2EyYzM3N2RlNTQzZjQ1YjZlM2I1MWFmZGI2NTEyMTliMTc5ZjA2NDkxOTg2Yjg5NzFlNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_671665d7f38f4b96b523b20dd05e76b8",
+      "statement": "Für interne Adressen gilt die harte Regel `import.meta.env.BASE_URL` statt absolutem `\"/\"`: `Base.astro` baut Favicon, `icon-192.png`, `apple-touch-icon.png` und `manifest.webmanifest` über den Basis-Pfad und meldet den Service Worker nur im Bau (`import.meta.env.PROD`) als `${base}sw.js` mit `scope: base` an.",
+      "evidence": [
+        {
+          "resource": "repo://src/layouts/Base.astro#L20-L37",
+          "version": "repo-lines-v1:sha256:27bb73d7df308dab5f7b68574af9882570e92aa96aa92f41017af6cdc61003bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwY2ZhY2UyNDliNzk2ODcxNjIxY2RiZmE1ZjYwMjZlZDZlNGJiMzZiNzljMWViOGNhMWMwMTk4YTI3NDFiZTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZhODcyNzZhNjNjM2ZhMGEzZTQwMTEzYzQ5YzRkNTAzOGExYjIwNzZjZWY2YTEyMjgxMmJkMzcwZTE5MzA5YzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1ZTVlYjMyMjk5ZGY4NTg4ZmQ1ZDU4ZjUzNDVlM2ZmYjAwMTc1NjQyMGQ3OWJlMDUyOTU4MDlhNzJlZGYxNDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_848f2eea33ad490898be67f33e80ce2b",
+      "statement": "Auch die Seitenskripte und die Sicherung beziehen jede Adresse aus dem Basis-Pfad: `index.astro` nutzt `${BASE_URL}logo.svg`, `${base}statistik`, `voiceBaseUrl: import.meta.env.BASE_URL` und `backupUrl(import.meta.env.BASE_URL, code)`; `statistik.astro` nutzt dasselbe für Symbol, Rückweg und Sicherung, und `backupUrl` setzt daraus `${baseUrl}api/log/<code>` zusammen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L41-L44",
+          "version": "repo-lines-v1:sha256:574d01fe9c349e0fd930ce2b91306255cb61ca9fa722440100336b51fa39a0ab:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTZhZGRmMjRlYTQzZmRmNzRhOGFjNWVmNTRhYTNhNzgzYzg1NGQ3ZTJmZjVhMTE2NmYzYWViZWRiMDE2ZDUyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDQ5Mzg5ZDA2MzQ0NDc0NTg2MjViZmUxZjc0ZGNkY2M3N2YxNGE0YzgxNWNmZjNiOTY3MTdhMDZiNzA2ODQwZCJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L17-L17",
+          "version": "repo-lines-v1:sha256:4732232690a3d9a8ca87f602147ade7cf6eac72a0ea62f30329ac5cc998f622e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDczMjIzMjY5MGEzZDlhOGNhODdmNjAyMTQ3YWRlN2NmNmVhYzcyYTBlYTYyZjMwMzI5YWM1Y2M5OThmNjIyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDczMjIzMjY5MGEzZDlhOGNhODdmNjAyMTQ3YWRlN2NmNmVhYzcyYTBlYTYyZjMwMzI5YWM1Y2M5OThmNjIyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTliYTkyZmViNTFhNDMxNmZhZWMzMmNiNmE0ZGY1OTYxNmNhMWI2ODA0MWNmZTliZjZmNThlZWVjZDc4NjMzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWIyMDI4MTJmZGU3MTk4NjA0NmY3MTcyMmJmZmIyOTg2NmQ0OWY4NzlmOTAxODZlNjJlMTRjNzJmYjNhNDJjYSJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L221-L221",
+          "version": "repo-lines-v1:sha256:d4bc3cac01d8bac0205727e1efea04eefcbdf8c14a6210874f18e3d1b6623341:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDRiYzNjYWMwMWQ4YmFjMDIwNTcyN2UxZWZlYTA0ZWVmY2JkZjhjMTRhNjIxMDg3NGYxOGUzZDFiNjYyMzM0MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDRiYzNjYWMwMWQ4YmFjMDIwNTcyN2UxZWZlYTA0ZWVmY2JkZjhjMTRhNjIxMDg3NGYxOGUzZDFiNjYyMzM0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGNiNTBlYjBmNTJlYjAzMGIyYWQwNTcwMmNhODY0ZjNjNzFjNjU1MGZmMDkxYTIyN2NmOGFmNDFkNGM3OGE2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg3OTA3M2VjZjAzMDFjMzg3ZWRkOGZjNmFlZGEyNDJjYzk3NzlmODRjZjZiMTZmNmRmYTQ2MGIyMDA3MTU3NCJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L348-L352",
+          "version": "repo-lines-v1:sha256:dc4aaa2688164f6d3417ff8db664409f4e4d3a1aa23ba5b4ac01b9ab157a51e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzZhMmI1ZjA2NTdlZTMwYWUyYzdmYTIzZGVjZWUwNWVjODc2MWEwYTdjMmI1ZDM3M2JiN2QyMWFlYTFmZTQ2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTI1NGNmZGE3ZjU2YWU3YWRkYmE3MGFiZGQ0M2ZlZGVlOTZlMDk2ODc1ZmMwNzVmN2MwMmQ3YjNlYjY4YWFjOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmMwYmJlY2U2MjdjOTljMDJhNDAzNTY3OWVkMWFiMGZmYTY2NmYxM2UwZmRjMThlOTA1YzY4NDVhNjRlNjlhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzYxYmE1MjkxOTM1YTZmMGRkNjU0MjM1NWYyZDRhNDNkNjdiODMzNTE3ODExMjllZTEzMTY1NGUwMTVkM2Q3MyJ9"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro#L14-L25",
+          "version": "repo-lines-v1:sha256:dd193c653e1b111cb0a4430cd986898e64ec8eeb32538d2d90534d29609516fa:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZDc0MDlkYzM0MTliOTViMTMwZjM3NTA1ODI3ODQ2NmYzZTU5MjFjMjQ0OThjMTdmNzE5Y2QyNzQ5MGI5YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2ZTgzZjMwZTYyNjk2NGE0YjU2NThkNzZkODkxZDAzYmJlNzI0Y2UwMGNjODQzMTgyZGY0MWFjMDcyYjI3ZjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MDYwMDY5MGZhYzZhNmFmZmI0Mjk2ZTkyZjYxZWFmMTVhYTlkODRhMWE2M2QyZmYwN2NiYjgxOTIxZTg1MGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4Y2YxMzhjODYyZWFmMjQ5MGNlZTcxMzczMjllOGZiMzgzZGIzYmQ2MjE2ODA0MTcyOWNjNzdhNzAzNzcwYWQifQ"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro#L84-L84",
+          "version": "repo-lines-v1:sha256:a254cfda7f56ae7addba70abdd43fedee96e096875fc075f7c02d7b3eb68aac8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTI1NGNmZGE3ZjU2YWU3YWRkYmE3MGFiZGQ0M2ZlZGVlOTZlMDk2ODc1ZmMwNzVmN2MwMmQ3YjNlYjY4YWFjOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTI1NGNmZGE3ZjU2YWU3YWRkYmE3MGFiZGQ0M2ZlZGVlOTZlMDk2ODc1ZmMwNzVmN2MwMmQ3YjNlYjY4YWFjOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2VjZDQyODJmYjlhNmEzNmJkNzg5MzQyYTZmNDRlMjFmZGY1OTI3OThmMTY1NDBlMjNmNjc2MmNiNTk3MDQ5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTE4OWM4YjA4MGEzY2U1MGEyNzcwNDdiMWJlY2FjNmRkNGYxNzliY2RmZjY5YmVmNTE5Zjc5ZjMwZjgwZDUxMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_95880aaedc25407294df398c24915be2",
+      "statement": "`astro.config.mjs` prüft und normalisiert `ASTRO_BASE` vor der Übergabe an Astro: ein Wert ohne führenden `/` bricht den Bau mit einer `Error`-Meldung ab, Schluss-Schrägstriche werden entfernt und genau einer angehängt; ist die Variable nicht gesetzt, bleibt `base` unbestimmt und `BASE_URL` ist `/` — so baut der Workflow.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L126-L137",
+          "version": "repo-lines-v1:sha256:4090fb5ab03b35ef491fae8c16aeab8059d006d26a09a84e907e32b4e0ae395b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjYTdjZjFjMTlmZWFkMWYyYTBjZjljYTc3YThhNGQzOTM1YWJlN2JlYTIzNTMzNjlhMDVkYmJiOWYxYjUzOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzNGQ5NzYwMjgxYjM0NDVmODcxODg4MWMwZTUyM2YwYzA4ZmY2MmI4NmZkZmQwNjQzN2FlODMxNWU4ZmIwYjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM3MTY0ZGUyZjBhMTdiNGQ3MTM3MjI2YTlhZGI0NTNkOWM5NjU1MTY0ZjY2YTMxYTQ4ODA4YzZhNDM0MmIyZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2NGJkYjIxMTA3NTMyNWRlMjM0YThhMzI2ZTUxN2Y4ZDZlMTk5NWI5YmMzMjMyZDcyODlkZDhiMzcxYzU1NDMifQ"
+        },
+        {
+          "resource": "repo://astro.config.mjs#L8-L17",
+          "version": "repo-lines-v1:sha256:9093e2f08a61945e71b49b452cdf5e346c8ba07a868cc982560a0a3b9fe55898:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5OGE3M2M5MzA1MDY4ZDAyOTI5NTI3NjA1ZTY1MGM0OGIxZWIyYTliNzk0ZWZhNmZmN2IzYTc4ODhjMmI4MTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxMzQzN2Q4NzQwMmM2YmQ5NDBjZTc4NmZkNDgzZjM5NmUwNzExNjI3MGFhNzc3ZWVlZDEyMjc0ZGViN2VjYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyMzI0YTAyNTMyMDI4ZjBkNTRiMmMzN2EzZjBiZDVhYWI4ZjMzNzc5Yzg1MGU1NjhlMDkzNzhlZGI0ZmZmYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0ZWRhNTU1NDljOGRjOTUyZDUyY2YyMDEwYmMyOWYwZDU2MDlhMDA1ZDE5NTYxNWM2MDNhNjljNzJjZjY4ZTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b9d5f2214ba466e9394e001c640f65c",
+      "statement": "Der erzwungene Schluss-Schrägstrich verhindert die falsche Adresse `/zahn_agentstatistik`: ohne ihn ergäbe `${BASE_URL}statistik` bei `ASTRO_BASE=/zahn_agent` diese Verkettung. Nachgemessen steht bei `ASTRO_BASE=/zahn_agent` `voiceBaseUrl:\"/zahn_agent/\"` im gebauten Skript und `/zahn_agent/statistik` im `dist/index.html`, im Normalbau `voiceBaseUrl:\"/\"` und `/statistik`.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L138-L139",
+          "version": "repo-lines-v1:sha256:e5e4b46af9be46bc578cff4bf673d28089217ac7c4edb2a0160fb9d4f9ecf7fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQyMjUyZjk2MjZmMWI0MDJhNjk5NWEzMjI4ZDJkZjU2N2M5YjA1YmRiNWY5YmExMmVhNjJiMWZlYjRlM2Y3YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGQ0YjE2M2QwYzdkNzcyOGIzNmNkYzNkYjBlNzBlNTg4ZTZjNjQ1MGU2ZGNiOTY1ZmUzZmQyYzkxN2YzNjhjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODFjMDA2MzlhODQxNzQzZGZiMDEwZDkwMGIyYmEwYTM2ZGFhNjZmMTZmNDkyM2M2ODcyYWRiYzFkYWNkMGQ1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWEzNDliMTZlYWZhZDFlZTBmZTQzMzJlMjNkMjRhZDUwMWRjNjNmOGJlMDdhNzIyNzZkZGJhYzcyMDYxNDhiOSJ9"
+        },
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L1283-L1287",
+          "version": "repo-lines-v1:sha256:b40cde28501c998205c6a1cc1a9be729464db277b9b4d392348e1ccd4732469a:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzIyMjUyODcwMjNiOWQ3N2U4ZWQxM2NmYjAzZGM1MTAwNTU4ZGFkMTk0YzU2NjM2MzdmNzUxYjIxYWFmNDg0ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZkM2ZmYjE5NzUwOGI4YmNjYzgyOTI4YTRkZjM4MWQ0MTJkMGE5ZDJhMzMwYzQyMWY3MzIwZjM1NTBkNWZkZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjUwMTgzOGYyNmEyY2UyOWVlNmYxODViMzA4MWQ2YWI5Njk4NDE5MzA1NzZkMTBlOTQ2ZTcyMTBhZTQyMjBmZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGE5YWM3Yjc5ODc4OWEyNDFhNDg5ZDRiMWFkODFiOTBmYWZlOGZkOTg3ODUzM2Y3NGYzZDc5NGQxMDc0Mjk3ZiJ9"
+        },
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L1856-L1858",
+          "version": "repo-lines-v1:sha256:990150d834d161395ae25e575ac3b917b42f98f9eb3963a882d7397a275aa7ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGMwMzEwMmRkNzRjOTlmNGMzM2I3MTg5YmZiZjliNDNjZWVlZTM5YjVlN2FhN2I4NjY3Yjc0YTZkMWFkNDg4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFlMmViNWYxODZjYjBmNTRjYzNmYzhiOGRkNDU0N2NjMjMwMGJkYzg0ODM0NmUwODZiMTA5NDI0NTEyYzg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjM3ZDdkZTYxNzA3Y2M3NWUzZmY1NjM5ZTViM2FlNjIzNDlkMzI2MzgyNGQ3NDE3MmI3YjUzNDE0YThmN2Y3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDIxMzkzMTUzYzc2ZWM0NjBhMDk3YmZjNDAzMzY0OTY2NjkzOTE2ZTc4NjQyM2QxZjc2MDM1YWVlY2E3MDU5ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ac64aeb296234e7b9db7c028080aed41",
+      "statement": "Unter Windows (Git Bash) schlägt `ASTRO_BASE=/zahn_agent pnpm build` fehl, weil der führende `/` in einen Windows-Pfad umgeschrieben wird; Abhilfe ist `MSYS_NO_PATHCONV=1 MSYS2_ENV_CONV_EXCL=ASTRO_BASE` vor dem Aufruf.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L1285-L1287",
+          "version": "repo-lines-v1:sha256:f2cee2d9f0e3fd0a390def3558b306a66cde6b08ddc23de62f17e269c54069f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmE4NzMxN2Y1MzU2YWFkOTlmZmU3ZmIxOWViM2IwM2Q0ZGUxMjcwM2VhZThhOTU2NjA0YmFiMjFhMDU2OTkwNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZkM2ZmYjE5NzUwOGI4YmNjYzgyOTI4YTRkZjM4MWQ0MTJkMGE5ZDJhMzMwYzQyMWY3MzIwZjM1NTBkNWZkZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTI5MGFmMWNiODhiNGI3NTAwYTdhMmJkZmNlYWExNTg5OWMyMTU0OTI1OTgxMTk4MzQzNmE0MzU2MzczM2YxZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGE5YWM3Yjc5ODc4OWEyNDFhNDg5ZDRiMWFkODFiOTBmYWZlOGZkOTg3ODUzM2Y3NGYzZDc5NGQxMDc0Mjk3ZiJ9"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L352-L354",
+          "version": "repo-lines-v1:sha256:4db0ff75686914f05bf449f7ebc74b857e786dbba572c78db5aefcc4759d5dec:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGI2N2NjYTcxNDhlZjM5Y2FkOGFkNzkwMWIyMWFlMjE2OWNiNmE2ODgwYWI5ZWU5Nzg1NGEyMTg3ZTcxOTdjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDg2Nzg2ZTBlYzU3MjUwZWUwMDA1ODZjNzU1NjZjZjNlYTBmNjMyODg1OTkzYjliYmRiZDcxZGJjM2YwNmMzMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODUwN2M3ZWQzMTMzMjgwZjdlOGY5YWQwOWQ4YzhjZGZjMjI4Y2E5OGM0ZjMyYzQwODlhNDMyOGFiYjI3ZjZiMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTNhM2Q4YTNhMTJiOGJjYzYzM2E5NzQ2NTg1NTNiNjI5ZDJlZDc0ODg5YzgwYjRjZTJkOTU2MzBlNzYyZjM0ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_576c76ec65914b33be4467e148c54861",
+      "statement": "Der Veröffentlichungsweg hat zwei Jobs: `bauen` fährt `actions/checkout`, `pnpm/action-setup` (12.6.0, `run_install: false`), `actions/setup-node` (Node 22, `cache: pnpm`), `pnpm install --frozen-lockfile`, `pnpm gate`, `pnpm build` und `actions/upload-pages-artifact` mit `path: dist`; `ausliefern` hängt per `needs: bauen` davon ab und startet `actions/deploy-pages` im `environment: github-pages`.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L21-L54",
+          "version": "repo-lines-v1:sha256:e202797c363d11e88f66c67f1b50d550eb4e791e1c7616306a6cc52d8463d3d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZDgwMTU0ZWQ0MmZjNWM3NzliMTMzMTU3OGI1OGI4OWM4MDFlYWNlNzRmMjRjZDQ4ZWI0YTIzNTc5NDBhOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2MzQxMzJhMWI5YWUwNmQ4YjQ5YjY1ZTY0YmVhNTExZGQ2MGI5N2NkYjJhNDM1ZTQ2ZDAwYjIwYjUwODJjZGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1ODdiM2VmMDNjMGVhMGUyMThkZmQwZjdjMTg4ZGU3NTI0MTQ0NjZmMDFiZTE4NjQyODNiNTQ5MDg0ODU3OWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://AGENTS.md#L141-L144",
+          "version": "repo-lines-v1:sha256:e6b14d88f2575d63496f0b9d15dc5868142b8c497cfd8e01c964f366f707de60:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDlmMDYwNmY1MTE4YmNiNDIwYTE1ZjU2M2M1MDg3NjIwNmYxMDdmMTNhY2E5MjE2MmQzNGYwMzFiMmVhM2QyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTEyMGVjMDA3MjA3NmFlZmMwZWI4M2E3NjZkNDZlZjI4NDAwMzQxZGNkZTllNTA0ZjhjZjI1ZWEzNWY0NGY2YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzY0YmRiMjExMDc1MzI1ZGUyMzRhOGEzMjZlNTE3ZjhkNmUxOTk1YjliYzMyMzJkNzI4OWRkOGIzNzFjNTU0MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTQ5YTBlOWI0M2ViZjdlZGI1YzZjMWJiMmMxMGNlN2NiZjNkZTU2MmNhMDU1OTk1NDA1MmI0ZWYyMTdhODc0NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4dfb4ea953004aedae5f7d142d8dc243",
+      "statement": "Ein rotes Gate liefert nicht aus: weil `ausliefern` nur nach erfolgreichem Job `bauen` startet und `bauen` vor dem Bau bei rotem `pnpm gate` abbricht, bleibt der veröffentlichte Stand unverändert.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L38-L47",
+          "version": "repo-lines-v1:sha256:b10ad9ca3d5d05998cb972fb2838912d5ea3fefc384b1c4cdf6e67d8505daf0b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3OWM5YmYwMDE1ZmFiNzA5OTBjMTUwZWJhZWJmN2FlN2M3OGUwOTBjYjVlNDJhN2YxZjFmM2Y1N2MwOTlmNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwNzkwZDg5YjZmZjkzYjA1OGYyZTVkMTBjNjU0Yjg3YTZmOThiNWE0MTFhMTJjZjM1ZTNkN2VhYjgwODRkMzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU0NjgyMzNkNjRhNTE3M2VhMmRiZDM3ZjAxZmY2ZjdhNjIyNWIyMTU1OWI2ZGIyODBjM2Y5NTk5Y2U2YTJmZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzNjM0NDNlNjczODFkMmYwY2Q4Y2ViODk2MzViZjllZDVmOGNiMjk0ZmQ0NTFiOGQ3ZTFjMGU5ZWRlNjA4OGQifQ"
+        },
+        {
+          "resource": "repo://AGENTS.md#L147-L149",
+          "version": "repo-lines-v1:sha256:be76057a9f591d732f450136955069d9df8882979e7986bbbc5b6ed64e5f92b1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjEzMTFhNWQzMzZiYTdhMTM2MGMzMjM1MDc5NWIwZmU4OWU0NDE3OTA2NGUyZGQxMDQxNTRkZjRkMzhhMTBiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWZmMmQ0ZTYzNGMwMWE4Mzc3OWVlNTQyYzVmMTRkMTVjNDM5NWRkNmEzMzM1NTliNDZlMDBiOGM3OGU1ZTA0NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODA1NTI0ZGIwMjZkZmQ5YTY4YjVmZjgxNDFhYmRjMTU2NzZmYTVkOTk0NDNlNzA4NDQ4YjY1ZmQyZGJjZDhiMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWIxYmM1YmM0YTIzN2Y1NzhlNmFmNGE0MTVkMDY0N2Y5OTEwYjAzYjM2NGUxZTI3YzFmMWRiYWE3NDNkMDNiYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cdd3161175164fdb926a99e889987877",
+      "statement": "Der Workflow läuft bei Push auf `main` und per `workflow_dispatch`, fordert `contents: read`, `pages: write` und `id-token: write` (OIDC statt Klartext-Token) und serialisiert Läufe über `concurrency: { group: pages, cancel-in-progress: true }`, sodass ein neuer Push einen laufenden Lauf abbricht.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L7-L19",
+          "version": "repo-lines-v1:sha256:bef2fae4d0cfe6df4f98fd2f2098a397ad1cf1f7d5d5e7e86ad1e6ae0b605b45:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5NmRjNDgxNDlmNWE4M2QxZWQ2ZGJiMzliYmM3ZTJiOTAyYWEzZDM0ZDZiZDVhZTRiMjkxYjY4ZGYwY2E3OWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YTc5NmEwMWY4NDU4Yzg5OWQ1YjIyODkwZTVkZjQ0ODAzY2E0ZDgwMTdjMzg3OGQ3Zjg3OTQ0NDkxMjBjOGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1MTdhNGEyYjFhMmJjNzNhYWE5ZmYwMjQyNjI1YjE1NGI1ZDVlN2JlNDhkYWYyODZiNGUyMWI2Zjk5OTY0NTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM3ZjNhMTg1NWU4YWM2YTlmOWMwY2M2OTQ4MWYyMDNmNWU5Y2VhYjZlYTQ4NDkxY2IzYmJmY2NlMjE5MTI0MGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e0eef237a72e4bd5bc9218326ce21af1",
+      "statement": "Lokal fährt `.githooks/pre-push` dasselbe `pnpm gate` wie der Workflow und bricht den Push bei Rot ab; eingehängt wird der Ordner über `git config core.hooksPath .githooks`, was das `prepare`-Skript bei `pnpm install` erledigt, und `git push --no-verify` umgeht den Hook nur mit ausdrücklichem Ja des Auftraggebers.",
+      "evidence": [
+        {
+          "resource": "repo://.githooks/pre-push#L1-L12",
+          "version": "repo-lines-v1:sha256:08fa262841d8948921ac333de5d526445d84abcd6d6ed85e95f9fcd768ea2f61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDc2ZDNkMjhkMjFlMDIwMTJiMjBlYWY3ZGJmNzU0MDlhNjI3NzEzNDQzOTAyNWYyODJlMzY4ZTMzMDVhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L337-L343",
+          "version": "repo-lines-v1:sha256:dee7b48807108a803a136917b4a7f371e00e40e78ccd699b7290c52601b9e746:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjgyNTdmNGIzYTUzODg4NTg4Mjc0ODUyOTcyZWJlNWZkMjRlZTEyNGExYWQyOTMzOTdlYmY4NjQ2YjQ1NGQwNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ0Y2IyNWI5ZDEwNjIzNzQ5MTRlZWRlMDQ1NjdjZjUwMjhjNmY4MzNiYWMzYTY1NTEzYzYzOTMyODFhZjNiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY5YTNlMDA3Yjc1NjllNzk4ZGM5ZWU3ODQyNGI5MzU3YzI2ZTdiYzlmYzRmZTE0YjI2NmFlYmIyN2Q1ZTI0OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGI5ZDEwYTRkMTRjZjg4MzMzNDAzNzM0NzU1OGFmZWU3ZTExM2Y4NGQ5MWRiNGY3YWVkODUxM2FkZTVkMjM0OSJ9"
+        },
+        {
+          "resource": "repo://package.json#L15-L15",
+          "version": "repo-lines-v1:sha256:021edd159cbeaadda4910ef6f817c437e29895978e9af6ce0e5c737300a0e469:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDIxZWRkMTU5Y2JlYWFkZGE0OTEwZWY2ZjgxN2M0MzdlMjk4OTU5NzhlOWFmNmNlMGU1YzczNzMwMGEwZTQ2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDIxZWRkMTU5Y2JlYWFkZGE0OTEwZWY2ZjgxN2M0MzdlMjk4OTU5NzhlOWFmNmNlMGU1YzczNzMwMGEwZTQ2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2I0MWIxNTYyNzgyMjYyNzFlODI4MzUzYWZlOTY0YzIyN2Y4OTRkYmZjMmRlMTVmZjdjMDljM2M2ZmYyMzVkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzBiNjM5YTkzZjFiYTA4NjM2Nzk1MzYwNGI3OWIyOTRkNWNiYmZmNjk5MjBiM2I4ZWUzNWUwZjBjMGNiZTlkNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee4addfc773f4f52b4619aa8f62ba03c",
+      "statement": "Die Browser-Sonden laufen nicht im Workflow: dort hält nur `pnpm gate` das Ausliefern auf. Die Sonden brauchen einen Browser, eine laufende Vorschau und mehrere Minuten, messen teils Zeit, und ein Fehlalarm hielte eine heile Seite zurück — sie laufen deshalb von Hand vor dem Push.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L100-L104",
+          "version": "repo-lines-v1:sha256:f375b585d7e0a40065a03b698458f70d36d74a7a3b2b0124dfcc30063789c19f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYyZGFhZGVkOWRmZmRjYTViZGZiOTNiOTFiZDliMGI0ZDUwMzQyNjQyNjE2NDg5ZmQ1Y2JkNGZhZGY1MzZiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTJiN2M3NmQ0NjRjMGM0NmVmYzkzNThjYzRiZjE0NWNjYzZmZTUzZDUyZTgwYmExYTgzNDE2MzhlMjgzOGZmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjRkZTE2ZDBlNzZhMjY2MzM2Y2I5YzY0MDEzNGEzMGM4ZmQ0YzNlMTJjNzg5YmM0NTQzYWM2OGIzZmUzNDg0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzE2NzhhZjUxNjhiMWY5NTlkN2I1MTIwZTM3N2M5NTFiNGIyMmZhYmVkM2E0ODljNzE1OWQ3YmM3OWE0ZjNkYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d6128745cd04fb4b581ffc8aeccc68c",
+      "statement": "`pages.yml` veröffentlicht ausschließlich die Seite, nicht den Cloudflare-Worker: wer `worker/backup.js` ändert, lädt die Datei anschließend bei Cloudflare neu hoch und prüft die echte Adresse (unbekannter Code `404`, bekannter Code liefert die Liste).",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L314-L317",
+          "version": "repo-lines-v1:sha256:0100e93730a50e5ecc4e90663cd37ae586f6f00c4ef49b59d3634b63e94595fc:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzZjMDg1MTZmMTJiMmRkNGM2YjM1MDY0ODNmNmM5ZmVmZTBhN2FhMGYxZWNmMzExYjMwYzVkMzc5MzA5MWJiNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTE3NmQ4YTJjZDE0OGJjZjBjNmI1M2Y3MjYwYTgwZjY2YzU3NjYyODViZThiNDE1MjEyMTAwMzNjMDQyNzkwYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdiMzBiMzcxYWMxODBjOGQ3YTNlODczMmRmZmU5MmJkZjkxNzNhMWY4YWU4YTFlMTc3YTYyOWJiYzE3NjljNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjQzMzc0MjMxOTc1NjFmZDMzYWE5MzVkNjY4Y2M0NDA3NzE5MzRjMzgxNTFkYjNlMWJjNGEwYmI4NDA4NjdkZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ab04e4d7779f4187bc307e828ef9204e",
+      "statement": "Die Domain gehört dem Repo über die eine Zeile in `public/CNAME` (`zahn-agent.schaflabs.com`), die beim Bau mit nach `dist/` wandert; der DNS-Eintrag liegt bei Cloudflare in der Zone `schaflabs.com` als CNAME auf `shaunclaw07.github.io` (proxied). Weil die Domain auf der Wurzel liegt, baut der Workflow ohne `ASTRO_BASE`, und die alte Projektadresse leitet mit `301` auf die Domain um.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L1-L4",
+          "version": "repo-lines-v1:sha256:7b40f89d0c388acf0b28c6d51a1c9afb0438dc2262630a78b563a61c1b6ea569:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlZWU4MDgxZDFlNzhkZDQ4Mjg4NWNkMTNkZDIzOGE2ZTlkY2E3YjQ3YzNlYzIwNjU3YzI0NzE1MTdlZDY1ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWRhNjNkY2UwYjVlZGZmZjU0NjIyYWM3ODNhOWU3MzZlMmM1ZTUxZTNkZmRlZjhmNjQ1MGFmMzE3NDhkNTVhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZThlNWEzODI1NTJhYzc1NmYyYzg4ZmM1NDc4Y2QzOTUxMGNjYTkyYTE1NjljNmM0YTA1NjRkNDc1MzkwZjg5YSJ9"
+        },
+        {
+          "resource": "repo://README.md#L334-L341",
+          "version": "repo-lines-v1:sha256:1c1ac4dea08ec6ec9d4793cab770de21081dc3c80fd7e165f3e6e87c2668cda8:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY4ZDI3OGZlNTZlZTlhZDE0YjNlMDI4NmU1MWExNTY1MTc0ZDI3YjJkMGYwNmIzMDQ3NzE0MDgyOGU0YWZlMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGRlYjI4OTg2ZmQ0MTQ5NjFiNGQxOGYyZjAwNmI1NTdiZWFmODQ1MjY0ZmJkOTYzODdhYmFmY2VlNTRiYzZhNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2JiZTM5ZDQ0M2JjYzM4NjkyODliODI5YzM1MWRkNjUxMDdlOTUzM2M5YzEzZDJmYjZiYjllNjJiODQyNmIyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzZlY2Q1YTlkYTE1N2U1NTBkNmExM2Q0YmUyZWU5YjYzZTA1YzJhYjJhMGYxMzMyMTg3ZDY2NDdjMDYwM2Y0NiJ9"
+        },
+        {
+          "resource": "repo://public/CNAME#L1-L1",
+          "version": "repo-lines-v1:sha256:60e346f32b2db3901103b3646fac5ecd73162fbbb4e25fa896488360185a48ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBlMzQ2ZjMyYjJkYjM5MDExMDNiMzY0NmZhYzVlY2Q3MzE2MmZiYmI0ZTI1ZmE4OTY0ODgzNjAxODVhNDhmZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBlMzQ2ZjMyYjJkYjM5MDExMDNiMzY0NmZhYzVlY2Q3MzE2MmZiYmI0ZTI1ZmE4OTY0ODgzNjAxODVhNDhmZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e847f75af43413a89de9f25c1e1c107",
+      "statement": "Die Node-Anforderung ist `^22.22.2 || ^24.15.0 || >=26.0.0` und `pnpm >=9.0.0` (`engines` in `package.json`); der Workflow baut mit Node 22 und festgenageltem pnpm 12.6.0, lokal ist Node 26 im Einsatz — ein „Unsupported engine\"-Fehler beim Start heißt: Node ist zu alt.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L25-L35",
+          "version": "repo-lines-v1:sha256:679fdca15791b2807dbc4d1c1779aa1f6e4fec792b60d668f1dcd9b8f7bb6c2a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwN2E5NTM5ZDI5NjA2N2Q0ZTI4ZmU3ZTZlMmRhMGZkZjBhYTc3Yzg0NDkzMzM2ZTkxNTIwMWJiMTA0MmJiOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzYjJmNGQ0NzRiZDhkN2RiYjU5ODIzMDJkN2VkYThlN2JhNmM2MGUxMjViNDg1YmNmMWI1OTg4ODAzOThmZDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2MGNjYjBjM2QxMmE2ZDg4NjIxNjI5Nzg2YjNmYTczYmU4MzY0MmYyMzgzMzhmNjAwOGM4YmYxMWRlNjUwZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2NWY5ZWEyMGE0MzcyOTRkMDI3YjA3NTg4NjAxZDEwNWFlNzVhYWQzZTUxYzRhZDFiNDViN2MyOWI3OGU4ZmMifQ"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L14-L19",
+          "version": "repo-lines-v1:sha256:061d2b47f361a2d23fcb932efa710c6131d96ee570b667e9c4fafab2b6207726:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmY1MmJjZTMwZGE2N2U2YmNiOTc2ZDdkMWUwOTBlZDVhNDY4YTNkNTgwMTE3YjI1MDE3YjY3NWEyOTUxMWRhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM1NjQ4NzM0YTk0ZTMyODAwMjJiZDdiMGFlNTRiNTY4ODg1ODFiMjI5YzNlYTU1N2M4NzlhN2JkZTM4NDI0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGE2YzBkOTI5ZTNiOWVmNDg4MTc2ZTdiMmFhOTNjYjM2NzY0ZTVkMjRmYWJlY2I3YzI2NTEyZTZjZGYyZmQwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTIwMzliNjIyNmY0NTRmMjk0MDMxZmNjY2NmMjU2ODU2MjgwNWZlNjU3NmUxOTVmY2ZlYzlhNTU4NDZlZDY3NSJ9"
+        },
+        {
+          "resource": "repo://package.json#L26-L29",
+          "version": "repo-lines-v1:sha256:d598d54481681251401a0c497dfa2afc3bd6d2a489cd9fb2c40d8b77f754d960:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWY2MDE1NTQxMjJlZmU4NTVkNTZlMTBjYzliYWYyMDMxY2EzZjRhYjExY2RiYTIyZjFlYmM1ZDM5YTc1NTgyNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYxMDVhYjFlZjM5NmU1OWZiOTMyNmQ0MzQyOWQzZWI0ZmUxNGUxYzM1MjM0ZDM5YjE2NWU0NDg1OWY4Yzg4MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_707d1c54c2624a1c8f4eb94d65fdddb4",
+      "statement": "Die pnpm-Version steht festgenagelt in `pnpm/action-setup` statt als `packageManager` in `package.json`, weil pnpm 12 sonst ein zweites Dokument an `pnpm-lock.yaml` hängt (`lockfileVersion` doppelt); `pnpm/action-setup` läuft vor `setup-node`, dessen `cache: pnpm` pnpm bereits vorfinden muss.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L26-L36",
+          "version": "repo-lines-v1:sha256:a2d7675ef3a06601cd150025a4dc7dc40e23b30331bb960a56a223d90f0aa414:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwYzJkMTA3Yzk5NmNlMDIzMjAxMzNlMGYyNzEzOWFhMmIwYWExNDI5YjRlZjgwNDc2MTkxYjIwMWZlYmMzN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlYjMyZDk3NjJjMGEzMmExYjVhM2ViOTc3MzJmNjFmNzc1MzI5ZGNjZDczODQzMDMxZTZhY2ZjYTUzYTk2OGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1ODJlYWI4YTU5N2E4NzA4NGM2NDExMjE4MTNiMGRlNmY2Mjg3ZDhkNWViMTc4ZjMzNDdmODAwYzQ5ODc5ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1YzhlODBkMzE1YWVjNTVjOWIxMDQ0NGIzYzE3YTE2OWNmMDkwNjQzMzA4ZjY2NzZkYmUyOWMwNGRhNDdkY2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_181dc260be5b4c579a2aedc6b92d5afb",
+      "statement": "Installationsskripte von Abhängigkeiten sind über `allowBuilds` in `pnpm-workspace.yaml` erlaubt (`esbuild: true`, `sharp: true`), weil pnpm 12 die Erlaubnis nicht mehr aus dem `pnpm`-Feld in `package.json` liest; eine neue native Abhängigkeit muss dort eingetragen werden, sonst bricht `pnpm install` mit `ERR_PNPM_IGNORED_BUILDS` ab, und die Form schreibt `pnpm approve-builds --all` selbst.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L348-L348",
+          "version": "repo-lines-v1:sha256:77b6854cfb2b6b78fa705a4de97386ca9159388f2fc029648b8db8c1e00c6eec:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdiNjg1NGNmYjJiNmI3OGZhNzA1YTRkZTk3Mzg2Y2E5MTU5Mzg4ZjJmYzAyOTY0OGI4ZGI4YzFlMDBjNmVlYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdiNjg1NGNmYjJiNmI3OGZhNzA1YTRkZTk3Mzg2Y2E5MTU5Mzg4ZjJmYzAyOTY0OGI4ZGI4YzFlMDBjNmVlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmZkZDdiZDNlNjQzYWNhMWUwODBiNDY4YjhmYjQ4NGQ2OTAxZGMzNDEyZjk2NDEzM2NhZGY2MTUzZmVmODlmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODdjMjI2YTlkMzcwZDdkNmM3N2IyOGRhZWFiOTY5YTRjZmUwNTk3N2UyNTlmMWZjYjIxNjI5ZDQwM2U0Y2QwYSJ9"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L24-L28",
+          "version": "repo-lines-v1:sha256:abdb2b0fe0581473e3d33512d53a684c5de093136a755df89cd02784cf7162ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjhlNTJhYzg3ZDY5ZjRiOGMwZjQ5OTcwYjQ0ZTE3MTNhODJlNGFjMjE0MzdjZTE4YzM4YzUzZTFkYzU3NWRhZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzZlYTczNWEzMjVlZjJmZjY0YmFkZGQ1ZWRlYzBjZjBjOWI4M2YzOGY5YWE2YjYyMTAxMTkwNjU2NWRkMzU5ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTk5NGI4OTMwYTYwZjc0NmUxMWIwZjBiYzhjODY1NzliNzQ2Nzg1ZGU0ZTEzNjA5ODA3NGQ3MzhhMGQyNmM2YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTM0ZDkxN2Y3Zjk5NWYyOWE0MDc1ZTgzMTYyNzdhODRmZmIzMjRkOGIwMzViYWVmODZlMDFjYTdjNTc3OWRlMCJ9"
+        },
+        {
+          "resource": "repo://pnpm-workspace.yaml#L1-L3",
+          "version": "repo-lines-v1:sha256:693cf7cefcb2fae7867632d77a78dc3d245b303e0009e37e8935ab838317e649:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkyYTY3MDdkZWNkMTU5MTk5YzkzNDU5NTgwZjg2MWMwOGVmMmRlZDdlNWQ3OTUwZjY3MTVlMTY0NmJiYTQxZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmI5YzdiMjY1OTY4ZGFkODJhOTdhYTk0YmUzMTA4NzRlZGE4ZGM4YmUzMDg4MGRkY2Y1MzliZGMzOWExOTNjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_623f74559a674081afa084e2a01fc9c1",
+      "statement": "Es gibt keine externen Schriften, Bilder oder CDNs: die Zeichnung ist SVG-Markup, die Spielklänge sind mit Web Audio synthetisiert, und die einzige Ausnahme sind die Tierstimmen als kurze MP3 im eigenen Baum unter `public/sounds/voices/` mit Lizenz und Quelle in `QUELLEN.md`.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L20-L23",
+          "version": "repo-lines-v1:sha256:0da7bc759110630230448f55f1d229f6e3c9d210344f77cc7bb3123d481a48fa:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjM4N2I1ZDRlM2MyMzFhNDg0YjUzZTQzMDI5MzQwMjU1Y2Q5NWQzMGZkM2I5NjZlZDM1NTVlOGQzNmUyM2JkYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWEwYzhlODUyNDdkM2M0Yzc0MmZhZmJmZDJkZWI5NTgyYjA5YzAwZmMzMjc4N2Q2N2RlOTQ5ZWYyMmQxYThkMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQ5MDk3ODhjZTgyOTBiNzQ0MDg1OWZiMjQ0NzczYjU3YzdiYTk1OWI2YzY4NTA0ZmVlMzcwNmU0YmY5ZDkyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2ZmMjczNWFiZGU2YTg3OTc2MmI2ZTVhNDQ3M2YzN2RkZTY3M2E2NzdlMWIzOTZlZWRhZDU2OTZkZDk1M2YzZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fbf14528ba864257906dc4f8fd836526",
+      "statement": "Biome prüft nur `src/**`, `public/sw.js` und `worker/**`; Formatierer und Assists sind abgeschaltet, weil beide beim ersten Lauf fast jede Datei umschrieben und `git blame` unlesbar machten.",
+      "evidence": [
+        {
+          "resource": "repo://biome.jsonc#L1-L14",
+          "version": "repo-lines-v1:sha256:eeda23c1898e3b089ce6eda74161929e9854b09e091144f886667b24c968ab6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3M2Y0NWRlZDYzYTJmNTQwYmZjNjM1MmRjMzgxYzRhYTMwN2QxMDBlODhmZjE5MWYwYzEzNjNiMzYzOTEzNDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_943e15a0d01440d1a02f83455695e492",
+      "statement": "`pnpm lint` läuft als `biome lint --error-on-warnings .`, damit Warnungen das Gate fallen lassen: Regeln des Regelsatzes `recommended` (etwa `noUnusedVariables`) sind Warnungen, und ohne den Schalter endete ein Lauf mit Funden mit Exit 0.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L2306-L2314",
+          "version": "repo-lines-v1:sha256:b7f2dd646aa40c66a80f04ec7874ccc219148bf901fc9f08e8a341947b62a6f5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGU2NjY5MDViNGRjMTRhMDNjM2ViYzAyZWRkMDNhMTg1NDhjMTMyZGNmZGJmZjhhNDY0MDlhYjQ1Y2ZlNzQ2MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWI2ODUxNmQxYjk5ZWU5Yzk5YzVjMjEyMGZhNmU3YjMxZjY0Y2Q4Y2ZlYjQ0ODFhZDQxNzQ1NDllYjE1MGQzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGY0N2FhMzc0NmY4ODc1NzE1YjU4NzkyY2QxNjFhOTdiNTMwNWQ3YWY2ZGVhZWQyYzNkN2VlNWIyMzg0OTI0ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGYwOTI4MmVjNDg1NzhlOTU2MjMzZDFjYTU1Y2IyMTczNTNiZTc3NGUyNTE2OWYxNjZlZjM5NTA3YzBiNTk3ZiJ9"
+        },
+        {
+          "resource": "repo://package.json#L13-L13",
+          "version": "repo-lines-v1:sha256:632fc2de2482465c517f3a8abd2ff0cb5ad4e6f2f4601c09c95b2b0a1cdb39c4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjMyZmMyZGUyNDgyNDY1YzUxN2YzYThhYmQyZmYwY2I1YWQ0ZTZmMmY0NjAxYzA5Yzk1YjJiMGExY2RiMzljNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjMyZmMyZGUyNDgyNDY1YzUxN2YzYThhYmQyZmYwY2I1YWQ0ZTZmMmY0NjAxYzA5Yzk1YjJiMGExY2RiMzljNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgwMTYzNzkyZDdkZDE2ZjdhOTZmMGJiYTQ4MjRkODViYzNjNTk2MGY0ZWZjYjU1NTM3NzAzN2YyMDIwMTE0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTQxNGZjYmZhMzVkOGJkOWIyNGNjZWQ0OWJjZDI0MWI4OTRmMjE5ZTI0NWJmNzYxNGRkNzdkNjE0NjlmYjZjMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_736784edd8bb438c921e415381d8e099",
+      "statement": "Abgeschaltete Regeln stehen mit Begründung an der Regel: `noPrecisionLoss` (Lanczos-Koeffizienten als veröffentlichte Tabelle), `noDuplicateProperties` (bewusste `vh`/`dvh`-Rückfallwerte), `noImportantStyles` (`.hidden` und reduzierte Bewegung), `noDescendingSpecificity` (gewachsene CSS-Reihenfolge) sowie die Ausnahmen für `**/*.astro` (unbenutzt-Regeln, weil Biome dort nur das Frontmatter liest) und `**/*.test.ts` (`noNonNullAssertion`).",
+      "evidence": [
+        {
+          "resource": "repo://biome.jsonc#L15-L65",
+          "version": "repo-lines-v1:sha256:56486e17b39db91b062ad53fbea652c4d278ad78e275dc8cc6842739c007b01c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyZDdkYTMwY2VmN2YwYzU4NDk1Mjk2YTMwNjdkYTVlNWUyY2UwNTY4ZDFmYjRhMWU5MTg5MWEzNDBmYTkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwNjQ4Zjc3ZmQ1YTljNjNiM2NkZDBhZjQ5ZGFhMTI5OTIyMGI3NTQxZTg4Y2ExN2VmZTFhNmExMTRiOWZmMmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZjcyZDI2MDkwYzBkNjdjODhhMDRlYTVjNzY2N2FhZTdkNTExYzg3ODUzOWIzNTYxYTk2YjVmZGIxNDNiZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_57b204d6df324429a58de0aef669d417",
+      "statement": "Fällt der Linter, wird der Fund im Code behoben und `pnpm gate` neu gefahren; eine Regel abzuschalten, ein `// biome-ignore` zu setzen oder `--no-verify` zu benutzen, braucht das Ja des Auftraggebers, und `biome lint --write` korrigiert ungenutzte Importe und Variablen nicht, weil Biome sie als unsichere Korrektur einstuft.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L18-L27",
+          "version": "repo-lines-v1:sha256:550ff8a6e930d2031e05bb15ef98e1a43109a4b4b7ece9bb1b392c533b13751f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxZjY5MjIwMDAzZGIzMGY5NWI4YWIwNzE4YmI4YjYyOThlZmIwMjNlYjk0NGMzNWU5ODI1ZDdkYTU0ZGU4MGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlOWQzNWIxNmY5MWJlOGRkZGIzMzc0NzczNTQzNTdmNjEzOTU2Mjc1OTM1NGE4NmM5NWQyNzUyY2YzMDcxZGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2ZTVhMzVmNDk3OWI1YWY5OTVkZjgxNjg4ZmM3YjQ4OTc4NzBjMTQ4MTU0OWVmNjZhYjZlMzFmNzZmZGIzMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmNTFmNmUzOWY5YTEzMzZlMzgyZTU0YTg4YWIwODdhZjUyNTk4MGE0OTRhYjg3OTg5NjIzZDE3ZjNjMmI1ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dab608f1f0b042179852c5f5bf8390ba",
+      "statement": "Zwei Unit-Tests halten die Basis-Pfad-Regel ohne Bau fest: `src/icon.test.ts` verlangt im Kopfbereich beider Seiten ein `<img>` mit `import.meta.env.BASE_URL` und `logo.svg`, `src/bedienleiste.test.ts` verlangt `voiceBaseUrl: import.meta.env.BASE_URL` und das Fehlen fester Pfade wie `'/sounds/`.",
+      "evidence": [
+        {
+          "resource": "repo://src/bedienleiste.test.ts#L35-L39",
+          "version": "repo-lines-v1:sha256:7b953beddfa66254997b97bc102177ab39a08618c23e50ee790d7a2d85443e76:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzY2YjE2M2Y2MGRlMDMzZjY2MzkzYmQ0Mjk5YjFiZGM3NTE3ZjE1NGE3YzIzNmM0YmYxMzg0YmE5N2VkMDQ0MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGJjYTg1YjIwZmRjN2JmZWJiNTJjNGJlMDE5M2RhN2FiNjRlOWJkOGUyMDBlMDJlMGIxMWJmYjEyYzZkNjZkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmVjNzhiOGE5MzhlMWZjNWQxNGRmMTdjYjlhYTk4OGQxYTg3NTU1YWY2MGQzZTBhMDY4NDU2NDljZDE2MTRlNSJ9"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L132-L151",
+          "version": "repo-lines-v1:sha256:5f737032bfcc2f64579d1a5f94865d0517512edd0c095110d6e779fdb0aeb60e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNmVkNWRhZWI0OTEwZDg1ZWZiNzkyOTBjZWQ4Mjg1ZDFkMWM0ZDk1NWYwMjQzY2M4NWI1N2UwMjgwZmNkYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBkMjMxNTI0OGMyNzcxNGM0YThjZTVhOGU2OTQ4NWY1ZDkxYWUzZTZkOTQzYjNhYTk5NjY1NWRmMDBjZDZjYTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5NDJhMzk2MzM3ODNmZjY4MzUwMDY0ODFjOWNkYmQzNmE1MTVjNGVmNzA1OTc2MmI3NDBiNjZkNTNiYjU1NWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d63c823da8d34e4b8f6a3a41f7164d9d",
+      "statement": "Die Ausgabe des Baus prüft kein Test: `vitest.config.ts` sammelt nur `src/**/*.test.ts`, und weder `pnpm gate` (typecheck, lint, test:run) noch der pre-push-Hook fahren `astro build` — ein falscher Verweis im gebauten `dist/index.html` fällt nur beim manuellen Nachsehen oder in einer Browser-Sonde auf.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L111-L115",
+          "version": "repo-lines-v1:sha256:b2c6b9fb188c50c9795f03b7d6029b70ee8d99009117514948b6256eed756d71:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzU3OGYxOWQzZDA5MWMxODg5YWMzODQ5ZmYwZDBhMzMzMzlmZWM4MDBlZTQyNTY0M2U3ZDMzOTVhZGQyMjI1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDY5MmU5MTkyNDExZGRlNjBjNmYwNGI0NzNiMjdjNjlhN2NhOWVmOTY0ZGYyYmJiODljZGY0ZDJkNTZlYmYwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBkMGNkMjBiNjVlNzMxZDI3MzUwNDgwOWRmNzIzMDM4N2I1Y2M5YjU0NDIyNGU5MmI0NTNkMTBhN2RhNGZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWZjMTZiMzhmN2MyMzRhNDY2NDlhMDQ5OTA2OGFiMDMzMWI3ZTBjYmU2MjkxM2EwNjg1ZjEyMTQ0MjFiNjAyMSJ9"
+        },
+        {
+          "resource": "repo://package.json#L6-L16",
+          "version": "repo-lines-v1:sha256:a385fad914dacd1ed993dda023b05e8e55be9e7a745f33d8194cfe8ee4f12c9f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0MWEwY2JhYjU1NDZjNzA5MzA5ZGUzNGYwYzMxMjFjM2U4ZmY2OGYwZGJjMmQzN2RiNzRkMjdjMzM2ZTdiOTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMzJiMjI2Y2Q4Njg0MjQ5MzZjYTEyNTMxOWRjM2JiMjczNjdmODNkZjc3ZjAxYjU0NTVlMGE2M2EyODNjM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhYTYyYzkzODZkN2QyY2UzNTA5NWJlOWU2Yjg1YTM4NjY1MDk1M2Y3YjFhOTZhYjBmMjI1MTNhZmVhMmU3ZTIifQ"
+        },
+        {
+          "resource": "repo://vitest.config.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:ff4c6dc3c7b91e5c152cba9e5daad9a2d76e6e8c00d6d090183f253e70eefdb2:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRhMTkyMTFjM2EwM2I5ODc5NDdmMjRiNjliZGNjNDY5ZjQ3OTQ4MjlhNWY1YTRhMTg4ZWEyZTE4MTY1NGI5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

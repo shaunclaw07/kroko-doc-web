@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:afb20b952ff9c459069a7984d556c37c9f9c7ff19a5106ce8fc72e633bd08a02",
+  "claims": [
+    {
+      "id": "claim_21547608990048999219ae8881ce380d",
+      "statement": "`public/sw.js` ist von Hand geschrieben, geht als Datei aus `public/` unverändert in den Bau und kennt keine Liste der gebauten Dateien; angemeldet wird er an genau einer Stelle, in `src/layouts/Base.astro`, erst beim `load`-Ereignis, nur wenn `import.meta.env.PROD` gilt, mit `scope` gleich dem Basis-Pfad und einem geschluckten Fehler, sodass eine gescheiterte Anmeldung die Seite unberührt lässt.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L1-L17",
+          "version": "repo-lines-v1:sha256:695a67b5998330136ec147b7d02b639b529c5ef075dc5142d4068aac7a8166ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MzI3NzVlZWU3NzAwMThkYjdkNzlkMDM1YTAxNjMwMTVhMDE2ZGUxN2ViYmY4ODg0OTAyZWM2ZDFkOWZjZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxODM2MDU3N2UyYjUyOWJjNzdkNmNhNmNkNDczOTEyN2FkMjM1ZjcxZGU3MDZhZWQ5OWMzM2VjYzA3Y2IxNDkifQ"
+        },
+        {
+          "resource": "repo://src/layouts/Base.astro#L28-L38",
+          "version": "repo-lines-v1:sha256:39cb625c89dea3741bff4a4c1649da9b60f42f0215d49e2cf076f462869272f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YjhmNGUwMDg0MzkwOTc4MzgxZjVjOGIzMmEzNWEwMzc2N2M1MTE2MzY0YmY4YTJiMzA2ODk5NjYwNGFiNjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2YmY4MWM5ZmVlYzg4YjgwMTFjMTg4MzdjNWViNWM0Yjc4MjE0NjllNTI1M2ZkNDg4NzI4MmE5MGU3MWIzYjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5MDM0MWQ5MmY5ZmEwM2RiM2ZiZTBlOTIzYWYwZGQwY2Y4NjRiZWQ0NGFiMjc2ZjZjZDkxN2EzNzFlNDRkZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YmJlMWFlYjMwMTg5YTk1Y2U0NDM0MDZlZjU3Mzg3YmU4MmI0ZDhiMzEyYjFkYTQyMWExN2Q4Mjg5OTU3MmUifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L266-L275",
+          "version": "repo-lines-v1:sha256:7d86ee207d288b1cb9a6c443b4b124a9eb980c7f1df862864db74b3e0e4967b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1NDY3ZWQ4M2I5NTIzZjBlM2QzOGIwMzM5YjM0YTMyMDgyODEyMjk0NTdjYzFhOGY0M2FmYjBiNzkwMzY3ZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliYzBlZDM3YjE3NWZhMWQ2NmVmYmUxNWJmMGQxNjE2YzdmYWE5ZTAwODA4NTc0MjM2NzBiZjQ1NmY5OWI1Y2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bdbdde20aaf349d1ab2465dd5cfab06b",
+      "statement": "Der `fetch`-Zuhörer beantwortet Anfragen nach drei Strategien: Navigationen netzfirst mit Vorrat als Rückfall (`pageFirstNetwork`), alles unter `_astro/` cachefirst (`assetFirstCache`), der übrige eigene Ursprung stale-while-revalidate; Anfragen fremder Ursprünge, alles außer `GET` und Anfragen mit `Range`-Kopfzeile überlässt er unberührt dem Browser.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L176-L221",
+          "version": "repo-lines-v1:sha256:af9107a13581988f94bef5b968e514dd5015319c50fa81f23e7170ccce74a4fb:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyNmZlZTFmNGZjMjJhNWE4YmY1Y2RiYTA3MzczOTUxNGUyNTZjZTNhMzljMWJkNmI2OWQ3MWJmYTU2ZjBlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzNjlmNjJjMWU4NWY3MzNlZDk5ZDBmODNiNTA3NTIxYjNiNDQ2NzVlZTY4OWQxY2JhNWMwMDY1ZWNhNDQ1ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3MjhkMjgxNWYzYjFlMzg5MTkwYmU0MTQ0ZjU2OTI1NDVlZWZlZWYwM2ExYzc5ZjU0MTBhMjE3YWNiMDNiMTgifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L236-L252",
+          "version": "repo-lines-v1:sha256:98483d71dc1c6bb5648660a207d8f2abddc5c72fced75815a316891ce2f99d78:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1OTFjMTgzNDczNWI2OThmYTI1ZDFlZjZkOWEwYTAyZTc4Nzk4YWM1ZGY2YTNiOGMzMGZkODRlZmQ0ZTVjNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4MGQyZGQ0ZjI4OWQyNmRjNzU3YzJiNjVhMDZjMzkyMjdhNjcxN2M0YjQ4YjVhMzk3OTJjOWYxMWU0MWFlYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L246-L252",
+          "version": "repo-lines-v1:sha256:3d4a71832a3c4fdb2683b451e0cd685c0091501ad319c9cc0057ea6e28e5b809:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2I5NDEyNmZiOTRhYWFhNTg5ZTdjOGVlZTk2YmQzM2QwZmU3ZTFlODJjMzYwZDU2OWIzNzNjM2IwOTRlZTYxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2UxNTgzYmEzN2M0MzBjNGQ1NGFmZjQwM2Y5MzQyMWM3MjgwNzk2MmY0NjllYTZlYThiMTU3ZWMyODI3NDI3YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzQ5YjQ0NjhlZjY4ZDZmZTFkOGE0ZGNjM2ViYTI2NWZlMGYyYmMzOTYxZGMyMmMxM2M3NmNiZTJjMDBjNzc4ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_54b324936c05410281ee407028f46275",
+      "statement": "Eine Versionsnummer für den Vorrat ist unnötig: die Seite kommt bei vorhandenem Netz immer frisch vom Server und nennt damit die Dateinamen des aktuellen Baus, während die `_astro/`-Bausteine den Hash ihres Inhalts im Namen tragen, sodass ein vorhandener Name nie neu geholt und ein veralteter Name über die Adresslisten weggeräumt wird; der Cache-Name `zahn-agent-v1` ist nur ein Namensraum, und `activate` löscht jeden Cache mit anderem Namen, während `install` `skipWaiting()` ruft.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L18-L23",
+          "version": "repo-lines-v1:sha256:d13ee619cd6aa1b6be252507bd4a9482a0b9bdc240a6409f5fb5d6fa17feeb08:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTViNjhkOTBlZjBhOGY2ZTEyMmZmOWE0ODVmN2M3N2I3MDBiOGFiM2Q0NTUxYjc5N2NjM2FmMTFiMzk2M2Q2ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1YjkxYmY5YTA1OTBmY2RhMTQxMjY0MmRmNTQzN2IyMGE1MzUyYjUwZGJmZGExMjNlN2U2MWE4MjlkMWNmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTc1MWM0ZDlkNDg5MmNjNDkxMzNhNTc4NDU1MDZkOWEzODU0OTU3Y2ZhNDViZWM1OGY5M2YwZGQxNzliYmY1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODJjYmYwMjMzOTBlNzc0ZThhNjYzMzAxMGYwOTY5NTQxZmVjNDY3OTQzYmEwNjQyMTRkMmVlZGYyN2JkNDgyMCJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L223-L234",
+          "version": "repo-lines-v1:sha256:6888ec3909c6c148bfcf53cb8104a5bf5016dcd8b4eb9457174b474b322fab12:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2YWQ0OWI0ZDBmMjA2ODEzZDU5MDk3NmFjOTAxYTlmOWY1MDQ5MDEwMGNlY2RiNmU4ZTBhMmM0M2RhOWQzNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1MjU0YmQzNDBhYzU2MTQzYjM0MDY1NmIwZjZmMTZkNjU2NTNjMzYzYWQzMjY4NTliNDQ0ZDNkY2ZiZTM1MjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwODc2MDc1N2IxOWJmNGRiYTc4ZDk4MDQxMTIxODg4ZTFlY2ExYzNiNDJiMzNiOTEzODg4MDUzOWI0MTY0YmMifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L92-L110",
+          "version": "repo-lines-v1:sha256:16188d2cf1664ad771875813dbafc644f931bed0d527959b7ea602c0cb4a1db8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZGQ2NDg5YzhhODgwYjBmNzkyNzY2MDJlMTg0MzY0Mzk4YmQyMDRiMGIwMzU2OTRmODA1Y2IwMDZiMGEzMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxZTNhODQ0OGI5NWIzYmQ5MjM0MjZiMzYxZmNkNzdmMzJiZWU0NmE4ZWU0YWQyNzY1NzQyM2MyZWEyZTM3NTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MzI3YzY3NGQyODNkNzI0Zjg2Yjk0ODFlZTU0ZWVhZDA3MWNkY2U3ZWQ4YzU0YWM4YzFiODI0OTUzNDY2M2UifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L216-L222",
+          "version": "repo-lines-v1:sha256:f3b4895688342a1c08c6d822c54e289e24f0d3cde3c513f2495e2d88ba9fa586:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjOGNlNTYxNWY0ZDdiZmM2NTFkNzljYjQ2ZDY3MmZlNjBjYTgyNTI0NzhhYTNhZjUyYjYzMmY1MzRiMWNjZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDkzNTI3ZWU4ZWU2NzVkNDRmYjBmNzI1NjljYTFmNDgwZDljYTdkOTNkNmM4MWM4NGYzMzFjOTIzZjU5MzZjNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzUxNmFjM2FhYTk5NzZiYWI1MmJiYmIxYzExYWY2YzA1ZjU5OTM2MDdiNzk5OWNmMmQ4YzRmZGE2YjI0MzZiMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_92290727b4ae408389ab416e38f216cc",
+      "statement": "Die Installation legt beide Seiten aus `PAGES` (`''` und `statistik`) samt ihrer Bausteine ab und ergänzt `SHELL` (Manifest, Symbole) sowie die zwölf Tierstimmen aus `VOICES` unter `VOICE_DIR`; ein fehlendes Symbol oder eine fehlende Stimme verhindert die Installation nicht, weil jeder `cache.add`-Fehler geschluckt wird.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L160-L174",
+          "version": "repo-lines-v1:sha256:4a23f4512ba2eafc67ae6b61de9903fd1caf95cafacfafb53f2af83777f6555f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMmUzZjNiZDc0MjIzMDM2Y2VjZGZhOGE5ZmI2YjE4YjY2ZWEwNzgwZmZjZWZiNGViOGJkMDcxNGM2Y2YwNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxNmIyMGM0NDg1YmEzMmNkN2M1OWFlOWFhNDBhMDE3NmNhYTFlYjg4ZTAzODA4NDc1YzgyNTFiNTM4NGI0MDAifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L18-L42",
+          "version": "repo-lines-v1:sha256:cab842f3ed33b8a077306309aa877f997dffd988d18862a250b121d27a4681bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1YjY4ZDkwZWYwYThmNmUxMjJmZjlhNDg1ZjdjNzdiNzAwYjhhYjNkNDU1MWI3OTdjYzNhZjExYjM5NjNkNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MTk4YjViMmZlOGNmOWUwYTRjN2QyNGZjNWJkYmMwZTExOTQyY2JkYzgwNTIyMGM5NzkwNzBhMjZiYmZkMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3NTFjNGQ5ZDQ4OTJjYzQ5MTMzYTU3ODQ1NTA2ZDlhMzg1NDk1N2NmYTQ1YmVjNThmOTNmMGRkMTc5YmJmNTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYzhhYTcyZTE2N2M5MDdhNjcwNzkwYzg4NzY0ZGVkZDYxZjdhOGEwOTY1YTJkN2JkNTMwMzVjZDA3Yjk1MTYifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L156-L169",
+          "version": "repo-lines-v1:sha256:9908d59d78626a3284c49aaeb52fa4a6f718d9726025a0ce0b1006c2064f5ca8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjYjcyNjU0OGNmZTM4NWI4MjFlM2JmMzc0NTZkOWUxOGZhYmQ4YTI5ZTg4YzQ3YWNlZjE5ODYzMzJiMmM5MTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwYjgzMmI4ZGU2MDBhY2E5YTNiM2JlZWU2ZTk5YzNmZmEyNWU5NjBiNjRiMjk1MTE1OTgxMDI2MTZjNGIzMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwNWRiYmJmNDM0ZjU3Yzg4YmYwYWY2NDZkZmI4Yzg1OGJiZTI2ZmExOTkwYzFkNWQxMjU3NDlhNGViNDNiN2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ecbcdc2765fa4d8d8f54fad05e20817e",
+      "statement": "`storable(response)` ist die Tür zum Vorrat und verlangt `status === 200` und `type === 'basic'`, weshalb Fehlantworten wie eine 404 und undurchsichtige Fremdantworten nie abgelegt werden; Dateien, die niemand vorab nennt, landen beim ersten erfolgreichen Abruf im Vorrat.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L112-L114",
+          "version": "repo-lines-v1:sha256:b08135132c9266a206530e3fc7f8b942657815a8f7b05d21b96103349efa2c9d:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNiN2Q5M2MzMDRiZDk3ZDY2YTQ4MTk3ODVmY2I4MGZlM2I0NmU4NzdmYzhjMjFkNDMxNTljYjYzMjVkOWFjMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDk3MjM1NmUxODlhM2VhOTYxZmNjZjVkZDhhMmQzYjExMDhiYWNjM2EwM2NhNzlmYTNhNjYyOWM2ZDQwNjNiMSJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L194-L221",
+          "version": "repo-lines-v1:sha256:9d00073c6fc1ac7277709167bca864ca0288e06b3f40f37f683cd7effb870e67:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhNTcyYjBhMzk0ODM1ZWQyZTBkZGQ0NGFlMmQyYWE4M2VhMmM0ODU1MWQ3ZGVkNThjNWQ0ZTU5N2ViNDFjYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3MjhkMjgxNWYzYjFlMzg5MTkwYmU0MTQ0ZjU2OTI1NDVlZWZlZWYwM2ExYzc5ZjU0MTBhMjE3YWNiMDNiMTgifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L231-L237",
+          "version": "repo-lines-v1:sha256:44413469d1fdca38b2e08a32f1fe0e70a5c3d12213f17e4f58ac19ecd0f05c3f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDU0NzY1NGU4MWFhZDg2MTY3MmVmNmFkMmQ5MGIzY2IyYzcyNjhiYzk1MThiNmZiYTkxNDU3ODdkMDgwYjg2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGEzYmUxNDE3NWFkM2U1MjhiNDhiOGQwMmI3NjRkYThhZmRiNWNjZTBhYTZiOWQ5MTRkYjFjNjY5NTg4OWEzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWIxNDlkNDI4MDQwMjgzZThjMzcwNmEwYzk3MDExZjIzYTMxZmQ3OGEzOWNhMDk4NjM3NTVjOTllZmRiMTM3MyJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L239-L244",
+          "version": "repo-lines-v1:sha256:c545b9e29340f1db3d8e86c8104cce993b4c9494d099795b029aae9e9811b72c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmE3ZjBlYjc3YmY5ZDdjNmE4YzYwMTVmN2MwNTQ0YmM5ODViN2NlNzU1N2JjYmYwNTBiMzk4MTMwNDViYTViMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWM1YTgwZTUxMDE2MjZhNGJhMzIzZWIzMTU0MzA3MDcyYTA5MTJlMWZiZThlMzNjOGRlN2I1YmVjYzIzYTllNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGEwYjc5MjgwMDVkMDE4MWU0ZDJiYTEyNjI1YTI2ODM2ZTA1ODk0NWI2NDBlZjQ0NjQxYTk3NTRlMjFkZDM4YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_610c165ecc5449af87c8434dcef01bf2",
+      "statement": "Der Worker ermittelt die Bausteine aus dem Ergebnis statt aus einer Dateiliste: `assetsIn` liest `href`- und `src`-Attribute des HTML, `importsIn` folgt den relativen Einbindungen eines Skripts (`.js`/`.css`), und `storeAsset` steigt rekursiv in jedes abgelegte `.js` hinein, sodass auch Bausteine vorgehalten werden, die nur ein anderes Skript nennt; absolute Einbindungen ohne relativen Pfad und ohne Endung erfasst der Ausdruck nicht.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L59-L110",
+          "version": "repo-lines-v1:sha256:b1e296bb9feaa49d3b7bb78e60e0501537de72b138b4d07570d5317b005e3f45:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4ZGU1NzM1MmYxMmVhZjVhNjk2YmRkMDA5ZDdjNjBjMWVkNWJkZTIwYTUxZWJiZDgwNzkzNGU2Nzc3ZmYzODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNTQzMTQzNWJiZDQ3ZmU2MDg0MGE5NTQ5MmRkZGQxNTU0ZTE0M2Y4NWFmNWM0YmQwNmUyZGQ4NTIwYjJjNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MzI3YzY3NGQyODNkNzI0Zjg2Yjk0ODFlZTU0ZWVhZDA3MWNkY2U3ZWQ4YzU0YWM4YzFiODI0OTUzNDY2M2UifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L180-L189",
+          "version": "repo-lines-v1:sha256:afaf9b7d3274ac2e1a3cd4abb26cec955c27ef3f440fcef209869c28c2fead47:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkY2U2NjVlN2M1NjBlZDg3MjFkNTFiOWRmNGM4MGFkYjMzYjMyMzBmODQ4MDFiMzdhMDdkYzAyZTUwZmNkMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQyZjAwNDE2MWJiYzI3YWU5MGRhOWE0ZTAzNjkyN2FlM2IxMWNlNTI0YmI4ZDA2ODgxMDg4NmQzOGYxMTlkN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxNTkyOTk2ZTg2ZmRlZDRiN2JkOTU1NTAxYjQyNzgyMTI4Y2Q0OGY1MDhlMzYwOGZmMmVlYWY1MmQ1NDhmN2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc4e4f9c2a90416da0524f9dd68d91c2",
+      "statement": "Je Seite führt der Vorrat unter `SCOPE + '__bausteine__/' + encodeURIComponent(pathname)` eine JSON-Liste der benötigten Bausteine; `prune` vereinigt alle diese Listen und löscht jeden Schlüssel unter `_astro/`, der in keiner Liste steht, während Seiten, Symbole, Manifest und Stimmen unangetastet bleiben.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L130-L158",
+          "version": "repo-lines-v1:sha256:d9f5c8e0336f2cc3a5a993785866c96ddc6f8f18ab5df5b684233c70a1ab04d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjM2ZjMzZhYWYxODczMDJlNTA5ZDhlZTk2NmYzNDkwNjE5ZmY5N2Y3MTNkYmQyNTIxMTMzYzEwMTcxNTk3MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkNzNlNzViZjczNmU5MDhhZmQ4NzE4NzE2YTVlZGMxM2QyNjkxZjg4MjhjNDcxYWE0MWEwMThmMGRiMzJkMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmMjFkZWIzY2FhYWY4YzJkYjcyNTg0MjhlODI2Y2JlNWNlOTM0NWZmZjBiY2FiZDc3YjQ4MDYxMzBmODg0MjAifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L199-L214",
+          "version": "repo-lines-v1:sha256:3e6ab771295e5a33cc50003d4b1843e7e4d5b096b2d67c77357d554ff909a43a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlYTViMmNjMGM4ODMxNmE2YTI0Y2I4OTljYWQ5MDU4N2ExNjk5NWMyOGEyMDNkMmM1ZTU3MGY0NmE2Y2ViOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyYzUwZDQyZDBkN2FlMmM3YWFiOGJhNzRkMjAxY2U3MzFhYThiOWZhNmY1YWUxMDkwNTBlMTA3NDBiYTkyZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMDNkMDNmZTM1MzJhOTJlMGI3MmUyYjlhM2NmNDYwOWRlYjljYzIwNmYyNjkzMmU3ODU3ODI0ZmE2YzdhZTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_98b8835062fd422d85ba82c20e43213d",
+      "statement": "`storePage` reiht jeden Ablageauftrag in die Kette `storing` ein, damit das Aufräumen der einen Seite nicht die Bausteine löscht, die die andere gerade ablegt, aber noch nicht in ihrer Liste führt — die drei Ursachen dieses Fehlbilds sind am 12.10.2026 im echten Browser gemessen worden.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L7-L17",
+          "version": "repo-lines-v1:sha256:6eb6a1f3afbe3f0c0aff8b3be56ba66d145b3ae0841e4314a97e468c331c3a74:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5MWM4OTQ4MjQyOTUxYjg5OTFjNzViYjllOTAyYTQzOTNkYTUyZjBlYTUzYTc5NDMyZDYxN2JhZTFkNmQwZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZjYxYjE0NmNmM2EzYTNkNmI5ZWZkYTVlNTk1OGQwNjg0ZDk0MDQ2MTY5YmQ0NmQ4ZjhjZjNlZDFlM2E0NTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjNDc3ODgyZmFlZjhlNzJkNDM2NzJiOTE1YTg5MDVkZGM4ZmY1YjY4NjA4Y2ZiM2Y1NjNkNmRkMzE3ODFmYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0ODBiNWI5ZDQxOWJmNDQ2ZmM5MjJkYjU2MWNmMGQzMGMyNzE2ZGE1MDczNDRiYWM1YzM1NDZjM2Q3YjU3MDIifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L116-L128",
+          "version": "repo-lines-v1:sha256:7e2fe345adaf7281da810812e390156bdfb43da2f14618b4426badaa86144714:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwZGU1OWQ5ODFkNmJhZDQ3MzgwZjY2MmM3YThlZjgxZGY4MTI2ZWZmOGRlYmM4NDE1ZWMzOWVlYzU3YjI3OGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNGY4ZmQ4YTY3NmZkOThlMjU5MmMyYTkyYjQ1NzQ1YjY4ZGRhNGY3MDZkMGI1N2NhNWVjYTVkZDRiODQ1YzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4NzIyN2RjOGIxNWMyNjRhY2NhNjg4YjI4YjExMDM3YzljNDNiZTQwOWNiMTJiNjM2YmU0ZDczMWEyZjAxYjgifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L199-L214",
+          "version": "repo-lines-v1:sha256:3e6ab771295e5a33cc50003d4b1843e7e4d5b096b2d67c77357d554ff909a43a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlYTViMmNjMGM4ODMxNmE2YTI0Y2I4OTljYWQ5MDU4N2ExNjk5NWMyOGEyMDNkMmM1ZTU3MGY0NmE2Y2ViOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyYzUwZDQyZDBkN2FlMmM3YWFiOGJhNzRkMjAxY2U3MzFhYThiOWZhNmY1YWUxMDkwNTBlMTA3NDBiYTkyZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMDNkMDNmZTM1MzJhOTJlMGI3MmUyYjlhM2NmNDYwOWRlYjljYzIwNmYyNjkzMmU3ODU3ODI0ZmE2YzdhZTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_517b78113e4c4100afa701e629af7218",
+      "statement": "Der Vorrat wird mit `ignoreVary: true` (`ANY_VARIANT`) befragt, weil der Server `Vary: Origin` schickt und der Worker die Datei selbst ohne `Origin` geholt hatte, die Seite sie aber als Modul mit `Origin` anfragt — ohne diese Option verfehlt der Vorrat den Baustein und ohne Netz scheitert die Anfrage (`net::ERR_FAILED`); der `FakeCache` des Tests ist darin streng wie ein `Vary`-Server und findet ohne `ignoreVary` nichts.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L186-L186",
+          "version": "repo-lines-v1:sha256:e9739077beddd4a57987873fcc8437b5f2fcafa999c7b3ff26f43b9841f3ebb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTk3MzkwNzdiZWRkZDRhNTc5ODc4NzNmY2M4NDM3YjVmMmZjYWZhOTk5YzdiM2ZmMjZmNDNiOTg0MWYzZWJiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTk3MzkwNzdiZWRkZDRhNTc5ODc4NzNmY2M4NDM3YjVmMmZjYWZhOTk5YzdiM2ZmMjZmNDNiOTg0MWYzZWJiOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjc5ZWUwNjZkNDIyNTc0YmE5ZmJhZDQ3NmIwYWNhMDk0MmQ0MGE1Yzk0OWYzMDVkYTQ1Y2MwM2U5OWY2MzNhOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjhjMGZhMDI0ZDhhY2ExZjQwMTdmZWEyZGM5YWRkZWMzNWQ4MDFhN2U2ZjBlNDgxNjIwNWI2NTM5ODgyOWVmNiJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L44-L57",
+          "version": "repo-lines-v1:sha256:17047c708e2c0c8eec59e2f3dfa62487ea321038d07168f4ad74b1a7eefd0e15:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5Yjk5Mjc3NzllMmVlZjAxMmQ2YWQyYWY2NGRkZDBmMDcxMjRmMmExNzBiMGMwZjE4NjJjM2UyYmI4Mjc2NDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NzNlOGE4MmIzM2FmZjAzNzcxNmViYjZjMGEzM2FmZTIwNGVlNTgxMjBhYWJhZTI0OGQxYWM0YTY5MGYyMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyYjU1Y2Q0YjZkOWU5NjUwZTYzZjU2YWZhZWFhYzg2NDA0Nzg4YjdlNTAxN2Q3OWZkYjU5MmM3N2NkNGY0MzYifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L46-L58",
+          "version": "repo-lines-v1:sha256:ebe3e56c40c9c5d9be207e779cadfcfc9df3aa17913051a782c59fd6a4663494:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5MmQ1NDFmZTI5ZGQ3MDBiZmNkODk1YmVmYTI5ZjllZWU4YjAwMzQxZDEzOWVhMWMxNTE5NGE5M2E1YjliMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmYjg3NDcyMDI3YmZkZmQzOWZiMzQ3ODc1ZTA2NWQyOGNiMDllMTc0NjE2YjQyMTIxZmQ3NDJmNjU1YjEyMTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fc28173181444926b5277efd106b1e7d",
+      "statement": "Anfragen unter `SCOPE + 'api/'` gibt der Worker immer ans Netz weiter, weil die Runden-Sicherung unter dem eigenen Ursprung antwortet und ein Stand aus dem Vorrat ein alter Stand wäre, den der zusammenführende Abgleich zurückschriebe; `HttpRemoteLog` setzt zusätzlich `cache: 'no-store'`.",
+      "evidence": [
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L31-L34",
+          "version": "repo-lines-v1:sha256:400d30d640b8c6f53cc38e291dfc1ca0b8f757b91c5a6ccad5a5a031f3428f40:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGIwNjhkMzA1YmZmNjM1ZWE0YmM3ZDBiNDg3ZWFhOGNhZTFhNTcyNTY0MmNkNjJjNWVhYzlmNTM4MzE5ZDczYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOThmMjMyZTZjYTI1MWJiOThkNmEwOWYwZDczMzcyMzNjMmNiMDM3YTNjNTgxMjJjNTc2ZGJhZjdmYzI0ZWNiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWI0OTg5NzFkZTFmZTM0ZTM4NzkwOTIzN2UzM2U4YWYzMWM1MmY0ZjY0MWI3Yzc3NGQ1MGU0Nzg5ZTI3NmVhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDFmZWFkMzI2YTcxNGVlMjk3NzM5ZTFkMGZhNzdhYWVlNjU4MjZlYTNhNTI5OWE1NDY4YWRkMjU5YTc3OTNiZiJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L236-L244",
+          "version": "repo-lines-v1:sha256:df9675a663957d9a4cd6fa95c8746d5f61b375fae41178b6a8b2bb1547cce5a9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU5MWMxODM0NzM1YjY5OGZhMjVkMWVmNmQ5YTBhMDJlNzg3OThhYzVkZjZhM2I4YzMwZmQ4NGVmZDRlNWM0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgwZDJkZDRmMjg5ZDI2ZGM3NTdjMmI2NWEwNmMzOTIyN2E2NzE3YzRiNDhiNWEzOTc5MmM5ZjExZTQxYWVhNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzBhZGQ1OTVlZWVjOWYxMmI1NmJkODQ4NjE2NTllMzRkYTYwZmQ1ZGEzNTY2MjMyOTcxZTcxYzc3ZTQ4ZmNmNyJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L44-L48",
+          "version": "repo-lines-v1:sha256:6e57072afb5903c512b68d8b7aab3ec4c198bf05b416d81a7c7d348c4c57f4ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2UwZDM0ZDAyNTBjOTMyNGUwNjJkOTkyZjY3ZDY3ZWE0YWExNDJmOWUwNDljNGZiNDI2MjFmOTQ5MDY1ZDFmMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDk3M2U4YTgyYjMzYWZmMDM3NzE2ZWJiNmMwYTMzYWZlMjA0ZWU1ODEyMGFhYmFlMjQ4ZDFhYzRhNjkwZjIwZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzdhZDJhNTZiOTFjNWI3MGY0NjRiYmY2NThhN2I2ZTRlMGY3ODg0ZDhkNjJkNzIxZDAyNDExZmYxMjZjOTAzYiJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L57-L57",
+          "version": "repo-lines-v1:sha256:cbb54125bb6789fb2c1095cb07a09b08a342c83532027a295cd615afc9e4d5e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2JiNTQxMjViYjY3ODlmYjJjMTA5NWNiMDdhMDliMDhhMzQyYzgzNTMyMDI3YTI5NWNkNjE1YWZjOWU0ZDVlNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2JiNTQxMjViYjY3ODlmYjJjMTA5NWNiMDdhMDliMDhhMzQyYzgzNTMyMDI3YTI5NWNkNjE1YWZjOWU0ZDVlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTQ2ZmVhN2FmODJhOTRlZjZiMTgwMGViMjQxNTkxN2MwMDIyOWNiOWM3MTA4YTQzOTcxZWJjMjJjN2U5MjUwNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGQwODAwMWU0MjkzZjg0MDgxY2YzNzk3YWY2ODZlNDY1YjQ3ZDQ1OWRkZmRkY2IzZTJlNDk0ODlkYzdiNTRiZiJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L254-L258",
+          "version": "repo-lines-v1:sha256:d6e96a0a1bdb179074317c62b097738046942bc1e492b48e8805bec91372882d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjBjYzkwNjg0NjRjMjk3M2EyZDQ4ZTA2MmJmMGEyZDBjN2M3ZTNlNTgxNGM2ZjYzMGM3MDNhNjFmN2NmZjZhYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDE2YzcwNmZjNTY2N2EzNGYwODI0ZDc1ZDVhNWFlMDIzOGFkNjliYzYzZWJlYmQ4NTkwNTBlM2Y3Njg5YjgxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJkYzcyNWUwOTc3ZThiNGRlNzZmZWVjMTZhODY3M2ZiZDI3MzhjOTVkMWMzZGJlMjk1ODVhMWE1MDQ0ODAyMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_42c3c14a3ac64fe9ac7772b3853a2088",
+      "statement": "Ohne Netz sucht `pageFirstNetwork` die Navigation zuerst unter der exakten Adresse mit `ignoreSearch` und fällt sonst auf die Startseite (`cache.match(SCOPE, ANY_VARIANT)`) zurück, weshalb auch eine unbekannte Adresse oder eine Startadresse mit Abfrage-Teil offline die Spielseite öffnet.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L176-L192",
+          "version": "repo-lines-v1:sha256:0225b79ec8655504ebfef9939bdd89f11b96a4e7695a8310f135800dc11f262a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyNmZlZTFmNGZjMjJhNWE4YmY1Y2RiYTA3MzczOTUxNGUyNTZjZTNhMzljMWJkNmI2OWQ3MWJmYTU2ZjBlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzNjlmNjJjMWU4NWY3MzNlZDk5ZDBmODNiNTA3NTIxYjNiNDQ2NzVlZTY4OWQxY2JhNWMwMDY1ZWNhNDQ1ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4ZjZmZTg3Yjg4MDgyNjY1YTAxYWU1NTIzZjUzNWFlNjEzY2NkYWZhNDdlYjJiZWZjMjJjOTlhMTE4MmY4YjIifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L191-L197",
+          "version": "repo-lines-v1:sha256:02d95022a0e9d1f21437a2d696cf8d0ff9a867b25c2e5636fa5c651f65c16bdc:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRjOTI0MjE4NTRkNDE2Y2Q5MWRhNjM4NDRiMjA0OGVlZjhjNDFkNTQxZGMwNGEyMzg3MjFjNjdmYzEzNzc4ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTgzY2FmNzkyMDc4NmM3YmMyZGJjMmFjNWQ3Mzk4YmJjNGVjNDU2NjUxY2NlYzk1OTk4MmZjMTMzYTA2NmM4MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZlM2Q3NjJkZDI5YjFiNGExOGE0MzYyYjIyMjQ1N2RiZTdhZDFkYTc5YjkyM2E2NDg4YzBiMGMxM2U0ZmFlYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_57d9a083104c41f2b2e046cdc968fff3",
+      "statement": "`public/manifest.webmanifest` macht die Seite installierbar und ist durchweg relativ geschrieben (`id`, `start_url`, `scope` je `./`, `display: standalone`, `lang: de`, Name, Kurzname, Beschreibung, Thema- und Hintergrundfarbe, fünf Symbole); verlinkt wird es in `Base.astro` über den Basis-Pfad und über `SHELL` vorab vorgehalten, und ein Test prüft die Pflichtfelder.",
+      "evidence": [
+        {
+          "resource": "repo://public/manifest.webmanifest#L1-L44",
+          "version": "repo-lines-v1:sha256:6917c22165b645f9f06720a7a04650b534f1cba35929f84561d16f33b939f734:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://public/sw.js#L22-L23",
+          "version": "repo-lines-v1:sha256:3337fff85207ded97cb6f27fd6dfa85f9e6a9d54396f2a14753b6c3e77cd0bd0:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQyNWM1YWI3MTc4MzE0MDI0NmUxOTViOWVmMTA0YjYzNGQ5ZGRmNmMyNWI0NjE3ZWUyNDUyYjQ2ZTYwZDdmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1YjkxYmY5YTA1OTBmY2RhMTQxMjY0MmRmNTQzN2IyMGE1MzUyYjUwZGJmZGExMjNlN2U2MWE4MjlkMWNmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmNmZDQxZTRmNzU2YmFmOGM5YmY1ZGNhNGRhYWQzYzhkOGVmNThjZDNiNjI3YjdmZDBjNjJiYTFiYjg1ZmJjMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODJjYmYwMjMzOTBlNzc0ZThhNjYzMzAxMGYwOTY5NTQxZmVjNDY3OTQzYmEwNjQyMTRkMmVlZGYyN2JkNDgyMCJ9"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L188-L213",
+          "version": "repo-lines-v1:sha256:a89dae34b9a08fab175a9b64b00273c212c8812f999a8c94be1e7ddb65d9a40f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMTM2MTg0Yzc3NTdhNmM5ZjQ5MzdjZDEzOWI1ZTY1ZGZiMDQxNzQzYjAzZTE0ZTMzZmRmOWYwMDgyODlmOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxMTgxZjE5ZDk4MDY1YjdiMWMxZmJhOGYzNmY2MzllYTYyNzkyZDZkNjg4NzNiNTE2MzMzMzRkOTgxNDJmMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI2MWMwMTViOTA0NTA4ODU5M2QwMTVkYWNmMWFkYWM1Y2I5NTRmYTU2Y2QzZjY3YzMwNWExZGQxYWYxYTRmYTUifQ"
+        },
+        {
+          "resource": "repo://src/layouts/Base.astro#L20-L23",
+          "version": "repo-lines-v1:sha256:6c73157e1130703b5876c92e569dbdc88f46fc22071b3c439ae112987a896ae0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzBjZmFjZTI0OWI3OTY4NzE2MjFjZGJmYTVmNjAyNmVkNmU0YmIzNmI3OWMxZWI4Y2ExYzAxOThhMjc0MWJlMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYyZDQzMmYwNWFhMDc4MzAzZGVjOTEzNDdkMTBkMTQ3Y2RmMTE5MjU1NjRjMDBlNmZiNTI3NzU3MDU0ZTFhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmE4NzI3NmE2M2MzZmEwYTNlNDAxMTNjNDljNGQ1MDM4YTFiMjA3NmNlZjZhMTIyODEyYmQzNzBlMTkzMDljMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJiMzY1YTYyZTVkNTcxMmY1NTkzYjQ5YzQyMTc3NzgxNTg2NWFkODEwNzA0OWFiNjc3ZWVmNWMyMDQ1MGQzYyJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L277-L283",
+          "version": "repo-lines-v1:sha256:731e4b73827fbdca7701462bd658516045e28768ae3828043880a61df2f11c6f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNlNGRmYTJkMWJlMWEwZWY0YWMyZjhlNjg2NGI5YWViNmMyZTk1YTY3Mjc1NjRiYmIyMTY4YjU1YTk4ZTk1NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmI0NWY2ZmQ1NDM3ZjVlMzFkNjlkZGZhYTRmMWU0ZDcwMTBiYzZiYzZiMDdiZDE4YTFhNzQyZDc4NDQ0Mjg0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODcwYmY4MDM5ZGJiY2ViYmI5ZTU5YWIwOWYxZGI2ZDNmYTEyNWI1NDU5NTRhYjU2ODU2OGY4ZjI5NGQ1MGRiMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d845d4d12bdd4e12968bd636a3dee504",
+      "statement": "Die Stimmenliste `VOICES` in `public/sw.js` muss genau den Dateien entsprechen, die das Spiel kennt: `CREATURE_VOICE_FILES` wird aus `listCreatures()` als `<id>.mp3` abgeleitet, und `src/offline.test.ts` liest den `VOICES`-Block aus dem Quelltext, vergleicht beide Listen sortiert und verlangt die Zeile `const VOICE_DIR = 'sounds/voices/';` — derselbe Test prüft, dass jede Datei aus `SHELL` in `public/` existiert.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L24-L42",
+          "version": "repo-lines-v1:sha256:8dfdb8e3e294b982c3f30950cc0cd513a0b9920f0177fae501ef81fa9d2217ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MTk4YjViMmZlOGNmOWUwYTRjN2QyNGZjNWJkYmMwZTExOTQyY2JkYzgwNTIyMGM5NzkwNzBhMjZiYmZkMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NWQ5ZmNjNTBlN2QyYTlkNDZiNjdlMTYxMjlmYzIwYTUwN2YwNWUxN2I2ODg4YWVhMTFmNzUzMWE5MzNhOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYzhhYTcyZTE2N2M5MDdhNjcwNzkwYzg4NzY0ZGVkZDYxZjdhOGEwOTY1YTJkN2JkNTMwMzVjZDA3Yjk1MTYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/creatureVoices.ts#L8-L19",
+          "version": "repo-lines-v1:sha256:8a0a1dc5cc084c8b293886f555bb88db06ea21f9fd2487bd5c086970612a0dad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0NjQyMTIxNmVjOGY1OTc4NmFlYWY0ZGIwOWFiYjA3ZmU1OTE4OGIwNjI1MGE3YjNjNGFhOTU5NTUyNDRlNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjZjM5Nzk5YWI0NTlmODE1MzUyZTkzOGVlZjQ1NzJhOWMwYTAzNzk3ZGUyMDkxMGIzMGExNmZmYTRiZmYwZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L285-L299",
+          "version": "repo-lines-v1:sha256:0539f84bd13a86e1416ededa4b6bb3de3d320ac8b751508790adb1867b857a08:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YTIxMDA2OWQ5MzZhZTVhODc4MmNlYWM5NzBmMzhjZDYyNGQzM2I0ZDBjYmNhNTZiMzZiN2Y2YzgyODhhMTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2fb3c8570c9b487dabdf8d8d490ce7a0",
+      "statement": "Die Tierstimmen liegen schon bei der Installation im Vorrat, weil die Seite eine Stimme erst bei Bedarf über `createVoiceLoader` per `fetch` auf `sounds/voices/<id>.mp3` holt — also erst nach der ersten Nutzergeste, wenn der Spieler womöglich schon ohne Netz ist.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L24-L42",
+          "version": "repo-lines-v1:sha256:8dfdb8e3e294b982c3f30950cc0cd513a0b9920f0177fae501ef81fa9d2217ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MTk4YjViMmZlOGNmOWUwYTRjN2QyNGZjNWJkYmMwZTExOTQyY2JkYzgwNTIyMGM5NzkwNzBhMjZiYmZkMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NWQ5ZmNjNTBlN2QyYTlkNDZiNjdlMTYxMjlmYzIwYTUwN2YwNWUxN2I2ODg4YWVhMTFmNzUzMWE5MzNhOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYzhhYTcyZTE2N2M5MDdhNjcwNzkwYzg4NzY0ZGVkZDYxZjdhOGEwOTY1YTJkN2JkNTMwMzVjZDA3Yjk1MTYifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/audio/webAudioEngine.ts#L98-L106",
+          "version": "repo-lines-v1:sha256:911768c0b83ffe5ceee443be36220b6d91e85a452c680fe785a6b004f57ab30b:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWE1NmI4YTFkZDM5N2Q3YTY5ZTY5MmM4ZGFiMThjODkzN2Y3NjU2MjQ1YTNjN2JlZjZjOTliZjFhMDUyMTBkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVhZGUyOTMyNDYyZmZlYWI0ZWU3NDRjYTU4ZDEzYzRlOTVjZmRlMTQ5NGQ4MDk3N2E4ZmE1ODliMDlmNTg1MSJ9"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L224-L229",
+          "version": "repo-lines-v1:sha256:3d9b0d330b671e059c0fa2d93af88c610af098ec576bbbd19cc5b2f5d826d047:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGUxYTJlYWMzODhmYzgyOTgyYjNjOTQ0OTUxMWRjNjA2OWFlZDJkMWI0YTA4MGE1MmNhN2RmMGUxZTk1NmQ3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjNmZmY0ZjRjOTVmMjA4NjIwYTNkMmMyMGY1MWZhZDVlOGM4MGU5Y2UyNmY2YTBjNmQzNTlkMTcwY2E3Yzg5MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2E4ZjgxMzExZjY2ZjdjOTRlZTZjYTY3ZTMxMmE5YWQ2ZGFlMThkZjllOThlMDM3YjY3NThmZTMzOTU5ODJkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5af104298a3746bab5298ab72cf4f02a",
+      "statement": "Der Vorrat liegt im Browserprofil und teilt dessen Schicksal: ein Profil, das beim Schließen seine Daten verwirft, verliert Cache und Rundenprotokoll zugleich, weshalb der Service Worker nicht gegen Datenverlust hilft und dafür die Sicherung über `api/log/<code>` vorgesehen ist.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L162-L167",
+          "version": "repo-lines-v1:sha256:10d6be342583b9285f483e1e4548d4ea4e9b0627148a3101b670a90a9459d82b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWU1ZjI5M2ZmMTc2MzcxMjdjZjUzOTgxYjQyODYyZmExMTliNTE2NGEyNWIwZTlmMmU0NWVlYTk4MzA4YTNiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWZjNGM0NjQ4YTFjMDE5MzJmNjRkNDgzMjZiZGU0ZWU5NzU4ODE5ZGQ0NThhNDE4YWE4OGQzYzE0NWNhYzg1ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQ1MDhkNzM5YTc2ZjM1YTYwMGM4MDM5YzY2ZWUwMDNhOTJlODQ0OWE4OWI2NzIzZTg2NGU1MzUyMGRiMThiMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjQyMzEwNTBjMDY2YWY2OTliNDA2NWU5MTlmNDNhZmEyYTFmODUzYTJkNDgxM2E1Nzg0M2YxZTczNzM5MDU2OSJ9"
+        },
+        {
+          "resource": "repo://docs/sicherung-anleitung.md#L49-L55",
+          "version": "repo-lines-v1:sha256:de82de9e5df58c4c79c397fc17acec39916364c98e57be238e30926d20ce2461:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJjYjJhYmFhMDBhZTUzYTY1ZjgwMzkyZjM2NzA2MWNmODRjMWFhOTg0ZTdhNWE2Y2IyZWVjYzhlOTU1NWVhZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmFmOGIxZDEzNWVkMTJhZTAxYTU3NjBlZDY3OTJiZWIwNGY3ZjNiZDBhYTdhNWI4NzIyYzgyNzcxM2M0Zjg2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWQxOThiODAzOTFkNDQ1MjkxMzYwNTYxMGRhNGUxMDY2MGMyMzNmNTNmODU5NmRiOTRjNTQ4YTFlYmFiODRhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA2YmI1ZjY1Y2U0N2I4MmY5ZjM4MDJjNzdmODNlNjE0MjA1YTBhMWQwMzZhYTU4MTM3YTZiYWYwMjU5ODkwMCJ9"
+        },
+        {
+          "resource": "repo://public/sw.js#L12-L16",
+          "version": "repo-lines-v1:sha256:a4449f380b01e64b943f137ef22ed16f02d41f40fb86d93b56d25ee5e8543235:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQxZjRiMTc4NmEyY2EwZjk2ZjJjYzhlNzFiNzNkY2QzMTZlMjY0NTM5MTBiYWUzZWJjOTg4MmNiYzBkYTNiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTZjNjU4NGViNjZmM2JiMWQ1MGJiNTNiODM1MGEzNzRmNjc1MjIyODg4MzMzZGZiM2ExMjBmYzZjZTFjMTdiZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTM1MTdhMzBlNjJlYzI1NDk2OGRiN2ZkOTczMGZiOGRlYTQ0NmFkYWFlODY2ZjI4YjFjYTExMWM3MWEwMzU5ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY3ZDFhMDA5NGRiMGVjM2I0NDdiZWVjNWQwNzg2ZjE4NWQ4MGI1MGUxYmIyOWE0ZTFjZDU1NTU1NDNmN2Q1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a27d965b37614c778a37754af5f60fb0",
+      "statement": "`src/offline.test.ts` lädt den Worker-Quelltext über `new Function('self', 'caches', 'fetch', SW_SOURCE)` in eine nachgestellte Worker-Umgebung und prüft Installation, Offline-Auslieferung, Skript-Importe, Aufräumen, `Vary`, `api/` und Anmeldung; die Datei liegt bewusst neben `src/pages/`, weil ein Test unter `src/pages/` als Route gebaut würde und den Bau bräche.",
+      "evidence": [
+        {
+          "resource": "repo://src/offline.test.ts#L6-L16",
+          "version": "repo-lines-v1:sha256:98d4e014e22db7632257d287fba97ad83a50b4bdb3a4de11961770ca4f481d6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwMDdmMzk3MDE4YjA5N2YxMmJkMTIzZTZhNDNkYTc2M2U5MjU5MDg4NzkxNzYzZDg1MmQ3YTZiZTA2YTM4OWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxYjc1MGZlYjhkZWY3NWFhYTM1Y2FhNzJhNDc1OGI4YzkyMDE2ZWZmYmY4Y2FlNjFkM2IxOTZjNDAzZmI2ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyYzJlYjRiYTU3MDVlMjRkYjE3ZTI1Y2U2ZTRiNGZjZWZiZTZmNDdkNmEwYzVmNDVlZTgzZTBiMzU4MjU3MGEifQ"
+        },
+        {
+          "resource": "repo://src/offline.test.ts#L91-L137",
+          "version": "repo-lines-v1:sha256:b35124020af8cb5cc64b192036fe371447bc22940a551d7399744128fab4a3ce:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0MGU3NzA1OWY2NTE3MjgyYWQ2ODAzMGI5ZDEwZTgxMmQzZjk2MjAzZjY4NjE0Mjg5MTBkZGJhM2M1ODI4ZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiOGVlMTg5NzUwMzVkOGYwMmY2NDQ0NGVhMDRhZWYwN2Q1Yjc0MDAzYTc2NjZiMDU1ZjI0MDc4Mzg1MjFhNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4YjhjODIwZmUwN2EwNzE3MjM2NjZhY2YyYzRkZTZjYWY4YjY2M2Q0NTg0ZmZiZDJhM2JlMzNlMzg5OGEyZjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bbda26cb8eaf4a33be86861c56f2a18a",
+      "statement": "Weil eine grüne nachgestellte Umgebung keinen echten Browser ersetzt, misst `scripts/pruefen-offline.py` gegen `pnpm build` + `pnpm preview`: Anmeldung und Steuerung durch den Worker, Vorrat beider Seiten samt Bausteinen und Manifest, Offline-Start der Spielseite mit gezeichneten Zähnen und einem gezählten Druck, Offline-Start der Statistikseite und keine gescheiterte Anfrage.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L7-L17",
+          "version": "repo-lines-v1:sha256:6eb6a1f3afbe3f0c0aff8b3be56ba66d145b3ae0841e4314a97e468c331c3a74:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5MWM4OTQ4MjQyOTUxYjg5OTFjNzViYjllOTAyYTQzOTNkYTUyZjBlYTUzYTc5NDMyZDYxN2JhZTFkNmQwZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZjYxYjE0NmNmM2EzYTNkNmI5ZWZkYTVlNTk1OGQwNjg0ZDk0MDQ2MTY5YmQ0NmQ4ZjhjZjNlZDFlM2E0NTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjNDc3ODgyZmFlZjhlNzJkNDM2NzJiOTE1YTg5MDVkZGM4ZmY1YjY4NjA4Y2ZiM2Y1NjNkNmRkMzE3ODFmYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0ODBiNWI5ZDQxOWJmNDQ2ZmM5MjJkYjU2MWNmMGQzMGMyNzE2ZGE1MDczNDRiYWM1YzM1NDZjM2Q3YjU3MDIifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-offline.py#L1-L22",
+          "version": "repo-lines-v1:sha256:0a5b2bd599cde40a9d261ed6c94c6cc23dccf8a0456af50e72222a584de56f70:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwOGEzOThlODQ4MGE2NWRhZjE5YjNlNTk0ODdiZTVjNzY1MmJkMTJmMWVkNDI5YzlhOWZkOTM4YjNhYzZhYmIifQ"
+        },
+        {
+          "resource": "repo://scripts/pruefen-offline.py#L52-L100",
+          "version": "repo-lines-v1:sha256:6d521946e6d25cb3590dd54c9b4c9082aad7cc3d5a55528099535a80c5c982ff:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NzkyYzlmNjEyNzc4ZDIyM2JlYjFmZTMzOWE1YmY1NWQ1YWJiNzZiYTE1MTI2MTM4YzM2M2ZlMTQ5MjViMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmM2ZjNTYwNTg3YzcyMTRjYjczMzhlYTM0ZWViMjc3Y2YyZjA0ZDE0MDQ4MjEwNGNmZTdhOWQ3YmJiODg4ZmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0YjlkOTRiZDVjMTRlNDI0Y2QwMzY5ZWM4MGIwY2FmOTJjMTMxZjJjMDU1M2MzZmU5NGVlZjNhMzVmZTE4ZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkNDEzNDBjYzIzOWExNTljZTliNjAyMmU5ZjYzMjI4MzJlMmVhZDc2Y2FlOWU0NzU0ZDIxMGViOGZiNmQ1ZTgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:c948ca0bbbd4ef314deaa07385cbd872e791bda4dfa8b5db0187c32ba6eab39c",
+  "claims": [
+    {
+      "id": "claim_f084841fe4224c0aaa84112d3f053954",
+      "statement": "Zahn Agent wird als statische Astro-Seite gebaut (`output: 'static'`); der Bau erzeugt die Spielseite `src/pages/index.astro` und die Statistikseite `src/pages/statistik.astro`, und für das Spiel gibt es keinen Serveranteil, der eine Runde entgegennimmt.",
+      "evidence": [
+        {
+          "resource": "repo://astro.config.mjs#L19-L24",
+          "version": "repo-lines-v1:sha256:c2b3263be9c92ffe52f87ee870972db9550623ef5f9f305f34ec0254f64f778a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjJjZWNiMTQ0YTQ2ZjVkY2YxMmE2MTY5ZmNlZWQ3Njk1ZTgyOTRiMDkwZGU3NmYzNjYxY2RkMDI0OTMwMDE0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZjMDU2NTkxZjVlMzcxYWEyNTlkZTQzYzRiMWQ4ZjNlZWYyMGIzNmNiNzA3YWFkYTZhZTdmMmVjYjllNDU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://docs/architecture.md#L18-L22",
+          "version": "repo-lines-v1:sha256:88cfda0b01d600a1161356bd6efc506f961c99e8b5657c036e5f0540773fac0b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWVjZmZhOTc1Y2FhM2JiOTBjMmFkNTI5ZDQ2ZWZjNDc4NDYyYWI5MjlhNTI1ZmVmNmY5NTA5ZTZjMTRmMjViYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWI2N2ZmZGU1MTQwNGJmYTM3NzkxYmRiZTU3MTJkMDlhMWE2YjNjMWEyZDEwMDk3Njk0N2RjODI4OWE4YWNlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODYwMzUxOGU5ZGJiZGJmZTA4OWUyZjdkMDkxMzVkZDFlYjNlZDdlZjAyYjdmMGE4YTY1YjM1NTJmNzhmOTFlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JjMDBhYzQwYjllYjAyMGIzZDE3YzlhMzdiYjc0OWY2MzdmOTFhZWM2Mjc3OTYwYzAwY2VmYmEwZTc2ZGNkYiJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro",
+          "version": "repo-file-v1:sha256:b2defbf197c15ca828ea9351c85d6032d074dc5f8c5ee19c5766425714764761"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro",
+          "version": "repo-file-v1:sha256:a37f9542895e3b121ea56f11071455eea9d1a5ce0f8219fdb76971fa7baccf3d"
+        }
+      ]
+    },
+    {
+      "id": "claim_beaf523bfd4947358d5bfedff7397bd6",
+      "statement": "Die Befehle des Baums sind die Skripte in `package.json`: `dev`, `build`, `preview`, `test`, `test:run`, `typecheck`, `lint`, `gate`, `prepare` und `probes`; `gate` verkettet `typecheck`, `lint` und `test:run`, `probes` fährt `python scripts/pruefen-alle.py http://localhost:4322`, und `prepare` hängt `.githooks` als Hooks-Pfad ein.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L6-L17",
+          "version": "repo-lines-v1:sha256:64c954a525ff4402ac2129e62572ebe74a1c3d6129b8c1415cc59cde1c4917da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMzJiMjI2Y2Q4Njg0MjQ5MzZjYTEyNTMxOWRjM2JiMjczNjdmODNkZjc3ZjAxYjU0NTVlMGE2M2EyODNjM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlMTc4Mzg0ODIzMzc3OGRjNDk3MWM3MjVmZDE4MDQ2MzE1ZjJjMTZkNmIwMGZhZWE0MmRmOWU1ZDlmYWViNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5a0053debc564041a3e4356ded8bc99e",
+      "statement": "`pnpm dev` und `pnpm preview` sind unter `http://localhost:4321` erreichbar, aber nicht unter `127.0.0.1`, weil Astro standardmäßig nur auf `localhost` (IPv6) hört; Abhilfe sind `pnpm dev --host 127.0.0.1` oder ein anderer Port wie `--port 4322`.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L53-L54",
+          "version": "repo-lines-v1:sha256:625aa17d579e73b51e686a35092fabf4849370c5129f487bc24dd30616101804:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFjMWNiYWViZTQyODNiMTBkOGU2Y2FkZGU4MzYwOWZiOTBkYzgwNWM5NDI4ZmY3YWNlMTZjNmE0YWQ1MTg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzJjOTY3MDYzMGNlMzM3NTBkZjc4Mzk2NGI3N2E0MmYyYzAxOGMxNGQ0NjBkNDY4MzMxZmE2N2M1ZDg4ZGFkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY5NjhlYjMyOTYwODUyNjY1ZDBiYmQxZTFhYTFjZjM5OGQ0MjkxYmQ4NDY4Zjc3ODdmYzY3ZWE2YTFjZWY1ZiJ9"
+        },
+        {
+          "resource": "repo://README.md#L47-L51",
+          "version": "repo-lines-v1:sha256:eea6bcd4419d88759a052f897a0a6e5b918e8e332873eb981185592dcbbdbd50:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI3MDQ1ZWY4NDgxMzIyNzQ2NDljNzY0NWQzNmYwYmNmN2MyOTMyYTBjZmQyZTllMzVmMzVlNTBjZWE4YWI3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzcwN2ZhMGQwYzc2ZjY1ODVmMjE3YWFhMWJhYTc3YTY5ODVmMmQ0ZWJmM2U3YzRjNTI4YjhkZjFjOTZhY2JlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmJmYWY3NWFlZDEzNjllOTM2OWM3OTI2YjVhNGMzMmEwZGM2NjlmY2FkMjgzYzViYmJhNmFmYzcwNWViNjI0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzUyZDhhYTg0NDhiNTE4Yjk3ZjI5MTYwYTM5ZjFiMDE3N2NhZjlhYTY5M2Y0ZWE5OTAxZGVmNzg1OTAxNGFkYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f032acc3f14a46ff8858d060be1f73f4",
+      "statement": "Das Gate besteht aus drei Teilen — `tsc --noEmit`, `biome lint --error-on-warnings .` und `vitest run` —, ein grüner Testlauf allein gilt nicht als Nachweis, und ein roter Lauf wird im Code behoben statt durch Abschalten einer Regel, `// biome-ignore` oder `--no-verify` (letzteres nur mit dem Ja des Auftraggebers).",
+      "evidence": [
+        {
+          "resource": "repo://.githooks/pre-push#L1-L12",
+          "version": "repo-lines-v1:sha256:08fa262841d8948921ac333de5d526445d84abcd6d6ed85e95f9fcd768ea2f61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDc2ZDNkMjhkMjFlMDIwMTJiMjBlYWY3ZGJmNzU0MDlhNjI3NzEzNDQzOTAyNWYyODJlMzY4ZTMzMDVhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://AGENTS.md#L22-L26",
+          "version": "repo-lines-v1:sha256:140fa4d0fb5bca4c332bc105654cb7e0fa81e9fda5a85dc3ff4846497ec71b54:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmM5NmZmNzFiNmM2Mjg2YzYxNWQzZmU0NjViOGFlODg5NjFjMjFhMjZiZjVjNWIzZTZkMmFiNTI3YzYxYTAzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWZlZTI1ZTMwOTgyMzk4ZGI5NzQ1MzVkYmFkN2E1MzRiODc0ZmE4OGFiYTA4YWNkNmIyMmQ3YjljOTBkNzI3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2VlZTgwOTFjMGU3YzExOGRiMDA5Nzk1NDE1MGI1MTE1MTA4YjNkZGYzMjNiMWYwOTkwOTAwZWVhMWQ5NzFhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2MyMmIxZDM3ZGE4YjA4ZTgwOTkyZTQ4OTE1NTVlNWYzYTU5Njg2MzE0NGMwYmY5MjQzNDQ5NTdlMjg2OGRiZSJ9"
+        },
+        {
+          "resource": "repo://package.json#L12-L14",
+          "version": "repo-lines-v1:sha256:3b41b156278226271e828353afe964c227f894dbfc2de15ff7c09c3c6ff235d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTViOWFiMDFhYTNkZmIzYWI1ZTkzYWNlMjNhODQ0NmExMjE2MmVjZDAwOGY1MmEzZWNiOWFhZTNiZDY4NmE3YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEzNGNiYzUwZmU0NzRlYmJmMGMyZjIwZTgzMGUxMDkyNjNmOWMwYjJmZDA4NTY3YjViZjQzODkzNDNiOTQ4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgzNzgwNGRjM2NhNTI3NTQzNmQwMzFlNjMwOTI4YWE4ZTA2NzNiZDQzZGUxMGRkN2VlMTUwZTYxMTk1MmExMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzM5NTM0NGYyOTUyZjY5MWFmMTQ5ODk3ZmI0MDdkODExZTFkZWQxMGRmOGFjNjJhNTY4NDM0Y2Y2OWJlNTczOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3e6837cdcdcd4378b035007c85a52908",
+      "statement": "Bezeichner, Typen, Funktionsnamen und Meldungen im Code sind englisch, während Kommentare, Doku (`docs/`, `README.md`, `AGENTS.md`), UI-Texte und Commit-Beschreibungen deutsch sind.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L20-L21",
+          "version": "repo-lines-v1:sha256:113f02f93cb5e1991cfa22829a3dc5ef5558fa5935839c8fd332181368a24a55:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVlMWMwZWJjNTNmYTQ4ZjcwNzM5ZDQyZTI5ZTkxZTk3MGNkOTc2N2IwMzk1YWM5MDM3ZTcwY2RjNzk2YmQyYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWRlYTYyZmI3ZjM3ZDU5YTkxNjExZmFiNzg2MjBlMjQwODM5NzdkMDM0MTA0OWUxZTEzNDJmYjRiNzE1ZjZkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmUzMWQ3ODk4Y2FhNTgzODVhNTA5ODAyN2RkMzI5ZGQxYzM5MmZhZTYzZWZlZGQwMmNmZjgyYWY2MWNkZDg5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA3MDYzMjlhZWEyOWIzOTFmYzQ1MWRiZjFlNWE5NmU0MGQxYzVlNGEyZGZiMTY2N2Q4ZDFlMzlmOWEwODU5NCJ9"
+        },
+        {
+          "resource": "repo://docs/language-guidelines.md#L1-L12",
+          "version": "repo-lines-v1:sha256:cc51d205f1e834c259d367ad487dbc86b7dee2fa71053fe1baf15367c062db66:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzM2E1OTE3NjA2OGYwNWVhNmQwOGU2OThkMGVjNzRlNTZkZTdmMjg1NjhjZDZlNTI3N2M3YjExOTkyN2U5YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmZWI1YjFiNmVjMzc4ZGVlMGIzZjE3MWZmMDlmZjkxMjdmMDE0ZGViMzA5NmI4MGQ2OGUwMWFmODE1YzdlZTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhYjg5NTYzYzI5ZmMzOGRhY2RkMjI0MmExZTRhNmJlZmI2M2VhNmFjYWQxZTMwYmY4NDZiNDUwZjg0Yzk4MDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_300ee24ded214d0ab60c2d5c4520a65a",
+      "statement": "Jeder interne Verweis (Link, Icon, Manifest, Laufzeit-Abruf) entsteht aus `import.meta.env.BASE_URL` und nie absolut mit `/`; `ASTRO_BASE` ist der Notausgang für einen Unterpfad, wird in `astro.config.mjs` auf einen Schluss-Schrägstrich normalisiert und muss mit `/` beginnen, sonst bricht der Bau ab.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L126-L139",
+          "version": "repo-lines-v1:sha256:94def7d018b0544bad7101c501ad5536977e1d30e378ad008a7f16188fa946e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjYTdjZjFjMTlmZWFkMWYyYTBjZjljYTc3YThhNGQzOTM1YWJlN2JlYTIzNTMzNjlhMDVkYmJiOWYxYjUzOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkNGIxNjNkMGM3ZDc3MjhiMzZjZGMzZGIwZTcwZTU4OGU2YzY0NTBlNmRjYjk2NWZlM2ZkMmM5MTdmMzY4Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM3MTY0ZGUyZjBhMTdiNGQ3MTM3MjI2YTlhZGI0NTNkOWM5NjU1MTY0ZjY2YTMxYTQ4ODA4YzZhNDM0MmIyZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhMzQ5YjE2ZWFmYWQxZWUwZmU0MzMyZTIzZDI0YWQ1MDFkYzYzZjhiZTA3YTcyMjc2ZGRiYWM3MjA2MTQ4YjkifQ"
+        },
+        {
+          "resource": "repo://astro.config.mjs#L13-L17",
+          "version": "repo-lines-v1:sha256:7a9a35c8c6f9709c6f51553f1f21b9d509b5a18737a6ba6ae187489f20815268:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ1OTAyYjhmNjQ0ZTI1ZmI4NWM3MjkxZmZmZGE3NjcxNWJkNDZkNjNiYmEwZGY5YTM3M2U3Y2E2YTlmMWNiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDEzNDM3ZDg3NDAyYzZiZDk0MGNlNzg2ZmQ0ODNmMzk2ZTA3MTE2MjcwYWE3NzdlZWVkMTIyNzRkZWI3ZWNhNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGU0ZjU4MDRkZTExYTgyM2FiYzA5YmMzNDE2ZDI0ZmI2ODZhNWI2N2M4MjE0MDRhMWJmZjM1MGVjMTBiMDEyNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDRlZGE1NTU0OWM4ZGM5NTJkNTJjZjIwMTBiYzI5ZjBkNTYwOWEwMDVkMTk1NjE1YzYwM2E2OWM3MmNmNjhlNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_49ebf49fe2e8463caa1120cf41eaa59e",
+      "statement": "`pnpm probes` fährt 13 Browser-Sonden (`scripts/pruefen-alle.py`) gegen eine laufende Vorschau unter `http://localhost:4322`; weil der Service Worker nur im Bau angemeldet wird, braucht die Offline-Prüfung `pnpm build && pnpm preview --port 4322`.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L60-L69",
+          "version": "repo-lines-v1:sha256:a8779b8c5915e7fa8c59800162c89efbe00cc967f54b20bed9ce473780a8c25a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0ZGZmNTdhYWFjZjdhOWU2NTkwZDczYzcxNmUzYTM2YzM1M2I5ODcwZDQzYjRkY2Y1ZmRlMzhmY2E2MGY0MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyMWY4MmYwOWYwNDA1YTdkMDYxNjg2OGQ1Zjg4MDRmMzQyODEwOWU2ZWExMTgwOGQ4Zjk2OWJjMDUyMzkxNjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjYWY4ZDFjOGI2MTQ2OTM2OGUxOGFlZmUxODk2YmE3ZDU2YjczMDA0YjVjZTcxZTBhMDVmNjliMTk0MzBkOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyNzBjOTEwNGVhZTZiYjQ2MDYyNGVhMDYwODkwODcyNjhlOGE2YmZkNDA2OTg4MTE4ZmM0N2NiODM1YjI4NTEifQ"
+        },
+        {
+          "resource": "repo://package.json#L16-L16",
+          "version": "repo-lines-v1:sha256:741a0cbab5546c709309de34f0c3121c3e8ff68f0dbc2d37db74d27c336e7b96:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQxYTBjYmFiNTU0NmM3MDkzMDlkZTM0ZjBjMzEyMWMzZThmZjY4ZjBkYmMyZDM3ZGI3NGQyN2MzMzZlN2I5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQxYTBjYmFiNTU0NmM3MDkzMDlkZTM0ZjBjMzEyMWMzZThmZjY4ZjBkYmMyZDM3ZGI3NGQyN2MzMzZlN2I5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzA4YWMxYjJlOThiMTZiN2FhNjgxMDM2YmYwZThkNjhlOTViNWJlOTFmODhjNjJiODE3Y2I3YWE1ZWVlYWI2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmFhNjJjOTM4NmQ3ZDJjZTM1MDk1YmU5ZTZiODVhMzg2NjUwOTUzZjdiMWE5NmFiMGYyMjUxM2FmZWEyZTdlMiJ9"
+        },
+        {
+          "resource": "repo://scripts/pruefen-alle.py#L15-L31",
+          "version": "repo-lines-v1:sha256:56eef07f73896e0912cedac21eb6044464e10cced65bd5d009e7bcd91d2afba5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5Y2QwYzJlNjM5MmJjYzY4YWZiYzI5NGU1YjVhOGZmNmE0MjM0Nzk4NTUyZjBjMDVkNTI4NmEzMDc1ZWU5ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxZTlmZTZiMzRhYjA2ZWQ5Mjk5MGJiMjdmNzc2MDljZDFiYjJiYjVjMjkyZGZmMWY2NTJmYmRmN2Q3YzM4ZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0OGQ3NDgzZDA2MGYxNzIyZTI0NTM2ODg4MzM0MjU2YjU0OTBlOGJiZTg2OTgyMDY3NmNhOWVhZjM1MDljYzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8f4ebafbd524cc9afa2ec365c18c64c",
+      "statement": "Veröffentlicht wird bei jedem Push auf `main` über `.github/workflows/pages.yml`, das vor dem Bau `pnpm gate` fährt und `dist/` nach `https://zahn-agent.schaflabs.com/` ausliefert; lokal hält derselbe Gate-Lauf in `.githooks/pre-push` den Push auf.",
+      "evidence": [
+        {
+          "resource": "repo://.githooks/pre-push#L1-L12",
+          "version": "repo-lines-v1:sha256:08fa262841d8948921ac333de5d526445d84abcd6d6ed85e95f9fcd768ea2f61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MDc2ZDNkMjhkMjFlMDIwMTJiMjBlYWY3ZGJmNzU0MDlhNjI3NzEzNDQzOTAyNWYyODJlMzY4ZTMzMDVhYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/pages.yml#L1-L44",
+          "version": "repo-lines-v1:sha256:23633c298fd9f60793404b6644c672201d5148d4c1d4c35288eeb8d1d62084d9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkZWVlODA4MWQxZTc4ZGQ0ODI4ODVjZDEzZGQyMzhhNmU5ZGNhN2I0N2MzZWMyMDY1N2MyNDcxNTE3ZWQ2NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyNWQ0YWQ2NjFhMjRkZDk3MGM2NWU2MWMwYmY1YTZlNzcxNTExYzU2OGJiYjRlNmZhOWQwZDU4MTdkZmE1YzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwODVjZjE2YzliNjQ2ZjgyMWQyN2MxYmQzZmMwMmJkNDU4ZmI2YWMwZTQ5ZGQ3NzlhYjdmMDgzZDE1MTFjMmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5b308b613e524d14ae2e45dff2c08c63",
+      "statement": "Der Kern in `src/core` (domain, ports, use-cases) kennt weder DOM noch Uhr — `src/architecture.test.ts` erzwingt das —, und die beiden Astro-Seiten bauen nur die Adapter und rufen je eine Verdrahtungsfunktion der Bedienung (`wireGamePage`, `wireStatsPage`).",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L18-L22",
+          "version": "repo-lines-v1:sha256:88cfda0b01d600a1161356bd6efc506f961c99e8b5657c036e5f0540773fac0b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWVjZmZhOTc1Y2FhM2JiOTBjMmFkNTI5ZDQ2ZWZjNDc4NDYyYWI5MjlhNTI1ZmVmNmY5NTA5ZTZjMTRmMjViYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWI2N2ZmZGU1MTQwNGJmYTM3NzkxYmRiZTU3MTJkMDlhMWE2YjNjMWEyZDEwMDk3Njk0N2RjODI4OWE4YWNlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODYwMzUxOGU5ZGJiZGJmZTA4OWUyZjdkMDkxMzVkZDFlYjNlZDdlZjAyYjdmMGE4YTY1YjM1NTJmNzhmOTFlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JjMDBhYzQwYjllYjAyMGIzZDE3YzlhMzdiYjc0OWY2MzdmOTFhZWM2Mjc3OTYwYzAwY2VmYmEwZTc2ZGNkYiJ9"
+        },
+        {
+          "resource": "repo://docs/architecture.md#L81-L85",
+          "version": "repo-lines-v1:sha256:af215c5535c34e9c6687ec7a64ccf832aef356f4c54a860d22531b80bb735eb6:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzBiMDUyNWRiMGI0ZjAxZjliMmZkNTE2NjM0YjE4ODkzMzEzYmNhYWY3ODZhMzM1ZjY1ZTRhNmNjYzMwNDFiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2JmMzk2MWYwZjViOTA0ZjAyMmZiMTUwODIwNTA5NjQ2M2Y3ZWMzZTA4YjcwMDFmYzA1YmQ0OTE0N2U3Zjg4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjM1NTUyOTc2NDI1OWFkMTYxM2EyMDEyZmQyNjZmYWFhMWY2MTJiNTRjOTlkYzMyZTI2YjI5NDQ5ODhjOWI4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTM4NDlhZGQ2NjJkNDVlMDIwOGY5NDc5NzcyMzY3MWQzMDUzNWZjMzJjMDZlZWQ3OGIyMTUxMTA0ZmMzZTQzYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b77c618d6c914fee8f0b85f95de42ed5",
+      "statement": "Alles Spielerische liegt im Browser (`localStorage`); aus dem Gerät heraus geht nur die Sicherung über den Cloudflare Worker `worker/backup.js`, und ohne Sicherungscode in der Adresse geschieht nichts — kein Abruf, kein Knopf, kein Hinweis.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L44-L44",
+          "version": "repo-lines-v1:sha256:4fa67f3e862fd017610505aa090e2965493c12edfac65f95ffaffdc2bfbdcf72:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGZhNjdmM2U4NjJmZDAxNzYxMDUwNWFhMDkwZTI5NjU0OTNjMTJlZGZhYzY1Zjk1ZmZhZmZkYzJiZmJkY2Y3MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGZhNjdmM2U4NjJmZDAxNzYxMDUwNWFhMDkwZTI5NjU0OTNjMTJlZGZhYzY1Zjk1ZmZhZmZkYzJiZmJkY2Y3MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODFhMmYzMmUzMzNkNDA2N2YxOTc5ODhjZjQ5Y2EyYWU2NGVjODVmNDQ1ZGQwZmFhOTMwNWQxMzdlNWE3Yjg4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDdkYTMzNzgyYzg1MGYyZDIxOGI3YzAwOTI0NTBlNTE2OTVlNDJlOGQ2M2U5NWY5M2JlNTg2ZWExYmI5Y2YyZSJ9"
+        },
+        {
+          "resource": "repo://docs/architecture.md#L31-L41",
+          "version": "repo-lines-v1:sha256:1b98ee6f491c0286fae1ae7b75048cc91b1fc087d01309a9be401755d43634dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4OTRlOTUxZTVhMzU1NTdiOTkyNmYyYmYyMzRiMDRjYjRiNmUzNjgwYzgyMzQwNmEwODkyMjBkMzc1MTk1NDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYzNmMzM4MDRlYjU2NDZjYTE5NDQ3OTQxMjYwOWNiZTJkZWJmNWQwN2YwYThhNDU1NTE4MzNiMDBmYzZlNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2MjlmZmFmOWZkYWRjNmUzZjFkMmVjNTViMDVjMzBhNjA3OWZmNDBmYWU0NTM4NWFmMDhmYzk1NmQ1YWRmMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyZTg2Nzg1MDkxMDk1YmY3NDE5OWU3MzVhMDQ5MzVlZWQ4YmVjZDM5YTY5MTBkMmIwMmE0ODgxMmVmNGViMDMifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

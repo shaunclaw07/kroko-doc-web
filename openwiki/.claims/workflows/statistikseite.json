@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f3438f31df4463e7bcc6cc95dbaa264d9a0881830b2fc883c2d06dbcfc5bbb1f",
+  "claims": [
+    {
+      "id": "claim_b104b7db2c534e6fb919493146125e42",
+      "statement": "`wireStatsPage(deps)` ist der einzige Einstieg der Statistikseite; das Seitenskript in `src/pages/statistik.astro` baut nur die Adapter (LocalStorageRoundLog, loadSettings, HttpRemoteLog nur bei vorhandenem Sicherungscode, browserDownload, confirm, today, requestPersistence) und ruft die Funktion einmal auf, ohne einen Rückgabewert zu verwenden.",
+      "evidence": [
+        {
+          "resource": "repo://src/pages/statistik.astro#L69-L90",
+          "version": "repo-lines-v1:sha256:490aa8a4d1e147485c4818b30496b0fd622b3935ddc9a39b1f40ad984ce4aa86:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjOWNjZThmNjEzMzkwZDI3NzhmZGVkNWY5YTVlYzE1NTVhYmI0OTAzNzdhNjEwYzE3MTMxZDQzZmU3ZjRiYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmZTM0MWJmODlkYTMyZmQ5MjZlNTRjNGFiY2RiZDhjODUxNjFkM2QyNGM0ZmZiMjY5N2RjYmNlMjEyYjM3ODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzODNlMWU1NmJkY2MwYzU2NWQ0NjlhNjM2NGQ5ODcwYTUxNDVkNWQxMzdiYmEzZDZkMGY0MDdlYjhhMWM2ZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MmFjYjZiMDMzYTgzNTM0MDZmOTFmOGVhZGQxNDYxNzQwYzg1MWVkZWIxOGFkYjhkZmE0M2Q5MWQ3NWEwYzgifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L43-L47",
+          "version": "repo-lines-v1:sha256:7f490ffff65e4cd997bac221d007797dba1a07f8ea597f587e4846fe57c82cd5:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzVhMjYwYTYwNzk1NWUxYmNjYmQ4YjZmOTI3ZGVjOTkxOWM3NWJkM2QzMTg0MThjNTY5NGRjODNjYjc3OWM4NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTkxMzk3ZDVkMjFmMTE5YmY3NWFkOWI2ZGJiNzY3ZWVkYTNhMDM5YWMzZDljZTVkNGU1N2JlZTRjZGY4YzRkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2RkY2YyODhlYTljZWQ3MGViNWY3N2JmMjU1Y2JkNzUwMDZiNDI5ODg1ODY0N2U2NWUxMGMyM2YyZGIzYjI4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDFmNDIyNWUxZDE1ODJlY2UzN2ExNTc1OTdlYmVlM2ZjYzc0MDUyMWRiN2UwZmM0YzIxODM5ODI1MDExYzlmZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_293e410340ef4e54bd31e627a968639a",
+      "statement": "Die Statistikseite hält keinen eigenen Stand des Protokolls: `refresh()` liest `log.load()` und schreibt daraus den Bericht sowie `sampleStatus` in die Statuszeile; jede Aktion liest in ihrem eigenen Ablauf neu.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L135-L136",
+          "version": "repo-lines-v1:sha256:9467699bc41603fdef575113b650e939ecaf2aee5e9b544bd58c57b3fbe46d10:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJlMTI0YmQ4MWQ4YzQyYTM5OGI3YWNhYzhmNmNiMTBkYjQ3ZmI4MDNhYjJhMjgxOTA1NzQ1YTRlZDNlNGZhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDE1NmE3YWQ3ZmM0MGY0YTQ5MWE4YmM5Yzk0MmNjNGE5MDMwYTg1NGFkOWFkZWExOTQwZTY0MmIyN2I0ZmU0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjViNDJkNWEwZWZkYTkxNzZkYjBmYTBhZTVjNjk3ZWU2NGRkZjYzZTFhMmQzZGI5ZjM3YjBkNDZjYzY0OTFjZCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L49-L57",
+          "version": "repo-lines-v1:sha256:d84f10bfdd49223348e6cca9e259cf12d8aba94a1a3cdf43f6ae847095cb2e37:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjk0NjE5MTFhYWE1OWFkNGFhMzZiNzQ3NjEwOWI3YTU2MTRkODQ5ZjFjODAyY2RmZjUwMzg1MWJkNWMzODRmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2EwYWM3MmQ3NDFlYTUzOThkN2UzNTQzNmQxZWNjY2Y0NDE4MWRmNDYxYmI2NDM5MWQ4ZGE2NDYxMzBkOWViYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjM4ZjNmNTMzNjVkZGU5MDgyODE3YWQzMWVhN2YxMWQwMmExNDg2MmQzYmQ3ODZhMGZjOTNkY2IwN2VjZTRmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_811a6eb2bcdb4e98bf4a14c160579aac",
+      "statement": "Der CSV-Export ruft `toCsv(log.load())`, lädt den Text als `zahn-agent-runden-<today()>.csv` über die injizierte `download`-Funktion herunter und meldet „CSV exportiert.“ in der Statuszeile; er schreibt nichts ins Protokoll und löst keinen Sicherungsabgleich aus.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L146-L157",
+          "version": "repo-lines-v1:sha256:95a31ce882d482ce4aafaa323ade372bd1633c5df972b4610ce6e85bbeea36b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYTllMmM1Yzk1MjJjYWZmYmI3ZWIyZDMxZjNkM2NiODhlOTdjYWY3OTUyZjI1NDRhMGU2ODZjZjA0MWZkZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1MjI5OTA3ZTRmZjEwY2E1NzNmMjYxOGJhYWRlYmRhZjI5NDBhZDQ2NTY1N2RiNmI3OTE5MTE5NTU0ZDkxOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L91-L97",
+          "version": "repo-lines-v1:sha256:08544e4313faa488446430e2960b42623ec02e73fd418d368691a589cf3853b1:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTY3OGQzNmY0YzIyYTI4ODlhODIzNDE3NGRlMjk1Y2ZkZDdiN2RmZjAzNTQyZTYzZWQ3Nzc3OGUwOGQ0OThjMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWUxMmI2MTE4OTQzZTMwYzAwNjgzM2U3ODE2MzBhNTNiMzJmNDE3ZWY1Zjk3OTVjM2YxMmYzMzA4MDI0YzVkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzc2Y2Q3N2QzZDUwZjM5ZmQzODdiZmJiMjRjMjVlODU5ZDUzM2E4NjBiMTA5OWRkZmE2NzZhNTIwZmVkYTYyNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_40db40884f9647bd874e1e3033b23e07",
+      "statement": "`browserDownload` erzeugt einen Blob mit `text/csv;charset=utf-8`, ein dynamisches Anchor-Element mit `download`, klickt es, entfernt es und gibt die Objekt-URL wieder frei; der Modultest ersetzt die Funktion, prüft also Name und Inhalt des Aufrufs, nicht den Browserweg.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L146-L157",
+          "version": "repo-lines-v1:sha256:95a31ce882d482ce4aafaa323ade372bd1633c5df972b4610ce6e85bbeea36b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYTllMmM1Yzk1MjJjYWZmYmI3ZWIyZDMxZjNkM2NiODhlOTdjYWY3OTUyZjI1NDRhMGU2ODZjZjA0MWZkZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1MjI5OTA3ZTRmZjEwY2E1NzNmMjYxOGJhYWRlYmRhZjI5NDBhZDQ2NTY1N2RiNmI3OTE5MTE5NTU0ZDkxOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L26-L37",
+          "version": "repo-lines-v1:sha256:41f628a255b707346149e62c698de5860e5b241b54d11602c7ab6621f75560d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4NzBmZjRhZmY0ZWU2YzhjMmMzNGVjODBmZWRiY2Q0YTM2N2E2MmQyMGM5OTdiNDVhMGVmMTQ0YzMyNDQwZGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQyOWQ2NzlmNjBlMmE0OWZjMDMzNmE4ZGU1YjI0MGUzYmU5ODkzNWM1N2Y1YmQyOGViMTIyODZkZmFiMmVjZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3ZmVlM2JjY2RmZTk0N2M0OGU2ZTE0NTQ5ODkzZDRhYzcwMjZmNjQyOTExY2Y0NDA2ZDFhYmMzNmUxZDQxY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9651cc406d564c5a9caa6dddf25bd0c1",
+      "statement": "Der CSV-Import hängt an, statt zu ersetzen: er liest den vorhandenen Stand, bestimmt die größte vorhandene Rundennummer als `start` und vergibt für die importierten Einträge `start + index + 1`; die Rundennummern aus der Datei werden damit verworfen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L84-L99",
+          "version": "repo-lines-v1:sha256:dc6b495523385588b83e0caec9246051196a2ecce9aa5e14ff6d24e93b974fb8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwZjYyMDUxZmJkZWFiOWQwYmE1ZTU0NmU1MWUxODUyMWIzZWExOGQ1OTg5ZWY0YjdlNmNjYmY5ODFiMWU2ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTJiNjExODk0M2UzMGMwMDY4MzNlNzgxNjMwYTUzYjMyZjQxN2VmNWY5Nzk1YzNmMTJmMzMwODAyNGM1ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMmNkZmFkYTA1ODAwZDE0NjgwMDUxNDg4ZTIzODI0MTYyZTUwZDNjMzkwZThmN2M1YjZkNTg2MDEwODM3M2QifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L114-L118",
+          "version": "repo-lines-v1:sha256:b54922ba7b7cc8645f5005be775a71772b4d6f5668b24b9887de06a292eceda4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZjMWNhMjA3YzI2YmI0NDMzNjZiODM1YzM3ZjBmZGU4ODA3ODEzMmYzMDIxYTUzMThmOTljZWJkY2NhNzJjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZmFhMDk1ZDU4NDJkMmE3N2I1NmMxMGE3M2I1YmZjYmRiZTdmYTVkMzkwMTk0MTIwZmFlODJmYTUwM2VlMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTJjN2QzNmJiZmU0MWVjZDUzYzlkZDBkZTg2OWVjMDU0MmE3MzUxZjAzN2JlMjkxNTM0OTU1MjYwZDMyNDA5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzNkOWFkNjAyMjA2NjE2ZDY4OGVhMDU1YmM4Y2ZjZmRjMDY1ZmM2MmMyNGNiNmRkMGE1NDQ1Nzg0ZjBhNWE1MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9730c50dcc2040bba7758e1f3c71b978",
+      "statement": "Nach einem erfolgreichen Import speichert die Seite den zusammengeführten Stand, meldet die Anzahl, zeichnet neu und ruft `backup.sync()` — der Zuwachs wird abgeglichen (holen, zusammenführen, nur Änderungen schreiben), nicht ersetzt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L20-L31",
+          "version": "repo-lines-v1:sha256:5ce6997307d0866810e57e104d58630d46a4240aff01de065b59ff341a0cf730:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjOTViY2FjZDY3N2I2YjdhNTVlYTIyOWY5ZjJmNmZhYmFkOTJlYjZmYmVlODQ3ZTUxNzk3MDIyYjQzZjIyMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3YzU4OWRkNjFkZDBlMmM1NjRhNTYwYzA3Y2UwMTMwMmVkZWI0ZTI0Y2M4MTM5MGViN2JiNjU1NWM5OWIxNmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjOWU1NDIwYTRhZWU3M2RmNGRjOWQwZmVlNmJhZDQxZGU4NDc5NzIzMDdhYTUyOWFhZTM2NTQ0MmRiNzBhNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkNGVmYzJiMzM4MWRjOTBmNDI2NjEwZWZiMWQ1MTY3NDM3MTkxNTE2YWFhNmI2MWNmNGM5ZGI4NDIwYjI1YjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L103-L124",
+          "version": "repo-lines-v1:sha256:72bd668ce0c1c85df2e3231e838695656be876c4eadeaa431079312dc75f81d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxM2NjZDEzOTA3NWQ1MmU2ZjllZjBlYjM2NGVlYTZjOWQwNDQyMDA0ZjM3MzE4ZjlkM2E1NWYxZGU2MjUzZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4ZjMwYWZhMzhlOGFiMWUzMDgyZjVjMmE0YzgyYmIxZDZhMzM2Mjc1OTE2YjY1ZTgxYmY1ZDQxNDU0MTliNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmMWM1ZDFlOTIzNGNiNTBkZGQ0YzBlZWM2MTI3NjY5ZTU2MDJiYjg4OTAyN2Q5YmI2MTkyYmU3MWFiY2EzNjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L118-L123",
+          "version": "repo-lines-v1:sha256:5f39e228c8c96f53afe17027b42b5e574c7662796be26cb2e125327de912737b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZmFhMDk1ZDU4NDJkMmE3N2I1NmMxMGE3M2I1YmZjYmRiZTdmYTVkMzkwMTk0MTIwZmFlODJmYTUwM2VlMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjViMzA3Y2U4YTlmNzAxYTBiZTlmMWFlM2RmYWNlZjlmOTY3ZGY0OTU3YjdkODEyZWJmMzE0ZGQ4NDAxOGM1YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTZlM2IyMjI1M2VkMDRlZjM0NmVhN2RhNzNkZjJmNmFkZmFiNmRiMWI5MmFlODMxZWU4YTY1NzRiMzkzNzhlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmExYzBhZmQ4NjcyNTAxNTFlZmRjZDE4NDIwOThkMzRjZTcwOGZiOWQ1OGI3NjM3Y2FmZDk3Zjg2M2JmYzlmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6f1e62c061e14f73a2b07a4a32a6bbae",
+      "statement": "Liefert `fromCsv` keine einzige gültige Zeile, meldet `#import-status` „Keine gültigen Zeilen gefunden.“ und der Handler kehrt zurück: es wird weder gespeichert noch neu gezeichnet noch abgeglichen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L101-L111",
+          "version": "repo-lines-v1:sha256:328d362b87da8840299e8e35bf5cb9ac66c9cb19baf5fe656d42977b40c89035:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjMWQ2ZTUyYTI0MmQ3MzI3MWYwNzg1YmIyNTM4YzJhM2M3ZDlkNTgzOGNmY2NlNzY2OTUxNGFjZmJiZTQ1YTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4MWM4YjQ3MTJhYTcyYzU4MDZlOWRmZGFkMjhhYTQzMjEzOGY4NDMxMmU0YTIwOWU3NzE4YWRkMDViMWQ3NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhMzkxY2U3YTA2M2Y4OTNjODMwOWZjNzAxZmIyYjdlZTM1YzMwMDIyY2Y3NzA5OTIzZGYwNzk3YTk3NWE5M2QifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L107-L113",
+          "version": "repo-lines-v1:sha256:6e778cd173071890c4f5862ccbf5bd89733f8fef2f175591545e6ca81eb4deda:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODcxNjY2Y2I0Yjg0NWIyNmUzYjBkNGU4Y2U1ZGFiYmIwNTY5MTIwOGU5NWE2MjU1ODZiOTBkNDkxNmNmZDVjZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWJlNDdlMGNjNTJmNjdlOTk2NTQ5N2I3OGMzZTMzZTlkZDM0YTQ5MmI0ZWYzODIwMGE0ZTRlZjgyNTIzNmQyNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2Y3ZjgyNTU5MGFiNWIwZGZhOGY3YjM2ZDhlZDU3YjQ1MDlhODU5Yzc2MTI3MzE3MmU5Yjk2MTBmMjA3NjFlYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_837f6de3eb054441ab47cf0876101884",
+      "statement": "Bei einem teilweisen Import meldet die Seite nur die Anzahl der importierten Runden; wie viele Zeilen `fromCsv` verworfen hat, wird nicht ausgewiesen und nicht gespeichert.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L165-L199",
+          "version": "repo-lines-v1:sha256:1eb1222bcd0468efcfc53d847a16517a59d4b3e85d73d6e22f4e2a35e93d8176:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiMGVhYTAxNTdiNTc3OGZmZjk1Y2E4N2Q3OGEzZWUxZDM1YzUwMmE1ODgwMjM1OGE3YmJhYzZiNTJiNzdiODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1Y2E1MDc1MDhjMTdiZGRhYjQ1MjRhOTA2ZjY4OTUyODVlM2JmMThhNWUzMTAyMWI3NDg4ZmY1ZmRiMWM5NGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5YTYxNTcxNjIyNDJhNWIxZjc0M2JjYzI2MTEyZWRmN2MwMjFiODMzMzUwZjYyYzNlODcyNjA2MjE1YWI2MGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI5MWUwZTM3MjFkNDI1NWY0MGNlNzhlYTBjMzM2NzUwYjBjMzFkMGYxMTZmN2MwZDM0NzkwNGY2ZDcyNjIwOTIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L119-L121",
+          "version": "repo-lines-v1:sha256:73d9ad602206616d688ea055bc8cfcfdc065fc62c24cb6dd0a5445784f0a5a50:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTIyNDlmODFhMDg5YjFiNmFlMWE0ZjU5NjQ4OTJjNzkwNzEyZmYxOTMyY2NlMGE4ZGI3M2Y5YmFmZjFiNWI0NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDRiNjI1OWY4ZmZjNjRlYjRmMWM0MGQyN2Y1NTk2MTA4ZDFmNzgwNjI4NzVjYjg2YzA1N2ZmMTc5MjU0ZjVjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzE0NmIyZDYzYWRkZGM0MGM4MDNjNWI1YTBkM2M5NDM3NGFhMDM0YmQ0NWE4ZmFhM2RjYmY3M2ZjM2FjZjI1OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_70424b0164ac4c0b82347e40ff379366",
+      "statement": "„Protokoll löschen“ fragt mit einer Rückfrage nach (die ausdrücklich nennt, dass auch die Sterne im Tier-Album verschwinden) und leert bei Zustimmung das Protokoll über `log.clear()`, zeichnet neu und ruft `backup.replace([])`; bei verneinter Rückfrage passiert nichts.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L113-L134",
+          "version": "repo-lines-v1:sha256:6dd8f28d16e2343b7922e8915709836e65bcad8530c0c97471465da612c0dcb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2NWE3NmNjNTk2OGI5YTJiZDhkYzI1MjJkMDZmYzk4ZDliOTBiMjI5NWVmZmQyZGFhYWQ0OTA2ZTgwNzExYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3OWI2YzQ2MDhjM2M1MmZmOTE1ODQxNzQwMjU0M2VhYzQyNDk2YzZiZDExZmViZmQxMTA3OTNkZmZmMDlkMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzNzFlMmRlYzQ4NzhjZTk3MWMyNmJlZjFkMDhkZmZjZDU1NWI4MmU2MmNhMGY2Y2I4Y2U3NThiZTg1ZjhkNGUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L126-L133",
+          "version": "repo-lines-v1:sha256:bbd75747df3c3599ece125006a4008203a80f0a14cd88b1bb9fd0ef36d16419f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA2NDBkZDM4MTc5ZjliMzM4NTQyZDAyMjk4MGYwOTA4Mzc2NWRhNmRkMjJiZmIyODkxOTU3MDJhM2I5NzkwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljZGZiNGRjNDlhM2Y0ZTEyZWUzZDViNmFkZTUxYWI4MjZjYzUwYTc0ZDU3NzUyYzViNDZhYWE4ZDNmOWI1NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZjczMzQzZTE2MDlmZDRiY2VmZGY0ZDY3N2YwZTUzNjM2OGIzZTU3ZDExNDA4MjQwNTU1NmM3OTJiZTUyZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_998ef7a7fd344412ab0702ed080bbdf5",
+      "statement": "Das Löschen ersetzt die Sicherung (`replace`) statt sie abzugleichen, weil ein `sync` holen, zusammenführen und die leere Ablage wieder mit den gelöschten Runden füllen würde.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L20-L31",
+          "version": "repo-lines-v1:sha256:5ce6997307d0866810e57e104d58630d46a4240aff01de065b59ff341a0cf730:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjOTViY2FjZDY3N2I2YjdhNTVlYTIyOWY5ZjJmNmZhYmFkOTJlYjZmYmVlODQ3ZTUxNzk3MDIyYjQzZjIyMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3YzU4OWRkNjFkZDBlMmM1NjRhNTYwYzA3Y2UwMTMwMmVkZWI0ZTI0Y2M4MTM5MGViN2JiNjU1NWM5OWIxNmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjOWU1NDIwYTRhZWU3M2RmNGRjOWQwZmVlNmJhZDQxZGU4NDc5NzIzMDdhYTUyOWFhZTM2NTQ0MmRiNzBhNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkNGVmYzJiMzM4MWRjOTBmNDI2NjEwZWZiMWQ1MTY3NDM3MTkxNTE2YWFhNmI2MWNmNGM5ZGI4NDIwYjI1YjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L11-L13",
+          "version": "repo-lines-v1:sha256:6d4b99fec48294d6dd57c8dc73fc5314adfc5dd98b534f6c9753fbc483be0178:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzdmNzdmYmE4MGIyN2I2NjU2MDg1MTUxZDRlNGZiNzUyZGFhNzk3YjhlODVjMmFmMWQ2MDQxOWQ1ZmQ1YWNlMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzU1NDcxYzkyMjA1NDNkOWE1ZjgxYzg4ZjgyMzM2YmNjZGUyZGNhOGNhNjYzMDAxNDAzMmE2OWRlNjNjMzI5ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjNkMTE2OTRlZDc4NjRkOTUwMGI3MDdlYzNiYjhkMTI1NjkyY2QyODgxMDVlMDc1Y2FmMjBjY2ZlNzE3MzhlYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU2OWZkNjIyYWExYjZiNGY4MzEyODI2OTRhMGMwNDVjMWM5MDlkNjM0MjFjZTVmM2I3ZmZmM2UzNTA0ZWNjNyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L130-L131",
+          "version": "repo-lines-v1:sha256:edcbbec16f90f0a60528a969318e941aedce355a821f2fb3ea2264c2b44bf82e:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDE3MmNiY2UxMjBiYzc2OWNmMjkwOWE3NDVlZWY3YWM4ZDU1ODBiODNiOTdjYjllMGNhZjhiY2Q0N2NiZThjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzM4M2QxZDk0ZDhkM2Q1YmEzNTAyYjVlYWQ4Mzk2YzQ2MmRhZmVhNTE1ZWNlOGNkYzFkNmViMzE2NmRhYmNlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2QwNGU0Y2M3NjNhMmQyOWM2OTQzYmM3ZWYyYzc2NWNjNWViMjBjMTI2YTBlYTUyYTczZjU4YjcwYmNlYjJkYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_451e85d3d1c34e9f8c4953e7a9cb1c90",
+      "statement": "`log.clear()` räumt neben `zahn_agent:rounds:v1` auch die früheren Schlüssel, weil das nächste Lesen sie sonst einmalig übernehmen und die gelöschten Runden zurückbringen würde.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L62-L75",
+          "version": "repo-lines-v1:sha256:6556cb3741239346ae9f371e626eea1faaac146cc559ac75d9801f2b21447fe4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NzAyODZiY2FjYmRlMmRiZTc0OTMxZjU0YjY1OTA2YzQ3OTc1OWQ5Yzg0NDU2ZTJmZmNlYTgwZTJlYjU1MjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwNDU1NWZhMzVmYjNkMjMyMGZiOTdiZDU4MzU2MzcxZjczYTk4NTJkM2Y5NDRkOWEzZDQ5NzEyNzMzM2E3YzgifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L77-L99",
+          "version": "repo-lines-v1:sha256:729edd8b8a21f8df9dc765ff9492372890c503fb3afdca801920f63374962806:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwNzE2ZmFjMjYyZTQ0MTMyZDE2MzY0ZWQ4NmQ5YTY0YjhhNTY2NjExNjJmMjZlZDAzZWVmMGFhMzBhOTAxNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0NzZiZjlmY2MyODYwOTBhOTAyODYxMTc0YTcwZTAyMWUzOTMxZGQ3MWIxZGZiOTA0Y2ExYTY3NTJjMzIwOGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_295609bedf8d413ca296ffee131ab2a0",
+      "statement": "Scheitert ein Schreiben in die Ablage (voller Speicher, privater Modus), gilt bis zum nächsten Erfolg der Arbeitsspeicher (`unsaved`); Import und Löschen können dann scheinbar gelingen, während nach dem Neuladen der alte Stand zurückkommt.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L21-L60",
+          "version": "repo-lines-v1:sha256:1cfa892a74eb6db172664c5095cd0a1e449e2e332390d09f942c19bf36a78b27:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjMTZlODRjZTg2MzJiYjQxZmZmOWYzYzQ5MWRkYmVlOTgzZTZlZTJkN2ZmODJmZDkwOGViOTQxY2Y3YmQ5NGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlOGNiODVjMTY0ZjVlYzhkM2Y5MDhkMWFiMmJiNjdlZThlMmE2OGU2MTc1NTY1N2Q1NWZhYjUwZmMzMGFlOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhNWU5MDZkYjFkZTQ1MTZjNjkxNzA5OWYxZTBhOWZjMDExM2M2MGFiZTZlMWJiMjBkNTk4MzEzYmMwMWE2NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d81605c74441408f88f4b21b87fb5114",
+      "statement": "Schlägt das Ersetzen der Sicherung fehl, meldet `wireBackup` nur `failed` und wirft nicht; beim nächsten erfolgreichen `sync` holt der Abgleich den alten Stand und die gelöschten Runden sind wieder auf dem Gerät.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L20-L31",
+          "version": "repo-lines-v1:sha256:5ce6997307d0866810e57e104d58630d46a4240aff01de065b59ff341a0cf730:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjOTViY2FjZDY3N2I2YjdhNTVlYTIyOWY5ZjJmNmZhYmFkOTJlYjZmYmVlODQ3ZTUxNzk3MDIyYjQzZjIyMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3YzU4OWRkNjFkZDBlMmM1NjRhNTYwYzA3Y2UwMTMwMmVkZWI0ZTI0Y2M4MTM5MGViN2JiNjU1NWM5OWIxNmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjOWU1NDIwYTRhZWU3M2RmNGRjOWQwZmVlNmJhZDQxZGU4NDc5NzIzMDdhYTUyOWFhZTM2NTQ0MmRiNzBhNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkNGVmYzJiMzM4MWRjOTBmNDI2NjEwZWZiMWQ1MTY3NDM3MTkxNTE2YWFhNmI2MWNmNGM5ZGI4NDIwYjI1YjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L31-L61",
+          "version": "repo-lines-v1:sha256:eeffb249a6ca46c62f232a52ba26f17df5cbd16f1b831af4c87704576f0aa463:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3NzA3ODRmY2ExYTAzODczNjU3ZjQ3MDU0NWYwMzVmMTljM2M1ZTFkZjhiNzUyMjkwNGIxMDlkMDE0M2IyYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NTNjZmNkMDY3OTI5ZmEwNTNlMGY3MGI4MzMwOTRmNDc3ZmNhOWIxYmE2NjM4NmM1NGU2Y2E3OTkxNDZkYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1OGI5NzMxYjRmZmZjZTUyNDBiNDhlNzkyN2U5Yjg2ODFhZDliNmI4NDBkZTM4ZTk1M2VjN2VkNmVlOGRhMzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1826c3c42aa646fe86556847b8dd83bd",
+      "statement": "Die Sicherung entsteht nur, wenn `deps.backup` nicht gesetzt ist und ein `remote` existiert: `wireBackup` bekommt `onLocalChange` (ruft `refresh`) und `onStatus` (macht `#backup-status` sichtbar und schreibt `backupNote`); ein geliefertes `backup` oder `null` verhindert den Aufbau, dann bleibt die Statuszeile stumm.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L64-L72",
+          "version": "repo-lines-v1:sha256:6e8c214c2469f501d6f8adf9fe39a13ba3f94cc0b30eb67b2668dfed7c78d3ee:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDUzOTM4ODE4ZjMxYTRkYTc5OTYyMzlkOGZhZDYzMWQyNjlhYTNlOTcwYWJhZTk2ZGZmMTcxN2IyOGM2ODU0ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L59-L75",
+          "version": "repo-lines-v1:sha256:9e0b4b50a53f982a3239f00ef41f7672e138dd9452e52df577afacf4182a702d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNjllZTU1YjFjZjZkYmU1NGUzZTU5YTRkZDQ0NDIwNWQzYzM5ZGI4MWNmYjdkYmYxZjU5YjcxOGY2YzRjZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZWFkZjBiMWJlMjBmYTk4MzgzNTE1Y2U4MzY3ODdkNzVmNWI5ZWJiOWE1MmVjOWE5MTRlYTJkYzZmNDQxYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5MGM3OWEwOWQwNDBkYmNiMTQxMWM4MDcyZGNhYzY2ODg5NDljYjRkMmNjZGU4ODY1YjZmNzY2ODc5ZTdhODgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_06c941924d854cba8c149a6739e020cf",
+      "statement": "Die Gefahr-Kurve wird einmal beim Verdrahten aus dem eingestellten Gebiss gebaut: `getCreature(settings.creature)`, Zahnzahl `Math.min(MAX_TEETH, Math.max(MIN_TEETH, settings.teethOverride ?? creature.teeth))`, Modus aus den Einstellungen und die Grenzen der gleichzeitig scharfen Zähne aus dem Katalogtier — und dann in `#danger-mount` gerendert.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L21-L30",
+          "version": "repo-lines-v1:sha256:78de43a7c0237592e9bde7e61d2e878ad86a06642e5b0bda529f15dc6407abfb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NjczY2IzZDhlZDljNGEyNGZiZTZmMzQ0OTQyOTQ3OTFlNjljOGRiYjQ2NmM2ZmNjOGFkNDk0M2MyZDliYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4NTA2YWM2MDQ0M2MzNWFkNmNlNTNiMTBiMDNhNWU4OGEwM2YwZTVjYzc4YjJjY2M4ZWMwMGRmMjk2YjJhNDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4YjZjZTUyY2Y3N2RiZjcwYWY1ODVhZmE0NjE1NDVhNDUyZWU3Nzg5YjRmOWRmNTllODNiOGIyN2Y4NDkwNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3MWNhZGRjNGEyNDE2NDMyNTVlMTUwODFiMDhkYmQ1MmM1MGY3M2Y3ZjA1YzA2ZGQ3ZmZiNTQ3YzhhYTU5MzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L77-L89",
+          "version": "repo-lines-v1:sha256:ac712796e88ef9e2df30a6eff12bda59c4876a3999b530aca2c7c7b2eb8e5927:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmODQyNDY2ZDU3MGRmOTI2ZWY4MmI0NGM5YjUyZDFjOWE3ZDgyZTI2MDY4ZWNlZTA4MTVkNjFkZmY5YzQ3NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxODAwN2E0ZTBlMjJjMTg5ODAzMmRiOGVkYmFjYmNlMTFmZDk3ODA3Mjk5YjJjODJhYTg1YWIzN2FkOTU2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhNjEwOWE3YTMxZGRjZDc5MTEyN2Q0ODZlNTY5NzhmNzQ4YjExYzE3NDc4MTZjOTM5Yjg5ZjM1NmVlZDA3ZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cde2c7822e024e5cac0e8a3426f78f7c",
+      "statement": "Die Klemmung der Zahnzahl auf 1–12 schützt die Kurvenberechnung selbst, weil `dangerCurvePoints` ein Array der Länge `teeth` anlegt und `tensionForPress` die Zahnzahl als Domäne verwendet; ein unbekanntes Tier lässt `getCreature` mit `unknown-creature` werfen, was im Betrieb nur deshalb ausbleibt, weil `loadSettings` unbekannte Kennungen auf das Krokodil abbildet.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L211-L217",
+          "version": "repo-lines-v1:sha256:046822298e2be6588f73ea012e94a70cecbc001156d2afbf624d3519c71ea112:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDU3NDlkODBlNWFlZTcxOTlkNTljYjlkYTQxNzA4YzQwN2I1ZGI3NjA1N2NiM2IxMDdkZmQ5YzcyOTNlMzVkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTE2YzY0ZTY5ZmM0NzAzMTdkODY0MDEyNmFkZmEyNWU1ZmJkMjkwNTM2NGM3YmQ4ZjZlZGI5MjQwYTkwNGQ5YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY5NjlmZTllZDFjY2Q3YjViNjNkODlmYjM0YWIyOGE1NzE3YTRjZWYzYTdmYmU0YzgwMWU2NzljNTliYjE5YSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L41-L60",
+          "version": "repo-lines-v1:sha256:8153ef19baf472bfc6656f27dbdc20aa302bf038ade0d52493a88134df3741d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzMDNkMDhmNTRmZDhiOTE4Mjg1M2E0MWY0ZmIxOGFkZjZjNTIyNTBhMzg4YTE0YzZiYTRkYmNkMzM5ZGUzMzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4Mjk3NjY5NDY2MGRkMzliYTliMGM2MDg5ODE3NDFmYTdhMjNiNjU3ZDRmOGNlMWY5NTNlYmY4MzEwZGYyOTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0N2FjNGUzNDhlMDU4OGFiNzNlMzVjYzRlMDNlNWJjMGQyYWUwYTQ2YmZiMTJkMzkxYzUxNTE4MDMyZjVjNjgifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.ts#L44-L57",
+          "version": "repo-lines-v1:sha256:2ffef7a96e8f160db96e7b975b283c8f5a18a9d08de5fc8c41cc2c2b92b55ca1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2NzdmZTFmMWNkMWJhMmNmY2M3MGE2NjFlZWIxYWI4YTljMmY0ZTJkMTJhOWVmMjRkNTE5ODY2NDJjMDE3OWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMzFiMzNhNTJlYTI1NTU1N2YyODdiODZmZmI1Mzg2OThiYzFkZGViZTdmOTkyZTBjYjBmYzQ0OTUyNDkxNWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjYTA2YmJkZGM3ZTc5ODE4NTFkNjk2OTY0MzY2YTY3MmIwMDQwNGI3MzRjZTRkMTRjOTYxYWQ5ZDdmNDRkYmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExMmMwYWUxODNmYzIzMGY1N2U2ODM2NDIwYmQzNTUxZTA5OTBmYWI0NmVlMWYzOWRmNzU2M2Q2MmYwOWQ2NjQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L243-L254",
+          "version": "repo-lines-v1:sha256:85b7f759942f1295eaad292283233261380b657a0adcea8ae4bbb6a9046f00a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1YzEwZjM4Y2NjOTEzZjEyNTQxM2Q0MzM4Mjg5NGRiYmE0NDUyNmE1ZjBiOTU2OTYyMjkyZmEzYWNjZGRiNDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1MmZmNTJkN2Q3YzQ2MWY4Nzc2MWUyOGE5Y2JkZTY4OGQ2Y2ZlZWNhZDczNDkyYThlOTAwZGEyZTAzN2Q1MWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2MWNlMDg0MGM2Yjk0MTJkYmVjMTljOTI2NDVlYWRjZTQ0OGUzMjliNGVkOTIwMWEyNDI2MDEyZDk0NTRhZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8147aa9a72bf4e0a9bbacff6269fe767",
+      "statement": "Die Gefahr-Kurve ist aus dem Modell gerechnet (`tensionForPress` je Druck, letzter Druck zwangsläufig 100 %) und nicht aus den protokollierten Runden; ab `HIGH_DANGER` (0,5) bekommt der Balken die heiße Füllung.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L18-L23",
+          "version": "repo-lines-v1:sha256:d2c79c4b40cb3e5ab3a55e3a8380a160b8c1753eea6d22859e1b9bfdb574cc02:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTA4N2M3MTljYmJlNDIzZjM3MjdlOWNmZWQxZGE4ZGZlNjI1YjQxZGY5MTQzYmZmYTY1ZDYzMDEzMzIyZGIxZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjlkN2ZmYjNhNDMzOGI2NjRjYTE3NDQwYzI0MDI1MTgwOGI5NmMwMDJkYjg4MTIxOTBlZjczY2YzNzNiZDliMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTdkYjI3ZThkMDA0MzRkZmFkMjRlYzM0YzE4YTdmNmU3MTZlZmUzMzRhYTQxZmU1ZmMwMDViZDI3NTVlOTMzMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L84-L112",
+          "version": "repo-lines-v1:sha256:71422604fd461ab577f67850ed6068cac0f652814faac028d96ef6dc2c6b573d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0YzJjN2U4Zjk5ZTkzNjc3YzE1MGZkMTY0NjM3MzMyNDNiNWFmYzRlMDYyYTMzYTllNzIwN2YyNzFmMTZmNGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMwY2EzZjhkNjgwMjIxZWEwNzQzZGViMmE3YTg0MmQ1OGE1MmM5MDRhN2JkZDg0NzQ3NGJmNTU2YTM0NmExMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwMzdkNzE0MmNmNTJhNmQ5ODU5YTI3NzA3NDdmMGIxMWQxMTc1ZDExY2QzMTViZDBhYjZiOTMzM2E1ODQ0NTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L256-L283",
+          "version": "repo-lines-v1:sha256:82230f7758906c060d39b859c153f15b7bc15013ddcadc4577ed63ec10c65d07:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZjA2MmNkNDdiZjkyYjFlNWMzZTFjNGZmZmRmNzhmZmQ3OWJkOGFjYzI2ZmZlMWNlMGUyYWU3N2ZkYjgwY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3e68299a23f04db080b320b6a1d06fc7",
+      "statement": "Die Statistikseite liest die Einstellungen genau einmal beim Verdrahten und schreibt sie nie; weil auch der Einstellungsschlüssel kein `storage`-Ereignis auslöst, zeigt die Kurve ein anderes Gebiss erst nach dem Neuladen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L147-L152",
+          "version": "repo-lines-v1:sha256:4dbe86ca2b5f33b03247ea081603bbf10ce82d2a8e73b10c875880247e1a8b22:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFjZDhkMjFkZTk3ZDE0YmVhZWMwNTkzMDQwNWJlZDNkZjRkZDYzZDE5MjMzMDk3ZDE1ZWUyYWY3MzlkNzg2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWUxMmI2MTE4OTQzZTMwYzAwNjgzM2U3ODE2MzBhNTNiMzJmNDE3ZWY1Zjk3OTVjM2YxMmYzMzA4MDI0YzVkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L77-L89",
+          "version": "repo-lines-v1:sha256:ac712796e88ef9e2df30a6eff12bda59c4876a3999b530aca2c7c7b2eb8e5927:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmODQyNDY2ZDU3MGRmOTI2ZWY4MmI0NGM5YjUyZDFjOWE3ZDgyZTI2MDY4ZWNlZTA4MTVkNjFkZmY5YzQ3NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxODAwN2E0ZTBlMjJjMTg5ODAzMmRiOGVkYmFjYmNlMTFmZDk3ODA3Mjk5YjJjODJhYTg1YWIzN2FkOTU2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhNjEwOWE3YTMxZGRjZDc5MTEyN2Q0ODZlNTY5NzhmNzQ4YjExYzE3NDc4MTZjOTM5Yjg5ZjM1NmVlZDA3ZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b4a5b4d61ba848e490dac74cc60df1ba",
+      "statement": "Das `storage`-Ereignis löst nur dann `refresh()` aus, wenn `event.key === null` (Ablage geleert) oder `event.key === STORAGE_KEY` ist; der Einstellungsschlüssel wird ignoriert, und anders als in `wireGamePage` wird `pageshow` mit `persisted` auf dieser Seite nicht behandelt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L107-L119",
+          "version": "repo-lines-v1:sha256:f0857b17f35f35e6e821b1f9bcc2f77abe9e6c7aec257b03cd431da6d401ea10:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NmFkN2ZlNWY2NzIwMjdmNmViNDQxMDM3NjVjNjFiYTExNmFhZTE3MWFhMjc3NmM5MzVlZTI4YTE2NDZmMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5Y2QzM2E0OWNjY2FjYWQyN2VmMWI0MWMyMmQ2MmMyMjliY2I3NGM0N2MyNzc0OTJkYjgzNDVjZGRkYjhhMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExZjk5MTQ5ZjdmN2Y5YjNiYzEyOTAxMDJmOTFjMjRhMmJmZGZiZTA3ZDdmN2E1MzM0ZjY1ZjEyYjczZDZhNjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L136-L144",
+          "version": "repo-lines-v1:sha256:cfc5346c8b7e5b7e3149c5ef8d3a1a6fa01865e19c188274abeec80f177d203c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjI5MTE2ZjhmM2Q5YjFhNTA0NjdiYTdjNTk5ZWUwNmFhYjhkZjUzNjlhMTQyNDNhMjU0NGUyNDRiYzQ4Zjc0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJkZmM5NDBkMmI5MThhOTlkZDZmZDlmMTViMDRiNTAzMmY4Nzg4YjZiOWEzY2ExMzdmNDY4OWI5Y2YwOTAwZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGFjYjAyNWM0NTU4M2JjODJkN2I3ZjBiNzQwNjljYTdiZWQ1MTVjYmUzY2IyY2RjY2E0YzM3YzZjYzA3YWRjMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L147-L152",
+          "version": "repo-lines-v1:sha256:4dbe86ca2b5f33b03247ea081603bbf10ce82d2a8e73b10c875880247e1a8b22:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFjZDhkMjFkZTk3ZDE0YmVhZWMwNTkzMDQwNWJlZDNkZjRkZDYzZDE5MjMzMDk3ZDE1ZWUyYWY3MzlkNzg2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWUxMmI2MTE4OTQzZTMwYzAwNjgzM2U3ODE2MzBhNTNiMzJmNDE3ZWY1Zjk3OTVjM2YxMmYzMzA4MDI0YzVkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_97911f3bf408406288d14e025f593dec",
+      "statement": "Die Antwort des Browsers auf `requestPersistence()` wird als `persistenceNote(state)` in `#storage-status` geschrieben; jede Antwort (`persistent`, `best-effort`, `unknown`) bekommt einen eigenen Satz, und ein Fehler oder eine fehlende Schnittstelle liefert `unknown` statt zu werfen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/browserPersistence.ts#L16-L40",
+          "version": "repo-lines-v1:sha256:2c8b826ea11e1fe3cf4cf223b72231ec9e17b7b88f07d8f64fa2fb494d48eefa:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L138-L145",
+          "version": "repo-lines-v1:sha256:162b4eebcc7e45f199b56ae06b2ad4978721176498cebe7b1bb7d615d9eb6f14:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzczZDcxMGYyNzU4ZDBmYTNlN2NkZDU0ZWZkZTc3YmM4YjBmZDkyOGM5NGVhZDk2OGMzNDJmNzgxNjhmZGM0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjkwNTFkZDdlMWNkZjAwODQ5NThlZTRkYTcxYjdlNzY2MjdlNmE5OGFkNGJkY2JmMjgyNGJkNjVhMDc1OTU5NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWZhY2EyN2U0ZWIzNmQ1OWVlMzA2NTZkNGE2ZWM4ZGQ5MDg5YzViZjhlOTBhNWJiOTRhYzg5YWJiYjJmOThlYiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L204-L223",
+          "version": "repo-lines-v1:sha256:7305c79c4c26ebdc5168e244cecd89c2dc45585a51e0a7f3cf2d4b2f7922a035:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyN2E3NTE0MGU2ZGM3OTM4MjUxYmJmMDQxNzA2OTJlZGU3M2VmMWQ1MzE0NmJmZjA0ZTNiZGViYjQ5MmNkNTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f17405dc5f0043829f895ace7148de9c",
+      "statement": "Die Statuszeile der Seite zählt die Mindeststichprobe je Gebiss (`sampleStatus`) und nennt bei zu dünnen Daten das größte Gebiss; die Formulierungen liegen in `statsView.ts` und sind in `statsView.test.ts` als Text festgehalten.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L208-L226",
+          "version": "repo-lines-v1:sha256:2de41acf40683f52f31c3a0b638afe871d074acaadf52155a67cdb16ad5e3339:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhNmYxNDA5ODk4M2YyOGY5MjE0NTQ4YTJiZWM4M2E3NjRmN2IzZTBmYjMzMjE5NDRkOGJmMjJiMDQ3YTc4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0MmQyOGFmNjJmNGVmM2RmYzhjNTk5YTUyYWI4OGI5MTUxMzI1ZWU4ZGE5ZTI3MzU2MDUxZTg3ZmRiNTI1NTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L179-L202",
+          "version": "repo-lines-v1:sha256:112748e14ee57063ff88c76f6154bdcafe0498f6374887f5a97e6d10bc0702b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmNmJiZmU4ZTE4OTEwM2IxMTdjOWU2ODdjMTY2MjY2YTljYzg1MTYwYzEyNjEwNmI2NTQyYTU5N2QwMWVlODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljZjQwMDRlNzlkYTMxZDg3ODllZjI4Mzk4MmM1ZTY1ZTcwYTMwNTUyYWYwZWU5NWYzMTNjMGJiMmQ0MTliOGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2c641d4ccd254f8d96c9d7fafc91f538",
+      "statement": "Die Seite kennt das DOM nur über IDs und liest fast alle mit `?.`; ein fehlendes Element schaltet den betroffenen Teil still ab (kein Bericht, kein Export, kein Import, keine Statuszeile), und `#import-area` wird allein über die Klasse `hidden` umgeschaltet.",
+      "evidence": [
+        {
+          "resource": "repo://src/pages/statistik.astro#L44-L66",
+          "version": "repo-lines-v1:sha256:67551526b89af20a1656e8a8fbfe37e5e883f00d438c4b91f07d4a08fc99bd8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMDllMmU3NDU1ODM2ZWI0Y2ZhYjc2NzlhNDYwYjliOTA4ZmVlNDc0M2U2YTgwNTFkYWU5YTI4YjkzNTQyOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxODU2NmVjMTkzNjZlNGY4MGFhMTMxMTBiYTY1YjFmMzExYjM2ODY2Y2UyYzk2MTJkZDU0NDhjYWI3NWNmYTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2YjQ3ZGIyZTM0YjM5YzU1MWMwYzI1YTM1ZWViZmQ3MmVjNDUwOTY3MjY3YjRjYmQ0NWIyMzgwZmViNzhhMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkZTA0ODk5MWMxZTM5MGVhMWJlMWEwNTJjZWZkOTk5YTY0N2ExMWVhNTgzNTJlOWUyNjJlZGExMjFkMDk5NTkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L10-L24",
+          "version": "repo-lines-v1:sha256:d8e174213021b4cb9e68a3a2d233d5d7e4cc252222184e96ccd249c54bef4300:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwNGRhZjI5MGRiODdkYTQ0YTVkNmJjODQ3ZjBmMjNkZmMyNWM2NGJmMzJmODk5MGVjMTAzY2EzM2MxOWJmMTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhZDI5NTI1MzZmYzYwMDBhZDkxNTY2YmQ5NTNmMjViYzk1OTYxMGU4MTFhNTI5YTliZWY4YjRmMDdjMWM4Y2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiMjE1ODI1YmRiNThiMTc4NGY3YWQ2ZjVhMDYzMjg4NTZhOGJjYTE1NWVjMTlkYjhjNzExMGU2MDMyOWUyMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmODczMjFmY2UyZmE5Y2U0NWYxZDU0MmJiODM4NjlmNDE2Njc4YzQxYmVlNzE2MTcxNDdiZjkwOWE2MWVlZGUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L46-L47",
+          "version": "repo-lines-v1:sha256:efa7a263cc9b80cd25d32079cc94361938920c0c8f69a37cd33b2f184d50df7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjE1MTZhMDBhMDcxNmQxODgwYWQ2MjIzNjQ5NTIxYTAyMzI5MDlkYmM1NmZjN2Q0ZDdkZjc4YWE0MjFkOGFjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTkxMzk3ZDVkMjFmMTE5YmY3NWFkOWI2ZGJiNzY3ZWVkYTNhMDM5YWMzZDljZTVkNGU1N2JlZTRjZGY4YzRkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2YzMWVjZmY2Nzk0OTZhNTYxNTE0NmIxMWQ1YzlmZWUwNjM4ZDIwOWVmYWI2ZmY5NTQxNTk1YWM5MzIzYzM4NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDFmNDIyNWUxZDE1ODJlY2UzN2ExNTc1OTdlYmVlM2ZjYzc0MDUyMWRiN2UwZmM0YzIxODM5ODI1MDExYzlmZiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L91-L104",
+          "version": "repo-lines-v1:sha256:4903dc446f9dfdc019b39557961f48b0a2265abf1deb6c3a645076e09e8a6198:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2NzhkMzZmNGMyMmEyODg5YTgyMzQxNzRkZTI5NWNmZGQ3YjdkZmYwMzU0MmU2M2VkNzc3NzhlMDhkNDk4YzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczYzM0YjVmYTBiMzQ3ZWMzNjI4OTJlYzlkZTVkNWY4OTRlNTdlMjBlNWI2YjRmNDIzZjQ4M2ZjYjJiNGZmY2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTJiNjExODk0M2UzMGMwMDY4MzNlNzgxNjMwYTUzYjMyZjQxN2VmNWY5Nzk1YzNmMTJmMzMwODAyNGM1ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzNzkwZDA3MzAxMDExYjBlYTkxZTJhY2JkZWFiOWQyZWViZjZmYmEzZDAzOTBlZTEyNzlmNTU5NjdkZjE1YzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b76547d8bf946ee9b72516feff0ee84",
+      "statement": "Der CSV-Import entdoppelt nicht: er hängt die gelesenen Einträge an, ohne ihre Identität zu prüfen, sodass dieselbe Datei zweimal zu doppelten Runden führt; die Mengenregel „gleiche Einträge zählen je Vorkommen“ gilt nur in `mergeRoundLogs` beim Sicherungsabgleich.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L226-L255",
+          "version": "repo-lines-v1:sha256:c76858b2e7e1f658b931b5402cd729875a64ecdcfb08f2ebc938459ae2859af3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZTBlNDg0MDM2YjM2NjNiNjI0YmJkZWZiNzg3MTY2NzY0M2ZhNGY0OGFmYzE4OTA3ZDkxMzI1NjVkMjg4YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmY2ZjZGU2NWIxODEyNmFmMDhlYjQ0YmExNDY1OTQ1ZTU0YTdiZTRkMTM5YWVlMDliNmUzZWE4ZTM1NDM4MzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L114-L118",
+          "version": "repo-lines-v1:sha256:b54922ba7b7cc8645f5005be775a71772b4d6f5668b24b9887de06a292eceda4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZjMWNhMjA3YzI2YmI0NDMzNjZiODM1YzM3ZjBmZGU4ODA3ODEzMmYzMDIxYTUzMThmOTljZWJkY2NhNzJjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZmFhMDk1ZDU4NDJkMmE3N2I1NmMxMGE3M2I1YmZjYmRiZTdmYTVkMzkwMTk0MTIwZmFlODJmYTUwM2VlMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTJjN2QzNmJiZmU0MWVjZDUzYzlkZDBkZTg2OWVjMDU0MmE3MzUxZjAzN2JlMjkxNTM0OTU1MjYwZDMyNDA5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzNkOWFkNjAyMjA2NjE2ZDY4OGVhMDU1YmM4Y2ZjZmRjMDY1ZmM2MmMyNGNiNmRkMGE1NDQ1Nzg0ZjBhNWE1MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f0e56abc79d64ab995cd573929e7690e",
+      "statement": "Der Produktionsbau verlangt die Pflicht-IDs der Statistikseite (`#report-mount`, `#export-csv`, `#import-text`) je einmal; das Seitenskript selbst führt kein Test aus, weshalb die Verdrahtung in `statsPage.test.ts` mit `MemoryLog` und einer `Backup`-Attrappe in jsdom geprüft wird.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L84-L85",
+          "version": "repo-lines-v1:sha256:df265ce342ee55f547ab8430e4a43fd42d90d1981778ab70076663bc0f251504:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzNjMjg1YjJiYmJhOTFjODVjZWE3OTkwMDhlMjBkOGIwYzQxMTk0MjYwZTY1MzVkMTAwYzJkNjkxNDUzY2UyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgxNTA0YTY3NmZlZjVmZmQ5NmQwNTYyNWFkYzQwMDllMzkzMmRiMGUxMmE5YTAxZjY4ZWQ3MWRlOWNhNmEzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M4MWFhNmViNGFiNWE3NTZhOTRmZDFhNjI3ODlmZDBjMTdjZmE1MGViMWY1NjZmMjE3YWIyMjczMzk4YzgzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmVmYmM0ZjQ2YTI2MzNkOTE3NDY0MTI5YmQ4MDRmMGViNTk5NTljMTBlNzRhZjZiY2M3M2Q4ZWNkOGVhOGI0ZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L1-L37",
+          "version": "repo-lines-v1:sha256:f187c6f0bf1b70df17731421dd86a541b0d84a532ce59f78e61a1c31eefc2aeb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNTE3MjMxODg0ZjVhZWU3NWRkM2IwNTA5ZjEwYjMxOGM4N2QxOWY3ZjNkNDlhNDUyZjg2ZWM1ODNiMzgxY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzNDlhNDYzMjNlY2VhY2VjNDE1Zjg5MTM0ZjNkNDNmZmZkZDE3ZmIyMjVlNjBjMmY1Y2U5MDM0NjE4NGQ0MGIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L71-L82",
+          "version": "repo-lines-v1:sha256:1c54b5adc66fc884a414d149b98272c01a6d154d703bcc9d5c23e8174396f52e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhM2ZmNzU5MDM0OWQwNDYwOTFmNTg4ZTc1NDVhN2ZjMTViZTI4OGE1OTVhMjY3MGI4OGZkMmUyOGQ5NTlmZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZDc3YzIxMDAxYmQyZDc5N2U1YzBiY2Y1MTAzMGE1ZTEwZTc1YzhmMWM2MTlkODQ2ZjJkMDA3N2YwZmMyYzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4OTI3NWM4ZTI4Mzc2NjFhZGUyMjY5NjBmMTZmODM2NmY2NTQ3YTcyN2ZkNGFhMDUyOGZhNmZkYWQ5NmYxMGQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

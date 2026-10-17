@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:6163fe4c5534f8e4958100f3edd64f91a7eeb18220249f7d1938a79e8dc90ef2",
+  "claims": [
+    {
+      "id": "claim_b24add63fdb34e4db2a3ed8397e74c49",
+      "statement": "Die Registry ARTWORKS muss genau die Kennungen des Katalogs CREATURES decken: creatureView wirft bei fehlendem Kunstwerk \"creature '<id>' has no artwork\", eine unbekannte Kennung wirft bereits in getCreature, und creatureViews.test.ts prüft Schlüsselmenge, Reihenfolge und Abdeckung in beide Richtungen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L19-L23",
+          "version": "repo-lines-v1:sha256:194442a84047ed9ee73f5579a452b3e6cf8142b17e91b54e55559aa9ed6bbac7:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTgyOTFlZjM2MWU0ZWI2MmM1YTBlZTNkNGZlMzA3MDg1Mjc3NTJlODBhZTJmNTIzMDg2NjE2MGE1YWMxMWU4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTYwOWY1ZmI1Njg2M2UyZTU4NzJlY2E0YmExNjQzNmIzMzE4NzBjMWZmMjEwZWRkOGZmYTI0ZWJhYTQwNTQwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Y5ZTI0YTU5NjcyMWNhNDFjZmQ4NjY3ZDcxMTBjMDJiYTI2N2ZmYzBlYTVhYWEwYmYxNmE5YjkxOTIwMzBjOSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/index.ts#L24-L51",
+          "version": "repo-lines-v1:sha256:005bfc2d8e05d2eb98b8c98607b1a6e3633d74c056d4b82fb4b02fa1aeb8fa1c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNmI3NThiYmU2NTQyZjg4OWQxODgyY2NhMThlODYwZWY1ZDk4ZmM0YmJjZmZjZDdmZDllZjhkMzAzZDNjZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwYzI4YWQzZTM5ZDMwNjJhY2YxMzQyNDM1NGI4Y2I0ODBlMDdiNTZlODFjMjViNzJmNDIxNTk4OWU4NzNjYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMGY3MjQ2M2ViMTk0NzBhYzlkNGU3YjNlZDVkMDQxYjgzZWYwZDNiMDI0ZWFjOGI2ZDQ1NDE2YWU4MDk0ODAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2ca0148aace146a394d1ff0771c5d754",
+      "statement": "Die Kunstwerk-Daten beschreiben ein Tier als Vertrag statt als Markup: silhouette dient als Beschnittpfad, teethProfile ist eine Funktion der eingestellten Zahnzahl (damit ein Gebiss bei jeder Zahl von 1 bis 12 stimmig bleibt), ring liefert die Geometrie und label den Satz für den Vorleser.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L90-L96",
+          "version": "repo-lines-v1:sha256:8d10433d1c23d136fe72b6a45bbc3ed8155a2984bc08413fd9c80bfed3b6b978:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWIyZTMwNjRmODRjODIxMmY2YjEzODBjMTRmMzYxNzliYzFiZThhZjg0ZjU4MGE3MDE5YzIzZjkyNDcwOTU1MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDY4MmIxOTE0MmQ4MWU5MmM0YTBkOGZjZjcyYzQ1MjNiNzhiZjA4NjE3NTJmYWY2ODU3OTExYzMyMTZlNzk2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhiMTAwYmJhOTE5NTcwZWEzM2JjMzZhOWExZWNhY2E2ZTlmYWNlZDc3Yjc5NDdmNTI4NmUwNzMxMzA5ZDFiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGViZmM3NzAxNmIwNzI2ZDUwZjZiZTQ3ZmY3ZDNhYWFiNmI0M2RjMDllYzA1NDhmOGQyNTYyZDY1OTBkMWZjMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/types.ts#L40-L86",
+          "version": "repo-lines-v1:sha256:9e3c4bd7253e83ee6f126df0d9d1e84b6fa97a744c49c2583510306c8f0fb090:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2NTBiOGQ1ZmVlYTJjMjFlZTUwYTBlNWZkZjAwOWZkMTdhODY1M2M4MWE2ZTMwYjFlYWVmMDNhMDg0MDg4ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiMWExZTUzNDA0MTQyZmZhOGM2Mzc0MGVkMWE5NTY2NmNkMDkzNGY4YjQ4ZTM3NmQ2ODE5YzUzNDE2ODMxNmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e890a49a2a3040dab3eb498aed1577bc",
+      "statement": "mouthLayers in factory.ts malt die Zeichnung in fester Reihenfolge — Körper (außerhalb des Beschnitts), Maulöffnung, Rachen, Schnauze mit upperExtra, Oberkieferband mit oberen Zähnen, untere Zähne, Unterkiefer, Gesicht — alles ab der Maulöffnung beschnitten auf silhouette; dieselbe Funktion trägt mit dem pressable-Schalter Bühne und Kopfbild, und ein Test hält die Reihenfolge in beiden Ausgaben fest.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L317-L343",
+          "version": "repo-lines-v1:sha256:cf6f4671319100332f5137f12de4a1155e770f17425a3aa29fe06c9fbf6f0052:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxMWJhMDc5NDhiODM0ODY5YmY5OWQ5ODExZTg5YjcwMTNmOWI4OTZkODQxOGQxMTc0YjdhODliZGQ4OWU1MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmNjA5ODFhMGU0YzZiYjRlNTJiZjBlY2NlYWY5ZjU1NmE4ZGJmYmE2ZDMzNTQ5N2MwZGQwNTcyNzdmMTVkZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwYmQyZjNhZmJiNzFmYzVkNGMyZDY5Zjk0YjM3OGFkYmIzZGE0M2NkNzdhNGUyODhkZWM0OWY4ZDgxNjdhNGIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L35-L57",
+          "version": "repo-lines-v1:sha256:25e917e8efde722b2fc78b47b741eb4f1412733b1469bd1f5f00ad03ebe19259:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZDMyNGQzNmYxYzRjNTE3ODhiN2MxYTY2ZjdiNzExNDBlYTMzNjRiMmFjYzBkMDI1NTZiNWU4ZThlY2U2N2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlMWMxN2ZmODYyMWZlMDNhMmFkNGU4NTA3YjZjYTJjMzE1YjllMTQ2ZWYzOWFlZmJkODY2ZDAxZjg2MzU2YTkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L107-L128",
+          "version": "repo-lines-v1:sha256:c94528aede7fcb7dfdf91ada8fd0a7ddd8afd8f16761dcdc546ce12e448731a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzOGZlZjY4YjM3NThiY2MwZTI4ZWQ2MzIxMDQ5NmI5NmNkNzNjZTQyOTNjZjkzNTdlYTU5MTg0YmU2NTlkMTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZmMzdmOGJiNDU1ODE4MWIwZjg3MTk5MWFkMmRiYTlmZDYxZjI4Y2E0MTYxZTFkNThhZGJlMDNmMzhjNTY2ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzZjZmODJlM2Q0YWJhYzNhN2VlODY3ZThmNzMzYzFkYTZhOWMxZmZiODM3NTgyODc1NWQ2MzJlNjMzYTNkZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_77862a7df7c14448a377394ddbacdaa2",
+      "statement": "Der Zahnring ist Sperrgebiet für das Gesicht: weil die Zähne mit der Wurzel auf der Ringellipse stehen und über alle Zahnzahlen gesehen den ganzen Ring belegen, während das Gesicht als letzte Ebene darüber liegt, darf keine runde Gesichtsform in die Ringellipse ragen — sonst verdeckt sie je nach Zahnzahl einen Zahn. Der Test bläht jede Ellipse und jeden Kreis in face um halbe Strichstärke plus 2 Einheiten, tastet sie in 5°-Schritten gegen die Ringgleichung ab, verlangt mindestens zwei solche Formen und kein transform an ihnen; Pfade messen die Sonden im Browser.",
+      "evidence": [
+        {
+          "resource": "repo://docs/tiermodell-anleitung.md#L38-L55",
+          "version": "repo-lines-v1:sha256:b4b7e3ce70bb758d1e695d7b9af515d923fbff327d4cd3b4805f573bbc9de8db:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiZDE0ZDNjMjNiMmZhNDdiZjQxM2NlMjI3YTQ3Y2JhNGI4MWNlYWE2ZmI5YmIwN2E2ZDZmZDcyMmZhZDJkM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViYzllZjVjN2I3MmRmYmQxM2I1N2Q3MzU0YjcwZTBhZWU0ODUxMWI0Nzk3MTA2OTFmMzgyMzdmNmJiOGQwMWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiMmRlZjExMWUyNzNiMTc1ODlhYjRmMTk2OGNhYjExNTEyMjY1OWY0ZGI4ODQ2NGU3ZDIwZjFhNjQ4NzRkMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4YzlkODIzNDEzYmZkODZlYWMyODgxNGUyN2I5NTk1OTI0NmM5ZjRhZjVmM2Q5YzA4MDY4MzM2Yjk2MDlhYTAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L119-L155",
+          "version": "repo-lines-v1:sha256:6eb59aba5e54a5f0e5e17b81dd8aeb3d13eef1ea72e4a0b8d0ce7432b88a5df3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmMmViN2MyNGRlNTc1ZGVlZjI2YThlZWJlZTFjNTUwY2E2YzgyNWM5MGY3NmUxYTM5NWQwNjJhMTIyY2M5M2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a066e19d811f4e74a8dff7e41ec7c6f2",
+      "statement": "Die Platzierung folgt drei Besitzregeln: was über den Kopfumriss hinausragt, gehört in die Körperebene (sonst schneidet der Beschnitt es ab); was sich mit dem Kiefer bewegen soll, gehört in die Ebene des Kiefers; was über der Schnauzenfläche liegen soll, gehört ins Gesicht, solange es im Umriss bleibt. Belegt sind sie am Hut des Menschen in body, seinem Schnurrbart in upperExtra und dem Monokel im Gesicht.",
+      "evidence": [
+        {
+          "resource": "repo://docs/tiermodell-anleitung.md#L11-L37",
+          "version": "repo-lines-v1:sha256:da3dec4e1a50eaa79c7beee00e328664a013b1fb1189874315493fd339d98fe3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YWI1OWIwZTEzODNmYzZjN2U2ZTVlOGI5ZDYxNGQ0ZDI2Yzg4NTNiYzFjMDA4Mjk1MTRmNmM1MTk4NzllZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxNzU4YWZjNjgzN2JiODUzNDg2NjRlNTdhMmRlZjdhMDBlMDZiZjU5ZWRlODczZDRkMWMyODMwM2QyYjYyZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4ZGIzNzVjYTRjMmEzMmM1ODFjMjM1OWU2MTczYzUzNGYxZmQ1NjcxYTU3N2M5ODk5OGI4MTE2NmE0ZWI4YjQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/human.ts#L10-L54",
+          "version": "repo-lines-v1:sha256:7fd07adb935771531320c1ccb3618c8c5d315f06d67062d593c9edaa9e0d46c8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjNzY3YmUwNTdhOWY5NmViYWQ4YmNmNzc1YzdkMDJjNDE3NDRkMzliMGM3NmNhODAxODNlMmJkODgyYzVhYWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJkZGEwNmYxZjI3ZjE5ZDQyYzU2NjVmMjhjMzc4ZjU0YjkyNWY1MDk5ZTU5ODcyZmRlY2M2ZWFjMTRkYjExMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzOGUzMjJjN2JmYjMzZjMzNWViMWExMzViMWE5NWE3ZTY1NTZlNzQwOTFhYmJkODY0M2YyYmU2MWMzN2Y0ZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bc926f372ee5456f92bafc91fae8c247",
+      "statement": "Der Schließweg wird aus Ring und Banddicken gerechnet, nicht je Tier gesetzt: closeShift = max(0, 2·ry − Dicke oben − Dicke unten), shellShift = closeShift · shellFactor; beide gehen als CSS-Variablen --close-shift und --shell-shift an das Bühnen-SVG, und stage.css animiert nur diese Variablen, sodass die Schließung auch für ein neues Lebewesen stimmt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L82-L105",
+          "version": "repo-lines-v1:sha256:2483d2fbd5a0ecc6069659fee24f5e8d152bb51ac6b2aeecbb23c8615441947c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NzYyYTkyNDhmYWQ4N2ZmYTFlMWVkN2MxOTRjNDJjZDMxYTZkNTkyY2JiN2IzZWQzYjMyNjA4OTQ2MTY0Y2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhN2E5MjJmN2M5MDExNDFhZWRiNTcxYmUxYTAxOTNlNmM3MDA3OTU3MDY4ZTI3ZTVlYTFhZjI2NGVjZjEyYWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmYWI1MmMzMmRhYjY1MzkzNWJjMWQyYTc2NDdiZjY0MTg4ZDY4NjY5M2E3YWVmMjdlODI2NzkyMGRjYTNjYjgifQ"
+        },
+        {
+          "resource": "repo://src/presentation/styles/stage.css#L56-L70",
+          "version": "repo-lines-v1:sha256:c8ea2d1441f9b386d48dd77d136a2b994528237221923df5ce9cab36cfae523f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5Yjg0ZTg1ZTRkODhhYjEwMTYxMDRiMzhiMDYyZDBkZjFjNGQwMDZiZGMzZTdmZTljOGM0MGRkZDhkZmIxN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjMzVkN2VkMWQ0NWE1ZjAyMjY0OTMyZWNjNTg1ZGQ1Nzc2OWZjZGM4Zjc1NWU1NmQ2ZGVlYzg0OWM0NGM1MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmMGU4ZWFjYjFmOTY4NjUyNjNjNjc4MmJmNTI2NjE2ZjExNGNjNGFiZDkwN2RhNGM5NzkxNzY1MWZhYzU0MjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a02b98e23d5640ddaed4d1f6cac59554",
+      "statement": "splitByJaw teilt Zähne an der Maulmitte mit einem halben Punkt Spielraum dem Oberkiefer zu, weil bei 12 Zähnen je einer genau im Maulwinkel bei 0° und 180° sitzt, wo der Sinus keine glatte Null liefert — ohne den Spielraum blieb bei geschlossenem Maul ein einzelner Zahn neben dem Lächeln stehen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L60-L74",
+          "version": "repo-lines-v1:sha256:2f7aeb4cb42302507b700abbed716ceb2074a18f28f00bed236c7231d3f76c6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4MDliZGY4OGJhYjBkOWM2OGI3OWJjMWQ2MDU2NzY5OWUxMGIwOTlmODk4ZDJmZTY4NDEzOWI4NzZlZjI5ZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjYTVjNDI1OWE5MWMzMTg2MjI0YTAwZTE0ZDhkMTE1ODZhOTUxZTRmYzM2MmFjMTc5NGIxYzAzZTUwMDA0MGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3c24b52e43d4169a48a330dd78414db",
+      "statement": "geometry.ts leitet die Zeichnung aus wenigen Zahlen ab: toothPlacements verteilt die Zähne gleichmäßig auf Bogen oder Vollkreis und dreht sie zur Maulmitte, toothPath kennt die Formen cone (runde Spitze), flat und square, und teethScale macht Zähne bei vielen Zähnen schmaler (Breite 12/count, geklemmt auf 0,5 bis 1,35), damit sie sich nicht überdecken.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/geometry.ts#L132-L202",
+          "version": "repo-lines-v1:sha256:d73b6e70455afef4f831d5303d4ef1ce479cf7e6517b034415ef3c26090ebebd:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwY2I0OTc5YjFhZjdlOTA4ZmUxMjQ4Yzc1NDdhZGJmZTc2N2M0NjJkNDI1Y2RiODgzZmEwMTI2ZjgyZTY5N2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhN2FmNzg5YTJiZWNhYjY2NDVjZDJhZDBjOWVlOTZlZTM3YjRiMTIyYzRjNWFlZjk2ZjJlNzVjOWRhNmZmYmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4OWFiZTNhZDFiMTJiODRhYTQ3MmM5ODZmNzFmMjVkNDU0Njg0NjYxNDQ5NWU1NWVmMjcyMTJjODA5OTg1YmYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/geometry.ts#L69-L80",
+          "version": "repo-lines-v1:sha256:b57b6a8e7911df4964b88a23f5abc1d25c0210c8c8038abb3292ed46b849b6ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1ODFjMTY4MWEwMGM1ZWU4NGRkMGZhZTBjNDZmZDcxNWMwODc4ZDEwNTZiODUzMGM1MGZiMDY1OGQxYzNiOWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2NGM4ZTZhN2EwZWVkODU5MzIzZjhlODJlNDBmN2RiNDAxM2E2YjdjNWJhY2RiNGM3OTgwNDExOTQwNDg1MjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkOGZjNzkyZjVlYmYwN2E3Y2NhYzA0YWE4NTQwNTc5NWVmYWRkMWIzNGVkOGYzNTI4MWI3OGFkOGY5ZDhkMmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_59525926e66b4ec38ec6828b1abca27e",
+      "statement": "Die Trefferfläche je Zahn ist max(14, min(Deckel, halber Zahnabstand)) mit dem aus der Vorgabe gerechneten Deckel 44/2 · 640/285 ≈ 49,4 SVG-Einheiten für die schmalste Bühne von 285 px; wo der halbe Zahnabstand kleiner ist, gewinnt der Abstand, und der Test führt die Ausnahmen namentlich (bei 12 Zähnen fast alle Tiere außer dem Krokodil, bei 11 Zähnen Maus, Vampir und Venusfliegenfalle).",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L173-L227",
+          "version": "repo-lines-v1:sha256:75876fe860a7eb0edaa781c655f70f18e0a66d4f0fb52c6ee67d1433db4554a7:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NTljZjAzMjNlODg5ZTE2NjdhN2JlYzIxYzU4NmViNmY1MTlkMjZlZmEwMDI2NzJmYmZlZjZmYjllNGY1MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4ODM1YzczNzNhMDQ1MjJlMjY0MDhmMTZkYzI4ZjYxMGNjN2Q5MzVkMTliOGU3ZmEzNzgzZDI0Yzg2NjMyYzkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/geometry.ts#L19-L52",
+          "version": "repo-lines-v1:sha256:350f84663ada64485ee0af26e98df6543ebdcebf8bdb2507cbb179664fb26b2e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmZDk1ZTk3YmU2Y2E4MDRmMmViMjE5NGM2NGI4YjllODUzNTNiYzgwMTI2YjE1MGFiYzk4N2E1MmFiMDc4N2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkMWVhZmFiMGMxOTE4YzkxOTRhZTljNDNjODVhODY3MWZhNDJjZDJhNWJlMThlNjJlZDM4M2NkOWQzOTAxZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMzZmRkNjY2YzBkYzAwNzdhMGFhYzBlYzhmNGU1OTI0YjllNGYxYjJkOGU5YTUxNjY0NTJmNjI3OWM3Yjg3ZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a480709db8394958a136e5729884530e",
+      "statement": "Die Obergrenze von 12 drückbaren Zähnen ist aus der Trefferflächen-Vorgabe gemessen (bei 16 Zähnen nur noch 38 px); geometry.ts führt mit MAX_TEETH_HARD = 20 lediglich eine Zeichenschranke für die Rechnung maxTapFriendlyTeeth.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L22-L30",
+          "version": "repo-lines-v1:sha256:aba087417d5d67382f0793a0efb1cc03d7e5895a1e11856e46b7bc899e7376fb:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTg1MDZhYzYwNDQzYzM1YWQ2Y2U1M2IxMGIwM2E1ZTg4YTAzZjBlNWNjNzhiMmNjYzhlYzAwZGYyOTZiMmE0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGM0MjQ0NTdiN2Y0ZDk3NDI1YzVlNTlhODk5NDg0YmE5NTIyMDEzYmRhNDc4MWY0NTQyYWIyYWZmZDk3MTllZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjcxY2FkZGM0YTI0MTY0MzI1NWUxNTA4MWIwOGRiZDUyYzUwZjczZjdmMDVjMDZkZDdmZmI1NDdjOGFhNTkzMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/geometry.ts#L54-L67",
+          "version": "repo-lines-v1:sha256:f293f1bfb04da7a7c4caf6394c24d6df1500a16222c2fa1d74ab683677f5e166:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzOTQzMWJjMTMzZGI4MmRhNDFlZThjN2U4MmM2M2RmZjgyNDg1ODhkMmVlYjdkZDJjYTViYzRiNjNhZjc1MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxNzM5ZTdhNGQxOWY2Nzc5NzdiYjlkMjA3Yzg2YTlkODNjMjljOTk2ZjZhMTI3MTk5Zjc1OTBmNzE5MGFkYmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkxN2E2YWQxOTZlZWUxMmFhYWYzNTlmOWI0ODA5MTBlOTkxNGVkOGY4MzgyNjdiZWFmYjgyNWMzMTJiOTNlNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRlMTUxOGQ1OGRhYTEwZjYwZGM4NTMzYWU1YjI2MDNkNGE1NjRjOWQxNmExMzNjMTA5ZDRmNGJjMzVkODIzMjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8ba1d148cf884a0ea1a26b1d43a67f93",
+      "statement": "Die Trefferfläche muss gegen die Ebenen verteidigt werden: das untere Zahnfleischband wird nach den unteren Zähnen gezeichnet und liegt über deren Trefferkreis, deshalb setzt stage.css pointer-events: none auf alle dekorativen Ebenen und all auf .tooth__hit — ohne diese Ausnahme taten Treffer in der Ringmitte nichts.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/styles/stage.css#L176-L217",
+          "version": "repo-lines-v1:sha256:190fff95b51ad005d1544db8a8b4d318b63499a33b0ec97680d5c3aba0a4e5c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiMDhhN2RkZDBlYTMyYjVhODQwMTBjNGIzODcxYmJkMmNlNDc1ZTBmNjBjNWE4MGVhMTIxMzM5ODIzYzYwMzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwODNmY2M1Y2ExOWMxMTgxNWI1ODM3NjlkOWU2YTdjMDg2ZWQ4MzliODNhMzI4NTBkYzMyMDc0YzYzNTFkOWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_70db4fec248946c7b46339146ca98760",
+      "statement": "portrait(suffix) baut aus demselben mouthLayers ein Kopfbild ohne alles Bedienbare — Zähne als rest-tooth, keine Trefferkreise, kein data-tooth, kein tabindex, kein creature__biter — und verlangt eine eindeutige Beschnitt-Kennung je Kopfbild, weil mehrere Kopfbilder und die Bühne gleichzeitig im Dokument stehen und doppelte Kennungen die Bühne mit dem Kopfumriss der Kachel zuschneiden würden; verwendet wird es in index.astro als 'leiste', 'kachel' und 'wahl'.",
+      "evidence": [
+        {
+          "resource": "repo://src/pages/index.astro#L143-L160",
+          "version": "repo-lines-v1:sha256:ade568416df1251f94f9b50e08a6e554362a206348eaf6c9b58c77d7f01fdf6a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwZDM0OTcwNzEyMTYyNTkzNzAxNDE1MDFjNjg0NzFhMWZlYmY1MjYxNjQ5MzVmZGY3NjU4ZDg4MmI1ZTYwYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5NjQ3ZmY1NWFmMzU0NTdkNjRkYmUxNmU1NzhkN2U3MTRjN2JmZGYzYzI0MmJjNGUxNThmZWI1NDgwMDhjYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwYzRlNWQ4NDI2ODU4YzBhYWIxMjI3N2ZiMDliMTQ2OWVhYzkwNzAyNWM1Y2M3ZDEwMzNlMDg1OTQ0ZTEzMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmMTRlNGM5ZjkzY2Y2OGI2NWUxZjVjYTJmNmU1MmZiNjVlNWY4ZWM4YTg5MmUwMWZlYzJmYzMwMTNiMzIxMjUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L274-L315",
+          "version": "repo-lines-v1:sha256:bb946129c2991f62cc3413ed998f5522238892756b80b8c3e604f7e079b52bfd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwNGExZjk1NGMzZGQ1YzBiYmVmYjExZTZhYWJlMjFiNGQwYjE5Yjg5NGZmMDhlY2I0MTRiN2JiYzA2OTE5ZmIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L145-L158",
+          "version": "repo-lines-v1:sha256:efc5f644d4177f5c64f0f6ea4e507103c9882b09ab2d762fd5907a962f98ba1f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzOGZlZjY4YjM3NThiY2MwZTI4ZWQ2MzIxMDQ5NmI5NmNkNzNjZTQyOTNjZjkzNTdlYTU5MTg0YmU2NTlkMTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2YzU4NjMxN2VmYjU1ZTU3MWQ2MTI3ZGY4YmQ2ZjFjMTNiMjVjMzFmYWM3YmZhODA4OTIzYjdlYzI0MjM5YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzMDY4NTA5N2ExMDQxZjYyYWE5MzI4NTc2N2Y0NzA1MTg5MjZiNWVkNDQ3YTkyMDQzNTIxYTNkYzJjYzI4YWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a403e515ba984db4a23cfaaff331e37a",
+      "statement": "Der Blick hängt nur an Augenmitte und Ziel und ist auf GAZE_MAX = 4 Einheiten begrenzt; beide Pupillen tragen class=\"pupil\", die weiße Linse lässt mindestens 4 Einheiten Luft (gaze.test.ts tastet den verschobenen Pupillenrand in acht Richtungen ab), die Steuerung mittelt die Pupillen-cx/cy zur Augenmitte und schreibt --look-x/--look-y an das Bühnen-SVG.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/gaze.test.ts#L76-L104",
+          "version": "repo-lines-v1:sha256:b2c32bb924b895529583783097955c63c574fb418d044e40a8fc780d8f087fa0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwOGNlODJkNTc0NjE3NjY2ZTNkZjk2ODRkMTFjN2U4YTA5YTgyNTUxYWY1YWI4NmI0YjUzNWM2ZGQ3MjJjNzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlMTYzNzQ5NjVhMWJiMTRkNzdiMDVkODEzOWIwZWVhOTRlYWM4Nzk5NjFkNmFiYzhlODljNzc2NTZhZjVlZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/gaze.ts#L9-L31",
+          "version": "repo-lines-v1:sha256:74ceebe92e6fb4f51f9dec1dafda9af33f860c74e5dc6c90dafdb84a6c08f14c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjg2NWE2ZmU2OWIwZjAxMzJkYjNhOTdhYjRkMTRkYWJjNGJkOTBiNGQzY2FhOGVmNDAwNDVkYjFlYWFiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViZDgyZjY4NmRiNzQ3MDUyOWJmYzczNWY4Y2I1MDg5MThlZmUwMTE0OTIyMmUxZmJmMjZiYzM5YmNlMWIyMDQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L127-L140",
+          "version": "repo-lines-v1:sha256:6449b245a346e4977fb6dd1ba7e466edec0bc14820c65dc17994e85dc300bb72:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyYjY1MjFjMTg3MzQzNTZkMWU2YTU3OTZhZWUxMGRhZjkzMjFlNTQ2OTlkNWY2Nzk4Yjc2MmFiYmQ1YzA2ZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFkYjNlN2NkMGMzYTYyMzA0NzY2ODE2MWQxMDRlOTlkODYyMDljYTNlNzc1NGEyNWIxMTlhNDkwNzg3ODA0MjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmNjYxNDc0MmUxZjFmNjU1NzFlMDRjY2U1YTA3YWM5YzA4OTBlOTQ2M2QwZDMwNDVlNzVlM2EzNGNmNGQ0NDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5725f548cdc84716af7253fbf4883d14",
+      "statement": "Der Anker für die Bissmarke kommt aus der Zeichnung: view.toothAnchor(id) liefert die Spitze des platzierten Zahns (ersatzweise die Ringmitte), und hudView.markBiter setzt daraus die creature__biter-Gruppe samt Beschriftung „Zahn n“.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/factory.ts#L160-L172",
+          "version": "repo-lines-v1:sha256:fd6c09f06ed17b0248fb5e36abd53b414b2493493c19fc93cd8401523e4f060e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NWZhMGYxMTE3YjVlYTQwNDM0MTQwZGRlMWEzNDBjNzIwZGRiZjMyNjIxMmUxOTE4MzhkNGIxNTZkMzE2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2YzU4NjMxN2VmYjU1ZTU3MWQ2MTI3ZGY4YmQ2ZjFjMTNiMjVjMzFmYWM3YmZhODA4OTIzYjdlYzI0MjM5YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L180-L196",
+          "version": "repo-lines-v1:sha256:eb75f60fe2b54b9162369e1d46fab2d5b3bf4161502b6a1adb4373939b43d8ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4Y2U2MGU3MzgzZDRiNDE0MzM3ODFiMjVmNjQ5N2U0NjEzMTgzOTg5ZDU0ZmMyZWQ5MWRmMGNiNzYwYWM4Y2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhMzJhNGYyNmEyMGNmNjIwYjBlMjk3Y2ZmMmVmODc0NDlmZjZhYjkwMjE3ZDRmMjNkNTg1ODFlN2VjZjlmY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhYWIxYzFkZWM1YjEzODY3N2M1MGI1OTljODdlMTNhMWQ4OGFmNzg2MDdjMGRiM2I1NWE5OWRhOWU0NTg1MzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b77d68b50ec426fb9cc2854b7a7555c",
+      "statement": "Das App-Symbol wird aus der Krokodil-Zeichnung erzeugt: icon.test.ts baut es aus creaturePortrait('crocodile', 'symbol') auf eine 512 × 512 große Kachel (#0d1a20), rechnet mit maulZu die Zuschnapp-Regeln aus stage.css nach und vergleicht public/favicon.svg, icon-maskable.svg und logo.svg byteweise mit dem Ergebnis; ICON_NEU=1 schreibt die Dateien neu. Die runde Fassung nutzt Zoom 0,88 und Eckenradius 14/64, die maskierbare Zoom 0,70 ohne Rundung.",
+      "evidence": [
+        {
+          "resource": "repo://src/icon.test.ts#L29-L122",
+          "version": "repo-lines-v1:sha256:2d43c4edb42807949e39e75516b39abe1ced74367ae1e5a5a71503639458a24c:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiODhmMjJiZjllZDY2MTY0MWMxZjNmYjBkOTFiZmM2MTY4ZmEzMWQxMzcwMTUyNjIwZDM2OGYxZjYyM2FkODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5OTk4NWJjYTdlOTg2OWE2NzlhM2U2ZGNkY2MzZTYyNTU4NmUzODM0MDBlZTUxYjg0ZGU1N2I0M2QzNjMyZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlMzNiYWExODUzMjMyMmZmNmJkN2MyMGU3ZmU1ZDQ0NDUzODM0M2I2YTVlYTcwOTk4YjQ4NTU1NGQ0MzAyMmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_833f56f7bd6249cca083bfcd2377eb61",
+      "statement": "Ein zweites, von Hand gezeichnetes Krokodil im Kopfbereich ist verboten: beide Seiten müssen im brand-Block ein img auf logo.svg über import.meta.env.BASE_URL zeigen, und die Farben des Altsymbols (#2f6b4f, #1c4531, #fbf7e8) dürfen dort nicht mehr vorkommen — das Kopflogo ist damit dieselbe Datei wie das Tab-Symbol.",
+      "evidence": [
+        {
+          "resource": "repo://src/icon.test.ts#L132-L151",
+          "version": "repo-lines-v1:sha256:5f737032bfcc2f64579d1a5f94865d0517512edd0c095110d6e779fdb0aeb60e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNmVkNWRhZWI0OTEwZDg1ZWZiNzkyOTBjZWQ4Mjg1ZDFkMWM0ZDk1NWYwMjQzY2M4NWI1N2UwMjgwZmNkYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBkMjMxNTI0OGMyNzcxNGM0YThjZTVhOGU2OTQ4NWY1ZDkxYWUzZTZkOTQzYjNhYTk5NjY1NWRmMDBjZDZjYTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5NDJhMzk2MzM3ODNmZjY4MzUwMDY0ODFjOWNkYmQzNmE1MTVjNGVmNzA1OTc2MmI3NDBiNjZkNTNiYjU1NWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bb7a9d0a7c4c44319f4aa321218351ba",
+      "statement": "Zur Symbol-Kette gehört die ausgelieferte Datei-Ebene: scripts/icon-png.py rastert aus favicon.svg und icon-maskable.svg die PNG-Größen 180, 192, 512 und maskierbar 512, der Test prüft deren IHDR-Kanten und dass jede im Manifest genannte Datei existiert, und favicon.svg sowie logo.svg stehen in SHELL des Service Workers.",
+      "evidence": [
+        {
+          "resource": "repo://public/sw.js#L23-L23",
+          "version": "repo-lines-v1:sha256:d45b91bf9a0590fcda1412642df5437b20a5352b50dbfda123e7e61a829d1cfa:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1YjkxYmY5YTA1OTBmY2RhMTQxMjY0MmRmNTQzN2IyMGE1MzUyYjUwZGJmZGExMjNlN2U2MWE4MjlkMWNmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1YjkxYmY5YTA1OTBmY2RhMTQxMjY0MmRmNTQzN2IyMGE1MzUyYjUwZGJmZGExMjNlN2U2MWE4MjlkMWNmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGI5NmY3OTRmOTRjYTBkYzZmYzUwY2ZhYWMxZGU4YzMyYTU5Y2QxZGNlNWVhYTdlNzMyYTEwYjViZmQ4YzJjOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODJjYmYwMjMzOTBlNzc0ZThhNjYzMzAxMGYwOTY5NTQxZmVjNDY3OTQzYmEwNjQyMTRkMmVlZGYyN2JkNDgyMCJ9"
+        },
+        {
+          "resource": "repo://scripts/icon-png.py#L11-L36",
+          "version": "repo-lines-v1:sha256:37db881707e681d0ed7a058e4b7598cd9c2a2fff244f70cb3f5ff9e3dea0bf4a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxMTkzZTk2NTczZDQwNGZkZmE2MzQ0M2RiMDFmYzViYWQ0NjhkZjY4ODY2OTkzNzVkN2ViMjFjNzM2Yjk3OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhZmJhMDUyN2MzOTUzYzRiNmUwZTViNTczOWJhODM2MTJmODA1M2JjZGM5NDY2NzMwMTkzY2QxZDU5MGI0MDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwNjEwNTk5MGVkNWRmZWYxNzkxMzVlNTI3Y2VkNzQ1M2IwMTg4MGMxYjZjNTI1YzQ4MGE0YTFiOGE0MThiYmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1ZjI1MDIwN2NmNTYwN2RlZjk0MWM4ZDViMGQwOTdiYzE5ZmRhY2EwYjJlMGFhNzJjOTFkYjExNWM5NjMyNGIifQ"
+        },
+        {
+          "resource": "repo://src/icon.test.ts#L188-L216",
+          "version": "repo-lines-v1:sha256:c2a32ef395090afde1b389a97b396f6bfac56bf3356657cfe7b59d80b5a0432f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMTM2MTg0Yzc3NTdhNmM5ZjQ5MzdjZDEzOWI1ZTY1ZGZiMDQxNzQzYjAzZTE0ZTMzZmRmOWYwMDgyODlmOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9bb7da97d7974f10bb0d7857ca00a4ee",
+      "statement": "render-probe.test.ts schreibt für jedes Lebewesen ein eigenständiges SVG nach $TMPDIR/zahn_agent-artwork/<id>.svg und zusätzlich jede Zahnzahl 1–12 nach …/zahnzahlen/; diese Dateien sind die gemeinsame Bildquelle der Prüfungen (pruefen-zahnsicht.py, artwork-png.py, galerie.py), weshalb erst die Sonde im selben $TMPDIR laufen muss. Die Sonde prüft nur schlank und ersetzt die Vertragsprüfung nicht.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/pruefen-zahnsicht.py#L1-L27",
+          "version": "repo-lines-v1:sha256:5f387f4475fbd151b334c5d1c19a9f628cab85fbda6e1df4310c36272631de4e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkODNjZDExY2Q3MmY5ZmFlZjZiNDJiNDc2ODk4YWVmMmU4NjZhMjMzZTEzNWMxMzBjZjM1YTUzYzA5M2JiNDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkZTY4NDJkNWM1MjQ3ZmNiMThlYzJjNDM5ZTQ0NTFkY2Q2Y2U5Y2M2ZDYxMjk0NWJlOGE4ZGM2ZDE1MzUxZWYifQ"
+        },
+        {
+          "resource": "repo://src/render-probe.test.ts#L1-L54",
+          "version": "repo-lines-v1:sha256:ca2158ef8e1fece3ffc4551f29304acd0f162379e9d54c08cfca3cc879afa428:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c730aa1e530c48e2aa058d10a6aa1fd0",
+      "statement": "Die 44,15 px Trefferfläche im README sind gerechnet (2 · Trefferradius 49,4 · Skala 286/640), nicht gemessen: getBoundingClientRect eines .tooth__hit liefert das Achsen-Rechteck der gedrehten Trefferbox (52,48 px) und ist damit kein Maß für die Fläche.",
+      "evidence": [
+        {
+          "resource": "repo://docs/tiermodell-anleitung.md#L221-L226",
+          "version": "repo-lines-v1:sha256:7530c8de552da8167a942dc8c9d2763205a1f27a30ecd46fab6c87b0625db723:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGIzZTcxYWI0Mzk2MmNkOGI5YTU2ODA1ZmU0ZmQ3OTQ2MTgxN2E0YjRjNjcxMzFiMDI3OTI0OGZjYmU1MjZmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGY1ZWRhMzlmMjcyNjQ2NDhlOGMyMGZmNTBmZTk1MTcyZTJkMmQ0OWIyMDA2Yzk3NzA4NzcxZDM2YmJlMjc1NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWI2Yjc5ZWIyOWFmODUyYjVkNmU2ODFhZDBhY2Q1N2JmMDgxYzYzMmRiOWY2NjljNGUwNjQ4NDE2NjYzNWRkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQxNjFmZmVhMmUyOWUyNjJkMDZkN2JjYzM3MWVhNDRiOTM5MTNhOTI2MGNiNzhiMWQ1ZWVjNjFiZTYxMDY4MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_104a2c456fdb4622b13a82a94be98fda",
+      "statement": "Der Vertrag wird nicht nur strukturell, sondern auch verhaltensnah geprüft: das Markup enthält kein undefined/NaN, jedes drückbare Gebiss hat genau creature.teeth Trefferflächen, closeShift liegt zwischen 60 und 420, render() ist reproduzierbar, und eine unbekannte Kennung wirft statt etwas anderes zu zeichnen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L261-L271",
+          "version": "repo-lines-v1:sha256:ed6f9f493b2e657a46cd166ff01b019e543f45d01623195f6348ac3455ca8bde:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0ZjdjMzI2NDI3NDU0MGQ2MTMyYWJiOWU5Mzg2YTJiOGMzMTZjZDlkNGExYTI4MzI2ODJhNmU3OWE4Y2EzYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkODY2YTRjNzY0YTkzNTEzNGFhZTM2YzIzYzY1OTYzMDcwNWVjODAyMTVkMDA0YzI3ZTNkYjcwNDM1NGE5MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4YjdkNzgzMmE4MTQwYTJhYjMwYTJjYTI0OTk2NzEyYTc0NjIyMzFhOWYwMmMyYTA5N2YzNjI5NjZkNzQzYjMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L59-L100",
+          "version": "repo-lines-v1:sha256:ebe5df6d81918b6e5eae2f93ef2c56360c9d2d17422d8172a942d4fbf71a7a35:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlNmVhMGFiZDBjZTkwMjQwZjdiZGI0N2RiMGYxOTI2MDgxMjEyZDQyM2YyMDY1MzEyNjEyNTEzOWNkZGZlODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4Y2VkODE3MDQ2ODA0M2MyZDM4NGMxZTQ5YzY5YTJiZWY4ZDE1NzQ1YjAzMWE3YmMzNWZlOGJmMmJhYTk1ZDAifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:08179de38fc184b68a2bf583121e596e5d445c8bb4db7ef45ec55aea4eaa3067",
+  "claims": [
+    {
+      "id": "claim_537c681961384a47ab7f64228945aae2",
+      "statement": "Die Schichtzugehörigkeit wird über die Mappe bestimmt: FOLDER_LAYER in src/architecture.test.ts ordnet jede Mappe unter src/ einer von sechs Schichten zu (domain, ports, use-cases, contract, infrastructure, presentation), und eine Mappe ohne Eintrag lässt den Test „kennt jede Mappe unter src/“ scheitern.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L11-L27",
+          "version": "repo-lines-v1:sha256:65995641450ac9b662e0ed09ddfbc1e05415c0d07ba5829698dab4d3acbcbfcf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkNjljZDhiYTZlMDc3MDgyMTA2MWYzYTA3OWNhYjBhNjJkNWFjY2VkMjRhYTkxMTViNGNiZjRiNDg3ZDYyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzZmY2ZGQ5OGMxMzA2OWEzY2VmYjY2MTVhM2JkNmE2YWFkMmMyYmE2ODI3ZmFmOGJlNjBmZDZlZTBjYzlmMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0ODhlYjliYTYwN2ZhYmQyMzQ4YzU3NzJmYjYyOTdiNzQ4ZmJlYzMyZmNjZGE4MDJiZDMyZjU4YzUwYTc5ZGUifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L86-L89",
+          "version": "repo-lines-v1:sha256:9d930d1a69dd0542bc57887d30c1beabae2331d8ad0f0fa9e4bdcc118234aa51:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJmYzRmMmQ0OTgzODdlNTA4MjcyYjQ0Y2IxZThlZmFhMTBlZTEyYWUxY2IxYjllMTljNWZkMTc4NjY0OWU4MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGIzZjM5NDViZDcxZjc5M2UwOWRlYTMxMWY2ZTg1OWNiOWNkYjJlNjdiMTFjYzAyZmJhNTkwZGFmNWVkMTI2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmEzNzY4OWRiYmZkNmQ2Mzc5MDM4ZGU2YzFhOWJiNTQ2OThiMzcxN2ZkMGYyNWMyYWU3M2MwODcyMDNhNTAxNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ab2fc26a93548d88a1e7cb26a774338",
+      "statement": "ALLOWED legt je Schicht die erlaubten Importziele fest: domain nur domain+ports, ports nur ports+domain+contract, use-cases nur use-cases+domain+ports+contract, contract nur contract+domain, infrastructure alles außer presentation, presentation alles — die Mengen sind Aufzählungen ohne Platzhalter.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L66-L76",
+          "version": "repo-lines-v1:sha256:69bd929944bec4b901a1c86d48c01506a10ed51277f5309515c17415d1c0b0dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZWE0ZjM4N2ExNzQ3ZDllMGJkMjk3YjU2ZWNmOTU1YzBiZDMzNzQwNzYzMDc4ODJiNzQxYmZkYmY0YzIwYzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwY2I5NjdhZTVlYzNmNGUxMGQxMjdhNGYwN2QwYWNmNDA4ZjEzYzIzZDc1NThiNjE2N2Y0ZTU3MDk3ZTE0ZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ3Y2ZkZWUxMWUwNGUxMTg3Yzg3Y2NjY2RjNDc5ZWZhMzlkODE0OGIxYzc5Mjk5MDM2NGY4YWQ0YmMzMzA3MGQifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L29-L37",
+          "version": "repo-lines-v1:sha256:fb191555b8e6416169f7e7264cf2898324c79a32f610cb98838abab10abc638a:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdlZDNlZTVhYzNjZjNlN2RlNmUzNDlkZGQ1ZTA2YjdjYWI2MzRhZmE0NTU2MDRhYjEwOGVhZWNiOTU0ZDUxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWExZDFhNjMzOTAyMjljNzk4MzQ3ZTgzYTA0MDU0NDFjOTQwMDAzNTI4NGFkMTY4YzFiZjZjZGYxZDcwYTM3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjUxNjlhYjQyZGIzZjBhZWRlOGE1NWQ5NmRhYWI5NmY0NzRhYWEwYTQ0MTAyODBhNTY4NzU5YTNkMDI2NGE4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDY2ZDZmZjgyNjY0Y2FmYjczYWE4ZmVkNWQyNDBlNzM0NTA3YTk3Zjc3Nzk0MDljMDc5NTZiYzQ4YmQ0ZDMxOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4821477eb6e4ecfacfa23c5bbffc821",
+      "statement": "Der Schichtentest löst jeden statischen Import einer Nicht-Test-Datei über den Dateipfad zur Zielschicht auf und vergleicht sie mit ALLOWED; node:*-Spezifizierer sind außerhalb der Schicht infrastructure ein Verstoß.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L67-L83",
+          "version": "repo-lines-v1:sha256:292b8408c69cbaea567fee639107adfa2e971be983c54ad9cdfc4e29efceba46:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzZDhhNDg4OTQyNDBiOGY3MTE1NzVmNGQzNGU0NzFmMGJmYWI1NTE5NDlhNjE2YjUwMGZiZTZlNjhhNzNlNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljODZkM2I2NGM4MzhhNmFiMDkyODc0MmQ5YzRjNmJkOTE2MWNiMjViZmQ0OGYxNzUzYzNiOGUwMTliZjBlNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4N2RlOTM5ZmVlODRhMTdmNTc2YjBiNTdiOTlmZTRhYTRlNmEwYTY3MDkyMTkzZjZhYmI1OWU5MDcwYjFiZjUifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L91-L113",
+          "version": "repo-lines-v1:sha256:d99108bbf54b7a0343aa1414ccf3cb834418abe85322d172d8b59d5ea5f7eeb3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmZDIzMzIxODU3OWI2NWM2NzRlNTFjMjcyM2E3ODJjMjZiMTBjY2Y5ZjE1YjA0NjEyNjAwY2NjYTYwYmNlZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyYWMyN2UyZmI3ZTU4YzZmYmM4ZmU1YjY1ZDBkNzg4MjVjYzUxN2U3ZDZlODAwMWQxZGE5OGMyNzAxNGFiZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxMjI1MDMzYTcyMDg1YWVjYWYxZjg5ZmEwZDQ2YWUzZWMxYzI2OGE0NWE4Y2NhOWM2NTlhN2U5NTM1Mzg3NjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2492d546e2d1425d8f44a6fa9b27a03c",
+      "statement": "A8 ist als Textsuche über den Dateiinhalt umgesetzt: In den Schichten domain und use-cases sind document, window, localStorage, navigator, performance.now und new Date( verboten — Kommentare zählen mit.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L88-L91",
+          "version": "repo-lines-v1:sha256:630891af40ef8c537dfd2a22857ba7370ee6b6c06962314918253fffe76e2d55:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTIyMGVlODVhN2Y3MWI4MzU4NzhmNjk4OTY1ZjBlZjBkZTY0OTM0NTYyYTEwMWRhY2UxOGE5ZDg5MzNkNmVmZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU0Y2JiNWJlNWVlYjZiMzUyOTAyODM0N2VkNzgxM2RlNTJlYmZlMzcyYjA3N2ExMzU0Y2NhNTU0NzNiYTgyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDE1MjdkNzY3Mjc5Yjc2Y2Q0MzFmMDEzNTkzOWRiNDc5OGIxZjI1MzIwMDc2MGFkZGQ2MDVhMTMzY2FiZTkwMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2Q4MGZmNmNjMzMxNjAwZWJjOWVhZGU1OWM2MTc4ZmVjOGFjNzIyM2U2NWEyYzFhODdmNmJkMzQ1NTAwMWU1ZiJ9"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L115-L132",
+          "version": "repo-lines-v1:sha256:25005ca8270c3761a9946dda9b3f821ba9781d82d65e2bb4b5baaa845fcd427d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1YWY4YjcyY2JmZDQ3NTUzY2FiNDY1MmRkZDI5MjVkZWViNTk2YzE3MTgxODYzMjI3ZWJkMDZjNWIwNzI5NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNjMzOTU3ZjFlNDkzZmU1YmZkNmM4ZDc5NmY1Mzg1ZmRjZThjMmM4OWVlMjM2YThlZTg5YzY5MGViYTA3NmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_93b1432e134e4989b62319f5982c4490",
+      "statement": "Testdateien sind von der Schichtprüfung ausgenommen (SOURCE_FILES filtert *.test.ts heraus); deshalb dürfen Tests quer über Schichten importieren, etwa core/domain/round.test.ts die Attrappe SeededRandom aus infrastructure/testing.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L55-L56",
+          "version": "repo-lines-v1:sha256:4c148dc0f1a8c6ac99a652a2c8c05771a3e5ff9964a7d756acfc01ac4633a016:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDMyMGJmMjRlM2JkMjc3ZGQwMWQ3MGYyZjI2OGE1ZTk4ZjE4NmQ2YjFiMTFhN2MyNjJiMTA5YTFhNDk0OGEwMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWFiMGQwNDBlMGE4MDhhZThmNTQ2YzhlN2QxOTJkNTVmZDVhMzYyMGJlMTJlYjhhNzAzOGQ5MWUyZjI0NWI0OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjkyMDI3MDdlNGZmMGZlN2NiYTMzM2Y5YjJiMmE2MTVkNTIwZDc1MzA2ZDVjZTVmMGZmODM5M2UwZWMwMDBkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2M5Mzk2MmJmMjQwNDRkNTlmYmRjYTQ2YWY3M2I4NzA1MjlhNDcwNTVjN2RhOTY3NDlmYjlhNDNhYTQ2OTBkNiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/round.test.ts#L1-L10",
+          "version": "repo-lines-v1:sha256:22b758fda62560d8f9c11c6cd57c90320b49e48d2ba084a14b20cb400c0b8b2d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2MDNhNjRhNzkzYWM1ZGE0MWZiZTdiYjgzYTM2ODNiZWYzYzc1NTU3NTQwN2NlOGI1YThmMjM5YzMxMDE5NjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlYWI2MGQ2ZjA0N2YxMDE2MGE4YWNhNjhlNzY4OTNiYTBiNzM5ZGZjZTc4NjI5MGZjZjBkNmFhMDhjMzkxNDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2ebfe546d3114ed9be77d93c62ac3300",
+      "statement": "Der Ordner contract ist eine reine Weiterreichung: contract/sessionLog.ts exportiert den Typ RoundRecord und die Konstante CSV_HEADER aus core/domain/records, und die Bedienung bezieht RoundRecord aus contract statt aus dem Kern.",
+      "evidence": [
+        {
+          "resource": "repo://src/contract/sessionLog.ts#L1-L6",
+          "version": "repo-lines-v1:sha256:798639424f417dd5b35df5457bb7a7d528645e5ec7984ee86ab006925087cbdd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMxZmMwY2RmMjlkZjlkODIyOTkwOGNmZDNkZDA2NDg0ZmNmYTUwZjA5NmMyN2E3YWNlOGZlZTA5NWZmN2Q0NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:7ef414a82bcd7c27912fa7484ffc886e616441fb3c8b1f407438c2369aabc188:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTRhNzBmYTJlMGIwMjdmNGExYzY3ZjZiZTMxZTkyY2UzODBhYTRjMDQ0ZGUxOWIyYjVjZTdjYWE0YzBkYzU3ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGEzZjAyNjAzY2ViYzBjM2JmMWQ5MDY2Y2JiMDczZWNlODU1MThlYWU2YmFmODZmN2VhYTMwYjA5MDhjZGI0ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQ3MjRhMjU0NDk3NjgzMWJiMDExYzM1OWFjNDAxOGRlOTRiNzI1YTA5YjY5NWE1MzQ2NWNiYWUwNjNiOGVkOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e133df2b312542c08a55b73d45391595",
+      "statement": "Der Kern kennt die Uhr nicht als Abhängigkeit: RoundRecord.playedAt ist ein ISO-8601-String, den die Bedienung setzt — createRoundRecorder hat dafür die injizierbare Abhängigkeit clock?: () => Date (Standard new Date()) und schreibt playedAt: clock().toISOString().",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/records.ts#L3-L9",
+          "version": "repo-lines-v1:sha256:82c35cf5678f1ecbe9fee2a08e89ad8e57d26192e9ba6b2e7632973a5ad4ab6c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYThlZmY1NmIwNzAxNWRmYzM3ZjI5OWUwZDQ3ZTcyMDM2NDRjMTUzZmE3OTgxZjIyMjM4OWZlMTIyMmQ0NzJlYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmNiNDRmNTk5ZGIzMGZkZDdiZTc4NTcyZTFkNTBmZTQ1M2M1YzkyN2I0OWNlOGRlZTQ3MjU4OTU5YzFmOTU2MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZmNWZlMWZiYzMzMWJkNTUzYTEzNjlmOTgxNzExYWIxOTRiYTEzMWVlMjIyOGE1Nzg0YWQxODU0NDVjZWQ1NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTI4MDVjN2EwYWNmZDZmNzIxZTQ5NDI2NTkzMWZhYzMwZTNmMWM4ODZiNDZlYWUyNjJmNDA5Mzg3YjM1MmUxZiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L41-L52",
+          "version": "repo-lines-v1:sha256:aee0b41497463d2d83311bd963cb1e5ca963e79e56d6fd064662750645e056a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjYjcwZTAxMzU1YjJlOTA4NzNlODRiOWEzMTZhNzg3NDQ1YmRlMDRkOTkwOWVhNjFiNWE2NmY5ZWFlYWVjM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxNWU4Mjg0ZGZjNGJiZWE2OWI2NDA2YTQ2YzQ0MDhiODhkNTVjZmE5NDFjOTJhMjIwM2IwNGE4NjFlNGMyZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZmNjRjZDE1ZjEyMzViZjk1OGFiMzljMTU0YjFhYzg5ZDljNGU3YWQwYTA4ZDJmYjA0MDJkMjMyY2UxMjRkNmMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L7-L12",
+          "version": "repo-lines-v1:sha256:029004ac7fb31de8cf69b44033c193ebccd729a14f2f7d34982436c6db5ae32a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjc1NDY5ZjczMjlmMDJjY2I4YjRjN2QzMjRkNzllZmZkNTVhNmZkYmE3ZGU0MTk5YWQ4MWJmODMxNTJmY2M2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmNkZGU5Y2EzOWZlYWIyMGI0YmIxYjliNmFhNWY0NTZiYzkzODkwYjYzNzM3NjJjMzE5N2Q4MjNhNWMwZjMxNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjgwZTRmYThlY2I4NDMzYjM0NTFmNjQxZjVjM2Q2YmRmODMyMDJmNmFlMTJiMjE2NmNiMDg5YzlhZjc4OWY0NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b4107120d8a74422b0a77a665120aa90",
+      "statement": "Der Kern vergleicht Zeit nur als Zeichenkette: mergeRoundLogs erkennt dieselbe Runde über den Schlüssel playedAt|creature|teeth|mode|pressOrder; statistics und album werten Runden und Drücke aus, ohne die Uhr zu brauchen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L226-L256",
+          "version": "repo-lines-v1:sha256:68e3ec14fa5133797e08d69512bdcf6497171d39007ea0130cf3c83e7bcbb493:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZTBlNDg0MDM2YjM2NjNiNjI0YmJkZWZiNzg3MTY2NzY0M2ZhNGY0OGFmYzE4OTA3ZDkxMzI1NjVkMjg4YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a757b0c151d04e8ca7e9a9a8f76341a8",
+      "statement": "Nur vier Ports ruft der Kern selbst: RandomSource und LiveTeethSelector kommen als RoundDeps in openRound und playPress, RoundLogPort und RemoteLogPort in syncRoundLog; SoundPort, HapticsPort und SessionMarkPort werden ausschließlich von der Bedienung benutzt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/round.ts#L19-L22",
+          "version": "repo-lines-v1:sha256:a610f5b053028f637008a8cf5983c087acba13c083649c4df3a4b9fbaecfd0a8:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzRlYmZjYjk2ZWU1OWNiMGVhNDNiYTg4NzRlMmM2OTEwNGFjYjhkNWI1NzgyY2RkZDRiYzI0MjQwYTdmNThhNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVjYzhjN2UyZjkzOWJlNzExNDEzNDk2ZDc4MTkwYzkyYjMxYTdmODk1Zjg1NjRjNjNiNmYyNTFkMzY2NGQwMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY1OGM4M2FiMzQzZmZjYjU0NjU0NmZjNGRiYTllYjIyYTJmNDBiODBlMjc4ZjU0Y2VmNzNmODk2NmI4Njg0YiJ9"
+        },
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:61b7cab6f1525dbdc54f663df06de66f75e871ee4863811e6b8b3ae55e887d4d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGEyODYyYjQ3NTJmYTUyNzdiMmM0YTA3MzMyYTQ5ZmZlNDY1ZjE5NTVlODM2MmYyNmVmMjdhYzc5YjVhMmY1ZSJ9"
+        },
+        {
+          "resource": "repo://src/core/ports/sound.ts#L12-L13",
+          "version": "repo-lines-v1:sha256:83a9784e780c5bf5ac4f55574f13fdb7430d123fc00efbf9cc7d474717356fe4:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzRlOTdjZTFlN2ViY2JhNGFjN2U5YjU1OTk4NjcyNjRiM2M3YTdlMmYzYTdkNTU1YzJhYjVjZTFiNTVhY2JlNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWI5NTA3YjhiZTBhZTJjYzQwM2QwZTdlOWFlZGE0Y2M3MWFhNTY5ZGVmMWYyZDk5ZGM2ZTBiNjFiMTczZjdlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTExN2QxMzFjMjM2ZWNhOTkxMmVmZGFhMDdkNjE0MmI0OTM5ZTBkNjQ3NDliZGUyMjZkZmJhNGNhY2FkOGM4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWE4MmI1YjZjNGM2ZGYwMzQ2NDkzYWU4OWJhYTA4ZDEzMDQ4NmRhYjM4YmU2ZWIyMjA1YTIzOTA5YWMzNWMzNCJ9"
+        },
+        {
+          "resource": "repo://src/core/use-cases/playPress.ts#L19-L23",
+          "version": "repo-lines-v1:sha256:e0cdb401addddd12d900b795c177dc03e6ffb1fc36412ff81fd6850b8a33c716:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjc4MTZhOTViY2YxN2Y1NzQwM2U2YjgxOTIzM2E0MzYzZjgzODc5YTM1YTM0MDQwODZkYzhmNzZlZTMyOWE1MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQzYzdlZTdiZGIyN2MwZDA3MzJmZjYwM2JlZjkwZDRiNDNhMzViMGM0NWJiNmU2ZTk5NmQ2NTVlNDhkZDg5MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWMyOWM5YjY4MWI5OThhZjAzYTRiMzY3NjVjYjIwY2Y5MzMwMGNiMWMwMTZlYTA3YmU1NTQyNTZmZGY2OWMyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJmNDZlYzQwMzhhMjM5M2Q1ZTE5NDgwMmYzZmNjZGQ4Nzg0ZTEyZDMxYTI3MWJiMWI1OGEyZDJiMmM3M2VmMCJ9"
+        },
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L20-L21",
+          "version": "repo-lines-v1:sha256:ecd8c3f79b6f0c4e968cba896c67e95f9d914936c18b0282fab637b336d450de:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmM5NWJjYWNkNjc3YjZiN2E1NWVhMjI5ZjlmMmY2ZmFiYWQ5MmViNmZiZWU4NDdlNTE3OTcwMjJiNDNmMjIwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYThiYjA4ODQyYWQyNWIxOTNlODg5NjZjNGU0NDU5YmJlN2YwNGQ1OTIxNWU1MjMzZmIxZDM0MGE4NDhkOGVhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M5ZTU0MjBhNGFlZTczZGY0ZGM5ZDBmZWU2YmFkNDFkZTg0Nzk3MjMwN2FhNTI5YWFlMzY1NDQyZGI3MGE3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjI2OTkxMGVmNGFmZWU4NTljODdjMTdjYzcyYTkyN2E4MWVlYTdkOTNkZDI4NWRhYzFlZDA3ZTZmZjU0NjJkMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2a7ea8e4bb8f4284a08bc0ba14995956",
+      "statement": "SoundPort, HapticsPort und SessionMarkPort liegen in core/ports, damit die Bedienung gegen eine vom Kern besessene Schnittstelle programmiert; die Ports tragen die Konstanten mit, die die Bedienung braucht (TAP_VIBRATION_MS, BITE_VIBRATION_PATTERN, RELIEF_VIBRATION_MIN_MS, METER_HINT_KEY), statt sie zu duplizieren.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L13-L19",
+          "version": "repo-lines-v1:sha256:4eb5c644d5aba2bce42875431b6acf7ef7c8accf7593808d770f0e0d0f54d5e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljZDVmMWY3YTRhODI5NGJkYTM1ZTAyNzI4NWRhNTliNmMyMGNmZWUzNjk3YWRjMTZkZjBkODEyZDJiNDRjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZiOGRkOGY2MzRhN2YzMmY5M2U2NWU4YTI5ODc5MDY2OTYyZDQ2M2EyODMyNmJlOGU4OTdmZjhmYjVmYWIzZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzA5ZTQxZDJhZDdhNzgzYjkwYjU2YzkzNmU4NzY0ZWI1Y2MwYzc4MmRmZWEzYWNiZDJlMTc1YmQxYzE1ZDZmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDg1MzU2MmY4YTI1NGI0MzAwYWE5MmY2Yzg5NmI0YjhhOGUyZTdiYTVhNTJhODM5MGNhZjYxZmY4YTkyNmM4NSJ9"
+        },
+        {
+          "resource": "repo://src/core/ports/sessionMark.ts#L13-L14",
+          "version": "repo-lines-v1:sha256:2d56f892b21c3b07e72a2bf95ec5860193bf39c5a62f56702007d9c60a083172:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWE5NTZjZWRjZjM4MmFjYjMzMGQ5OTRjOTAyYmU1ZWMzMDBiZWVkNDNjNjNhOWI5ZTJlYWVhMGEzYTBmOGQyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjE2MGJiYWYxNzgzN2ZiYmNlNGIyMTA0M2VjNTQ4ZDE2MDFmZmM0N2I1NzRmYmNiNjk5OTg2MmIyYmUzOTdjMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODg0NmE1YzhhM2Y2Yzk5YmVjMTdkYTJiMmEwNTEzNzA2N2NkMmQzMzM3MDg1OWEyMjU3Y2YyMzQ2OWE4MzliNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L1-L5",
+          "version": "repo-lines-v1:sha256:8ae5570bf403cba626b5f3a1bc7726ff0bd1e63507d7c7b8beadd17cb0ae0e34:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWUxNDc4MGFlODhiMjgwNWZiMDRiODk3OGJlOTU4ZDQ5OTRiYzRmZmM3ODA5NTMwMzkzYmFlMTM4ZDBiNmU0NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWY3NzU1YjMxMTI5NzBiNjNiZWZjM2Y4YzRmYTAzMjFiMWNhZDI0OTAwNjhmZWFiMmRlNWNkNDFmMmEzMzk4NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmM1NmZkZGRhMWY0Njk1NDkyYjJkNzM3NThhYWFkODhmYTQxYWM5ZDA0ZGNlOGJhMjQwMWE5ZjczM2E3OTliNiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L1-L6",
+          "version": "repo-lines-v1:sha256:c7396c50baaa1fa8f91356244ff6170cc080459b528d75d85c93c3ce64592634:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgwNWU3NmY5MDBhYmZkY2ZlZDY5NzhlZDZlYzFlNDdkNjhmNjIxMDYwODlhYjMxOGU3NGVhYTZiZWEyMGI2YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2U4ODk4ZTVmYWExOGI1ZjFiMGMwNjY0NDIwZTIwNjhiMzIyMjJjMWRhMjcwODQwMmM2MmQ3MzY3NTBlMGMwMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a669984c77bd43e988ade990cf52f353",
+      "statement": "Ein Port braucht nicht zwingend einen Adapter: die Standardauswahl der scharfen Zähne (UniformLiveTeethSelector) ist reine Rechnung und liegt in core/domain/liveTeeth.ts, während RandomSource keine Kern-Implementierung hat — die Produktion nutzt CryptoRandom, Tests SeededRandom und ScriptedRandom aus infrastructure/testing.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/liveTeeth.ts#L20-L31",
+          "version": "repo-lines-v1:sha256:452d188aadda3a7d90ad4f61e76cc672d0614ee1c85b2ff75dc7f3c49e355b29:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0ZmRjZjE5MmU2MjI3NWQyYWZmZmM3YTQxMjU5YjkzNWM4MjJmMTlkOWEwMWUwMmNjMTQ3MzI2NmQ3YTJjMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNTZjMmQ5YmVkODI4ZjVkOWM5ZThlYjcxN2RmOTJiNzg3OTdhNzRhMzU2M2U0NDNhZDA3NmMwZjZkMDhkMzIifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/random/cryptoRandom.ts#L3-L8",
+          "version": "repo-lines-v1:sha256:6bbb86bab4ba9e283f22351c71ed348d324f2db2ec2a4928d18810601b0c2fa4:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU2OTYzNjA2ZTdmZTAxNmJjNmFlMWUyNWU1NWZlZDA2Yjg1NTY2MjRlNzE4Y2VjZjI5N2QzZmY1YTRmYzFkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmFjYzI3NTMyYzNiOWJhYmE5OGNmNjM1NjcyMGJlMjQ2ODgzOTUxN2FhNmY0MDBiMzVkMmVkMGM5YjJkZDUwMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjdlMzI3ZjA5MmE1OTlkZjA5ZTNiZDFjOWY3OTEyM2MwNGQxMThlMjIwZmQ2MzM0YTY5NTZjMDAwYjRkZDA3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQ4ZDY5NDBlYjMxMzQwZDU2NmQ3ODkxMjQzOWQ5YjdiOTFmZGMwNjA1ZTZjOWYxYjQ5YTg2YjAyOWFmNzZjMSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/testing/scriptedRandom.ts#L3-L20",
+          "version": "repo-lines-v1:sha256:1a26965bf8c4d9c7676caf40688815a008581e5f5b9a9378a251ae496ac4e20e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMyMDg1ZDgzYTcxMGY5N2Q4ZWU1NTYxYzU0NDQwZTVkYWI4MmFjZGUzNjUyMzYzN2MxNjMxMmQyZWI2YzkxNDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3ZTMyN2YwOTJhNTk5ZGYwOWUzYmQxYzlmNzkxMjNjMDRkMTE4ZTIyMGZkNjMzNGE2OTU2YzAwMGI0ZGQwNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/testing/seededRandom.ts#L3-L19",
+          "version": "repo-lines-v1:sha256:9af53bf648c75e9aa55213a9320b0aee5869babd65f9247f2f50e469464b37f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOGI5NTVmYTg4MmRhYWViOTY1M2UwYTA4MWJiMmM5OGFlZmZiZGY5OWQ3ZDBhMjRjMTlmZmRjYmUzMGVkYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3ZTMyN2YwOTJhNTk5ZGYwOWUzYmQxYzlmNzkxMjNjMDRkMTE4ZTIyMGZkNjMzNGE2OTU2YzAwMGI0ZGQwNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bbb4bda695f34b0d8d22fa57e93c5ef6",
+      "statement": "LocalStorageRoundLog erfüllt RoundLogPort mit Rückfall in den Arbeitsspeicher: scheitert das Schreiben (privater Modus, voller Speicher), gilt bis zum nächsten Erfolg der Speicherstand im Arbeitsspeicher; Gelesenes wird mit isPlausibleRecord gefiltert und frühere Schlüssel werden einmalig übernommen.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L21-L60",
+          "version": "repo-lines-v1:sha256:1cfa892a74eb6db172664c5095cd0a1e449e2e332390d09f942c19bf36a78b27:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjMTZlODRjZTg2MzJiYjQxZmZmOWYzYzQ5MWRkYmVlOTgzZTZlZTJkN2ZmODJmZDkwOGViOTQxY2Y3YmQ5NGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlOGNiODVjMTY0ZjVlYzhkM2Y5MDhkMWFiMmJiNjdlZThlMmE2OGU2MTc1NTY1N2Q1NWZhYjUwZmMzMGFlOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhNWU5MDZkYjFkZTQ1MTZjNjkxNzA5OWYxZTBhOWZjMDExM2M2MGFiZTZlMWJiMjBkNTk4MzEzYmMwMWE2NTEifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L77-L109",
+          "version": "repo-lines-v1:sha256:46aa6ae85f6f98f66a5d10f4204b98219ac3be20b49cf56bce002a5f7a533d58:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwNzE2ZmFjMjYyZTQ0MTMyZDE2MzY0ZWQ4NmQ5YTY0YjhhNTY2NjExNjJmMjZlZDAzZWVmMGFhMzBhOTAxNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c123809361404cd99e720970604b291b",
+      "statement": "httpRemoteLog erfüllt RemoteLogPort über den Worker: backupUrl baut api/log/<code>, pull liest mit cache no-store und filtert die Antwort mit isPlausibleRecord, push schreibt mit PUT und JSON; beide werfen bei non-ok, und wer sie ruft, entscheidet über die Folge.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/remoteLog.ts#L1-L10",
+          "version": "repo-lines-v1:sha256:cf667b3c30b5e9eaaac772cbdaa200833d85b44356131cfd4e17a06bac5464f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyMTUzNGE5N2JkZDYzZmYxMWFiMTdlNmFhODkxMGQ3OTFlZmRhMmQxNzJhOGUzNTYwZjg0OTFlZWUyNDFjNGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L41-L78",
+          "version": "repo-lines-v1:sha256:4a31a29f7938483fc3f8cc92607e004d46b555def866446d335facb9bee6c94a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YWRkZjI0ZWE0M2ZkZjc0YThhYzVlZjU0YWEzYTc4M2M4NTRkN2UyZmY1YTExNjZmM2FlYmVkYjAxNmQ1MjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7fb58a9db5974aba9bf538d3ef775f18",
+      "statement": "Der Kern wirft genau einen Fehlertyp, DomainError, mit geschlossenem Code-Vokabular (tooth-out-of-range, tooth-already-pressed, round-finished, invalid-tooth-count, invalid-player-count, unknown-creature) und englischer Meldung; die Codes sind die Schnittstelle, nicht die Texte.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L210-L216",
+          "version": "repo-lines-v1:sha256:aebea6cc5c138c5746b7bb1b88561fe12f8a9fbbf98a9829bdbbd48f6a0cf7b9:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzc5MzE2NjNlNTMxNGQ1ODNhYjE1NmY2MjNlOTJjNzJmNjU2NzJjZTgzYTUyNTEwNzE2OGQ3NzRmYjY0NmU4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzIzNzNhM2EzMzM5M2ZiY2E3NmNjMzM0ZTg1YmJmYTI4OGM0OThmM2NhMDQxMzVmYTA4YzI4YzM0Mjk5ZjdmMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc5MjllOTFlMGY5OWMzZTgyNWRlNjliNDM1ZmI2NDg0ZDFiMGExZGYyZjQ2NTYxYWJmMWEyOWYwNDE4OGI4OCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/errors.ts#L1-L17",
+          "version": "repo-lines-v1:sha256:a8bd1b8df2e7878c7341dafcc52385013b5db160d65cac70f94d8f07a261e90d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkZDg4NjEzOWQ0OTNjNjI5ODA2NGY3MjAwMDEzMDE0ZmU4ZjkxZGU2N2ZmMDZjNmRmNmNmODcyZDQxYzFlM2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/round.ts#L69-L88",
+          "version": "repo-lines-v1:sha256:0d26564d7dc1c5c210d74b826273548d4008ca2b524c8085ea84ac29b75ce5d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMTA0MmYyNmE5NTMxZTkzOTgzYmFhY2I1YjgxMDVlMTk0ODJjODQ2NmFkMzVjZDFjOTdmOTE3NWVjZjY5N2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkODJkMjEwOWY5MzNjMzRkODkxZDc0YTVkZTU4N2EzODZkYTc4YjEwZDRlOGRjYTI4ZDRlOGEzMzg3ZDQ0OTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_479f58304a144915a1dfd464b67d7c9d",
+      "statement": "Die Bedienung übersetzt DomainError nicht, sondern verhindert ihn: GameController.canPress prüft busy, offenen Rundenstatus und bereits gedrückte Zähne, und im Quelltext gibt es keine instanceof- oder code-Prüfung auf DomainError — deutsche Texte der Bedienung beschreiben Zustände, keine Kernfehler.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/errors.ts#L9-L10",
+          "version": "repo-lines-v1:sha256:e01594dbcc57a99d1e54b7a1e4a41fff201e5c0ddc8d97f464d178874d1b4994:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzEyODE3YjljMmY1ZjgyZWZkMTRhYzNlODc2Y2JhZmU4YjQxMWNiNTRiZTliMGIyN2ZmNWZmMjk4ZDBhMGFkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjA2MGQ0ZGI5YzE5YjA1YmI2ZWU5ZTc2Mjk1ZGIzNmU0OTU2ZTg0OTg2ZWE1YWM3MGEyNGUzZjkyOTFjYWRlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjU4OWFjNTNmNDIwMWVmNTViM2M2ZDhkMTJhNDJkMGRkYjBiODM4NzA4NzkwNmMwNzI1MDE1ZGYyMGNlZDY2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDY5MGNiODRkMDU4ZWZkYWI2YTEyNjE4MWI1OGYyNDZhZDBjOWRiYzJlNDlmM2IwZGM3OWE4NDFhOThkM2QzMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L162-L164",
+          "version": "repo-lines-v1:sha256:3c1f223124c75d7574304d3ad3d8c77c6160717c426b1c214f63a462f569365e:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTU5NTY3OWY5OTRhMmEzOGE0MzI4ZmRlNWExNzkwODlkNzRhZWY1ZjdjMDJkY2I3YjBkZjJmMmVlNmQ5M2RjYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTExMWE4NWIxMjZlYjFiNzAxOGQ2ZTQ0MjQ4MWM0ODUzNzYyNTMzNzEwZGNjYWUxNTY1NWEyMjFiYzkxODEzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDk5MDJmM2JhNzYxZmNkOTYzNjFiYjRkOTc2ZjE0N2YyNjI0ZTM3M2VkZWI2MjVkODgzOTcyODcxODY4Y2UwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a5b222c40d214e9ea3b32c400c4caad1",
+      "statement": "Gelesene Einstellungen werden am Rand der Anwendung bereinigt: loadSettings klemmt die Spielerzahl auf 1..MAX_SELECTABLE_PLAYERS, übernimmt teethOverride nur bei isValidToothCount und ersetzt unbekannte Lebewesen durch das Krokodil — der Kern sieht so keine ungültige Konfiguration.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.ts#L42-L58",
+          "version": "repo-lines-v1:sha256:d514f610fe01823200749bc54568887af4d0ee4786c5a66ae2016c9f5da06d54:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4ZTczY2Y0MzYwOTE4NmJjNDA4Zjc4NmE3MjNiN2ViNmZlNTc4MjQ5Y2NhNGY1MzEwODI0NjJiMzJjMDk0MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4MjJjNTg3OWU3MGQ2ZjgyMzQzMzNlNjFlMzYyYTJjMmRmZmJhMmZjNTFjYjhkNGY4M2MzZWMxZjVhNGNlYjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkMDM0ZmU4ZWM3MDFiMzYxYmRjOGE0Njc1ZTEwZTI4ZTE1YzZlNGI5MzE5NTJhZmE2NjViYjVlNjBmMDQ2OWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_637200f1bf994615838f6bf268aaaca0",
+      "statement": "Der Wächter prüft nur *.ts unter src/ und nur relative sowie node:-Spezifizierer: .astro-Seitenskripte und CSS werden nicht erfasst, und ein Paketimport liefert null und gilt als unbedenklich — tsc liest ohnehin nur src/**/*.ts.",
+      "evidence": [
+        {
+          "resource": "repo://src/architecture.test.ts#L41-L56",
+          "version": "repo-lines-v1:sha256:4dbe7ba408eb10cdeb974d2a198328e70b2c992a561fa23690b094666af2536f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYzM1NmY2YzEyZWY1YmQ4MDgxMmJlMzU1ZjkzYWZjMjExYTM1YTEyMWUwMTk1ZDE1MjQ0ODEzMTIxOTA0ZGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhYjBkMDQwZTBhODA4YWU4ZjU0NmM4ZTdkMTkyZDU1ZmQ1YTM2MjBiZTEyZWI4YTcwMzhkOTFlMmYyNDViNDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2NmQ2ZmY4MjY2NGNhZmI3M2FhOGZlZDVkMjQwZTczNDUwN2E5N2Y3Nzc5NDA5YzA3OTU2YmM0OGJkNGQzMTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdjOTM5NjJiZjI0MDQ0ZDU5ZmJkY2E0NmFmNzNiODcwNTI5YTQ3MDU1YzdkYTk2NzQ5ZmI5YTQzYWE0NjkwZDYifQ"
+        },
+        {
+          "resource": "repo://src/architecture.test.ts#L72-L77",
+          "version": "repo-lines-v1:sha256:c204336d4b13f69bd61f6ff36169a83da3949f2a85e2fe291ef4548af6977f4e:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjBlYmI1MzJhMTczY2M1MDVmMmIwNzZiYmIwNGU5Njk1ZjhmZjI4MWQ0NWZiNDM3ODgwOGJlMDU1ODJkMjYxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTUzOGQzYjE1ZmIyOWNlOTMyMzY4YWI1NDJjNjBjNWI1YWU1NTU4YzNmMTM2OWFmZGVjZmIxYzg1MTBhNTQyNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWMxNzBhZDM4YTA5Nzk4ZDk5NjUxMjMyZGJmZDEwMzBhMzhhZjMwNTlkNjU4NWM0MGNmOWM1M2JhZTM0Yjc2YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmYzZmU5NTA0NWI5NmNjY2MwZDY2MjExMjZiOWMzZmMxOTlmNWUxYjFjYzJjN2IzOWE0ZjI4ZDI0NzFmODE2NiJ9"
+        },
+        {
+          "resource": "repo://tsconfig.json#L7-L7",
+          "version": "repo-lines-v1:sha256:64faead5088c7b0964914dd1295b5bcdf7f6824c6f31c03889dfbb6d3c7ee3e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRmYWVhZDUwODhjN2IwOTY0OTE0ZGQxMjk1YjViY2RmN2Y2ODI0YzZmMzFjMDM4ODlkZmJiNmQzYzdlZTNlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRmYWVhZDUwODhjN2IwOTY0OTE0ZGQxMjk1YjViY2RmN2Y2ODI0YzZmMzFjMDM4ODlkZmJiNmQzYzdlZTNlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGY1ZWYzZGVmN2Y1OGQxOWZhNjliYjJhYmExOGQ2OTI1NzJmOGYwZjkxYmI0ZTI0ODk2YzhiMjFjMGJjMmFhNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzU1YzgyNzcxYjFiZDI5Mjg4MDYwZjM5YjdmNzc5MzM0M2JjYzJjYTYzMGFkNjJhNTU1YjlkMWJiODU4NTlhZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ecdfad4582b41e289487f88df478c7e",
+      "statement": "Das Skript einer Astro-Seite ist von keinem Werkzeug des Gates geprüft; es baut nur die Adapter und ruft eine einzige Verdrahtungsfunktion der Bedienung (wireGamePage bzw. wireStatsPage), weshalb Änderungen dort durch Laden der gebauten Seite geprüft werden müssen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L58-L62",
+          "version": "repo-lines-v1:sha256:e264600d48c062c4bf535b2167d0cf9181e91380262bf9307dda5a65c21a1cff:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzJlMDNlZmY0NmQ2YmZjNDVkNjAxNDAwZDMzMjlkMjUzZWFhMjhmNzA1NDU0ODA0NWYwMDk2Yjg3N2EyOTNkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQ0NDgzNzdhZGEwZDY2M2FjODU3NDEzNzhiNjYzYWY1NjFmMzg3YzQyMTFmZGUzYjM5ZDE2NmYwMjViMDZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDkwZDg1MzFkMGFmYjEzM2M3NDlkOGVjZTAwN2Q3M2U1OGQ4NDg4ZGU2MTY3NDI5MmVkOTE4NmEwNjAzMjc2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L325-L353",
+          "version": "repo-lines-v1:sha256:25e2c4cfb1a07d864b64c58023e03371d76a77c477fc15d0db82b2c3ba8b79ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjOWNjZThmNjEzMzkwZDI3NzhmZGVkNWY5YTVlYzE1NTVhYmI0OTAzNzdhNjEwYzE3MTMxZDQzZmU3ZjRiYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyMjYzZTYxYjFjNDViZGVjOWMxZGRlMGY1ODk1MTEwYzA3OGMwNWU0Y2YxZWU0NWEzYWViZGRiOGM4MGM5YWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0ZjhlY2ZmMDRiNmMwMjI1M2M2NzJmZmNjNWZiMzYyOTUyZmI0ZGZiNWQ3NjU0MjRjMzA3MmQ4ZWQ4MWViOTMifQ"
+        },
+        {
+          "resource": "repo://src/pages/statistik.astro#L74-L80",
+          "version": "repo-lines-v1:sha256:ecb8be0ac2895934ad065b37a1b380267c51432afa5a680553a06f8c6f449770:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTg2OTg0NjUwOTNjNjIzYjM3MzE5ZmJmZmMxZTdhYjQyYWRiMjc1NDczMWM5MDYxYzIwY2Q0ZWM2MDBiY2I4YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQwMDNjMTgxZTFiMmFhOWY0NDdjZGIxNWJlMmExNDE1OTkzNWVjM2VhMGFmYmY1Y2UwNTFjOWUxYjE2M2FiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzgyNmNjMWE1OTM0YmEzMmI4ZWY0ZTZjYmJlNzkyMGRmODYxMzYyNGU4OTdjNjVmYmNhM2FlM2FkMjdkMGNkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VjZDQyODJmYjlhNmEzNmJkNzg5MzQyYTZmNDRlMjFmZGY1OTI3OThmMTY1NDBlMjNmNjc2MmNiNTk3MDQ5NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc50d04760ce42dcbeba58e30c804f62",
+      "statement": "Beim Ergänzen gilt eine feste Reihenfolge: Regel oder Rechnung nach core/domain, ein neuer Port nur bei neuer Naht, Zusammenspiel nach core/use-cases, Bedienung nach presentation — und für jede neue Mappe ein Eintrag in FOLDER_LAYER.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L84-L85",
+          "version": "repo-lines-v1:sha256:69b07708bc96cf357ca4e55339bad0b0f5176eeadb7a7f2c08780122da5a8576:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTQzZTU5ZjcxNDE1OThiM2FiMWExZGUyMTFiYjgxZmI4MTRiMjgwMTlhZmI1NjU5NTA2NTVmYTdlNzlhZDA0OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2JmMzk2MWYwZjViOTA0ZjAyMmZiMTUwODIwNTA5NjQ2M2Y3ZWMzZTA4YjcwMDFmYzA1YmQ0OTE0N2U3Zjg4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOThkMGI2NzVjZWVmMDI0YWVjMTliN2EzNzBmYzU0NDRlNjdlZWEwY2VkMDRlZWZkYzk5NzIzMGVjYTJmMDgwMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTM4NDlhZGQ2NjJkNDVlMDIwOGY5NDc5NzcyMzY3MWQzMDUzNWZjMzJjMDZlZWQ3OGIyMTUxMTA0ZmMzZTQzYiJ9"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L128-L135",
+          "version": "repo-lines-v1:sha256:66828b9459ac6ab00340d9e51ea92f1ad9d9d603980d1fab8d99baa36056c682:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzgyMzExMTEwN2UyY2NlZGQ4OTJmNWJhNjk2YzQxMzg1ZTMxMTA0OTcxMjY2MmJmMGNhN2NkYzIxZTQ5NDcwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzAwMDZlMDQxZDUzNTJhZjE0YmM4MjE4NDAxNTE4ZjEwZTMzMDU2MTQ5ZjVkZWYxMmYxYTZhYzc4ZmZmMWE5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmFmMjJjOGUyZTFmZDA4MmQ1M2IzZDU4MTQ2MmRkMjU3OTAyMTk2OWI5MmEwYmQxYWQ2Yzg4MGJiZWFjZjNkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2QyY2IyZjMxMjU5OTQ4NDQxN2EwZTgxY2I0ZWY0OGNmOWU4ZDAwMzkzNDVkOWU3MGIzODA2NDM5ZDI1ZWM1YyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

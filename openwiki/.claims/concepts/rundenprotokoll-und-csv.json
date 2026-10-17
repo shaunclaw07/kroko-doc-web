@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9e531891829bb7dc3b2aa215b19445e4fd69197436990916f1571588001998be",
+  "claims": [
+    {
+      "id": "claim_b12bf10667c14425a3bb19aa2808d57d",
+      "statement": "Der Austauschvertrag des Rundenprotokolls gehört dem Kern: `RoundRecord` und `CSV_HEADER` werden aus `src/core/domain/records.ts` exportiert und von `src/contract/sessionLog.ts` unverändert weitergereicht, sodass die Bedienung das Format nicht nachbaut.",
+      "evidence": [
+        {
+          "resource": "repo://src/contract/sessionLog.ts#L1-L6",
+          "version": "repo-lines-v1:sha256:798639424f417dd5b35df5457bb7a7d528645e5ec7984ee86ab006925087cbdd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMxZmMwY2RmMjlkZjlkODIyOTkwOGNmZDNkZDA2NDg0ZmNmYTUwZjA5NmMyN2E3YWNlOGZlZTA5NWZmN2Q0NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/records.ts#L1-L26",
+          "version": "repo-lines-v1:sha256:55c9a8e4e45410ebeb4c23b6a15e19767eeb4efcd9cf203a346d57b3390f2273:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhNTZiNTdmNGZjODhlNjhkZDk3Mzc4NWVlOWI3YTE3ZTExNjcxMjcxZmEwMTkyOGExYjA5ZGFiMmY4ODdhZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhY2Y1NWFhYzlkOTM1OGQxMTM4OTU0MmQxMjYwNjMwZGUyYjllZjA2ZmQ0YTI2NWYyM2ZhYmVlMGZjZDI1YmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c99ea5f94874aa4b25e71e9ba0835d5",
+      "statement": "`RoundRecord` trägt elf Felder in dieser Bedeutung: `round` (laufende Nummer ab 1, nur für den Austausch), `playedAt` (ISO 8601), `creature` (Katalogkennung), `teeth`, `mode`, `players`, `loserTooth` (1-basiert, innerhalb `1..teeth`), `pressIndex` (1-basiert), `liveCount` und `pressOrder` (readonly, alle Drücke in Reihenfolge); `createRoundRecord` kopiert `pressOrder` und setzt `creature` auf `DEFAULT_CREATURE_ID`, wenn keins übergeben wird.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/records.ts#L3-L22",
+          "version": "repo-lines-v1:sha256:403a437f2a0761ef4653ec24169910f3297eb25fe7f9f4307f5b88dca9b06264:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4ZWZmNTZiMDcwMTVkZmMzN2YyOTllMGQ0N2U3MjAzNjQ0YzE1M2ZhNzk4MWYyMjIzODlmZTEyMjJkNDcyZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmZjVmZTFmYmMzMzFiZDU1M2ExMzY5Zjk4MTcxMWFiMTk0YmExMzFlZTIyMjhhNTc4NGFkMTg1NDQ1Y2VkNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhNGVjMmQ2ZDk5ODg0OTYyNGVjMDIzYzY5OWY0YmMyYmUwODRlMjcxOWY1NjVjNmJkOWM3ZTMwZTA5YjkwZjAifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L206-L224",
+          "version": "repo-lines-v1:sha256:1bda0653e93b1b203c7b1a19705a9b885f9e660a609634e294eba560eba209b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4MjUxMjhmYTZkYWEzYjUyMjMxY2JlYWYxNTFjY2E4ZWYzZjk2OGFmODVhZDg1OGQyODNiYWRjYmQ3N2UxZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2ZDA5NzFjMTZiMTBiYTQ5ZDdkNDMyMmZlY2UyMGRjYWYxOWVkMjVkMzQwZDZkOTYyNmQ0OTdmYTM0YjI4MDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ODkzZmMxYTBjMGVjMWFkODI4MWJjYmE3NGU4MjBiZWVhZDlkNTVkMDQ3MTM4MzJjYmYzNDQzODg1ZTY3YzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2e3d4eccb52f43629edcb145a5974e25",
+      "statement": "`CSV_HEADER` legt zehn `;`-getrennte Spalten fest (`runde;reihenfolge;verlierer_zahn;modus;zaehne;spieler;druck_nummer;scharfe_zaehne;lebewesen;zeitpunkt`); die ersten drei sind absichtlich identisch mit dem Format des Analyse-Werkzeugs, damit Dateien in beide Richtungen austauschbar bleiben.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/records.ts#L24-L26",
+          "version": "repo-lines-v1:sha256:be44ffbe972649735922dc2df82b2e8ba419529afc7ac2620f9d63e80aaa5bf1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmM2OTUzOTlkMWY5ZWZiYzZkYTc3NTI1ZDQyYzBlZWI5OTZmYWMwZWU5YWQ4Y2EyYjIyMDc1N2NkMDZlODNiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjZjU1YWFjOWQ5MzU4ZDExMzg5NTQyZDEyNjA2MzBkZTJiOWVmMDZmZDRhMjY1ZjIzZmFiZWUwZmNkMjViZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY5ZmEzOWNkOWE2YTZmZWJlYzFmZGE4ZGFkNmYwNDJiYjE1MTA2ODkwOGYxMzQ2MWFjYWY4MDVlODI5OGFjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L13-L20",
+          "version": "repo-lines-v1:sha256:ff54d02d7e385e3b492f9b26d3a9c8f1df73ea7d09713651bb30240286451203:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTE1NGYyYzk0MTAwMTlmMGYxZWVmZDI3MTQyYmU2ZmFhNTMwNzg3ODcyYTg1NGFjY2NiZmY5OTVhNTY4Y2MwOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGZhNzA2NWQ4ZWQzMmNjNjUxMDQ0ZTI3YjFlYzhiNjk5NWU0NmMyZjkyYTRkM2MzMDkyODUwNGYxMTYyMTkzNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6d784e6edc944c8da40a002d38007980",
+      "statement": "`toCsv` schreibt immer die Kopfzeile (bei leerer Liste nur diese, mit Zeilenumbruch) und danach je Eintrag eine positionelle Wertzeile in der festen Reihenfolge `round, pressOrder (mit '-' verbunden), loserTooth, mode, teeth, players, pressIndex, liveCount, creature, playedAt` — die Reihenfolge der Werteliste muss daher zur Reihenfolge der Kopfzeile passen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L16-L28",
+          "version": "repo-lines-v1:sha256:9f185322f93ddc00f54a2901eb22b22938747f00f0b97b02de660a013202c8b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmZDAzYjQyNjU4M2QwYjM3MzM2NjcxYTYyZGNjMTRhYzA5NDZjYWVmZTI5ODllMGZkZWNlODUxYjI4ZGExNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkNTFiMjA5NDM2MDk1N2Q4NDc1YWYwN2ViZmQxYjEwYjY3M2FhM2UyNzBmNDAzMjVjMGRmN2Y2NjFmMjk1MDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ZjYyM2JkNjhjZjU5MjZmMzE3ZTA3NGE3YzgzZjhhZDkxZGE4NzM4NDRmMjNiZTk0OWIxYzVlZDRmNGZjNTUifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L21-L40",
+          "version": "repo-lines-v1:sha256:ed96427f801f18ca881adf044b2bf40165e7b9d3c6d21acfb39ccf38b4f58719:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlNDgzZmNmZTg3MjYzNDhjZTMyMDhjNjk5NWVkNDlkMWY5OGRjOWJkMjY5MjAwMzYxMDNkZDJmOTgwMTQ2MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3YjEwZGU0MWEzZmFhNGRjZGZjZGQ2ZmZiOTMxOWUyZTdkNzFiNmNlMzUxY2I2Njg5YjUxM2FkOWUxZjJjNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYjA0ZGZlMWUwMmM4ODg3NmE2NmEzNmEwYjg2MjgwMjU5ZjFiMWFkYWI2MGVjMDFmNWMzMzhhODZjMmUxMzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2493e85714cc421e8829bffe833a1f8a",
+      "statement": "`fromCsv` erkennt eine Kopfzeile daran, dass mindestens eine Zelle der ersten Zeile ein bekannter Spaltenname ist (getrimmt, kleingeschrieben); mit Kopfzeile wird ausschließlich über Spaltennamen gelesen — unbekannte Spalten werden übergangen und bei doppelten Namen gilt die erste Fundstelle —, ohne Kopfzeile gelten feste Positionen aus `LEGACY_POSITIONS` (9 Spalten) und das Lebewesen ist das Krokodil.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L132-L165",
+          "version": "repo-lines-v1:sha256:37f2c5a5c09142a30224775ac099060381867b61a835a9c78e0bfc2af026e5bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkYjE1YWFiNThlY2YyYTQ2Y2IzNGU3NGQ0NTlmMGVlYjdlOWFiYzgxYjdhZWFhYjMxYjRjMDE5OGUwYmQxZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiMGVhYTAxNTdiNTc3OGZmZjk1Y2E4N2Q3OGEzZWUxZDM1YzUwMmE1ODgwMjM1OGE3YmJhYzZiNTJiNzdiODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmNzU3NTNmYzcyZDc3ZTI4YjI3MzIyMGRjZDI5YTgyY2YwZTMyMmIwNmFmOWIwOGUzNTZmNWMwMjEwYjk3MTUifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L54-L83",
+          "version": "repo-lines-v1:sha256:880de14f7ff32afa555123e058f66182a64176141b8dcf120152f936d5b34377:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxNmU5YzU5YTYwOTNhOGZjZTFkMDMyMWY4Y2I5NWViOTY0MGMxMTcxNWM2OTA5NGY0YzliMWY2MjMxMDRmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxM2U4MTU5OGNiNjVkM2U4ZWNhYzY5NTYwZGFiMmM1MDdhNGI2NzIxN2UzMThiZWI4Nzk2ZWZhMmY2MzQ2YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljNzZmMGFmZTZiOGE5ZGZhMmY5MzljNzc5ZjcxOTNlNDA3NzRiZTQxNDFhMWE5YjhlYTlhZjE3NTcwMzZiYmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9967f69e5acc4022b5e48c26bb0bfe7c",
+      "statement": "Fehlende oder unlesbare Werte ersetzt `fromCsv` durch Spielstandards statt sie zu raten: `teeth` → `DEFAULT_TEETH` (10, weil das Kurzformat die Zahnzahl nicht kennt), `mode` → `DEFAULT_MODE`, `players` → 1, `liveCount` → 0, `round` → Zeilennummer + 1, `pressIndex` → aus der Position des Verlierer-Zahns in `pressOrder`, `creature` → Krokodil bei unbekannter Kennung.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L44-L71",
+          "version": "repo-lines-v1:sha256:d3af0a8a451f2c97ed541d4f79d59aed1cad5e00216d38b8aea348e0624f7e65:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmYTJlMTJiNGI1YmUzNDM5MjlmY2JhM2VlM2Y4OTdiZDQ1YWU3YWUzYWExNzk3NThiYTJlMTJjZDljYzM4ZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyZmQyMDU2ZTIwZWE4Zjk4MDAyYjA0NTg4ODlhM2M4YWM1YmIzMzY2NmUzMDJjMzI5NmE0NGMxODJmNTFlNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMTg1M2NkNjkyMzlhMzk5MDc1ZDE4YWQ1NTc1YTIyZTE3MDA4ZjMxODdmZDJiNGE3YzFkZDhlODg2NzAyNjIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L166-L192",
+          "version": "repo-lines-v1:sha256:f268c1cd9415d57790fd977e426248696a291c50e5fd29e5eb23697a4336b292:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwYTEwNjE5NDE4MWIxMDc1NmJhMzE0Zjk2MDQ2NDQ2NzM1MDBkNmEwOGQ0YTIwNzEzZDdiMWRmNzFiN2QxMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZGQwZWExN2E1Y2YzODgyMjY3NThiNTcyM2ViN2RiMDgxM2I5Y2I3YTBjNWE4MTA1NWE2OGI1MGRjYTcxNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkNDg0NDI5YTJjMDNkYjAwMzU1N2RlNzUxZGFhMGFkNzhhNjEyMDI1MjE3NDRjZTY2NWI3ZTNmYjUwNTllZTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7bfdef14b8c546f9a48dc32443cb06ff",
+      "statement": "`fromCsv` wirft nie: Zeilen ohne ganzzahligen Verlierer-Zahn und Zeilen, die `isPlausibleRecord` nicht passieren, werden übersprungen, der Rest der Datei aber gelesen; leere Eingabe ergibt eine leere Liste.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L73-L97",
+          "version": "repo-lines-v1:sha256:40d189006d471b33379778fbfbd045f4d5eba123a2e11d05c292a115ec4cd6ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwYzNjMmMyMTRhMjk1ZGE4MWNhZWU3OWMzMjk1MDlmYTYxNDQxNTM5NDc3MzYwNTUyYjUzODdkOTQ0Y2RhNjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1MmNhNjYxMDgzNTQ1ZjJmOTdhYjUwMzM0ODVmMzg1NTQyNDFiNTIyYjg3ZmQ5Mjk0N2ZhMmU1MDRkNzAxNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3NmFlNzIyMzI0ZjhjNTViMjc2ZmM0YTM0ZjVhMDQ0OTBmNjYyZWZjNzY1Yjc4ZDhjNTQwNDBjNWJmNjMwNzEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L133-L141",
+          "version": "repo-lines-v1:sha256:4ea1e83ae26e9f41481fdd4ba5a4620dea9961ed727711d67c9a2b370d157ab3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTExOWY2NDZkMDYwNjY4MjlmYTQ0YjM1NTQxMzc0YTRkODFiMmViMmQzZDk4NDNhYzZmOTNjNjdiYzNhMTZiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTNjMzUxYjBjMmVhMmU2Mzk3Zjg0NjZkY2E5NjlhZThlZjBkMGY2Y2ZlNDA4Zjk5Zjg3ZDQ1OTM1OWM0YzgzOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmQ2ZmQ2MDY5Y2IwZDY2YzI3NjU2NmUxNzVkNDRjZDM5YTllYjgyYjAzMzBkNDRiMTExNWUxNTE5Y2I0MzMyMCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L193-L200",
+          "version": "repo-lines-v1:sha256:940dd1a419abc4a88335ef03fbcff04d3e6f3114585bb029eed4262e756edd82:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTUxMmJjM2ZmNzgxYWNjMzUzNjAyNTdhMDQzODFmNDY4NjZiOWRkYWJmZTdiMGM2NDAwOGNkNjdjYzA3MDY3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTFlOTY2YzFjNTJhNTcyZmI1MWVkZGM1YzUyZmI4MDRhOTAzMTUwMDU0MDhiZDNlMGY5N2JmY2UxZmYyYmNkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2VmZDNlYjhmZjQ2YTgxNDZiOGJjZjRjNzliZjliYzgyYWQ1YjE5MTQ4YmI0ZjY4MmNkYTk0ZjVkODlmZDhjNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e12379cfba094b54bf2d645e37b7dd1f",
+      "statement": "`isPlausibleRecord` verlangt: `round` ganzzahlig ≥ 1, `teeth` nach `isValidToothCount` (1..`MAX_TEETH` = 12), `loserTooth` und `pressIndex` ganzzahlig innerhalb `1..teeth`, `mode` in `RANDOM_MODES`, `players` nach `isValidPlayerCount` (1..`MAX_PLAYERS` = 4), `liveCount` ganzzahlig 0..`MAX_LIVE_TEETH` = 3, `pressOrder` als Array mit allen Einträgen innerhalb `1..teeth` sowie `creature` als `undefined` oder String.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L102-L130",
+          "version": "repo-lines-v1:sha256:99a07a20293dde9c2e071a3af56d815e6192b6bbc89edfc00bf418fea0689f78:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZDlhMmYzYzU5Y2QyZTE1ZWRmNWMxMDQxODRmNDMyZjI0NWU1NGI5ZDM3NWQwNDM3YWE4MjYyNGI5MjBmY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1OGM4ZmUxMzMyY2M0N2IwMjA0MTA1MzAzMDQ2MGViZDM0MzE2NDNkMGVkY2M3NWRiODUwYTA0ZmFiNTg2OTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MTc2NDZmMjk4NzFjNjVkNDM1ZTJhMTEyOGY0Mzg5NzdmZjZiYTEwNmZjYzY1ZDRjZjUzYzBhYjQ4MmQwMGIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L30-L43",
+          "version": "repo-lines-v1:sha256:40ef9e85ceb9abfe34fe5f80014a8a0b8feaddff41a3f7d3fc761db347666b92:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4NTA2YWM2MDQ0M2MzNWFkNmNlNTNiMTBiMDNhNWU4OGEwM2YwZTVjYzc4YjJjY2M4ZWMwMGRmMjk2YjJhNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjBmMTQyYzRmMTFhN2E0ZTk1OGM1YWU5MTY3ODgzZWU3ZmY1YWZkNmQ4OTUxODg4NTczODZhMzM1YmNjZGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2M2FkOGY3MTdlNjk0MDY1N2FhMjgyNjJjMzRmN2QxMWRjZmQyMTg1NDVlZTc2ZDQxZDc1MDMwMDM0NmQ1MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkYmY5MTMzMzY5NWVmNjRjNDc2MDczMGEwNDAxNTNiMjAxZTMzY2E5ZTk4YmQyOTc3OGJiMWM3MjVjMzk3OTkifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L58-L64",
+          "version": "repo-lines-v1:sha256:521360cda992cae9afd35d44e51b25959081a88be29744fe6eaab2fec4e1161b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQyMDhjMDRhOTQ5OTQwYWYxNTA4ZTBjZjExYWIwNzA5OTFlNGY2YzQxMjI2YTgzOTE2ZWI2NGMwNTM2Y2ZjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjI0ZTcwYmVlZDZlYjNlN2JkZTNiZGZmMjUwYTMzYzc5ZjUzNjkwODVkNmQzODQwOTY4NzZmZGU3ZTIzNmViNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1bd4f98bd76c4f1c88042fe1e8d3428f",
+      "statement": "Die Plausibilitätsprüfung ist bewusst keine Katalog- und keine Konsistenzprüfung: eine unbekannte `creature`-Kennung passiert sie (ersetzt wird erst später über `fromCsv` bzw. `creatureOrDefault`), und sie verlangt nicht, dass `loserTooth` in `pressOrder` steht oder `pressOrder[pressIndex - 1]` der Verlierer-Zahn ist; `players` erlaubt 1–4, obwohl die Bedienung nur bis `MAX_SELECTABLE_PLAYERS` = 2 anbietet.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L227-L230",
+          "version": "repo-lines-v1:sha256:daea6b7c5a8442ff8a93ca69c72efe0269596f148d87ae6020afeedb4560f104:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzk3NjRlOWUxZjQ2YTY5YmZkNTJiNmViZjQ3MDk1MjdjNzU4MTczMDIzYzkxY2ExMjZkZmFkZmM5Mzc0NjNlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTllNmE5ODMxZDRkNTg1OTQxMTQwZGRiOTIxZmQ5ZmFhMWM0OTQ1M2I2MzAyZDY0MTI2MTJjMjY0NWZlN2FmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjM3ZTU0MTA4OTc4ZmQwMzgwZTdjNmJmMzFhY2RmZDQ5OTFiYzY0ODk2MjIyMGVjYWZiZTY5YzM4ZDcxYTE0MCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L96-L130",
+          "version": "repo-lines-v1:sha256:fd96563895bafc03da7dcb14cd689d8e354ae01e575ee1529035b9099032e1dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwMjNhZDBlMTJiYjQxZWVkYTIwZGZkZjg5ZDQ5YmY5ZDllZDc4NzUwNTY2MzA3NWFhMzE0MDc4ZGNlOWMyYzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MTc2NDZmMjk4NzFjNjVkNDM1ZTJhMTEyOGY0Mzg5NzdmZjZiYTEwNmZjYzY1ZDRjZjUzYzBhYjQ4MmQwMGIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L31-L36",
+          "version": "repo-lines-v1:sha256:23110f8f702bfb46fe1e27fbe9462948136591381c03f5c6a2799f8c41beb49b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjY3N2MyZTM5NmU4MzJhNjdlMWVhM2RjOWFiZWUxN2U2ZmZjZjI2MTAzMGU1ZmIxYzM5MzkxYjk2ZTEzMWRlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTczNWIxYWQyYTA5YzIxNGJjYjc5ZDJjYTdmOWVmODUzNjU4N2Q2YjJkMzc3M2Y4NTMxMjBmNGU0NmVmODczNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWM5NmY4ZTZlZGJlN2YzODQ4YTEzZWQyOTMzMjdjMjg2MzNkNzNkNTFkZjBjYjJjOWI3MDU3YjMyYWU3MDRhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmVkYTA1ZjczZjIxMDVhMGU2YWRjMjU5MDY2OWM4OWZlYTE3MTUxNmQ2MTc3ZmMzZmY4MjZlOGYzMzNlYzJhOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c686d38ed52045aa9f51b9d29ad84524",
+      "statement": "Dieselbe Prüfung `isPlausibleRecord` sitzt an allen drei Eingängen des Protokolls: beim CSV-Import je Zeile in `fromCsv`, beim Laden der Browser-Ablage als `parsed.filter(isPlausibleRecord)` (Nicht-Array und `JSON.parse`-Fehler ergeben eine leere Liste) und beim Abruf aus der Sicherung in `HttpRemoteLog.pull` — dort wirft `pull` allerdings, wenn die Antwort gar keine Liste ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L193-L197",
+          "version": "repo-lines-v1:sha256:3189b823183845e1149a02eba7b4be5a85dfdab0b204bbe98c5ac0e8b23f4f9a:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTUxMmJjM2ZmNzgxYWNjMzUzNjAyNTdhMDQzODFmNDY4NjZiOWRkYWJmZTdiMGM2NDAwOGNkNjdjYzA3MDY3MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTFlOTY2YzFjNTJhNTcyZmI1MWVkZGM1YzUyZmI4MDRhOTAzMTUwMDU0MDhiZDNlMGY5N2JmY2UxZmYyYmNkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWMwNzRiZTJkOTEyYmMyOGJiMTNkZWIxNGM1OGRjN2UwZWRhMmFlOTM5NTMxMWFmNDU1ZTVjNmM2OTczMDU0OSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/httpRemoteLog.ts#L56-L67",
+          "version": "repo-lines-v1:sha256:d94603fe65c5bf1ebcc8bf8c647bc10fea59b4cd28ae7dcd8dfc89986fdd97bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3ZmI5MmRlNGYzZmI5NmU2NDZkMTdjY2M1OTdmYTY0NTA4OGQzMmZkMzMxZDYyZDlmMTE4MDY2ZjZkOTg3Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkZWQ2YWFkMTNjZWFmYTIwMzk0ODIwMDQyYTFhYWQ4MDg2MzJkMTA1MjEzOWRlODZkMTU1M2FhODI1NzE0NDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2ZTA3OTQ0M2E5ZjkwNjA2NDM5NTBkYjQyM2RmNzEzNTRlZTI0NThmZWRmMmMwYTNhNDlhMmJiN2YzNWE0NWMifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L33-L46",
+          "version": "repo-lines-v1:sha256:a905133a48c1ef3e9135a17581c89885e9707327d2b97c18aaaa86518a1c76fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiODc1OGYyMmRlMmMzOWRkZDU4OTA4M2I0NWUwYmRhZWE2NTVjMGYyYzVkYjg0NWU4MTFkZDE4YWMxNjg3NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4YjRiZjRmNGM2ODBkMWQ2MTU4OGI4NjUzN2RhZTNmYTlhNTA5NDEzN2UyZWJjODE4NzdkODQ5MzlhZjlhZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlOTZjZWY0ZDQ3MWEwY2VkYjg4MWI3NDRjODU1NTUwY2RhZDVlZTdjY2EyNmE4MjA1NDI2ZDkzZjVjMjE0NTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5d105712c6ad4a5a9ebf0660efe0ab64",
+      "statement": "Der Grund für die Prüfung an der Grenze ist die Auswertung: `analyseSession` nimmt die größte Zahnzahl der Gruppe und baut über `countBy(loserTeeth, teeth)` und `countBy(pressIndices, teeth)` Zählvektoren der Länge `teeth` — ein Eintrag mit einer Zahnzahl wie 1000000000 erzeugte bei jedem Laden ein Array dieser Länge und legte die Statistikseite lahm.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L96-L101",
+          "version": "repo-lines-v1:sha256:085191f1ac69e8dc9b2e143e4462561d12deee103c6dbafdc2251fad232e5d25:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzAyM2FkMGUxMmJiNDFlZWRhMjBkZmRmODlkNDliZjlkOWVkNzg3NTA1NjYzMDc1YWEzMTQwNzhkY2U5YzJjOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWM4ZjAzMDRmYzhjYzU3Y2Q0NzdkZTUyYTQxYWNkOWFlOWZlZjFhZTM5NGMyMjJiMDNjNjYxYTFkYzFjNDkwNSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L238-L248",
+          "version": "repo-lines-v1:sha256:c8b34367504292800bae1ae09425cc49e26b218e5d0b2f79b8426a15e6b00120:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMWMzOTgwMzlkMTQ1MzY1NjM4ZjBlNTFiN2RkZWFlMGQ1Zjc4MDYyMTA2NDJjNDVmMDYxMjc0MWM4MGNlYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2MTNlYWVkZjUwNTVjMjYwNTljYWY0ZjgxNmJjZGU3MmIxYmQxNzlkZmI5YmQxOTFiNmYzNWRjOTBlNGVkNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJlMzU0Njc5Nzc1OTRjMmFlOTI5NjA4YzRkZGU2NTM5MDI4YmFlNDdkMWEzNjFmOGE4MGIwMTYzYTMyNTBhMDIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L313-L336",
+          "version": "repo-lines-v1:sha256:259f33ec9fd96428d64d658469b0fc971f03d7587860e202636b190ee28cfeee:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1NzEyZWYzNTY3Njg4MGFiOTc2NWFiMjI0YWY4NmQ0NzQ2YzVhOGM5YTNmN2E0MjVmODExODNiN2ZhMTU2NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjN2I2YzcyOTkxNTEyOGQ2ZWRhMjRmNWExM2IyZmFjN2VhYWMwZDljNTY3MGE3N2IwYmIwN2MxOTkyMGYyMTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5NmE5NGNjZDM1MGRjYTIxNTNiYWE3MGVmZjUxOTJhMTNiNjdiZTU4ZDFkNmNlNDk1Y2U0MTkzYTQyOTUwODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1MzQwNGE4ZDNiOTU1YmE0NTFmYzg2OWI0YTQwZGMwOTg3YmQ4NjgxYjhjNmQ5NmUxZTRmNGQxYmZjNTkwMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bc5062d99d3d4da7b568abbdf776c4a4",
+      "statement": "`mergeRoundLogs(local, remote)` behandelt den Stand der Sicherung (`remote`) als verbindlich: das Ergebnis beginnt als Kopie von `remote` in dessen Reihenfolge, und nur lokal vorhandene Einträge werden hinten angehängt, wobei sie fortlaufende Nummern ab `nextRoundNumber(remote)` erhalten — lokale Rundennummern werden also neu vergeben, nicht übernommen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L145-L154",
+          "version": "repo-lines-v1:sha256:136c66b3cc23fd060a2a0f33e95d993b1389355884cd847d2ed409c613f96bac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3NDhmMDAzNjZjYjkxOGQ3NzVjMTg5YmIyMjJjMzZmMTkxMDg2MmUxN2EyOWUxZTYwODBiYTFiNmMxNjUzM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxMDI4NGU3N2IxMTgzYjgzMmQwMzU0YTczNDliNDU4MzVmNGFkZDViZWRlNDZiM2M3N2E4YmYyMmM2Zjk4YmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4OTZkODIwY2QyNTBkODQ4ZjEyMzMwZDZhYjllMzRmZjM1ZmI0MzdmMWVjOTAzZjAzYTMzMDIzYmQ3NzI5NzMifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L231-L256",
+          "version": "repo-lines-v1:sha256:9fbd03dfb0e3c3795a7fcf3a7dd7329c9d5a29f5191063fd806a9a4687050bcc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmOTRiYWU1ZjVlNzJlNjE1MzM2YTM5NzY3Y2ZhOGRmMzc4ZTY1NmFlMzI1MWI3NzgzNjA2NDBmZmQzNmNhY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fc54b3122c3c4b19906723947fca11aa",
+      "statement": "Die Identität zweier Einträge für das Zusammenführen ist `playedAt|creature|teeth|mode|pressOrder.join('-')` und enthält die Rundennummer bewusst nicht; abgeglichen wird als Multimenge über einen Restzähler je Schlüssel, sodass gleiche Einträge je Vorkommen zählen (drei lokale gleiche Einträge zu einem gesicherten ergeben drei Einträge).",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L152-L161",
+          "version": "repo-lines-v1:sha256:667904deb3476ce4c1fb941278c06077b5c104a32eb029086f55f5d3f5b62c88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxZjk2ZGEwZTM2MmM4ZGJiZGZlZDlmMmZiNWY4YzI3NDA5NTE3NmQyODNlYTc3ZTlmMjk2MTRiZDdmNzk1YzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhMGUzZTJmYjk0MmNmOTZmZTFhNTI5ZDI4OThiNjI5NjEwZjBjYjVhYjI0M2Q2YWUyNjhlMGY1OTg3YmY5YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2Y2ZhYzgzNjhlMjZiMWUwM2RiZmQ4OGYxOTUxODU0ZjZmODNmYWU3ZDNmOGExNWQ4ZDEzM2QwZjg3NmZlODIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L226-L242",
+          "version": "repo-lines-v1:sha256:0e148b25dfbcefaf04a5dafbf5220357e0af4ce65a6128725c9de32f2d0592ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZTBlNDg0MDM2YjM2NjNiNjI0YmJkZWZiNzg3MTY2NzY0M2ZhNGY0OGFmYzE4OTA3ZDkxMzI1NjVkMjg4YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlMWYzMzE2NTQ2ZWE5MjUxZGRmMjFkMGM3ODIxZjA0OWRmMzBmNzZhYWVhZDUwNDhlNzVhYmE5ZDRkNWQ3NTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee014145c5d54e55a5221c5cb7c3aea9",
+      "statement": "`mergeRoundLogs` ist eine reine Funktion: sie verändert keine der beiden Eingabelisten, liefert eine neue Liste und hängt angehängte Einträge als Kopien mit neuer `round` an.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/sessionLog.test.ts#L163-L169",
+          "version": "repo-lines-v1:sha256:3d1a937567c0fedce8097426fdb5f24df1b5989ee6d0991a1c909d88410b8f19:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2NjOTYxYmM5NWE5YWYwZjljOTAwYmUzM2ZhZGQzMTIwYTg4NmFjMDJmNWQ3ZGU1MzVkMDllMjIyNDRhZmQ3MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzRmNjZhYTljZDIxODIxYTljNGVjMTZhNDE4N2YyMDcyZDZlYjhhYTY1MTg3YzNhOGFiMjY0NTU5ZGYwOTg3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/sessionLog.ts#L237-L256",
+          "version": "repo-lines-v1:sha256:83957bbad0b1f45885f77dcd6f4cb43e792a577df2689b8ed1a38d9b94f6bae8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiZDczMDFiYmU5MjE4OGI4NzljZjhkOTg4YmIzM2JiYWJkMTU0OTQyYjI3YTIzODBhMTZlZGIyMDcyZjc3ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3NWEyMWFlZWI4YTNkODMzZmYzMDc2ZWU4YjNmYjQ4ZGU0ZGJmYTMzZjdiYTVjNjNhYmMwN2Q4NWUyZjIwZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d78a9b1c1ebe4282869f0b897ce72cf8",
+      "statement": "`syncRoundLog` holt zuerst die Sicherung (`remote.pull`) und liest erst danach die Ablage, führt zusammen, speichert lokal nur bei Änderung (`sameLog`-Vergleich über `JSON.stringify`) und schreibt die Sicherung nur, wenn die zusammengeführte Länge von der abgerufenen abweicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.test.ts#L66-L92",
+          "version": "repo-lines-v1:sha256:13283214db63a5d08f3240e76ecc2eefb19d82aab4851ec78d68cff51133326b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhMDU4YmMwNDRkMzQyYzA2NmY0NWI5OWYzNWIzNGFlMjBkZmZmMGZiOWY3NWE1NDk4YjcxZTIxMWI5YzU5YTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1MDhiMjNiYTE4ODAwM2IwYmZkNWI5YWE5OTNkOGZiZWQ5MTYxODZmYWQ0NmYzMTczYTkzZTE0NzY2ZjY1NmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/core/use-cases/syncRoundLog.ts#L13-L36",
+          "version": "repo-lines-v1:sha256:b009260e12b38b9958f462e176e24f5d0497e96a0c4d87730997f769fe86c1b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxZWQ5NGQwZDY4MjE3OGZjZjUzZTQ5ODdiMDE0ZDQ0NDVjZTlkMDlhOTYwNDM4OTQ1NWFiYzc4NTI1NWNhNTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_36ebfe4510c043ab91b747419e748a58",
+      "statement": "Löschen ist der einzige Fall, der die Sicherung ersetzt statt abzugleichen: „Protokoll löschen\" ruft `log.clear()` und danach `backup.replace([])`, weil ein Abgleich die gelöschten Runden aus der Sicherung zurückholen würde.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/backupSync.ts#L56-L61",
+          "version": "repo-lines-v1:sha256:d2acf058aabae1506ce58f4d0ca18bed5506a07eab6b09a67a3bafb8851c4b24:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTVkOTZmNmY5MDVhYTY3NGY3YTgyYzk5ZDM5ZGJhYjlkYWZhOWYwZmQ0ZWE4NzI0MjNkYTY2ODUxZGI0NzdmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJhMmNiMjVhMTIyYjQ0MjIxYTYyMzRlYzY2MGE3YjVmYjdmOWJkZTdiM2I5ZTJiM2M1NTlhMGQ5NmZhYzczOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmU4ZmYwN2ZkYzg3MTYyNzFhYWU4NTUzYmE0ZmFiM2MwYzc1YzZjNDZhZjNmZWM4ODg0MTcyZDRhNWQ1NDk3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODU4Yjk3MzFiNGZmZmNlNTI0MGI0OGU3OTI3ZTliODY4MWFkOWI2Yjg0MGRlMzhlOTUzZWM3ZWQ2ZWU4ZGEzMiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L113-L122",
+          "version": "repo-lines-v1:sha256:6693caba22f64054409f68583bdd34a3460862acbb80fc6ac0c198cc82ce0f01:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2NWE3NmNjNTk2OGI5YTJiZDhkYzI1MjJkMDZmYzk4ZDliOTBiMjI5NWVmZmQyZGFhYWQ0OTA2ZTgwNzExYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3OWI2YzQ2MDhjM2M1MmZmOTE1ODQxNzQwMjU0M2VhYzQyNDk2YzZiZDExZmViZmQxMTA3OTNkZmZmMDlkMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3ZDUxMGQyNDUxZjNhYjM5M2QyZTAyZDlkMGQ1M2Q5MWFjNzRkMTExMTE2Njg5YjIxMzlmMzk3OTBmZTY2MTIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L126-L133",
+          "version": "repo-lines-v1:sha256:bbd75747df3c3599ece125006a4008203a80f0a14cd88b1bb9fd0ef36d16419f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA2NDBkZDM4MTc5ZjliMzM4NTQyZDAyMjk4MGYwOTA4Mzc2NWRhNmRkMjJiZmIyODkxOTU3MDJhM2I5NzkwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljZGZiNGRjNDlhM2Y0ZTEyZWUzZDViNmFkZTUxYWI4MjZjYzUwYTc0ZDU3NzUyYzViNDZhYWE4ZDNmOWI1NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZjczMzQzZTE2MDlmZDRiY2VmZGY0ZDY3N2YwZTUzNjM2OGIzZTU3ZDExNDA4MjQwNTU1NmM3OTJiZTUyZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dbe1b417670740288e5677bb6442ffa8",
+      "statement": "Der CSV-Import der Statistikseite hängt die gelesenen Runden an das vorhandene Protokoll an und nummeriert sie fortlaufend ab der größten vorhandenen Nummer neu; bei null gültigen Zeilen meldet die Seite „Keine gültigen Zeilen gefunden.\" und schreibt nichts, nach erfolgreichem Import wird die Sicherung abgeglichen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsPage.test.ts#L84-L111",
+          "version": "repo-lines-v1:sha256:a27bd9b9e1e8bc22276f24b32279df47e5c17e59ed040597d7e0693a68bcb4bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwZjYyMDUxZmJkZWFiOWQwYmE1ZTU0NmU1MWUxODUyMWIzZWExOGQ1OTg5ZWY0YjdlNmNjYmY5ODFiMWU2ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTJiNjExODk0M2UzMGMwMDY4MzNlNzgxNjMwYTUzYjMyZjQxN2VmNWY5Nzk1YzNmMTJmMzMwODAyNGM1ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhMzkxY2U3YTA2M2Y4OTNjODMwOWZjNzAxZmIyYjdlZTM1YzMwMDIyY2Y3NzA5OTIzZGYwNzk3YTk3NWE5M2QifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsPage.ts#L103-L124",
+          "version": "repo-lines-v1:sha256:72bd668ce0c1c85df2e3231e838695656be876c4eadeaa431079312dc75f81d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxM2NjZDEzOTA3NWQ1MmU2ZjllZjBlYjM2NGVlYTZjOWQwNDQyMDA0ZjM3MzE4ZjlkM2E1NWYxZGU2MjUzZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4ZjMwYWZhMzhlOGFiMWUzMDgyZjVjMmE0YzgyYmIxZDZhMzM2Mjc1OTE2YjY1ZTgxYmY1ZDQxNDU0MTliNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmMWM1ZDFlOTIzNGNiNTBkZGQ0YzBlZWM2MTI3NjY5ZTU2MDJiYjg4OTAyN2Q5YmI2MTkyYmU3MWFiY2EzNjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_34a772bc615e4b7689f11617a0de21f3",
+      "statement": "Der Recorder liest die Ablage unmittelbar vor jedem Anhängen neu (`log.load()`), berechnet die Rundennummer aus diesem frischen Stand und speichert danach — sonst überschriebe ein Biss Runden, die ein anderer Tab oder ein CSV-Import inzwischen gelöscht bzw. hinzugefügt hat.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L21-L57",
+          "version": "repo-lines-v1:sha256:775ba23e1b3f162619b6e70cd648b1e7010be906810eccf0290db2d74d10b0fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2ZmZjNmZiOTgzYWQxMTRjMjk3ZTM5MjY5YjA0ZWQ3NmQ3ZTNiNmZlMjE5MjQyYTk1MDQ2MzA5ZWNmNDE5MWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYzAxNWQ1ZDY0OTgyYWFhMmQ4OWFjNWVlYWRlNmE5NDU5YmExOTViYzIzMjg4ZTFmYTY4NTk2Y2RjOTA0NDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_321ccd67f5aa4081829661a62297dd76",
+      "statement": "Die Ablage der Runden liegt unter `zahn_agent:rounds:v1`; ältere Schlüssel (`zahn-agent:rounds:v1`, `kroko-doc-web:rounds:v1`) werden beim ersten Lesen einmalig unter den neuen Namen übernommen, und scheitert ein Schreiben, gilt bis zum nächsten Erfolg der Arbeitsspeicher, damit der vor jedem Schreiben gelesene alte Stand keine Runden zurückbringt.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L5-L60",
+          "version": "repo-lines-v1:sha256:27044c76b446d930e6fb364a0c43d8c2f428cb58019c2ab823c29ee8e0d28788:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhNTZmMWYwZmMwYzMyMTY0ZWU4ZDgwZjNmZDA1M2Y1MWYwMzYxYThhMmQ2NzViM2Y4NTYxODFmNzdkZjgzMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3NjZkMjUwNDkxNTA4YjNiZmU0MjZkOWYyZjIxZTRiOGY3NGYxNWZhNWJlNDMwZDE1OTRiZWI3M2YwYmI3OTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhNWU5MDZkYjFkZTQ1MTZjNjkxNzA5OWYxZTBhOWZjMDExM2M2MGFiZTZlMWJiMjBkNTk4MzEzYmMwMWE2NTEifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageLog.ts#L77-L99",
+          "version": "repo-lines-v1:sha256:729edd8b8a21f8df9dc765ff9492372890c503fb3afdca801920f63374962806:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwNzE2ZmFjMjYyZTQ0MTMyZDE2MzY0ZWQ4NmQ5YTY0YjhhNTY2NjExNjJmMjZlZDAzZWVmMGFhMzBhOTAxNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0NzZiZjlmY2MyODYwOTBhOTAyODYxMTc0YTcwZTAyMWUzOTMxZGQ3MWIxZGZiOTA0Y2ExYTY3NTJjMzIwOGIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

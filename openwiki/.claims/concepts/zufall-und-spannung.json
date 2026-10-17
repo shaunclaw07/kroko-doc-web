@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a9662f96dc928916d68f58f83e79049bcb18cbcdd0fc7a151cd9a0638ed8acfd",
+  "claims": [
+    {
+      "id": "claim_3cec1e9ba7994958a4069cb2cf418637",
+      "statement": "Die Standardauswahl `UniformLiveTeethSelector` zieht im Modus `classic` genau einen scharfen Zahn und im Modus `original` gleichverteilt eine Anzahl aus der gekappten Spanne `lowest..highest`; `sampleDistinct` zieht dabei ohne Doppelte (Teil-Mischen) und gibt die Nummern aufsteigend sortiert zurück.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/liveTeeth.ts#L5-L31",
+          "version": "repo-lines-v1:sha256:3b100cd883cb53c291160911fcb92b07fb781e2bcfa9bb78691589aa7583f865:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMmNkNzliMGZmYTlkMDZlMDBjYzg1YjBiZTNkZDRiNmI0ZWFjMTk4NGFhOWY2OGNlZDIyNWZhYmEwZGY0ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3NDEwNTY1ZTdiYjY1MDA2NGZhMDAzNzI4NzBlNGU2NTBkYWM4MDBlNDBkMzRkMGI1NTlmZTRmMWVhNDA5YmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNTZjMmQ5YmVkODI4ZjVkOWM5ZThlYjcxN2RmOTJiNzg3OTdhNzRhMzU2M2U0NDNhZDA3NmMwZjZkMDhkMzIifQ"
+        },
+        {
+          "resource": "repo://src/core/ports/liveTeeth.ts#L1-L18",
+          "version": "repo-lines-v1:sha256:1f1be820ad380724904247f06eb77f8b17bd030f9698f84697134f8c346cf6e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0ZjQ2NDk0ZDg2M2ZiMzNiM2UyOTE4OTAzNGQ0OGMxZDA4ODBhMGFmNjJhYTQzZDY4NjZhMjc4ZGFlOWU2YjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7430c1441ac148fdb6d9c1c9fbe41f6c",
+      "statement": "`liveCountRange` ist die einzige Stelle, die die Gebissgrenzen auf die Zahnzahl und `MAX_LIVE_TEETH = 3` kappt, und speist sowohl die Auswahl (`liveTeeth.ts`) als auch das Rechenmodell (`probabilities.ts`); die frühere getrennte Kappung (erst nach dem Ziehen) erzeugte eine Anzeige von 83,3 % bei tatsächlich 75,0 % Ziehhäufigkeit.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L137-L148",
+          "version": "repo-lines-v1:sha256:cb825714f150c7bca2d4690eae6761b15780a4c7000f24f1571b5a2122511e39:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZGYyZjVlNjg3YmIzNGE0ZTAyN2JkNzFjYmZmZjdjYWQ5ZmUwZWQwYTEwNzYwMzJkNjEyMTk2NjNjZWFmNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NmRmMTM1MGUyNmRkZGFjNmZiZGRjZWVlOGZmMDMwZDg5MTM1ZTZmN2FkYmRhZDQ3OWY2YjliYWY2NzEyMzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzZWZhODJiODk1OTdkMDJjYzQ3MDhlZDVjZjFmMWJkYTFjNDVhYjg0MmJmYmFjOThjYmJjNzllMjBhZDQ2YjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNhYTE0NjQ1ODRiNDFjNWVlZTI3OWI1Y2IyNjgzOThjOTM5M2RiMWNjYmM3MDBiMmFkZDljMGRmNmIwMThlNmIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/probabilities.ts#L17-L30",
+          "version": "repo-lines-v1:sha256:7dae8ed6052c43f6010b1b82bc9785eff18d5cd3589019aa9fa8f50fc853ac6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNzc0N2Q4NzVkMjMyNzc4YTQ3NjBlOTExZTI5YTcyMTFkYzkwMWVkZDE3NWM1ZWZlZmY4NDM4YmYxM2MyM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjMDE5N2I5MzZiZWVlYmQzZDk5YWFlMzBiMDZmMjFiM2ViYmUxM2Q5ZTFiOTUyODRiMjFiZWUxNDkwNjZhOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1OTcyZjE3MTA4NjEyNjE4YzkzOTk5MDAxM2JhNzBlMDFjY2NkY2I3MGE0YjgxMGJhNWQwOGY4ZWUwYzQ2YWEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L42-L56",
+          "version": "repo-lines-v1:sha256:b1cf7ce2d4b2627c41d949aa2c5697b671000eb03360310b43191b0538722d6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmNTg3Y2U3M2QzMmIyZTIyNWIxYjg5ZmE5MGU5ZjYwYjg3YjBmNzJmZWY3ZGU5NGQ4ZjQyNzBhNGNkY2EwZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5MzFiMjQxMjUyNGQ2ZjkwZWFkZWY5ODE4NzBjMWE5MTQ4Y2VkMzg1MmI2OWViZDA5NmFhOTdmNTIzNDk4NTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiZDcwNTZmNDc2NzcxOTRlNzRmYmZmN2E2NGE3OTVjYjQ2OTFhMDQwZmYyNjhjNGFhYzY2NWFjYjFhODM4ZmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_04bbaaac910e46f0ab0ac082816ab1e5",
+      "statement": "`pressPositionDistribution` rechnet die Verteilung der Zuschnapp-Position als über die Anzahl scharfer Zähne gemittelte hypergeometrische Verteilung `C(n-j, k-1)/C(n, k)`, wobei `k` auf die Zahnzahl gekappt wird; `modeKWeights` gewichtet im Modus `classic` nur `{1: 1}` und im Modus `original` gleichverteilt über die erlaubte Spanne, und eine konkrete Runde muss `teeth` mitgeben, damit Modell und Ziehung übereinstimmen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/probabilities.ts#L62-L91",
+          "version": "repo-lines-v1:sha256:65e6d3936eec4b3189260665bd642d94437026176a0aad3f4dc14007e737c3e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQwNTI5ZjNjMThjODQzMmFjZDY2ZTQwZWQxNjY2NWY1MjVkNDA0MTdjMmYyMzJjZTU2ZDRjYjM3MzYwY2JiMjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzZDhlNWMxMDM0YjdlZDY4YTg3NzA1YjM1YjljODlkY2NmMzQzZjdjYmQ1YWY0OGJhMTdlMTI4ZWMwM2EzNjAifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/probabilities.ts#L7-L39",
+          "version": "repo-lines-v1:sha256:ff8f58a904fa8c02756a51d84aa3c727c48c04e9abe41105b704b8391b02ec6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3ZGViMDcxYmUyODVjYTBlM2JhOGM0MmIxODVkNjgzNWFiZWM5Y2Y1Mjk4NTFkZTQ2Yzg2NzZiNmI3NWEzMGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhZjhmZGI4MjIzZWY0MWJlYjUyNzNlZGQ4MTIwOGU1OWZiYjAwY2ZjYTg3ODVlMGNiNDNkMmM1OTEzNTM4ZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ3Y2RjMjU1NzI0NTY5ZjYwM2FmMzRjYWM1MDMwOWRlMjNjNzQwZDJjODU3NDBlODdhNDI3ZDk3YTc1M2ZiZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_59dedd3e59e54fe9871bf51cc149ea09",
+      "statement": "Die aus dem Modell gerechneten und in `probabilities.test.ts` festgenagelten Werte sind für 10 Zähne mit 1–3 scharfen Zähnen: P(Biss beim 1. Druck) 20,0 %, P(erste 3 Drücke überlebt) 48,6 %, E[Drücke] 3,972222 und P(Biss beim letzten Druck) 3,333 %; `classic` ist über alle Drücke gleichverteilt (10 % je Druck, E = 5,5); bei 12 Zähnen hat das Krokodil (1–3) P(J=1) = 1/6 und E = 4,694444, der Wolf (1–2) 1/8 und E = 5,416667.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/probabilities.test.ts#L114-L152",
+          "version": "repo-lines-v1:sha256:4e6da72f161bf32333eacbca376700d7ebcececf4a9a652b97f6aafc051fa0a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MGIzNzQ3NmU3MjM1YzA0MmRmNjMyMDU1Njc0MmJiZjE5ZGM4OGE1MjQ1NDBlNWNhZjMxNGNkYjI3ODFhNTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/probabilities.test.ts#L14-L84",
+          "version": "repo-lines-v1:sha256:8a3fb5886f4d0f7cc6a79521184ff960a9ceb512838c9af1ec9ae9bd6a9b8f89:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1ZWQ2YzNlMjEyNjQzYmJiZDdiNjcyZjZhNTBiZThkYWFmMmE2MTZiNWUxYWUyYmI5NmUzYjYxMjJkOWRhMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwMmFlZGJjZDcyZTA5OGUzOWJjZDQ0YjRhYWQzNTcyMDRjMjg0N2E1M2I3ZTdjYWM0M2NjYmNhMDE5ZjFhYWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0NGRjOWNhZTJiNDk1NjgyYTYxNTBlMWQzZTNjOTAyN2FjMjk3MGI4ODY3MjRkNTE3NzIzMDE5M2VjMGIwMDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_00103a0a5fc84b0db797b3cf139454c5",
+      "statement": "`playerLoserProbabilities` faltet die Druckverteilung reihum auf die Spieler; bei 10 Zähnen und vier Spielern ergeben sich 33,9 % / 28,3 % / 20,7 % / 17,0 %, und die Anteile summieren sich zu 1.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/probabilities.test.ts#L86-L103",
+          "version": "repo-lines-v1:sha256:1e02607f6523941347e94dbdb403d79d5b1d7a656d946fab00653e3b842c1189:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4NjA3MjdhZjNjY2U4NDAyNWE5NWU2NTY2MTBjMTU3NWEwOWJhZTk0Y2FmOTRkMjAyNjc3OTdjZjEwZTRjNjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0OWZjMDkwZDFlMWFiZjlmYTJkM2MyZTBkMzZjZDk5ZDViMzdmOGU0YzdhMDNiNWEyNGMxZjA3ZjZmMjA4OTAifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/probabilities.ts#L109-L122",
+          "version": "repo-lines-v1:sha256:145eb76a25b5f3dc2088d519a71e0bceeab119519ee4d545fcee19b62fb444e3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2YzQyNDQwZDc3MzRlMTk0ODFmNDUzMmM4MDg5YTQwZDgzMzBiM2U2ZjhhNTVlYzJiMzc1MTAzZDMyYzEyYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1Mjc2MTRhOWUxM2Y0NjM0MmI2YmY1YjBkNDU2MWNjMmNlYjZkYjljZWUzYzgyOWE4Yzg3OWVhZDcwYzQ0ZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a341c8c560141da99b028dbc66a3708",
+      "statement": "`tensionForPress` ist die bedingte Biss-Wahrscheinlichkeit des nächsten Drucks `P(J=i)/P(J≥i)`, geklemmt auf 1..teeth, monoton steigend und beim letzten Druck genau 1; sie verwendet nur öffentliche Größen (Zahnzahl, Modellgrenzen, Modus, Zählstand der Drücke) und nie die verdeckten scharfen Zähne. Festgenagelte Kurven: Krokodil 10 Zähne 20,0 · 21,3 · 22,8 · 24,6 · 26,8 · 29,7 · 33,8 · 40,7 · 55,0 · 100,0 %, Maus 6 Zähne 25,0 · 28,9 · 34,4 · 42,9 · 58,3 · 100 %, `classic` 1 ÷ übrige Zähne (10 · 11,1 · 12,5 … 50 · 100 %).",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L34-L110",
+          "version": "repo-lines-v1:sha256:1a4a6865440bc38f7f8aa5d3a6b5c21a84f9d73f7b9ad80b34d6ef4b5e553838:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyYTg4YmYwNmE5ZmE0ODEzNDVhOGJjZDg5YjdmODJjNGU5ZmY5NWNlZmUyMmRjZmE3ODYyZjEyYThmZDY1ODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3YjE0MWYzYTAyNWYxMjg0ZWIxNmM0YzI3NTFkNzQzNjczNGZmMDM1MmM3OTVhNmJmZTkyNTBkM2YwZmM1M2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4ZDM5YThmYmM5NjU0ZGQ5YmNiMDYwNjU5Yzk5YTQ3YTExZjJkNjExNzZhNGE0NTg5ZDU3NDU1Y2FkNzkyYjEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L32-L60",
+          "version": "repo-lines-v1:sha256:070fe7daff6153ac0094aa0bbba8b2f0843788b0821b649a6ec73e6ef21c5de8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjZGI3NzI2YjdiMTBjM2U4ZDYxY2FhZDNhMzAyNjNjZGQzNWI0Zjk0YWM1MGNhNGQ1MTIxYzA2NGRlNDc3Y2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0N2FjNGUzNDhlMDU4OGFiNzNlMzVjYzRlMDNlNWJjMGQyYWUwYTQ2YmZiMTJkMzkxYzUxNTE4MDMyZjVjNjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_81f0fbdb3cc44a00a67cd50bb9265097",
+      "statement": "`pressBeatMs` zieht die Pause vor der Auflösung allein aus Spannung und Zufall im Fenster `BEAT_MIN_MS = 120` bis `BEAT_MAX_MS = 700` ms mit dem Wachstumsexponenten `3 - 2·Spannung` (früh meist kurz, spät bis ans Ende des Fensters); der Ausgang wird der Funktion nicht gereicht, und ein Test prüft sogar den Funktionsquelltext auf das Fehlen von `willSnap`/`snap`.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L116-L148",
+          "version": "repo-lines-v1:sha256:0cdc677ba72268f59db4f9e7d98b477dc89ed888ef8f5b2205f4c5698ed6564d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MDZjNzlkNjMzM2Y1MDgzNjEyNzViNmEyZWE2ODJhZTIwYmI5ZTI0NjM0ZjQzNTU1Y2VjN2Y0YjVjOGJjNTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjYWY0MTFlYTE2NWRmYTg4YmViYjJjNzMyN2FhYTE3ZTY2MGE2ZmNjZTE3YWJmNzVkYjViNDU5ZmU3ZmIwYjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmNzgwMzQ0MDE3NTM2ZWYyMWU5NDk1ZDYwYWI5OGE2ZmQ1ODM5YjFkNGI0NDdhNmYzYjZlNWIyOWRlNmZkZmYifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L62-L75",
+          "version": "repo-lines-v1:sha256:8541d6c37d14b3e668f83dd65d58b4d0575db92f3ffcfbd3b18fba799e3ce264:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzZGU4ZmYzZjZjMWNhMjE5NmJlMmFiMmVjZDVmZDU0NWVmZjZhYjhmZjM5ZTY5NDdkYzgzZDFmMGQ5NTY1YmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5NGE5NWJkZjFkYjQ5NGQyMzYyYmY2YjM2Y2VjMjRiZjc3ZmY2ODk4NDdiMzRjMmZjNzVhNzFmYjUwM2UzZjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_29e7ac5857ab4cceaafc9a46ec1c9d0a",
+      "statement": "Der Riss zwischen Pause und Urteil ist mit `VERDICT_GAP_MS = 60` ms für beide Ausgänge gleich, und die Kernpause ist beim Halten eine Mindestpause: die Steuerung wartet nur `max(0, beatMs - heldMs)`, sodass ein über die Pause hinaus gehaltenes Loslassen das Urteil sofort auslöst.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L12-L16",
+          "version": "repo-lines-v1:sha256:6cd450ac64bfb9301d83e9e9bc9b2dc1e6670733b8c09b359427177404729c96:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgyNzhmNWIwYjU0NmI2OTIwMjk5NTRjYjUyZTJkNjY3NGM2MWRkYmY0MTcyZjg3NjI0OGM3YjFmNzVkNmE5ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmI0NWQ5ODg1ODVjN2JiZDNmNmVkMjk1ZDM1MDNiNzUyMTBlYWFmNDAzNTIxMzdlNDk2ZDY3ZmY3YzAxMzA2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTllM2VmODA3NDgzN2NmMGYxMDZiZjRhMDBlOWY4YzBlMjA2OGM5NGI2Mzg2Y2I2Y2ZiNDA4NDNiYWNiZTU5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjNjMTIzOTViNTk0ZjQwYzAzMjUxZmNhNjM0Y2Y5OThhYmZmZmYyOWY3YTM5Yzk3NGQ4YWZmNzUwMzNmZTI5ZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L919-L935",
+          "version": "repo-lines-v1:sha256:ca1d511fe14e4ff7873c20027f7c9a885bf01c6cbd7b75f5beb49ea77c316d03:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjYTRkYTdhZDFiYWM3ZWE0N2RhZGUxZmZiYTM5ODAxOTczYTUxNGNlZDcyYWZjYmZhOTkyNTM4OGQwNWJjNmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYjc2YWQzZGI2MWM2NWNiNmZmMjc2MWQ3ZmQ4N2Y5YTY0NDM1MWU0ODQ3YzcxZmU4N2I1YWFiNzIxZWIzODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1MTdhOGQ0ZDM1YjRiMGZlYzBhYjhhMTY1ZjdjNTQzYmI2OTAyNTYxOTVlY2E0NjJlZjc5OTBmMGRkMGViNTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L192-L222",
+          "version": "repo-lines-v1:sha256:26d75edef5272e8dfbbc53581d59e2a181ed2d39cb94fe70627ffa30e8aede8f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzMzU2MDA0NWY3NGE4MjVlZjlmNjNhZDdhMDIyNzVmODBhYmUyNGM4M2Y3MDIzOTI3ZDMzMjlhOGIzMDlhMmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1NzhmZTc5ZjkwYWJhNzk1ODFmYWRiYTE0NDhjMWEyYTYwMmE5YjBiOGEwNGZhNWFiN2QxN2E3ZTY4OWNiMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhOTI5M2ZkODA1NGI2ZTQ3MjQ4MzczZjM5ZjRkZDc3ODAwMTA1ZWI3NTgzNDg2ODcyNTQyODVjZDEyODJiNzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8b77f93bc084866ab0c4519a2751cc5",
+      "statement": "Das Zucken folgt `twitchChance = 0.12 · (0.6 + 0.9 · Spannung)` (also 7,2 % bei Spannung 0 bis 18 % bei Spannung 1, unter der Testschranke von 25 %), ist bei nur noch einem übrigen Zahn 0 und wird bei einem scharfen Zahn von `planPressDrama` hart auf `false` gesetzt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L170-L182",
+          "version": "repo-lines-v1:sha256:faa5dc8806f2643e3e0f4491e785c00a2638f760dc22a770711a13a02f3453c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMzFjOTMxMTUxZmJlNjcwZDA2MTA3Y2VmMmQwNmJlNjg0N2VlNmQwMzBmZDI0NGE5NmQ0MjUzZDZhMDAwNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4MGE0OTU5YThmYTk4MmI0NjdjNGQzNWU4ZTMzM2ExODcwMDA5YWZiNjM4MDFkOTAyMjA2YzlkYTI0ZTg3M2YifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L249-L255",
+          "version": "repo-lines-v1:sha256:9d72c1ce2d4f5d48c0433ad815034257f95d016729e4c1d73de3defa94aa4739:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzVkZTcxY2FkZDBhNGZlOTQzYjEwNDE0ZGVhYTBkZDNkYmVhY2ZkOWFlNGM0YjIxMTBkZDEyNTg5YTgwM2RhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWJhZjIzNjA4NGM2ZmM3M2RhODNjYjI5ZWJkNjNmNmJlNmU0YzE1ZmY0ZjcyZDg2NTQwOTNiMDQ0ZjcyMDg5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmZkNjY3MTMyZjY2MWM4ZmE5MzgwZWNlMDIyYzI0NTcwMGQ1MWI1N2Y1NTY2Yjk4MjIwZTM4NjNlOGI5ODI5NSJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L196-L215",
+          "version": "repo-lines-v1:sha256:ffe9444e96f487b831e2e97f1b36535488a1eb95f3139d3076c0b2bf02d7bc19:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5ZDNhZjllNjJmNzQ1ZDM5YzI4NWM4ODk0MWEzNjY1NzJhZGUwYWFjYTIxYjZjMjk0MjdjNTVjMGUxOWM2NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFmZjdmOTlkMDVkZGRiNjQzODI3NDc3MjA4MWQ5N2M5NTM4ZGI3MTRlMjM3NjM4MWI2MjM3OTZjMzk5MjNiOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L86-L92",
+          "version": "repo-lines-v1:sha256:38bbfb14ea7b02b44696d9866803d409d778cccadd19ae6f794d5e417b9a3e99:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjAxMTNmNmZkNGNkODRiOTZmNjYyNTllMThlNDVmY2Y4ZDExNTBjODcyNTg5ZmUyMDY4YzA1ODc3OTFiNTA0NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODdiYWQyZjNlNWViNTEwNDU5ZjY3MzEwYzhlMGM5MzM2ZDc1NmFhNjMzNjdiNDJjN2MwNjZlYTczNmE2YTU3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU5ZTM1ZGY4YzFlMDUzMWJlMzgxNjQzNjg3YzIwZDlmODA5ZTU1NTgxOGE4MDQ4ZDY5YTc1MGE5YjhjODU3NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f796a1014e643f0ad26e10be81f682d",
+      "statement": "`reliefLevel` ist die auf 0..1 geklemmte normierte Pause `(beatMs - 120)/580`, beim Biss 0 und beim harmlosen Druck aus der erlebten Pause `max(beatMs, heldMs)` berechnet; sie wird erst nach dem Urteil in `settle` angewandt, kann den Ausgang also nicht verraten.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L77-L84",
+          "version": "repo-lines-v1:sha256:3df6df8b420ee4de290fe1c3e40cb3e7d4211b5228b3b4548b838434cf75fe8d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ1NmRkZmZjM2I5Zjc1MDYzOWNlMjIzZjQ0NGFkMDQyZWE1YjBiNmNmMGRkNjM0ZWIzODI2YzI4ZDQyMWQ1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDZlYzU0ZGU3ZTRmNjdlMDExYjE3NjIwNTA3MGY0NjJkNzE2OTNjYjM2NGM0ODBhMWRlYjE4N2U2YWU0NDVlZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1057-L1063",
+          "version": "repo-lines-v1:sha256:86d245820f574ec16aa10821151a46249b2ec2258cad4f37a655148e63eec0cc:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRmYTZiMzgzMzM0YTE0ZDY4YjBhMjEzYmVhNzcxOTljMWRjZDYxMDE3OWNiZGQ2NDhkMGJjY2RmNWMyOTIyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2M2YmY4ZWUwMDViODI2MThlMTE2MGE0YTVjNmFkN2RiOWI1MWQzMTEwYzUwYjk5NzBjODQyYzFkY2U2ZmIzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjFjOWY4NmM1ZjQ0ZjU5YTA1MDZjMGY3NGM4MDgxMWM4N2JhOTkxNzlhODRiMmMyNDIxYzIwYTlhYTllOTg1MiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L197-L201",
+          "version": "repo-lines-v1:sha256:cf7bfc13ab2afb4a621554ea267997926ccc9833abd784f86316dbbdd8f3bf53:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjk4NmIzZmVhNGExNTBkZTAwYTQ2NWE4ZWIyMjI4N2ExOWJiYjNjMzdhMjhlZjFkZTYyMWM4YWVkZWRkNWFiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTFjMjM5ZDFlN2QxMmRiNWY2NDE1ZTI2MDI3ZWZjYTljOTkxMjk2MTNiYmM1YTQ4NTE0NDk1NTY1NTFiYjNmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWI2M2M3MTBjZjQ4ZDZkOGUzMTljZDlmNGYxYzJjZTM3NzM1MTI2OTU0MDI1NGNmZWRjM2YyOWI1ZjQxMmFhOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L229-L242",
+          "version": "repo-lines-v1:sha256:88c33ec85df5f0fd6df2e07a83c1da2607fb45b72c946e866cc65da4fa028910:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxNTZlMTFkZjYxMWI3YTVhM2YwNjQ5MmI0M2IwZWZjMjI2ZWMwMzQ1YzRjYWExNTdkYzVlYzQ2ZGMwZmIzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyMjZmNTI4ZTQwYWFmOWY2Y2MxYzEyOWJjYTgwZWIxNzI4ZmIyNGMyZDYyNzZhMTNhMjNiN2I0ZTJkZjZlMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzOWZjNDcwODQ4ZjFlOWI1OWM2YWIzMzM1NWYyZDQ3MGEzNGJkYWUwMWEyM2I1NmFkMTk4YzNlMjM0ZTBkYjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_446cd77fe5eb40888861de77cfd5e822",
+      "statement": "Die Anzeigeschwellen und abgeleiteten Werte liegen in `tension.ts`, nicht im Stylesheet: `TENSE_LEVEL = 0.3` wirkt strikt größer (`isTense`), `HIGH_DANGER = 0.5` ab der Schwelle (`isHighDanger`), `dangerZoom` ist 0 unter 0,5, springt an der Schwelle auf `ZOOM_ENTRY = 0.4` und wächst linear bis 1, der Balkenpuls läuft von 900 ms auf 380 ms, und `pressProgress` liefert `pressed/teeth` als Füllung getrennt von der Gefahr.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L198-L222",
+          "version": "repo-lines-v1:sha256:4850086a4333b939fca6a83d863c2ee8b90ce1eec3367ef89d89254ea8191a83:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2NGM3Y2E5YTFmYTlhZGQ3OTRiMWY2MWU3NWUyMzZjMDMyYmQzZDUxNzc1ZDJkMGQ2M2UxOWRhYWEzZmZkY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4NzhhNjRiYTNiY2VmZWNlYmM4ZmVjNTVkMGE1YTg5YzJlNWViNjc4ZmNkNGFkNTMyNzE5YWJkYjc4ZDNmZGYifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L133-L160",
+          "version": "repo-lines-v1:sha256:2ac8c77192a8684e29f2f4c4b7f582cdd1c8fb26ec37db47bc0d755a7ca4bc26:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxOWMzNzY1YjI2NDE5ZTJlMGFiZmI5MzUwYjdhNDRlYTBmMDM4MDMwMmFlOTZjMzY3MmUzNTkxNjEyOWVjNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwZGQ2NGM4MTYzNWRkYmMwMmI5NTlmYmI4ZjBlMzE3YjQ4NjY4YmQ1MjE1N2JkOTFiMjBiMjliZTZjODFhNmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwZjZkOWQxM2MyMTcwMDhiMmVkODUwMTQ2MWZlN2YyZDU1ODYzOTI3MmI0YTE1ODk1ZTAxYzk1NjJmZmVjYTgifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L18-L26",
+          "version": "repo-lines-v1:sha256:ed60b9e58dae7a0b15adbd67abcac951ca8d1e4cae13e5cf111a560fd6d55ce2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjU1ZjgxYTJmY2QzYTQ0NmVhYTViODczYWUzZTg3NGMwNmNhMGNjMjA5NTUyMjcxNWY2ZTk3OWUzNjQ5NTk4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjlkN2ZmYjNhNDMzOGI2NjRjYTE3NDQwYzI0MDI1MTgwOGI5NmMwMDJkYjg4MTIxOTBlZjczY2YzNzNiZDliMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEzODNjZTAzMmQ5MzNkZDQxMDg4ZmQyZTMwYTJjNWVjNDEzNjFmOTAyNDU3OWE3OWZmYjAwOTVmMDBmNzA2YyJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L94-L110",
+          "version": "repo-lines-v1:sha256:e4dc9f87f3bd031e5b212397beb8c87bc268e9d8ed7fc3f507ff1def35ad91dd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5MGMxNDBhZTUzOTgzNDAwMDJiY2NlYjVhODA3NjUxZDlmNWUzMmFmNzRjN2Y4NTFkOTg4ZWJmM2JhYzUxODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0MWFlMTY5YWQ2ZjdhNmMwY2IzNWJhZDE5OTY1Y2FkZWI0NzA1ZTI2NzE4ZTg5MTgwYzEzMzY0MDZkMWUwOGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0YjdjOGJiZDFhMmJmOTEzYTQ3ZTNhZWM5MWU2MTNjZWI0Nzc5OGZjOGFiODVkY2M0NmMzMDgyNWQyMzRmZmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2320868d8e7d4d0587d82a8283d33e2b",
+      "statement": "Die Rot-Schwelle von 50 % ist bewusst so gewählt, dass ein roter Druck überstanden werden kann: beim Krokodil ist der achte Druck mit 40,7 % noch nicht rot, der neunte mit 55,0 % rot; der Stolperdraht „wird rot, wenn noch zwei Zaehne anstehen\" hält diese Folge fest.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L326-L346",
+          "version": "repo-lines-v1:sha256:05b3abbae4d35e0200bdf18c1968b89d2249ec8250924a7fb36cd1b83b5b2213:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2ZTVjZjk3ODFiMzJhN2Q3ZDQwZTcxNGU4ZDk4Y2ZmYWE1MTI4YjdlMjFlYTQ2NjMzMjA0NDMxODhiMGYzN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyZTU4MzE3ZDhjNDBiODliOTMyOTY3ZGRkZWUwZTk0MGI1MTgwNWMzYmFkYTcyZGFiOWE5Zjk2OGFhMmQxYjcifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L18-L23",
+          "version": "repo-lines-v1:sha256:d2c79c4b40cb3e5ab3a55e3a8380a160b8c1753eea6d22859e1b9bfdb574cc02:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTA4N2M3MTljYmJlNDIzZjM3MjdlOWNmZWQxZGE4ZGZlNjI1YjQxZGY5MTQzYmZmYTY1ZDYzMDEzMzIyZGIxZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjlkN2ZmYjNhNDMzOGI2NjRjYTE3NDQwYzI0MDI1MTgwOGI5NmMwMDJkYjg4MTIxOTBlZjczY2YzNzNiZDliMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTdkYjI3ZThkMDA0MzRkZmFkMjRlYzM0YzE4YTdmNmU3MTZlZmUzMzRhYTQxZmU1ZmMwMDViZDI3NTVlOTMzMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L704-L716",
+          "version": "repo-lines-v1:sha256:e573b9bc975a91ed127eb9171a2d7a559e4676b00a6698f44fada5bd9a3e4b9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmZmVhY2FlODBiYTk2MjM0N2I4NWFmZTVkZWI2NDA5ZjhhNjhkOTEyNTVhYTMxMTdhNmNmMDgyN2IzNWM5NjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjODBjM2I0MGUwYmRmZDgwOGVjODAzZTNmOTQxYTdiMDJiNWE0MzNlODRhYWYyZTQ5ODNjYjRlOWQ3MWYwZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3Nzg4MzljYzJmNjJkZWRmODFjMGY3MzYxYzY1ZmZlMjk5ZDJiYWU2ODRmZjg0NTY0OGFiMDg1MzRjYTIxNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9f9f979152d14e00aa1d5b2c48c7c0af",
+      "statement": "`survivedDanger` ist die Bissgefahr des letzten harmlosen Drucks (0, wenn schon der erste Druck schnappte) und damit der „Mut\" der Runde; derselbe Wert speist den Satz im Ergebnis (`mutSentence`) und die Kachel „Mutigste Runde\" (`bravestRound`).",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/statistics.ts#L26-L48",
+          "version": "repo-lines-v1:sha256:0a42da4f1196fdeef6b047c8930052a18330789b8af34ac65c9b448bc8277cde:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzNjhlNmYxY2Q5ZDNhN2NkY2Q1NjNkZjY0MTEyYWMwNWM0YWFhNTU3YzU2NjRhMjc2ZjZkNDU1MjE1MTJjYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0ZjQ4MWJmMjg0OGU0ZTllMzM4M2U1M2ZmM2Y5MjE4Yjg2OGRlZjY4MThhMzc5YmViNDM1M2ZmNzlhOWYxY2QifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L111-L131",
+          "version": "repo-lines-v1:sha256:a7ba99ec89ec3ee4f2ae915cb468d0b10e657148b18a9133a8eb0f6a78c9406e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZiMmI1NGU0ZjFhZDA3MGJjZGJhMDQ3MmQ0MTE2OGNhMDRiYWMzM2EwNTRhNWM0MjFkZWRlODQ3ZTJlYWU4MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwMDliM2YwZDI0ODg3MmE5MzM0ZGZiNjRlOTdlZWUxZjdjMzU4NjU0OTEwNjU1ODFlYjA0NGVjZGQwYmMxYWYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/resultText.ts#L28-L53",
+          "version": "repo-lines-v1:sha256:d307100b2b49c5b779663a3aeb9501b74a50a4ff33c76b2ec2962fcfaa237563:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQzYmUxMjc2ZjM4YTk2NmZjYmEwZmFkNTA3MjBkZTk0ZmJkMzliNTdjYzRmZGZlZGNkODE5Yjg0YjA1OTc1M2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4YzcwMjM2NjE4NmUyYzY1YmEyZmU5YTA1MTFlOGViYTA5ZTgyN2YxMzQ5OTM0MTJmMDFiMDYwZmQ5MjQzYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkMjU2OTM4ZTRmOTE3OTJmYjBlZjRmODc1YzJiZGE3NzhhMDc2NTBhZDk4NDhjNmZmOWNjNDkyZTExODNhNzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_75201e18bef040a7b294fd6d9472ee7d",
+      "statement": "`planPressDrama` berechnet zuerst die Spannung dieses Drucks, dann `tensionAfter`, zieht danach die Pause und liest erst zuletzt `willSnap`: beim Biss gibt es kein Zucken, keine Erleichterung und das stärkste Beben (0,75 + 0,25·Spannung), beim harmlosen Druck Zucken nach Chance, Erleichterung aus der Pause und Beben nur beim Zucken (0,35 + 0,4·tensionAfter).",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.test.ts#L224-L286",
+          "version": "repo-lines-v1:sha256:ea55da71638088c5075f662c6eae76ba5dbd9c5767de70df86c35403c5fb384b:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNmRkMjhjZmE4NWI3NzMzOTE5YTMwMzc2OGZkYzEwZTRjZGQzYjBlZDE3ZmQ5ZDgxMTlhNzk4NWFiOThjMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM2MWQ3ZDliYmE0YjQ3N2U3OGU1OGJiNTIwOThmZjJkMzdjMjQyNmE1NTM3MDBhYjhjNjNmOTllZTI3NjRlOGYifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L162-L216",
+          "version": "repo-lines-v1:sha256:30d863cfa9230aeee5e313165bc034d569987faf1c7d796396a15c0e35824289:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjM2MxOTIxYmRjMjBjMzE4NTI2MDU5MzUzNmJiMDU5Njc1ODkwN2U0MmQ1ZTZhODRhYmZlMzYyODA4OTVjNDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxZWM5OWFhMjc4NGMxZDljMGM0YjIyYjkxNzBjZjdjZmYxYjU2NzRhNWZiNTQ1YWRjMTEyMjEyMjVlZTgwMGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3156d997e0df4a33874a098940e06c4b",
+      "statement": "`playPress` ist die einzige Stelle, die `state.live` liest, um `willSnap` zu bestimmen; sie plant daraus die Dramaturgie und ruft erst dann `pressTooth`. Die Bedienung ruft `pressTooth` nie direkt und liest `state.live` nie, damit sie das Geheimnis nicht über die Wartezeit verraten kann.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L103-L111",
+          "version": "repo-lines-v1:sha256:7940e9156243aa625dd4b276ae0d728fdb5019f94b403ab9d546579c8fce6ade:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2NhNDI3ZDNhOGVlYTQyZDA5OTgxYWY2MThhYWFhMmM4N2E4ZDYyNmU0MDVmMjU3MmY5OTJjZDgyM2JhOWVkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODVlNGUxMzYwNzdlOGZiODVjNzE0ZmYzNTI0NjQ5YzE2ZGZiNmE5OGQyODE3M2NkMDE2YjliNzA1MDA4Nzc4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QyNjlkMDc2Njg3YmJhYWQyZjQyNjZlYzEwMTVjNGE4NjEyYzdlYjhhMmFmYzY5YjBjYTc1YTNjMTUxNzNmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/core/use-cases/playPress.ts#L14-L38",
+          "version": "repo-lines-v1:sha256:d771e45045826f12e5ed9a4e515d80d5b16545aaa816f3d92d3cc387ae4753ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzYjk0ODUwOGUyOWQ2MGNiNThhZDUzZWEyZDVjMzhhNDk0ZGMyZDMzZjYxN2RlMWMxYmFkNWNlODEyZjJiMjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L181-L186",
+          "version": "repo-lines-v1:sha256:afe874f296194b6adab50d7ca52b189174e0141c13addafce58ac3486dd14174:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMThkYTU4YzczMzU1NDE5OTE0NzFlNDAzOWM3ZmE5YjYyN2YxMDM1ODhiZTA5NGNkM2Y1OWUxMDdiNjU2YmIyNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU3MzliMzBmNWYzMjRjMWJhODRhZDBjMDA1NjBjMWI4ZjkyYTFkZmNhNzMyZGExZGMxZTZkMzQ1NWY0NmMyNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjdkZmNjM2Q0OWMyNWFhZDYwZDFkNjgwNzc1NzYwZGQ4MTMwMjFkZWQ2Y2U5YzE3ZjI0YjI2ZDQyNTBjMzUyMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTM3MDRmOWEzMDIzODRmZDFiOTAwMzQ5MDNlNDkxMGMwODE1Yjk0OGM5NjlhZjQ2MmQzNDQwMjllZTM5YTNlNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6c979e2ca7284b7d970b82f82734f4a1",
+      "statement": "Die Spielanzeige rechnet die Gefahr des nächsten Drucks bei jedem Rendern neu aus `round.pressOrder.length + 1` (der Balken startet daher beim Krokodil bei 20 %, nicht bei 0 %); ist das Maul zu, fällt die Gefahr-Aussage weg — „Runde beendet\" statt Prozentwert, keine Gefahrenfarbe, Zoom und Zittern 0 —, während die Füllung der Fortschritt bleibt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L740-L753",
+          "version": "repo-lines-v1:sha256:04bd2f531ff72591a8021550e6c414e596445117d2545bf448335dbacf750e9f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3ZmU5ZTQ5ZDY5NTc0NDJkNjAyMGNlNTI5Y2I2ZmJhZmNjNjVkNGUzMmNhNTllYjM2NDhhM2I2ZmJiOTczYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjN2FhNmVjNDAyMTdkNWNjYzZiYTZlOGEyZGQwZjEyOTViM2FlZTM4YTMzYzJlZjI3ZjY1MjZkOWE2MDk3ODQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZmZiMDlmNTY2Yzc0YThmMTEwMjI2ZTRkODY3MWZmYjFiNzQ0Y2IxYThhZTI4OWZkNTFlZWQ1MTk2NTZhMDQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudModel.ts#L42-L93",
+          "version": "repo-lines-v1:sha256:4530d66f3648e410c17d4ec52fbd7d0d12a9df62a8608ac984facb9a86eebd31:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjYmQ3MmVhNmI3ODA2ODVhYTk4Mjc1NzMwNTQ0M2Y0YzBjZWNmZDg3YjM0MWJkNGRkMTgwMWE5MWE0OWU3MWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MmIwYzljZGZlMjA4ZDliNWVkZmMwZTEwZmU5NTYzZmNmOWNlYmNhNzgzYjVmZmI1M2ZmNmMzMTQ1NzUxYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L106-L139",
+          "version": "repo-lines-v1:sha256:9df97be6e7988484cdf1600e21ff032045a903f42909675287896b2868f34a01:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0YjIzZTE3Y2I3ZmQ3ZjU3YzlkMTgwMmU1YTFkNWZjZTljZGMxZjE1OWMzNzI2YzBiZTI5MGQxYTRkMWM0OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4NjQ3ZjNhNjY0NjUzNWQ3ODM2MzExNWM0MDQxNWJiZmFlNTAzMjViNjcxZDNhNGRkNzY4OThmNjUzMGE1MmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwM2M0MmEyNDVkNDQ0YmIyZDE0NzJmYjE3YTc2NGZiODAzODIzY2ZlMWIxZjYyMjAxOTBkOWU2NmFjNGZlNTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8b4a0a5ec68427abb3da23a6fc4be50",
+      "statement": "Die Balkenfüllung zeigt den Fortschritt (`pressProgress`), die Farbe die Gefahr (`isTense`/`isHighDanger`), und die Zustandsklassen `is-tense`/`is-danger`/`is-snapped` hängen an `#hud-panel`, weil der Balken außerhalb der Bühne liegt und eine Klasse an `#stage` keine Farbregel erreichen würde.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L718-L728",
+          "version": "repo-lines-v1:sha256:37fd713101ce40bf8b7393bd7eaf6cce4e787d5017f610e6e13af9cca04f89bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkMjZjZDAxZjg0NmFjNGE4OGViMTdiMjFlZGJjOWU1OTY3OTFlMmZmMjEwYjJhMWRkZGRjYzllYTgzNTFhYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwNTQ3MjJiNWVkY2UxOWY5MjQ4NmJmZmEyMzc1NzA1NjZmZDhiZmRjMDNlM2I2MjQ4NGMzZGI4Nzc1YTAyODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzYzE0Y2EyNDQ0ZDU3ZDk2MDRhODM5ZGQ0MmZkMTI2ZThjZTE3ZjFkMDgyZjBlYjdkYzBkZjMwMzkzZTM0NzgifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L114-L139",
+          "version": "repo-lines-v1:sha256:b24b33c525e4b61c56eb8ea898eaa0a2a6df56d137762b8c7f722fb146db60df:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllOTNmZmI0MjhiNGNiMmQ0YmYxM2NjYjk1ZTllNTUyMmJhODU3ZDhiMDc2ZGJlZTkzY2U5OTU3OWM1ODY3YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MmVjYTdjYTM1NDE0Mjk0MGQ0YmE5YzI4OTEzMzNkMGMyNmI2N2ViZTgyODRhYWQ4OWM1N2E1YzNjYjg3ZDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwM2M0MmEyNDVkNDQ0YmIyZDE0NzJmYjE3YTc2NGZiODAzODIzY2ZlMWIxZjYyMjAxOTBkOWU2NmFjNGZlNTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_655ad14f685a4d8abd26a7f0fc36ae6a",
+      "statement": "Der letzte Zahn wird angesagt statt weiter mit Wahrscheinlichkeiten behauptet: `isFinalToothTension` (`status === 'open'` und genau ein ungedrückter Zahn) schaltet die Warnung „Nur noch ein Zahn — der ist garantiert scharf!\" frei, und die Statistikseite markiert dieselbe letzte Balkenzeile als garantiert scharf.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/round.ts#L135-L142",
+          "version": "repo-lines-v1:sha256:f402866419de55b65a744644cd6a01f8b3c9f3ceb290ba3f5f5f96565ba94397:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYyMDQ1NzZkZjU5ZWI2ZmNmYTE4YjdmMGNlMmQ1YTFiMTBjY2FkNjg5Zjc2ZTgxNDZjYTc4YWIzYjBiYjU2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWM1MTQxNzkxMjIxYzllMmRhZDhhMjVmODU2Y2Q1NzEwZWNlMDA4MjQ4ZjVmNGI4NTkyM2Q0NDE2YTlmZWQ3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudModel.ts#L59-L83",
+          "version": "repo-lines-v1:sha256:85f7bc49134f6516f58930486ede461b6784ca0d8b2f238054c9c5621d95ca1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NDIzYzdkYjA3YjU1MzFlOWRlODc4ZjM4N2E1ZmMwZjQ2Mjg0Zjc3YzY1Y2M5YTNmODdhNTkyODE0ODA4OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1YjRkMGJjYzM3YzU3OWIyOTg0YjBmMTA4ZTI1NjM4MTU5NjQ2NmY2Yjc1ZDMwOTNkN2Q2NDM1ZjA1MDlkODAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2ODg5ODZkNzA5Mjk1MDdiNmY2NmVkODA3OWE3Yzk0OTRiMDM2Y2UyNjc3NGRjYjU5MmJmNjM3MjIxMWM3ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkNDYxMmY0N2RkYzI1NjhiZmI4MmVjYjVkNjQ1NWJlNjhlODBhMTUxZjZjYWIwODVmMzRhMWZkNWFkYzdjNzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L106-L110",
+          "version": "repo-lines-v1:sha256:1060100acb56b3ff6e75cd3721f02af99787864440f6d661f6d5b325d2a90834:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRiMjNlMTdjYjdmZDdmNTdjOWQxODAyZTVhMWQ1ZmNlOWNkYzFmMTU5YzM3MjZjMGJlMjkwZDFhNGQxYzQ5ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWI2MmY2MGQ4NTkwYTU3OWNmNDZmOGQ2NzM3OGM0YzU3MmI5NjJjZWNjZGI5MGM3YTVmN2I0MmI5NjA3ODJhNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTg2NDdmM2E2NjQ2NTM1ZDc4MzYzMTE1YzQwNDE1YmJmYWU1MDMyNWI2NzFkM2E0ZGQ3Njg5OGY2NTMwYTUyYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTYyZWNhN2NhMzU0MTQyOTQwZDRiYTljMjg5MTMzM2QwYzI2YjY3ZWJlODI4NGFhZDg5YzU3YTVjM2NiODdkMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L256-L283",
+          "version": "repo-lines-v1:sha256:82230f7758906c060d39b859c153f15b7bc15013ddcadc4577ed63ec10c65d07:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZjA2MmNkNDdiZjkyYjFlNWMzZTFjNGZmZmRmNzhmZmQ3OWJkOGFjYzI2ZmZlMWNlMGUyYWU3N2ZkYjgwY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ef874b239d9487daf282a035bcf7d65",
+      "statement": "Die scharfen Zähne werden erst nach dem Biss offengelegt: `resultText` liest `round.live` erst im Ergebnis und nennt Anzahl und Nummern (bei einem scharfen Zahn „der einzige scharfe\"), während `RoundState.live` als Feld ausdrücklich als „von der Bedienung nie anzeigen, solange die Runde läuft\" markiert ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/round.ts#L34-L49",
+          "version": "repo-lines-v1:sha256:3b80f0bb70132f13fe7f5bb704be955d5f58e1485e42b5c3f433da3f16eaeb78:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1ZDNmNmU3NTc1NTdlZjBiNTE5NDE4MDBjZjc2Y2NkMDE3ZjAzMGQ0MTY4NGI4YmJjM2JmNTczM2I5NDIxMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2ZjMzNTQ5MzZlNDIyNGNhMmFhN2M2OTUzYTBiNjc5MDVhNGM4ZWJmNDg0YmE3MDI4M2JiNDczNmYwMGJiMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxODgzMGM0ODJhNGNlNWFjMjFlMjdjYWI1Y2JkZDRhMTJkNWE3OTcwOWU5ODBkMjhlZWU5MmNlZTYxZjgzZDMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/resultText.ts#L93-L112",
+          "version": "repo-lines-v1:sha256:f26712ceb84c54183ef703eadcfff577e5157f6dfbeb727a58399928cab666e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4ODFiNDA1OWFkNzgwZTJlM2I0Y2Q1MjFlODJjYmE3YjVhMzMxYjdmMDcwNTk0MTEwYWMyMzNkOGViYmEyZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlYzczYzkwOWUzNjk5MGMwYTU5NjA3NzMzNDYwOGQ5N2Q0OWI4MjAxNzEwYzQ1NTJiZDk3NTZhMTE4YzRjNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlZjIzYTYxZWMxNzljMzllNGY5MjFjOGZjOWEyZGMyZTNlYzRmOTYwN2MwMGRhYzc0NzBjZjUwYjBlZWE0MzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3a2b8b11a688445fbc22fb5aa8de5bb3",
+      "statement": "Der Zufall kommt im Betrieb aus `CryptoRandom` (`crypto.getRandomValues`, mit `Math.random` nur als Rückfall) und ist damit nicht seedbar; der Kern greift ausschließlich über den Port `RandomSource` (`next()`, `uniformInt(maxExclusive)`) zu, und reproduzierbare Läufe entstehen nur durch `SeededRandom`/`ScriptedRandom` in Tests.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/liveTeeth.test.ts#L66-L70",
+          "version": "repo-lines-v1:sha256:889a403c0ca0d6a8531b60d22eb743909c7db63e2352b9fad598d6633f2fe5bd:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzZhMjFlYWVkOWJmNWIwZjAwNzIwOWMwMTRkMmM2MTE1NmFlYzVlZjZkMTBjZDcwNTYzNGRiNDIxYWNmM2FiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzIwZmM5ZTY3ZGIwN2VkMjM5YmIzYWQyMzEyZWFhYjlhNzBlMWY2ZmJhMDEyODhiMGJhNmU2MWQ3ZjhlZTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWRhNDhkOTBmMWQ3ZGU1ZWQ2NzY2NzRkYjQ0YzMzYzM0ZWQ1N2YyM2VmYTQxZjI3MTQ0NGNhNzliZmI0ZTAxNiJ9"
+        },
+        {
+          "resource": "repo://src/core/ports/random.ts#L1-L7",
+          "version": "repo-lines-v1:sha256:f97fd000aea7cbc0bfadd0f3c0237cc5b503bf483a1e4913c0b3ad6fdf0930ad:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQ3MmRkOWZhMWFhYzdlZGJjZTRmODUxYWExM2Q0MjI3OGQwNzc3NGE5OWE5ZjU0OGU3ZGZmM2U4OWIxZDgyYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/random/cryptoRandom.ts#L1-L30",
+          "version": "repo-lines-v1:sha256:214724c9264d7f8230e3fa1e600041ec0a84c94db5faf551c89ffeeb814b2bf1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlMGJiMDJlMzc5NmY3NTczOTcwMjg2Y2JmNDk2NzZkZDMyZTVhMWQzOTM2MDY2YTk1ZWY0NTczNmMwMWU0MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_11afaa61dfdc4a7b8031450287412a37",
+      "statement": "Die Statistikseite malt mit `dangerCurvePoints` dieselbe `tensionForPress`-Kurve für das eingestellte Gebiss, statt eine zweite Rechnung zu führen; sie weist den letzten Balken als „garantiert scharf\" aus.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/stats/statsView.test.ts#L82-L130",
+          "version": "repo-lines-v1:sha256:118a5783e7ebfaebdbfda2e6f47141fecf5c7f8c298a1bb2c9a47249e7a4d51d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMDM2ZmE4Nzk1YzZiMmZmNWI1NWY0NzY1ZTkxMmNmNGMxNGM4NmUzNjYzYTE0ZDU0MWEyZDkyOGUxYjhkYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjMGQ5MDQwZmZkNzEwY2U1OGVhNTg5N2ExOTQ0ZDEzOTZkMmQ3OWUyY2E2YTM4NTAyOGQ2NWE1NmFiNDU2MWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNjOTdiOTI0YzkxNGNlZDJiYTVmYjk4YjYxNDQwNTVjNGRlM2E4OTg1NTQ0MDJhNWQ0MTVlYWZmY2ZiMTEwODUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/stats/statsView.ts#L234-L283",
+          "version": "repo-lines-v1:sha256:d61d992cc95c24c0a1f2dbe6d60d9f210ed1ce44d6af8bccf4239435177204af:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNmU2OWM1YTlkOTdlNDYwM2JjZDY0ZmEyNDEyODMxMTJmYTM4Y2Y5NWE2ZDQ5M2Q0YjU0NmMxOTQ2YjIxY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3MjE4NGMyZjllYjM3MDMxOGQ2ZDc3Y2ExNjk5NzI0MDE4YzM1ODhlODVlNDY1NThmMWRhMTM2YjczNGFmMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZjA2MmNkNDdiZjkyYjFlNWMzZTFjNGZmZmRmNzhmZmQ3OWJkOGFjYzI2ZmZlMWNlMGUyYWU3N2ZkYjgwY2QifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

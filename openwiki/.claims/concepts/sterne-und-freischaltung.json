@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d67a2f78b368fe5c212438015ca97f8230e2cccde70a3edf0075cc794ad399a1",
+  "claims": [
+    {
+      "id": "claim_09607363721a42aabf8a026d16749f87",
+      "statement": "Sterne (Tier-Album) und Freischaltung sind aus dem Rundenprotokoll abgeleitet und haben keinen eigenen Speicher: Wer das Protokoll löscht, sperrt die Tiere wieder, und eine Sicherung des Protokolls bringt die Freischaltungen von selbst mit.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L7-L11",
+          "version": "repo-lines-v1:sha256:40e454f72d77b5e406cfba47ebed47e6326cc7aa0874e8404c343dbd99b60ec4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWJjZmIwZDUxMTViYzJhZGExODM1Y2M1ZWQ1NmRiN2M2Mjg3NDE1NDYwYzViMTgyN2FiMGI1ZmU2MjY1MGQ2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNlNWQ0ZDg1OTMwYjZhMTIwNmQ2ZTVjYzViZTZjZmNiZjA0MjllYmZhNDExODk4Mzg0ZjRiNDgzNzU4ZjA2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGNlOWEyZGZhMzQxMjM1ZmJhOWExZTk5YWEzNmQ3NmRmZTMzYzhiYzdhNDM2MGE3MjFmZmY3ZDU2ZDA4NjRlOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWY5YmM1OGEyYTlkNmQ5YTY3NzA1NmE1ZWI5MWY3YTEzZWZmZTY2NjBkZTlmYjAwMTI4ZDFmYmUyZmIwNzkwYiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/album.ts#L3-L9",
+          "version": "repo-lines-v1:sha256:565b282757d6881f5463f083d4305ad830ec70f23ebb82ea729a1ea326c7e4d8:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTJkOWI3MmYwZDA3ZDY2MTM4NTg4MjBkM2NmOTJlMjRmM2YwZGNiYjM2MmI3M2UyNjFmZWQ3YWRjODMwNzkwZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2QyNzViM2Y3NzlmZjkzMThiNTFiNzRmMmIwYzk2MDFlYTkwZjY0MmQwMWNjMGNiYWQ1YWU0NDBiNDRjOThjNCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L4-L14",
+          "version": "repo-lines-v1:sha256:295370528b7822a454fcfb57747fc2a6fa4345d7fd5144bcc4e9263363e1897d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwNjcxMjMyYWY4YmRkNmMxN2ViOGYwOTA3Y2VmYzRjNTFjN2I4ZmU0MmNlYWM5NjA0YmRlNmY2MTE2N2ZmN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0ZTY3ZWQ1ZGNmY2I3NzIwMmIzNDY0M2YwZjA5OTk1NTg2OTEwYWI0YzFiYzhjMTY5MzZmZjg0MWUwOTk2NWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5f8df71121d045e58a1a461dfd843124",
+      "statement": "`earnsAllStars(creature, teeth)` gibt genau dann true, wenn die eingestellte Zahnzahl mindestens der Katalog-Zahnzahl des Tiers entspricht; mehr Zähne zählen mit, weniger bringen nur den Stern `played`, und ohne oder mit unbekanntem Lebewesen gilt das Krokodil.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/album.test.ts#L44-L58",
+          "version": "repo-lines-v1:sha256:4a99fe31fbb481eaa68d55a18c31377f511aa73a92cb8d9a8ff39a693311c3ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlODdlNjc4OTk4NGNjY2RmNTVkZDkyNWRkZjk4YTNjNDFkNTIxNjlhMzMwMDlhZjFhOGRmODZkNmNjMmMyYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0M2U2YjI0ZTUzYzdjODI4ZDJhMjhlYTE2ODg5ODgyZmFkMGUwYjU5MDhkYzQ1MjdlZDlmYTM3ZWY0OWRlYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkZDI4NzA2OTVjMDQyYzQ0ODA5NTI0YTdkNmRhNDMzNzY2NmE1YjRiOTUyOTk1MjQ2N2EyYWY2Njk2YjczZGEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/album.ts#L37-L49",
+          "version": "repo-lines-v1:sha256:d72f43f537d2cab363c093519d1ff0d04af50e60bf222ab72e25e8cb10fecbd1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhMTVkNmI4OTFkZDY1YmYxY2VjOGExNDM1NGFhZWQ1MGM1MmIxYTQxOWQ0MDIwMzg2NTJjNmE1YjJhNjNiZGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4MWY0Y2IyYWU0OGNlZTcyNmI2ZTUxZTgwMzczYzY5ODJkMTM3YWRjMzU2MzNmZTAwZTA2ZjgxOGU2NDRiODkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_233ef27bcf1547e6a10565e651e7f395",
+      "statement": "`starsOfRound` gibt immer `played`, ab `pressIndex - 1 >= ceil(teeth / 2)` zusätzlich `halfway` und nur bei `pressIndex === teeth` zusätzlich `lastTooth`; beide Zusatzsterne setzen `earnsAllStars` voraus.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/album.test.ts#L9-L30",
+          "version": "repo-lines-v1:sha256:c1ed7955af488ea489cbaca79af4d2fb2b4f21f6f19b940fb830881651548c8c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlZTAxOTc4OGQ2MzE2ZTgyNjNmZjgyODYyYWNjNWUyNjRiOTA0NWYzZTIyZThjNjQ4ZGI5MjJiY2I2NjUyZTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyMTk5ZDE3Y2U3MGM5OWQyMGM1NWEzNDEyOTllNzRmYzZhZjdiMDE3M2IxMjQ1NDQyNWYyZjE0ZTYxOWE1MWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmYTcyYTE5OWQzM2I3NGZlOGI2ZDI0Mjg3OWNhMGZiMGRkNGQzODFkOTFmMmNkZGU3YjExZDEzYjQ2MjJhODgifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/album.ts#L51-L65",
+          "version": "repo-lines-v1:sha256:08f49e9f428d8dd5ad5924f1fc0e91ea2161626961674a855563488ac2ba5c1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkYjAzNTU3MGNjMWFjNmIzMTA2ZDk2Y2E3NmFiYjQwYmQwM2Y3NjdjMmMyMzg4MmJiYzZhMzYwZWU5ODc2YWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNDA3OTRlM2YwMzQxMTE5ZjZiNjVkYzlmY2ViNjAyZjkwODE3ODI0NDk2YmUzOWI4YjU5YTI2YWY5MTkyYzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlYTVhZGJmNWVmN2U0OGQwOWZkNmQ4MjkwZGNjMmQ4NTVmOTRjYzVkNjYyYmViMWYwZjVjNzdhOTJkMWU0Y2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_05add98738f946cfafca026e78841772",
+      "statement": "`albumFromRecords` legt für jedes Katalogtier eine Seite in Katalogreihenfolge an, vereinigt die Sterne je Tier in der festen Reihenfolge `ALBUM_STARS` und ordnet Runden ohne bekanntes Lebewesen dem Krokodil zu; `newStars` meldet nur neu hinzugekommene Sterne, nie verschwundene.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/album.test.ts#L61-L103",
+          "version": "repo-lines-v1:sha256:5208fdde977d9656916a441e5249ffd632a117d7e6f7693a84a12b17ba377130:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZDdmM2QwZjM5MTkxNTZmNjQ5NDVkZjcxN2E2YTZiNjY5MGM4MjFiNzZlMzlkNzQ0YThlODY2NmQyYTk0YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3NzlkMTE4ZDZlM2NiZjQ1MDUzOTc0OGRlZTdhNDMwN2FjYmU2NDQ2Y2JhMjk3ZjI3NjBmYTVkMGJiYTFiYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhZGE1ZjFmNzAwNGE3YWZjODY1NDRkOWZmZDMxZGJhZWY1MmFjNDY1Y2ZmMjBmZjY3YTM0YWY4YjMwZGVlY2IifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/album.ts#L67-L102",
+          "version": "repo-lines-v1:sha256:860c851d5adbb21415be66dba285948fbeb7e307d433426aa08c8709121f95ef:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhMmI2NTMyMTU4ZWFjNjkwNTE2ZDhlZTZmNTI4MzI1YjE4NWI5NTY5NjM4ZDgwNzM0MTc0ZDZiYWZlZTc3MTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkOWM5NDRkZGRiMmRmZWM1NDQ5YmI1NjEzZjMzNWI0ZWRjMDgxYzhiY2U1Y2E3OTY5ZGY5ZDQ0NDAyNDZkMGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1bb357317aa347fb8de231c00a51682d",
+      "statement": "Die Freischaltung startet mit Krokodil, Maus und Wolf und folgt dann der festen Folge Hai 3, Panda 5, Mensch 7, Löwe 9, Vampir 11, Panther 13, Säbelzahntiger 15, Venusfliegenfalle 20, T-Rex 28 Sterne; ein Test hält fest, dass jedes Katalogtier genau einmal am Start oder in der Folge steht und dass `FINAL_GOAL` der letzte Schritt ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L15-L32",
+          "version": "repo-lines-v1:sha256:7ecef8983012ca1a620a9025b4656970536d6c80f3c4197ddb145d92d6256515:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlNDIzM2ZiYzBlMDI2NTRmY2E1YTU5ODQ1MzM2OTc4ZGJmZWQ1MDY5MGY1ZjZhOWUwYzQxNmY0ZTQzYTY1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0OGJlOWU4MjI4MzMxOGMwOTkzYzEwMGNiZDgzYmIxMDZiN2IzMTQwZWU4MzlkODQzYjM0MjM1NTE3OTI2YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiNGVkNmZiN2VlYmRhNmZiOGJkMmJjMDVjMWIxMGQ3MTE5NWM5NzEzZjA3M2M2OTBkMDUzMWIzZjUwNWE0MjIifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L16-L44",
+          "version": "repo-lines-v1:sha256:44b108e796698d9f11f74c6e58cf89b29a53ffcc99320deda5055eec4b532281:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0MDUwNGE2M2E2OGMxYWI1Njg0M2YyYTllNDdiOTllZjI4MmVmMGZhMjdiYmU3OWE5NjhjMzhkNDhhYmM0NTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwMmEwN2Q4Mjg2ODhjMTExZjg4ZjQxODRlYWZlZWQxOWJkNGNjNTRkZjA5MzRhZjdlYzgyZGJhMjRmZDNiZjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMmE3MmJmMzY3ZmEzYzI1NzRlMTgzYzg2NWNmYzYwZTZlNzk1MTM1Yzk5NWE0N2VlZTI0NTYxZWFlYzJiYzUifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L53-L57",
+          "version": "repo-lines-v1:sha256:f54a727118d68eb5b82ae430e57800e1a9dc41c7758cad16dec72b2b167adef5:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjhmNzI2YmViNWE4MjQ3ZGRhZmY5ZTQyZGZmZWMwZjY2N2I0ZGQyMzBkMmVhMDQ4MmNhZjlmNTc0YWY3NDIwNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDBjMzcwMGJjODUyNDMzODIzNWUwMGI3NmRjNmM0MzI1ODAzMjIwMWZmOTU5M2E2M2M4MTJmODE3ZDRkMTY3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWFkMDhkYzMyZGE5YTYxYzBmNzlkOTM0NTFmZjAzNDA4ODVmMzNiOWVmNDVmZDY3YjYwMjk1OTZhMGQ4MjhjNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc77ddc424eb4697a6fbb69c264d194e",
+      "statement": "Die Währung ist die Gesamtzahl aller Sterne (auch der Bonusfiguren), nicht die Zahl der Drei-Sterne-Tiere; die Schwellen wurden mit zufällig wechselndem Spieler simuliert (erstes neues Tier nach 3 Runden, alle zehn Stammtiere nach 28 im Median, Venusfliegenfalle nach 49, T-Rex nach 181), und elf Wesen auf drei Sternen (33) hätten 761 Runden gekostet.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L12-L26",
+          "version": "repo-lines-v1:sha256:b2fc9e4dd2be307cfa7f28c66d93cba2fa2ef7442ed2dec2d604f1dbea581e19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2ODc4ZjVjN2I0Njk2NjY4ZDZkYWI5NDFjNjNiODZhMzc2ZTg2NTRkY2ZjMjIwMzYwMDI1OTFlZDkwOTU1YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2YWM4YTYxMmYzZmY5N2ZjZGViMDhiZDNjN2M3ZjJlYTY1NmNkZGFlY2ZhMGQzYzc4NmZjY2ExYTMxZGEzYTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjZWVlNDFlNDE3ZmI5YWIwZjkxYjFjYTg3MWVmMWE3MmE1NGIwMzU4YmI5OWI3NTM4NmIwNzQ3NjAyOTY2OGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkNTA0MjU2MGFkZmNiMzBlNmQyMWNmZTNmODkzYjYyODlkZmM4ODc5NWU2ODFhY2QyNWI2YzIyMzQyYWYyNWEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L117-L127",
+          "version": "repo-lines-v1:sha256:1aaa9d65d2f35d8f82347a0c0a624e241a48bb40de1e39dfc40b3114a60a419a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhNzRhNGYwZTE5M2Y3MWY3NWRjZGI0NzE0ZTlmMzI2NmQ0YTJiZmFhNGQyNGVhMDFiMTNhN2ZlMzM3NmE1YzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMGExYzQwMjZkNzBiNDU4Y2Y5ZjdiNjQ4N2ZiYzUxYWJmODgxZWQ2ODQ5NzFjODdiOTgxN2EzNDBmMzA0NGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3N2U0NWFhMjkyMjk4NDA3NDBkMmRiNjIyYzQ1MTY0ZDY5MDc5NzhhZTdmNGM0NTQ1ZGY4YzBjMjVkODE3NDkifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L26-L44",
+          "version": "repo-lines-v1:sha256:532a88a71c9d2f167c0864e64d866486629615be99a70e9e3f1fcfb7eb58f05c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZDdkZmY0M2VkYzBhYTU1ZDk2ZTNlNzRkYjZmOTJkN2M3NGU4MGE5ZmFhMzVlYmIwZmUzYmY5OTJlZTA0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMmE3MmJmMzY3ZmEzYzI1NzRlMTgzYzg2NWNmYzYwZTZlNzk1MTM1Yzk5NWE0N2VlZTI0NTYxZWFlYzJiYzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5463c670763c4987b851db0f115bd613",
+      "statement": "Jede Schwelle außer dem letzten Ziel bleibt höchstens bei zwei Sternen je bis dahin offenem Tier, ist also ohne einen dritten Stern erreichbar; der T-Rex bei 28 Sternen und 11 offenen Wesen davor braucht als einzige, benannte Ausnahme (`FINAL_GOAL`) mindestens sechs dritte Sterne, und der Test prüft für jeden Schritt beide Grenzen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L110-L115",
+          "version": "repo-lines-v1:sha256:1d0d4ec7b565c47b78efbbc1709af7f436ea6d3f690ea657838cb69bc9d4ac5a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2QyZGMzZDRhM2QwM2Q1YzdiMGI4YmQzOGNhM2RkNGY2N2E0MDgxZWE1OTEzY2M1YjdkMWRlMjMxNWMxZjQyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjhhMjQwMzY1MWViNTMxOTBhNzgxNTRlNzY3OGVmOTNlN2I1MDU3OGIxN2ZlNDY0YjdkMDlkNWM0YTg1OTdjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA0YWM4MzY3ZDJkZmYxY2Q5Njk2OWJkZDA0NTU4NTBjOTdhNGIzMWI3OTg0OGQ1Y2I1ZmI3YWNlODgzZmVlOCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L34-L47",
+          "version": "repo-lines-v1:sha256:40e4e2a876a9a519d69b10c6d99d04676198a4f3323a5e1ca4954ddd37c39f3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMTQ1OWI2ZmE5ODA2YjJkODJiY2MxZjg0OGRkNTUzY2ZkNTdkZDVjM2U5ZDlhNjk1YjU3MDY2ZDRkMTAzMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1Mzc0ZDUzMjIwMTFkZTQ3NTdhZGJhYjM4NmQ0YzVjMDQxOGZlY2M2ODYyN2JlMTExN2ZiZDlmMWUwMGMzYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExZTk2YmQxNWUwYzQzM2E4Y2JmZWMzMGVjMTE2MDMzYTc0NDIzODUwYTUwZDVkODJlMWUzNTcxODMxNjJkMzcifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L46-L51",
+          "version": "repo-lines-v1:sha256:f7f9779a45bbf2673e739f1ddeaccea0efa4ad177e6c2d58b88678a55d0e4c4c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIxOWUzNmU5OGQzYTRiNzkzZjI5NzEzNWZjMTNmYmY3N2Q4Zjc2ZDU1ZDMyMTRmMGNhNTYyZDVmNDljMzcwZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDVmMzk0NmQwNWVmYWRlMjhjMDdiZGI2ZWYyOTg3NmYwYWE2MzE1MTFjZTRkODY1M2NiYjQxZDI5ZGYyNjM4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTU5NTU2YThmOGQ1YTc0NmM3NDNjZWZlZjI2MzBkZWMwMzg5NzE2ZmRhYzJlZjE0ZDYxZGY4N2I5ZDIyMzU2ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ecdb015986cf45dda8428c7c670432c9",
+      "statement": "`unlockState` summiert die Sterne aller Seiten einschließlich alter Runden mit heute gesperrten Tieren, gibt als `unlocked` die Starttiere plus die erreichten Schritte in Folgereihenfolge und als `next` den ersten nicht erreichten Schritt mit `missing >= 1` (oder `null`) zurück; das setzt streng steigende, eindeutige Schwellen voraus, was der Test erzwingt.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L129-L135",
+          "version": "repo-lines-v1:sha256:f252db1fa4aba1d5daa889477597ea6c3c975cdcd453ecfbd9da52cc62cbc5d3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQ5NTkyOWRiMWVhYmZhYTliZjI0ZDkxZGM0YmU3ZDBiMmQ4OGNmYzdlMDViZjVkM2Y1MzllN2RkNTc1YjE4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjU3ZGJmOWM0YjIwMmQ0MjJiMDA0ODliN2U3MTk2MmNhYWQxMDNhMjNkZTUxMjAwMTU1MDk4OWE5Zjk5YjkyYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTgyYzY2M2JiYTc5OTVlYjBhNWYxOTM3ZDJkMmY5NzY2MGM3Nzk1YmMzZjU4OWZlNWZlNGRkZTYwZDJhM2I2MiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L49-L53",
+          "version": "repo-lines-v1:sha256:afd1df08d5d0b3401533a62df906efab446ac1fd6ac3f4b4c735b46f13523784:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWMxODdiMmYxMGMxZWUwMGJlMzAwMTg5NjViM2RkNWI0ZWNlYzVjY2Y0YTk2YjYwYTZhYjdkYTk2M2EyMzAzOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjE2NDhiYzJhYTI4OWQ2YzZjNzBmZDZmMjEyZjU4ZDAwNTliZjMyNTMxZTRhNDUzZGU3NzY2MzI5NmZkMTUzMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiMGRiNGY0MTliNzdmYzM0M2Q0NTc3YTQyN2YwM2MxMmQ2NzU5OTM4MGI3NDkzNmFiMDA4MGEyNDQ3NzQyYyJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/unlocks.ts#L59-L93",
+          "version": "repo-lines-v1:sha256:54a2d782e18964fbb07739c717b686bce6981c6a4116f5f9d67e936002a7f688:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMjRiNmY2NmI4ZDAwNjhjNGVjMTNiMGQyYjZkNmM3MDFhY2Y4NjEwM2Y1YjViNDFhYmU5YjYzMjczMzgxZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmMTk3YmQxNGRkNGZmNzczZjMxZDJkNmFkOWJkNWViNTEyZDE1MWY1NTBkODA3NGZlYmI4M2ZkOTBmZmI2YjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1MmIwOGZjOWM5NzczZTlhZjRlZTYzYjQ4NTk2ZDA1Y2RkNmQwNWZmZDllOGZiMDJjNzY2MTk0NTE0Y2YwYjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_26fa0cbf440f4290bba2ca3a4bad9149",
+      "statement": "Bei zu wenigen Zähnen ersetzt `fewTeethWarning` den Text von `#how-to` an derselben Stelle und in derselben Höhe und setzt die Klasse `how-to--warning`; gemessen wird am Gebiss des gewählten Tiers, und bei genau einem Zahn ist die Anleitung samt Warnung ausgeblendet.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L39-L44",
+          "version": "repo-lines-v1:sha256:1c6052ad52353205f7e46cd2edf04aee07b2cfdb627957b57c7a2d1ffa8483f1:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWU1MDc1MmZlMTYzMWE2NzExNGQyYWVkMzc0NWQ5MmZjNTRlZWZjODM1YjFhNTE5NjhjNWRhNDViMmZhZjE3YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWRiOGNjYWViOGE0ZDliNzQ4MDFlZGZmYzIzOWE3NzRjMTBiYzAxMDhiZjQ1ZWE0N2RmMWI4YzJiZTJiMWEwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzFlMWFhNjE4OWI0ZGM0ZTIxYTc2M2UwOGRkOTE5ZTUzYjFhNjg3MDgxMWJhMzE0ZDYwYmQwZjc4Y2U5YmE2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWE2N2IzNzE3ZDFmM2M0OGRlODFiZDE2OWY0N2MzY2M3MjFiMDJlZTRkY2Q1N2MwYzU3NTdiMDcyNWVmNDBmNSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.test.ts#L169-L194",
+          "version": "repo-lines-v1:sha256:2d782d205ffb434663de007446c5462bb51fad0a2b85ca7b58cb780081486faf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkYjEwNGNmNDNhOTMyZWQ1ZTQxMmFiNmU5NDAwMjA5NTU1Yzk0ZTJkYmJhNzMzYmZiMzdmYmNhZmE0MjFjN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4NzNmZDU5MzljZjA0MWFjYTYzNjgyMTRiYjNiNzFmZTY3ZjcwZDY4M2ViMDlmZWMyOWE5YjE4YTIyMDlmNTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhMTZlNjgyMTU1Yjg3ZjNkODkwMjZmNGI2NGEzYTEwYjkyYTIzNjgyMTY2NjRmZWRhM2QzMTMyOTE4YWQ4YWIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L36-L44",
+          "version": "repo-lines-v1:sha256:e19105936dee6e5b21df262b28f03d4fd6bd87fee2dd4911d4f515bdeccf599e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmNhOWE1NDM0YzkwZmE0ZDcwODRjMGJkMjc4NjUxNjJiMDE4NWVjMmQ2MDVjN2VlMWNlOTc1MTZmMmIwZTEzYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDZhYTUxNjJiYjc2YWUwMjkzOWFmMGZmYmNiODcxOTk0NjRiN2MxMTNlMTZiNmIxMzg0OTgxMDE1MDJmZGJlNyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L70-L79",
+          "version": "repo-lines-v1:sha256:3f0889972f1452ad850b0123a430c1cfbdf4c564f7482a62efbc8881c5a16cfa:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwNzRkZDVjZTgzYWEyZjQzZGVmZjVmN2M0NzI0ZjAxYjMxZjhhN2E0YzE0ZjYzNWIwZDNmMzc1NzRmYjllODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxMzJjMWU0ZmExNGFhMzlmNTI4NGVlOTNhZTJhYzI1M2YzMzkxODc4YWU4NTMxZmQ4ZmNmODVmMzgyMmM0ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmZDBkYTAwNzFkOGU1YWU3ZTg1NzkwMzY1YTUwNjZhZWUyM2E5NTM0OTY5NDc0OGZjMzNkMzcxMDBlNWQ0NGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f037656aba54eb09a9b125d7415ca93",
+      "statement": "Eine gesperrte Kachel ist nicht `disabled`, sondern trägt `aria-disabled`, `is-locked`, ein Schloss mit der Marke „Noch N Sterne“ und eine Beschriftung für Bildschirmleser; der Tipp kommt an und läuft in `lockedTap`, das die Marke animiert und den Satz in das nur für Vorleser sichtbare `#lock-hint` schreibt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L129-L159",
+          "version": "repo-lines-v1:sha256:d72c8a3dad314e1b693e80683ca7e90f74e1a166e58be976afd1add19730b72e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwNzRkZDVjZTgzYWEyZjQzZGVmZjVmN2M0NzI0ZjAxYjMxZjhhN2E0YzE0ZjYzNWIwZDNmMzc1NzRmYjllODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI1ZTk3YTY4Yjk2NzQ1MmM1NDM2NjcyOTUwY2MzNDc0ZWIzMDQ2YmFhZGFhNzFkMzI2YmIzYjNhYWQzZGE2YTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwNWRjNTJhMzYxNTFjNWRkYWFjMThlZTNjZGUxNWY1ZWQ3Njk1ZWIyYTE3ODk3OTI4ZWUyMjZkNmM4NDk1NzQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L244-L260",
+          "version": "repo-lines-v1:sha256:6603aecf47a4bb028e64e6b7f7bcb816f2721cebc6df203f9bb4796f9f7a0ecd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzNmEzZDJkMDA2YzA2MTZmNzg3ZmM3YmY0MmFiYWI0MDk2MDBkY2UxYzBlNmIzZDU3YjNlNjEwYjFkNmRiMTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzZmIyMmE2YTFhZjdkZDZkZTExZTE2YzU4MDIxYmRiNTFiMTdiZmI3NWEzNWZjMDE0NzJhNjMwNDkxNDI5MDkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlockNotice.ts#L35-L38",
+          "version": "repo-lines-v1:sha256:953119620187ba487b41e1970b0155e04dbd337132fd1ac03122177cb351d1d4:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWFkYWYwMWZkYjY3NzViMDRmOTNmY2Q2OTA3MjJlNjJmNzNlNGZlYWZhODUwOWY0YzI5OGJjNWQwNTZhNTAzZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWM2Y2RjNTZiYmYxYWMyYWNkNDc4N2Q4MDY2ZWNjMGRmOTk5ODkyNWYwOWQzYjllNjg3N2ZiOGRhZjNmNWM5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWRjNDk2MDU1YWUwZTNhYmU0OTUwNzg3ZWUxMmVhY2I1OWY1NDEzOTUxMWRjMWExZTg1NGU0YTkzY2E0Zjk2OCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlocks.test.ts#L98-L136",
+          "version": "repo-lines-v1:sha256:bb19ef6ee7ed528d827d23cf858d663cf6c3f84363f23127adb64b23caabb36e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MWViOTg1ZWIwYWZlNDlkMWJmYzVkMDViNWNkNWEwMTQ1MzU2OTRhY2U4MDVlNDBlM2ZjNWM1ZTE0MTMzM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1ZWI3YmI3NDFkYWI4NTRiOTE5MzdjOWZjMDc4NWQyZTZlNTJmNGViZDM4OGY4ZjMxZTQ5YzQyNDkwMmI0NGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f2f52903790c491793dc079afca61e7b",
+      "statement": "`missingFor` liefert 0 für Kennungen, die nicht in `UNLOCK_STEPS` stehen, sodass ein Tier ohne Schritt still immer offen und nie gesperrt wäre — deshalb verlangt der Test, dass Starttiere und Folge den Katalog vollständig und ohne Dopplung abdecken.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/unlocks.test.ts#L15-L20",
+          "version": "repo-lines-v1:sha256:fe5ea74338ebef6fcc24f5a9c80494bd27157f04a7bda0b74a7c285386adb394:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU0MjMzZmJjMGUwMjY1NGZjYTVhNTk4NDUzMzY5NzhkYmZlZDUwNjkwZjVmNmE5ZTBjNDE2ZjRlNDNhNjU1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQ4YmU5ZTgyMjgzMzE4YzA5OTNjMTAwY2JkODNiYjEwNmI3YjMxNDBlZTgzOWQ4NDNiMzQyMzU1MTc5MjZjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGYxZGNlOTMxYTdjOTNlNTZkZjcxNDYwNjJlZWQxN2JkYTk5MWM4M2IwNzE0NWU3MzA4MzUxMmU2ZWE3ODRiMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L120-L127",
+          "version": "repo-lines-v1:sha256:07cee620789b242f0032828b9de3a383b1056542e3dcad74dc78c27069bd1da2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWVkMTg5Y2NiNTNmOTJiZWU0ZDVjMjc0YTc3NDNjOGZmNmEzMzZiMzA5ODg5YTU1YTYyZjBhNmI1ODdiNGYxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJhMmNiMjVhMTIyYjQ0MjIxYTYyMzRlYzY2MGE3YjVmYjdmOWJkZTdiM2I5ZTJiM2M1NTlhMGQ5NmZhYzczOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTRkYjVlZTI4MjcxMGUyZDZiNmZiMGFhZjNmM2Q2NTM5ZDg0OTk1ODJmZTRmZjEzY2M5ODNiM2U5NWE0ZGY2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTI5MjdlMjc5YTQ1YTY5MjM4NGMzY2U0YTZiYWJkMjE5ZTIyZjg1MmQ5MGIwZDU4OTE2M2U5ZGQ1ZWQxNTJiYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_caa35dc220d3491a9b768a88ccb18a54",
+      "statement": "`wireAlbum` liest bei jedem `paint()` Protokoll und Freischaltungsstand neu (`albumFromRecords(log.load())`, `unlockState`) und malt Sterne und Sperre in einem einzigen Durchgang, weil zwei getrennte Module einander je nach Reihenfolge ihrer Zuhörer überschrieben.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L129-L159",
+          "version": "repo-lines-v1:sha256:d72c8a3dad314e1b693e80683ca7e90f74e1a166e58be976afd1add19730b72e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwNzRkZDVjZTgzYWEyZjQzZGVmZjVmN2M0NzI0ZjAxYjMxZjhhN2E0YzE0ZjYzNWIwZDNmMzc1NzRmYjllODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI1ZTk3YTY4Yjk2NzQ1MmM1NDM2NjcyOTUwY2MzNDc0ZWIzMDQ2YmFhZGFhNzFkMzI2YmIzYjNhYWQzZGE2YTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwNWRjNTJhMzYxNTFjNWRkYWFjMThlZTNjZGUxNWY1ZWQ3Njk1ZWIyYTE3ODk3OTI4ZWUyMjZkNmM4NDk1NzQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L23-L31",
+          "version": "repo-lines-v1:sha256:b24002df7342fdf8365d9c6b46c5e150dcf5e67bd8ec034dcec0727b95dc7bb0:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjU0ZjlkZGZlNjkyMWU2YTU2MTBkNjM4ZTFmYjEzZjUwZjk3MWFmZmY0YWY1YTg5MmFkODQ4MDU3MDQ1ZjIyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzM3MzYxNGExYjU1OWNlY2JiNjBiNTUxZjJlNGI4MWJlNjhhMzBmZDkwZWY0NjgzMWJlZjA5NGJiNGU1ZmEyMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_84628095ec7a4a2cb9958f3f1a1d7406",
+      "statement": "Nach einem eigenen Biss sagt das Album neue Sterne in `#star-toast` an, zeigt die Fortschrittszeile nur bei neuem Stern ohne Freischaltung und sonst die Karte des neuen Tiers (Name, Kopfbild, Knopf) samt Konfetti; das Konfetti entfällt bei „Bewegung reduzieren“ und legt keine zweite Schicht an.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L161-L242",
+          "version": "repo-lines-v1:sha256:d36c713a019446a066d1e3fbdd23b6918470d6c1a40f1f19b99a0beb01ae8eb8:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzYTc1MmNhNTNlNTdkMzVjNDI0MmQ5M2Q1ZDVkOGM0ZjUyZjU3MGZkYTc3Y2E0NWViZWFhZTlmYzgzMGMwYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYzE3MTA0N2E2YWI4YTAyNTY5NjZkMzEwNGE2MWVhNmI5NDk4YzY1MDMyZDhmOWY0N2RmMmUyNzNiMzhiMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhZjZjNzMzMDQzNmIwMTU0ZThhYjExOGNkNjYwOWJjOTU2ZWRjNGRlNDNjNmFkMDk3MDJiYWU5ZGNjMWJjMzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlockNotice.ts#L57-L67",
+          "version": "repo-lines-v1:sha256:47979dd089b4d23f4ba28183f45f62bf2244517e405511b563c1162ac68d33d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxMmFlODcwYWE3ZDE4ZmY1MDFmZGY4YmYyZWM1OGE2ZmNjYTM3YzQzOWRhYjVhOWFiZGIzMjZlNGVlMTYxNTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlockNotice.ts#L78-L111",
+          "version": "repo-lines-v1:sha256:6d068fb375ec008513a60b5ed71672dc4fd441af5ed7ca3b6ce89f286583dea3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwMGI3MDUwMzZiZDBhNzIxY2UxMTg4ZTAzZGVkZjgyNmM2OGYzOGRiMzY4N2I1ZjhmZDU0ZDVjZDM0MTA2NGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlocks.test.ts#L161-L207",
+          "version": "repo-lines-v1:sha256:e548bef1f053bdedba8b9ea2fb4b9fd488ab868054263ab435eaee2ae3f9b473:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4YzAyMDA2NzViMThmYmQ0NzZhMTEyYTAzYjhlODlmYzU5ZjMxOWM2ODAyYjM3YTIyZTBiMjBkYjE4YzAyZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1NTk5NWIwYmVhZDU1NzBhODk0OGIzOTRkYmNlMzhhNTRlNmE1MGM1ZDA0ZmIzNmNhNWJkOGJjOTU2ODg5YmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1NjM3MTViZGM2MTAyNzNmNzQ3NjBjMWI2OTQxMzY5NGJjZjkwY2UwOTZlNjk4MWZlZDAzMzI2MzcwOTU4MTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_600ed5bd0cad443e912c4495873dd37e",
+      "statement": "Der `LogFeed` unterscheidet `round-finished` (nach einem gespeicherten eigenen Biss: Ansage, Karte, Konfetti) von `changed-outside` (anderer Tab, `pageshow` mit `persisted`, Import bzw. Abgleich der Sicherung: nur stilles Nachziehen); auch `changed-outside` schreibt den Stand fort, sodass der nächste Biss gegen den aktuellen Stand vergleicht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/albumBadges.test.ts#L142-L152",
+          "version": "repo-lines-v1:sha256:1e3167cf2d154a4b86821b46296c6f0dbd92455b2facbf8b39b037859c18aa6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZmZlZWZiODRhMjFhMjhjYzcwZjI5YzkzYTcxMzM4YzA2YWMwYzhjYjFmZjM0MmU3ZDJlMWNiMmM4N2ZjZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjOTUyZTExNzk0OWIzZmM5YTgzOWY0NGFlMTdjMGMxMzQzYjljZTY1ZWY1NDMzYjAzYjNiMTgxZmUwZjRhY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM5ZTQ0NTBhOGFlMzU2Yzc0ZDU1NjE3NmFjMDY5OTczMzRmNzAxNGQ0YzhmN2I5NDYxYzJiODQxZTJiZGRlYTcifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/albumBadges.ts#L222-L242",
+          "version": "repo-lines-v1:sha256:7eed7328cf77c2db56802a3b34a403c69d68f37fad0bef909f643a0145ed85d1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMjhiOWUzOTNjNTA5YjQ5Mjg5ZTMwOTFiNTFmMzljY2M4ZTU5OGFlMzE1NzI5MWU1YjdkNjI4MDhjZmVjZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhZjZjNzMzMDQzNmIwMTU0ZThhYjExOGNkNjYwOWJjOTU2ZWRjNGRlNDNjNmFkMDk3MDJiYWU5ZGNjMWJjMzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L107-L136",
+          "version": "repo-lines-v1:sha256:69e49471857f13af4262d37d36c099a29884c0b1760e4c3a2a296b1a52839805:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NmFkN2ZlNWY2NzIwMjdmNmViNDQxMDM3NjVjNjFiYTExNmFhZTE3MWFhMjc3NmM5MzVlZTI4YTE2NDZmMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5Y2QzM2E0OWNjY2FjYWQyN2VmMWI0MWMyMmQ2MmMyMjliY2I3NGM0N2MyNzc0OTJkYjgzNDVjZGRkYjhhMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczZjE1MzkwMTQ3M2RmZTk4NTgwMzJmNzBlOWMxMTYwNmQzZGNhNTViY2M3YjVjOTc4OGUxMTVjMjdlNTM5NTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/logFeed.ts#L1-L12",
+          "version": "repo-lines-v1:sha256:92425d03a8d2f6e041aed57c5170894900213a07fd18e9d45c90f6d9bb0f7de6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmY2E4Njg2ZjUzNjJhODIzYTYwNmZiMDQzYzEzMTBmOTU1OTcxNDU3MjQ0NGJjYjk5NjhkMmIxOWIyMjE0ZTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4YWFmMDVjZGIzMTljMzY3ZTVmOWZjZWYzZmFhMzZiMzc5YjVhMmViOWNlMmQ0YmE3YjdhZDczZDdkZTY1ZDQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L36-L56",
+          "version": "repo-lines-v1:sha256:a98b2a7770f4c863ac1238ee7c486c13bb2bc4251a324cf1715a02da6b4a415a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNWM2YTY1OWI0OTc4NzIxMzMwNGI2MWY2ODRiODdlODI1OWVkMjczMjQ1NDliM2YyMjA5YmY2NzNkNTcxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhYzQ4ZjcwOGQ2ZDMyMzlkZjc5MGQ2ZDAwOWUyMGZkMmViMDhiMDU2MmM2YWZjNWZlZmNlZGFjNGJhZTAyYTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNDk2NjJiMzUyMjhiODdiOWZiZmEwMDM3YzA3Y2VhZjY4NzA0MGZjNGQ2NTE3MzVlMjZkMjY1ZTU5YTBjOGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzMGZkYmFhNWY3NzY4ZGY5ZmYwNTA3Njg2MmM5MzUyM2JhNDAwZjg4MWI4YjMzZTIyNzkyODVjMWMyNTA0MzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9daf989662c1439c9466872953c7503f",
+      "statement": "Beim Start der Spielseite fällt ein gespeichertes, gesperrtes Tier über `settingsWithUnlockedCreature` auf das Krokodil mit `teethOverride: null` zurück (und wird so gespeichert), während das Wählen über `album.isLocked`/`lockedTap` abgesichert ist und `settingsAfterCreatureChoice` ein Tier ablehnt, das in einer mitgegebenen `unlocked`-Liste fehlt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatureChoice.test.ts#L32-L51",
+          "version": "repo-lines-v1:sha256:9142173f706b0c69f9c082ec526dcbae5e493747c644d121b7999750aa4c96ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYjVhM2NjODQ1MjQ4MjZiMjIxZTExMzA4NjJmMjA5ODg2MGE1YmM4NWRlYjBmMDRiNzk0YTZhMGEyOTUzYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2NjVlZTE5OWE2YTJkZmZiZDYwZDAwNGZkM2MzMzUzZDJhMzRmNDIyZDgzMWM3NjFiM2JhMGRhYmVlMzBjODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatureChoice.ts#L14-L38",
+          "version": "repo-lines-v1:sha256:aa94907dffbe0c935665c84e548629a7d1173ff1da00ec4b622ae188c7dca5e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyN2E4MDlmNWJkZGQ5MDM4ZmExYWU4NzE3MGNlMWIwMDE4ZTNiOTcwMGQxMjIxNWEyMTU4OGUxYzI3OGRiODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L49-L58",
+          "version": "repo-lines-v1:sha256:c4d5bb00ac6c2cc3adbf16fe759a6de654450b16af0bfda11946ce3a3bd36660:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjNWY1YzYzM2RkMWQ4Yjc5MDc0M2Q1MDBmNWFmNWIwYzdlYWI1NDRkYmFmNDA4MzA5NmM2MDY1ZGJjNGVjNTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3MzJkNTNlNjMxNjA3ZTYzZTdhNmEyNzk4YWU2YmZmYjk0NGE4MDdlNWMyZmYyODIwZTk2YjFhN2VkNzdlMjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1MDk2ODdlNzZkMjJhMThhNjNiNTJmNWI0NWNiYzU5ZThlMmUyOTNjYjEwYWMyYmNlYThlMDMxOTY1MDk1MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiNGUzMGNhODE2MmFmZTY1NDU1Y2M4YTNhMjAyMjhiOTI2YjNhOTNhMmZjNzc1NjhhYjY0YzAzMDRhN2NkNzYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L127-L140",
+          "version": "repo-lines-v1:sha256:55fd6cbf0659d34472681e590d17637ecae177c7c03dccb9d1ea9da9df81d1ce:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzOGRkMTJkMmZmNTNkM2ZjMGRlODU2MGIzMjQxMzhhMDU1ODA5NDVmMzRjZjVlNGE5NTA3Y2QzYTlmODU3ZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlMDk0MzM1NzBlMmU3ZGY5ODFkZTRmYWUxYjVlYjVmYmE0NmFkZjRkNWZlN2I0N2M3NDM5ZDZkNTgwNDhkMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJiM2ZkMGI5ODRlMzBmMzE4NTU1OWFhMzQ0N2ZjNDMyZjM5OWQyYzEyNzRkNjJkNzM4YTk5NTNlZWZiOWUzZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d8db46a475954d9fb4a134f9748598ea",
+      "statement": "Jede Browser-Sonde lädt ein Rundenprotokoll, das alle Tiere öffnet; `scripts/freischaltung.py` rechnet es aus `scripts/katalog.json` (Tierreihenfolge, Zahnzahlen, letzte Schwelle) selbst aus, hängt Drei-Sterne-Runden bis zur letzten Schwelle an und bricht per `assert` ab, wenn der Katalog nicht reicht — es wuchs dafür von 16 Sternen (acht Tiere mit je zwei) auf zehn Tiere mit je drei Sternen (30).",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L53-L57",
+          "version": "repo-lines-v1:sha256:dd8a520fa420eb1b4e4667ccd7443cef48ab3f54543dafad293a832beabeff04:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU4YjhkOTg5NWE2Mjc1MTFjMWU2MTFkNjgwZWY2MTU0NjRlOTFiNGE0YmYzM2NmNGYzMzBlOTdmNjc0YzlmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGVkMTFmZTg1ZmVjNmQwZDdmOTlhMzE2MTBjMmE1MTE3NDc0NGJhZDM4ZTJkNTQ3MDZjYzA5MDM5ZDE3NmJhYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ4YzI5OTc5ZjZhYWFiZjdiMjg2MTZjNzhlYjAwMThkNmY1YTdkMDU1Mjk0NzhlNDUwYTA5YzVmZTg5MmI4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I0YzhmN2QzMmQ3MzVhYzliODVjNGE3OWE2OGIwOTNhNzNiZjMzYThmZmY3ZjhmMTIwMDRkNDg4Zjk3YTE2MCJ9"
+        },
+        {
+          "resource": "repo://scripts/freischaltung.py#L1-L43",
+          "version": "repo-lines-v1:sha256:8d10d553f6c217a22d1eb00f5fc058e61194069e6f968dd4f82fa86d75936ead:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3MzQ0ODAyMTdjMjc4NGMyMGQ5NTc3MGMzYTJiNzczMjg0ZmJjM2Q0M2RhZWJiN2QyMmM5OTRiN2JhZTUzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://scripts/katalog.py#L1-L17",
+          "version": "repo-lines-v1:sha256:46d5efccc493d9dd10a5d6d265358fdabc20f0622941dbdafe91cc6e12247dc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiYzRkNGUxNjFiZmE1MzVhMWY0NjM3YWUxZGQ2ZTkyYWM3OWEyZDI0MWEzNzcxYTg1MTg1NDQxMTBiZDEzNzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxYzkzMGM2NTQyMDYwNGM2NjE1ZmViODM5OTg3NzA0MjkyNjhjOGM5NDQxZGE0YWZiMjQxMzY0ZmY3NDk3OTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d378a8415cbb4f3e81b2b4d5ca99aee6",
+      "statement": "Eine zusätzliche Figur bricht die für zehn Wesen gebaute Auswahl: mit zwölf Kacheln scrollte die Seite auf Tablets hochkant, und der lange Name „Venusfliegenfalle“ brach auf der 65-px-Kachel in drei Zeilen; die Kachel trägt deshalb `shortName`/`tileLabel`, und gefunden haben das nur die Browser-Sonden, kein Unit-Test.",
+      "evidence": [
+        {
+          "resource": "repo://docs/freischaltung.md#L27-L32",
+          "version": "repo-lines-v1:sha256:c640238a84a3207372146c50147bc06439ad432f7bd599f104e252b523e8d5e7:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNThhNGZlZWFkMzdmN2M1MjY5NjQyZDQxNjFiMjQ5ODJiODIxMTllYjk1NDM4NTE1NzVjMDBkY2NmNzJmMTZiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMxNWIxZTEyY2U5NTc5YzkwN2Q1NDBkMzk5N2M1NjRhNzJjMGU3ZDFkMDlhYmY2NWE3ZDc1NmQyM2Q0OTE1ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI4ZjQ3M2E3NDYwOTE5MmFlZGIxNGQ2MjRlNTI3YWMwZTkwNGQ0MTBlM2I5ZTliOTljMDJlZDJmODIzODhkNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQwYjA5OGVkZDVmYzk1MTM5NDkxYmEwM2FkOGM0NzVjN2QwMmUzYzExN2RjZmIyYjFkN2Y1YTE4OTUzNTRlNiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L45-L56",
+          "version": "repo-lines-v1:sha256:dda220787938d18d0bffecbde83c80059f2db658e94e2e75976b5ce5b2632ffb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5Y2M3NTIwNzdjNzkzZjFkMjYwNThkNmExNzM5NzU1NDNiMjg3ZTMzNTg2NTJmYWUwYjhlMDZiNzk3YWQ5MjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4OGFmZDQ4ZTRjMGM2ZWUzOWJjODBhNWI0MDc4NTA0MGUzZGEyZDMxNGVkMjdlODk2OGY2OWVmYzdhNjNjYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlYmE5NWM0ZTQ0ZGMyN2I0NDlmNzhhNzM4ODA5NzA3ZWExMzMxOTFkZDBmZTNmMWZlOTAxMmU0OGQ2YTczOGMifQ"
+        },
+        {
+          "resource": "repo://src/pages/index.astro#L133-L151",
+          "version": "repo-lines-v1:sha256:492a08533b3d0a8f088a329464a10cb4bdf2477873724735816c202e5046b222:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkMTUxY2UxOGMyZDg0M2YzMWUxMTdkZGNhOGI5MjBjOWJiMjg1Y2I2NzIzNjQ0NzJhZGJlMDkxYTg1ZDA4YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5N2Q5Y2VhODc5MjJmNWMzZWMxZWVkNjNkYzY4ZmY1N2UzOTU3MWFjOWE3NTQ0ZDMwMDU3OWVmNjhhMjhkNzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNzZhOTE5OWQ5NDQ0MWYyNTE4MmE5MzBmZTQ4MzMxYjAyNmRmZTZmNGU5YjQ1NTk5ODU1M2Q0OTIxM2QxNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1OTE4NjQxNjc5NjI1MTFmOTkzOTIzNGMxOTY4ZDE1Y2MzMmY5NTAwMjJmYjhhZjVhZGJiNDI1MGY1OTk0ZWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8ffae29f7f24c8191811e20455e7b0a",
+      "statement": "Das Seitenskript einer `.astro`-Seite prüft weder `tsc` (nur `src/**/*.ts`) noch jsdom; beim Bau der Freischaltung stand `settings` deshalb vor seiner Initialisierung — Gate und Bau grün, im Browser kein Zahn —, und erst die Browser-Sonde fand es.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L1751-L1758",
+          "version": "repo-lines-v1:sha256:f70c88d8d6addc67d850261ba02c42888304eeee52f5a007bb6f6842c1975715:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTFlM2NiYTA0OWNlMjU1MTgwOGVmZGJlMzZkMjg0ODY5ZWVhN2Y0OWM5ZDE4OWExNzUyYWU4ZDRhNzA4YjJiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDkyZTllOTg0ZjI5YTcyNjJkNWU2YmRiZmYxMWVkZWU5YzdhM2NkZTFjYWNkN2NjN2EwMDBkZjM0YTBmZjkwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODNjYzM3NzVlNWFjM2NiZWU0NTZhYzMxNzE1Y2VhN2VkNjRkODg0MGIyMTkzMjlmYjNiMjY5OWY0NjcwNWQwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMThlOTFjYTlhOWYzOWRkYjllODM1MmM0ZTc4YzA4ZmE2ZjNhM2Y5ODliNzE1M2UyMjNlMjE5NTE5NTllMmZiNiJ9"
+        },
+        {
+          "resource": "repo://docs/freischaltung.md#L58-L62",
+          "version": "repo-lines-v1:sha256:e264600d48c062c4bf535b2167d0cf9181e91380262bf9307dda5a65c21a1cff:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzJlMDNlZmY0NmQ2YmZjNDVkNjAxNDAwZDMzMjlkMjUzZWFhMjhmNzA1NDU0ODA0NWYwMDk2Yjg3N2EyOTNkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQ0NDgzNzdhZGEwZDY2M2FjODU3NDEzNzhiNjYzYWY1NjFmMzg3YzQyMTFmZGUzYjM5ZDE2NmYwMjViMDZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDkwZDg1MzFkMGFmYjEzM2M3NDlkOGVjZTAwN2Q3M2U1OGQ4NDg4ZGU2MTY3NDI5MmVkOTE4NmEwNjAzMjc2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

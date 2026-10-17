@@ -293,6 +293,7 @@ src/presentation/      Verdrahtung der Seiten, Spielsteuerung, Einstellungen, St
   styles/              Stile je Bauteil; app.css ist nur die Reihenfolge der Importe
 src/pages/             die zwei Astro-Seiten (Spiel, Statistik)
 worker/                Cloudflare-Worker der Sicherung (gehört zu keiner Schicht)
+openwiki/              generiertes Projektgedächtnis (OpenWiki v0.7.2) — kein Regelwerk, Einstieg quickstart.md
 public/sounds/voices/  je Lebewesen eine Stimme als MP3, Herkunft und Lizenz in QUELLEN.md
 scripts/               pruefen-alle.py — alle 13 Sonden auf einmal (pnpm probes); sonde.py — ihr Gerüst
                        artwork-png.py — Zeichnung ohne Browser rastern (Prüfhilfe)
@@ -311,6 +312,8 @@ Regeln für Arbeit am Baum: [`AGENTS.md`](AGENTS.md) und [`docs/`](docs/).
 Nachweise der Prüfläufe: [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md).
 Sprachregel (Bezeichner englisch, Kommentare und Doku deutsch):
 [`docs/language-guidelines.md`](docs/language-guidelines.md).
+Projektgedächtnis (generiert, nicht von Hand pflegen): [`openwiki/quickstart.md`](openwiki/quickstart.md) —
+bei Widerspruch gilt `docs/`.
 
 ## Daten und Datenschutz
 

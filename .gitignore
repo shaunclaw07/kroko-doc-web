@@ -12,3 +12,6 @@ docs/superpowers/
 # Arbeitsdateien von Agenten: Aufgabenliste und Pläne einzelner Pakete
 .pi/
 docs/plans/
+
+# Laufzeitzustand eines OpenWiki-Laufs (Checkpoint der laufenden Generierung)
+openwiki/.run.json

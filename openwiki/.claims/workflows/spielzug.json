@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:52d5fd07ea129cb2e75df7cee59124ee0a7c4ae09d00719227eb0925b0299443",
+  "claims": [
+    {
+      "id": "claim_a643ab77f8bc41c8a0aff599391d073e",
+      "statement": "Ein Halten beginnt nur bei primärem Zeiger und Haupttaste (isPrimary, button === 0) und nur wenn canPress zustimmt; ein zweiter Finger beginnt keinen Druck und beendet auch keinen, weil onPointerUp die pointerId gegen die gespeicherte prüft.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1000-L1012",
+          "version": "repo-lines-v1:sha256:7438792454e39ea15b36bb25d69008cc4461448b137b5d22cb208554b8b8b62f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlZjkyMzUyZmMzYTg3MWVmMTQ0N2M3MjViODhiZWUxZGY5MTdjNjFhZDY5YzhhMzUzZjJlOTA5ODM0OGExMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM4NjVhNDM3MDU4ZTczYjg1MDkxOTgwODU0YWUyYTZhMGNmZmI2NzA1MGFlNzZiNGVlOGQ2OGZmNDQ4MGFkZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhNjJkYTlhM2NkMTRjYmY5ZGYxODM1YTU0MzdmNWFhNDUwMTkyZjc1ZDM4YzQxYTgzMzVmYzMwNjhjZTk0MzQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L162-L164",
+          "version": "repo-lines-v1:sha256:3c1f223124c75d7574304d3ad3d8c77c6160717c426b1c214f63a462f569365e:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTU5NTY3OWY5OTRhMmEzOGE0MzI4ZmRlNWExNzkwODlkNzRhZWY1ZjdjMDJkY2I3YjBkZjJmMmVlNmQ5M2RjYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTExMWE4NWIxMjZlYjFiNzAxOGQ2ZTQ0MjQ4MWM0ODUzNzYyNTMzNzEwZGNjYWUxNTY1NWEyMjFiYzkxODEzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDk5MDJmM2JhNzYxZmNkOTYzNjFiYjRkOTc2ZjE0N2YyNjI0ZTM3M2VkZWI2MjVkODgzOTcyODcxODY4Y2UwMSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L127-L145",
+          "version": "repo-lines-v1:sha256:50533a31949b9b702283e863f9bad22a3b28541367c13be3c02bb22145057928:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlNDcxNWQyODhmMTIyN2UzYTQ2NDJiNTY2ZmVmNzdjOTFiOTc0YjM3YmI4Y2MwYzMxZTVlMTU2NWE2NTI1ZTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkMjZkZTYzOTkyZjgzOGViMDI4ZDQ2OWE3Y2M1Y2M1ODJiMWJjZTM4MmNlZDliZDlmM2ZkZDg4M2ZkYmIwOTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwMjk1MGM0OTk5YWE1OTljNmI2ZTQ5YWFlYjI0ODgzNDQ5NTYyMmExN2E0NTc0ODc4YWExN2E2NmUyYjAyZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhMzk0YmJkNzQwMjJjNTAwZGM0MDA2YjYyNTEwNmNkODVlMDgyZTlhMDE1NGE0OTg5OTk5YmYzMDJlY2JiZjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_acbdfb8473de43f0ac3ac23961898d24",
+      "statement": "Das Auflegen entscheidet nichts: beginHold setzt is-held und ruft feel, das sound.unlock, einen 320-ms-Pressetakt und feelPress mit Tipp-Vibration sowie tap/creak/breath auf der aktuellen Spannung auslöst, ohne Runde, Fortschritt oder Spannungspegel zu verändern.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L894-L905",
+          "version": "repo-lines-v1:sha256:ef1ed613a4d1ef798421e9b77b80a99cb7b879358f4cd8089aab6ac1043931b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkZjgwMTY1ZTBlZDIyYTQwMTYyODk0YWU5YzI0MWY4M2U0MDMwNTJhMDEzNmE0ODkwMDhiMjE4MDI1YWM2YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5MDhiZWU4NTM3ZjRiZTZjYjc3OTkwMzNiNDNmNTBjZGYxMTNjMDEwODQ3M2QxNDlhYTY4ZTQ4Njc1OTkyMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhMjg3YWI4MDQxMjU0Mjk2NWMwOTk1MWRkMzNjYzI2ZTdiYzI5ZWQ0MzU4NWY2N2I1YzRmNGYxMmI4ZTYwNjEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L167-L174",
+          "version": "repo-lines-v1:sha256:aa513d9aa1e9c713053674c5720bc3918afbf8514183951259701b01e53f49d5:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQwOWYwNDRmMGM4YjBiMWU3ZTk4OTllYmFhOWU3YzFjNWIzMDI4OGE0NjgxZTkwZjhiYWUxOTRlMmMyMjM2MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmMyZDUwMDE0NTc0OGFjMTI2N2QzNzkzYjRlMGQ0MDExMzUyMjY1NDQ1ODZlODA4OGYwMDcyYjg4MjA2ZWY4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ3YWE4M2QwOGE5ZjI0ZmI2ZDU5YWNmYzU1ZmEyMTY3YjY4NmM1MDk5ZGUxYjZhNjE3M2JlOWVmNWVjNjBhMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L86-L90",
+          "version": "repo-lines-v1:sha256:cfb35da6bd49b2d350cdd61b19dad9e85840dec292f091ec2406990c087aa5f8:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjBiMTM0MGU0MWU5MTUzYmVkNjlmYmQ5OWYwYmJmMGJhZjA4YjdmZGQzM2FiMGRhNDgwNGE1M2Y1MTYxMGEyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjk3OGUyNTAzYjhjZjM3YTA2ZjdkNmYwYTNhNmI2ZmUzNTY5MWZiY2FiNTBiODc3NWNhYjZmYWJjNzFjNTkyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2JmZmRiMjhlMjBkMmQ3MWIwNzRhY2Q2NjRkYzI5M2MzNWVmNGVmZjdlOThiY2YwODI0NDJhZDU4Zjc5ZDVkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQxYmE3ZmRlOWMyZGMxZDRmZDc2MmE0NjYwYjJkNWNmYjYxYjgxMTk2ZWQ1MzM0NmU1MmI5NTQ5NWVjZmZmYyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L1-L2",
+          "version": "repo-lines-v1:sha256:d4bb922dbc03538db5b485985f53d81e133ea9c3e2998f5a3382aefeab07b1eb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2UyZDZkNDdmYjJkOTNjMzExMGJlNTRlMjcxNjJiZDFkMGQ0YjA0NDNmZWY2MjlkMjhiZjNjYmRmMmY5YTc1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzRmN2IzZWExNjIzNGQ5NWM4NWEwZWQzNzI1M2Y2ZjU2MzYzYzY3MGYwMzRjZmM3NDg0ZDYyZTE4YjIzZDFmYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODM4OWYwOGIyYzhlZmM0OWViNzE5Mjc4ZWZmZDk5MDkzNDgxNDlmYzZjZTY5NzQ2NmI2NWY5MmE4ZmQ2ZjhhOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L55-L69",
+          "version": "repo-lines-v1:sha256:4bf18e3d3658b41d9ee6436a8326c83d70ae3bbf03578a83c2bfe7306e09306f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljYTQ1YmEwZGEzZDIwOTc5ZjViYzIwYTdiY2JjY2NkMDg5ZDA4MThiODcyZjJkNmVjZDU2MGQ5M2M4MmM4MTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwMTUxNjI4ZjBkOTY0YzcxMGQ1ODRiMmNkZTcwYzIxMzJlNjFlYmU1NjlkMGMxNWVhNjg2MjhkNTUyZGIzZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmMjliMzhhN2QzMWU4MmNmYzQyOWU1MjQwYmRiMmVhYTk3N2Y3ZmY5YmMzYmI1MDcxNzZiNzYyODk0ZjVlNTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_068475a4c54c4e0d8e50db8520a512ca",
+      "statement": "Der Zug entsteht erst beim Loslassen: releaseHold liefert onPress mit heldMs = max(0, now - startedAt) und felt = true; ein Loslassen außerhalb des Zahns (geprüft über doc.elementFromPoint, mit Rückfall true in jsdom) oder ein pointercancel führt dagegen in cancelHold und damit in onCancel.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L907-L917",
+          "version": "repo-lines-v1:sha256:fef1f97cde3fc0dacf4b6b6cd65a955c162d8634a941b9daff9eda3d9ed84a20:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMjU0MzIzOTZhNGVjZGYwMWM5ZDcxZGUyZDRkNTQxZjNjZWZjNGY5YWQyNzlhNjI4Mzk5ZmFjMDE4ODgwMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBlZmU2N2U1YjIyYTg5NjAxYTgxNzFjMWNmOTE0ZWQyYWNjOTQyZTRiZWNmYWU2MjNlODI1MGMwYjNlMmFhYWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUwYjc2ZTVhNTVmZTQ1YWQ3NmRmMTljYzU2NmE3ZmM5MWNmZTM4NTA3OThiZWUzMTljYzUwODRiODk3ZDNiMTAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L948-L977",
+          "version": "repo-lines-v1:sha256:20b661ef177a2ec0558bb084f5fae71a8a42e463bfa7c23afe095d6c13cc2086:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMjg5NDVhMmMxY2Y2YzA4NGI4NmMxYmVkM2FiOWNjMWZkOWExNDYwN2M2MDhiYjQ0ZDU3Mzg2OGRkYzY5M2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTY3ZGE0OTQzYjMyYWI0ZDZmZTVjNmE5NTY0ZjBjOTEwOTliZDFjMWFlYjE4YjZkYWI3MGQwYzcyZDYzNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcxNzU0OTMwMDg1ZDYyMTg5ZjZkOWZkNDIzZGI2OTcxOWI5ZmY1OWQ5M2M3OTRlYmM3MGI0MDMxYmY3YjUxZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L82-L124",
+          "version": "repo-lines-v1:sha256:0963783f8edb3496c0454575f8d8acb5e1e64d20a80988675202e4109f54bebd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYzRmNmIzOTdlOWQ4NGNkODdiMjM5ODU4MjQ2MzQyN2I3ZDk5NTlkZDI0NzMxYzMxOGRmZWM0YTYxN2NlNWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3ZjBlMDc3NzI4NzhiNmY3ZTNiNzliZmZiNTU4NDhkYzNkNTM5YjYzOTk5NmQ0N2ZlNmRlYmNhMWVhYzRlZTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5MWJjODIwMjk4ZjBhYWMyYTljYTljMDY0ZTZmNTAwODEwMmIyODUxYTdmMDc0YTUxYmNiYzY3ZmJiM2JiYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYzI1ZTQ1NTQ4Mzc3N2IxMzcyYmEzNjA4ZjQyM2EwMDVhMDNkNGZiZjQ4ZWIyMTQyZDk4MTQ2ZGU3OTAzMGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_502ffe3e10094423983774aaaa3315b3",
+      "statement": "HOLD_MAX_MS = 4000 begrenzt das Halten und nimmt den Druck zurück, statt einen Zug zu erzwingen; der zugehörige Zeitgeber vergleicht hold gegen das beim Auflegen gemerkte Objekt, damit die Obergrenze eines späteren Haltens ein neues Halten nicht abbricht.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1023-L1047",
+          "version": "repo-lines-v1:sha256:29abd9f256acd3b45404607906cb7deff0d447a5ec063a6eb199ba481100ec66:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNDcwNzkyYzM4MWVkYTFkZWE3YjU4MTUyYjNjOGMzMjhkMWU4MmY1Y2JkNDc1MTQ0Y2ZmZjQxMDQ2OGY0NDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2MGM0MjE2NmU2YWNiZTg0YTVlZmQyODNkZDA4NmNjNjA0ZDJlZTg2NzJhMjdhMDczODIzZjEyOTZkYzA5YmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3MTRlOGFmMGE0N2YwMTIxMGQzM2EzYjY0N2FhMjYzN2FlMGNiMjc3MTMxZmYzYThkZDk2ZjUyZTM2ODdkZTcifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L1-L8",
+          "version": "repo-lines-v1:sha256:b5bee5bf52db4f912a99337210642e235cecfeedce7d49b3de1f10bb9241d3a2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2UyZDZkNDdmYjJkOTNjMzExMGJlNTRlMjcxNjJiZDFkMGQ0YjA0NDNmZWY2MjlkMjhiZjNjYmRmMmY5YTc1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FiN2QxMzVmZjk2N2E1Nzk5N2QwNjU0NmRjMGE4ZDNjM2I1OTM2ZWRjZmMwODFhNzZiNGEzYmU5M2NlODI0MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxNGVkMmFkNDgwOGY2ZGE5MmI5OTM4ZDRhZTA5MGQwZGJkNDU0ZmM2ZTQ0ZmM1MTk1NmJkZDAwNjAxNGJhMCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L63-L68",
+          "version": "repo-lines-v1:sha256:425073ea9854e880fa1300a7a910429f0143154bf0e0e8da7da8d79d1308215b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2RiM2Q3NTM1ODRlMTUxZTEyY2M1ZGNkNzBiYTJiMjc5MDA2N2IyY2U0ODcxODhhZmQ1ZjBiNmUwZDE0ZDU3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjc0NzAxMjhlMDk5MjczOTM2NmQyZTFhMGJiZjFmMGRmNDY1OWQxZDJhYTc1NmI0MWUwYjRiMzViMjkxOGQ2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDBjZTM4MDNjMzBlZjBhMTVmYjViZWEwN2E3YjllYjMxYTE4YjFmZTJhMWY0YzU5M2JiMzZlNWQwOTVhMmUyYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e2980814facb41de99dbd4e977398cb8",
+      "statement": "Damit ein wackelnder Finger nicht als Wischen gilt, hält die Steuerung touchstart des gehaltenen Zahns mit preventDefault an (nicht passiv); gemessen am 12.10.2026 genügten 14 px Weg auf 65 px Trefferfläche für ein pointercancel, und touch-action: none hilft dort nicht, weil Chromium es an Teilen einer SVG-Zeichnung nicht auswertet.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L19-L28",
+          "version": "repo-lines-v1:sha256:53e4f3e24de0158e0445a9e064a8d30822a2d2d8b8ed0c1cc5f470b1fadaa68a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmOTI5ZTVhMmFjMWE1NTMwMGU0ZTYyYzJjODAyZDkwMjllNDMyZjZiODdmN2E3MWE3ZDZlNDVhZjUzZGQyM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMWEwODljYTcwZjc0NjliYzk3OTFmNWRlMWE0ZjkzZmUwMTg2NzU1ODFlOTFiMzgzNmM0OGQxMmQ1MDc4YWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlNzI0MzgxYWI2MjYyMWFlZjZhZDJlZjdmOGNkNTUyMjViNGUzMDg5OGM0MjY4Njg3OTUzN2JkZGQwMGYxNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyY2NmYWI0ZmU5MDI0YTEwNTRjNjgxODFmOWJmYzQ0YTkyODk0MjVjNGM3NWYzN2IyMTlkZDNmZTUwYjFkMTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L979-L998",
+          "version": "repo-lines-v1:sha256:2cc02c8673a012f6357264a01e52df07602072cf49584c7e46afbb637d6e1390:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ZmY0NzFiMjc4ZDY4OWU1MjRiMWExNzk3YTdkMWM3MGM5OTNkNmVjMjNjNjdkNjc3MWQ0NmExODQ2MDI1MmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjNmJmOGVlMDA1YjgyNjE4ZTExNjBhNGE1YzZhZDdkYjliNTFkMzExMGM1MGI5OTcwYzg0MmMxZGNlNmZiMzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ4ZGUzOTdhOTQ2MTIxOTU5N2ZmYmVkMzFjZTk1NjAwMzBiMGU3ZDNjOGU1M2Q3OTlhYjRmN2EwMTFmZmEyNzcifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L140-L153",
+          "version": "repo-lines-v1:sha256:e92539ecc7365d5058658eea88ae2e2f25e0967e77523bfe8b9a64128ee9bb0b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4MTM5OTE2ZmYzMThhNmJhYTc4N2EzZjU4NWFmYzVlZjg1YTYzYzM1M2M3MDFiY2Y5YjU5MWI3NzQwMGJmMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNzVjNzBkOTQ2MzYyNWUxMDc5ZmQ4ZmM4ZWU2MmFkMmU5MmM0MmJlYWFiZmQ4NWI3OGQ4ZTBhNDk3OWI5NGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzZmFhMWQyYTIwYTcxNDNkNDU1NGIxM2U2ZjRjZTIyMzVjZjc3OGQ3N2E1Mzg0MDJjNTA4YWNjYjllNDE1YjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3MjhkMGExZDgzOGI2NTM5NTg5OWViN2VmNmIxYTg5M2NlMmNiM2FiNTUzMWNmZmQ0ZDEyZTYxYTlhZDczZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0e849d81c47048cab7553ba1cc0944a2",
+      "statement": "Tastatur und Hilfstechnik drücken sofort: click mit detail === 0 sowie Enter, Leertaste und Spacebar rufen onPress mit heldMs 0 und felt false; der click eines Zeigers wird übergangen, weil pointerup den Zug schon ausgelöst hat, und contextmenu wird unterdrückt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1014-L1021",
+          "version": "repo-lines-v1:sha256:2e427532f37b7ca0eff3c71b54ff21a14bf7f2d07671c6655c64f2f2a83278d8:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTg3MjZiNDAxODM0MmQ5MmFhNWNhMWJjMWRkMGQ1ZDYyZDFmZTk1ZDM3MDU3YzUxMWQxYmRkMzI5M2U4YzJiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODYwYzQyMTY2ZTZhY2JlODRhNWVmZDI4M2RkMDg2Y2M2MDRkMmVlODY3MmEyN2EwNzM4MjNmMTI5NmRjMDliYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOThmYTUxMTI5MmU4ZTYxZGY0M2JiYmYwMDMwYjJiYjQ3MzNhY2M0MzQ4NGVkODNkN2I5NjBhZTAzZTJkMzEwMyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.test.ts#L123-L142",
+          "version": "repo-lines-v1:sha256:087675a32bf02c40646da272199399b08b0c11a5334fea654c2925193d965001:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhMDk3MDQzNTJhMmYzMjhlNzNlNTAxNzE0YTY1Yzc1MTcwOTczNDljZTYwYjUwZTYzMTA1NGY4YjljN2NlODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhZjMxNWY3NzM5MTYzNjUzNjYxMWY3N2ZiNTZmYWQ0YjBmNGZhOTYyNWQ5OGEyYTVjNDRmYzQ1M2JjN2NiMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L155-L178",
+          "version": "repo-lines-v1:sha256:256d1c418c617eca4275f50e66c005e4b5bf7b7bb2611db35a043d811fe4b48d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0NjIxODIxYTRjMWU0YzM5NWI5NTJiNDI5MTY2MzA1NzQ3NDdkMTlhMjcxNmVjODNhMjhmMGEwYjIxMmMxZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlYTg4ZjlhMGQyMDM0YTYyYWIxZWFiODNmNGJjYzMzYjkxN2Q0NTllMzg3MThiMGNmZjkyMzZmMDkyNzBiMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3MWZhOTJjNTJmYzA4Y2UwZDMyM2VhNmI4ODk4YzcyMWJhNzg4ODQ5ZWJiYzg2MjljYTE3M2ViYmU0MTZiNzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_66bd93acb19549ccbb1436ef37b0015b",
+      "statement": "resolvePress ist die einzige Stelle, an der aus einer Geste ein Zug wird: nach playPress übernimmt die Steuerung nur den neuen RoundState und drama.tensionAfter, markiert den Zahn, richtet den Blick, rendert und wartet anschließend max(0, beatMs - heldMs) — der Kern liefert die Pause, das Halten ersetzt sie.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/playPress.ts#L19-L38",
+          "version": "repo-lines-v1:sha256:66af62c9c42cfdf279dfe3432a0dbc3e89aa4edbc8e17e49fb6e30895edf2081:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3ODE2YTk1YmNmMTdmNTc0MDNlNmI4MTkyMzNhNDM2M2Y4Mzg3OWEzNWEzNDA0MDg2ZGM4Zjc2ZWUzMjlhNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjMjljOWI2ODFiOTk4YWYwM2E0YjM2NzY1Y2IyMGNmOTMzMDBjYjFjMDE2ZWEwN2JlNTU0MjU2ZmRmNjljMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L919-L935",
+          "version": "repo-lines-v1:sha256:ca1d511fe14e4ff7873c20027f7c9a885bf01c6cbd7b75f5beb49ea77c316d03:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjYTRkYTdhZDFiYWM3ZWE0N2RhZGUxZmZiYTM5ODAxOTczYTUxNGNlZDcyYWZjYmZhOTkyNTM4OGQwNWJjNmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYjc2YWQzZGI2MWM2NWNiNmZmMjc2MWQ3ZmQ4N2Y5YTY0NDM1MWU0ODQ3YzcxZmU4N2I1YWFiNzIxZWIzODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1MTdhOGQ0ZDM1YjRiMGZlYzBhYjhhMTY1ZjdjNTQzYmI2OTAyNTYxOTVlY2E0NjJlZjc5OTBmMGRkMGViNTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L181-L205",
+          "version": "repo-lines-v1:sha256:1173a5bcd5e293d8a48c4315a10384404171501835efe0a8c3cde0ecdf2d9d64:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4ZGE1OGM3MzM1NTQxOTkxNDcxZTQwMzljN2ZhOWI2MjdmMTAzNTg4YmUwOTRjZDNmNTllMTA3YjY1NmJiMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4NjdkY2ZkZjY4ZGE3NTliNDA0Yzk2NjUzM2JjZmE5MDQ0YmE0ZGE0ODhkZTNjZWQ1MmY5ZDBkZjA1ZDg1MzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3ZGZjYzNkNDljMjVhYWQ2MGQxZDY4MDc3NTc2MGRkODEzMDIxZGVkNmNlOWMxN2YyNGIyNmQ0MjUwYzM1MjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlMmExYWMyMzgzMmYxYmZjNWJkZDgyNGYxNWM0NDRkYTU0MzIxOTc4NDRjNTU3OWEyZTJmZmRmYTEzNWE0YWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7eea05afdce546f7a21a4a2e07d41577",
+      "statement": "Die Erleichterung wird aus der erlebten Pause gerechnet: die Steuerung ersetzt drama.reliefLevel durch reliefLevel(max(beatMs, heldMs)), sodass langes Halten die Erleichterung bis 1 steigen lässt, obwohl der Wert beim Biss nicht benutzt wird.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L77-L84",
+          "version": "repo-lines-v1:sha256:3df6df8b420ee4de290fe1c3e40cb3e7d4211b5228b3b4548b838434cf75fe8d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ1NmRkZmZjM2I5Zjc1MDYzOWNlMjIzZjQ0NGFkMDQyZWE1YjBiNmNmMGRkNjM0ZWIzODI2YzI4ZDQyMWQ1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDZlYzU0ZGU3ZTRmNjdlMDExYjE3NjIwNTA3MGY0NjJkNzE2OTNjYjM2NGM0ODBhMWRlYjE4N2U2YWU0NDVlZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1057-L1063",
+          "version": "repo-lines-v1:sha256:86d245820f574ec16aa10821151a46249b2ec2258cad4f37a655148e63eec0cc:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRmYTZiMzgzMzM0YTE0ZDY4YjBhMjEzYmVhNzcxOTljMWRjZDYxMDE3OWNiZGQ2NDhkMGJjY2RmNWMyOTIyOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2M2YmY4ZWUwMDViODI2MThlMTE2MGE0YTVjNmFkN2RiOWI1MWQzMTEwYzUwYjk5NzBjODQyYzFkY2U2ZmIzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjFjOWY4NmM1ZjQ0ZjU5YTA1MDZjMGY3NGM4MDgxMWM4N2JhOTkxNzlhODRiMmMyNDIxYzIwYTlhYTllOTg1MiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L197-L201",
+          "version": "repo-lines-v1:sha256:cf7bfc13ab2afb4a621554ea267997926ccc9833abd784f86316dbbdd8f3bf53:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjk4NmIzZmVhNGExNTBkZTAwYTQ2NWE4ZWIyMjI4N2ExOWJiYjNjMzdhMjhlZjFkZTYyMWM4YWVkZWRkNWFiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTFjMjM5ZDFlN2QxMmRiNWY2NDE1ZTI2MDI3ZWZjYTljOTkxMjk2MTNiYmM1YTQ4NTE0NDk1NTY1NTFiYjNmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWI2M2M3MTBjZjQ4ZDZkOGUzMTljZDlmNGYxYzJjZTM3NzM1MTI2OTU0MDI1NGNmZWRjM2YyOWI1ZjQxMmFhOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_be5dafb5db12498baa9a726fda1853c9",
+      "statement": "Das Urteil kommt nach der Pause in zwei Schritten: erst sound.stopAll(), dann VERDICT_GAP_MS = 60 ms Stille für beide Ausgänge gleich; beide Rückrufe prüfen zuerst this.round gegen den beim Druck gemerkten Zustand und laufen ins Leere, wenn inzwischen eine neue Runde begonnen hat.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L15-L16",
+          "version": "repo-lines-v1:sha256:4a6db20d55817b924cc9b0c373bec9f54cfb8db4d9bbfcc66d5ab45eb27032cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI4Zjg2NWNlODU0ZmIxZmQ2NThkOTUwNGI0NTI3YWRiNzZkN2VhYTA0YTdlNjNlM2I0MTI3ZGMwNzI3YmI4MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmI0NWQ5ODg1ODVjN2JiZDNmNmVkMjk1ZDM1MDNiNzUyMTBlYWFmNDAzNTIxMzdlNDk2ZDY3ZmY3YzAxMzA2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTg5YzFkNDY0NDJkOTE4ZWQxZjFhMzYyZjcxNzViNjVhNTFiNmE5ZDEwOTA0OWJiZDY2ZmRkMjExNTgwNGI0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjNjMTIzOTViNTk0ZjQwYzAzMjUxZmNhNjM0Y2Y5OThhYmZmZmYyOWY3YTM5Yzk3NGQ4YWZmNzUwMzNmZTI5ZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L548-L561",
+          "version": "repo-lines-v1:sha256:e1256caaf75f94054ac5ae77168a9001837baa691c2416b7af80268d1c29a6f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhODE4Zjc5OTlkMTY3NGIxYjIxZjVmNDgwYjhhMDk2OWUxZGNlOWU5YzFiMzNjOTdjNmJiNjdlMTIwMjQ4MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxNmMwZmZhY2I3ZjM5NWY2OWU1YjkwMmYwMmM3MTY4Y2U0ZWFkNDAzNDIxZjZhMTU0ZTkzMmZlMDk3M2E5YjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFjNmUxYTA1ZThlZTQ4MDAwYTIzOTAxMjk5OTE3MzE4NjQ4ODJjNTlkZWEwZmM4OTE1ZWViZGNjMjNhOWY0ZmYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L797-L816",
+          "version": "repo-lines-v1:sha256:1270127615bb83d90ea3a01d665d2869e05bd23a2f6bcb5a637d3b9ecae95d56:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3NjhmNjE1ZTg3YTE5NjlkNGVjODQzMjg3ZDFiYmMyNTM4ZmI3OWYwNTRkOWIyNDliOTdmZjRlN2NmNjljZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZGE2NTMyMzBjYTVkNzk1ODRmNmM5ZjZlMTVhOGY3ODhkMDYxYmUzYmY5ZGY2OWMzODFkNzBmMzhlMTJiZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyZmJkNThlYWMyYTJiMWU3N2I2NmVmNjZmODhkMDM4NDY3MGQ1YWU2MDlhYjIyNzU4NTY0Y2JiZjgzZWIxMDAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L202-L222",
+          "version": "repo-lines-v1:sha256:3f78605912c589010364d2583b57a01d636b2f25640e940e242597111bbc1392:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxOTUyN2QzMmNiMzJhZjEzZDg3ZDMyZGRkMGE5OTFmNTQ1NDlmMDc1NGM0MjNlNDZjOGQ1ZTEyNDlmYmRlNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI1YTE4OWVhZTg5YWY0NDUzZjI1YmI2YTlmYTYxYTRhYjFiZDY2YzhjNWNlODM5OTRlZjcyOTc3NDk1YjAzZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhOTI5M2ZkODA1NGI2ZTQ3MjQ4MzczZjM5ZjRkZDc3ODAwMTA1ZWI3NTgzNDg2ODcyNTQyODVjZDEyODJiNzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1ffd35def2d94b9788ce963301107ee9",
+      "statement": "snap gibt busy frei, spielt snap mit Intensität 1, vibriert mit BITE_VIBRATION_PATTERN hinter der Einstellung, setzt is-snapped/is-lunging am Tier und is-live am Zahn, zeigt Ring und Beschriftung „Zahn N\", rendert, protokolliert und zeigt das Ergebnis; 120 ms später folgen clench, ein zweites Beben und die Tierstimme, deren Rückruf die Runden-Identität prüft.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L13-L20",
+          "version": "repo-lines-v1:sha256:ec1eeba102413837596dc79f5c4a8b2b84329fd811345389c22bec6664e39bdc:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljZDVmMWY3YTRhODI5NGJkYTM1ZTAyNzI4NWRhNTliNmMyMGNmZWUzNjk3YWRjMTZkZjBkODEyZDJiNDRjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg1MzU2MmY4YTI1NGI0MzAwYWE5MmY2Yzg5NmI0YjhhOGUyZTdiYTVhNTJhODM5MGNhZjYxZmY4YTkyNmM4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzA5ZTQxZDJhZDdhNzgzYjkwYjU2YzkzNmU4NzY0ZWI1Y2MwYzc4MmRmZWEzYWNiZDJlMTc1YmQxYzE1ZDZmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L243-L266",
+          "version": "repo-lines-v1:sha256:1802b93d93c73fe66367201e6ae76cabe51ba5c959864ef6f45fb5d83b81a02e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhZmNmODUyOWMwNDIzMGMwMTg2ZGEyNTM2ODQ1MWU1ZGU4M2IzZTNhMzA5ZDgxZWRlYzk0MDg3NzkyMGNkY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIzOGZjNzJkMjg0Yzg4MDUxOGEwYmIyYTY3NTE2MjQzMThkNDdjZDRhMmI2ZDQ4MWNlZGIyZTE0NzY5M2U4MmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4ZGFhNmQ1MDdjZDM3ZjY3YzRiY2Q5ZGNlODk0NTA0ODg0MDhlNmFlMWZhNjQ5ZDExODkyNDUzZjYzMWUxN2IifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L400-L424",
+          "version": "repo-lines-v1:sha256:b5976a61973dfedab4f2bbb03d7f13d15fad24f45fd28943a1e29917bfe64720:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDc4YWNjODFiMDY3ODczNGE3ZTc5MzFhZWM3NDgyZDU0YzZlZDU2MmU2ZjBmMDNjOTQyNDg2NzE0ZjdmYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYjc2YWQzZGI2MWM2NWNiNmZmMjc2MWQ3ZmQ4N2Y5YTY0NDM1MWU0ODQ3YzcxZmU4N2I1YWFiNzIxZWIzODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1NGJjOWM4MWNjYmQ5YWJmMzU2ZTMzYzQxYmE4ZWZmNjk2NmY1ZGJhNjM5NzI1ZGIwODg1MDE4OWEwODM2YjgifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L244-L269",
+          "version": "repo-lines-v1:sha256:4958c7e4f7238edcd85dfd5f35e868b829097bb7e75223f65d3e377a50037298:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiYmQxY2MzYmExYTBiM2U5NzU2OGNjNDk3MTNiZTAxYzM5YjE0MmY2OWI3ZTYxNWMzZDM1ZmY3NTNhZWI4OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwZGI0ZmRlNmVhZjIyNDE0OWQ2NWQyZWY0NWUwYTFjNGM3N2Y2YjM5NWMxZjU1MzI5NGE4ZWVjNWRmOTI2NWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiZTIzMjQxNDQzNjZlM2QyYWUzYWU4OGExNThmMTBmOTdkOWUwMjhlNjIzMTE3YzlhYWY3YzQxOGMyMTUwYzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a72ff9d5efe4154ae5732b5dda1743f",
+      "statement": "settle löst in dieser Reihenfolge aus: Pressetakt beenden, --relief und is-settling für 420 ms, settle-Klang mit reliefLevel, Vibration von 12 bis 25 ms aus demselben Pegel, dann optional das Zucken mit twitch-Klang, is-twitching für 320 ms, Beben und 260 ms Zahn-Glühen; busy wird als letzte Zeile freigegeben, sodass der nächste Druck schon während des Zuckens erlaubt ist.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/ports/haptics.ts#L19-L20",
+          "version": "repo-lines-v1:sha256:4d12d164bd0d20e34a9d71bca84bb668b74278c2f2fade4e4d9a6350eb5aba66:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZiOGRkOGY2MzRhN2YzMmY5M2U2NWU4YTI5ODc5MDY2OTYyZDQ2M2EyODMyNmJlOGU4OTdmZjhmYjVmYWIzZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg1MzU2MmY4YTI1NGI0MzAwYWE5MmY2Yzg5NmI0YjhhOGUyZTdiYTVhNTJhODM5MGNhZjYxZmY4YTkyNmM4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjlhN2JjN2U2NDU2ZWE1NThhYzg1OTY1MjdhZTQ3MzZlMWRjNTI3YWE2OTkxNzNiN2UxYTQxYThlMjk5ZWViZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L229-L242",
+          "version": "repo-lines-v1:sha256:88c33ec85df5f0fd6df2e07a83c1da2607fb45b72c946e866cc65da4fa028910:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxNTZlMTFkZjYxMWI3YTVhM2YwNjQ5MmI0M2IwZWZjMjI2ZWMwMzQ1YzRjYWExNTdkYzVlYzQ2ZGMwZmIzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyMjZmNTI4ZTQwYWFmOWY2Y2MxYzEyOWJjYTgwZWIxNzI4ZmIyNGMyZDYyNzZhMTNhMjNiN2I0ZTJkZjZlMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzOWZjNDcwODQ4ZjFlOWI1OWM2YWIzMzM1NWYyZDQ3MGEzNGJkYWUwMWEyM2I1NmFkMTk4YzNlMjM0ZTBkYjUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L271-L274",
+          "version": "repo-lines-v1:sha256:c30e3e3312fa8b7582f9e88914c2a818a090b847df5b4eccf29446e45f400ba7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjUzOTJkODJhNTEyNWQxZGNhODgyNjgyMzM2NWU5NzhhNjVkNDNiZDFjYzdmOTM2NWEyYTU0MjBhN2Q5YmNkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWUxMmI2MTE4OTQzZTMwYzAwNjgzM2U3ODE2MzBhNTNiMzJmNDE3ZWY1Zjk3OTVjM2YxMmYzMzA4MDI0YzVkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWRjMmVkNGJjZjI4ZDY3M2Y2MGQ3MDk1NDIxNDRjOTcyNTk1Y2UzZTlkZWYxYzIyOWJhN2IyMDEyYjdjYzExNyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L224-L255",
+          "version": "repo-lines-v1:sha256:bc20604430358c0dd0aaf4d8ef7a3b60b4712bf55dcb48880e90bbeab8bc7a40:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxNmNhMTVlNGQ0OGJkYmRkNTI3ZWIwYmY1YmQ5N2U1YmM3NDRkZGU1MmQzNWRiYmFlNzIyZDA0Y2MxYjhlMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZWY2YjAzOGEwMWNkZWQzMzE3OWNhZGMxYWQ5NTZkNzA1MDBjMGUxOGQyNzgzMzk4MDQ5NTFjNDNiNGE4YTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRiNDQ2MmQwNzIyZmRmYzA2YmE3YmZlNWMyMTA5ZThhM2RlZDY0N2U3MGNjYTY4MTU1NzBhOWU4MzE1ZDBkM2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4c9814a587cb46dd8731a486adf59c3d",
+      "statement": "Nur der Biss schreibt ins Protokoll: recordRound wird ausschließlich aus snap gerufen, und record() gibt null zurück, wenn die Runde keinen Verlierer hat; der Eintrag liest das Protokoll unmittelbar vor dem Anhängen neu, nummeriert mit nextRoundNumber, speichert und meldet erst danach feed.roundFinished().",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L611-L622",
+          "version": "repo-lines-v1:sha256:1aa79f924632e9eda3f5a66e3f2260cc66accf6ad7f42fca1ebf16a6cea4a91c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0Njk2M2Y5ZjQ5NzExZjY4YTJjY2I0YWRmNzk3NDgwNjZlMmM4ZDM0ZWFlNzgwODgwYjRmYzhhZDE2YjhmNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1YmUxYjFjNmRmODJlMTdkMDgzMTllYzdhNmI2YmVhMWU1NjQ4MzkzMjk0YjFkMTNjMjJjODk2NWE4Y2EzODQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2NTBjNTg2NWZmMzZiZjAxOTMwNDk1ZGIyOGQ4ZTVjODM4NjYzYTk1YWU2NjVkM2U0NzZhMmU3Yjc4NGE0ZGQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L318-L330",
+          "version": "repo-lines-v1:sha256:36aa4acf9d04b0b6ae09eb95aa894e8e2f10afd2347574259f33bb07a12d3971:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkZjQ4NGNhYjk3ODkxMWNmODFmMDhhNTRiNDk3YTMyN2UwYzM1MDdkNjkzM2Y5ZGY2NTU1MWE0MjNjNWVjYTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1NjdmZjczYTk4MWU3OTU5MzhhYjc5NWMxNGJkMThiMjUxY2Y0NTI1ZDBkM2YzNTgzNTFhNzUwZmYxYTQxYjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhMDFlODFhNzYyNmJiMjBlNmEwNThmNTRiY2RmYzUzYTI4YjIzNGQ4MTY0ODVkZWFkYThmNjc1Zjk2MmZlZjIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.test.ts#L78-L119",
+          "version": "repo-lines-v1:sha256:f4b6213e806d4c5ede0bbdc328419ba515bb6042540f03670c4e7c6444110191:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NDhkNjE2YmNiNTc2MjFlYzMzNjM4YzQ5OWFlNTJjM2Q1ODYwMWVkODI2Y2M2MTg0YTUzYzBiMjUwZGExMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3N2U4NDY1ZjE5ZWU5YTA0ZTc3ODZlOTBhNjk0OWE3NGY3MTJiNDk0NWJkNTMwOWY5ZDZjM2E5NmI4M2JkMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5ZjY4ZDFlNDRkNTNhYWE1NjBhMTk4ZWQzYjJkYWIyNjNhNjZhMjNhOWNlZWY1NTUzMTlmZmRkZDA3MTg4NTQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/roundRecorder.ts#L26-L71",
+          "version": "repo-lines-v1:sha256:b8dbe35586610fff15bb17952766679abd19a092212e87a12a31165a9143e498:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhN2ZiMjc4NTY5ZjRmYzE1MjE1OTk1MGQ5ZWQ3MmU2MGMyNTgyYzg3MTU0OWM2NTQyNzBjNjEzY2Y5ZGY2Y2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4NzNlZGU0MWJlNjBmYjRkNzY4Y2FiNjU1NWU2YmFmMzMxODE0ZWUzMTVhYTJhNGRlNzAwMTljZTk5ZjNiZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_afb9bfc6984a4ccca3a18de73cce9590",
+      "statement": "Der Controller hört selbst auf die Meldung changed-outside und ruft dann syncLog(), also recorder.sync() plus render(), damit die Rundennummer nach einer Änderung von außen nicht bis zum nächsten Biss auf dem alten Stand bleibt; round-finished und changed-outside sind die beiden Meldungen des Busses.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L624-L632",
+          "version": "repo-lines-v1:sha256:bc4de0fe20edcfc56b3c4ce7b13c78bbd2aa3d8f255005ba15f5c67c0fcebee5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWZhZDQwMWIwYjhkMGY1OTU0NTIyNDFlOWE4MTVjYWU0MWEwMTk1ZjdiMzQ4ZjA4YWMyZWUyZWUxODY0NTMyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjY5YTllMWUwYzk4MmU1MjUyNjU5Zjc5ZDdmODNiNjFjZjZhYjhmNDcxOGJjMDVjNGQ4M2JhYTlhMGIxYjk1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRkYTY1NDUyNzkwMTMxYWFkZjE0MzY3ZjBiYjY2NGU4N2VjYmE4YWFjMjgwMWExMzQ4N2I0MjdkZDhhOTdmZSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L106-L111",
+          "version": "repo-lines-v1:sha256:e7df9c9c8ef45d73dfe03f6c242c061d0620cc9c198e40d05cd928ece87c812b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQwYTAzZmY0NDA0N2Q1NmQwZDQzMTZlNGRmM2VjNmE1OThkZGIzNzFmN2EwYjVmYjgxNjA2Y2MwYWY4ZmI3OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTM2ODA2NWMyNTE1MjJkOWJjZWZjMDE4Y2Q2YThiMDc2YzcwMGQ3ZDViYWJjZTYzOTY2NTE4ZjI1YzQ0Njk4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWI5NTU3ZGU4YzkyYTFlNDJmYzk4MjNjOGIyMTM3OGU1OTJjODdhZWRkOWFmZDc2MDdlNDllNjcyYTE2ODY1NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTgxNmE5NDhmMDUyYTk2ZDRiMjFkZDBiY2ViNzM5ZGNjYWRkYjAxYWM2ZjNiZGNlYWIwZDU2MDVkZDk0MzdmOCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L322-L330",
+          "version": "repo-lines-v1:sha256:252818cfb1d7ae30476442e680d95adf093bc033080e78b481ab373c256754d8:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGYyYTJmOTk2ZjA4ZTY4MGJkMjkyMTM1YTZmYTQ5NzhiZGEyNmU2MDJkODRmMzNjYjFkNTk0Nzc1ZDQzMDRiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTA2NTk3ZDZiMTcyYTkwYzUyOTQ0MDczN2IwZTcyOTAzNDliYjVmN2M5ZWU3YWRkYTNhNTY3OTdkZmQwZDA4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWEwMWU4MWE3NjI2YmIyMGU2YTA1OGY1NGJjZGZjNTNhMjhiMjM0ZDgxNjQ4NWRlYWRhOGY2NzVmOTYyZmVmMiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/logFeed.ts#L12-L23",
+          "version": "repo-lines-v1:sha256:2c113ac67780357a151e4d967a3ec9f6f6102dbc31a96221c8a19c0780ac2c16:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmY2E4Njg2ZjUzNjJhODIzYTYwNmZiMDQzYzEzMTBmOTU1OTcxNDU3MjQ0NGJjYjk5NjhkMmIxOWIyMjE0ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4YzZhOGEwYzczMDRkM2FlZTUxZWM5MjBhZmQ5YWMzMzVmYTQ2ZTlmNDFmOGZmZDgxNzAzNzFlNDc3OGE5MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkYmZkNTZhOTAzZTI3NDM4MmU0MTQxNjlkYTc1MzczM2ViMDg3N2M1YTg1NTBjN2UzNzQxMWMwMjY2NzA1OTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f1b45a21988346d29f49a3ef243f55f1",
+      "statement": "Alle Zeitgeber laufen über die hereingereichte wait-Funktion der Steuerung: die Vorgabe nutzt this.win() als doc.defaultView statt des globalen window und überspringt den Rückruf nach dispose(); holdGesture bekommt wait als Dep, hudView als Parameter an shake, settle, twitch und revealMeterHint, sodass kein Teilmodul setTimeout selbst ruft.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L56-L61",
+          "version": "repo-lines-v1:sha256:a56c5d1b570c4cf02c93ed915d181469829c15efa082d9c6cca290b93949db42:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjgzYjhkOWUxYjY0MzJhNzFkYzBiZWE5YmE3NzIzMDY1NTVlZWRlM2JmZWYyNWM5MGFlMWIzOGVlZTMxMzBkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRmODUzNWExOGEwMTllNjBkNDFmZjdiOTQ2ZjkxM2M3MTVlM2JjNDBkZWY5NDhkZWQwMzMxMzJlMjI1M2Y2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGI0ODMxMWY0ZDFhMmU0NDQ3YTNlMzhmNWRlYzIzYzVjMTdmMmFiNjg4OGZlZmFhZWU5YjE5NWFkMzQ5ZmExNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWQwYzVlOWNkNjQ3MmY3MzBlYTkxYWFhOTQ0YzQ3YjhmNDYzYzBhMmU1MWIxNmU3MzZhOTNjY2M0YmNiMmY4MSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L318-L344",
+          "version": "repo-lines-v1:sha256:1bba024dc8d925fe9a527bd73328b81919ac01383790fdd05d4ccfafc3a2bd5a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4YmZkZDA0YzMwNTQyZTllODk0YmE3YTk5MWQxZmI1NzFiMzMxOTI5MGUyOGUzZWMwNGYzMGI2NGFiOGI3OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5NWQ3ODQ5YmZlOTRmN2NjOGE2Zjc5ZTcyZmZiYzI4ODhhMDU1MzkxMzQwMDgxZjdlNThhMjRhMWFhZjI3Y2YifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L66-L78",
+          "version": "repo-lines-v1:sha256:0e393e3104df4d509655617fdc249bfc1fff8f66fbdc6f9fd7fc82c8569f3cb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2MzllZmJlZmQ2NzNlZGYwOWYyODRhMDc0NGU3OTI4MDAxZTMxNmFmOTUyZjk0NzQ0ZjA3Zjk2NDRhZTMzMzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkODRkMjdjNjVkOTI4NWRkYjVmOTBiMmYwN2ViYWQzNTg4MmQwYjZmOWQwNTU3YjZhNmM5ZGNjZTg2Yzc3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMGU0M2ZjNDM3NDVlOTYxM2E1MDgzZjMwNmQ5NTFhZTVhODAyY2FmOTIyZWZjZTM2YzNjZGUwYzA5MjVlODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyNDQzYzI5YmEyYTQ0MDcwOGQzZTM4MDk5Mjk3YmI5MWEyNjExYmU3OTkzMzhjNjgxN2RjZGI1NWJkMjYyOTAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L17-L25",
+          "version": "repo-lines-v1:sha256:0b1910419f76c15bbbac1d5de672a2c7a14e44da7a57ed1d9ac33eeaa0866e7c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTBkMjdhOTg3YTlmZTRhNGY0ZTQzOTUwYmE2ZTJmZDIxMjEzNmVlOWM2ZjY3NWE0ZjhiMmIwMmI2MjcwNzljNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmQxOTJjZjkzNjI4NGU0OGY3YzUxM2JlYjhhZjNmMjUxMmFhMjk1Y2Y2YjgzNGUxMzY4YzZkNzQwMmNiYWE5YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTQzZTk3YjBkYTJmMDUwMmY5NjczMTRjMDA0MTNkYmIzYjhiNzI2ZjZmOGYxNDRiMjJjMzUzMTVmNjVlZTRjYSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L12-L23",
+          "version": "repo-lines-v1:sha256:3992a0d2ab1a2bac49772470d2fd84601c59a806e96081ad5eeef501bac3ba0e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWFjMDFiYzVlNDNmY2M1Njg3YTQzZTUxYjAzOGUwNDRmODE3OGFhZTcyZmU2MTg0MWNhYzI1NWJjY2FiZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YmRiYTg4ZWQ5OTBiMmNiZWRiZTA5YmUyNTM0MzJmNDNkNDFiNmZhOWFmM2Q5YTdhNWMxZjNjNzQxN2RmOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmODA5MWUxM2YzMGJjMmVjM2FjZDJiNDhkMWRjODhhNWQ5YWY1ZDMxNTE2YmQ5YWM5YzQ2NjhkODdlNGUyN2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxYmVhOTE4YzRkYmQzOWVhNGI4YWUzNTJmMjdjMzU4MmJjM2ZlMWE4ZDQzNWEzMmM1NTlhNTY3OGNhNDkwMzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0c78d227e5b7441d83a3f66b1c1161f2",
+      "statement": "dispose() hängt Einstellungs- und Feed-Abo, den holdGesture und die beiden Bühnen-Lauscher für den Blick ab und setzt disposed, das beginHold und den voreingestellten wait stilllegt; aufgerufen wird es nur von der Testsonde, weil die Steuerung so lange lebt wie die Seite.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1049-L1055",
+          "version": "repo-lines-v1:sha256:76bfd88fc2d6cc1eea08c90c21d07e78f91f140583cb0ccb9227ca13eafa7c4d:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWU1YTcyMDY4ZDZmNWFmODRjYzY3NDI0MmQ3MjQwYzA2NTQ1YTFkNjcyZDgyNWZjMjI2OWQ1ZGJkY2Y5Y2Q0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmQzYzVhYjlhOTMwNmYxZWNhZGRhNmY2OGUxZDg2MTlmMDllMzBjYWJjNzQwZWRiYmE1NjA4ZTFkZWJkNTI1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjI1NjJkMDFlMWNkOGE2NjIwMGQ1ODFhYTY0NGRhNjMwZDdhNzFlNDQ0Y2UzMmZhZWQ3ZDgxOWYyNzZlYzU2ZiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L294-L316",
+          "version": "repo-lines-v1:sha256:4aa940a5ca45cf7566a1a63f56a3ab4371f9b7b49d72acef6ad07ffb2b0fd9e2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxN2Y4ZTY1ZWU4MjQ4ZmNiZjFlNzU2OTE1Nzk1M2RlMzQyNDc1MTY5NmRkZmYyYmZiMjUxNjQzY2FmN2FlYTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzYTFkNTkwOTdjOGQ2NWViNWVhZTVmODU4NTJkMWNjYTA1NzA1ZGI3OWRlZTM0NjRiNDRkN2M1ZTA2NzFhYWIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L192-L200",
+          "version": "repo-lines-v1:sha256:ac4510a0333d49ea2762e0d131a4fc730d4c38cf41844eb046ee3f3e02b3e768:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWRmNjc5ZmY0MmFkMWZkOGM1MWI4ZWQ2ZDliYmQzYzcxNmU3ZDBlNmNkZmYzYmQ3YzU3ZDY5OGQzZjBiYWRiOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDg3Zjc3MzgxYjk0MzJmMjUzYzUwYmNlYTVhOWFjMTc5M2Q0YWU1ZmJkY2ZmZjMwZTBlODVhNTZjZjA5YWQzMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmQyYmY5OTQzZTM0NTA5MDRlNmI2NzY2OGMxYTlhY2ExZTBlZWY0MTQ4YjkyYmRhMGVkODY3NzU0M2M2NjA3MyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L44-L45",
+          "version": "repo-lines-v1:sha256:0bb06aad1879e9d876f3335c9c561c8d8ebfbe479cea133fc73b0d7068df2c84:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgwMjY4Yzg2Zjg1YjEzOGVkN2I5ODY2YzYzMDI0NGZkYTczYTBlNGViMmRiMmRkMDBhMmYxMGM3ZWEyYTY1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhkNDU0M2JjZmFjMTcwNGNmZDliNjFkYjc1Y2Y2Yjk2YmU4M2Q4NzI1NWRjOGFlZjE5OTVlNjZhMGI5ZTM2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWM0NzY2MDExYjdlZGYzNjVjODk1NjYzODY2YmRhOTI3ZWU1NjVlMjljZjJjZTYyZTNjMWRkOGM1ZTc4MjAzYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmM2NWVjNWY4MjBkMmM0NjMwNTA4NzkxYTJmYTFjYmZlZGJiNjY4MDNkZGNjODkyY2E4ZDU2NGE3MDg0N2RlZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ad7617e2e13459cade73ccdc9c850b4",
+      "statement": "Der Abbruchpfad ist folgenlos für die Runde: Wegschieben, pointercancel und HOLD_MAX_MS führen über cancelHold zu onCancel, das den Pressetakt beendet und alle Klänge stoppt, ohne Zustandswechsel oder Eintrag, und der Zahn bleibt drückbar; resetRound nutzt dagegen das stille holdGesture.cancel(), weil die Bühne ohnehin neu gebaut wird.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L948-L967",
+          "version": "repo-lines-v1:sha256:00521dd790613eb3d7c8199c74e1b26d3cde4da08e714fb6cb36c1a992bd734d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMjg5NDVhMmMxY2Y2YzA4NGI4NmMxYmVkM2FiOWNjMWZkOWExNDYwN2M2MDhiYjQ0ZDU3Mzg2OGRkYzY5M2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTY3ZGE0OTQzYjMyYWI0ZDZmZTVjNmE5NTY0ZjBjOTEwOTliZDFjMWFlYjE4YjZkYWI3MGQwYzcyZDYzNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1ZmQyNTM1OGQ0MTY4YTE0OWU1YmZlYjk4MTkxMzJjMzQzMzc4YjQyOTIzNDVhNWIwNDQzY2ZlNjJiMjZlZTMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L333-L345",
+          "version": "repo-lines-v1:sha256:4596e2e956b4b3524b2c15e36f84afb7638a59165f19e5b332f58f1675cc7958:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5ZjQzY2RmOWViZTNiMjM5Y2YyNGQ0MjczZTVlZjcxZDc1OWQyNmJhZTE1NDdkNzI5YTRjNTUyNjE4NTEyNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MGIyNDQ5ZGYyYWE3M2E3OWNmYjZiNTEwMjRjOGVlNjY3Njk4ZjkxNzY2MDQzMjJlYzFkNzUyODJmYjE3M2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwYzYyZmYzM2Q5ZTliZDVmNzdiOGJhYjQ0ZDA1OTYxMTQzMTYwNzNjZWQ2ZmIyNWM4NWJjNDc4NTRhZjQzMTYifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L97-L100",
+          "version": "repo-lines-v1:sha256:822b4c200b853424e1299a1a7030f5da2ff70bf6c56d05c895f26c74f1b92892:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFjNTEyMzYyMTA2MjEyNjU4N2Q1NmMyZjdlNmFhYWJiYWU3MWU2ZjQwZGRhYzUyMDAyZDc1NTlkYWYxZTBmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjk3OGUyNTAzYjhjZjM3YTA2ZjdkNmYwYTNhNmI2ZmUzNTY5MWZiY2FiNTBiODc3NWNhYjZmYWJjNzFjNTkyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzU0ZWQ0NDhjOGJjZTc3NmFkOTZlZmE5Yzk5NGVmM2U1YWViZmQ1Y2I2MTRiMmQyZjA2MDZjYTg2MzIzYmY0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzZkMjgwNjA0ZGIyNGQyZTM1YzJkMzgzOWFlN2ZiNWZjOWJjMmQwMjc1ZTI3YzMzZGIxOTcxN2Q1MzBlYWI5OSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/holdGesture.ts#L71-L80",
+          "version": "repo-lines-v1:sha256:ff050594a66b9ccceeba400c0ab66310c6acfb838d37ffbc2778167706357c0d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkNzQ1OTUwMzhhZThhZTRmZTg5YmU5NTk2ODlmMTlhMjEzYzE2NGZkZjk1ZDFiNWZhNTQ0ZDNmMzUzYmJiOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlMTJiNjExODk0M2UzMGMwMDY4MzNlNzgxNjMwYTUzYjMyZjQxN2VmNWY5Nzk1YzNmMTJmMzMwODAyNGM1ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkNjVlMzhhOGNlMWQ2M2JkNzUzYzFhMzU1M2VkOTA0NDU3MDk1MGQ5ZjZlMzFkMTg4NGI4NTllYzY0ODlhMzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fa6b33a3238f4cc595e8994de0a99c57",
+      "statement": "Die Rot-Schwelle ist ein Vertrag zwischen Kern und Anzeige: HIGH_DANGER = 0.5 gilt für isHighDanger ab der Schwelle, während isTense strikt über 0,3 liegt; beim Krokodil ist Druck 8 mit 40,7 % noch nicht rot und Druck 9 mit 55,0 % rot mit Zoom 0,460 — mit 0,6 würde Rot erst beim letzten Zahn eintreten und ein überstandener roter Druck wäre unmöglich.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L133-L160",
+          "version": "repo-lines-v1:sha256:2ac8c77192a8684e29f2f4c4b7f582cdd1c8fb26ec37db47bc0d755a7ca4bc26:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxOWMzNzY1YjI2NDE5ZTJlMGFiZmI5MzUwYjdhNDRlYTBmMDM4MDMwMmFlOTZjMzY3MmUzNTkxNjEyOWVjNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwZGQ2NGM4MTYzNWRkYmMwMmI5NTlmYmI4ZjBlMzE3YjQ4NjY4YmQ1MjE1N2JkOTFiMjBiMjliZTZjODFhNmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwZjZkOWQxM2MyMTcwMDhiMmVkODUwMTQ2MWZlN2YyZDU1ODYzOTI3MmI0YTE1ODk1ZTAxYzk1NjJmZmVjYTgifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L18-L26",
+          "version": "repo-lines-v1:sha256:ed60b9e58dae7a0b15adbd67abcac951ca8d1e4cae13e5cf111a560fd6d55ce2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjU1ZjgxYTJmY2QzYTQ0NmVhYTViODczYWUzZTg3NGMwNmNhMGNjMjA5NTUyMjcxNWY2ZTk3OWUzNjQ5NTk4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjlkN2ZmYjNhNDMzOGI2NjRjYTE3NDQwYzI0MDI1MTgwOGI5NmMwMDJkYjg4MTIxOTBlZjczY2YzNzNiZDliMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEzODNjZTAzMmQ5MzNkZDQxMDg4ZmQyZTMwYTJjNWVjNDEzNjFmOTAyNDU3OWE3OWZmYjAwOTVmMDBmNzA2YyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L1109-L1118",
+          "version": "repo-lines-v1:sha256:b08c4a641baba32415aa7ca0342a743996ed0ea8d018f8ab6726d388ba74b164:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlZGMyMDg5NmJmZWQ3OTY4ZDUyNGY3ZDAzOGVhZWQzNDBkYzlhNzk5ZDM5MWFlMmIwZTYyYWZhZjVhMTQwZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZGZkMjdmNGIwNDJmMWE0ODA0MDAyOGUyMTQyOGVlZDgwZTk4YmRiZmQ2Y2FjMDM1YWY1ZDNiZDhmOTQ4ZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVkN2YyNGRmYWY0NTIwNjc5NGQzNWRmNDMwMWU3MDE5ZGY0MDNmMmM0OTIxNmU4YWZjMmU1N2ExY2FjMTY3ZTAifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L704-L716",
+          "version": "repo-lines-v1:sha256:e573b9bc975a91ed127eb9171a2d7a559e4676b00a6698f44fada5bd9a3e4b9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmZmVhY2FlODBiYTk2MjM0N2I4NWFmZTVkZWI2NDA5ZjhhNjhkOTEyNTVhYTMxMTdhNmNmMDgyN2IzNWM5NjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjODBjM2I0MGUwYmRmZDgwOGVjODAzZTNmOTQxYTdiMDJiNWE0MzNlODRhYWYyZTQ5ODNjYjRlOWQ3MWYwZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3Nzg4MzljYzJmNjJkZWRmODFjMGY3MzYxYzY1ZmZlMjk5ZDJiYWU2ODRmZjg0NTY0OGFiMDg1MzRjYTIxNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8c130ac1ec3541b2a1a3f4c9f1891ac4",
+      "statement": "Ein Zucken darf nur ein harmloser Druck auslösen: planPressDrama setzt twitch bei willSnap hart auf false, twitchChance ist ab remaining <= 1 null und liegt sonst bei 0,12 · (0,6 + 0,9 · Spannung); Zucken und Erschütterung der Anzeige hängen damit an derselben Regel wie die Ehrlichkeit des Bildes.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/tension.ts#L205-L215",
+          "version": "repo-lines-v1:sha256:746f480f5ae10ef5d04f5e8bcf7c0906840e6438fcb48d9734b7f9e619ec5784:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjZWIwODU3YzU3ZTk5NWM1NDQ5NzMwZjI5YTgxYjU4Yzc2MWJmZjk3M2YwMGZmZDFjODY3Y2Q2OWRmZWIzNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/tension.ts#L86-L92",
+          "version": "repo-lines-v1:sha256:38bbfb14ea7b02b44696d9866803d409d778cccadd19ae6f794d5e417b9a3e99:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjAxMTNmNmZkNGNkODRiOTZmNjYyNTllMThlNDVmY2Y4ZDExNTBjODcyNTg5ZmUyMDY4YzA1ODc3OTFiNTA0NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODdiYWQyZjNlNWViNTEwNDU5ZjY3MzEwYzhlMGM5MzM2ZDc1NmFhNjMzNjdiNDJjN2MwNjZlYTczNmE2YTU3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjU5ZTM1ZGY4YzFlMDUzMWJlMzgxNjQzNjg3YzIwZDlmODA5ZTU1NTgxOGE4MDQ4ZDY5YTc1MGE5YjhjODU3NiJ9"
+        },
+        {
+          "resource": "repo://src/core/use-cases/playPress.test.ts#L32-L39",
+          "version": "repo-lines-v1:sha256:7e1d30e2fab7aed82e0eb48d34f4744442c8e7ea48e85742dd9ba7b48cb54b5c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGI1NDFjZGFlNWI5ZjRmZWQ4Y2E5ZTJhYWFmNzA3YjFiZjhhYmUyOTY1Y2RlNDJmNDZmODUwNzJjMzQ4MTNmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDE5Yjk0MGU5ZDkxYzJlNmM4ZDdkNDgxYjQzYmY3OGNhYzVlNmU1NGE1OWQ2M2UxZGFmMjMxODMxODA1ZWU2YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RkOTgyOTUzNDY0YjBiZmFlODEyNGFhMjhlZGZhNWRiYmVlZGM2Y2JlZjZhMmRjODg2MTVlNDQwNTE1MjE4MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_41757fb10c1f475ba6ed54b6aea23d5d",
+      "statement": "Der Blick der Pupillen kann nichts verraten: gazeOffset hängt nur an Augenmitte und Ziel (GAZE_MAX = 4 SVG-Einheiten, GAZE_FULL_DISTANCE = 120), die Steuerung folgt dem Zeiger nur bei offener Runde und nicht nach dispose() und richtet den Blick beim Druck auf den gedrückten Zahn; ohne gemessene Zeichnung bleibt der Blick stehen.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatures/gaze.ts#L9-L31",
+          "version": "repo-lines-v1:sha256:74ceebe92e6fb4f51f9dec1dafda9af33f860c74e5dc6c90dafdb84a6c08f14c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjg2NWE2ZmU2OWIwZjAxMzJkYjNhOTdhYjRkMTRkYWJjNGJkOTBiNGQzY2FhOGVmNDAwNDVkYjFlYWFiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViZDgyZjY4NmRiNzQ3MDUyOWJmYzczNWY4Y2I1MDg5MThlZmUwMTE0OTIyMmUxZmJmMjZiYzM5YmNlMWIyMDQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L846-L853",
+          "version": "repo-lines-v1:sha256:1d8a9cbbfbbbaec8f27de8427d96a7a0dac31999483f8dc1b8f0ae70f18b8f6f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzUwZmU0Y2JiOWY5N2NlYjE3N2VlNTY1NzdkM2M3ZTc3NTA3ZDhiNDM1OTA4ODY2YmJkNDkxYTU1ODM4YmU2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTkwOGJlZTg1MzdmNGJlNmNiNzc5OTAzM2I0M2Y1MGNkZjExM2MwMTA4NDczZDE0OWFhNjhlNDg2NzU5OTIyYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDI3ZDk3Zjk4ZWZiZWI3NGY0Y2ZhNGMyMTY0MDY5M2U0OWE1OWRhZDg1MGRhOGI3N2Q4ZTUyNmQyNWE4NzUwMiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L855-L892",
+          "version": "repo-lines-v1:sha256:447709949b11238a00f659498b72322d62558b850c10b2178784aac90b9b07e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhZWFkZDVhZGNmYTNhYTgyM2UxYTIwM2JjZjU2NmMyMDBmMzI0MDgzMjc2ZTU1ODgyYWMzOGRkM2IzNjlhNGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4YjljNDIyY2I0MjllM2M2Y2JiNDViYmIzMDc0MWNlMGQyNDA5N2YzMDY5M2EzZjE1M2FhZDU4NDgzMWUwM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2NzNkNGYzZjU2NDMzNTFjYzdlZWM2M2VmNWIxNGJlOGE1NzRkMDIzYWVhOTA0NjA3NDk3NWUxM2YzZmRiZjUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L276-L286",
+          "version": "repo-lines-v1:sha256:d52e22f242b994657554ff9e40777b1e532d8e1ee758cbbb164be30703eb6f97:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2OGNlN2ZhZDljYjliZWJlODYxMTZlOTM5NDEyNDNhMDgyMTY2NDgwNzdkNGZjMWQ1OGNjZTFiOWNlOTY3MDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3ODczOGUxYTMzZTgyNTAyZTYwNGJjM2E1YzVjNzA3M2ExYzc3MjUzZmE2MGE1YmUwM2I1MDM2N2YwN2Y5ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxOTUwNTU1N2ZmYWVlYzhkYjk1YWIyNDJlNTM3YTNiNWJjOTBhZDhkMTg0NDU3MTNiOWM5NGI3OTQ5NmJlYWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85c188afb4e34a28be90ff4b3912390b",
+      "statement": "hudModel rechnet die Bissgefahr des nächsten Drucks bei offener Runde jedes Mal aus pressOrder.length + 1 neu, zeigt bei geschlossenem Maul „Runde beendet\" statt eines Prozentwerts und setzt Zoom, Zittern und Gefahrenfarbe auf 0, während die Füllung der Fortschritt bleibt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L740-L753",
+          "version": "repo-lines-v1:sha256:04bd2f531ff72591a8021550e6c414e596445117d2545bf448335dbacf750e9f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3ZmU5ZTQ5ZDY5NTc0NDJkNjAyMGNlNTI5Y2I2ZmJhZmNjNjVkNGUzMmNhNTllYjM2NDhhM2I2ZmJiOTczYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjN2FhNmVjNDAyMTdkNWNjYzZiYTZlOGEyZGQwZjEyOTViM2FlZTM4YTMzYzJlZjI3ZjY1MjZkOWE2MDk3ODQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZmZiMDlmNTY2Yzc0YThmMTEwMjI2ZTRkODY3MWZmYjFiNzQ0Y2IxYThhZTI4OWZkNTFlZWQ1MTk2NTZhMDQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudModel.ts#L42-L92",
+          "version": "repo-lines-v1:sha256:7e16f90e0252f187e7fd28471ad75ba2ae8ce1a62bfe467f46eea4d80ddd14ba:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjYmQ3MmVhNmI3ODA2ODVhYTk4Mjc1NzMwNTQ0M2Y0YzBjZWNmZDg3YjM0MWJkNGRkMTgwMWE5MWE0OWU3MWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MmIwYzljZGZlMjA4ZDliNWVkZmMwZTEwZmU5NTYzZmNmOWNlYmNhNzgzYjVmZmI1M2ZmNmMzMTQ1NzUxYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_df6afb4c9bb9414b915559a0468e065b",
+      "statement": "Der Ergebnistext wird aus dem RoundState gebaut, nicht aus dem Protokolleintrag: der Titel nennt bei zwei Spielern den Gewinner, der Text nennt den falschen Zahn, die Zahl der scharfen Zähne und den Mut der Runde, und eine Protokollzahl steht bewusst nicht mehr darin.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L426-L445",
+          "version": "repo-lines-v1:sha256:51617e4e7aa867545d0efa21d791dfb2f2d9f462eee1543c501844901e0f46bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiOTdkOTk3ZGJlOGFmYzBlMzUzMTdlYzI0NGUwZmIzZGIyMGM3ZDNlMThmZjZmNGNiOTA2NDdjYWFkODlmODQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkNGE5OTRlNTVhNjg0MDdiMDg0YTc4YzkxZDQ0ZTgzZmEyY2I1MTI1ZGNiYTBlNmQwZDIxYWQ5NTI3ZmZiZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkYzcwZDE5ZWU4ZGVmN2ZmOTAyZTU2MDBiMmI3YjhmYzUzNzEzMTdlMmQ0OTA3NjI3OTFlNTgyNjk1MmJlZjkifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L510-L514",
+          "version": "repo-lines-v1:sha256:1099bdc5512ae25773f19bcc2a60e4b986acae5dc2813173dbec47ab397c108c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQ0N2MyNjk5MzU1OWFjYzY1M2FiOTFjYjc5MmY4ZWM1MmYyYzQ2NTUwOGMxOTVlZWQ4NzA2YzY2YzM0N2ZmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGE4Y2I3NGUwNGZlMmU1NDVmMDI5ZGNjZTJlZGVkNzMyYWQyYWRiZjE1MmRhMDUwMjQxN2E5NjNhOTRlNGZkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmNhYWZjMWQwYzgxMjkzNDA2ZjM2OWJjY2U0ZWJlNDdlMzBkYThmNWJlMGQ2OGQ2ZDk3NDg5ZDc5N2I4NmU1MyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/resultText.ts#L55-L112",
+          "version": "repo-lines-v1:sha256:0671f888c8766e12e0ba516589c19799c246497711c5ef1df0f56b1781caab62:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ZjRkMjE4YWI5MDhiNThhN2JmODk4NzhlZTcwYTRmODhkYzc0NzlmMGJkYTk2NTdlZTAzOWRmZGJjOTY0ZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlZjIzYTYxZWMxNzljMzllNGY5MjFjOGZjOWEyZGMyZTNlYzRmOTYwN2MwMGRhYzc0NzBjZjUwYjBlZWE0MzYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

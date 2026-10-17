@@ -1,0 +1,5 @@
+# Dateien
+
+- [Offline-Betrieb: Service Worker, Cache-Regeln und Manifest](offline-service-worker.md) - Wie public/sw.js die Seite ohne Netz startet — drei Cache-Strategien (Seiten netzfirst, _astro cachefirst, übriger eigener Ursprung stale-while-revalidate), das Nachladen der Bausteine aus HTML und Skript-Importen, die Ausnahme für api/, das Aufräumen über __bausteine__ und die Kopplung an Manifest und Stimmenliste.
+- [Sicherung der Runden: Worker, Code aus der Adresse, Abgleich](sicherung-worker.md) - Die Außenintegration für Datenhaltung über das Gerät hinaus — Sicherungscode aus Pfad oder Abfrage, HttpRemoteLog als Adapter, syncRoundLog als Kern-Ablauf mit mergeRoundLogs, wireBackup mit Warteschlange und Status, dazu die Routen und Grenzen des Cloudflare-Workers samt D1-Schema und die Regel, dass ohne Code nichts geschieht.
+- [Ton, Tierstimmen und Vibration](ton-und-vibration.md) - Die Rückmeldungs-Adapter: WebAudioEngine mit synthetischen Klängen und Freigabe erst nach der ersten Geste, Tierstimmen als MP3 über SoundPort.playVoice, BrowserHaptics hinter HapticsPort — und wie die Bedienung beide Nähte nur mit Kennungen und Pegeln anspricht.

@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:18f4459eb34dc19eddaf71dcbc7e0385f573a164b4a59676da7e643ca2881496",
+  "claims": [
+    {
+      "id": "claim_013e82cc04374bd8b1112bdaa0ad4651",
+      "statement": "AGENTS.md bezeichnet sich selbst als Einstiegspunkt, nicht als Regelwerk: die verbindlichen Regeln liegen in docs/, und die Index-Tabelle in AGENTS.md führt von einem Thema über eine Datei zu dem Satz „Lies das, bevor du …“. Diese Tabelle wird von Hand gepflegt und von keiner Prüfung im Baum mit docs/ abgeglichen.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L11-L13",
+          "version": "repo-lines-v1:sha256:c1b641dcdc709e42529f7ebadbb9bdb605b8013c876e787de47f0780a3b90250:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBmYmFhZTkyZDgzNzdlZmRhODQyM2JmZDFkNjZkMzhlNzcyOTc3NGI3ZGY4NDNkNDVmM2E0ODZkYmU4MmI2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjUyZDcxMTEwM2Q1MGE0Mzc4MzBjNmZiY2QwNGZiNGJhYjQ5YTBmODJmNmQyNmQxYzc5MWM2ZTg0ODhkZDA5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGU0ZDNmZDRlMDljZDBkNGQ2NzhlMWNlNTgxMWE0MDhlYTdmZmQ2M2NjOWViODk3ZGI3MTdjOGY0NTk4NGM3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGYyZTU2YTFmNzM1M2RiMDIwMmFmODY1YjYxZGVjODUxYTY0YmNiMDMwMTQxYzAxYmI5NDEzNmZkZjcwYjFiNSJ9"
+        },
+        {
+          "resource": "repo://AGENTS.md#L28-L49",
+          "version": "repo-lines-v1:sha256:d788c50492fc751c973b118ab2732ee4041d3c29db621cb20d340e99a45b2d38:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1MWU4YmI4ZTA2Y2RmNDBhMTFjNWRhNzFmMjZlNDBmOTgwZDM0MDUzMDcxNjk3MGJlMzViNDAxOTY2MmM2MWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkZjliNTEwMWI0NzMxZDY1NDY0YzVhOTU0MTU0YjA5YzI1ZGZiZjBjOTNiNTIyZTc3ZGY0YTVhOWEzNWY2ZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmOTgwMzRlZjY2MTdjYmUxNDEzODVmM2I1NjNhZTFlY2Q0YjIxM2YyNmUyYzBjMmQzN2Q4ZjQ4NzI5OWIzMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyYzk2NzA2MzBjZTMzNzUwZGY3ODM5NjRiNzdhNDJmMmMwMThjMTRkNDYwZDQ2ODMzMWZhNjdjNWQ4OGRhZDIifQ"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L116-L122",
+          "version": "repo-lines-v1:sha256:98c15ec3a280316091d890cb9ecc15467dba666f9a33047ad811524e77a8fd11:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA3NDFiNGI1NDA5MDVjNDNhNzc4ODQyMjNiNTc2ZjAzYWQ1NGE2Nzk3MjlkMTMzZDBiZTIzNWI0MWFiZjYzMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQyNThiYWRmYTJlMGMyYTMzZWE2MGFhZDNmNjAyOTY4N2RiMzkxYjY0YTczNGRiN2Y0MDEwNTU0NTNjYjNlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTRiMDdmNjJiYWVlY2M3YWUwYWRkMTdmM2RkOWE2NjJmYzdiYWIxODMzZThkYTI3YWVmNGMyZWE5Y2Q3MjhkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWQwMTAxMjE4ZGJhZTAzMDQ4YTVkYjllMjI5MjkyMjhkYmYyYzk5YjdmZWJjYmMxOGFjNzAzNjgwMzhhMTNhNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2dcbee7bff5c4a2c88e2c59a31f3b8b5",
+      "statement": "Die Sprachkonvention teilt nach Leser: Bezeichner, Typen, Funktionsnamen und Meldungen im Code sind englisch; Kommentare, Doku, Commit-Beschreibungen und alles, was Spieler sehen, sind deutsch — begründet damit, dass der Code zu fremden Bibliotheken und Werkzeugen passt und die Fachsprache ohne Übersetzung lesbar bleibt.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L20-L21",
+          "version": "repo-lines-v1:sha256:113f02f93cb5e1991cfa22829a3dc5ef5558fa5935839c8fd332181368a24a55:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVlMWMwZWJjNTNmYTQ4ZjcwNzM5ZDQyZTI5ZTkxZTk3MGNkOTc2N2IwMzk1YWM5MDM3ZTcwY2RjNzk2YmQyYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWRlYTYyZmI3ZjM3ZDU5YTkxNjExZmFiNzg2MjBlMjQwODM5NzdkMDM0MTA0OWUxZTEzNDJmYjRiNzE1ZjZkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmUzMWQ3ODk4Y2FhNTgzODVhNTA5ODAyN2RkMzI5ZGQxYzM5MmZhZTYzZWZlZGQwMmNmZjgyYWY2MWNkZDg5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA3MDYzMjlhZWEyOWIzOTFmYzQ1MWRiZjFlNWE5NmU0MGQxYzVlNGEyZGZiMTY2N2Q4ZDFlMzlmOWEwODU5NCJ9"
+        },
+        {
+          "resource": "repo://docs/language-guidelines.md#L3-L15",
+          "version": "repo-lines-v1:sha256:7e50f0d7ec1d887fd4dbf459544a73976978ab8e31d6706e59da6d6389677963:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZjA1NjQ1MDIyYjlmZmNjZTk4NGFmMzFiNjY1YmNlZjhlZTRiYjY4YjI3ZmM4NTQwY2E4YjliZmFiYzYxYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViYzAzYWZiNjQ2ZTM5ZWE2Y2Q5MDI1YzQ2ZTM0NTY1NGQwZDNlYTMzZDExMjk0YWRiYWE2ODkxZGQzYWZlYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiZjNlMDQxZWNhYTVmMjg5MzIyNTMzOWJmYzZiMjJjZGEyYzQ0YzBjNmY0YTQ5Zjg4NmUwZjYyZjhiNjI5NzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_18a67029f49041bc92b718d512be6909",
+      "statement": "Der Kern meldet Regelverstöße als DomainError mit englischem kebab-case-Code und englischer Meldung (z. B. tooth-already-pressed / „tooth 3 is already pressed“); die Bedienung fängt Verstöße ab, bevor sie entstehen, und zeigt deutsche Texte statt der Kernmeldungen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L87-L101",
+          "version": "repo-lines-v1:sha256:e544de49ea25729f3fa861635ed32979c99eee573e968d7bbfafbe37468bce64:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0Yjc4YzkzODUxOTFjODhjZDVlYTA0NGU4ZGUxMTdlZmY4OTIwYzQ3N2RjZjMwZDQzZDJjNjVlODcyNjQ0NmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiYmRiN2M4MTBmZmYxZmU2NmQ1YmIwYjBmNWU1YzEzMzA1N2Y3YTY4NzdjNmJmYmUxZTI1MThlNjNlMmI2YjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjliM2MwZmQzN2FkOWFmN2NlNTdmNTk2NDg4Y2E1MzMwY2M1NmIzNDkwZmVhMjE3MDRkYjA4MmEyNDIzZTdkNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3YTA4Yzg1NWMzZWVjMDA4YmI4NTg5YzI4MjgwMzM3YjQyOGFkYTNiMmVkMTMyMGFiZmFkZTA3YTUyNTg2MTQifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/errors.ts#L1-L17",
+          "version": "repo-lines-v1:sha256:a8bd1b8df2e7878c7341dafcc52385013b5db160d65cac70f94d8f07a261e90d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkZDg4NjEzOWQ0OTNjNjI5ODA2NGY3MjAwMDEzMDE0ZmU4ZjkxZGU2N2ZmMDZjNmRmNmNmODcyZDQxYzFlM2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/round.ts#L71-L86",
+          "version": "repo-lines-v1:sha256:139d6950a7120651a69804069661545f62beca77c89788973bcb746ce7a6881e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMjc2YTE3ZTkxY2RjMDExYjFjMmQ1NGZkOGQ1ODg5YmI5NDk3ZDZiYTkwYjdkNDY2NGRjYWEzNTBlNDJkNmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0MThhMTc4OTg4OTRjZmFmN2U1YmM2MGQ0NjIwMTE1NjhjMjFlMzcxM2EyMzM0ODYxNDUyYzJlYWQ0YmRhYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllZGFlNmEyMmY3MzJiMmUzZmExZDk4Y2MyMDg1MzJjMzVhMWY3NTE2MDkzNzBiOWNkNjZlY2Y3MzEyNWFiMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eeb22c96750e48bc9ffe774feb504eca",
+      "statement": "Deutsche Spielersätze entstehen in eigenen Sprachmodulen der Bedienung (resultText.ts für „Maul zu“/„Du bist dran“/den Ergebnissatz, unlockNotice.ts für Fortschritt und Namen); korrekte deutsche Beugung verlangt dabei Katalogdaten grammar.dative und grammar.feminine.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L23-L27",
+          "version": "repo-lines-v1:sha256:36e768036d45e9c69ab690ea395fcea0b63098920443e1227067f7614c74a59b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjA0YWE4OGNjMGViMjg1YTgzODRkYWM5MTNjN2FkODQyODQ4ZTQ2YjExY2VlMDFjMmZhYTBkZjg2NDlmZDBmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJhMmNiMjVhMTIyYjQ0MjIxYTYyMzRlYzY2MGE3YjVmYjdmOWJkZTdiM2I5ZTJiM2M1NTlhMGQ5NmZhYzczOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzFmNzAwOTNlZjJjMDY1ZjFkMmUxYThkZDg0YzNmMjNiZTg2OGI1MjA1ZWEyMTQ1YzA5YTUyYTMwN2NiMzY3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTFlZjZiMzFkMDVhYjQ0N2M4NjVlMTlmNWViYmUzZmViZTZlOGRlNTAxNGM5MTU1ZDdkZDk5NzQ3NDkyZGE2MyJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/resultText.ts#L5-L21",
+          "version": "repo-lines-v1:sha256:e59bfe46c5c7d3b21c18de0fbea3f8343b5cb9e924198de9e2fac01ffb9d8283:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1ZjFlOWU1ZDRiMzU0NmQ0ZDAwY2RhNTVlZWU1OWViZmUyYjE0Nzg5ZGFmYWFhOWFmOWEzMjRiY2VlMDkyOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM3OWUwYjZmM2QxY2RmMGQ1NzEwOWYzODUwNTgxZjYzZWQ2MjBiMjA0NzdkYWUxMTVjNjdiMzQ2MjMzNjhlYjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlNjJiZGY3NGVmZjIzNTM5ZThhNDFiMjg0MTMwYWQ1OTk4MTllYTU1MTg5MTg4YmJhZDZlZDUyOWExODM0MDUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/unlockNotice.ts#L1-L38",
+          "version": "repo-lines-v1:sha256:35afe6cd8dab710861df8c9bd32d2a8227c3a3ebf4a86111b80c13e75e26da22:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkMGU3ODczZGQxY2M5NDk2NGUzNjJlNjlmYjgwZDAyN2Y5ZGI1ZDQ4ZDllZTA3ZjJhN2IxOWFjZDhmMTY1NDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkYzQ5NjA1NWFlMGUzYWJlNDk1MDc4N2VlMTJlYWNiNTlmNTQxMzk1MTFkYzFhMWU4NTRlNGE5M2NhNGY5NjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4c014beadc541e89279960299e82b83",
+      "statement": "Der CSV-Kopf ist eine dokumentierte Ausnahme von der englischen Codesprache: CSV_HEADER ist deutsch (runde;reihenfolge;verlierer_zahn;…), weil das Format die Schnittstelle zum externen Analyse-Werkzeug ist.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L325-L326",
+          "version": "repo-lines-v1:sha256:42d9aed9e878bb9fd2d1608ca76a1fca68c080c6abd0e4f251159abf2604c7e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTczZjRiYWExMmQxODJmNjk5MWI2ODhhZDE1OTcwYzg3MjM5MGI5MWQwNzQ2ZDg1NDRhOGZlOGU0MWI2MWU3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJjOGZhNGJjYjY4YjA4OTdlMzA0ZTI3MWNjZjViOTdlYzU0ZDU2M2EzNGRiOWNiZmYyN2E1ODMxNTBmNmFkOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTYyZDc1YzAxYjU5M2I3OWY5MDM0M2FlMmYwNjJhYWExYzE3ODgyMjAzNDZjZGRiNzc2YzZhZDY3MTlmNzgzYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ0M2YyNWJmOTdjMDkzM2ViYzQ3YzNlZmE3OWVmNzdjOWM1YjU3M2ViYzY5MDJjZTY0YzI3MzA1MjQ0MDg3NCJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/records.ts#L24-L26",
+          "version": "repo-lines-v1:sha256:be44ffbe972649735922dc2df82b2e8ba419529afc7ac2620f9d63e80aaa5bf1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmM2OTUzOTlkMWY5ZWZiYzZkYTc3NTI1ZDQyYzBlZWI5OTZmYWMwZWU5YWQ4Y2EyYjIyMDc1N2NkMDZlODNiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWFjZjU1YWFjOWQ5MzU4ZDExMzg5NTQyZDEyNjA2MzBkZTJiOWVmMDZmZDRhMjY1ZjIzZmFiZWUwZmNkMjViZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY5ZmEzOWNkOWE2YTZmZWJlYzFmZGE4ZGFkNmYwNDJiYjE1MTA2ODkwOGYxMzQ2MWFjYWY4MDVlODI5OGFjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_56d2b2a7f51b40adbed6101b0c2b8fce",
+      "statement": "Testtitel sind deutsche Behauptungen statt Symbolnamen, etwa „nennt den Zug in richtiger Sprache — ‚Du bist dran‘, nicht ‚Du ist dran‘“ oder „belegt, wo die Trefferfläche auf einem 320-px-Gerät endet (gemessen, nicht geschätzt)“; sie lesen sich damit wie Doku.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.test.ts#L69-L84",
+          "version": "repo-lines-v1:sha256:e3116ba7d79931e13c36ee45c45f8c20e79f99d645ccd5aa6257509a974ff606:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxMTcwMzk5ODc2YjJjZGI2ODMzMDc4MzdhMjg1YTQ2OGM2MDIwMzllZjUxYTc2ZDk4YWNjZTE5ZTM4MWViZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNTNjODU5OTE2ODhiMTBiOTJlOTE0NDczMGMyOThkMGMwMWM4MzAxZWQ5MGZkNDZjMjJjNzM5ODQxNDQwNDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlYjcwZjIwYTkxOWM4ZTU5NDkzMjk4MjRmOWU2YTIzNzgxMDJhZTBkMmNlOGNhMmQ1ZjliYmQ4ODg3MTMyY2UifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L229-L236",
+          "version": "repo-lines-v1:sha256:94619defa31bc40647a2703a749b638ce4244f66588181950c0639b451d6f7f2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGM3MDRlZjdjZjgwNjQ1NjEyOTkzMmZjNzc3NGVkNmM2MjYxYzY2NGUxODM5ZWVmYzc1N2Q5ODBmYTBhNmQ0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzM0ZGZjNDZhYTc1Njc0MDY3N2M4MDZlMThmYTVjZDZmMTMxMWFjMzgzYjc3YTM0YzU3OTE1YTQ5N2Y2ODUxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmJkYmYyYTU0NzE0MjM1YjU3ZWI2ODZiMjg0OGNhOTQyNTRiOGZmYTVmOGRkMjMyNTBlNzJjMjE5NzRmMTdmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTA1ZjhiZjliNjcwNDQ0ZWU5OGJiMjlmOWMyZDI0ZDk1NmZkYTQ3MzRhNGRjZTNkYmVkMGM3NzYwNjk4YjNjNCJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L679-L679",
+          "version": "repo-lines-v1:sha256:bfd6967f81917281e31d9026f212ad6f5dcf245a9a5c461c21e853d0369e6bf5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZkNjk2N2Y4MTkxNzI4MWUzMWQ5MDI2ZjIxMmFkNmY1ZGNmMjQ1YTlhNWM0NjFjMjFlODUzZDAzNjllNmJmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZkNjk2N2Y4MTkxNzI4MWUzMWQ5MDI2ZjIxMmFkNmY1ZGNmMjQ1YTlhNWM0NjFjMjFlODUzZDAzNjllNmJmNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmRlOWJiNWRiN2RhZWFiNTQxMWI2MTljNTQxODY5M2Q2OGZiYmI2MDM3OGM5YTBmZWMwZTJiNTJlNzY0MGJjOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjE4MDA1NjI5Y2VhOGFhOWZjNGRiM2IzZjg0MjUxODcxNjM1NDhlMmM1ZjI3N2ViOTNiNGYwM2IxYjlkNjJhNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1cb5d9ebd5c64185867668c284e3173c",
+      "statement": "Vor jeder Codeänderung ist docs/fallen.md zu lesen — die Liste stand bis 14.10.2026 in AGENTS.md — und jeder Eintrag nennt Anlass, Messwert und Gegenprobe aus einem echten Lauf, nicht aus einer Vermutung.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L17-L19",
+          "version": "repo-lines-v1:sha256:fe31d7898caa58385a5098027dd329dd1c392fae63efedd02cff82af61cdd89f:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzIyMzQ0YzlhNDM1YzgyNjA2ZTVlNjgyYTAwZjgxZDcwYWJiZTM0YWFmN2VkNTNiMzljYWI2MDkyOGYyNDFkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODU4MTJkNTEyYmY3Y2RiZjllOTA3OTBlNTJhOTMwNmU5MzU3NTc3MWY1MzU4ZTY3NWQ3M2NmNjQxZjhhMzFiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGYyZTU2YTFmNzM1M2RiMDIwMmFmODY1YjYxZGVjODUxYTY0YmNiMDMwMTQxYzAxYmI5NDEzNmZkZjcwYjFiNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODYxMDU5NGNjZmM1MGJmMzZhMTZkYzBhNDZiODA0NTFmYTgxMmZjOTQ2NmUzNGU3ZTdhOWMxZDY1ZDE1NGEyYSJ9"
+        },
+        {
+          "resource": "repo://docs/fallen.md#L1-L5",
+          "version": "repo-lines-v1:sha256:c946971671d3f9f8c58ab393b1fd3ab40e3cf56fdd9ec4a9134fee0f09be8182:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMThiNDE0MzRjYWYyNDc4MjViODI5NjJkZjJhMzZmMWVkN2EyYmU3NWE3ZmI0ZDg2NzU2YzQ3NTEzMDk4MTUxZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDM5NTQ3NWYxN2RkYzFhMDM3NDQ1NTliYTdmZGUwNTdiYTdmMmNiMGQ5ODk5NDRiZTUwMjQ5NDMyNWIxYzZlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjU2ZDYyODBlNWRjMjg0ZDJiNDkyNWY2MmU0MDI1NjM1NGE0NTZiOWNkOTI2ODNiZTliMmMxOTdmZmNjZmIxNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_609b7a5c3f9a4a2bbef56f885aaaa7ea",
+      "statement": "docs/plan.md ist eine Arbeitsdatei, kein Archiv: nach der Abnahme wandert Bleibendes an seinen Ort (Regeln in die passende docs/-Datei, Fallen nach docs/fallen.md, Begriffe nach docs/domain-model.md, Nachweise nach docs/e2e-nachweise.md, Belege nach docs/tier-quellen.md), die Datei wird zurückgesetzt, und keine andere Doku verweist auf ihren Inhalt.",
+      "evidence": [
+        {
+          "resource": "repo://docs/plan.md#L1-L13",
+          "version": "repo-lines-v1:sha256:8d0879b55124db2f4d489661d2c50bb69103e92497457f9d68a737a0cd1ef599:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzOTY0YmIzYjcwYTk1N2VjOWIyMzNjN2RkMzY1M2Y2YmExNzcwMWFiMDBmYWNmODhhZTEzOTNkYzYxNTU1NzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMzMwNTM1ZWJmYmQxNDcxM2U1YmQ2YzVjYTkyMmU2NjlhNDYyMGJmZDc3MDY4NjIxNzljMmUzNzk4Y2ExMzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L116-L122",
+          "version": "repo-lines-v1:sha256:98c15ec3a280316091d890cb9ecc15467dba666f9a33047ad811524e77a8fd11:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA3NDFiNGI1NDA5MDVjNDNhNzc4ODQyMjNiNTc2ZjAzYWQ1NGE2Nzk3MjlkMTMzZDBiZTIzNWI0MWFiZjYzMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQyNThiYWRmYTJlMGMyYTMzZWE2MGFhZDNmNjAyOTY4N2RiMzkxYjY0YTczNGRiN2Y0MDEwNTU0NTNjYjNlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTRiMDdmNjJiYWVlY2M3YWUwYWRkMTdmM2RkOWE2NjJmYzdiYWIxODMzZThkYTI3YWVmNGMyZWE5Y2Q3MjhkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWQwMTAxMjE4ZGJhZTAzMDQ4YTVkYjllMjI5MjkyMjhkYmYyYzk5YjdmZWJjYmMxOGFjNzAzNjgwMzhhMTNhNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b0c81323ee534487bc53b9c8409387a1",
+      "statement": "Für Kommentare im Code gilt: sie erklären das Warum, nicht das Was — ein Kommentar, der eine Regel wiederholt, ist Ballast, einer, der eine Falle benennt, spart Zeit.",
+      "evidence": [
+        {
+          "resource": "repo://docs/language-guidelines.md#L14-L15",
+          "version": "repo-lines-v1:sha256:499e1e7a6513557cb987712272a56770cea17dddc995bce82195aa737acc7eb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFhM2JhYjkxYzQzYjFjZmMxY2Y5ODU5OTA4MTJhNDdjOGUwOTMxZDY1OTI4OWMzMDBkZWIwOGI2ZWU1MTg5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWJjMDNhZmI2NDZlMzllYTZjZDkwMjVjNDZlMzQ1NjU0ZDBkM2VhMzNkMTEyOTRhZGJhYTY4OTFkZDNhZmViZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzIwNDQ2YjUzMWFmMGJkMjg3YjgzNDg3NjkxYzJmYjRlZTU0MjNkYzE3MWUzY2QzNDc1ZTIxMGIzZWM2ZWJlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c9561b3095d846148446205bdf30c9f6",
+      "statement": "Gemessene Grenzen stehen im Code als Kommentar mit Anlass, Messwert, Datum und Werkzeug und nennen die Gegenprobe: MAX_TILE_LABEL_LENGTH = 12 dokumentiert die 65-px-Kachel, den 13,2-px-Höhensprung ab dem 13. Zeichen und dass creature.test.ts den Katalog an der Konstante hält, während die Browser-Sonde das Maß prüft.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.test.ts#L69-L84",
+          "version": "repo-lines-v1:sha256:e3116ba7d79931e13c36ee45c45f8c20e79f99d645ccd5aa6257509a974ff606:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxMTcwMzk5ODc2YjJjZGI2ODMzMDc4MzdhMjg1YTQ2OGM2MDIwMzllZjUxYTc2ZDk4YWNjZTE5ZTM4MWViZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNTNjODU5OTE2ODhiMTBiOTJlOTE0NDczMGMyOThkMGMwMWM4MzAxZWQ5MGZkNDZjMjJjNzM5ODQxNDQwNDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyMGZjOWU2N2RiMDdlZDIzOWJiM2FkMjMxMmVhYWI5YTcwZTFmNmZiYTAxMjg4YjBiYTZlNjFkN2Y4ZWU3ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlYjcwZjIwYTkxOWM4ZTU5NDkzMjk4MjRmOWU2YTIzNzgxMDJhZTBkMmNlOGNhMmQ1ZjliYmQ4ODg3MTMyY2UifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L11-L21",
+          "version": "repo-lines-v1:sha256:c6b12b6cea0a2923ed106d173a58c950f642b044fff35445739bb9982642635c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMmEyZjk5NmYwOGU2ODBiZDI5MjEzNWE2ZmE0OTc4YmRhMjZlNjAyZDg0ZjMzY2IxZDU5NDc3NWQ0MzA0YjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlNzExMjdmN2Y1ZjE3MTdiOTZlN2U5NzY5MGE3ZDE4MWE1MDcyMzdmY2FkMTg4NDBiYmIwOTM0MDIyYTkyMGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYxNDFkOGE1OGI1ZjU3NWY0YmEyOWY4NjkxMDQ3Yjk1YWU2NWJlNTE0MjcyNjJmODdiYjVkY2Y2Y2ZjZjQxNjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlmMjQ4MGI3ZWE5MjRkNDk2ZjQzNmQ5ZjJkYmNhMmFjY2E1MTA5YWI3NzE4NDI4NTQ5NDliOTIyMGY0ZWZmMTEifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L48-L55",
+          "version": "repo-lines-v1:sha256:667bfb8ddaa176d71f6466400e55a90fed83eb1e90549162634c077b92612c4c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM1ZTkyNjU0ZTM0ODVjNzNjYWZmYTIxM2U4MzkzYWVkOTdjNDMzYzBlY2JiNDQ4MjY5MzIyMTdmMWUyN2ViMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmFjOWJiYzFjYjYwYTMwN2JjNTFhN2RmNmNjY2M3YzQzNjViYWUxMzY0Y2MxNGYxOWJkYjhlYjRlY2YyNjE2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2RhZmE5YzBlODIxYThhMDg4OTNjMGNmYmQ1OTgxYzUwNGNmNDQ5ODkzMzcxMzVjMGUwZWIwYzVjOTI0ZGEzZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b4291d8dab9a49928740fc65cb682b7f",
+      "statement": "Weitere Belege derselben Kommentarform: MAX_TEETH = 12 leitet sich aus einer Mindest-Trefferfläche von 44 × 44 CSS-Pixeln auf einem 358 px breiten Handy ab (12 Zähne 51–63 px, 16 nur 38 px) und nennt den Test, der es für jedes Lebewesen nachrechnet; liveCountRange hält fest, dass eine zweite Begegnung mit derselben Kappen-Falle (angezeigte 83,3 % gegen gezogene 75,0 %) zu genau einer Rechenstelle für Modell und Auswahl führte.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L22-L30",
+          "version": "repo-lines-v1:sha256:aba087417d5d67382f0793a0efb1cc03d7e5895a1e11856e46b7bc899e7376fb:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTg1MDZhYzYwNDQzYzM1YWQ2Y2U1M2IxMGIwM2E1ZTg4YTAzZjBlNWNjNzhiMmNjYzhlYzAwZGYyOTZiMmE0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGM0MjQ0NTdiN2Y0ZDk3NDI1YzVlNTlhODk5NDg0YmE5NTIyMDEzYmRhNDc4MWY0NTQyYWIyYWZmZDk3MTllZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjcxY2FkZGM0YTI0MTY0MzI1NWUxNTA4MWIwOGRiZDUyYzUwZjczZjdmMDVjMDZkZDdmZmI1NDdjOGFhNTkzMyJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L45-L56",
+          "version": "repo-lines-v1:sha256:67fe084f9ea33702aed26e78c20d4a86fb1c02eb0685bdce0f0cc6cd7f27153d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjNDFjZTAzZDljNDkyZGJhYjBiZmIwM2ExNjg5YzNmMjAwYzkxOTFiNDg0Nzc1YmYwODY5ODFhNmE3ZDI2OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiZDcwNTZmNDc2NzcxOTRlNzRmYmZmN2E2NGE3OTVjYjQ2OTFhMDQwZmYyNjhjNGFhYzY2NWFjYjFhODM4ZmMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/creatures/creatureViews.test.ts#L229-L250",
+          "version": "repo-lines-v1:sha256:b046ca0b922f3b8476de5e61c9000f6e58022871b73aa74f58259577df588e70:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNzA0ZWY3Y2Y4MDY0NTYxMjk5MzJmYzc3NzRlZDZjNjI2MWM2NjRlMTgzOWVlZmM3NTdkOTgwZmEwYTZkNGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1ZWQ0YmQwMzBlM2ZlOGIzM2MxYTc4ZmJmZjc3MTFmZGI1M2ExNWM2MzQwYmM5YWIyM2EzMTNkNGMwNzc3ZmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJiZGJmMmE1NDcxNDIzNWI1N2ViNjg2YjI4NDhjYTk0MjU0YjhmZmE1ZjhkZDIzMjUwZTcyYzIxOTc0ZjE3ZjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2N2UzZThjY2ZkNzE0ZTAwNjE3NGIzMGMwMWQ4YWQwNTljMWRiNzhjMzY0YzhlZmJmZDQyYzQ0NGJjMTcxMjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f21f6c3d8054fb4817967573c92cb8a",
+      "statement": "Nachweise werden über Abschnittsnummern der Nachweisakte zitiert statt abgeschrieben: hudView.ts verweist auf docs/e2e-nachweise.md §5t, wo der Fall als Abschnitt „## 5t.“ steht.",
+      "evidence": [
+        {
+          "resource": "repo://docs/e2e-nachweise.md#L948-L948",
+          "version": "repo-lines-v1:sha256:aca7c4164e1f4ef4dd7a5c8407370a1deb7aaf4c96c462fb24bbc46dcd7d2095:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWNhN2M0MTY0ZTFmNGVmNGRkN2E1Yzg0MDczNzBhMWRlYjdhYWY0Yzk2YzQ2MmZiMjRiYmM0NmRjZDdkMjA5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWNhN2M0MTY0ZTFmNGVmNGRkN2E1Yzg0MDczNzBhMWRlYjdhYWY0Yzk2YzQ2MmZiMjRiYmM0NmRjZDdkMjA5NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2Y1OWNmZDUwYWEyZTI2NWI1ZDMxNTRmMDBmY2UzMDRiYjM3MTdhMTIwYmI0OTAzODJmMjhiNGFjZjdmZmFkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGEyMTAxYWM5NGI0NjZmMzkxMjhhODc0ODI2YzY3MWZkYjVhMWUxMWRjYjI1MTk4ZWM0YWNmM2RmNjA1MzJhYSJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudView.ts#L117-L119",
+          "version": "repo-lines-v1:sha256:4e5d52e69cc32b20760f2e4d0e4628a21db89a6e74e2eac254a3db0ae60cc47a:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmViZDBhYjdhMjcxZTkwMTM1OTdmOTQ0NzRlMTcwMDk2MTJlNjEzNjcwZmU2Y2IyYTNiMGUzNWQ5ODdhMzFlMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U5YjVlY2E2MjRlNWZmYzIxYmIwMGQxNDVmNGI2MjFmMmE2NDdjYzQ2YzI5YzY2YjM4OWJlZjkxNWMzZjgzYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWFjNDBjN2U5MWY1YmVhMDAxN2ViOTllZjUzOTQ1ZDk2MTM4NDcyNDBkOTYzMmU3YzhlNzc5MjRhYWM4MDhkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmZjZTE2MTViODU4MjBhOThmYzVmYmRlY2IyZmU0MDA5ODE5N2VjMDA2NTliOTQzZmIyY2IxMDdiYTc0YmE5YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3360835eefb0438bba5194e0f4727574",
+      "statement": "Für Zahlen in der Dokumentation gilt: jede stammt aus einem ausgeführten Kommando, Schätzungen sind verboten, Simulationen werden als Simulation gekennzeichnet.",
+      "evidence": [
+        {
+          "resource": "repo://docs/testing.md#L276-L280",
+          "version": "repo-lines-v1:sha256:0753829903b080bc1911f36ada1ef50f867720b89f4e9c71ca4f8d35014d434f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzhhYTJkOWE3MGNiYjE3NGQyMjVjZjUxY2Q5ZDBjNjgzODc1MzVjYWJhZTFhZTRlNjk0OWFhMjhmMzJiZGZkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU0ODg4MTYxMmZmNWRlN2MzOTZkMmE2YTFjYzNjMWQxNjE5YTYxNWNiZTQ4NWM1ZTNhMjI5Y2M3OGQxY2I4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Y2NmIxZjNlOTc1ZDFmNTU5NTBlYjc4OTU3MjYzMWFlYzE5ZTNlMGQ2NGNlNmNhN2VkNTVmYzZmZTU0OTQ0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f74e94d8c8f74ad1a9829e6f5fa394b0",
+      "statement": "Die Prüfung auf alte Werte ist nur über der Zahlendoku (README.md, docs/testing.md) scharf: ALTE_WERTE_STRIKT=1 macht einen Treffer zum Fund mit Exit 1; in AGENTS.md, docs/tiermodell-anleitung.md, docs/workflow.md und docs/e2e-nachweise.md stehen alte Zahlen absichtlich, dort wird ohne den Schalter nur gemeldet und der Exit-Code bleibt 0.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L69-L92",
+          "version": "repo-lines-v1:sha256:13a39061f3dd4cae9ed7209e1a9d2d2f9bf3a865ccfe7a7641af666b1444d52e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjNWM4N2I5YWQwMmU5NDA5NzRjMGM5NDZjMjVjNDhmM2M4NGJmYzVjYmJjYjY0OTc0NTg0NGE2ZDM0YzdhYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjODNhNmIwYTJlZGI3YTBhNzM2NjJjY2ExOTY1MGIyZmFjOWE3ZjVlMDJjNzYzOGI2NjdkYWM3ZjY2ZjZjYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlOTVjODgwYzgwNDUwNTRkYmQwODQyNDI3NTg0N2M2YzdlMjRhYWIzZDRlOWIxZjllYTk3OTkzYWNkNzcyZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOGUyODNkNzZmOWU4NjYxNzFlZmQzMTBiNDRjZjVhMDgzOWQzMTNiZmI1MGMzMWJiOWE1OGQ0MDg1ZDlkNGYifQ"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L60-L70",
+          "version": "repo-lines-v1:sha256:d494666e32da43f005f5ea301c47efd0474570c2b5011868f3a8ab3c9fd8e70d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1ZmFmNmJjMjJkYmE3OGE5N2RjOWJkNjg5ZDY2NmNiZmRiMjRmOWE3ZWMxOTM4Y2JiZDkzMWVlMjIzNzk3MjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1ZmM5MGZmOGE0NDE0YzU0NDFkMGY2NzdjNWNiZmRhMzhiNDc0ZTUxYmZkNTU5YTU1NTlkZTBmODc3MDU1MjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjNDdjNmMxNjExODQ3Y2RlNjBhNTcwNTllY2FlMjM1Y2RjYzU5ZDM3MWRkZGQwNGEyMDI0YWEwZDQ4YTU4NTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMDJiMGNmNjVhNjNhMjAxMmY2NWE5MTk3N2Q4NTM4M2U3NzkxYWZmY2FiOWM0ZGEzNTA1M2I3Yzc0MGJmZjkifQ"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L9-L25",
+          "version": "repo-lines-v1:sha256:7e0a35703408e1ea28326efd3dbfcf34f0a98917fa5a57ed6f29b8295f3836e0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlN2JjNDc2NzA2MWQ0ODQxNGRjMjc3MTUzMDMxMzA0YWMyYTM1YTc5ZmQ4ZGZjYWRkZDg5NDhmZGMyZDU4YmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViMmZhODQ3ZmNlMzUwOGZjY2I5N2Q0ODZkMTBmZDJlZmM0NmViNzE0MzhmOWIxZDhmYjc3ZGM0OGYzZTQxNjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwZGJhMTZlODgyOGFmMjk2ZWNhMzlmY2FjOGEzZjg5N2M5NmE5OTc3YTRmZGEzMmI0YThlMzFlZGFiMWQxNDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmYjBhOGFiNDVlMmYwMTdlOTNiNjBmMDBmNDU5ZTY4MmEwMzI0ZTg2NzE3OWQ3ZGMwMzNkZGRlOGJiNTVmNzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5e341b46ac7e45558f412f8598ef0b30",
+      "statement": "scripts/doku-pruefen.sh prüft in einem Lauf je Datei Zaun-Parität, Fließtext in Codeblöcken (sprachabhängig: „#“-Überschrift und „-“-Zeile sind in Zäunen ohne Sprachkürzel ein Fund, in bash/ts-Zäunen Code, „**fett**“ immer ein Fund), zählt Kästchen und sucht ALTE_WERTE; Exit 0 sauber, 1 Fund, 2 fehlender Aufrufparameter.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L17-L25",
+          "version": "repo-lines-v1:sha256:1fa21f1c34acd314bd80e1f67af19209daeaa15edfd709b9866b9ce5cd40aed6:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDNmNTA3OTUxNmUwMzM4OGVkMDdlNjA0ZTRlNDQyZjk0YWE5ODU4MTk3MDY0OTQyOTcyYWU3OGU1MjdlNTY3NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWIyZmE4NDdmY2UzNTA4ZmNjYjk3ZDQ4NmQxMGZkMmVmYzQ2ZWI3MTQzOGY5YjFkOGZiNzdkYzQ4ZjNlNDE2MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTU2YjFmZmUwMjhlNmYxNjFkNjVjMzU2ZjI1NDVlMGEyZGU5NTllNDkwZDMxMjQ5ZjQ4ZGM0MWJkNTQzNTlkZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGZiMGE4YWI0NWUyZjAxN2U5M2I2MGYwMGY0NTllNjgyYTAzMjRlODY3MTc5ZDdkYzAzM2RkZGU4YmI1NWY3NiJ9"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L26-L27",
+          "version": "repo-lines-v1:sha256:b4de31de55abc274f3225a90515b29add9203f7fb453a3c65ae8dc257f1f6a06:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDgyODhmNzk2MTBhM2FiNGE4NGU2ZmY4MDU5YTgzNTNhYjkyOTZjMmJjYmY2OTUxZDQyOTM2NmY5ZjZhYjA3MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmEwNDcxNzU0MWNiMTVjZWZhNTJmMGM4OGVmM2U5ZTdlNzk3ZDE2MDA5ZDM1MDU3ZmY4OTI1MzM4ZDcxOWQwMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE2NTMzZmQyOGYxMDYwOWQ4M2I5YzI1NjE0NDUyN2UxMmI4MjNiZGY0YWY3M2IxMDI1Y2MyMDkxN2Y5OGVmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjI5NWVmYTAyNWM5ZjhlMGRlNWM4OTIwODRkMjZjMWI4NGIzYzJjOGEyZmMwZTlmY2QwNmU0MTY0Njk1ZDdkMyJ9"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L42-L56",
+          "version": "repo-lines-v1:sha256:eb1163bc8ec54cf55556402a1571608d37115234f6f3dd0be722e30de314d08d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3OTU1ZTI4MmNiOTI4ZGQzOWZhOGM5MGI5Y2FhNzQxMGViZDZkNTM3NDRlZjIzZGUxYmQxM2EzZjg5NGQ3MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4OTllMzk4MWUyNGJjZTk0MjI3YzljYTQ3OWQ4ZTY3OGYxZmQ0MzQ0NDE0NTgyYjZhYzE5MGMxNzUzNTJkMTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzOTFmMjMzMzAzMDk0ZmU4MjQxNGUwMDZmOTJhMDIzNDZmNDBiZGQ1YjdhODU2MmY2YjI3MzZhMGNmMjJmYzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjNDdjNmMxNjExODQ3Y2RlNjBhNTcwNTllY2FlMjM1Y2RjYzU5ZDM3MWRkZGQwNGEyMDI0YWEwZDQ4YTU4NTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1790cb0ccf4244d28d8e64bf358c2a04",
+      "statement": "scripts/doku-pfade-pruefen.py hält jede in Backticks genannte Pfadangabe mit Verzeichnis-Präfix gegen das Dateisystem: Zäune werden vorher entfernt, Backticks je Zeile gepaart, {a,b}-Listen und Sternchen bzw. „...“ expandiert; Routen, Platzhalter und reine Dateinamen werden übersprungen, die Ausgabe beginnt mit „Pfad-Angaben geprueft: N“ und endet bei Funden mit Exit 1.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/doku-pfade-pruefen.py#L19-L68",
+          "version": "repo-lines-v1:sha256:2df78de97f5f1ecbe1bd72e5e23cb7c4695cecca8d86ea3d11f4b01febdade85:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxMjhmMGZhZjUyZjQ1Njg3NjY1ODRhNDQ4ODlmZDg1NmZlMTU2NGM4OTkzYmU3ZTZiNTMwODQ3OTdjOTEwMmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlOTZhZjA2N2EzOWQ0NjhjMmM4MDQwMTljM2U3ZTk0YjkzODEyYWUwYTgyZGM2ZGU0Y2QwOTU0NTk4ZjgxYjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5ZjFiZmEyMjNiOGU0OGIwMTRmNzY1MjIxZWMxNDM0Zjk3NWNiMjVmNGVjMzYzMjkwNjcxNzk4NWIxMDY0MzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg5M2JkNjZlMmJiNzFmM2I4YTkyNDA2NGJiZjdiMDdjNTkwM2E3NzNmYTRmOGMzNTQ2MDYwMzg2NjcxZDNhNzMifQ"
+        },
+        {
+          "resource": "repo://scripts/doku-pfade-pruefen.py#L7-L13",
+          "version": "repo-lines-v1:sha256:884cec84ecc43668d18edf7f2b87f06869b22896afc4810460135c0e0cedb7cc:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDE3YTg1OTk2NDdkYjdmMWY5OWQwZjU2NDg1MGE3YjgxNjcyMWE5ODljY2M3Njc2YWQzMDU5ZTdiMjQ4MGQ0YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzcxNTZhMzUyMzA3MjZhYzBmNTAwMDExODA2ZWY4ZDlmNzllYjMyNGM1ZDFmMzU0MzAzMDhiY2U1ODdlNDUwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDcyODRlMjcxYTA5NjBmMmJhMjgyMGYzMDhmOGUyODZiYzIxMTg5MDVlM2E1ZDBmZmFlNzhmNjRjZmQ0OGIwMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTkyZDJiNzA0NmY2ZmIzZGYwMTA4MmNjNzFjNjQ2NmIxMGQ4NmZlNzJhNThjN2FlMDA4Y2M5NjgwMjdlMGExZSJ9"
+        },
+        {
+          "resource": "repo://scripts/doku-pfade-pruefen.py#L84-L96",
+          "version": "repo-lines-v1:sha256:120af1797ce25ca96e532a287919dc13a8078cac4aa48f1679f5e0d5ceb899df:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMDdkOGExMDAwNjg4ZDI2NzMyMjM2MWE4YTU2MDk0OGM1MGY4OWZjMWVmYzIyY2Y3NGZiMjk2YWZmMGEyZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2MjMzYjNmZmVhMzJhMjNkZjUzMDY1MzQzNDhmMmRlZTc3NmE1YTZmNzRmYjUzMzE3NWRkYzUzOWE4ZmU0NjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4Y2M0YTY2ZmI3NDY4YWFlYTk2ZWM4Y2UxMjQ5MjI4YjE3N2UzNTM5YzY0NTY5ZjZlMDFmNDdlNmViYzAzMjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkNDEzNDBjYzIzOWExNTljZTliNjAyMmU5ZjYzMjI4MzJlMmVhZDc2Y2FlOWU0NzU0ZDIxMGViOGZiNmQ1ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b1bad325bd04882884c08a1dcc9c40d",
+      "statement": "Die Pfadprüfung sah einmal fast nichts: ein Code-Zaun verschob die Paarung der Backticks, sodass in docs/testing.md 0 von 73, in docs/workflow.md 0 von 50 und in README.md 0 von 27 Angaben geprüft wurden, während die Ausgabe „Alle genannten Pfade existieren“ mit Exit 0 meldete; seit 15.10.2026 werden Zäune vorher entfernt und je Zeile gepaart (779 statt 179 Angaben), und die erste Ausgabezeile gehört zum Lesen.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L288-L297",
+          "version": "repo-lines-v1:sha256:dae882411f84b6dd850fe5f506ed032be59b58c4ad3c05f238eb5a0b71524e08:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5NzM2ZGMzNGNlNGQyODE0ZmJkYThlMWE2N2FkNTBmYTQ0ZjJjMGEzMjMzY2IzZmY4NzU5MWU4MzQ3OGMzNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzZTdiMWE3ZWE3MTc2ZDI1NzE4OTk0ZmM2Y2M5Y2ExY2RjNjc1NzRjNWJhNjIwNGViYTMyNWM4N2UxNDE5NmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjYzFjNWE4YWU5ZjE0YzQwYjkxNzRhNWY5NTNhZTJlYzY4OTUxZTM4MWEyMDYxNDZmYjdhYTQ1MGNhYzljYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0ZWQ0YWVmMzM2NzcwMTgwZjJjYmI0ZTRiNWUwOGVmMjMxMGYzNTA1NGE1OWFiZmRiZmUxMzI5NWQ3ODc5NzkifQ"
+        },
+        {
+          "resource": "repo://scripts/doku-pfade-pruefen.py#L25-L45",
+          "version": "repo-lines-v1:sha256:0cd2012602682c1f446e899f7d26e24e586b6381c5bc3609401cd5933c9e57b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwM2UxZWM0Mjg5ZjliM2JmMDQ0ZTVhYjg0MjZiMzc3ZWRlNjdiYmM5NjQzNjcxYjU3YjIyMDY1OTcyNGMyNGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiMTNkNTU0YzFlNWRjMDNjNjlkN2UyNTAzNDhlNDRmNzgzZWI3NWFiMjVhNWRiZGVkODQ3NDI5NWQ4MmQ0ZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5OGIwNjNkOWI0N2U2NTM3OTYyNTU3MmNjZTE5NzY2OWQ1NzY3ZTEyYzE4YmUwNzU2NTJiOGNkOTgxY2U4ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0M2E2NjIwMGJlYjdiZDE0ZTFkMzM1ZGMyZGIyN2EwOTViOTQ3YTY0ZGZjYzRkMGVkMDViMDgxYzJkNzQyYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5cadaaa053f448287d7c005c667d3c8",
+      "statement": "Die Doku-Prüfung darf nicht mit >/dev/null und nicht ohne ALTE_WERTE_STRIKT über der Zahlendoku laufen: so blieb „232 Tests“ in der Startanleitung stehen, während dieselbe Datei zweimal 234 nannte — gefunden von einem unabhängigen Prüfer, nicht von der Prüfung.",
+      "evidence": [
+        {
+          "resource": "repo://docs/tiermodell-anleitung.md#L214-L220",
+          "version": "repo-lines-v1:sha256:dfd2922a3971eebfe34c9dd9b7ba72d2461cc376ad36b6e926ec77b5a85f6011:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzMyMzZmODE2MDQ1NDNkZWFkZTBkYzI0NmE4NTE3MjNjMTAzMmU0MDJlZGZjMDJmOGEyMGQzM2JjNDgyMWE3NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTM1YWI5ZTQ0YzM1MjlhZTAwZjQwZTVkOWY0NjY0ODViNWI4NDlkNzA3ZGM5Mjg0ODA2OTU1YTEwYzhlMTI3ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzBmNDYxN2NkMDE3ZWI0ZWQ1YzkwNDNkZjdjZWNiZmNkZmE5OWYwMzg0NTQ5ZmQzYTBjYTViMjM0Zjk0OGJhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRlNTE5MzliMWI5OGY3NDdjMzY4NTQyMjc4YzFiM2JiZDE5NmZiMjRlMTlhNjIxM2ZlMTUwM2VkMzBkMzY3MSJ9"
+        },
+        {
+          "resource": "repo://scripts/doku-pruefen.sh#L9-L15",
+          "version": "repo-lines-v1:sha256:32e85290ab5b943a64bec3492898c46eb518e9ea8e3aa59db67f7ef18e793435:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2U3YmM0NzY3MDYxZDQ4NDE0ZGMyNzcxNTMwMzEzMDRhYzJhMzVhNzlmZDhkZmNhZGRkODk0OGZkYzJkNThiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU0YzcwMDEyOWM0YzM2ZmZmZGMwNTNmYTZiZGJiMGVhYzViZWRhYjNkOWRhMTAwYTdlNjYwMTFmNmZhYThjNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjBkYmExNmU4ODI4YWYyOTZlY2EzOWZjYWM4YTNmODk3Yzk2YTk5NzdhNGZkYTMyYjRhOGUzMWVkYWIxZDE0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDViNWQ2MmU3ZGE5ZTRmYzIzY2UxMGM3M2M4ZTMyZTBkZjA5YTMxM2Y3ZjllNGY5MWY2YWU3YWRiZTljYzA3NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e3d223cde66444a8a516c75b869b1316",
+      "statement": "Unter Windows läuft das Rezept nicht als PowerShell-Einzeiler: bash ist dort WSL, eine Umgebungsvariable aus PowerShell kommt nicht an (ALTE_WERTE bleibt leer), und der Lauf endet mit Exit 0, ohne nach alten Werten gesucht zu haben — deshalb den Block in eine .sh-Datei schreiben und mit bash fahren.",
+      "evidence": [
+        {
+          "resource": "repo://docs/workflow.md#L94-L98",
+          "version": "repo-lines-v1:sha256:b8cf9b10280fd1dd9de0371bf797f75064867b6992ea01018245349447214935:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGVmMTMxYjBmMTNhOTMxMzIyY2Q2OTY2NzM3NTc2Y2I4YjE3MzY3MWY3NjM5YjcxMDJjNTdkNDliZWI4MGJmNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzZlMmJiMTE1ZGFiMGIxMzNmZmFmMDI0YmI1NjViYzQ5OTYwNWFlZDBlYjA1ZmE4OTdkMmFlOWY3MTMwMjIyMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWMxZjYwMzIxYTJhNjgzZDEzNTEzNDQ2Y2MzMmEwOTVlMWNjOWUxMjEwNDVjYjMwZTNjYzdjYTQzOTlmYWJkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzhkNzZkM2NkYjBkM2Q2NTFlYzZjMWQwZTMxOTMzMTZlZTg1Y2ExM2UxNjJhYjA5ZWExMzVhNGVhODgyZjUzOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_822f38698f5441d1b2d38883bf45214d",
+      "statement": "Die beiden Doku-Prüfungen sind manuell: pnpm gate ist typecheck && lint && test:run, und der Pages-Workflow fährt nur dieses Gate und den Bau — kein Skript und kein Workflow-Schritt prüft die Dokumentation.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/pages.yml#L36-L41",
+          "version": "repo-lines-v1:sha256:826336db30c4b005f0320569ca4dc4dacd7b4e4e261b90fdbb297a0de566de24:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGViMzJkOTc2MmMwYTMyYTFiNWEzZWI5NzczMmY2MWY3NzUzMjlkY2NkNzM4NDMwMzFlNmFjZmNhNTNhOTY4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGUyZDQ0OWE0MmQ0NjY1ZDg1YjNlMzNmMGJmZGQ3YWYyMGQ2YmQwMjEzMTczMDQxZTEwYThmYmVmMjMxMmQ0YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjExM2E0ZmYyNTA0ZDM1NTI2NGQ2Zjc3MjAwY2FhMDAyMGNhZjZlYmE3N2E5MzYxMGMxM2I4ZWMyYzc2ZDYxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDBmMmUxNjE1M2FmNTYzYWVmYjM0YTRlNDM2OGJmMGE1MzQ4NWRkZmI1ZmQzZDZlODQyMGU0ODcyMjEzNjA5ZCJ9"
+        },
+        {
+          "resource": "repo://package.json#L6-L16",
+          "version": "repo-lines-v1:sha256:a385fad914dacd1ed993dda023b05e8e55be9e7a745f33d8194cfe8ee4f12c9f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0ODMzZDU5NDljMDNhNDBjYTk1MjQ5MTYxMGE2NjU5NjQ0YjNhYTQ2NjM2MmY3OTkwMjBkYmYxOTgxNTQ3ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0MWEwY2JhYjU1NDZjNzA5MzA5ZGUzNGYwYzMxMjFjM2U4ZmY2OGYwZGJjMmQzN2RiNzRkMjdjMzM2ZTdiOTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMzJiMjI2Y2Q4Njg0MjQ5MzZjYTEyNTMxOWRjM2JiMjczNjdmODNkZjc3ZjAxYjU0NTVlMGE2M2EyODNjM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhYTYyYzkzODZkN2QyY2UzNTA5NWJlOWU2Yjg1YTM4NjY1MDk1M2Y3YjFhOTZhYjBmMjI1MTNhZmVhMmU3ZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3badc4cec0ba48c8a8f15ec3c922c1c4",
+      "statement": "Für das generierte Wiki gilt: es ist optionaler Kontext zur richtigen Zeit und wird nicht zu Aufgabenbeginn durchsucht; Quellcode und Tests sind maßgeblich, offene Punkte eines Briefs sind Prüflücken statt Anforderungen, generierte Seiten werden nicht von Hand geändert (Änderungen gehen in Quellcode oder docs/), und die Prüfung soll schmal und leise sein.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L151-L164",
+          "version": "repo-lines-v1:sha256:6c90a8ee260419ce52c98ce902d593546e4e6c9b455577ea517f64e10c04699c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmMTgwZjljMTI2OTAzYmNjMzMxYWE5NTQ1NmU0OTQ0NGE3ZDRkMDExZThhMmE4M2Y1ZGM4NzAyMzkxODEyZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiNTM5NTNiZmI3MmMxMjYyYmJhZTJlYWNhNzJjYWJmMWFmNDk5MjdhMGJiYTExNTdiMmQ1YmRiMjg1YzRiZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiZmJlNDNmYjM5ODhhZmE3NThhNzg3MTdmZDJlMmVjMDI0YWZlMmZiYmFlZWI2MDI4MTZjNWQwNzRkZTU3ZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwODlkZjkzZjhiYTU3YTRkZGJmZDhmMDEzOTYyYzM5NzhjZTRkYjY4MTk5YzRkYTY2NjY0OWIwOTk2Y2VkYTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4b45250875ad47edafb5464ff01300d4",
+      "statement": "Abweichungen vom Linter werden in biome.jsonc an der Regel mit deutschem Grund abgeschaltet (z. B. kein Formatierer, damit git blame lesbar bleibt) und in docs/testing.md im Absatz zusätzlich begründet; abgeschaltet wird nur mit dem Ja des Auftraggebers.",
+      "evidence": [
+        {
+          "resource": "repo://biome.jsonc#L7-L37",
+          "version": "repo-lines-v1:sha256:5954de8e521b3fd9b4c56f1c08350573fe4a6c7a8fc7b8f1927db1a147139dbb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMzNiYWY1ZjU4ZjdmZGY1MTI2MWQwOGY2NWI2MTNmYjllNmM5ZjM1MGNjNzNiNzE1OTNmNzQwNGEyYjU0ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBlZWM4M2Q2NDJjYjNjMjExOWY2YzA4NzQ3MTgwNTIwYTY5Yjk2NjYwZmI3NGY1ZjZhMzAzNWE1Mzg1YzFlZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmYmZiNzE5NTgyYzliNzhlMjA0NzQ5YjI0ZjEwYTA2M2UzZWQwOTNmZjc3Mzc0MGUxYmUxZjE1ZGNmOGRlNWUifQ"
+        },
+        {
+          "resource": "repo://docs/testing.md#L11-L27",
+          "version": "repo-lines-v1:sha256:7610a48e8672ca279b9e9a97e7fab6b5255c7a0d98e3b48c0790e974505e62a0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiMDBmMjY0NDBkNmM1YjU2YWZmOGQ1M2QyYzRlYjMyNzM3M2EyN2E2MTZmOWQzZTUxYTRmYTA2Mjk4OTFjYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlOWQzNWIxNmY5MWJlOGRkZGIzMzc0NzczNTQzNTdmNjEzOTU2Mjc1OTM1NGE4NmM5NWQyNzUyY2YzMDcxZGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzNjE2Yjk0MjdkNTUxYmRlNjJmYmY3NjQwNDQ5ZTM2NTQ3YjIwZjk4OGQ5OTYzMTg2OWMxYTcyMDNmNTc4ZTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmNTFmNmUzOWY5YTEzMzZlMzgyZTU0YTg4YWIwODdhZjUyNTk4MGE0OTRhYjg3OTg5NjIzZDE3ZjNjMmI1ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_91350b2e64b140e6a66916596b98da2a",
+      "statement": "Rezepte in der Doku gelten als ungeprüfter Code: nach jeder Umbenennung oder Verschiebung werden die Befehle aus README, AGENTS.md und docs/ wirklich gefahren und die Ausgabe angesehen, nicht nur der Exit-Code.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L122-L125",
+          "version": "repo-lines-v1:sha256:2f55175611075c0f94be0bbd619dc2905f50233b1682aebe4988312c3d2a1d5e:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU3ZjI4NTg1MzE5ZWRkMWRjMWNlMWU3N2ZiN2ZlMmZlNjEyYjc0YjM5MTdiOTg0YjlkODkxMDQzZjNkNmJhMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODkzOTQ4NWJmYzBkYjkxNjkyOWQzMzc2NTlmYWU2NmJkYTY5MDM4ZmZhZGM0ZTRmNTM2YmVhMTk4YjdhNmM4OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGQ4MzJkNjg4NjgxYmE3ZjUzMThkZWEzZTIzZWMyMDU0ZWI1Zjc0ZTQ3YWNkNGM0MjhiN2NlODE3ZmE3YTViYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGUyOTU2NTNhNzA3YmY2NWMzZDI5NmRkYWIyNTVkYTg5MDEwMjczYjdjZDhlNTI2YWVlMmY3OGRlMTkyNDZkYiJ9"
+        },
+        {
+          "resource": "repo://docs/workflow.md#L94-L101",
+          "version": "repo-lines-v1:sha256:9f521b50db4ebc4664fd0e7e21f8333098d6f0ec8ac64ca94c492eae2c59b620:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGVmMTMxYjBmMTNhOTMxMzIyY2Q2OTY2NzM3NTc2Y2I4YjE3MzY3MWY3NjM5YjcxMDJjNTdkNDliZWI4MGJmNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWRkNTg3ODQ5MjJiMzc3YmE3NTllMmEzMTM3ZmE4Nzk1MDJmZWZkOWY2MjI2ZDk4MjQ0Y2NkOTJiYmFhYzBkYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWMxZjYwMzIxYTJhNjgzZDEzNTEzNDQ2Y2MzMmEwOTVlMWNjOWUxMjEwNDVjYjMwZTNjYzdjYTQzOTlmYWJkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjkyNmI1ZDI3ZGZiZGU4M2JjOWM1MTQ0NGJiZjk3NDVkNzIwYzVjYjA3MTg4MDRkN2Y2ZTM0MjQ5ZjQ5YWI1ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_53baec24ced74717b6488051efa79c20",
+      "statement": "Ein sichtbarer Text, der in einer Browser-Sonde fest eingetragen ist, muss beim Umtexten mitgezogen werden: die Bedien-Sonde setzt den Ergebnis-Kasten auf die längste Fassung (LAENGSTES), sonst misst sie weiter einen Satz, den es nicht mehr gibt, und bleibt grün — wer einen sichtbaren Text ändert, sucht seine Fassung in scripts/.",
+      "evidence": [
+        {
+          "resource": "repo://docs/fallen.md#L310-L320",
+          "version": "repo-lines-v1:sha256:729cf224d2462b01428a17d74cf737d2af4808c2a1deb6a0f93f411ddd7bf946:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxZWM4NTU4YjgzMDI0NTk3MjcxOGNhOTk0YWRlZGNkNDMxZjMxZjM2NGNmMjE3NDA0YzE3NzQ3NWU2Y2RkODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyYzEwZjkzZDM0YTJlNDg1YzUwYmY0M2ZhNWFlOTczNjExYmM3ZmIwZGI1ZmRmMDM2YTMzYjE3MWIxNTgzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4ZGQ1NGU0YmFkMzc2OGFmNDUwODI1OTIxM2MwZjNkMGZiYWM3YzZlZDc0ZjUzZTZjNmJjN2FkYzJkYTczODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjZmFmY2VlZmNiNTIxZDZmMzIyNjM1ZTJiOTRlZWMyNTAwYzUxZGRmYTYxN2RkYjg2MDIyZTlkY2YzNmNjOGEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-17T07:24:18.878Z"
+  }
+}

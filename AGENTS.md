@@ -47,6 +47,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Belege der Tier-Sätze und Zahnzahlen | [`docs/tier-quellen.md`](docs/tier-quellen.md) | einen `fact` oder eine Zahnzahl einträgst |
 | Arbeitsdatei: Plan des gerade laufenden Features (sonst leer) | [`docs/plan.md`](docs/plan.md) | ein Feature beginnst |
 | Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | `../kroko-doc/README.md` | mit dem echten Spielzeug vergleichst |
+| Projektgedächtnis (generiert, mit Quellen je Seite) | [`openwiki/quickstart.md`](openwiki/quickstart.md) | einen Überblick brauchst, ohne Dateien zu lesen |
 
 ## Befehle
 
@@ -147,3 +148,21 @@ Die Domain gehört dem Repo über `public/CNAME`; der DNS-Eintrag liegt bei Clou
 (`schaflabs.com`) als CNAME auf `shaunclaw07.github.io`. Schlägt `pnpm gate` fehl, wird **nicht**
 veröffentlicht — lokal grün muss also vor dem Push stehen. Manuell anstoßen geht über
 `workflow_dispatch` (Actions → „Seite veroeffentlichen" → Run workflow).
+
+## Projektgedächtnis (`openwiki/`)
+
+`openwiki/` ist **generiert** (OpenWiki v0.7.2, Initiallauf am 17.10.2026 gegen `ffd4740`):
+19 Seiten, 365 Claims mit Quellenbindung, Graph-Export möglich. Es ist **kein Regelwerk** — bei
+Widerspruch gilt `docs/`. Seiten **nicht von Hand pflegen**; auffrischen mit:
+
+```bash
+OPENWIKI_TELEMETRY_DISABLED=1 OPENWIKI_PROVIDER=openai-compatible \
+OPENAI_COMPATIBLE_BASE_URL=https://api.deepseek.com/v1 OPENAI_COMPATIBLE_API_KEY="$DEEPSEEK_API_KEY" \
+OPENWIKI_MODEL_ID=deepseek-flash openwiki --update -l de
+```
+
+Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Drei Seiten
+(`concepts/fachmodell-runde`, `operations/bauen-und-veroeffentlichen`, `workflows/statistikseite`)
+tragen noch `openwiki_generated: true` — ein zweiter `--update`-Lauf reichert sie an. Den
+CI-Workflow `openwiki-update.yml`, den das Werkzeug selbst anlegt, haben wir bewusst **nicht**
+übernommen (täglicher PR-Bot).
