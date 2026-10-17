@@ -118,11 +118,6 @@ diesem einen Browser** — ein anderer Browser oder ein privates Fenster hat sei
 | `pnpm preview` | `dist/` lokal ausliefern | <http://localhost:4321> → HTTP 200 |
 | `pnpm test` | Tests im Wachmodus | läuft weiter, bis du abbrichst |
 | `pnpm test:run` | Tests einmalig | **587 Tests in 48 Dateien**, alle grün |
-| `pnpm vitest run src/render-probe.test.ts` | schreibt je Lebewesen ein SVG zum Ansehen (danach `scripts/artwork-png.py`) |
-| `uv run --with cairosvg python scripts/galerie.py docs/bilder/gebisse.png` | baut das README-Bild aus den SVGs der Sonde (Reihenfolge = Katalogreihenfolge) | |
-| `python scripts/stimme-suchen.py "wolf howl"` | gemeinfreie Tonaufnahmen auf Wikimedia Commons finden | Liste mit Dauer, Lizenz, Urheber und Adresse der Dateiseite |
-| `bash scripts/stimme-schneiden.sh <quelle> <tier> <start> <dauer>` | eine Tierstimme schneiden (braucht `ffmpeg`) | `public/sounds/voices/<tier>.mp3: … Byte, Spitze vorher …` |
-| `uv run --with playwright python scripts/pruefen-bedienung.py` | Sonde im echten Browser: scrollt etwas, verdeckt die Leiste etwas (der Server muss laufen) | „Auffälligkeiten: 0" |
 | `pnpm typecheck` | TypeScript prüfen | keine Ausgabe = keine Fehler |
 | `pnpm lint` | Biome prüfen (Funde, kein Formatieren) | „Checked … files", keine Funde |
 | `pnpm gate` | Typen, Linter **und** Tests — die Prüfung vor jedem Commit | alle drei grün |
@@ -396,6 +391,7 @@ git commit -m "…"
 git push                   # Hauptzweig ist `main`, direkte Commits
 ```
 
-Vor jedem Commit: `pnpm gate` (Typen + Linter + Tests); vor jedem Push läuft es über
-`.githooks/pre-push` von selbst und bricht bei Rot ab. Architekturtests
-(`src/architecture.test.ts`) dürfen nie rot sein — sie erzwingen die Schichtentrennung.
+Vor jedem Commit `pnpm gate`, vor jedem Push läuft es über `.githooks/pre-push` von selbst und
+bricht bei Rot ab — was das Gate im Einzelnen prüft: [`docs/testing.md`](docs/testing.md),
+Abschnitt „Das Gate". Architekturtests (`src/architecture.test.ts`) dürfen nie rot sein; sie
+erzwingen die Schichtentrennung.

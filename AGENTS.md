@@ -52,6 +52,12 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 
 ## Befehle
 
+**Kanonisch sind drei Stellen** — wer eine Angabe ändert, ändert sie **dort** und verlinkt von den
+Zweitstellen: Befehle und Skript-Aufrufe in [`docs/workflow.md`](docs/workflow.md) („Befehle",
+„Skripte im Baum"), was das Gate prüft und die aktuellen Prüfzahlen in
+[`docs/testing.md`](docs/testing.md) („Das Gate", „Stand"), die Sonden einzeln ebenfalls dort
+(„Prüfsonden"). `README.md` nennt die häufigen Befehle in Kurzform und verweist für den Rest.
+
 ```bash
 pnpm dev          # Astro-Entwicklungsserver auf http://localhost:4321 (127.0.0.1 hört nicht!)
 pnpm build        # statische Ausgabe nach dist/
@@ -162,7 +168,9 @@ OPENAI_COMPATIBLE_BASE_URL=https://api.deepseek.com/v1 OPENAI_COMPATIBLE_API_KEY
 OPENWIKI_MODEL_ID=deepseek-flash openwiki --update -l de
 ```
 
-Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Eine Seite
+Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Das Wiki ist
+**dauerhaft Teil des Repos** (entschieden am 17.10.2026), aufgefrischt wird es bei **größeren
+Umbauten** — nicht bei jeder Doku-Änderung. Eine Seite
 (`workflows/statistikseite`) trägt noch `openwiki_generated: true` — sie ist auch nach dem
 `--update`-Lauf vom 17.10.2026 code-abgeleitet geblieben; ein weiterer Lauf kann sie anreichern.
 Den CI-Workflow `openwiki-update.yml`, den das Werkzeug selbst anlegt, haben wir bewusst **nicht**
