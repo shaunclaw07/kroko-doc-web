@@ -25,6 +25,11 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
    Ja des Auftraggebers: `git push --no-verify`, eine Regel in `biome.jsonc` abschalten, eine
    `// biome-ignore`-Zeile, einen Test lockern. → `docs/testing.md`, „Wenn der Linter etwas findet“
 
+**Karte vor Dateien:** Willst du vor dem Suchen wissen, **wie** etwas zusammenhängt, beginne bei
+[`openwiki/quickstart.md`](openwiki/quickstart.md) — generierte Karte mit Quellen je Seite.
+Regeln und Nachweise stehen trotzdem nur in `/docs/`; den Suchweg und die Grenzen nennt
+[`Projektgedächtnis`](#projektgedächtnis-openwiki) weiter unten.
+
 ## Index
 
 | Thema | Art | Datei | Lies das, bevor du … |
@@ -48,7 +53,7 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 | Belege der Tier-Sätze und Zahnzahlen | Nachweis | [`docs/tier-quellen.md`](docs/tier-quellen.md) | einen `fact` oder eine Zahnzahl einträgst |
 | Arbeitsdatei: Plan des gerade laufenden Features (sonst leer) | Aufzeichnung | [`docs/plan.md`](docs/plan.md) | ein Feature beginnst |
 | Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | Aufzeichnung | `../kroko-doc/README.md` | mit dem echten Spielzeug vergleichst |
-| Projektgedächtnis (generiert, mit Quellen je Seite) | Karte | [`openwiki/quickstart.md`](openwiki/quickstart.md) | einen Überblick brauchst, ohne Dateien zu lesen |
+| Projektgedächtnis: Karte mit Quellen je Seite, 19 Seiten (generiert) | Karte | [`openwiki/quickstart.md`](openwiki/quickstart.md) | wissen willst, **wie** etwas zusammenhängt, statt Dateien zu lesen (§Projektgedächtnis: Suchweg) |
 
 ## Befehle
 
@@ -195,3 +200,27 @@ entfernen (der Block ist generisch und englisch, gegen die Sprachregel). Tote Li
 Werkzeug selbst mit einem `<!-- openwiki: broken internal link … -->`-Kommentar; Link richten,
 Kommentar löschen. Auch Verweise auf **Verzeichnisse** (`../../docs`) gelten als toter Link —
 auf eine Datei zeigen lassen oder als Fließtext schreiben.
+
+### Wie du dort suchst (für Agenten)
+
+1. **Einstieg:** [`openwiki/quickstart.md`](openwiki/quickstart.md) — nennt die Seiten und wofür
+   sie stehen; [`openwiki/index.md`](openwiki/index.md) ist das Verzeichnis mit allen Themen.
+2. **Suchen statt raten:**
+   `grep -rni "<begriff>" openwiki --include=*.md` — die Seiten sind Markdown mit deutschen Slugs
+   (`openwiki/concepts/zufall-und-spannung.md`, `openwiki/architecture/schichten-und-importregel.md`).
+   Jede Seite trägt oben `description`, `tags` und `sources:`; die Überschrift sagt, was drinsteht.
+3. **Zurück zur Quelle, bevor du dich auf etwas verlässt:** `sources:` nennt die Dateien
+   (`repo://…`), aus denen die Seite gebaut ist, `.claims/` den einzelnen Beleg. Für eine Aussage,
+   die in Code, Commit oder Bericht wandert, gilt der **Baum**, nicht die Wiki-Seite.
+
+**Mit MCP-Tools** (nur nach `openwiki integrations install <codex|claude|opencode|cursor>`):
+`openwiki_search` für die Suche, `openwiki_read` für die Seite. Ohne diese Einrichtung sind es
+einfach Dateien — `read_file` und `grep` genügen, ein Netzabruf ist nicht nötig.
+Der Graph unter <https://zahn-agent.schaflabs.com/wiki/> ist für **Menschen**; Agenten lesen die
+`.md`-Dateien, weil sie zitierbar und quellenbelegt sind.
+
+**Grenzen:** Das Wiki beantwortet „**wie** hängt das zusammen, wo fange ich an" — nicht
+„darf ich das" (→ `docs/`), nicht „wie mache ich es Schritt für Schritt" (→ `docs/`-Rezepte) und
+nicht „ist das geprüft" (→ [`docs/testing.md`](docs/testing.md), [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md)).
+Bei Widerspruch gilt `docs/`. Generierte Seiten **nie von Hand ändern** — Quelle ändern, dann
+`--update` (Aufruf oben), sonst ist die Änderung beim nächsten Lauf weg.
