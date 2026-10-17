@@ -2,11 +2,11 @@
 
 Jeder Satz im Katalogfeld `fact` („Wusstest du?") und jede Zahl in `realTeeth`
 (`src/core/domain/creature.ts`) hat hier seine Quelle. Wer einen Satz ergänzt oder ändert, trägt
-die Quelle mit Fundstelle und Abrufdatum hier ein — Rezept: `docs/workflow.md`, „Einen Tier-Satz
+die Quelle mit Fundstelle und Abrufdatum hier ein — Rezept: [`docs/workflow.md`](workflow.md), „Einen Tier-Satz
 ergänzen oder ändern". Herkunft und Lizenz der **Stimmen** stehen woanders:
 `public/sounds/voices/QUELLEN.md`.
 
-Bis zum 13.10.2026 standen diese Belege verstreut in `docs/plan.md`; die Datei ist seitdem nur
+Bis zum 13.10.2026 standen diese Belege verstreut in [`docs/plan.md`](plan.md); die Datei ist seitdem nur
 noch der Plan des gerade laufenden Features.
 
 ## Die Sätze

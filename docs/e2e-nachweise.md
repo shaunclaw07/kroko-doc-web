@@ -213,7 +213,7 @@ Beispiel aus einem Bedienungs-Test: schnappt es beim dritten Druck, war Druck 2 
 Warum **nicht** mehr: das „Weitergeben" (Zug abgeben statt drücken) hätte den Balken zur echten
 Entscheidung gemacht — es verschiebt aber die Zugreihenfolge, die der Kern aus `pressOrder` ableitet
 (`round.ts`), und seine Wirkung ist nur an einem echten Tisch mit zwei oder mehr Spielern
-beurteilbar. Abgesagt und begründet als zehnte Falle in `docs/fallen.md`.
+beurteilbar. Abgesagt und begründet als zehnte Falle in [`docs/fallen.md`](fallen.md).
 
 ## 5f. Entscheidungen des Auftraggebers umgesetzt (11.10.2026)
 
@@ -225,7 +225,7 @@ Entscheidungen nehmen." — umgesetzt:
 | **Sattes Spielzeug-Grün** (die gegengerenderte Variante) | Krokodil-Farben `#8fce33` / `#a8dd4f` / `#5f8f1e`; Schnauzenband bleibt gleich der Körperfarbe | gerendert und angesehen (Dreier-Vergleich Original / weich / satt im Bericht); 18 Treffer der neuen Werte, 0 der alten |
 | **Rotglut bei 50 %** statt 60 % | `HIGH_DANGER = 0.5` — der vorletzte Krokodil-Druck (55,0 %) ist rot und **kann überstanden** werden, der Mut reicht bis ins Rote | zwei Stolperdrähte fielen bewusst und wurden neu gefasst (`tension.test.ts`, `statsView.test.ts`, `gameController.test.ts`) |
 | **Mut auf die Statistikseite** | `bravestRound` (Kern) + Kachel „Mutigste Runde" und ein Satz in `statsView.ts` | drei neue Kern-Tests: leer → null, höchste überstandene Gefahr gewinnt, Runden mit Schnapp beim ersten Druck zählen nicht |
-| **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in `docs/fallen.md` |
+| **„Weitergeben" bleibt abgesagt** | keine Änderung — Bedingung (echter Tisch, 2+ Spieler) besteht weiter | siehe zehnte Falle in [`docs/fallen.md`](fallen.md) |
 | **Geschlossener Blick, vierte Falte, höhere Augen, Kiemengröße** | keine Änderung | begründet beim Sparring vom 11.10.2026 |
 
 ## 5g. Kinderfreundliche Oberfläche (11.10.2026)
@@ -394,10 +394,10 @@ nichts vom Kopf nimmt). Dazu vier PNG-Größen:
 |---|---|---|---|
 | `favicon.svg` | beliebig | 7.257 | Tab und Lesezeichen |
 | `icon-maskable.svg` | beliebig | 7.256 | Grundlage der Apple- und Android-Fassung |
-| `apple-touch-icon.png` | 180 | 8.378 | Startbildschirm am iPhone (randlos, undurchsichtig) |
-| `icon-192.png` | 192 | 14.470 | Android/Chrome |
-| `icon-512.png` | 512 | 49.337 | Android/Chrome, Splashscreen |
-| `icon-maskable-512.png` | 512 | 32.233 | Android mit Schutzzone |
+| [`apple-touch-icon.png`](../public/apple-touch-icon.png) | 180 | 8.378 | Startbildschirm am iPhone (randlos, undurchsichtig) |
+| [`icon-192.png`](../public/icon-192.png) | 192 | 14.470 | Android/Chrome |
+| [`icon-512.png`](../public/icon-512.png) | 512 | 49.337 | Android/Chrome, Splashscreen |
+| [`icon-maskable-512.png`](../public/icon-maskable-512.png) | 512 | 32.233 | Android mit Schutzzone |
 
 **Angesehen, nicht nur gerechnet:** 512 px, 64 px (Tab-Größe), maskierbare Fassung und Apple-Fassung
 gerastert und begutachtet — Kopf vollständig, Maul zu (kein Rachen mehr zu sehen), Kopf innerhalb der
@@ -743,7 +743,7 @@ fehlte damit das **rechte Auge**. Gemessen im gerasterten PNG (Pixelprobe, Maßs
 Weiß. Nach dem Umbau (beide Ohren gleichsinnig, das rechte rückwärts notiert, Ohren kleiner):
 `(470,166)` = `(74,51,32)`, `(490,166)` = `(255,255,255)` — beide Seiten gleich. Dazu kamen
 Schnurrhaare im Fellstreifen neben dem Maul (Maulrand dort bei x 120, Kopfrand bei x 88…96 — mehr
-als rund 30 px Länge gibt der Streifen nicht her). Die Falle steht in `docs/fallen.md`.
+als rund 30 px Länge gibt der Streifen nicht her). Die Falle steht in [`docs/fallen.md`](fallen.md).
 
 **Galerie:** `docs/bilder/gebisse.png` auf **zehn** Kacheln — 1970 × 566, 5 Spalten mal 2 Zeilen.
 Die Spaltenzahl rechnet `scripts/galerie.py` aus der Anzahl der Lebewesen (kleinste Teilerzahl ab
@@ -817,22 +817,22 @@ veröffentlichten Seite (10 Kacheln, 152 px, Katalogreihenfolge).
 
 **Gefunden und behoben:**
 
-1. **„232 Tests grün" stand noch in der Startanleitung** (`README.md` Zeile 32) — dieselbe Datei
+1. **„232 Tests grün" stand noch in der Startanleitung** ([`README.md`](../README.md) Zeile 32) — dieselbe Datei
    nennt sonst zweimal 234, gemessen sind 234. Stehengebliebener alter Wert, korrigiert. Ursache auf
    meiner Seite: die Doku-Prüfung lief mit `>/dev/null`, und `scripts/doku-pruefen.sh` **meldet**
    alte Werte, **zählt sie aber nicht als Fund** — der Exit-Code blieb 0. Der Schalter
-   `ALTE_WERTE_STRIKT=1` macht sie in der **Zahlendoku** (`README.md`, `docs/testing.md`) jetzt zum
+   `ALTE_WERTE_STRIKT=1` macht sie in der **Zahlendoku** ([`README.md`](../README.md), [`docs/testing.md`](testing.md)) jetzt zum
    Fehler; über Regeln und Aufzeichnungen wird weiter meldend geprüft, weil dort alte Zahlen
    absichtlich zitiert werden.
 2. **Das Bauzeit-Fenster „2,1–2,5 s" war zu eng:** der Prüfer maß 2,68 s und 2,86 s, ich danach
    2,88 s und 2,98 s. Fenster auf **2,1–3,0 s** geweitet und die Einzelwerte mitgenannt
-   (`README.md`, `docs/testing.md`).
+   ([`README.md`](../README.md), [`docs/testing.md`](testing.md)).
 3. **Die Trefferfläche:** die Zahlen (44,15 / 50,1 / 54,7 px) stimmen, die angegebene **Herkunft**
    war falsch. `getBoundingClientRect` eines `.tooth__hit` liefert das **Achsen-Rechteck** der auf
    dem Ring gedrehten Box — gemessen 52,48 px — und ist damit kein Maß für die Trefferfläche; die
    44,15 px sind gerechnet (2 · Trefferradius 49,4 px · Skala 286/640). Herkunft richtiggestellt.
 
-Beide Lehren stehen in `docs/fallen.md`. Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
+Beide Lehren stehen in [`docs/fallen.md`](fallen.md). Der Prüfbericht selbst liegt als Aufzeichnung im Sitzungslog
 (Audit-Kennung `sa-0-2a78f337`).
 
 ## 5q. Der Vampir bekommt Accessoires — und die Ohren durften endlich hinausragen (11.10.2026, spät)
@@ -865,7 +865,7 @@ ueberarbeiten?" Geworden sind es **Stehkragen und Monokel**, dazu die überarbei
   **`ERGEBNIS: in Ordnung`**. Kachel angesehen: Kragen, Ohrspitzen und Monokel sind auch bei 152 px
   zu erkennen.
 
-Die Lehren stehen in `docs/fallen.md` („Was über den Umriss hinausragen soll, gehört in die
+Die Lehren stehen in [`docs/fallen.md`](fallen.md) („Was über den Umriss hinausragen soll, gehört in die
 Körperebene", „Stehkragen in `body`, Monokel in `face`").
 
 ## 5r. Der Säbelzahntiger wird gefleckt — und bekommt Katzentier-Ohren (11.10.2026, nachts)
@@ -1282,7 +1282,7 @@ wurde trotzdem gespielt (nachgereicht innerhalb der Frist von 0,5 s).
 
 **Basis-Pfad:** `ASTRO_BASE=/zahn_agent pnpm build` → im gebauten Skript steht
 `voiceBaseUrl:"/zahn_agent/"`, im Normalbau `voiceBaseUrl:"/"`; `dist/sounds/voices/` enthält die
-zehn MP3 und `QUELLEN.md`. **Falle auf Windows:** Git Bash wandelt `/zahn_agent` in einen
+zehn MP3 und [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md). **Falle auf Windows:** Git Bash wandelt `/zahn_agent` in einen
 Windows-Pfad um und der Bau bricht ab — mit `MSYS_NO_PATHCONV=1 MSYS2_ENV_CONV_EXCL=ASTRO_BASE` davor
 läuft er.
 
@@ -1408,7 +1408,7 @@ jsdom kennt weder Geometrie noch `elementFromPoint`; genau daran hängen das Zur
 Frage, ob ein Zeiger-Tipp doppelt zählt.
 
 **Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
-`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+[`docs/workflow.md`](workflow.md) genannte Rückfall auf das System-Python mit `playwright`):
 
 ```bash
 uv run --with playwright python scripts/pruefen-halten.py http://localhost:4321
@@ -1488,7 +1488,7 @@ bei jedem der zehn Tiere in ihrer weißen Linse bleibt und ob der Oberkiefer mit
 zittert. jsdom rechnet kein CSS — die Unit-Tests sehen die Klassen, nicht die Bewegung.
 
 **Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
-`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+[`docs/workflow.md`](workflow.md) genannte Rückfall auf das System-Python mit `playwright`):
 
 ```bash
 uv run --with playwright python scripts/pruefen-blick.py http://localhost:4321
@@ -1558,7 +1558,7 @@ rechnet weder CSS noch Geometrie; die Falle „Eine Vorgabe, die nur für eine B
 wird" verlangt die schmalste Bühne.
 
 **Aufruf** (der Entwicklungsserver muss laufen; auf dieser Maschine fehlt `uv`, deshalb der in
-`docs/workflow.md` genannte Rückfall auf das System-Python mit `playwright`):
+[`docs/workflow.md`](workflow.md) genannte Rückfall auf das System-Python mit `playwright`):
 
 ```bash
 uv run --with playwright python scripts/pruefen-zoom.py http://localhost:4321
@@ -1607,7 +1607,7 @@ Auffälligkeiten: 0
 ```
 
 **Die kleinste Trefferfläche über alle 60 Lagen** war **40,15 px** — 320 px Blick, Maus, 12 Zähne
-(vorher, ohne Zoom: 37,18 px; der halbe Zahnabstand ist dort die Grenze, siehe `docs/fallen.md`). Bei
+(vorher, ohne Zoom: 37,18 px; der halbe Zahnabstand ist dort die Grenze, siehe [`docs/fallen.md`](fallen.md)). Bei
 390 px sind es 49,98 px, bei 820 px 101,93 px. Kein Zahn lief aus der Bühne, und in der Mitte jeder
 Trefferfläche lag weiterhin ihr eigener Zahn (`elementFromPoint`).
 
@@ -1627,7 +1627,7 @@ Tippproben melden „registriert".
 | „Vibrationen am Handy klappen nicht" (Nutzer, 10.10.2026) | Codeweg gelesen: der Controller rief `navigator.vibrate` selbst auf, ohne Prüfung, mit 12 ms | bestätigt; konnte der Browser es nicht (Safari auf iOS), passierte **still** nichts. Jetzt eigener Port mit `isSupported()`, 25 ms bei **jedem Zahndruck** und `[120, 50, 220]` beim Biss, abgeblendeter Schalter mit Begründung (Commits `44bc169`, `6884748`); die Vibration war am Gerät des Nutzers danach spürbar |
 | Alte Seitenadresse nach der Umbenennung (10.10.2026) | Gegenprobe per HTTP gegen beide Adressen | Repo-Adresse `301 → /zahn-agent`, **Seiten-Adresse `404`** — GitHub leitet Projektseiten nicht um; Lesezeichen müssen neu gesetzt werden |
 | Umbenennung auf `zahn_agent` (11.10.2026) | Gegenprobe per HTTP gegen beide Adressen | neue Adresse `/zahn_agent/` = **200** (Titel „Zahn Agent", Verweise alle unter dem neuen Pfad, 0 externe Ressourcen), alte Adresse `/zahn-agent/` = **404**, Repo-Adresse `301 → /zahn_agent`; Daten früherer Namen werden beim Laden übernommen (Kette `zahn-agent:…` → `kroko-doc-web:…`, zwei Tests) |
-| „Update die Dokus" (Nutzer, 11.10.2026) | Rezepte wirklich gefahren und Zahlen gegen den Baum geprüft (`grep`, Vitest, `pnpm build`) | **vier echte Fehler:** (1) das Zeichen-Rezept zeigte auf `presentation/game/crocodile.ts` (seit der Zeichnungs-Schicht verschwunden) und das Rasterskript auf `projects/kroko-doc-web` mit Klassen der alten Dreh-Mechanik — es lief mit Exit 0 durch und tat **nichts**; (2) `# http://127.0.0.1:4321` in AGENTS.md und `docs/workflow.md` widersprach der Messung (`localhost` → 200, `127.0.0.1` → keine Antwort, für dev **und** preview); (3) `docs/testing.md` nannte 15 statt 16 Testdateien, eine Tabellenzeile war zerrissen und nannte ein altes Maximum von 20; (4) `docs/architecture.md` nannte als Zahn-Grenze `4..16` statt `4..12`. Alles korrigiert, das Rezept durch Sonde + Rasterer ersetzt und am Bild geprüft |
+| „Update die Dokus" (Nutzer, 11.10.2026) | Rezepte wirklich gefahren und Zahlen gegen den Baum geprüft (`grep`, Vitest, `pnpm build`) | **vier echte Fehler:** (1) das Zeichen-Rezept zeigte auf `presentation/game/crocodile.ts` (seit der Zeichnungs-Schicht verschwunden) und das Rasterskript auf `projects/kroko-doc-web` mit Klassen der alten Dreh-Mechanik — es lief mit Exit 0 durch und tat **nichts**; (2) `# http://127.0.0.1:4321` in AGENTS.md und [`docs/workflow.md`](workflow.md) widersprach der Messung (`localhost` → 200, `127.0.0.1` → keine Antwort, für dev **und** preview); (3) [`docs/testing.md`](testing.md) nannte 15 statt 16 Testdateien, eine Tabellenzeile war zerrissen und nannte ein altes Maximum von 20; (4) [`docs/architecture.md`](architecture.md) nannte als Zahn-Grenze `4..16` statt `4..12`. Alles korrigiert, das Rezept durch Sonde + Rasterer ersetzt und am Bild geprüft |
 | „Kannst du weitere Skins machen? Hai, Maus und Vampir" (Nutzer, 11.10.2026) | Zeichnungen gerendert und **angesehen** (Sonde + `scripts/artwork-png.py`) | **Der erste Entwurf war unbrauchbar:** bei allen dreien war der Zahnring so groß, dass kein Platz fürs Gesicht blieb — beim Vampir lag die Haarkappe über dem halben Maul und die Augen auf den Zähnen, bei der Maus verschwanden die Ohren im Kopf und die Schnurrhaare liefen über die Augen, beim Hai hingen die Flossen wie Ohren und die Kiemenschlitze lagen unsichtbar unter dem Kieferband. Zweiter Entwurf: kleinere Ringe (Hai `rx 200`, Maus `rx 175`, Vampir `rx 186`), Ohren als eigene Kreise im Umriss; danach nachgezogen (Flossen-Highlight als Linie, Schnurrhaare in den Fellstreifen neben dem Maul, Umhangkragen mit Mittelkerbe). Der Trefferflächen-Test (≥ 44 px für 4–12 Zähne) bleibt für alle sechs Lebewesen grün |
 | „Die 6 Streifen beim Hai sind schon zu sehen wenn das Maul noch gar nicht zu ist … sie sollten auf der Oberseite des Mauls sein" (Nutzer, 11.10.2026) | Im Code die Kiemen gesucht (`grep -i kiemen shark.ts`), den Maulring aus `geometry.ts` gerechnet (Ellipse 200×150 um 320/262), beide Zustände gerendert und angesehen | **Bestätigt, mit Rechnung:** die sechs Schlitze standen im `face`-Layer mitten im offenen Maul (y 214–306, wo der Maulrand bei x 121–133 liegt). Die frühere Reparatur „Kiemen über dem Kieferband" hatte sie nur **sichtbar** gemacht, nicht richtig platziert. Jetzt liegen sie außen auf dem Kopf, in der Zone zwischen Auge (x 161–231) und Silhouette, mit mindestens 5 px Abstand zum Maulrand und 3 px zur Kopfform — im geschnappten Zustand bleiben sie stehen. Nebenbei: der Kommentar behauptete „Fünf Kiemenschlitze je Seite", gezeichnet waren drei je Seite (sechs gesamt) — korrigiert |
 | „Kannst du das Bild für das Krokodil mehr wie den Original krocodoc aussehen lassen ohne den aktuellen Stil zu verändern?" (Nutzer, 11.10.2026, mit Foto) | Foto und Zeichnung nebeneinander gelegt (`uv run --with pillow`), jede Fassung gerendert und angesehen; Maße gegen den Ring (240×160 um 320/265) gerechnet | **In vier Fassungen mit Sichtprüfung umgesetzt.** 1. **Irisring** hellblau hinter der Pupille, Pupille als Oval — die auffälligste Erkennung des Originals. 2. **Nasenlöcher kleiner** (die großen Punkte sahen wie zweite Augen aus). 3. **Schnauzenfalten:** erst als Doppelstriche (sah wie Bewegungsschwünge aus), dann als **Rille mit Grat** — drei Falten in der freien Zone über dem Maul, gegen die Ringellipse gerechnet. 4. **Einfarbig grün:** das Schnauzenband war ein heller Fleck, beim Original ist der Kopf eine Farbe — Band = Körperfarbe, die Kontur trennt. Dazu das Grün einen Hauch gelber und der Rachen sattes Rot (Zahnfleisch bleibt die hellste Stufe). **Bewusst nicht geändert:** der Maulring mit zwölf Zähnen (Spielmechanik) und die breite Kopfform (Träger des Rings) |
@@ -1652,7 +1652,7 @@ Tippproben melden „registriert".
 - ~~Kein Deployment, keine Domain, kein Service Worker.~~ → erledigt am 10.10.2026: veröffentlicht über GitHub Pages, Basis-Pfad `/zahn_agent` (siehe README).
 - ~~Vibration ist nicht in einem echten Browser geprüft~~ → am **11.10.2026 am Gerät bestätigt**: der Nutzer hat die Seite am Handy gespielt und die Vibration gespürt (25 ms bei jedem Zahndruck, drei Stöße beim Biss). Der Codeweg bleibt durch Controller- und Adapter-Tests belegt; seit 11.10.2026 gibt es zusätzlich einen Chromium im Baum (erster Punkt), aber **kein Gerät** — die Vibration selbst bleibt am Gerät zu prüfen.
 - Die Zeichnung ist bewusst schlicht gehalten und darf jederzeit schöner werden.
-- ~~Unabhängige Prüfung~~ → durchgeführt, siehe `docs/pruefung-unabhaengig.md`.
+- ~~Unabhängige Prüfung~~ → durchgeführt, siehe [`docs/pruefung-unabhaengig.md`](pruefung-unabhaengig.md).
 - **Entschieden am 11.10.2026:** das satte Grün (umgesetzt), die Rotglut bei 50 % (umgesetzt), der
   Mut auf der Statistikseite (umgesetzt); „Weitergeben" bleibt abgesagt. Offen bleibt allein der
   Blick des Spielers auf die neue Grün-Fassung und die Frage, ob die fünf anderen Lebewesen in einer
@@ -1899,13 +1899,13 @@ Widerspruch zur README-Zeile „Das Blatt scrollt auf keinem der gemessenen Ger�
   `uv run --with playwright playwright install chromium` nachgeholt (119,9 MiB).
 - **Die Node-Anforderung ist gestiegen.** astro 7 verlangt `>=22.12.0`, vitest 5
   `^22.12 || ^24 || >=26`, jsdom 30 `^22.22 || ^24.15 || >=26`: `engines.node` in `package.json`
-  ist jetzt `^22.22.2 || ^24.15.0 || >=26.0.0`, und README und `docs/workflow.md` nennen die neuen
+  ist jetzt `^22.22.2 || ^24.15.0 || >=26.0.0`, und README und [`docs/workflow.md`](workflow.md) nennen die neuen
   Zahlen. Vorher stand dort „Node 20.3 oder neuer (Astro 5 …)" — mit astro 7 wäre eine solche
   Installation nicht mehr gelaufen.
 
-**Doku geändert:** `README.md` (Voraussetzungen, getestete Fassungen, Bauzeiten, Abhängigkeitszeile,
-Fehlerhilfe „Node zu alt"), `docs/testing.md` (Stand-Kopf 14.10.2026, Bauzeit, neue Zeile
-„Abhängigkeiten"), `docs/workflow.md` (Umgebung, Playwright-Regel, Gegenprobe-Regel, Liste alter
+**Doku geändert:** [`README.md`](../README.md) (Voraussetzungen, getestete Fassungen, Bauzeiten, Abhängigkeitszeile,
+Fehlerhilfe „Node zu alt"), [`docs/testing.md`](testing.md) (Stand-Kopf 14.10.2026, Bauzeit, neue Zeile
+„Abhängigkeiten"), [`docs/workflow.md`](workflow.md) (Umgebung, Playwright-Regel, Gegenprobe-Regel, Liste alter
 Werte um `2,1–3,0 s` und `2,5 s` erweitert), `package.json` (`engines.node`).
 
 ## 5ak. Kacheln gleich hoch, Zahnrad-Blatt ohne Scrollen (14.10.2026)
@@ -1934,7 +1934,7 @@ nicht; in der offenen Reihe (114,7 px, Schrift 14,4 px) passen zehn Zeichen in e
 ist: `shortName: 'Säbelkatze'` (zehn Zeichen, der ebenfalls gebräuchliche Name der Säbelzahnkatze).
 Dazu die Regel im Katalog: `MAX_TILE_LABEL_LENGTH = 12`, geprüft von `creature.test.ts` und
 `validateCreature`; `tileLabel()` ist jetzt die **eine** Quelle für Kachel, Test und Prüfung (vorher
-stand `shortName ?? name` zweimal in `index.astro`). Die alte Regel in `AGENTS.md` lautete „mehr als
+stand `shortName ?? name` zweimal in `index.astro`). Die alte Regel in [`AGENTS.md`](../AGENTS.md) lautete „mehr als
 rund vierzehn Buchstaben" — sie war um zwei Zeichen zu großzügig, und genau deshalb hatte der
 Säbelzahntiger nie einen `shortName`.
 
@@ -1971,7 +1971,7 @@ gefahren: `pruefen-bedienung` **0 Auffälligkeiten** (acht Größen, dazu „ohn
 und damit einen Fund — gegen dieselbe Seite **gebaut** war der Lauf grün. Die Sonde zählt den Katalog
 im ausgelieferten Bündel; im Entwicklungsmodus liefert Astro einzelne Module statt eines Bündels.
 Ihre Auskunftszeile sagt jetzt, dass der kurze Kachelname zu den beiden verkürzten Tieren gehört,
-`docs/workflow.md` nennt ihr die richtige Adresse, und `docs/fallen.md` führt die Falle.
+[`docs/workflow.md`](workflow.md) nennt ihr die richtige Adresse, und [`docs/fallen.md`](fallen.md) führt die Falle.
 
 ## 5al. Unabhängige Fremdprüfung der Zeichnungen — und was davon echt war (14.10.2026)
 
@@ -1985,7 +1985,7 @@ verboten, die Sonden des Repos als Beleg zu benutzen (sie sind der Prüfgegensta
 Prüfer A rechnete die Quellen nach (eigene Parser, dynamischer Import der Module), Prüfer B maß die
 Artefakte (eigener XML-Parser + Shoelace für die Windung, eigenes Rastern und eigene Pixelanalyse,
 eigene Bildvermessung). Danach habe ich **jede** Behauptung selbst nachgeprüft (Regel aus
-`docs/pruefung-unabhaengig.md`) — mit einer dritten Methode: die `data-tooth`/`data-kind`-Attribute
+[`docs/pruefung-unabhaengig.md`](pruefung-unabhaengig.md)) — mit einer dritten Methode: die `data-tooth`/`data-kind`-Attribute
 im erzeugten SVG auslesen, statt die Code-Logik nachzubauen.
 
 **Befunde und Einordnung**
@@ -2015,13 +2015,13 @@ den zweiten Eckzahn eine Position daneben; der Vampir hatte mit `count − 2` ei
 viel. Nach der Korrektur sind **alle geraden Zahnzahlen bei allen zwölf Lebewesen spiegelgleich**;
 bei ungeraden Zahlen bleiben nur die bewusst flankierenden Eckzähne von Vampir, Panther und
 Säbelzahntiger unsymmetrisch (die Ringmitte oben trägt dort keinen Zahn) — das steht jetzt in
-`docs/tiermodell-anleitung.md` (Abschnitt 6 und 7).
+[`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) (Abschnitt 6 und 7).
 
 **Zwei Fallen in diesem Lauf, beide selbst getreten und festgehalten**
 
 - `scripts/galerie.py` liest die SVGs aus `$TMPDIR`. Wer die Sonde mit gesetztem `$TMPDIR` laufen
   lässt und `galerie.py` ohne, baut das README-Bild aus **alten** SVGs — am 14.10.2026 passiert:
-  657678 Bytes (der alte Stand) statt 657929 Bytes. Das Rezept in `docs/workflow.md` warnt jetzt.
+  657678 Bytes (der alte Stand) statt 657929 Bytes. Das Rezept in [`docs/workflow.md`](workflow.md) warnt jetzt.
 - `scripts/pruefen-zahnsicht.py` nimmt **Tier-Filter**, keine Adresse. Mit einer Adresse als Argument
   filtert sie auf null Tiere und meldet „0 Zeichnungen geprüft, 0 Auffälligkeiten" — ein **falsches
   Grün**. Richtig aufgerufen: `TMPDIR=… uv run --with playwright python scripts/pruefen-zahnsicht.py`
@@ -2145,7 +2145,7 @@ aus dem Review (`66ba9ed`). Wortlaut des Plans: `git show b5a7a1d:docs/plaene/pa
   als Text ab (gespeichert wurde `"[object Object]"`, die Seite fiel still auf ihre Vorgaben zurück —
   unbemerkt, weil die Vorgaben dieselben Werte haben); behoben mit `json.dumps(json.dumps(…))`.
 - **Offen gewesen (Auftraggeber):** Sonden im Workflow? Entschieden am 15.10.2026: **nein**, siehe
-  `docs/testing.md`.
+  [`docs/testing.md`](testing.md).
 
 ## 14.10.2026 — Paket 6: `app.css` nach Bauteilen aufteilen
 
@@ -2160,9 +2160,9 @@ Refactoring gemäß Paket 6 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1
 - `scripts/artwork-png.py`: neue Funktion `stylesheet_text()` liest die `@import`-Liste aus `app.css`
   und fügt die Bauteile in dieser Reihenfolge zusammen; `relevant_css()` arbeitet darauf.
   `scripts/galerie.py` nutzt sie über `prepare()` mit — die Umrechnung bleibt an einer Stelle.
-- Verweise nachgezogen (nur die Form, nicht die Aussage): `AGENTS.md` zweimal
+- Verweise nachgezogen (nur die Form, nicht die Aussage): [`AGENTS.md`](../AGENTS.md) zweimal
   `presentation/styles/app.css` → `presentation/styles/stage.css`, ebenso der Kommentar in
-  `src/icon.test.ts`; in `AGENTS.md` zusätzlich die dritte Stelle der Zustandsregeln benannt und
+  `src/icon.test.ts`; in [`AGENTS.md`](../AGENTS.md) zusätzlich die dritte Stelle der Zustandsregeln benannt und
   eine Falle zur Importliste und zum Kaskadenort ergänzt (Abschnitt „Fünfunddreißig Fallen“).
 
 **Abnahme:**
@@ -2175,7 +2175,7 @@ Refactoring gemäß Paket 6 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1
 - **Auch die Galerie:** `python scripts/galerie.py <temp>/gebisse.png` (nutzt dieselbe Funktion) —
   SHA256 gleich dem ausgelieferten `docs/bilder/gebisse.png` (`05e5bd34…`).
 - `pnpm gate` grün: **581 Tests in 48 Dateien**, `tsc --noEmit` fehlerfrei. Die Testzahl ist
-  unverändert, deshalb in `README.md` und `docs/testing.md` nichts nachzuziehen;
+  unverändert, deshalb in [`README.md`](../README.md) und [`docs/testing.md`](testing.md) nichts nachzuziehen;
   `ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md` ohne Fund,
   `python scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` „Alle genannten Pfade
   existieren“.
@@ -2198,49 +2198,49 @@ Refactoring gemäß Paket 6 (die Plan-Datei ist gelöscht; Wortlaut: `git show 1
 steht, ist damit der Stand **vor** dem 14.10.2026 gemeint — die Regeln stehen jetzt in der
 Bauteildatei, die `app.css` in seiner Importliste nennt.
 
-## 14.10.2026 — Paket 7: `AGENTS.md` auf den Einstieg gekürzt
+## 14.10.2026 — Paket 7: [`AGENTS.md`](../AGENTS.md) auf den Einstieg gekürzt
 
-**Rückfrage an den Auftraggeber:** das Paket ließ offen, ob die Fallen in `AGENTS.md` bleiben
+**Rückfrage an den Auftraggeber:** das Paket ließ offen, ob die Fallen in [`AGENTS.md`](../AGENTS.md) bleiben
 (Rückfall der Vorlage, dann rund 450 Zeilen) — **entschieden wurde Fassung A**: die Fallen ziehen
-nach `docs/fallen.md`. Die erste Direktive in `AGENTS.md` sagt seitdem ausdrücklich, dass
-`docs/fallen.md` vor jeder Änderung am Code zu lesen ist.
+nach [`docs/fallen.md`](fallen.md). Die erste Direktive in [`AGENTS.md`](../AGENTS.md) sagt seitdem ausdrücklich, dass
+[`docs/fallen.md`](fallen.md) vor jeder Änderung am Code zu lesen ist.
 
 Verschoben (wörtlich, nur die Überschrift und wenige Verweise angepasst):
-- **`docs/fallen.md`** (neu): die 35 Fallen, Überschrift „Fallen, die Zeit kosten" — **ohne Zahl**
+- **[`docs/fallen.md`](fallen.md)** (neu): die 35 Fallen, Überschrift „Fallen, die Zeit kosten" — **ohne Zahl**
   (die alte „Fünfunddreißig Fallen" wäre nach der nächsten Falle wieder falsch gewesen).
-- **`docs/rueckmeldung.md`** (neu): „Rückmeldung an den Nutzer (Ton, Vibration)", 8 Punkte.
-- **`docs/freischaltung.md`** (neu): „Tiere freischalten", 13 Punkte.
-- **`docs/tiermodell-anleitung.md`**: „Freundliche Zeichnung" als Abschnitt 7, „Das geschlossene
-  Maul" als Abschnitt 8; der Verweis in Abschnitt 6 zeigt nicht mehr auf `AGENTS.md`, sondern auf
-  Abschnitt 7; „Falle oben" zeigt auf `docs/fallen.md`.
-- **`docs/sicherung-anleitung.md`**: die Regeln als erster Abschnitt „Regeln in Kürze"; der
-  Selbstverweis („der ganze Weg zum Nachbauen …: `docs/sicherung-anleitung.md`") heißt jetzt
+- **[`docs/rueckmeldung.md`](rueckmeldung.md)** (neu): „Rückmeldung an den Nutzer (Ton, Vibration)", 8 Punkte.
+- **[`docs/freischaltung.md`](freischaltung.md)** (neu): „Tiere freischalten", 13 Punkte.
+- **[`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md)**: „Freundliche Zeichnung" als Abschnitt 7, „Das geschlossene
+  Maul" als Abschnitt 8; der Verweis in Abschnitt 6 zeigt nicht mehr auf [`AGENTS.md`](../AGENTS.md), sondern auf
+  Abschnitt 7; „Falle oben" zeigt auf [`docs/fallen.md`](fallen.md).
+- **[`docs/sicherung-anleitung.md`](sicherung-anleitung.md)**: die Regeln als erster Abschnitt „Regeln in Kürze"; der
+  Selbstverweis („der ganze Weg zum Nachbauen …: [`docs/sicherung-anleitung.md`](sicherung-anleitung.md)") heißt jetzt
   „der Rest dieses Blattes".
-- **`AGENTS.md`**: 715 → **164 Zeilen**. Geblieben sind Kopf, drei Direktiven, Index, Befehle,
+- **[`AGENTS.md`](../AGENTS.md)**: 715 → **164 Zeilen**. Geblieben sind Kopf, drei Direktiven, Index, Befehle,
   Karte, „Ein neues Lebewesen ergänzen", Aufgaben-Tracking, Basis-Pfad, Veröffentlichen. Der Index
   hat vier neue Zeilen und die Spalte **„Lies das, bevor du …"** — jede der 17 Zeilen sagt jetzt,
   wann sie zu lesen ist.
-- **Querverweise nachgezogen:** `docs/e2e-nachweise.md` (acht Stellen „Falle in AGENTS.md" →
-  `docs/fallen.md`, „`AGENTS.md` und `docs/tiermodell-anleitung.md`" → nur letzteres),
-  `docs/workflow.md` (Ablage der Fallen beim Leeren der Arbeitsdatei, Verweis auf die
-  Sicherungs-Regeln, meldende Doku-Prüfung nennt jetzt `docs/tiermodell-anleitung.md` statt
-  `docs/fallen.md` — dort steht die alte Zahl aus der Doku-Prüfungs-Falle).
+- **Querverweise nachgezogen:** [`docs/e2e-nachweise.md`](e2e-nachweise.md) (acht Stellen „Falle in AGENTS.md" →
+  [`docs/fallen.md`](fallen.md), „[`AGENTS.md`](../AGENTS.md) und [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md)" → nur letzteres),
+  [`docs/workflow.md`](workflow.md) (Ablage der Fallen beim Leeren der Arbeitsdatei, Verweis auf die
+  Sicherungs-Regeln, meldende Doku-Prüfung nennt jetzt [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) statt
+  [`docs/fallen.md`](fallen.md) — dort steht die alte Zahl aus der Doku-Prüfungs-Falle).
 
 **Abnahme:**
-- **`AGENTS.md` unter 200 Zeilen: 164.** Keine Überschrift mit einer Zahl, die mitwachsen müsste;
+- **[`AGENTS.md`](../AGENTS.md) unter 200 Zeilen: 164.** Keine Überschrift mit einer Zahl, die mitwachsen müsste;
   „Die Karte in sieben Zeilen" nennt die feste Zeilenzahl der Karte, keine Fallenzahl.
-- **Zählung aus Schritt 5:** vorher 81 `- **`-Zeilen in `AGENTS.md`; nachher 1 (`AGENTS.md`)
-  + 8 + 13 + 35 + 27 + 22 = **106** über `AGENTS.md` und die Zieldateien — dieselbe Summe wie
-  vorher (81 + 10 in `docs/tiermodell-anleitung.md` + 15 in `docs/sicherung-anleitung.md`).
+- **Zählung aus Schritt 5:** vorher 81 `- **`-Zeilen in [`AGENTS.md`](../AGENTS.md); nachher 1 ([`AGENTS.md`](../AGENTS.md))
+  + 8 + 13 + 35 + 27 + 22 = **106** über [`AGENTS.md`](../AGENTS.md) und die Zieldateien — dieselbe Summe wie
+  vorher (81 + 10 in [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) + 15 in [`docs/sicherung-anleitung.md`](sicherung-anleitung.md)).
 - **Pfadprüfung:** `python scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md` →
   „Pfad-Angaben geprueft: 179 / Alle genannten Pfade existieren", Exit 0.
-- **Doku-Prüfung** (Rezept aus `docs/workflow.md`, als `.sh`-Datei gefahren): Zahlendoku scharf
+- **Doku-Prüfung** (Rezept aus [`docs/workflow.md`](workflow.md), als `.sh`-Datei gefahren): Zahlendoku scharf
   ohne Fund (Exit 0); meldend Treffer nur in Aufzeichnungen und im Rezept selbst (Exit 0).
 - **`pnpm gate` grün: 581 Tests in 48 Dateien** (Testzahl unverändert, deshalb keine Zahlen in
-  `README.md`/`docs/testing.md` nachzuziehen).
-- **Gegenprobe (nichts verloren):** jede der 81 Bullet-Zeilen aus dem alten `AGENTS.md` einzeln in
+  [`README.md`](../README.md)/[`docs/testing.md`](testing.md) nachzuziehen).
+- **Gegenprobe (nichts verloren):** jede der 81 Bullet-Zeilen aus dem alten [`AGENTS.md`](../AGENTS.md) einzeln in
   den Zieldateien gesucht — **0 fehlen**. Der Lauf meldete genau eine Zeile doppelt: „Ein Auftrag im
-  Argument eines `?.()`-Aufrufs …" steht in `docs/sicherung-anleitung.md` zweimal — als Regel in
+  Argument eines `?.()`-Aufrufs …" steht in [`docs/sicherung-anleitung.md`](sicherung-anleitung.md) zweimal — als Regel in
   „Regeln in Kürze" und als ausführlicher Bericht in „Die Fallen, in die wir getreten sind", den
   es dort schon gab. Bewusst gelassen: der Bericht trägt Einzelheiten, die die Regel nicht hat.
 
@@ -2250,7 +2250,7 @@ Verschoben (wörtlich, nur die Überschrift und wenige Verweise angepasst):
    hätten nach dem Umzug ins Leere gezeigt. Die Abnahme „Kein Quelltext geändert" ist deshalb als
    „kein Verhalten, kein Programmcode" gelesen; `git diff -- src` zeigt zwei geänderte
    Kommentarstellen und sonst nichts.
-2. **Ein neuer Hinweis in `docs/workflow.md`** (nicht in `AGENTS.md`): beim Fahren des Rezepts fiel
+2. **Ein neuer Hinweis in [`docs/workflow.md`](workflow.md)** (nicht in [`AGENTS.md`](../AGENTS.md)): beim Fahren des Rezepts fiel
    auf, dass eine Umgebungsvariable aus PowerShell **nicht** in WSL-`bash` ankommt. Gemessen: eine
    `.sh`-Datei druckt `ALTE_WERTE=[]`, obwohl PowerShell sie gesetzt hat; mit `WSLENV='ALTE_WERTE'`
    kommt sie an. Der Lauf endet dann mit Exit 0, obwohl er gar nicht nach alten Werten gesucht hat
@@ -2266,8 +2266,8 @@ Umgesetzt:
 - `@biomejs/biome` 2.5.15 als dev-Abhängigkeit; `biome.jsonc` mit Regelsatz `recommended`, ohne
   Formatierer und Assists, geprüft werden `src/**`, `public/sw.js` und `worker/**`.
 - `"lint": "biome lint --error-on-warnings ."`, `"gate": "pnpm typecheck && pnpm lint && pnpm test:run"`.
-- Direktive 3 in `AGENTS.md` nennt jetzt drei Teile, der Befehlsblock führt `pnpm lint`; `README.md`
-  (Befehlstabelle, Kennzahlen) und `docs/testing.md` (Gate, ein Absatz zum Linter, Abhängigkeiten)
+- Direktive 3 in [`AGENTS.md`](../AGENTS.md) nennt jetzt drei Teile, der Befehlsblock führt `pnpm lint`; [`README.md`](../README.md)
+  (Befehlstabelle, Kennzahlen) und [`docs/testing.md`](testing.md) (Gate, ein Absatz zum Linter, Abhängigkeiten)
   sind nachgezogen; der Workflow-Schritt heißt „Typen, Linter und Tests“.
 
 **Funde, in dieser Reihenfolge abgearbeitet** (erst zählen und ordnen, dann ändern):
@@ -2318,13 +2318,13 @@ Teständerung, sie war nicht nötig, um grün zu werden, sondern der Fund selbst
 **Nebenbefund, nicht behoben (offener Punkt):** Beim Nachziehen der Pfadangaben fiel auf, dass
 `scripts/doku-pfade-pruefen.py` nur einen Bruchteil der Pfade überhaupt ansieht: es paart Backticks
 der Reihe nach, und jeder Code-Zaun (```) verschiebt die Paarung. Gemessen am 14.10.2026 (die Prüfung
-selbst gesehen / grob gezählt): `docs/testing.md` **0 / 73**, `docs/workflow.md` **0 / 50**,
-`README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** — die Ausgabe meldet trotzdem „Alle
+selbst gesehen / grob gezählt): [`docs/testing.md`](testing.md) **0 / 73**, [`docs/workflow.md`](workflow.md) **0 / 50**,
+[`README.md`](../README.md) **0 / 27**, [`docs/e2e-nachweise.md`](e2e-nachweise.md) **1 / 172** — die Ausgabe meldet trotzdem „Alle
 genannten Pfade existieren“ und Exit 0. Sichtbar wurde es an vier Verweisen auf
 `docs/plaene/paket-*.md` in der Nachweisakte, die es seit dem 14.10.2026 nicht mehr gibt und die
 deshalb stehen bleiben (sie sind historisch: „Refactoring gemäß …“ beschreibt, was gelaufen ist).
 Die Reparatur des Prüfskripts gehört in ein eigenes Paket; die Falle steht mit Messwerten in
-`docs/fallen.md`, der Vorbehalt beim Rezept in `docs/workflow.md`.
+[`docs/fallen.md`](fallen.md), der Vorbehalt beim Rezept in [`docs/workflow.md`](workflow.md).
 **Behoben am 15.10.2026** im Review der Pakete 6–8 (siehe dort).
 
 ## 15.10.2026 — Review der Pakete 6–8
@@ -2333,37 +2333,37 @@ Die Reparatur des Prüfskripts gehört in ein eigenes Paket; die Falle steht mit
   **zeichengleich** mit `app.css` vor dem Schnitt (`diff` ohne Ausgabe). Die Zustandsregeln
   (`.creature.is-snapped .jaw__upper`, `path.jaw__shell`) stehen in `stage.css`, die Keyframes der
   Pause in `press-beat.css` — so, wie die Verweise es sagen.
-- **Paket 7:** Jede Zeile der alten `AGENTS.md` (715) steht wörtlich in `AGENTS.md` oder einer der
+- **Paket 7:** Jede Zeile der alten [`AGENTS.md`](../AGENTS.md) (715) steht wörtlich in [`AGENTS.md`](../AGENTS.md) oder einer der
   fünf Zieldateien, außer Überschriften, Index und vier umgeschriebenen Querverweisen. Die
-  fett gesetzten Leitsätze: 81 vorher, 81 nachher. Nachgezogen: `docs/plan.md` und
-  `docs/workflow.md` schickten Regeln nach dem Abschluss eines Features noch „nach `AGENTS.md`“ —
+  fett gesetzten Leitsätze: 81 vorher, 81 nachher. Nachgezogen: [`docs/plan.md`](plan.md) und
+  [`docs/workflow.md`](workflow.md) schickten Regeln nach dem Abschluss eines Features noch „nach [`AGENTS.md`](../AGENTS.md)“ —
   das widersprach dem Ziel des Pakets; jetzt in die passende Datei unter `docs/`.
-- **Paket 8:** `README.md` nannte Biome nicht unter den Abhängigkeiten, `AGENTS.md` den Befehl ohne
+- **Paket 8:** [`README.md`](../README.md) nannte Biome nicht unter den Abhängigkeiten, [`AGENTS.md`](../AGENTS.md) den Befehl ohne
   `--error-on-warnings` — beides nachgezogen.
 - **Die Pfadprüfung ist repariert** (der offene Punkt aus Paket 8): `scripts/doku-pfade-pruefen.py`
   entfernt Code-Zäune vorher und paart Backticks je Zeile; Platzhalter (`<id>`) überspringt es.
-  Über `README.md AGENTS.md docs/*.md` sieht sie jetzt **779** Angaben statt 179 (`docs/testing.md`
-  213 statt 0, `docs/workflow.md` 29 statt 0, `README.md` 16 statt 0, diese Akte 302 statt 1; gezählt auf dem Stand nach diesem Review). Gefunden
+  Über `README.md AGENTS.md docs/*.md` sieht sie jetzt **779** Angaben statt 179 ([`docs/testing.md`](testing.md)
+  213 statt 0, [`docs/workflow.md`](workflow.md) 29 statt 0, [`README.md`](../README.md) 16 statt 0, diese Akte 302 statt 1; gezählt auf dem Stand nach diesem Review). Gefunden
   hat sie danach genau die vier Verweise auf gelöschte Plan-Dateien (oben umgeschrieben, mit dem
   Weg zum Wortlaut) und zwei Platzhalter. **Gegenprobe:** ein Verweis auf eine erfundene Datei unter
   `docs/` in einer Zeile unter einem Code-Zaun → Exit 1 mit genau diesem Fund; vor der Reparatur
   Exit 0.
 - Die Plan-Dateien 6–8 und die gemeinsamen Regeln (`00-regeln.md`) sind wieder gelöscht (wie nach den Reviews
-  1–3 und 4–5), `docs/plan.md` steht auf dem Hinweistext.
+  1–3 und 4–5), [`docs/plan.md`](plan.md) steht auf dem Hinweistext.
 
 ## 15.10.2026 — Anleitung „Ein neues Tier ergänzen“ durchgespielt
 
-`docs/neues-tier.md` ist an einem Probetier geprüft, nicht nur aus der Doku abgeschrieben: in einem
+[`docs/neues-tier.md`](neues-tier.md) ist an einem Probetier geprüft, nicht nur aus der Doku abgeschrieben: in einem
 Wegwerf-Arbeitsbaum (`git worktree`, danach entfernt) ein Katalogeintrag `fox`, eine Kopie von
 `wolf.ts` als Zeichnung und eine Zeile in `ARTWORKS`. Danach `pnpm vitest run`: **9 von 582 Tests
-rot**, Typen und Linter grün. Mit Schritt in `UNLOCK_STEPS`, `VOICES`, Stimmdatei, `QUELLEN.md`-Zeile,
+rot**, Typen und Linter grün. Mit Schritt in `UNLOCK_STEPS`, `VOICES`, Stimmdatei, [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md)-Zeile,
 `KATALOG_NEU=1` und Eintrag in der Liste knapper Trefferflächen blieben **7** — genau die Tests mit
 festen Listen und Zahlen, die die Anleitung in Schritt 7 nennt (`unlocks.test.ts` ×4,
 `albumBadges.test.ts` ×2, `presentation/game/unlocks.test.ts` ×1).
 
-Zwei Funde in der bestehenden Doku, behoben: `docs/workflow.md` verlangte für ein neues Tier noch
+Zwei Funde in der bestehenden Doku, behoben: [`docs/workflow.md`](workflow.md) verlangte für ein neues Tier noch
 eine Zeile in `CREATURE_VOICE_FILES` — die leitet sich seit Paket 1 aus dem Katalog ab; nötig ist
-stattdessen der Eintrag in `VOICES` (`public/sw.js`). Und `AGENTS.md` nannte ein Feld `upperTeeth`,
+stattdessen der Eintrag in `VOICES` (`public/sw.js`). Und [`AGENTS.md`](../AGENTS.md) nannte ein Feld `upperTeeth`,
 das es im Zeichnungsvertrag (`creatures/types.ts`) nicht gibt. Den Albumsatz in
 `albumBadges.test.ts` („0 von 12 Tieren gespielt · 0 von 36 Sternen“) nannte bisher keine Doku.
 
@@ -2428,9 +2428,9 @@ es. Der neue Text ist also nicht höher als der alte — er ist kürzer, obwohl 
 gehört deshalb **nicht** in `ALTE_WERTE`: mit `581|48 Dateien` meldete die Prüfung die neuen Zeilen
 selbst als alten Wert.
 
-**Nachgezogen:** `README.md` (Schritt 5 der Startanleitung und „Was es kann“, Testzahl dreimal),
-`docs/testing.md` (Testzahl, Zeile zu `resultText.test.ts`), `docs/rueckmeldung.md` (die Regel:
-Titel wird nicht wiederholt, bei zwei Spielern nennt er den Gewinner), `docs/fallen.md` (neue Falle:
+**Nachgezogen:** [`README.md`](../README.md) (Schritt 5 der Startanleitung und „Was es kann“, Testzahl dreimal),
+[`docs/testing.md`](testing.md) (Testzahl, Zeile zu `resultText.test.ts`), [`docs/rueckmeldung.md`](rueckmeldung.md) (die Regel:
+Titel wird nicht wiederholt, bei zwei Spielern nennt er den Gewinner), [`docs/fallen.md`](fallen.md) (neue Falle:
 eine Sonde mit fest eingetragenem Wortlaut muss beim Umtexten mitgezogen werden).
 
 **Nicht geprüft:** der Blick am Gerät. Wie sich „Spieler 2 hat gewonnen!“ am Tisch anfühlt, sagt
@@ -2440,7 +2440,7 @@ kein Test.
 
 **Entscheidung E5 des Auftraggebers: Absage an der Beschriftung.** Am Code der Kopfzeile ändert
 sich **nichts** — die Zahl `Runde 47` bleibt, wie sie ist. Ein Satz im Vokabular von
-`docs/domain-model.md` (Zeile „Rundenzahl in der Kopfzeile“) benennt die Abweichung, statt sie zu
+[`docs/domain-model.md`](domain-model.md) (Zeile „Rundenzahl in der Kopfzeile“) benennt die Abweichung, statt sie zu
 beheben.
 
 **Warum:** die Zahl ist `recorder.count() + 1`, also „so viele Runden liegen in diesem Browser,
@@ -2463,16 +2463,16 @@ hat sich nichts geändert.
 
 **Gefunden:** „Mouse screams“, BigSoundBank Nr. 0459, Joseph Sardin, **CC0** — Dateiseite gelesen
 (https://bigsoundbank.com/mouse-screams-s0459.html): „A little mouse, caught by a cat, screams when
-touched.“ 13 s, Mono, Studio. Eine erste Fassung von `QUELLEN.md` und `README.md` beschrieb sie als
+touched.“ 13 s, Mono, Studio. Eine erste Fassung von [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md) und [`README.md`](../README.md) beschrieb sie als
 Maus „in der Hand eines Menschen“ — das steht nicht in der Quelle und ist beim Review berichtigt.
 
 **Geschnitten:** ab 3,50 s, 0,40 s, ein vollständiger Quiekser aus der Mitte (nicht die lauteste
 Stelle). Gemessen mit `ffprobe`/`wc -c`: `mouse.mp3` 0,444 s, 3 552 Byte (Grenze 16 000 Byte,
-K8); alle zwölf Stimmen zusammen 119 529 Byte, keine länger als 1,54 s. Lizenzen in `QUELLEN.md`:
+K8); alle zwölf Stimmen zusammen 119 529 Byte, keine länger als 1,54 s. Lizenzen in [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md):
 acht Public Domain, vier CC0.
 
 **`pnpm gate`:** grün, 587 Tests in 48 Dateien.
 
-**Offen:** der Auftraggeber hört die Stimme an (`docs/rueckmeldung.md`: wie eine Stimme klingt,
+**Offen:** der Auftraggeber hört die Stimme an ([`docs/rueckmeldung.md`](rueckmeldung.md): wie eine Stimme klingt,
 prüft der Baum nicht). Dabei auch zu entscheiden: ob der Angstlaut einer gefangenen Maus in ein
 Kinderspiel passt. Committet ist die Datei auf Wunsch des Auftraggebers schon vorher; ungeprüft bleibt sie bis zum Anhören.

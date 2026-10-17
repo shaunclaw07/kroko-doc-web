@@ -1,7 +1,7 @@
 # Fallen, die Zeit kosten
 
 Jede Falle nennt ihren Anlass, den Messwert und die Gegenprobe — sie stammt aus einem echten Lauf,
-nicht aus einer Vermutung. Bis zum 14.10.2026 stand diese Liste in `AGENTS.md`; dort war sie in
+nicht aus einer Vermutung. Bis zum 14.10.2026 stand diese Liste in [`AGENTS.md`](../AGENTS.md); dort war sie in
 jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderung am Code lesen.**
 
 - **Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet.** Der Service Worker
@@ -41,7 +41,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   0,86 %, Löwe 0,66 %, Säbelzahntiger 1,29 % eines Zahns (der Vampir-Fall mit 1,88 % bei drei Zähnen
   ist das Monokel, keine Deckung durch Zähne). „Kein Zahn verdeckt ein Auge" gilt also für die
   Standardzahl exakt und für wenige Zähne mit dieser kleinen Restdeckung. Anleitung:
-  `docs/tiermodell-anleitung.md`.
+  [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md).
 
 - **Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht.** Die Silhouette ist
   ein `clipPath`, dort gilt die **Nonzero**-Regel: wer ein Ohr zeichnet, indem er die Koordinaten
@@ -179,7 +179,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Trefferkreises darauf, und ein Tipp dort tat **nichts** (`#hud-presses` blieb 0, Zustand `open`) —
   gefunden hat das nicht ein Nutzer, sondern `document.elementFromPoint` in der Mitte jedes
   Trefferkreises (`uv run --with playwright python scripts/pruefen-trefferflaeche.py`, siehe
-  `docs/e2e-nachweise.md` §5l). Seit dem 11.10.2026 bekommen alle Ebenen der Zeichnung außer den
+  [`docs/e2e-nachweise.md`](e2e-nachweise.md) §5l). Seit dem 11.10.2026 bekommen alle Ebenen der Zeichnung außer den
   Zähnen `pointer-events: none` (`presentation/styles/stage.css`); `pointer-events: all` bleibt allein
   am Trefferkreis. Ein unsichtbares Element, das Tipps schluckt, ist ein Bedienfehler.
 
@@ -274,7 +274,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
 
 - **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
-  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" (`AGENTS.md`) sagte
+  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" ([`AGENTS.md`](../AGENTS.md)) sagte
   früher „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
   hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
   13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
@@ -288,8 +288,8 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
 - **Eine Doku-Prüfung, die nur jeden siebten Pfad ansieht, meldet trotzdem „alles in Ordnung“.**
   `scripts/doku-pfade-pruefen.py` paart die Backticks der Reihe nach; ein Code-Zaun (```) verschiebt
   die Paarung um eins, und danach enthält jeder „Span“ Fließtext und fällt durch das Sieb. Gemessen
-  am 14.10.2026 (die Prüfung selbst gesehen / grob gezählt): `docs/testing.md` **0 / 73**,
-  `docs/workflow.md` **0 / 50**, `README.md` **0 / 27**, `docs/e2e-nachweise.md` **1 / 172** —
+  am 14.10.2026 (die Prüfung selbst gesehen / grob gezählt): [`docs/testing.md`](testing.md) **0 / 73**,
+  [`docs/workflow.md`](workflow.md) **0 / 50**, [`README.md`](../README.md) **0 / 27**, [`docs/e2e-nachweise.md`](e2e-nachweise.md) **1 / 172** —
   Ausgabe trotzdem „Alle genannten Pfade existieren“, Exit 0. Aufgefallen ist es, als in der
   Nachweisakte vier Verweise auf gelöschte Plan-Dateien stehen blieben.
   Seit dem 15.10.2026 entfernt die Prüfung die Zäune vorher und paart je Zeile (779 statt 179

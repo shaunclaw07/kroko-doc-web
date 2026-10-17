@@ -4,7 +4,7 @@
 |---|---|
 | Bezeichner, Typen, Funktionsnamen, Meldungen im Code | **Englisch** |
 | Kommentare im Code | **Deutsch** |
-| Dokumentation (`docs/`, `README.md`, `AGENTS.md`) | **Deutsch** |
+| Dokumentation (`docs/`, [`README.md`](../README.md), [`AGENTS.md`](../AGENTS.md)) | **Deutsch** |
 | Commit-Beschreibungen | **Deutsch** |
 | Alles, was Spieler sehen (UI-Texte, Fehlermeldungen im Dialog) | **Deutsch** |
 

@@ -36,7 +36,7 @@ nicht — die Freigabe verschwand wieder.
   `onStatus?.({ rounds: await job() })` führte `job()` nur aus, wenn jemand zuhörte — die
   Spielseite hört nicht zu und hätte nie gesichert. Erst ausführen, dann melden; der Test dazu
   verdrahtet **ohne** `onStatus`.
-- Rezept (Worker ändern, Code anlegen): `docs/workflow.md`, „Die Sicherung der Runden". Der
+- Rezept (Worker ändern, Code anlegen): [`docs/workflow.md`](workflow.md), „Die Sicherung der Runden". Der
   ganze Weg zum Nachbauen, mit allen Aufrufen und Fallen: der Rest dieses Blattes.
 
 ## Wann man das braucht

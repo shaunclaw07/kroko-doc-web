@@ -10,17 +10,17 @@ dorthin:
 
 | Thema | Datei |
 |---|---|
-| Zeichnen (Ebenen, Augen, Stil, Prüfen) | `docs/tiermodell-anleitung.md` |
-| Stimme suchen, schneiden, eintragen | `docs/workflow.md`, „Eine Tierstimme ergänzen oder tauschen“ |
-| Tier-Satz belegen | `docs/workflow.md`, „Einen Tier-Satz ergänzen oder ändern“, Belege in `docs/tier-quellen.md` |
-| Sterne und Schwellen | `docs/freischaltung.md` |
+| Zeichnen (Ebenen, Augen, Stil, Prüfen) | [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) |
+| Stimme suchen, schneiden, eintragen | [`docs/workflow.md`](workflow.md), „Eine Tierstimme ergänzen oder tauschen“ |
+| Tier-Satz belegen | [`docs/workflow.md`](workflow.md), „Einen Tier-Satz ergänzen oder ändern“, Belege in [`docs/tier-quellen.md`](tier-quellen.md) |
+| Sterne und Schwellen | [`docs/freischaltung.md`](freischaltung.md) |
 
 Die Kennung im Beispiel heißt `fox`. Code und Kennungen englisch, Name, Sätze und Kommentare deutsch.
 
 ## 0. Vorher entscheiden (der Auftraggeber)
 
 Diese Fragen sind **Entscheidungen**, keine Fakten — sie werden gefragt, nicht geraten
-(`docs/workflow.md`, „Vor der Planung“):
+([`docs/workflow.md`](workflow.md), „Vor der Planung“):
 
 - **Welches Tier, wie soll es wirken?** Es muss an der Silhouette erkennbar sein, nicht am Fell, und
   freundlich für ein Kind (keine dunklen Rachen, keine Spaltpupillen, keine riesigen Fangzähne).
@@ -49,7 +49,7 @@ Diese Fragen sind **Entscheidungen**, keine Fakten — sie werden gefragt, nicht
 | `fact` | ein **belegter** Satz über das echte Tier für Kinder („Wusstest du?“) | höchstens **110 Zeichen**, Punkt oder Ausrufezeichen am Ende, kein Wort über scharfe Zähne (`scharf`, `gefährlich`, `meist`, `häufiger`) |
 
 **Erst die Quelle lesen, dann den Satz schreiben.** Quelle mit Fundstelle und Abrufdatum in
-`docs/tier-quellen.md` eintragen — eine Zeile in „Die Sätze“ und die Zahnzahl unter den Zahnzahlen.
+[`docs/tier-quellen.md`](tier-quellen.md) eintragen — eine Zeile in „Die Sätze“ und die Zahnzahl unter den Zahnzahlen.
 
 ## 2. Katalogeintrag
 
@@ -75,7 +75,7 @@ Name, Kachel, Kurzinfo, Grammatik der Sätze, Statistikseite und die Zuordnung d
 
 ## 3. Zeichnung
 
-**Vorher `docs/tiermodell-anleitung.md` ganz lesen** — dort stehen die Ebenen, wohin die Augen
+**Vorher [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) ganz lesen** — dort stehen die Ebenen, wohin die Augen
 dürfen und warum.
 
 1. Modul `src/presentation/game/creatures/<id>.ts` (hier `fox.ts`) anlegen, am besten ein
@@ -94,7 +94,7 @@ dürfen und warum.
    mindestens 4 Einheiten Luft ringsum — sie folgen dem Zeiger.
 2. In `src/presentation/game/creatures/index.ts` den Import und eine Zeile in `ARTWORKS`
    (`fox: foxArtwork,`). Fehlt sie, wirft die Seite „creature 'fox' has no artwork“.
-3. Ansehen und messen (Rezepte in `docs/tiermodell-anleitung.md`, Abschnitte 3 und 4):
+3. Ansehen und messen (Rezepte in [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), Abschnitte 3 und 4):
 
 ```bash
 pnpm vitest run src/render-probe.test.ts                                   # SVG je Tier und Zahnzahl
@@ -120,7 +120,7 @@ letzten Schwelle selbst; die `assert`-Zeile darin meldet, wenn der Katalog dafü
 
 ## 5. Stimme
 
-Rezept mit allen Befehlen: `docs/workflow.md`, „Eine Tierstimme ergänzen oder tauschen“. In Kürze:
+Rezept mit allen Befehlen: [`docs/workflow.md`](workflow.md), „Eine Tierstimme ergänzen oder tauschen“. In Kürze:
 
 1. Suchen — nur Gemeinfreies (CC0, Public Domain): `python scripts/stimme-suchen.py "fox bark" "vulpes vulpes"`.
    **Die Dateiseite lesen, nicht nur den Titel:** „Mouse in Antefasy“ war kein Quieken, sondern das
@@ -158,7 +158,7 @@ Hinsehen. Angepasst wird die Erwartung, nicht die Prüfung:
 | `src/presentation/game/creatures/creatureViews.test.ts` | Liste der Zahnzahlen, bei denen ein Zahn auf 285 px unter 44 px Trefferfläche fällt | `'fox/12'` (oder was der Test meldet) eintragen und im Kommentar begründen; besser: den Ring so breit zeichnen, dass die Liste nicht wächst |
 
 Fallen außerdem — und zeigen damit einen **vergessenen Schritt**: `creatureVoices.test.ts` (Datei
-oder `QUELLEN.md`-Zeile fehlt), `offline.test.ts` (`VOICES` in `public/sw.js`),
+oder [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md)-Zeile fehlt), `offline.test.ts` (`VOICES` in `public/sw.js`),
 `katalog-json.test.ts` (Schritt 6), `creatureViews.test.ts`/`gaze.test.ts` (Zeichnung: Zahnzahl,
 Ebenen, Augen im Ring, Pupillen ohne Luft).
 
@@ -172,7 +172,7 @@ pnpm probes                                 # alle 13 Sonden gegen die gebaute S
 
 Für ein neues Tier zählen besonders: `pruefen-tiere` (eine Kachel mehr, Reihenfolge der Folge),
 `pruefen-freischaltung` und `pruefen-bedienung` (Kacheln gleich hoch, nichts scrollt — **eine neue
-Figur hat die Auswahl schon einmal gebrochen**, `docs/freischaltung.md`), `pruefen-zahnsicht`,
+Figur hat die Auswahl schon einmal gebrochen**, [`docs/freischaltung.md`](freischaltung.md)), `pruefen-zahnsicht`,
 `pruefen-blick`, `pruefen-zoom`, `pruefen-trefferflaeche`. Dann einmal selbst spielen: Tier wählen
 (es meldet sich), bis zum Biss, Satz unter dem Ergebnis lesen, am Handy.
 
@@ -184,13 +184,13 @@ Die Zahl der Tiere steht an vielen Stellen als Wort („zwölf“). Finden:
 git grep -n -i -E "zwölf|\b12 (Kacheln|Wesen|Tiere|Lebewesen)|Zwölf Gebisse" -- README.md AGENTS.md docs
 ```
 
-Mindestens: `README.md` (Bildunterschrift der Gebisse, Liste der Kacheln, „Zwölf Gebisse“, Tabelle
-der Schließwege, Zahl der Stimmen und ihre Gesamtgröße), der Kopf von `AGENTS.md` (Liste der
-Gebisse), `docs/freischaltung.md` (Folge und Schwellen), `docs/tiermodell-anleitung.md` (Liste der
-Augengrößen, Zahl der Zeichnungen der Sonde), `docs/testing.md` (erwartete Kacheln der Sonde).
-`docs/e2e-nachweise.md` ist eine Akte — dort bleibt die alte Zahl stehen und das neue Tier bekommt
-einen Eintrag. Ändert sich die Zahl der Tests, die Testzahl nachziehen (`README.md` an drei Stellen,
-`docs/testing.md`). Danach:
+Mindestens: [`README.md`](../README.md) (Bildunterschrift der Gebisse, Liste der Kacheln, „Zwölf Gebisse“, Tabelle
+der Schließwege, Zahl der Stimmen und ihre Gesamtgröße), der Kopf von [`AGENTS.md`](../AGENTS.md) (Liste der
+Gebisse), [`docs/freischaltung.md`](freischaltung.md) (Folge und Schwellen), [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md) (Liste der
+Augengrößen, Zahl der Zeichnungen der Sonde), [`docs/testing.md`](testing.md) (erwartete Kacheln der Sonde).
+[`docs/e2e-nachweise.md`](e2e-nachweise.md) ist eine Akte — dort bleibt die alte Zahl stehen und das neue Tier bekommt
+einen Eintrag. Ändert sich die Zahl der Tests, die Testzahl nachziehen ([`README.md`](../README.md) an drei Stellen,
+[`docs/testing.md`](testing.md)). Danach:
 
 ```bash
 ALTE_WERTE_STRIKT=1 bash scripts/doku-pruefen.sh README.md docs/testing.md

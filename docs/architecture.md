@@ -19,7 +19,7 @@ Die Astro-Seiten (`src/pages/`, `src/layouts/`) gehören zu keiner Mappe in `FOL
 Skript baut nur die Adapter und ruft **eine** Verdrahtungsfunktion der Bedienung (`wireGamePage`
 in `presentation/game/gamePage.ts`, `wireStatsPage` in `presentation/stats/statsPage.ts`). Alles,
 was darüber hinausgeht, steht in geprüften Modulen — das Skript einer `.astro`-Seite prüft weder
-`tsc` noch jsdom (`docs/freischaltung.md`, letzter Punkt).
+`tsc` noch jsdom ([`docs/freischaltung.md`](freischaltung.md), letzter Punkt).
 
 **Tondateien.** Die Tierstimmen sind die einzigen Klänge aus Dateien (`public/sounds/voices/`).
 Der Kern kennt davon nur eine Naht: `SoundPort.playVoice(creatureId)`. Welche Datei zu welchem
@@ -42,7 +42,7 @@ angelegt hat. `worker/` liegt außerhalb von `src/` und gehört zu keiner Schich
 
 ## Die Bedienung im Innern
 
-Seit dem Aufräumen vom 14.10.2026 (Nachweise in `docs/e2e-nachweise.md`):
+Seit dem Aufräumen vom 14.10.2026 (Nachweise in [`docs/e2e-nachweise.md`](e2e-nachweise.md)):
 
 - **Eine Quelle für die Einstellungen.** `presentation/game/settingsStore.ts` hält `GameSettings`
   (`get`, `set`, `subscribe`). Spielsteuerung, Schnellleiste und Einstellungsblatt melden sich dort
@@ -58,10 +58,10 @@ Seit dem Aufräumen vom 14.10.2026 (Nachweise in `docs/e2e-nachweise.md`):
   Rechnung ohne DOM), `hudView.ts` (schreibt es in die Seite), `resultText.ts` (Sätze nach dem Biss)
   und `roundRecorder.ts` (die fertige Runde ins Protokoll). **Zeitgeber laufen nur über `wait` der
   Steuerung**, kein Teilmodul ruft `setTimeout` selbst; jeder verzögerte Rückruf prüft, ob seine
-  Runde noch gilt (`docs/fallen.md`).
+  Runde noch gilt ([`docs/fallen.md`](fallen.md)).
 - **Die Zeichnung kennt kein Spiel.** `presentation/game/creatures/` liefert je Wesen ein
   Kunstwerk und eine Fabrik, die daraus SVG baut; die Steuerung kennt kein einzelnes Tier. Was zu
-  einem neuen Tier gehört: `docs/neues-tier.md`.
+  einem neuen Tier gehört: [`docs/neues-tier.md`](neues-tier.md).
 
 ## Die Importregel (A1–A6)
 

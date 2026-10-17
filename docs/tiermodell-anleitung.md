@@ -1,7 +1,7 @@
 # Anleitung: ein Tiermodell zeichnen
 
 Für jedes **neue** Lebewesen und jede Änderung an einem bestehenden. Die Schritte im Katalog, in
-der Registry, bei der Freischaltung und der Stimme stehen in `docs/neues-tier.md`; hier steht,
+der Registry, bei der Freischaltung und der Stimme stehen in [`docs/neues-tier.md`](neues-tier.md); hier steht,
 **wie die Zeichnung selbst entsteht**, damit sie zu den anderen passt und kein Zahn verdeckt wird.
 
 Anlass (12.10.2026): bei allen zehn Tieren lagen die Augen auf dem Zahnring. Je nach Zahnzahl
@@ -128,7 +128,7 @@ pnpm gate
 - **Krokodil geändert?** Das App-Symbol hängt an seiner Zeichnung: `ICON_NEU=1 pnpm test:run`, dann
   `uv run --with cairosvg python scripts/icon-png.py`.
 - **Irgendein Tier geändert?** Das README-Bild neu bauen (`scripts/galerie.py`, Rezept in
-  `docs/workflow.md`).
+  [`docs/workflow.md`](workflow.md)).
 - **Kommentare im Modul nachziehen.** Die Module erklären ihre Maße („der Maulrand liegt bei
   x 133") — eine verschobene Form mit altem Kommentar ist eine zweite Wahrheit.
 
@@ -167,7 +167,7 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   der Gesichtsbereich wird aber auf die Silhouette beschnitten (`factory.ts`, `mouthLayers`), dort
   wäre die Krone abgeschnitten. Der **Mensch** trägt seinen rostroten Filzhut deshalb in `body`. In
   die Silhouette gehört er nur, wenn ein Maulteil ihn erreicht; dann gilt die Gleichsinnigkeit
-  (Falle in `docs/fallen.md`: „Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins
+  (Falle in [`docs/fallen.md`](fallen.md): „Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins
   Gesicht").
 - **Wer ist gemeint?** „Genau wie der Mensch … könnte man dem einen Hut anziehen" heißt *der Mensch*.
   Ich hatte den Hut auf den Panther gesetzt (der Satz nannte beide), und der Nutzer musste
@@ -215,8 +215,8 @@ riesigen Fangzähne. Regeln für neue Kunstwerke:
   alter Werte und **zählt sie nicht als Fund**, solange `ALTE_WERTE_STRIKT=1` fehlt — der Exit-Code
   bleibt 0. So blieb „232 Tests grün" in der Startanleitung stehen, während dieselbe Datei zweimal
   korrekt 234 nannte; gefunden hat es erst ein unabhängiger Prüfer. Scharf prüfen (`ALTE_WERTE_STRIKT=1`)
-  heißt: nur über die **Zahlendoku** (`README.md`, `docs/testing.md`). Über `AGENTS.md`,
-  `docs/workflow.md` und die Aufzeichnungen wird **meldend** geprüft — dort stehen alte Zahlen
+  heißt: nur über die **Zahlendoku** ([`README.md`](../README.md), [`docs/testing.md`](testing.md)). Über [`AGENTS.md`](../AGENTS.md),
+  [`docs/workflow.md`](workflow.md) und die Aufzeichnungen wird **meldend** geprüft — dort stehen alte Zahlen
   absichtlich (als Lehre, im Aufruf-Beispiel) und würden falschen Alarm auslösen.
 - **`getBoundingClientRect` an einem gedrehten SVG-Element ist kein Maß für eine Fläche.** Die
   Trefferbox sitzt auf dem Zahnring und ist gedreht; der Browser liefert das **Achsen-Rechteck**

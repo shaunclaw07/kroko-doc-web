@@ -52,7 +52,7 @@ uv run --with playwright python scripts/pruefen-zahnsicht.py   # liegt ein Zahn 
 
 Die Sonde schreibt außerdem jede Zahnzahl je Lebewesen nach `zahnzahlen/` im selben Verzeichnis;
 `pruefen-zahnsicht.py` misst daran im Browser, ob das Gesicht einen Zahn verdeckt (erwartet:
-`0 Auffälligkeiten`). Wie ein Tiermodell entsteht, steht in `docs/tiermodell-anleitung.md`.
+`0 Auffälligkeiten`). Wie ein Tiermodell entsteht, steht in [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md).
 
 Beide Schritte liegen im Baum — kein Scratch-Verzeichnis, kein fester Pfad. Den Zustand setzt
 der Rasterer wie das Stylesheet (Klassen `is-pressed`/`is-snapped`), den Schließweg als
@@ -79,17 +79,17 @@ python3 scripts/doku-pfade-pruefen.py . README.md AGENTS.md docs/*.md
 
 Der erste prüft Zaun-Parität, Fließtext in Codeblöcken und zählt Kästchen; mit `ALTE_WERTE=…` findet er
 zusätzlich noch stehende alte Werte. **`ALTE_WERTE_STRIKT=1` macht Treffer zum Fund (Exit 1)** — das
-gehört nur über die **Zahlendoku** (`README.md`, `docs/testing.md`): in `AGENTS.md`, in
-`docs/tiermodell-anleitung.md`, in diesem Rezept
+gehört nur über die **Zahlendoku** ([`README.md`](../README.md), [`docs/testing.md`](testing.md)): in [`AGENTS.md`](../AGENTS.md), in
+[`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), in diesem Rezept
 und in den Aufzeichnungen stehen alte Zahlen absichtlich (als Lehre, im Aufruf-Beispiel) und
 würden falschen Alarm auslösen. Ohne den Schalter **meldet** der Lauf Treffer nur und der Exit-Code
 bleibt 0 — genau so blieb „232 Tests" in der Startanleitung stehen, während dieselbe Datei zweimal 234
 nannte; aufgefallen ist es erst einem unabhängigen Prüfer. Der zweite hält jede in Backticks genannte
 Pfadangabe gegen das Dateisystem — eine Doku, die auf eine verschwundene Datei zeigt, fällt durch
 keine Zahlenprüfung auf. Bis zum 15.10.2026 sah sie davon nur einen Bruchteil (ein Code-Zaun
-verschob die Paarung der Backticks; in `docs/testing.md` 0 von 73) und meldete trotzdem „Alle
+verschob die Paarung der Backticks; in [`docs/testing.md`](testing.md) 0 von 73) und meldete trotzdem „Alle
 genannten Pfade existieren“ — seitdem entfernt sie die Zäune vorher. Die erste Zeile der Ausgabe
-(„Pfad-Angaben geprueft: …“) gehört zum Ansehen dazu; Falle in `docs/fallen.md`.
+(„Pfad-Angaben geprueft: …“) gehört zum Ansehen dazu; Falle in [`docs/fallen.md`](fallen.md).
 
 **Unter Windows läuft der Block nicht als PowerShell-Einzeiler:** `bash` ist dort WSL, und eine
 Umgebungsvariable aus PowerShell kommt darin **nicht** an (`ALTE_WERTE` ist leer; am 14.10.2026
@@ -113,12 +113,12 @@ oder gemeinsam mit dem Nutzer, aber immer **vor** der Planungsphase:
   eine Absage ist ein Ergebnis, kein Versäumnis.
 - **Fakten werden nachgeschlagen, nicht gefragt.** Was im Baum steht (Zahlen, Verträge, Grenzen,
   Protokollfelder), wird gelesen; gefragt wird nur, was eine **Entscheidung** ist.
-- Erst danach beginnt die Planungsphase: Plan in `docs/plan.md`, dann umsetzen.
-- **`docs/plan.md` ist eine Arbeitsdatei, kein Archiv** (seit dem 13.10.2026): sie trägt nur das
+- Erst danach beginnt die Planungsphase: Plan in [`docs/plan.md`](plan.md), dann umsetzen.
+- **[`docs/plan.md`](plan.md) ist eine Arbeitsdatei, kein Archiv** (seit dem 13.10.2026): sie trägt nur das
   Feature, an dem gerade gearbeitet wird. Nach der Abnahme wandert das Bleibende an seinen Ort —
-  Regeln in die passende Datei unter `docs/` (der Index in `AGENTS.md` sagt, welche), Fallen nach
-  `docs/fallen.md`, Begriffe nach `docs/domain-model.md`, Nachweise nach `docs/e2e-nachweise.md`,
-  Belege nach `docs/tier-quellen.md` — und die Datei wird geleert. Keine
+  Regeln in die passende Datei unter `docs/` (der Index in [`AGENTS.md`](../AGENTS.md) sagt, welche), Fallen nach
+  [`docs/fallen.md`](fallen.md), Begriffe nach [`docs/domain-model.md`](domain-model.md), Nachweise nach [`docs/e2e-nachweise.md`](e2e-nachweise.md),
+  Belege nach [`docs/tier-quellen.md`](tier-quellen.md) — und die Datei wird geleert. Keine
   andere Doku verweist auf ihren Inhalt: ein Verweis zeigte nach dem nächsten Feature ins Leere.
 
 Warum als eigener Schritt: in einer Runde wurden so acht Fragen entschieden — zwei Dinge gebaut, sechs
@@ -132,15 +132,15 @@ fertigen Umbau zu verwerfen.
 3. Ablauf in `core/use-cases/`, wenn mehrere Regeln zusammenspielen.
 4. Bedienung in `presentation/` erweitern; neue Mappe → Eintrag in `FOLDER_LAYER`
    (`src/architecture.test.ts`).
-5. **Nachweis**: Test im passenden Verzeichnis, Gate grün, Zahl in `docs/testing.md` nachziehen.
+5. **Nachweis**: Test im passenden Verzeichnis, Gate grün, Zahl in [`docs/testing.md`](testing.md) nachziehen.
 
 ## Eine Tierstimme ergänzen oder tauschen
 
 Die Tierstimmen sind die einzigen Klänge aus Dateien: je Tier ein MP3 unter `public/sounds/voices/`.
-Eine Stimme zu tauschen ist **kein Code** — neue Datei schneiden, Zeile in `QUELLEN.md` ändern. Ein
+Eine Stimme zu tauschen ist **kein Code** — neue Datei schneiden, Zeile in [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md) ändern. Ein
 **neues** Tier braucht zusätzlich einen Eintrag in `VOICES` (`public/sw.js`); die Zuordnung
 `CREATURE_VOICE_FILES` leitet sich seit dem 14.10.2026 aus dem Katalog ab. Der ganze Weg eines neuen
-Tiers: `docs/neues-tier.md`.
+Tiers: [`docs/neues-tier.md`](neues-tier.md).
 
 **Was du brauchst:** `ffmpeg` und `ffprobe` im Pfad (`ffmpeg -version`; unter Windows z. B.
 `scoop install ffmpeg`) und Python 3 (nur Standardbibliothek).
@@ -164,7 +164,7 @@ probieren („roar", „roaring", der lateinische Name). Weitere gemeinfreie Que
 - **Selbst aufnehmen** (Handy genügt): die sauberste Lizenz.
 
 Nicht nehmen: CC BY-SA, CC BY-NC und alles ohne Lizenzangabe. CC BY nur nach Rücksprache — dann
-gehört der Name des Urhebers ins Regeln-Blatt, nicht nur in `QUELLEN.md`.
+gehört der Name des Urhebers ins Regeln-Blatt, nicht nur in [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md).
 
 **2. Die Dateiseite lesen — nicht nur den Titel**
 
@@ -232,7 +232,7 @@ pnpm gate
 ```
 
 `creatureVoices.test.ts` fällt, wenn ein Katalogtier keine Datei hat, eine Datei fehlt, größer als
-16 000 Byte ist, nicht mit einem MP3-Rahmen beginnt oder in `QUELLEN.md` ohne Lizenz und Quelle
+16 000 Byte ist, nicht mit einem MP3-Rahmen beginnt oder in [`QUELLEN.md`](../public/sounds/voices/QUELLEN.md) ohne Lizenz und Quelle
 steht.
 
 **8. Anhören — das kann kein Test**
@@ -247,7 +247,7 @@ der Biss liegt bei 0,9).
 ersten Tipp und nur bei eingeschaltetem Ton; gespielt wird im selben Audio-Kontext wie alle anderen
 Klänge (`SoundPort.playVoice`), beim Wählen eines anderen Tiers und 120 ms nach dem Biss. Wer ein
 anderes Tier wählt, bricht vorher ab, was noch klingt. Eine Stimme, die mehr als 0,5 s nach ihrem
-Anlass fertig lädt, entfällt. Nachweis: `docs/e2e-nachweise.md` §5z.
+Anlass fertig lädt, entfällt. Nachweis: [`docs/e2e-nachweise.md`](e2e-nachweise.md) §5z.
 
 ## Einen Tier-Satz ergänzen oder ändern („Wusstest du?")
 
@@ -257,7 +257,7 @@ Der Satz unter dem Ergebnis ist das Feld `fact` im Katalog (`src/core/domain/cre
    umgekehrt („immer wieder" wurde so zu „viele Male in seinem Leben").
 2. Höchstens **110 Zeichen** (`MAX_FACT_LENGTH`), Punkt oder Ausrufezeichen am Ende, kein Wort
    über scharfe Zähne (`scharf`, `gefährlich`, `meist`, `häufiger`) — `creature.test.ts` prüft das.
-3. Quelle mit Fundstelle und Abrufdatum in `docs/tier-quellen.md` notieren.
+3. Quelle mit Fundstelle und Abrufdatum in [`docs/tier-quellen.md`](tier-quellen.md) notieren.
 4. `pnpm gate`. Wer die Obergrenze anhebt oder den Ergebnis-Kasten ändert, **misst neu**:
    `python scripts/pruefen-bedienung.py` (der Server muss laufen) — der Satz entfällt heute unter
    700 px Höhe und auf Tablets quer unter 900 px, weil dort die Höhe nicht reicht (§5y).
@@ -300,7 +300,7 @@ veröffentlichte Seite). Wo `uv` fehlt, tut es
 
 ## Die Sicherung der Runden
 
-Wozu und wie sie gebaut ist: `docs/architecture.md` und `docs/sicherung-anleitung.md` — dort stehen
+Wozu und wie sie gebaut ist: [`docs/architecture.md`](architecture.md) und [`docs/sicherung-anleitung.md`](sicherung-anleitung.md) — dort stehen
 die Regeln in Kürze und der ganze Weg zum Nachbauen. Was bei Cloudflare liegt
 (angelegt am 13.10.2026 über die Cloudflare-API, nicht über `wrangler`):
 

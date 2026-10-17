@@ -1,8 +1,8 @@
 # Tiere freischalten
 
 Welche Tiere offen sind, was eine Schwelle kosten darf und was eine Sperre sagen muss. Bis zum
-14.10.2026 stand dieser Abschnitt in `AGENTS.md`. Das Zeichnen eines neuen Tiers steht in
-`docs/tiermodell-anleitung.md`, die Regeln der Runde in `docs/domain-model.md`.
+14.10.2026 stand dieser Abschnitt in [`AGENTS.md`](../AGENTS.md). Das Zeichnen eines neuen Tiers steht in
+[`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), die Regeln der Runde in [`docs/domain-model.md`](domain-model.md).
 
 - **Abgeleitet, nicht gespeichert.** Welche Tiere offen sind, folgt aus der Gesamtzahl der Sterne
   (`core/domain/unlocks.ts`): Krokodil, Maus, Wolf am Start, dann Hai (3), Panda (5), Mensch (7),

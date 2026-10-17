@@ -91,7 +91,7 @@ Er trägt **zwei** Aussagen, jede mit Wort daneben:
 - **Die Zustandsklassen hängen am Kasten, der Balken und Zeile enthält** (`#hud-panel`). An der
   Bühne (`#stage`) haben sie den Balken nie erreicht: der liegt außerhalb, keine der Farbregeln
   griff. Gemessen im echten Browser — bei 100 % Bissgefahr blieb die Füllung grün→gold
-  (`docs/e2e-nachweise.md` §5t).
+  ([`docs/e2e-nachweise.md`](e2e-nachweise.md) §5t).
 - **Farbe = Gefahr:** die Bissgefahr des nächsten Drucks (`tensionForPress`). Ab 30 %
   (`isTense`, `TENSE_LEVEL`) glüht er, ab 50 % (`isHighDanger`, `HIGH_DANGER`) wird er rot.
   *Warum 50 und nicht 60:* bei 60 % erreichte **kein** Gebiss die Schwelle vor dem letzten Druck —
