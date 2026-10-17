@@ -1,17 +1,22 @@
 ---
-type: "Referenz"
+type: workflow
 title: "Statistikseite: Bericht, Verlauf, Import/Export und Löschen"
+description: "Der zweite Seitenpfad als Ganzes — Markup in statistik.astro, die eine Naht wireStatsPage mit ihrer Abhängigkeitsliste, der Bericht mit Gruppierung je Gebiss und Ehrlichkeits-Schwelle, der Verlauf der letzten Runden, CSV-Export und -Import mit fortlaufenden Nummern, „Protokoll löschen“ als Ersetzen statt Abgleichen, die Schlüssel der Ablage samt einmaliger Übernahme alter Namen und die Grenzen der Sicherung."
+tags: [stats-page, astro, dependency-injection, csv-import, csv-export, deletion, localStorage, backup-sync, testing]
 openwiki_generated: true
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-17T07:24:18.878Z
 sources:
   - id: openwiki-source-e9ab88bcfec0a7529d1320d5
     resource: repo://docs/e2e-nachweise.md
+  - id: openwiki-source-e0c4b95168ce864dec7f16ef
+    resource: repo://scripts/pruefen-offline.py
+  - id: openwiki-source-7f74bf1b112351c42761d880
+    resource: repo://scripts/pruefen-sicherung.py
   - id: openwiki-source-bbc2c903bd2b0bd0c43adeb6
     resource: repo://src/core/domain/creature.ts
   - id: openwiki-source-0d6e43352a25a3303ae96c18
     resource: repo://src/core/domain/sessionLog.ts
+  - id: openwiki-source-657e75f4a8a73f4f0e4324d8
+    resource: repo://src/core/domain/statistics.ts
   - id: openwiki-source-3dbe5aab0125fd4fd40eaba2
     resource: repo://src/core/domain/teeth.ts
   - id: openwiki-source-6882907d03433e6b5faaf0d8
@@ -38,9 +43,11 @@ sources:
     resource: repo://src/presentation/stats/statsView.test.ts
   - id: openwiki-source-90d0080bc2c3900149a70d50
     resource: repo://src/presentation/stats/statsView.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:24:18.878Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-17T09:06:25.393Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-17T09:06:25.393Z
 ---
-
 
 # Statistikseite: Bericht, Verlauf, Import/Export und Löschen
 
@@ -57,6 +64,12 @@ und wird hier nicht wiederholt. Das Format des Protokolls und die Regeln von `fr
 Zwei Eigenschaften bestimmen alles Weitere: die Seite **schreibt nur das Rundenprotokoll** — nie
 Einstellungen, nie Sterne —, und sie hält **keinen eigenen Stand** der Runden. Jede Aktion liest
 `log.load()` in dem Augenblick, in dem sie läuft.
+
+Daraus folgt die Rollenverteilung gegenüber der Spielseite: gespielt wird in
+[`index.astro`](../../src/pages/index.astro), jede beendete Runde landet über den `RoundLogPort` in
+derselben Ablage, und die Statistikseite ist auf dieses Protokoll **lesend** angewiesen — bis auf
+zwei Ausnahmen, Import und Löschen. Sterne und Freischaltung entstehen bei jedem Malen neu aus diesen
+Runden, es gibt keinen zweiten Speicher, den diese Seite pflegen müsste.
 
 ## Die Naht: die Seite baut Adapter, ein Modul verdrahtet
 
@@ -82,15 +95,18 @@ Drei Dinge sind daran beabsichtigt:
   braucht ([`statsPage.test.ts`](../../src/presentation/stats/statsPage.test.ts)).
 - **`backup` ist dreiwertig.** `undefined` heißt „nicht geliefert, baue selbst"; `null` heißt
   ausdrücklich „keine Sicherung"; ein Objekt wird übernommen. Nur der erste Fall mit vorhandenem
-  `remote` erzeugt `wireBackup` (siehe unten), und nur dieser Weg füllt `#backup-status`.
+  `remote` erzeugt `wireBackup` (siehe unten), und nur dieser Weg füllt `#backup-status`. Das
+  ausgelieferte `statistik.astro` setzt das Feld nie — die Sicherung entsteht dort immer aus
+  `remote` oder gar nicht.
 - **Der Code entscheidet über die Sicherung, nicht die Seite.** `backupCode(...)` liest ihn aus der
-  Adresse oder aus der Ablage; ohne Code wird `remote` gar nicht erst gebaut. Dass die Seite dann
-  weder abgleicht noch eine Sicherungszeile zeigt, ist die gewollte Folge (Einzelheiten auf
-  [Sicherung über den Worker](../integrations/sicherung-worker.md)).
+  Adresse (`/s/<code>` oder `?s=<code>`) oder aus der Ablage; ohne Code wird `remote` gar nicht erst
+  gebaut. Dass die Seite dann weder abgleicht noch eine Sicherungszeile zeigt, ist die gewollte
+  Folge (Einzelheiten auf [Sicherung über den Worker](../integrations/sicherung-worker.md)).
 
-Wie bei der Spielseite prüft kein Gate dieses Seitenskript: `pnpm typecheck` liest nur `src/**/*.ts`,
-und jsdom lädt keine `.astro`-Datei. Deshalb verdrahtet das Skript nur und enthält weder
-`addEventListener` noch `getElementById` — die Falle und ihre Gegenprobe stehen auf
+Wie bei der Spielseite prüft kein Gate dieses Seitenskript: `pnpm typecheck` (`tsc --noEmit`) liest nur
+die in `tsconfig.json` eingetragenen Dateien — `src/**/*.ts`, nicht die `.astro`-Skripte —, und jsdom
+lädt keine `.astro`-Datei. Deshalb verdrahtet das Skript nur und enthält weder `addEventListener` noch
+`getElementById` — die Falle und ihre Gegenprobe stehen auf
 [Spielseite verdrahten](spielseite-verdrahtung.md).
 
 ## Der Ablauf beim Verdrahten
@@ -135,6 +151,101 @@ danach nur noch Aktionen, die bei jedem Klick frisch lesen.
 5. **Der Speicher-Hinweis**, sobald `deps.persistence` aufgelöst ist.
 6. **Der `storage`-Lauscher** für Änderungen aus einem anderen Tab.
 
+Der Aufruf `void backup?.sync()` beim Start ist der Grund, warum ein Gerät, dessen Profil eben
+geleert wurde, den Bericht schon beim ersten Blick gefüllt zeigt: `syncRoundLog` holt, führt mit dem
+leeren Gerätestand zusammen, schreibt die Ablage und meldet `localChanged` — `onLocalChange` zeichnet
+neu. Ohne Code passiert davon nichts, und die Seite verhält sich wie eine reine Anzeige.
+
+## Der Bericht: eine Auswertung je Gebiss
+
+`renderReport(target, records)` bekommt genau die Runden, die `refresh` gerade gelesen hat. Bei
+leerem Protokoll schreibt es den Hinweis „Noch keine Runden protokolliert. Spielt ein paar Runden,
+dann füllt sich diese Seite." — sonst baut `reportHtml` den Bericht. Er hat drei Ebenen:
+Kopfzahlen, einen Block je Gebiss und den Verlauf der letzten Runden.
+
+### Was in den Kacheln steht
+
+Drei Zahlen und ein Satz, alle aus dem Protokoll:
+
+| Kachel | Inhalt | Woher |
+|---|---|---|
+| Runden | Anzahl aller Einträge | `records.length` |
+| Gebisse | Anzahl der Gruppen | `groupRounds(records).length` |
+| Mutigste Runde | höchste **überstandene** Bissgefahr in Prozent, sonst „—" | `bravestRound` → `survivedDanger` |
+
+Unter den Kacheln steht die mutigste Runde ausgeschrieben — „… % Bissgefahr in Runde `N` (`Tier`) —
+die höchste Gefahr, die überstanden wurde. Ein einzelner Wert ist kein statistischer Befund, sondern
+eine Geschichte." Runden, in denen schon der erste Druck schnappte, haben nichts überstanden und
+zählen nicht; sind alle so, bleibt der Strich stehen.
+
+### Wie eine Gruppe aussieht und warum es sie gibt
+
+`groupRounds` teilt das Protokoll nach Gebiss: Schlüssel ist `creature|teeth|mode`, die größte
+Gruppe steht zuerst, bei Gleichstand die zuerst gespielte (der Sort ist stabil). Nur **innerhalb**
+einer Gruppe gelten Gleichverteilung und Zugmodell; wer Krokodil, Maus und Wolf zusammenwirft, prüft
+drei Verteilungen gegen eine ([Statistik und Ehrlichkeit](../concepts/statistik-und-ehrlichkeit.md)).
+Darum steht bei mehr als einer Gruppe der Hinweis „Jedes Gebiss wird für sich ausgewertet: Tier,
+Zahnzahl und Modus bestimmen, was ‚zufällig' heißt — zusammengeworfen wären die Tests falsch."
+
+Jede Gruppe ist ein `<details>`-Block. Die Überschrift nennt alles, was die Auswertung festlegt:
+`Krokodil · 10 Zähne · 1–3 scharf — 120 Runden`. Die Zahnzahl wird gebeugt („1 Zahn", nicht
+„1 Zähne"), die Spanne der gleichzeitig scharfen Zähne kommt aus dem Katalogtier und wird auf die
+Zahnzahl geklemmt; im Modus `classic` steht dort „genau 1 scharf". **Offen ist nur die größte
+Gruppe**, alle weiteren sind eingeklappt — die Reihenfolge sagt also, wo man zuerst hinsieht. Ein
+unbekanntes Lebewesen wirft nicht, sondern gilt als Krokodil.
+
+Im Block stehen die Drücke bis Biss (`observedPresses`) gegen den Modellwert (`expectedPresses`),
+der häufigste Zahn, das Fazit aus `verdict`, zwei Balkenreihen (Verlierer-Zahn, Position in der
+Druckreihenfolge mit Modellmarke) und die Tests.
+
+### Was die Seite sich nicht erlaubt
+
+Die Ehrlichkeitsregel dieser Seite ist eine einzige Bedingung, die **je Gruppe** gilt:
+`enough = report.rounds >= MIN_SAMPLE_FOR_VERDICT` (100). `analyseSession` bekommt diesen Wert als
+`minSample` und liefert unterhalb der Schwelle `null` statt eines Testergebnisses.
+
+| Lage | Was dasteht |
+|---|---|
+| Gruppe unter 100 Runden | Tests bleiben aus; `testTag` schreibt „zu wenig Daten", darunter der Satz „Für statistische Aussagen fehlen Runden — die Tests bleiben deshalb aus." |
+| genug Runden, aber das Gebiss gibt den Test nicht her (etwa ein einziger Zahn) | „nicht prüfbar" — **kein** Freispruch |
+| genug Runden, Test gelaufen | „auffällig" oder „unauffällig" samt `chi2`, `df` und `p` |
+
+Zwei Feinheiten hängen daran:
+
+- **Der Test gegen die Gleichverteilung der Druck-Position erscheint nur im Modus `classic`.** Im
+  Originalmodell schnappt es vorne häufiger; der Test wäre dort bei fairen Daten immer „auffällig".
+  Der Test gegen das Zugmodell läuft in beiden Modi — und zwar gegen `report.model`, also gegen
+  dieselbe Verteilung, die als Modellspanne daneben steht. Beim Wolf steht deshalb 5.42 und nicht der
+  pauschale Wert des Krokodils.
+- **Die Mustersuche ist sechs Versätze zugleich.** Unter der Mindestzahl steht statt Zahlen
+  „Nicht genug Runden für eine Musterprüfung." Die Schwellen und die Mehrfachprüfung selbst gehören
+  in den Kern; die Anzeige malt nur Marken.
+
+### Der Verlauf: die letzten 50 Runden
+
+Das Protokoll ist die Geschichte der Partie, und die Seite zeigt sie als Text: ein `<details>` mit
+den **letzten 50** Runden, je eine Zeile der Form „Runde `N`: `Z` Zähne, Modus `m`, `P` Spieler,
+Drücke `1-2-5` → Zahn `4` (Position `3`, `1` scharf)". Mehr Verlauf gibt es nicht und braucht es
+nicht: die vollständige Liste liegt im Protokoll, der Export holt sie heraus, und die Auswertung
+darüber ist der Bericht. Ein Zeitverlauf ist bewusst kein Thema — `playedAt` wird von der
+Auswertung nicht gelesen.
+
+### Die Statuszeile zählt je Gebiss
+
+`sampleStatus(records)` ist der eine Satz in `#data-status`, und er zählt die Mindeststichprobe
+**je Gebiss**, nicht über alles:
+
+| Protokoll | Satz |
+|---|---|
+| ein Gebiss, genug Runden | „`N` Runden ausgewertet." |
+| ein Gebiss, zu wenig | „`N` von 100 Runden für eine belastbare Aussage." |
+| mehrere Gebisse, keines genug | „`N` Runden in `G` Gebissen — das größte hat `M` von 100 Runden für eine belastbare Aussage." |
+| mehrere Gebisse, einige genug | „`N` Runden ausgewertet — `k` von `G` Gebissen haben genug Runden für eine belastbare Aussage." |
+
+150 Runden aus zwei Gebissen mit 80 und 70 Runden sind damit **nicht** „ausgewertet", obwohl die
+Summe über der Schwelle liegt. Der Satz ist die Kurzfassung derselben Regel, die im Bericht die Tests
+abschaltet.
+
 ## Was jede Aktion tut — im Protokoll und in der Sicherung
 
 | Aktion | Element | Protokoll (`RoundLogPort`) | Sicherung | Anzeige |
@@ -149,14 +260,14 @@ danach nur noch Aktionen, die bei jedem Klick frisch lesen.
 ### `refresh` — lesen und malen
 
 `refresh()` liest das Protokoll neu und schreibt zwei Dinge: den Bericht in `#report-mount`
-(bei leerem Protokoll den Hinweis „Noch keine Runden protokolliert …", sonst `reportHtml` mit
-Gruppen, Kacheln, Balken, Tests und Rohdaten) und die Statuszeile `sampleStatus(records)` in
-`#data-status`. Geschrieben wird nichts — `refresh` ist der Grund, warum Import, Löschen, Sicherung
-und ein fremder Tab am Ende immer dasselbe Bild ergeben.
+(bei leerem Protokoll den Hinweis, sonst `reportHtml` mit Kacheln, Gruppen, Tests und Rohdaten) und
+die Statuszeile `sampleStatus(records)` in `#data-status`. Geschrieben wird nichts — `refresh` ist
+der Grund, warum Import, Löschen, Sicherung und ein fremder Tab am Ende immer dasselbe Bild ergeben.
 
 Der Weg durch `load()` ist dabei nicht neutral: `LocalStorageRoundLog.load()` übernimmt beim ersten
-Lesen einen alten Schlüssel und **filtert** alles weg, was `isPlausibleRecord` nicht besteht. Was die
-Seite zeigt, ist also nie „was in der Ablage steht", sondern „was davon ein Protokolleintrag ist".
+Lesen einen alten Schlüssel und **filtert** alles weg, was `isPlausibleRecord` nicht besteht; eine
+kaputte Ablage (kein JSON) ergibt eine leere Liste statt eines Absturzes. Was die Seite zeigt, ist
+also nie „was in der Ablage steht", sondern „was davon ein Protokolleintrag ist".
 
 ### CSV-Export — nur lesen, nichts zurückschreiben
 
@@ -196,6 +307,31 @@ Der letzte Schritt ist bewusst ein `sync`, kein `replace`: importierte Runden si
 und der Abgleich holt, führt zusammen und schreibt nur, wo sich etwas ändert
 ([`syncRoundLog.ts`](../../src/core/use-cases/syncRoundLog.ts)). Zwischen `load()` und `save()` liegt
 kein `await`, der gelesene Stand ist also derselbe, der geschrieben wird.
+
+```mermaid
+sequenceDiagram
+  participant Page as wireStatsPage
+  participant CSV as fromCsv
+  participant Log as LocalStorageRoundLog
+  participant Backup as wireBackup
+  participant Remote as HttpRemoteLog
+  Page->>CSV: Text aus import-text
+  CSV-->>Page: nur plausible Eintraege
+  alt keine gueltige Zeile
+    Page->>Page: import-status meldet den Fehlschlag
+  else mindestens eine Zeile
+    Page->>Log: load und groesste Rundennummer
+    Log-->>Page: vorhandener Stand
+    Page->>Log: save mit fortlaufenden Nummern
+    Page->>Page: refresh und Meldung ueber die Anzahl
+    Page->>Backup: sync
+    Backup->>Remote: pull dann mergeRoundLogs dann push nur bei Zuwachs
+    Backup-->>Page: onLocalChange loest refresh aus
+  end
+```
+
+Abbildung: der Import über alle Schichten — die Datei wird im Kern gelesen, die Seite numeriert um,
+die Sicherung gleicht ab statt zu ersetzen.
 
 Drei Eigenschaften, die man kennen sollte, bevor man den Import anfasst:
 
@@ -253,6 +389,10 @@ nächsten erfolgreichen `sync` — beim nächsten Seitenaufruf oder nach einer g
 Abgleich den alten Stand und die gelöschten Runden sind wieder auf dem Gerät. Wer sicher löschen will,
 prüft die Sicherungszeile nach dem Klick.
 
+Der Erfolgsfall ist gemessen: `scripts/pruefen-sicherung.py` führt Schritt 6 genau diesen Weg — Dialog
+annehmen, `#clear-log` klicken, danach ist die Sicherung leer, und die Runden kommen beim nächsten
+Laden der Spielseite nicht zurück.
+
 ### Ein anderer Tab schreibt — `storage`
 
 `window`-`storage` wird nur ausgewertet, wenn `event.key === null` (die Ablage wurde als Ganzes
@@ -261,9 +401,15 @@ Schlüssel der Einstellungen (`zahn_agent:settings:v1`) wird ausdrücklich **nic
 Entscheidung wie auf der Spielseite: zwei Tabs dürfen sich beim Tippen nicht gegenseitig
 zurücksetzen. Der Bericht zieht also nach, die Gefahr-Kurve nicht (nächster Abschnitt).
 
+Die Gegenrichtung ist genauso gebaut: importiert oder löscht diese Seite, sieht die Spielseite im
+anderen Tab ihr eigenes `storage`-Ereignis und ruft `feed.changedOutside()` — Album und Freischaltung
+rechnen mit dem neuen Stand, ohne dass jemand die Seite neu lädt. Weil beide Seiten dieselbe Ablage
+und dieselbe Sicherung benutzen, ist das Protokoll der einzige gemeinsame Stand; es gibt keinen
+Nachrichtenkanal zwischen den Tabs außer diesem Ereignis.
+
 Anders als `wireGamePage` hört diese Seite **nicht** auf `pageshow` mit `persisted`. Kommt die Seite
 über die Zurück-Taste aus dem Zwischenspeicher, bleibt der zuletzt gemalte Bericht stehen, bis ein
-`storage`-Ereignis oder ein Klick auf die Seite kommt.
+`storage`-Ereignis oder ein Import bzw. Löschen neu zeichnet.
 
 ## Die Gefahr-Kurve rechnet mit dem eingestellten Gebiss
 
@@ -304,6 +450,34 @@ Seite liest `settings` genau einmal und schreibt sie nie: für ein anderes Gebis
 geladen werden. Die Rechnung selbst und ihre geprüften Zahlen stehen auf
 [Zufall und Spannung](../concepts/zufall-und-spannung.md).
 
+## Schlüssel in der Ablage: ein neuer Name, zwei alte
+
+Die Seite fasst genau einen Schlüssel schreibend an — das Protokoll; gelesen werden außerdem der
+Einstellungsschlüssel und der Sicherungscode. Die Namen sind Teil der Zusage an bestehende Geräte:
+
+| Schlüssel | Wer benutzt ihn | Rolle |
+|---|---|---|
+| `zahn_agent:rounds:v1` | `LocalStorageRoundLog` (`STORAGE_KEY`) | das Protokoll; hier schreiben Import und Löschen |
+| `zahn-agent:rounds:v1` | `LEGACY_STORAGE_KEYS[0]` | frühere Fassung, wird beim ersten Lesen einmalig übernommen |
+| `kroko-doc-web:rounds:v1` | `LEGACY_STORAGE_KEYS[1]` | älteste Fassung, gleiche Behandlung |
+| `zahn_agent:settings:v1` | `loadSettings` (`SETTINGS_KEY`) | das eingestellte Gebiss; die Seite liest es |
+| `zahn-agent:settings:v1`, `kroko-doc-web:settings:v1` | `LEGACY_SETTINGS_KEYS` | Altschlüssel der Einstellungen, gleiche einmalige Übernahme |
+| `zahn_agent:backup-code` | `backupCode` (`BACKUP_CODE_KEY`) | der Code, damit die Sicherung auch nach einem Klick auf „Statistik" noch gilt |
+
+**Die Übernahme passiert beim Lesen, nicht bei einer Migration.** `read()` sucht in
+`LEGACY_STORAGE_KEYS` von der jüngsten zur ältesten Fassung, nimmt den ersten gefundenen Wert, legt
+ihn unter `zahn_agent:rounds:v1` ab und gibt ihn zurück. Der alte Schlüssel bleibt stehen. Für den
+Nutzer heißt das: die Seite zeigt nach dem Update sofort die alten Runden, ohne dass ein
+Migrationslauf nötig wäre — und derselbe Ablauf trägt auch `loadSettings` für die Einstellungen.
+
+**Das Löschen muss deshalb alle drei Schlüssel entfernen.** `clear()` löscht den neuen und beide
+alten; bliebe einer stehen, übernähme das nächste `load()` ihn wieder und die gelöschten Runden wären
+zurück. Das ist der einzige Grund, warum `clear()` mehr tut als ein `removeItem`.
+
+**Der Sicherungscode liegt außerhalb dieses Protokolls.** `backupCode` schreibt einen gültigen Code
+zusätzlich unter `zahn_agent:backup-code`, weil die Verweise zwischen Spiel und Statistik ihn nicht
+tragen; die Einzelheiten stehen auf [Sicherung über den Worker](../integrations/sicherung-worker.md).
+
 ## Der DOM-Vertrag
 
 `wireStatsPage` kennt die Seite nur über IDs, und fast jeder Zugriff ist ein `?.`. Ein fehlendes
@@ -338,8 +512,10 @@ prüfen außerdem Texttests und die Browser-Sonden
   zweiten Tab spielen, während hier importiert wird, ohne dass einer dem anderen den Stand
   überschreibt (der Anlass steht in `docs/fallen.md`, „Wer eine Ablage zurückschreibt, liest sie
   vorher").
-- **Keine Autorität über die Einstellungen.** `settings` ist ein Abzug vom Seitenstart; die Seite
-  schreibt nie hinein und hört nicht auf den Einstellungsschlüssel.
+- **Keine Autorität über die Einstellungen.** `settings` ist ein Abzug vom Seitenstart; `wireStatsPage`
+  ruft nie `saveSettings`. Die einzige Schreibbewegung auf den Einstellungsschlüssel entsteht in
+  `loadSettings` selbst, wenn es einen Altschlüssel übernimmt — das ist die Migration, nicht eine
+  Einstellung durch die Seite.
 - **Keine Sterne.** Sterne und Freischaltung werden bei jedem Malen aus dem Protokoll gerechnet; die
   Seite muss sie nicht pflegen und kann sie deshalb auch nicht „vergessen".
 - **Dauerhaft ist nur, was in der Ablage oder in der Sicherung liegt.** Weigert sich der Browser,
@@ -355,6 +531,7 @@ prüfen außerdem Texttests und die Browser-Sonden
 | CSV ohne gültige Zeile | „Keine gültigen Zeilen gefunden.", kein Schreiben | Ablage und Sicherung unberührt |
 | CSV mit ein paar kaputten Zeilen | importiert die gültigen, meldet nur deren Anzahl | verworfene Zeilen sind nicht einzeln benannt |
 | dieselbe Datei zweimal importiert | hängt erneut an, neue Rundennummern | doppelte Runden im Protokoll |
+| 80 und 70 Runden aus zwei Gebissen | Statuszeile nennt das größte Gebiss (80 von 100), Tests bleiben aus | keine Aussage über die Summe |
 | Schreiben scheitert (volle Ablage) | `save` fällt auf den Arbeitsspeicher zurück | nach dem Neuladen fehlt der Import |
 | `replace([])` scheitert | Statuszeile „Sicherung: nicht erreichbar …" | der nächste `sync` holt die gelöschten Runden zurück |
 | Sicherung fehlt (kein Code) | kein Abgleich, keine Zeile | alles wie ohne Sicherung |
@@ -371,11 +548,16 @@ prüfen außerdem Texttests und die Browser-Sonden
   den diese Seite nicht macht.
 - **Neue Anzeige-Regel?** Gehört nach `statsView.ts` (Formatierung und Markup), nicht in die
   Verdrahtung — und wenn sie eine Aussage über Daten ist, in den Kern
-  ([Statistik und Ehrlichkeit](../concepts/statistik-und-ehrlichkeit.md)).
+  ([Statistik und Ehrlichkeit](../concepts/statistik-und-ehrlichkeit.md)). Eine neue Gruppe im Bericht
+  entsteht **nicht** durch eine neue Anzeige, sondern durch eine neue Gebiss-Kombination; die
+  Gruppierung selbst bleibt in `groupRounds`.
 - **Neuer Speicherhinweis oder eine neue Browser-Antwort?** `PersistenceState` und
   `requestPersistence` in [`browserPersistence.ts`](../../src/infrastructure/storage/browserPersistence.ts)
   ergänzen und `persistenceNote` um einen eigenen Satz — jede Antwort bekommt ihren Satz, sonst ist
   ein still verschwindender Speicher eine Fehlersuche für den Nutzer.
+- **Neuer Schlüssel oder Umbenennung?** Den alten Namen in `LEGACY_STORAGE_KEYS` bzw.
+  `LEGACY_SETTINGS_KEYS` **vor** den neuen setzen und in `clear()` mitlöschen; sonst verliert ein
+  bestehendes Gerät seine Runden oder bekommt sie nach dem Löschen zurück.
 - **Neue Kennung im Markup?** Auch in die ID-Tabelle oben und in die Prüfliste des Produktionsbaus.
 
 ## Tests, die diese Seite halten
@@ -397,12 +579,26 @@ Genau diese Injektion ist der Grund, warum die Seite überhaupt prüfbar ist —
 Dazu kommt `statsView.test.ts`, das die Texte und Grenzen der Anzeige festhält, die auch hier sichtbar
 werden: der Ein-Zahn-Fall schreibt „1 Zahn" (nicht „1 Zähne"), ein unbekanntes Lebewesen wird zum
 Krokodil statt zu werfen, `sampleStatus` zählt Gruppen über der Mindestzahl und `persistenceNote` gibt
-jeder Browser-Antwort ihren Satz (nur `best-effort` und `unknown` nennen den CSV-Export). Beide
-Testdateien schreiben die 100 als Text fest; wer `MIN_SAMPLE_FOR_VERDICT` ändert, zieht sie mit.
+jeder Browser-Antwort ihren Satz (nur `best-effort` und `unknown` nennen den CSV-Export). Für die
+Gruppierung hält es drei Dinge fest:
+
+| Fall | Behauptung |
+|---|---|
+| drei Gebisse zu je 120 Runden | drei Blöcke, nur der erste offen, jede Überschrift nennt Tier, Zähnezahl und Spanne, bei fairen Daten keine Marke „auffällig" |
+| Wolf | 5.42 als Modellwert, nicht 4.69 — geprüft wird gegen dieselbe Verteilung, die daneben steht |
+| 30 Runden | „Nicht genug Runden für eine Musterprüfung", keine Versatz-Zeilen |
+| 99 Runden | „zu wenig Daten" statt eines Urteils, dazu der Satz, dass die Tests ausbleiben |
+
+Beide Testdateien schreiben die 100 als Text fest; wer `MIN_SAMPLE_FOR_VERDICT` ändert, zieht sie mit.
 
 Was jsdom nicht kann und was deshalb die gebaute Seite und die Sonden prüfen: der echte Blob-Download,
 das wirklich leere `localStorage`, die Sicherung gegen den Worker (`scripts/pruefen-sicherung.py`) und
-das Laden der Statistikseite ohne Netz (`scripts/pruefen-offline.py`).
+das Laden der Statistikseite ohne Netz (`scripts/pruefen-offline.py`). Die Sicherungs-Sonde geht dabei
+genau die Wege dieser Seite: sie öffnet `/statistik` **ohne** Code in der Adresse und erwartet die
+Sicherungszeile (der Code liegt in der Ablage), sie löscht über `#clear-log` und prüft, dass die
+Sicherung leer ist und die Runden auf der Spielseite nicht zurückkommen, und sie stellt eine
+unerreichbare Sicherung nach, worauf die Seite „nicht erreichbar" meldet, während das Spiel
+unbeeindruckt weiter zeichnet.
 
 ## Verwandte Seiten
 

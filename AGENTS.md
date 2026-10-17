@@ -161,8 +161,15 @@ OPENAI_COMPATIBLE_BASE_URL=https://api.deepseek.com/v1 OPENAI_COMPATIBLE_API_KEY
 OPENWIKI_MODEL_ID=deepseek-flash openwiki --update -l de
 ```
 
-Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Drei Seiten
-(`concepts/fachmodell-runde`, `operations/bauen-und-veroeffentlichen`, `workflows/statistikseite`)
-tragen noch `openwiki_generated: true` — ein zweiter `--update`-Lauf reichert sie an. Den
-CI-Workflow `openwiki-update.yml`, den das Werkzeug selbst anlegt, haben wir bewusst **nicht**
+Ein Lauf kostet ~1 h auf dem Pi (19 Seiten, ~3 min/Seite) und unter 1 USD. Eine Seite
+(`workflows/statistikseite`) trägt noch `openwiki_generated: true` — sie ist auch nach dem
+`--update`-Lauf vom 17.10.2026 code-abgeleitet geblieben; ein weiterer Lauf kann sie anreichern.
+Den CI-Workflow `openwiki-update.yml`, den das Werkzeug selbst anlegt, haben wir bewusst **nicht**
 übernommen (täglicher PR-Bot).
+
+**Nach jedem `--update`-Lauf aufräumen:** der Lauf hängt den englischen
+`<!-- OPENWIKI:START --> … <!-- OPENWIKI:END -->`-Block erneut an diese Datei an — vor dem Commit
+entfernen (der Block ist generisch und englisch, gegen die Sprachregel). Tote Links markiert das
+Werkzeug selbst mit einem `<!-- openwiki: broken internal link … -->`-Kommentar; Link richten,
+Kommentar löschen. Auch Verweise auf **Verzeichnisse** (`../../docs`) gelten als toter Link —
+auf eine Datei zeigen lassen oder als Fließtext schreiben.

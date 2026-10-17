@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:07f8f91043496548d03d6298a196366114c756540eed6ed4b3f0853d6043ef40",
+  "pageVersion": "sha256:92a56a507df8d3752f61bb4a747c136409a6670f3772c5cc8672eb410765657a",
   "claims": [
     {
       "id": "claim_06730fd7ccff442f952cd6eb671350ad",
@@ -307,10 +307,232 @@
           "version": "repo-lines-v1:sha256:5ee885d8ba568958186ce61de26e6369e54e2f9ef8e5d06218e7364de1aae53a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiZDA1ZDhmYTRjZDE3YmYzNmU5NDE1OThiNjkxNjQ4NzcyZDFlZWUyNDM0ZGM1Mjg1YzNiNjUwZTQyMDMwMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMGY3MjQ2M2ViMTk0NzBhYzlkNGU3YjNlZDVkMDQxYjgzZWYwZDNiMDI0ZWFjOGI2ZDQ1NDE2YWU4MDk0ODAifQ"
         }
       ]
+    },
+    {
+      "id": "claim_3af24214c34b4e7db56120677ec469fe",
+      "statement": "`RoundState` kopiert `mode`, `liveTeethMin` und `liveTeethMax` in den Rundenwert, damit spätere Leser wie `hudModel`, `planPressDrama` und `resultText` die Spannung neu rechnen können, ohne den Katalog oder die Zufallsquelle zu kennen.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/round.ts#L95-L117",
+          "version": "repo-lines-v1:sha256:d0c20bb6112e9b314551e20852c94ccff47f5f911fed8d673071016e44a79297:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjMjcwNmJlNDRjYjBiZjlmZjA2NGI4Yzg2YTlhMzBjOWUwZmRjZTIzOGExY2I5NGI0ZjA1NmVkNmNjZDQ2NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkYmFlOThlZWNjYjJiNmM3YjFiYmY4NjIwODgzZTJmMzM5Y2JkNTkyYmYxYjIyZmIyNTdkMDExZjU0ZDM0ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyNTNkNmIzYjdkMzQ1YTFjOTRmZjQ3MzJlMTVlZjI3ZTM2YWVlMjFlNDdiNjRjNWIxOGNkMjIyZDVmZDI2YzMifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudModel.ts#L42-L57",
+          "version": "repo-lines-v1:sha256:696c150912b247f2bf2c6e297c8b10d3ed1620bdb959c57b97364699badfdc29:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjYmQ3MmVhNmI3ODA2ODVhYTk4Mjc1NzMwNTQ0M2Y0YzBjZWNmZDg3YjM0MWJkNGRkMTgwMWE5MWE0OWU3MWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMTJlMTg5NGQxOGY2MjU2M2Q0ZWNmNWZmZDZhNDE2YmVjZmJlYWM1YjQ5MTI5OTQ5NWQxMDU2MjhlZjk5ZTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MmIwYzljZGZlMjA4ZDliNWVkZmMwZTEwZmU5NTYzZmNmOWNlYmNhNzgzYjVmZmI1M2ZmNmMzMTQ1NzUxYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4OGE4MmQ0M2ZjY2Q5NjVlYjhkYWQzNDIyYTFhYmNmZWNmMjc3YWNkZmI3NmJmZmFhYzI3ZmFhZWFiNzQ5ODcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_af84da63b94a429e9da7bcc9c604f54b",
+      "statement": "`openRound(config, deps)` bezieht Zufallsquelle und Zahnauswahl als Ports (`RoundDeps { rng, selector }`) und übergibt der Auswahl nur `{ rng, teeth, mode, min, max }`; die Steuerung baut `UniformLiveTeethSelector` als Standard, Tests injizieren eine feste Auswahl.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/liveTeeth.ts#L25-L31",
+          "version": "repo-lines-v1:sha256:61cf3e950e06f704a9fb88556b134e62c8952eb69c665a022379dee9c02c2d8f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzVmMjc1NWU4M2U5YzI1NjFlNjNkYjg4OWY4MTIzMzdjMzhhNzY3Y2JjNTQwYjcyOWY4ZGQyODk4Y2QyYmJiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODcyNWVkYTc0M2IzOWUxN2E3N2JjMTYzMjAwNTEyMzFlNzg0MzI0YWVkNWE2YTk4YTc3MzY1ZTc3Y2RhN2RmOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGE1NmMyZDliZWQ4MjhmNWQ5YzllOGViNzE3ZGY5MmI3ODc5N2E3NGEzNTYzZTQ0M2FkMDc2YzBmNmQwOGQzMiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/round.test.ts#L7-L17",
+          "version": "repo-lines-v1:sha256:3f21393ffafc79a9375f1b9565859392e782c49186b41ad84efd381c59f55fb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5MDAxODE0YThhNTRlNDYyOTk0MTdlNTQ2MTAwNzM5NzExZTdhOGQxMjM3YTQ0MDljMGEyNzVmNzA3YmNhNDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxNzBlNjYzNDZiNzg2Mzk3Yjc1NDQ4ODViYTVjOTIzMTAxZDUxY2VkNTE3ZWJmMzkwMjNlNGFlMjJkY2RlMTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzY2YwMDY3NDljMDg3NTc2NzI3Yzk2YmM1NTlhOTBjMDQzYTY1YWY2MWIyYTQ4NWE0Y2Q2NzM3MWNiMjljNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1ODQzYjE3YWY5MjIyNDM5MDJmZGJlYmI4MDY0MWRmNmNmODM3ZTA3OTg3MDQzM2VmMTc0NDNiMTkyNmU0MTYifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/round.ts#L19-L22",
+          "version": "repo-lines-v1:sha256:a610f5b053028f637008a8cf5983c087acba13c083649c4df3a4b9fbaecfd0a8:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzRlYmZjYjk2ZWU1OWNiMGVhNDNiYTg4NzRlMmM2OTEwNGFjYjhkNWI1NzgyY2RkZDRiYzI0MjQwYTdmNThhNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVjYzhjN2UyZjkzOWJlNzExNDEzNDk2ZDc4MTkwYzkyYjMxYTdmODk1Zjg1NjRjNjNiNmYyNTFkMzY2NGQwMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY1OGM4M2FiMzQzZmZjYjU0NjU0NmZjNGRiYTllYjIyYTJmNDBiODBlMjc4ZjU0Y2VmNzNmODk2NmI4Njg0YiJ9"
+        },
+        {
+          "resource": "repo://src/core/domain/round.ts#L95-L104",
+          "version": "repo-lines-v1:sha256:115a5d290cb12193393343a055cf9eba2a1d1ebafafb237dfc0b7ebd7065f4c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjMjcwNmJlNDRjYjBiZjlmZjA2NGI4Yzg2YTlhMzBjOWUwZmRjZTIzOGExY2I5NGI0ZjA1NmVkNmNjZDQ2NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkYmFlOThlZWNjYjJiNmM3YjFiYmY4NjIwODgzZTJmMzM5Y2JkNTkyYmYxYjIyZmIyNTdkMDExZjU0ZDM0ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYyZTNlMTgwZmExM2ZhOGIxN2QxZWZiZWIxOTJmOWJjZThlMDc0NzA1ODc0YTUxOGQ2MmU4YzFmYzQ3Y2I4NjEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L79-L79",
+          "version": "repo-lines-v1:sha256:7a4c9111038916e14d55eef2619586fe8a97bb7b8e064f9b58f31a3b5737f1e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E0YzkxMTEwMzg5MTZlMTRkNTVlZWYyNjE5NTg2ZmU4YTk3YmI3YjhlMDY0ZjliNThmMzFhM2I1NzM3ZjFlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E0YzkxMTEwMzg5MTZlMTRkNTVlZWYyNjE5NTg2ZmU4YTk3YmI3YjhlMDY0ZjliNThmMzFhM2I1NzM3ZjFlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWM4MzI3ODMwNWExMzlkMjZjZTUwMmJkNWNlZmIyZWQ4ZTE0OGIwMDAyYzgzYmEzOTY0YjA1N2VlOGI4ZWJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjM5YTZlZmE5ZTVjMzBlOTJmZjNjMjBmOGIwYzk2YjQ3ZGYzMWU3YjhiODlhOWVhOGI3NTU3OWQ4NDNkZWZlMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3714889bfc014c039b305d31e0bfbfe7",
+      "statement": "Die Modusnamen `'original'` und `'classic'` sind Vertrag: `RANDOM_MODES` zählt genau diese zwei Werte auf, und `loadSettings` übernimmt nur sie aus dem Speicher — sie stehen in Einstellungen, `RoundState.mode`, Protokoll und CSV.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L1-L10",
+          "version": "repo-lines-v1:sha256:be48adf593b4af61af7972b7b08b927abf1e43066a3bf18074c617a5e7492068:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhM2EwYTJkYjI5ZTM2NTg4YWJjZmFiZmY5MTNlMjQxNzhiMDQ3YmNhY2NkNjg1NGI2YmI1MTg0ZGI4YTc2OGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5ZjI5NWYzNGE2MDAzZjA1ZmRhM2MzNDA2NzlhODVkMGFiODhjOGZmOTIyNTg0MWE3ZDNjYzA4NmRjOTE0MDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkMGI5NGNlYjRiYTlhOTZiYTk4NDRhZTQwOTUyYjhlMDkyYjYwNjFlY2FlZmYxMGVkNjk2ZTdlMGE1NzVkN2UifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/teeth.ts#L38-L40",
+          "version": "repo-lines-v1:sha256:4fab480bca8dfc15bdcf8df2b700e34cc7fc1662f9d3ea017a2fef566f7bcef1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI0ZTNjNWRmMzI5ZDY1ZDVhOWRkYjNmNWI1OGI2OTlkZGI1OGE4OWRiOWFlYmI2OWJlODQxZTRjODg5NTEwZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDY3Y2Y3OTk3ZjJkYjkzMTVkMzk4YWI4ZGZmN2Q4ODk5MTQ2MzQwZDY5OGUzNjI0OGNjYThhZjAwMzJiOTAwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjY2NTIzNDcwYjMzZWRjNjQyYTNkNzBkOWFhN2Y5MmIzZTEyZDI3NmY3M2UzNDgzZWIyZTVjNmIzNWRhNTlmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJlZTI1ZDM3ZTM4MTZiODMwYzNjMTllNmNkOWQ4YTFkZjc0YThjYTQ3ZDdjNmM2MDIwNTc0MDc2MmQzOWU3OCJ9"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.ts#L44-L47",
+          "version": "repo-lines-v1:sha256:305191fcbe93409bc90995e9943cf7810b4256a6955b7ed311afb6b5cbe563bb:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzY3N2ZlMWYxY2QxYmEyY2ZjYzcwYTY2MWVlYjFhYjhhOWMyZjRlMmQxMmE5ZWYyNGQ1MTk4NjY0MmMwMTc5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FlOTJkMjZjMTE2Y2M0YmNkZTQ5NTVjMTc2MzIzN2RkNTM3ZTFhYmEzNmI1NGVkMDQzZmU3ZDgyN2MxMzNiZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWNhMDZiYmRkYzdlNzk4MTg1MWQ2OTY5NjQzNjZhNjcyYjAwNDA0YjczNGNlNGQxNGM5NjFhZDlkN2Y0NGRiYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWI1YTQ5Y2M3NjY2OTg5MDEwYzVlOWE2MGUyMGQzOTQ3MzdmMjUxY2M2YjQ3ODE3NTVhODNjYmY0ZDQwM2ViMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3e32566778b74ffe9e9c58aec93eef1c",
+      "statement": "Der Katalog `CREATURES` enthält zwölf Lebewesen; `teeth` ist die Spielzahl (Bildschirmgröße), `realTeeth` nur eine Notiz. Nur Krokodil, Mensch und T-Rex lassen 1–3 Zähne gleichzeitig scharf werden, alle anderen 1–2; die Maus hat 6 Zähne, die Venusfliegenfalle 8, und nur sie trägt `realTeeth: 0`.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/domain/creature.ts#L28-L43",
+          "version": "repo-lines-v1:sha256:8e1f33e5bd324e9e1f234944585d5ca83522244ac6a8504d0a9a125f0d5083d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxMjNhYjljMTQxMzcxNTg4NTBjNDM2NTI5NjgzNzNlNWUyNzEwYTIxYzI2ZGI4ZjIzYjJmOGYzZDc1ZDk2OGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlNjEwMGQzN2Q2ZTY4ZDRkN2NiYTZlZTZhOTZhMGI2MmUzYTZiOTkzYjNiM2JiMzBkNjRkMjE4NTIyNTI0Y2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5ZGU1ZTc0MzMwZTA4ZmQzZmE0NDJjMTgxMTVkZTQyNDU1ODM0OWZjYWRkZDk0ZTZjYWE3M2Q5YzEyODhkYjMifQ"
+        },
+        {
+          "resource": "repo://src/core/domain/creature.ts#L59-L201",
+          "version": "repo-lines-v1:sha256:4b4fc11d66549f78abb644923cd19dc3bbd0e163b127d7fdd48ae2de9eb376de:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkOTExYzY3M2UwYzQ1ZGRhZmNkMjhkZmIyNjI4YWMxOWY0OWZjMDE4ZTlmNWZlZThiMmJmY2M3YmE4NjIzYjM5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiMDJkMmMwZDZkYzVlNzRkOTJmYTE0YjkxZGJlYTI2NDA5MGJlYjM1ZmRiOTE4OGQ5YjM0MTE4MWRjZTlmNGNlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI3ZGFmYTljMGU4MjFhOGEwODg5M2MwY2ZiZDU5ODFjNTA0Y2Y0NDk4OTMzNzEzNWMwZTBlYjBjNWM5MjRkYTNkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2ODQ4ZGY2MTY3MDk3OWVlMWViMDkyZWEzNDBhODJlNzBhOWE2YTZkNjIzNzg1ZTRkYjcwZDhjNjM2Mjc0YWM3In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_64840b7adb414038b15d942bdde9d969",
+      "statement": "`playPress` berechnet `willSnap` aus `state.live`, bevor gedrückt wird, plant daraus die Dramaturgie mit `pressIndex = pressOrder.length + 1` und den Rundengrenzen und ruft erst dann `pressTooth`; das Ergebnis `PressOutcome { state, drama, snapped, tooth }` trägt den Ausgang mit, damit die Bedienung nie selbst in `live` schauen muss.",
+      "evidence": [
+        {
+          "resource": "repo://src/core/use-cases/playPress.test.ts#L22-L31",
+          "version": "repo-lines-v1:sha256:84c93922f0318f23b96393a4caf88552f4c29db6a51db14ee9dca39a3be3c828:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4NmYwY2VlYmVjZjc5NzIwMWQzMjFjNzA3MDY0NzMyZjg2M2JhZGFjZDg4YWViZmQ5MDkzN2NjMTFmYWVhMDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjYjRlNmVlYTkzOGQ1YTg3ZDI0ZjgwYjA2MGQzZTA0ZTYwOGVkOWVmNWExYWRmOWZkMzkxN2M2ODcwMDA2YTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmOGM1OTM2Y2I4M2Q3Zjk1YTkyYTE2ZGE4M2MzZGQ2MDhkYmEzNjgyNmI4OWI3ZGE5NjE5MDdhMzJjMzdiMWMifQ"
+        },
+        {
+          "resource": "repo://src/core/use-cases/playPress.ts#L16-L38",
+          "version": "repo-lines-v1:sha256:d3671cde4e9c7b4aeefc6da394af260055586f32e593aafdd18b5367a0c4578c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5ZDBmMjg1Y2M5ZWViMThlMWUxNzg3ZjRhYTUxNmI4OTdlZGQ2N2ZjY2FjYzgxN2RkNWY5ZmI4NjQ0ODIzNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjOTI1OWI4MjZjMWNkNDg3OWRkNDljZDA4ODE2ZTFiYjE3Y2VjYThmZDcwYmEzOTkwMDRiODAzNDhjMTUxNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_da61b8c876234f888a9bf874a78901b3",
+      "statement": "Die Spielsteuerung übernimmt `outcome.state` als neue Runde, entscheidet anhand von `outcome.snapped` zwischen Zuschnappen und Erleichterung und nutzt `drama.beatMs` als Pause; ein `DomainError` aus `pressTooth` wird nicht gefangen, sondern läuft unverändert durch.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L181-L223",
+          "version": "repo-lines-v1:sha256:0e869ee5f12e6cfb49c92c18c29b300d15b062ccf4c79508004aeb04903b9ebb:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4ZGE1OGM3MzM1NTQxOTkxNDcxZTQwMzljN2ZhOWI2MjdmMTAzNTg4YmUwOTRjZDNmNTllMTA3YjY1NmJiMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3ZGZjYzNkNDljMjVhYWQ2MGQxZDY4MDc3NTc2MGRkODEzMDIxZGVkNmNlOWMxN2YyNGIyNmQ0MjUwYzM1MjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0MTYxN2RlNTcwYTZjYTViZmYxZjAzMDhhNTFjNjJlZjdhMTkwMzc4OTc1MmYwNTc3NDgwNGQ0MTJmOWYwZDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_622fa45df6b64903865da85f80ebf449",
+      "statement": "`loadSettings` liest den Schlüssel `zahn_agent:settings:v1`, übernimmt fehlende Werte einmalig aus zwei älteren Schlüsseln, klemmt `players` auf 1..`MAX_SELECTABLE_PLAYERS`, akzeptiert `teethOverride` nur bei `isValidToothCount`, ersetzt ein unbekanntes Lebewesen durch das Krokodil und liefert bei Lesefehlern oder fehlendem Speicher `DEFAULT_SETTINGS`; `saveSettings` schluckt Schreibfehler.",
+      "evidence": [
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.test.ts#L41-L94",
+          "version": "repo-lines-v1:sha256:bcf2228ce909150fc18bac19ecf27f26a7d042cff888eb95b55818333a32de59:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczM2Y3OGJkNDdjZGYzZTRhNGUxOTIyMzhjNjFhOGY4YThlM2Q4ODA4ZDBkOTc5NDc4NGFhOTExYTNkNjY0NDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRiZDM0YzExMzVkMzc1ZWRiODFiZTllODI4Y2MyMzFkMDI1MTRmYzhiZWRhODY0NzhmZDU2NjM4OWFjMGI4N2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/infrastructure/storage/localStorageSettings.ts#L12-L69",
+          "version": "repo-lines-v1:sha256:b92677582f45562b3f07751089c62ab06e9193c436e24a7e4bd0b628617baee1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1Y2NlYzkwYTA4NzY1NmE4ZjE1OTIzZGE2ZDk4ZmY1N2EwYWQ1ZGY4NTVkMjg1ODllYzM4NzM3ODNkYWQ5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5YjJjYWFiYmIyNWQwZTk2Y2U4MzQ5Yzg0ODI0ZDYzZThmNGE5YWY2MDg0NzBhNTY4ZjAxZjE5MDY1Zjc4N2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_012a21cb6b73428e981dcc9752b79b2c",
+      "statement": "Der `SettingsStore` vergleicht beim `set()` alle sechs Felder und meldet bei inhaltlich gleichem Stand nichts, sodass eine neue Objektreferenz mit gleichen Werten keine neue Runde startet; die Spielseite abonniert den Store und schreibt jede Änderung in die Ablage zurück.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L56-L58",
+          "version": "repo-lines-v1:sha256:9401524645d4e9a716a502af3bd86a33452ffcc419a28f10850ad3773e6d2473:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDZjY2ExNDE4NTAzNTg4ZTc2ZGM0NDg4Nzk1YzE3MDhmNTgzZjY4Y2Q0ZWIzZjg3ZTFlNWFhZGU4ZDJjMDc2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTczMmQ1M2U2MzE2MDdlNjNlN2E2YTI3OThhZTZiZmZiOTQ0YTgwN2U1YzJmZjI4MjBlOTZiMWE3ZWQ3N2UyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWIzM2Y1ODE3NmY3NGMzYzg0YTI5OGNlZDJmOTMyYzMzMzdkMzhhZGUzNWJlNzFhOWJhMjJjODUxNjIyZDQ4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I0ZTMwY2E4MTYyYWZlNjU0NTVjYzhhM2EyMDIyOGI5MjZiM2E5M2EyZmM3NzU2OGFiNjRjMDMwNGE3Y2Q3NiJ9"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsStore.ts#L11-L51",
+          "version": "repo-lines-v1:sha256:1e98d80a3b93dc7cd994cc03fb3d5f5bae2c5c7a5f7e9805e528e9112ec17c29:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZDA1MzgxMjYwZmJjODkxY2MzYWY1NzRhNWMwNTNiMmZjZDk5YTAzNGExMzJhMTU5NzJjMmJmMTE4NWJiMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhYmQ0MmQ4ZTgzZDM2ZmQ2MmVhYjU4NzQ1NjMxMTUzODFiY2U1MzMyNjEyYjBmMjkwYzJlMGU1ZjZkOWE5MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c28d2ce1ff8d447c81d1c762a30e27cd",
+      "statement": "Beim Start wird `loadSettings` mit `settingsWithUnlockedCreature` nachgeschärft: ein gespeichertes, gesperrtes Tier fällt samt `teethOverride: null` auf das Krokodil zurück, und der geänderte Stand wird sofort gespeichert.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatureChoice.ts#L29-L38",
+          "version": "repo-lines-v1:sha256:6cc2aa9122a6b8535849d19af5d13c4f851190c9c6973dbf575f98106f471c39:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhOTA5OTQyYTE4Njk4MGU2NDAxMDlmYTc3MGI5ZTZlMzY3ZjFkZWI5ZDYyMWM4YzkzNTQxODk1OWE0OGQ3MDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gamePage.ts#L49-L55",
+          "version": "repo-lines-v1:sha256:15261736d138d69745377ec2a59a8fbcf05787d80bba131ec29f6cb1ee31e4d1:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM1ZjVjNjMzZGQxZDhiNzkwNzQzZDUwMGY1YWY1YjBjN2VhYjU0NGRiYWY0MDgzMDk2YzYwNjVkYmM0ZWM1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDUwOTY4N2U3NmQyMmExOGE2M2I1MmY1YjQ1Y2JjNTllOGUyZTI5M2NiMTBhYzJiY2VhOGUwMzE5NjUwOTUxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTQwMTUyNDY0NWQ0ZTlhNzE2YTUwMmFmM2JkODZhMzM0NTJmZmNjNDE5YTI4ZjEwODUwYWQzNzczZTZkMjQ3MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee3118f7260f466086805031cd9053f8",
+      "statement": "`onSettingsChanged` startet nur bei geändertem `mode`, `players`, `creature` oder `teethOverride` eine neue Runde (`resetRound`); ein Tierwechsel bricht zuvor alles Klingende ab und lässt das neue Tier seine Stimme hören, während `sound`/`vibration` den Spielzustand nie ändern.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.test.ts#L268-L297",
+          "version": "repo-lines-v1:sha256:7309e24b4cfae117114a7dea8538b840b7d3a662a075cf1a4bdf64b32b77a7f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3OTU1ZWQ3NGE0NTQxNDAyNTBjOTI2MGFmYTk2ZTEzYzAyYmFjOWEyYjBjM2I5OWM4NzI3NWU3NWNjZTNjNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxNGU3ZjE4YzExYmQxMTRiNDgyYjMxNzE2NTRlNTNiNTAzOGE0NzNiMTAwOWYzODEzY2RhZTQ2N2M4MzUxMWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJiZDVlNzJkOWFkZTczMDZjZDc4NjJlOTk5YmFhOGQwNjQwMmE3Mzg5ZGI5ZjIyNjQ5MzI5MDQxY2Q2NDk2ZWEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L347-L366",
+          "version": "repo-lines-v1:sha256:4c277d937602ec23de9014c52b2a4c6cae6361d1b12722f0409057d89654dc3c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1N2FkMGUwMGY2MWQ5YWNlZjRlMTYwMmU1ZmJlYjU0ZDA3NTZkYWFlOGMxMjQwNzEzMjYyNjVhNjA4OGRlOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMGVjODJjN2ZjYjY2NGE0ZDNlMDg2ZWY1NzkzMjU0N2M2ZDMxODI4NzZhMzk2NjQyYTk5YjFhZjhlYzMxZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhkYzM2NjJjZWJiM2NkNmIwZmRhZDE5YTZlZWFjNzMwMGU4OTkwOGM3NWYzMjdlYTA0NDgyMjRiY2IwMDE5MDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8fc89e1777164ed6ae092d3defac5b1a",
+      "statement": "`settingsAfterTeethStep` klemmt die Zahnzahl auf `MIN_TEETH` bis `MAX_TEETH`, gibt bei unverändertem Stand `null` zurück (der abgeblendete Rand startet keine neue Runde) und setzt `teethOverride` wieder auf `null`, sobald der Schritt die Katalogzahl trifft.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/quickControls.test.ts#L54-L74",
+          "version": "repo-lines-v1:sha256:d4b8a9703127005cb10ce5cd5e0833a7616f93ee0a23d28451d37f00583a8903:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkNzlhZDliZmJjNjQyYmU4MDRlYzQ3MmEwYThjMjZmNDhmZTY4YTc0M2IyYjJiZTVkMzM3YmRhZDhkOTNkMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxOTQ5YjA1MDJmNDAyNDFjODBhNTdjODYzYTQyNDFlNDJiMzE0MzIyZTlhY2JlMTIyMDQ3YjYxMTA2ZDk2ZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA3NDYyOTEzNThiNzg0ODNkYzFlOTJkYmZiOThmYjY4ZDUyMDFjYjIwMWU5ZDhiM2ZkMDIxODM2MjU0OGJmZjUifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L17-L34",
+          "version": "repo-lines-v1:sha256:8510bdd778cfbad5f457148bf669a825065223bf69697ad86e4557e9281684f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiYjU5M2JmYzA1N2MzYThlOTU1ZDUyY2E4YTUwYjM0YWI1YWI4N2FiMzFlMzEyZGY4NmU4MGFlNmJlYTQxNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwOWNmOTY3ZDI4NjMzZDZkYjBkZTZjOGU5YzA5YTY3NjRlODgzYmY0MjZkOTZlNjBiMmNiNGRiNjI1Y2Y3YjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwZTk2OGRkNDQ4Y2IxZjIxNjQ1Yjk4NTdiYmEwMDk4NjU4ZDEzNDBmNTgxMTNmYTRiOWYzYzBlNjY4ODUyOWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a9e17b0b703c4cedb5f3b4ac1ffad863",
+      "statement": "`settingsAfterCreatureChoice` liefert `null` für eine fehlende Kennung, für dasselbe Tier und für ein gesperrtes Tier; ein anderes Tier setzt `teethOverride` auf `null`, weil es sein eigenes Gebiss mitbringt.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/creatureChoice.ts#L15-L27",
+          "version": "repo-lines-v1:sha256:6ac2fa64b7d51bed8e56f30f1274b5bc8578d5fcc62b83dc45f0f53e9ee51548:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkZDFhMDIwNGY0MTQ4ZGZmZTZjMDBlOTVhYTUxMTFlMTI5NGM5MjZmNjEyM2RlM2ZlY2NjNmRmYjc2MDNjYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1OTkxNjQ2ZDcwMjcwZmM5OTgwMGE1NzcyZTFmZWQ1ZjVhMDNhYWNkNGVjZWQ3YzA2OGFhNGU5ZGQ5MWVkZjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzYzhhZTg2OTFjY2MwOWQ3ZDJhNmZmYTAwMTNmN2M0MWJlZGQwMjM1NTBiZDkwMzdhMmVlYmY0OGRlYTE2YTQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.test.ts#L109-L129",
+          "version": "repo-lines-v1:sha256:4f5718d4dbad3a34e0795bfd1a885ad1eb0b268e2cb6761af8236ed73654491c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YzE2Y2UwNGZkOWQxNzEwYmZkNTc4MWY1YmMwNjNjYjk3NWJkNmRiMmNjMjZiNzQ1Mzk3ZGYyYWNlMmRjNWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjYjQ1Zjg5Mzg4ZWM2ODI5Yjk2YjVkZWRiZGUyYmMyNjIwMTY2MjFhY2Y5NzA4NjdjODI3ZDU4NTg1NDc5NzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1NTY1OTFhZDAzZGEwMzA3ZmEwN2ExYTQ4Yjk4NWVlNDNmMjFkN2I1NjE5MzJhM2M1Zjc0Y2NhYzc3MjQyY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f993c5322ed44c759a53f663693ea608",
+      "statement": "`wireQuickControls` malt Zahnzahl, Einzahl/Wort, abgeblendete Knöpfe, Tiername, Kopfbild, `aria-pressed` und Kurzinfo aus `settings.get()` und malt bei jeder Store-Änderung neu; die Kacheln werden über `button[data-creature]` gesucht, weil auch die Bühnenzeichnung `data-creature` trägt, `realTeeth: 0` wird als „Echtes Gebiss: keine Zähne.\" ausgegeben, und unterhalb des ganzen Gebisses ersetzt `fewTeethWarning` die Anleitung.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/quickControls.test.ts#L157-L199",
+          "version": "repo-lines-v1:sha256:68017823966381f4baa0cfdfccadace1ba3fcffc39dfb402abf18785e7df109d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1N2VmMzYxMWRmMTc2MWE0NjA4NmU4NjljYzVkOTY5ZmU4NjNlMWJlODM2MWQyNTQ1ZTA1MWNjZWQwNDFjYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwZDk1NmNlOTM1YTUxOTg2M2JiZTgxMzIzMDJjOTc3NTVjODU3ODE5OTcyYzBmMTA3OTUwZTcwYzI4MmJiNmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBlMmU5NzIxZmI1NjFkMTUzNjQ3ODQ0OGM5ZmVkZjg0ZjQ5NzYwZjc5ZmZlMzVhYjQwMGQ0MWMzNjgxMjdhNGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhMTRhMzc5MTQ0YWRlNWExZTYxODJhMjk4ZGMyMTg4ZDY0YjViZjI2NGRkZmU0OGU0NmFkY2ZkY2MyOTU3ODEifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/quickControls.ts#L59-L143",
+          "version": "repo-lines-v1:sha256:31daa972f0ec88060f918a4f5c178f305edcd7f2c51917ec519ba2834335f702:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4YmNmYzBkMjQ2NjY2ZTgwOWM4ZThkMDAwOGNkMjlkOTA0NDQ2MjFkNGJjODVmNTU2M2Y4MjNmMzkxODU1NDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMDZmODFmODg0ZTk1YTdlZmI0YzRkZjVkNTg4ZDE5OTE4NjM5OWVlN2YwM2NiNmVmMmMzYjVmOTU3Y2U5ZTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2OGFhN2U1ZTM4ZjJkMmUwNWVmNjNjMDhjYjAwODRiNDIwMDJkMzEzMjNmODFlZDNmZTYyODQyOTBhYjg2MjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_43fe9bcfd0114c3998d452c60ee99928",
+      "statement": "`wireSettingsSheet` schreibt nur `players`, `mode`, `sound` und `vibration` und baut jeden Schreibvorgang auf dem aktuellen `settings.get()` auf; kann der Browser nicht vibrieren, wird das Kästchen abgeschaltet und ein Hinweis eingeblendet.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.test.ts#L95-L117",
+          "version": "repo-lines-v1:sha256:20275f35bbfb1478ae4ec9a162086e4f4993a532d5589780d9a442610e5d2436:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0MThjMDcwYzEzNjIwNmM2OGQxOTQ4ZWMwNTA0M2NhOTQzMTliZjhjNzk2NjVmMWJmYzdhNmYxYjA1ZjRmNGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwNjgxOWZhN2ZmNmE3NGI2ZjEwNzRlYzNjMWQzNTA5OWZiN2Y5N2M4YTQ1NDkxNTExZGJlMjBhYWYwMjQzYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/settingsSheet.ts#L21-L77",
+          "version": "repo-lines-v1:sha256:75dee612459c1315bbb673f009f45d03eecb5d56af579558834438c155ac7333:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZDM0ODE4NDg4ZTQzYTkyYTZiZTM1MmMzOTQ4N2UzYjdlMTY2ZWUzYTdiNzAxNDY4YjM4Njg1NDcyYTNhNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlYzI2ZWRlNDE3NDExODgxZDM0YmM4ZDAzZTMxZmMzNTk5ZTFmZDNiNjQ0YTdiZTgwYWNhZGVjMmRhOTViODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6625634aed554f5aba8506a594017d03",
+      "statement": "`hudModel` leitet alle Anzeigewerte (übrige Zähne, Fortschritt, Letzter-Zahn-Warnung, Zugzeile, Gefahr, Puls, Zoom) allein aus dem `RoundState` ab und behauptet bei `status !== 'open'` keine Gefahr mehr („Runde beendet\", `danger`, `tense` und `zoom` falsch); die Steuerung ruft es mit `recorder.count() + 1` als Rundennummer auf und übernimmt `model.tension` zurück in ihr Feld.",
+      "evidence": [
+        {
+          "resource": "repo://src/presentation/game/gameController.ts#L372-L383",
+          "version": "repo-lines-v1:sha256:eb53aa542810dba7467b12c7c3096f536b0ce151e8dacbfda75e36b4f6289a1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNTFkZmM4ZGE3YzZmZmVmMTNhN2U3YWQzNmU2YzAyOTBkYmY3M2FlYjIwYWFlOGY3MTc0ZjU2OTZkMDE3NTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiYjM1OWIxYmM2Yjg2MzQyNmQ3YmIxZDU2ZWVlMWQyZmQwNmQzN2Y4NTQ3MWEyYjk4ZTk2ODgzYjZiNDNhNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwNjVjMzQxOWM1OTI4YWEwMmQ1ZDk3OTA0YjZmNjJmZmNkYzc2Y2E2ZmEzMmZlODcxNTM5NWZlODEwYWM4MGQifQ"
+        },
+        {
+          "resource": "repo://src/presentation/game/hudModel.ts#L42-L92",
+          "version": "repo-lines-v1:sha256:7e16f90e0252f187e7fd28471ad75ba2ae8ce1a62bfe467f46eea4d80ddd14ba:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjYmQ3MmVhNmI3ODA2ODVhYTk4Mjc1NzMwNTQ0M2Y0YzBjZWNmZDg3YjM0MWJkNGRkMTgwMWE5MWE0OWU3MWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MmIwYzljZGZlMjA4ZDliNWVkZmMwZTEwZmU5NTYzZmNmOWNlYmNhNzgzYjVmZmI1M2ZmNmMzMTQ1NzUxYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-17T07:24:18.878Z"
+    "at": "2026-10-17T09:06:25.393Z"
   }
 }

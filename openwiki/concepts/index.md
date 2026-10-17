@@ -1,6 +1,6 @@
 # Dateien
 
-- [Fachmodell: Runde, Zähne, Gebiss, Einstellungen](fachmodell-runde.md)
+- [Fachmodell: Runde, Zähne, Gebiss, Einstellungen](fachmodell-runde.md) - Der Vertrag der Runde in core/domain: RoundState und openRound/pressTooth samt DomainError-Codes, die Zahn- und Spielergrenzen aus teeth.ts, der Kreaturenkatalog mit Zahnzahl und Grenzen, GameSettings mit Lade- und Speicherregeln sowie der Weg von Einstellungen und Rundenstatus in HUD, Leiste und Einstellungsblatt.
 - [Rundenprotokoll, CSV und Zusammenführen](rundenprotokoll-und-csv.md) - Datenformat und Regeln des Rundenprotokolls — die Felder von RoundRecord, die zehn CSV-Spalten samt Kompatibilität mit dem Analyse-Werkzeug, Import mit und ohne Kopfzeile, die Plausibilitätsprüfung an allen drei Eingängen und die Mengenregel von mergeRoundLogs.
 - [Sprache, Doku-Regeln und Kommentarstil](sprache-und-konventionen.md) - Die Arbeitskonventionen des Baums — englischer Code mit deutschen Kommentaren, Doku und UI-Sätzen, das Doku-Ritual um den Index in AGENTS.md und docs/fallen.md, Kommentare als Begründung mit Messwert sowie die zwei Prüfskripte für Doku, alte Zahlen und Pfade.
 - [Statistik und Ehrlichkeitsregeln](statistik-und-ehrlichkeit.md) - Die reine Mathematik der Auswertung in src/core/domain/statistics.ts — Chi²-Verteilung mit eigener Gammafunktion, Wilson-Intervall, Autokorrelation, Gruppierung nach Lebewesen, Zahnzahl und Modus, Mindeststichprobe je Gruppe, bravestRound und die Regel, dass ein nicht gelaufener Test kein Urteil bekommt.

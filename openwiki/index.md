@@ -4,7 +4,7 @@ okf_version: "0.2"
 
 # Dateien
 
-- [Quickstart — Zahn Agent](quickstart.md) - Einstiegspunkt in den Zahn Agent — was die statisch gebaute Astro-Seite mit Spiel- und Statistikseite, DOM-freiem Kern, Sicherungs-Worker und Service Worker ausmacht, welche Wikiseite welche Änderung trägt, die Befehle aus package.json und die drei Grundregeln zu Sprache, Gate und Basis-Pfad.
+- [Quickstart — Zahn Agent](quickstart.md) - Einstiegspunkt in den Zahn Agent — was die statisch gebaute Astro-Seite mit Spielseite und Statistikseite, DOM-freiem Kern, Service Worker und Sicherungs-Worker ausmacht, welche Befehle in package.json stehen, welche drei Grundregeln gelten und welcher Aufgaben-Lotse jede wiederkehrende Änderung an genau eine zuständige Wikiseite schickt.
 
 # Verzeichnisse
 

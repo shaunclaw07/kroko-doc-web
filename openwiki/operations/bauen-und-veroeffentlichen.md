@@ -1,10 +1,8 @@
 ---
-type: "Referenz"
+type: "operations"
 title: "Bauen, Basis-Pfad und Veröffentlichen"
-openwiki_generated: true
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-17T07:24:18.878Z
+description: "Wie aus zwei `.astro`-Seiten die veröffentlichte Seite wird: der statische Astro-Bau nach `dist/`, `import.meta.env.BASE_URL` als einzige Quelle interner Adressen samt `ASTRO_BASE`-Normalisierung und Abbruch bei fehlendem `/`, die Kette aus lokalem pre-push-Hook und den Workflow-Jobs `bauen` und `ausliefern`, die Domain über `public/CNAME`, die Engine- und pnpm-Vorgaben sowie die Umgebungen, die es nur im Bau gibt."
+tags: [build, deployment, github-pages, base-path, astro, pnpm, ci, pre-push-hook]
 sources:
   - id: openwiki-source-baf30c604828cfde90a8ab63
     resource: repo://.githooks/pre-push
@@ -20,6 +18,8 @@ sources:
     resource: repo://biome.jsonc
   - id: openwiki-source-e9ab88bcfec0a7529d1320d5
     resource: repo://docs/e2e-nachweise.md
+  - id: openwiki-source-77df5175db67c6f2f3d607aa
+    resource: repo://docs/fallen.md
   - id: openwiki-source-bf27fb010957bd7d3b81f9b1
     resource: repo://docs/testing.md
   - id: openwiki-source-cc7175a0c3a0d5f1359efcc1
@@ -46,9 +46,11 @@ sources:
     resource: repo://src/pages/statistik.astro
   - id: openwiki-source-fbadcd8591b65031efaaedce
     resource: repo://vitest.config.ts
-generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:24:18.878Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-17T09:06:25.393Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-17T09:06:25.393Z
 ---
-
 
 # Bauen, Basis-Pfad und Veröffentlichen
 
@@ -56,8 +58,8 @@ generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:24:18.878Z" }
 baut und liefert sie auf GitHub Pages aus. Diese Seite beschreibt diesen Weg: was der Bau
 erzeugt, warum jeder interne Verweis über `import.meta.env.BASE_URL` läuft (und was
 `ASTRO_BASE` daran ändert), in welcher Reihenfolge der Workflow prüft und ausliefert, was lokal
-schon vor dem Push aufhält und welche Umgebungsfallen dabei schon zugeschlagen haben. Wie
-geprüft wird und was das Gate im Einzelnen umfasst, steht auf
+schon vor dem Push aufhält, welche Umgebungen es nur im Bau gibt und welche Umgebungsfallen dabei
+schon zugeschlagen haben. Wie geprüft wird und was das Gate im Einzelnen umfasst, steht auf
 [Prüfen und Gate](../testing/pruefen-und-gate.md); wie die Seite im Ganzen gebaut ist, auf
 [Architektur-Überblick](../architecture/ueberblick.md).
 
@@ -71,16 +73,37 @@ geprüft wird und was das Gate im Einzelnen umfasst, steht auf
 
 `astro.config.mjs` setzt `output: 'static'`, die öffentliche Adresse als `site` und schaltet die
 Entwicklungs-Werkzeugleiste ab (`devToolbar: { enabled: false }`). Der Bau erzeugt die zwei Seiten
-und kopiert `public/` unverändert mit nach `dist/` — Symbole, `manifest.webmanifest`, `sw.js`, die
-Tierstimmen und `CNAME`. `dist/` steht in `.gitignore`: veröffentlicht wird nur, was der Workflow
-selbst baut, nie ein eingecheckter Bau. Weil keine Funktion auf einem Server liegt, genügt für
-alles außer der Sicherung (`api/…`, siehe [Sicherungs-Worker](../integrations/sicherung-worker.md))
-sogar `python3 -m http.server` in `dist/`.
+und kopiert `public/` unverändert mit nach `dist/`:
 
-**Jede Datei in `src/pages/` wird zu einer Seite.** Das ist der Grund, warum Tests und Gehilfen
-der Seiten daneben liegen und nicht darin (`src/bedienleiste.test.ts` sagt das in seinem
-Kopfkommentar) — eine neue Seite ist also nicht nur eine neue Datei, sondern auch ein neuer Pfad,
-der im Vorrat des Service Workers auftauchen muss.
+```
+dist/
+  index.html                  # Route "/"
+  statistik/index.html        # Route "/statistik"
+  _astro/…                    # gehashte Bausteine: CSS, Seitenskripte
+  CNAME, favicon.svg, logo.svg, icon-maskable.svg
+  icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
+  manifest.webmanifest, sw.js
+  sounds/voices/*.mp3
+```
+
+Nachgemessen ist der Bau billig: `pnpm build` meldet **2 Seiten** und braucht **1,7–2,9 s**; die
+Messung vom 14.10.2026 ergab 1,69 · 1,74 · 1,74 · 1,78 · 1,90 s im Arbeitsbaum, kalt (ohne
+`node_modules`) 2,84 s (`docs/testing.md`, Stand-Zeile). Das ist eine Maschinenstreuung, keine
+Zusage: eine andere Maschine, eine andere Node-Fassung und ein voller Zwischenspeicher liegen
+anders. Die Seitenzahl dagegen ist eine Eigenschaft des Baums: **jede Datei in `src/pages/` wird zu
+einer Seite.**
+
+`dist/` steht in `.gitignore`: veröffentlicht wird nur, was der Workflow selbst baut, nie ein
+eingecheckter Bau. Weil keine Funktion auf einem Server liegt, genügt für alles außer der Sicherung
+(`api/…`, siehe [Sicherungs-Worker](../integrations/sicherung-worker.md)) sogar
+`python3 -m http.server` in `dist/`.
+
+Weil `src/pages/` Seiten erzeugt, liegen Tests und Gehilfen der Seiten daneben und nicht darin: eine
+`.test.ts` **in** `src/pages/` wird zum Seitenmodul, importiert `vitest` und lässt `pnpm build`
+scheitern, während `pnpm test` grün bleibt (`docs/fallen.md`; `src/bedienleiste.test.ts` sagt das in
+seinem Kopfkommentar). Eine neue Seite ist also nicht nur eine neue Datei, sondern auch ein neuer
+Pfad, der im Vorrat des Service Workers auftauchen muss — `public/sw.js` führt die Seiten relativ zum
+Geltungsbereich in `PAGES = ['', 'statistik']`.
 
 ## Der Basis-Pfad: eine Regel und ein Notausgang
 
@@ -102,7 +125,7 @@ So sieht das im Baum aus:
 | `src/pages/index.astro` | `const base = import.meta.env.BASE_URL`; Kopfzeilen-Symbol `${BASE_URL}logo.svg`; Verweis auf die Statistik `${base}statistik`; `voiceBaseUrl: import.meta.env.BASE_URL` an die Ton-Engine; `backupUrl(import.meta.env.BASE_URL, code)` |
 | `src/pages/statistik.astro` | Kopfzeilen-Symbol und Rückweg `href={import.meta.env.BASE_URL}`; `backupUrl(…)` für die Sicherung |
 | `src/infrastructure/storage/httpRemoteLog.ts` | `backupUrl(baseUrl, code)` → `${baseUrl}api/log/${code}` |
-| `public/sw.js` | Geltungsbereich und Vorratsnamen relativ zur Anmeldung, siehe [Offline und Service Worker](../integrations/offline-service-worker.md) |
+| `public/sw.js` | Geltungsbereich (`self.registration.scope`), Seiten und Vorratsnamen relativ dazu, siehe [Offline und Service Worker](../integrations/offline-service-worker.md) |
 
 ### `ASTRO_BASE` und die Normalisierung
 
@@ -133,10 +156,21 @@ Adresse `/zahn_agentstatistik`.
 ### Nach Verweisänderungen: im Bau nachsehen
 
 Ein grüner Linter sagt nichts über Adressen. Deshalb gehört zu jeder Änderung an Verweisen ein
-Bau und ein Blick in die Ausgabe: `pnpm build`, dann in `dist/index.html` nachsehen, welche
-Adressen wirklich drinstehen — erwartet sind `/statistik`, `/_astro/…`, `/favicon.svg`,
-`/logo.svg` und `/manifest.webmanifest`. Dieselbe Erwartung hält die Bau- und
-Auslieferungssonde fest, die `ls dist` gegen die Liste der ausgelieferten Dateien stellt.
+Bau und ein Blick in die Ausgabe:
+
+```bash
+pnpm build
+grep -c 'Zahn Agent' dist/index.html      # die Seite ist wirklich da
+grep -o 'croc-mount' dist/index.html      # die Bühne ist montiert
+ls dist                                    # index.html, statistik/index.html, _astro/, Symbole, Manifest
+```
+
+Im `dist/index.html` erwartet sind `/statistik`, `/_astro/…`, `/favicon.svg`, `/logo.svg` und
+`/manifest.webmanifest`; dieselbe Dateiliste hält die Bau- und Auslieferungssonde fest
+(`docs/testing.md`: `ls dist` gegen `index.html`, `statistik/index.html`, `favicon.svg`, `logo.svg`,
+`manifest.webmanifest`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`,
+`icon-maskable-512.png`, `_astro/`). Die Route `/statistik` liegt als **Verzeichnis** vor
+(`dist/statistik/index.html`), deshalb gibt es kein `statistik.html`.
 
 ### Falle unter Windows
 
@@ -180,7 +214,10 @@ abhängig:
 
 **Ein rotes Gate liefert nicht aus.** Das ist keine Konvention, sondern die Job-Abhängigkeit:
 `ausliefern` startet nur, wenn `bauen` durchgelaufen ist — und `bauen` bricht vor dem Bau ab, wenn
-`pnpm gate` fällt. Lokal grün muss also vor dem Push stehen, nicht erst im Workflow.
+`pnpm gate` fällt. Was ein rotes Gate also zurückhält, ist das **Artefakt**: es wird nichts
+hochgeladen, `ausliefern` läuft gar nicht erst an, und die zuletzt veröffentlichte Seite bleibt
+stehen, auch wenn der Push auf `main` schon durch ist. Lokal grün muss also vor dem Push stehen,
+nicht erst im Workflow.
 
 Rahmenbedingungen, die man selten anfasst: `permissions` gibt `contents: read`, `pages: write` und
 `id-token: write` (die Auslieferung läuft über OIDC, nicht über ein Token im Klartext), und
@@ -199,9 +236,10 @@ noch laufenden Lauf abbricht, statt zwei Stände um dieselbe Domain konkurrieren
   Skript im Workflow sieht Doku an.
 - **Nichts aus dem Baum als fertigen Bau.** `dist/` ist nicht im Repo; ausgeliefert wird das
   Artefakt des Laufs.
-
-Ein zweiter Workflow (`.github/workflows/openwiki-update.yml`) pflegt die Wiki-Seiten per Zeitplan
-und Pull Request — er hängt nicht an `main` und berührt `dist/` nicht.
+- **Keinen zweiten Workflow.** In `.github/workflows/` liegt allein `pages.yml`. Den Workflow
+  `openwiki-update.yml`, den OpenWiki selbst anlegt (täglicher PR-Bot für das Projektgedächtnis),
+  haben wir bewusst nicht übernommen; `openwiki/` wird von Hand mit `openwiki --update -l de`
+  aufgefrischt (`AGENTS.md`, Abschnitt „Projektgedächtnis").
 
 ## Lokal davor: der pre-push-Hook
 
@@ -219,12 +257,16 @@ liegt in `public/` und wandert beim Bau mit nach `dist/`; sie ist der Grund, war
 Domain dem Repo zuordnet. Der DNS-Eintrag liegt bei Cloudflare in der Zone `schaflabs.com` als
 CNAME auf `shaunclaw07.github.io` (proxied). Weil die Domain auf der Wurzel liegt, baut der
 Workflow **ohne** `ASTRO_BASE` — Basis-Pfad `/`. Die alte Projektadresse
-`https://shaunclaw07.github.io/zahn_agent/` leitet mit `301` auf die Domain um.
+`https://shaunclaw07.github.io/zahn_agent/` leitet mit `301` auf die Domain um (am 11.10.2026 mit
+und ohne Schluss-Schrägstrich geprüft).
 
 Daraus folgt die eine Falle dieses Themas: Wer die Domain in der Pages-Konfiguration einträgt,
 aber `public/CNAME` vergisst, bekommt einen Bau ohne Domainzuordnung; wer den Workflow mit
 `ASTRO_BASE` baut, obwohl die Domain auf der Wurzel liegt, veröffentlicht `/zahn_agent/statistik`
 unter einer Domain, die `/statistik` erwartet.
+
+Über DNS, Proxy und Pages-Einstellungen hinaus steht hier nichts: was in der Zone liegt, gehört
+nicht in den Baum, und der einzige Beleg im Repo ist die eine Zeile in `public/CNAME`.
 
 ## Umgebung: Node, pnpm und keine Fremdquellen
 
@@ -232,6 +274,7 @@ unter einer Domain, die `/statistik` erwartet.
 |---|---|---|
 | Node | `^22.22.2`, `^24.15.0` oder `>=26.0.0` — die Schnittmenge, die Astro 7, vitest 5 und TypeScript 7 verlangen | `engines.node` in `package.json` |
 | pnpm | `>=9.0.0`; der Workflow nagelt `12.6.0` fest | `engines.pnpm`, `pages.yml` |
+| Installation im Workflow | `pnpm install --frozen-lockfile` — die Sperrdatei gilt, nichts wird nachgezogen | `pages.yml` |
 | Bau | `astro build` mit Rolldown (Astro 7) | `pnpm build` |
 
 Ein „Unsupported engine"-Fehler beim Start heißt: Node ist zu alt. Die Fassung im Workflow (22) ist
@@ -263,47 +306,56 @@ Baum (`public/sounds/voices/`, Herkunft und Lizenz in `QUELLEN.md`). Eine Seite,
 fremden Ursprung zeigt, wäre im Betrieb ein zweiter Ausfallpunkt — und im Start ohne Netz ein
 Loch im Vorrat des Service Workers.
 
-## Lint: was Biome prüft und was nicht
+## Lint läuft im Gate, nicht im Bau
 
-`pnpm lint` ist `biome lint --error-on-warnings .` — der Schalter ist Absicht: Regeln des
-Regelsatzes `recommended` (etwa `noUnusedVariables`) sind **Warnungen**, und ohne ihn endete ein
-Lauf mit Funden trotzdem mit Exit 0. So fällt jede Warnung ins Gate.
+`pnpm lint` ist `biome lint --error-on-warnings .` und damit der zweite Schritt des Gates, das der
+Workflow **vor** `pnpm build` fährt. Der Schalter ist Absicht: Regeln des Regelsatzes `recommended`
+(etwa `noUnusedVariables`) sind Warnungen, und ohne ihn endete ein Lauf mit Funden trotzdem mit
+Exit 0. Der Bereich ist bewusst schmal (`files.includes` in `biome.jsonc`): `src/**`,
+`public/sw.js`, `worker/**`; kein Formatierer und keine Assists, weil beide beim ersten Lauf fast
+jede Datei umschrieben und `git blame` unlesbar machten.
 
-Der Bereich ist bewusst schmal (`files.includes` in `biome.jsonc`): `src/**`, `public/sw.js`,
-`worker/**` — also der Quelltext des Spiels, der Service Worker und der Cloudflare-Worker. Kein
-Formatierer und keine Assists (Importe sortieren): beides schriebe beim ersten Lauf fast jede Datei
-um und machte `git blame` unlesbar.
+Für den Weg auf die veröffentlichte Seite zählt nur eins: ein Fund wird **im Code** behoben und
+`pnpm gate` neu gefahren; eine Regel abzuschalten, ein `// biome-ignore` zu setzen oder
+`--no-verify` zu benutzen, braucht das Ja des Auftraggebers. `biome lint --write` hilft nicht
+überall — ungenutzte Importe und Variablen gelten Biome als unsichere Korrektur und bleiben stehen.
+Welche Regeln abgeschaltet sind und warum, steht auf
+[Prüfen und Gate](../testing/pruefen-und-gate.md).
 
-Abgeschaltete Regeln stehen **mit Begründung an der Regel** und dürfen nicht ohne Rückfrage
-erweitert werden:
+## Umgebungen, die es nur im Bau gibt
 
-| Regel | Warum ab |
-|---|---|
-| `correctness/noPrecisionLoss` | Die Lanczos-Koeffizienten sind die veröffentlichte Tabelle; ihre letzten Stellen liegen unter der Genauigkeit eines `double` |
-| `suspicious/noDuplicateProperties` | Bewusste Rückfallwerte (`max-height: 82vh` vor `88dvh`, `max-width` mit `100vh` vor `100dvh`) |
-| `complexity/noImportantStyles` | `.hidden` muss jede andere Regel schlagen; bei reduzierter Bewegung muss das Abschalten der Animation `!important` sein |
-| `style/noDescendingSpecificity` | Die Reihenfolge der CSS-Regeln ist aus dem gewachsenen Stylesheet übernommen — Umsortieren änderte die Kaskade |
-| `correctness/noUnusedImports`, `noUnusedVariables` (nur `**/*.astro`) | Biome liest in `.astro` nur das Frontmatter; `{title}` und `<Base …>` in der Vorlage gälten sonst als unbenutzt |
-| `style/noNonNullAssertion` (nur `**/*.test.ts`) | Tests nutzen `!` bewusst dort, wo die Alternative nur Umstand wäre |
+Der Entwicklungsserver und der gebaute Stand sind nicht dasselbe. Zwei Dinge existieren
+ausschließlich im Bau:
 
-Fällt der Linter, wird der Fund **im Code** behoben und `pnpm gate` neu gefahren.
-`biome lint --write` hilft dabei nicht überall — ungenutzte Importe und Variablen gelten Biome als
-unsichere Korrektur und bleiben stehen. Eine Regel abzuschalten, ein `// biome-ignore` zu setzen
-oder `--no-verify` zu benutzen, braucht das Ja des Auftraggebers.
+- **Der Service Worker.** `src/layouts/Base.astro` meldet ihn nur unter `import.meta.env.PROD` an
+  (und über den Basis-Pfad). In `pnpm dev` gibt es ihn also nicht — und damit auch kein
+  Offline-Verhalten zu sehen. Wer daran arbeitet, fährt `pnpm build` und dann `pnpm preview`.
+- **Das ausgelieferte Bündel.** Was im `_astro/`-Ordner liegt und wie viele Bausteine eine Seite
+  einbindet, entsteht erst beim Bau; `pruefen-tiere.py` zählt den Katalog im ausgelieferten Bündel
+  und ist gegen `pnpm dev` deshalb leer.
+
+Die Vorschau ist der Ort, an dem beides zusammenkommt: `pnpm preview` liefert `dist/` aus (Vorgabe
+Port 4321), die Sonden erwarten aber `http://localhost:4322`, also
+`pnpm build && pnpm preview --port 4322`. `pnpm probes` ist
+`python scripts/pruefen-alle.py http://localhost:4322` und fährt alle 13 Sonden nacheinander; sie
+brauchen den laufenden Server, dauern mehrere Minuten und messen teils Zeit — deshalb laufen sie
+von Hand und nicht im Workflow. Welche Sonde was prüft, steht auf
+[Prüfen und Gate](../testing/pruefen-und-gate.md); was der Vorrat im Browser behält, auf
+[Offline und Service Worker](../integrations/offline-service-worker.md).
 
 ## Was diesen Weg prüft — und was nicht
 
 Zwei Unit-Tests halten die Basis-Pfad-Regel an den Seiten fest, ohne zu bauen: `src/icon.test.ts`
 verlangt im Kopfbereich beider Seiten ein `<img>` mit `import.meta.env.BASE_URL` und `logo.svg`,
 und `src/bedienleiste.test.ts` verlangt `voiceBaseUrl: import.meta.env.BASE_URL` sowie das Fehlen
-fester Pfade wie `'/sounds/`. Die Anmeldung des Service Workers nur im Bau und über den Basis-Pfad
+fester Pfade wie `'/sounds/'`. Die Anmeldung des Service Workers nur im Bau und über den Basis-Pfad
 prüft `src/offline.test.ts`.
 
 Die **Ausgabe** des Baus prüft kein Test: `vitest.config.ts` sammelt nur `src/**/*.test.ts`, und
-weder `pnpm gate` noch der pre-push-Hook fahren `astro build`. Ein falscher Verweis im gebauten
-`dist/index.html` fällt daher nur beim manuellen Nachsehen (siehe oben) oder in einer Browser-Sonde
-auf. Wer an Verweisen, `astro.config.mjs` oder `public/CNAME` arbeitet, sollte den Bau deshalb
-selbst fahren und in `dist/` nachsehen.
+weder `pnpm gate` (typecheck, lint, test:run) noch der pre-push-Hook fahren `astro build`. Ein
+falscher Verweis im gebauten `dist/index.html` fällt daher nur beim manuellen Nachsehen (siehe
+oben) oder in einer Browser-Sonde auf. Wer an Verweisen, `astro.config.mjs` oder `public/CNAME`
+arbeitet, sollte den Bau deshalb selbst fahren und in `dist/` nachsehen.
 
 ## Weiterlesen
 
@@ -312,3 +364,4 @@ selbst fahren und in `dist/` nachsehen.
 - [Sprache und Konventionen](../concepts/sprache-und-konventionen.md) — Coderegeln, Doku-Regeln, warum das Gate im Code geheilt wird
 - [Offline und Service Worker](../integrations/offline-service-worker.md) — der Vorrat, der aus `dist/` entsteht
 - [Sicherungs-Worker](../integrations/sicherung-worker.md) — was der Push **nicht** ausliefert
+- [Quickstart](../quickstart.md) — die Befehle in der Übersicht

@@ -67,8 +67,7 @@ generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:24:18.878Z" }
 Dieses Projekt hat wenig Werkzeug, das Konventionen erzwingt, und viel Prosa, die sie trägt. Das ist
 Absicht: `AGENTS.md` sagt von sich selbst, es sei ein **„Einstiegspunkt, kein Regelwerk“**, und
 verweist für die Regeln auf `docs/`. Verbindlich sind also [`AGENTS.md`](../../AGENTS.md), die Dateien
-<!-- openwiki: broken internal link [../../docs] file "../../docs" does not exist. Fix the href or restore the target, then delete this comment. -->
-unter [`docs/`](../../docs) und die Tests im Baum — nicht diese Wiki-Seite. Wo sie dem Baum
+unter `docs/` und die Tests im Baum — nicht diese Wiki-Seite. Wo sie dem Baum
 widerspricht, gilt der Baum; diese Seite erklärt nur, wie die Konventionen zusammenhängen.
 
 ## Der Index ist der Wegweiser

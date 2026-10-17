@@ -1,11 +1,11 @@
 ---
 type: quickstart
 title: Quickstart — Zahn Agent
-description: Einstiegspunkt in den Zahn Agent — was die statisch gebaute Astro-Seite mit Spiel- und Statistikseite, DOM-freiem Kern, Sicherungs-Worker und Service Worker ausmacht, welche Wikiseite welche Änderung trägt, die Befehle aus package.json und die drei Grundregeln zu Sprache, Gate und Basis-Pfad.
-tags: [quickstart, orientation, task-routing, commands, gate, base-path, conventions]
+description: Einstiegspunkt in den Zahn Agent — was die statisch gebaute Astro-Seite mit Spielseite und Statistikseite, DOM-freiem Kern, Service Worker und Sicherungs-Worker ausmacht, welche Befehle in package.json stehen, welche drei Grundregeln gelten und welcher Aufgaben-Lotse jede wiederkehrende Änderung an genau eine zuständige Wikiseite schickt.
+tags: [quickstart, orientation, task-routing, commands, gate, base-path, astro, conventions]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-17T07:24:18.878Z
+    at: 2026-10-17T09:06:25.393Z
 sources:
   - id: openwiki-source-baf30c604828cfde90a8ab63
     resource: repo://.githooks/pre-push
@@ -29,7 +29,7 @@ sources:
     resource: repo://src/pages/index.astro
   - id: openwiki-source-0cdf8374d35c07aba8b29729
     resource: repo://src/pages/statistik.astro
-generated: { by: "openwiki/0.7.2", at: "2026-10-17T07:24:18.878Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-10-17T09:06:25.393Z" }
 ---
 
 # Quickstart — Zahn Agent
@@ -52,6 +52,9 @@ Sicherungscode in der Adresse.
 Wie das zusammenhängt, steht auf [Architektur-Überblick](architecture/ueberblick.md).
 
 ## In fünf Minuten lokal
+
+Nötig sind die Fassungen aus `engines` in [`package.json`](../package.json): Node
+`^22.22.2 || ^24.15.0 || >=26.0.0` und pnpm `>=9.0.0`.
 
 ```bash
 pnpm install     # hängt auch .githooks/pre-push ein (Skript `prepare`)
@@ -81,6 +84,11 @@ Die Skripte wörtlich aus [`package.json`](../package.json):
 | `pnpm gate` | `pnpm typecheck && pnpm lint && pnpm test:run` | die Prüfung vor jedem Commit und Push |
 | `pnpm probes` | `python scripts/pruefen-alle.py http://localhost:4322` | alle 13 Browser-Sonden gegen die laufende Vorschau |
 
+Das Gate ist **dreierlei**: `typecheck` **und** `lint` **und** `test:run`. Die Sonden brauchen eine
+laufende Vorschau auf Port **4322** — ohne Server bricht `pnpm probes` ab, und die Offline-Sonde ist
+ohne Bau sinnlos. Was die Tests tragen und wann die Sonden müssen:
+[Prüfen: Gate, Tests und Browser-Sonden](testing/pruefen-und-gate.md).
+
 ## Die drei Grundregeln
 
 **1. Sprache: Englisch im Code, Deutsch für Menschen.** Bezeichner, Typen, Funktionsnamen und
@@ -93,8 +101,7 @@ Meldungen im Code sind englisch (auch die `DomainError`-Codes); Kommentare, Doku
 grüner Testlauf allein ist kein grünes Gate. Fällt es, wird der Fund **im Code** behoben, das Gate neu
 gefahren und erst dann committet bzw. gepusht. Nur mit dem Ja des Auftraggebers: eine Regel in
 `biome.jsonc` abschalten, eine `// biome-ignore`-Zeile, `git push --no-verify`, einen Test lockern.
-Dasselbe Gate hängt vor dem Push ([`.githooks/pre-push`](../.githooks/pre-push)) und im Workflow. Was
-die Tests tragen und wann die Sonden müssen: [Prüfen: Gate, Tests und Browser-Sonden](testing/pruefen-und-gate.md).
+Dasselbe Gate hängt vor dem Push ([`.githooks/pre-push`](../.githooks/pre-push)) und im Workflow.
 
 **3. Interne Verweise immer über den Basis-Pfad.** Jeder interne Verweis — Link, Icon, Manifest,
 Laufzeit-Abruf — entsteht aus `import.meta.env.BASE_URL`, **nie** absolut mit `"/"`. `ASTRO_BASE` ist
@@ -104,35 +111,39 @@ beginnt. Ohne die Variable ist der Basis-Pfad `/`, und genau so baut der Workflo
 
 ## Aufgaben-Lotse
 
-Je Aufgabe genau eine zuständige Seite:
+Je Aufgabe genau eine zuständige Seite — die Einzelheiten stehen dort, nicht hier:
 
 | Aufgabe | Zuständige Seite |
 |---|---|
-| Eine Regel der Runde, der Zähne, des Modus oder der Einstellungen ändern | [Fachmodell: Runde, Zähne, Gebiss, Einstellungen](concepts/fachmodell-runde.md) |
+| Eine Regel der Runde, der Zähne, des Spielmodus oder der Einstellungen ändern | [Fachmodell: Runde, Zähne, Gebiss, Einstellungen](concepts/fachmodell-runde.md) |
+| Zufall, scharfe Zähne, Bissgefahr oder Spannungsdramaturgie ändern | [Zufall, Wahrscheinlichkeiten und Spannungsdramaturgie](concepts/zufall-und-spannung.md) |
+| Sterne, Album oder die Schwellen der Freischaltung ändern | [Sterne, Album und Freischaltung](concepts/sterne-und-freischaltung.md) |
 | Die Zeichnung eines Lebewesens ändern | [Zeichnungssystem der Lebewesen (SVG)](architecture/zeichnungssystem.md) |
-| Ein Tier ergänzen | [Ein neues Lebewesen ergänzen](workflows/neues-lebewesen.md) |
+| Ein Tier ergänzen (Katalog, Zeichnung, Freischaltung, Stimme, Bild, Tests, Doku) | [Ein neues Lebewesen ergänzen](workflows/neues-lebewesen.md) |
+| Ton, Tierstimme oder Vibration anfassen | [Ton, Tierstimmen und Vibration](integrations/ton-und-vibration.md) |
+| Das Seitenskript der Spielseite oder ihre Verdrahtung (`wireGamePage`) anfassen | [Spielseite verdrahten (wireGamePage)](workflows/spielseite-verdrahtung.md) |
+| Die Statistikseite ändern (Bericht, Verlauf, CSV, „Protokoll löschen") | [Statistikseite: Bericht, Verlauf, Import/Export und Löschen](workflows/statistikseite.md) |
+| Die Rechnung der Statistik, Mindeststichprobe oder Ehrlichkeitsregeln ändern | [Statistik und Ehrlichkeitsregeln](concepts/statistik-und-ehrlichkeit.md) |
+| Datenformat, CSV-Import/-Export oder `mergeRoundLogs` ändern | [Rundenprotokoll, CSV und Zusammenführen](concepts/rundenprotokoll-und-csv.md) |
 | Die Sicherung oder den Worker anfassen | [Sicherung der Runden: Worker, Code aus der Adresse, Abgleich](integrations/sicherung-worker.md) |
-| Die Statistikseite ändern | [Statistikseite: Bericht, Verlauf, Import/Export und Löschen](workflows/statistikseite.md) |
-| Veröffentlichen | [Bauen, Basis-Pfad und Veröffentlichen](operations/bauen-und-veroeffentlichen.md) |
-| Prüfen (Gate, Tests, Sonden) | [Prüfen: Gate, Tests und Browser-Sonden](testing/pruefen-und-gate.md) |
+| Service Worker, Cache oder Manifest anfassen | [Offline-Betrieb: Service Worker, Cache-Regeln und Manifest](integrations/offline-service-worker.md) |
+| Bauen, Basis-Pfad oder Veröffentlichen ändern | [Bauen, Basis-Pfad und Veröffentlichen](operations/bauen-und-veroeffentlichen.md) |
+| Prüfen: Gate, Tests, Sonden | [Prüfen: Gate, Tests und Browser-Sonden](testing/pruefen-und-gate.md) |
+| Sprache, Kommentarstil oder Doku-Regeln ändern | [Sprache, Doku-Regeln und Kommentarstil](concepts/sprache-und-konventionen.md) |
+| Ein Modul anlegen oder eine Schichtgrenze überschreiten | [Schichten, Ports und die Importregel (A1–A8)](architecture/schichten-und-importregel.md) |
 
 ## Weitere Seiten
 
+Zum Lesen, nicht zum Ändern:
+
 - [Architektur-Überblick](architecture/ueberblick.md) — das System in einem Bild, wenn du neu im Baum bist.
-- [Schichten, Ports und die Importregel (A1–A8)](architecture/schichten-und-importregel.md) — bevor du ein Modul anlegst oder eine Ordnergrenze überschreitest.
 - [Ein Spielzug von der Berührung bis zum Protokolleintrag](workflows/spielzug.md) — der Laufzeitpfad eines einzelnen Drucks.
-- [Spielseite verdrahten (wireGamePage)](workflows/spielseite-verdrahtung.md) — wenn das Seitenskript oder die Verdrahtung dran ist.
-- [Offline-Betrieb: Service Worker, Cache-Regeln und Manifest](integrations/offline-service-worker.md) — bei `public/sw.js`, Cache und Manifest.
-- [Ton, Tierstimmen und Vibration](integrations/ton-und-vibration.md) — bei `SoundPort`, `HapticsPort` und den Stimmdateien.
-- [Zufall, Wahrscheinlichkeiten und Spannungsdramaturgie](concepts/zufall-und-spannung.md) — bei scharfen Zähnen, Bissgefahr und Dramaturgie.
-- [Rundenprotokoll, CSV und Zusammenführen](concepts/rundenprotokoll-und-csv.md) — bei Datenformat, Import und `mergeRoundLogs`.
-- [Statistik und Ehrlichkeitsregeln](concepts/statistik-und-ehrlichkeit.md) — wenn die Rechnung selbst dran ist.
-- [Sterne, Album und Freischaltung](concepts/sterne-und-freischaltung.md) — bei Sternen, Schwellen und `UNLOCK_STEPS`.
 
 ## Erste Handgriffe im Repository
 
 - [`AGENTS.md`](../AGENTS.md) ist der **Einstiegspunkt, kein Regelwerk**: es nennt die Direktiven und
   die Index-Tabelle, die für jedes Thema die zuständige Datei unter `docs/` zeigt.
 - **`docs/fallen.md` vor jeder Änderung am Code** — dort steht, was schon einmal Zeit gekostet hat.
-- Die Wikiseiten sind erzeugt: nicht von Hand ändern, sondern Quellcode und `docs/` ändern und neu
-  erzeugen lassen.
+- `openwiki/` ist **generiertes Projektgedächtnis, kein Regelwerk**: bei Widerspruch gilt `docs/`.
+  Seiten werden **nicht von Hand** gepflegt, sondern durch einen OpenWiki-Lauf aufgefrischt
+  (Aufruf im Abschnitt „Projektgedächtnis" in [`AGENTS.md`](../AGENTS.md)).

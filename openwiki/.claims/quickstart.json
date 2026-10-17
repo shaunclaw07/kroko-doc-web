@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:c948ca0bbbd4ef314deaa07385cbd872e791bda4dfa8b5db0187c32ba6eab39c",
+  "pageVersion": "sha256:a541499a317106d10f09ae167fd6e55648fc705b6efb6c28808c556176c0c365",
   "claims": [
     {
       "id": "claim_f084841fe4224c0aaa84112d3f053954",
@@ -39,7 +39,7 @@
       "statement": "`pnpm dev` und `pnpm preview` sind unter `http://localhost:4321` erreichbar, aber nicht unter `127.0.0.1`, weil Astro standardmäßig nur auf `localhost` (IPv6) hört; Abhilfe sind `pnpm dev --host 127.0.0.1` oder ein anderer Port wie `--port 4322`.",
       "evidence": [
         {
-          "resource": "repo://AGENTS.md#L53-L54",
+          "resource": "repo://AGENTS.md#L54-L55",
           "version": "repo-lines-v1:sha256:625aa17d579e73b51e686a35092fabf4849370c5129f487bc24dd30616101804:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFjMWNiYWViZTQyODNiMTBkOGU2Y2FkZGU4MzYwOWZiOTBkYzgwNWM5NDI4ZmY3YWNlMTZjNmE0YWQ1MTg4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzJjOTY3MDYzMGNlMzM3NTBkZjc4Mzk2NGI3N2E0MmYyYzAxOGMxNGQ0NjBkNDY4MzMxZmE2N2M1ZDg4ZGFkMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY5NjhlYjMyOTYwODUyNjY1ZDBiYmQxZTFhYTFjZjM5OGQ0MjkxYmQ4NDY4Zjc3ODdmYzY3ZWE2YTFjZWY1ZiJ9"
         },
         {
@@ -85,7 +85,7 @@
       "statement": "Jeder interne Verweis (Link, Icon, Manifest, Laufzeit-Abruf) entsteht aus `import.meta.env.BASE_URL` und nie absolut mit `/`; `ASTRO_BASE` ist der Notausgang für einen Unterpfad, wird in `astro.config.mjs` auf einen Schluss-Schrägstrich normalisiert und muss mit `/` beginnen, sonst bricht der Bau ab.",
       "evidence": [
         {
-          "resource": "repo://AGENTS.md#L126-L139",
+          "resource": "repo://AGENTS.md#L127-L140",
           "version": "repo-lines-v1:sha256:94def7d018b0544bad7101c501ad5536977e1d30e378ad008a7f16188fa946e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjYTdjZjFjMTlmZWFkMWYyYTBjZjljYTc3YThhNGQzOTM1YWJlN2JlYTIzNTMzNjlhMDVkYmJiOWYxYjUzOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkNGIxNjNkMGM3ZDc3MjhiMzZjZGMzZGIwZTcwZTU4OGU2YzY0NTBlNmRjYjk2NWZlM2ZkMmM5MTdmMzY4Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM3MTY0ZGUyZjBhMTdiNGQ3MTM3MjI2YTlhZGI0NTNkOWM5NjU1MTY0ZjY2YTMxYTQ4ODA4YzZhNDM0MmIyZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhMzQ5YjE2ZWFmYWQxZWUwZmU0MzMyZTIzZDI0YWQ1MDFkYzYzZjhiZTA3YTcyMjc2ZGRiYWM3MjA2MTQ4YjkifQ"
         },
         {
@@ -99,7 +99,7 @@
       "statement": "`pnpm probes` fährt 13 Browser-Sonden (`scripts/pruefen-alle.py`) gegen eine laufende Vorschau unter `http://localhost:4322`; weil der Service Worker nur im Bau angemeldet wird, braucht die Offline-Prüfung `pnpm build && pnpm preview --port 4322`.",
       "evidence": [
         {
-          "resource": "repo://AGENTS.md#L60-L69",
+          "resource": "repo://AGENTS.md#L61-L70",
           "version": "repo-lines-v1:sha256:a8779b8c5915e7fa8c59800162c89efbe00cc967f54b20bed9ce473780a8c25a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0ZGZmNTdhYWFjZjdhOWU2NTkwZDczYzcxNmUzYTM2YzM1M2I5ODcwZDQzYjRkY2Y1ZmRlMzhmY2E2MGY0MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyMWY4MmYwOWYwNDA1YTdkMDYxNjg2OGQ1Zjg4MDRmMzQyODEwOWU2ZWExMTgwOGQ4Zjk2OWJjMDUyMzkxNjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjYWY4ZDFjOGI2MTQ2OTM2OGUxOGFlZmUxODk2YmE3ZDU2YjczMDA0YjVjZTcxZTBhMDVmNjliMTk0MzBkOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyNzBjOTEwNGVhZTZiYjQ2MDYyNGVhMDYwODkwODcyNjhlOGE2YmZkNDA2OTg4MTE4ZmM0N2NiODM1YjI4NTEifQ"
         },
         {
@@ -153,10 +153,42 @@
           "version": "repo-lines-v1:sha256:1b98ee6f491c0286fae1ae7b75048cc91b1fc087d01309a9be401755d43634dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4OTRlOTUxZTVhMzU1NTdiOTkyNmYyYmYyMzRiMDRjYjRiNmUzNjgwYzgyMzQwNmEwODkyMjBkMzc1MTk1NDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYzNmMzM4MDRlYjU2NDZjYTE5NDQ3OTQxMjYwOWNiZTJkZWJmNWQwN2YwYThhNDU1NTE4MzNiMDBmYzZlNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2MjlmZmFmOWZkYWRjNmUzZjFkMmVjNTViMDVjMzBhNjA3OWZmNDBmYWU0NTM4NWFmMDhmYzk1NmQ1YWRmMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyZTg2Nzg1MDkxMDk1YmY3NDE5OWU3MzVhMDQ5MzVlZWQ4YmVjZDM5YTY5MTBkMmIwMmE0ODgxMmVmNGViMDMifQ"
         }
       ]
+    },
+    {
+      "id": "claim_d96c9089f3c84696b7b37d8b91988531",
+      "statement": "Der Baum verlangt die Node-Fassungen `^22.22.2 || ^24.15.0 || >=26.0.0` und pnpm `>=9.0.0` (`engines` in `package.json`); die Anleitung nennt dieselbe Untergrenze, und `pnpm install` hängt über das Skript `prepare` den Hooks-Pfad `.githooks` ein, sodass der Gate-Hook vor jedem Push aktiv ist.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L25-L30",
+          "version": "repo-lines-v1:sha256:68450690d3eb328728203fbb13cf53938998ed3e0bed8b58bd91f3906da18d18:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhNTM3ZjRhNDRhNWFjOGJjOGVhMGQwM2ZmNDc2YWFlOGRhZGIzNzIyN2I5YjY4MmNlZjU5ZTI4MWY3OGIwZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWJmMWNjZDcwOThmNWMxOTk0OGY1YjIwZWJjNTE2ZmUxYmNiMTRlOGZhNmYxYjA4ZDQwYzYxYzg0NGNjNzQwNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTc0MjU2NDZlMzA3YjE1NWEyMTk2OTY2MDhlOTY1OWVjZDdkYjRiNzAzYjVkNWI2ZTZhNTA1MTllMjdjMDY2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU5M2E4MTc5ZjhkMTYxYWJhNWJjNzY3MzYyMTk4Mjg0ODg1ODVjMGZmYzFmYjM3YWQ4NGM2Mzc2MzczMTg5ZCJ9"
+        },
+        {
+          "resource": "repo://package.json#L15-L15",
+          "version": "repo-lines-v1:sha256:021edd159cbeaadda4910ef6f817c437e29895978e9af6ce0e5c737300a0e469:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDIxZWRkMTU5Y2JlYWFkZGE0OTEwZWY2ZjgxN2M0MzdlMjk4OTU5NzhlOWFmNmNlMGU1YzczNzMwMGEwZTQ2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDIxZWRkMTU5Y2JlYWFkZGE0OTEwZWY2ZjgxN2M0MzdlMjk4OTU5NzhlOWFmNmNlMGU1YzczNzMwMGEwZTQ2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2I0MWIxNTYyNzgyMjYyNzFlODI4MzUzYWZlOTY0YzIyN2Y4OTRkYmZjMmRlMTVmZjdjMDljM2M2ZmYyMzVkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzBiNjM5YTkzZjFiYTA4NjM2Nzk1MzYwNGI3OWIyOTRkNWNiYmZmNjk5MjBiM2I4ZWUzNWUwZjBjMGNiZTlkNCJ9"
+        },
+        {
+          "resource": "repo://package.json#L26-L29",
+          "version": "repo-lines-v1:sha256:d598d54481681251401a0c497dfa2afc3bd6d2a489cd9fb2c40d8b77f754d960:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWY2MDE1NTQxMjJlZmU4NTVkNTZlMTBjYzliYWYyMDMxY2EzZjRhYjExY2RiYTIyZjFlYmM1ZDM5YTc1NTgyNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYxMDVhYjFlZjM5NmU1OWZiOTMyNmQ0MzQyOWQzZWI0ZmUxNGUxYzM1MjM0ZDM5YjE2NWU0NDg1OWY4Yzg4MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d45047f0c583446bb4ec03d9611fcb1c",
+      "statement": "`openwiki/` ist generiertes Projektgedächtnis und kein Regelwerk: bei Widerspruch gilt `docs/`, und die Seiten werden nicht von Hand gepflegt, sondern durch einen OpenWiki-Lauf aufgefrischt.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L152-L168",
+          "version": "repo-lines-v1:sha256:05a6fa6676804e1b4bdc98b77c6f3124507a01a2a28b74ac41f346431fb85be6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzNzdiMmQ5ZmNjYmFhYjI4YzBjZGM5Njg1NzkxZTYxN2UxNzAzMDJlZTFkMzc3YThiNzAxYWM1MzgyZjE2ODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmZDE4ZGEzMGRhYWFmMTgwYTM4M2MxMmQ2ZGQ2MWM0ZTI3MDBhMGM5MmY4OTc2Yjg5N2E0NzQ2MzMxOWQxNmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiZmJlNDNmYjM5ODhhZmE3NThhNzg3MTdmZDJlMmVjMDI0YWZlMmZiYmFlZWI2MDI4MTZjNWQwNzRkZTU3ZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViMWJjNWJjNGEyMzdmNTc4ZTZhZjRhNDE1ZDA2NDdmOTkxMGIwM2IzNjRlMWUyN2MxZjFkYmFhNzQzZDAzYmEifQ"
+        },
+        {
+          "resource": "repo://AGENTS.md#L50-L50",
+          "version": "repo-lines-v1:sha256:5d52ce1e864c88022aaeb6e2119e06f0fc4479793bd342e5ddeffb84e07e1d49:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ1MmNlMWU4NjRjODgwMjJhYWViNmUyMTE5ZTA2ZjBmYzQ0Nzk3OTNiZDM0MmU1ZGRlZmZiODRlMDdlMWQ0OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ1MmNlMWU4NjRjODgwMjJhYWViNmUyMTE5ZTA2ZjBmYzQ0Nzk3OTNiZDM0MmU1ZGRlZmZiODRlMDdlMWQ0OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDEwYTJlMTljOTIyODMzNDFhYjU5YTFhYWJiMDJlMzQyZjljZjA1ODZjZWUyODBhYTk4NGE4ODI1N2E4ZjQ0NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzJjOTY3MDYzMGNlMzM3NTBkZjc4Mzk2NGI3N2E0MmYyYzAxOGMxNGQ0NjBkNDY4MzMxZmE2N2M1ZDg4ZGFkMiJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-17T07:24:18.878Z"
+    "at": "2026-10-17T09:06:25.393Z"
   }
 }
