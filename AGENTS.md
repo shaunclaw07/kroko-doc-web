@@ -191,6 +191,12 @@ Dateien). Es liest den dokumentierten Stand aus `openwiki/.last-update.json` und
 Auslöser im Klartext; ohne vollständige Historie (Flachklon) verweigert es den Vergleich, statt
 zu raten.
 
+**Einen `--update`-Lauf nicht selbst anstoßen.** Er kostet ~1 h Maschinenzeit und Geld — melden,
+dann entscheidet der Auftraggeber. **Stand 17.10.2026: bewusst stehen gelassen.** Die
+Doku-Überarbeitung (Links, Kopfzeilen, Archiv) hat die drei Kerndokus angefasst, inhaltlich aber
+nichts am Wiki umgeworfen; das Werkzeug meldet deshalb weiter „auffrischen". Das ist kein
+Versäumnis, sondern die Entscheidung des Auftraggebers — beim nächsten **echten** Umbau nachziehen.
+
 **Zu lesen unter drei Adressen:**
 - <https://zahn-agent.schaflabs.com/wiki/> — Graph mit Seitenleser, geht auch am Handy
 - `openwiki/quickstart.md` auf GitHub — Markdown direkt gerendert, ohne Werkzeug
