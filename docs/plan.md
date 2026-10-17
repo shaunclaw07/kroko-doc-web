@@ -1,5 +1,8 @@
 # Plan
 
+> **Art:** Aufzeichnung — Zweck: Arbeitsdatei für das gerade laufende Feature; sonst leer.
+> **Verwandt:** [`docs/workflow.md`](workflow.md), [`docs/fallen.md`](fallen.md), [`docs/domain-model.md`](domain-model.md)
+
 **Gerade ist kein Feature in Arbeit.**
 
 Diese Datei ist die **Arbeitsdatei** für das Feature, an dem gerade gearbeitet wird

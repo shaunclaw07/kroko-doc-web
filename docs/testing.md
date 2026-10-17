@@ -1,5 +1,8 @@
 # Tests und Nachweise
 
+> **Art:** Regel — Zweck: Das Gate, die Testumgebungen, die tragenden Tests und die Sonden; **die aktuellen Prüfzahlen stehen hier**.
+> **Verwandt:** [`docs/workflow.md`](workflow.md), [`docs/fallen.md`](fallen.md), [`docs/e2e-nachweise.md`](e2e-nachweise.md)
+
 ## Das Gate
 
 ```bash

@@ -1,5 +1,8 @@
 # Ein neues Tier ergänzen — der ganze Weg
 
+> **Art:** Rezept — Zweck: Ein Lebewesen ergänzen — von den Infos über die Zeichnung und Freischaltung bis zur Stimme.
+> **Verwandt:** [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), [`docs/workflow.md`](workflow.md), [`docs/tier-quellen.md`](tier-quellen.md)
+
 Von der Entscheidung bis zum Push: Infos, Zeichnung, Freischaltung, Stimme, Bild, Tests, Doku. Jeder
 Schritt nennt die Datei und woran man merkt, dass er fehlt. **Durchgespielt am 15.10.2026** mit einem
 Probetier („Fuchs“, eine Kopie des Wolfs) in einem Wegwerf-Arbeitsbaum: Typen und Linter blieben

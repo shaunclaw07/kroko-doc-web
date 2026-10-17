@@ -1,5 +1,8 @@
 # Fachmodell und Dramaturgie
 
+> **Art:** Regel — Zweck: Fachmodell und Dramaturgie: Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln.
+> **Verwandt:** [`docs/e2e-nachweise.md`](e2e-nachweise.md)
+
 ## Vokabular
 
 | Begriff | Bedeutung |

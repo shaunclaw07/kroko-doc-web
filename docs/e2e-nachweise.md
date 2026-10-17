@@ -1,5 +1,8 @@
 # Nachweisakte
 
+> **Art:** Aufzeichnung — Zweck: Einstieg in die Nachweisakte: Verzeichnis aller datierten Prüfungen und die weiter gültigen Umgebungsfallen; die Nachweise selbst liegen im Archiv.
+> **Verwandt:** [`docs/nachweise/2026-10.md`](nachweise/2026-10.md), [`docs/testing.md`](testing.md), [`docs/architecture.md`](architecture.md)
+
 Belege für ausgeführte Prüfungen — jeder Eintrag datiert und aus einem **geführten Kommando**
 abgeleitet, keine Schätzung. Die datierten Nachweise selbst liegen im Archiv, damit dieser
 Einstieg lesbar bleibt:

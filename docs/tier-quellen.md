@@ -1,5 +1,8 @@
 # Tier-Sätze und Zahnzahlen: die Belege
 
+> **Art:** Nachweis — Zweck: Belege der Tier-Sätze und Zahnzahlen, je Lebewesen mit Quelle.
+> **Verwandt:** [`docs/workflow.md`](workflow.md), [`docs/plan.md`](plan.md)
+
 Jeder Satz im Katalogfeld `fact` („Wusstest du?") und jede Zahl in `realTeeth`
 (`src/core/domain/creature.ts`) hat hier seine Quelle. Wer einen Satz ergänzt oder ändert, trägt
 die Quelle mit Fundstelle und Abrufdatum hier ein — Rezept: [`docs/workflow.md`](workflow.md), „Einen Tier-Satz

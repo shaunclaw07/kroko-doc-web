@@ -1,5 +1,8 @@
 # Anleitung: ein Tiermodell zeichnen
 
+> **Art:** Rezept — Zweck: Ein Tiermodell zeichnen: Ebenen, Zahnring als Sperrgebiet, Augen, Stil, Prüfreihenfolge.
+> **Verwandt:** [`docs/neues-tier.md`](neues-tier.md), [`docs/workflow.md`](workflow.md), [`docs/fallen.md`](fallen.md)
+
 Für jedes **neue** Lebewesen und jede Änderung an einem bestehenden. Die Schritte im Katalog, in
 der Registry, bei der Freischaltung und der Stimme stehen in [`docs/neues-tier.md`](neues-tier.md); hier steht,
 **wie die Zeichnung selbst entsteht**, damit sie zu den anderen passt und kein Zahn verdeckt wird.

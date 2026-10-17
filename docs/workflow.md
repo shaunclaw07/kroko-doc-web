@@ -1,5 +1,8 @@
 # Arbeiten im Baum
 
+> **Art:** Rezept — Zweck: Befehle, Umgebung, die Rezepte für Stimme und Tier-Satz, der Skript-Katalog und die Git-Regeln.
+> **Verwandt:** [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), [`docs/testing.md`](testing.md), [`docs/fallen.md`](fallen.md)
+
 ## Befehle
 
 ```bash

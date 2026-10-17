@@ -1,5 +1,8 @@
 # Architektur
 
+> **Art:** Regel — Zweck: Schichten, Importregel A1–A8 und Fehlerarten des Kerns; erzwungen von `src/architecture.test.ts`.
+> **Verwandt:** [`docs/freischaltung.md`](freischaltung.md), [`docs/e2e-nachweise.md`](e2e-nachweise.md), [`docs/fallen.md`](fallen.md)
+
 ## Schichten
 
 ```

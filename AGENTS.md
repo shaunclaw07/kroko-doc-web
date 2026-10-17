@@ -27,27 +27,28 @@ Dieses Dokument ist ein **Einstiegspunkt, kein Regelwerk**. Die Regeln stehen in
 
 ## Index
 
-| Thema | Datei | Lies das, bevor du … |
-|---|---|---|
-| Sprache (Englisch im Code, Deutsch in Kommentar und UI) | [`docs/language-guidelines.md`](docs/language-guidelines.md) | Code, Kommentar oder UI-Text schreibst |
-| Architektur (Schichten, Importregel, Schicht-Tabelle, Fehlerarten) | [`docs/architecture.md`](docs/architecture.md) | ein Modul anlegst oder eine Schichtgrenze überschreitest |
-| Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | [`docs/domain-model.md`](docs/domain-model.md) | eine Regel der Runde, der Spannung oder der Auswertung änderst |
-| **Fallen, die Zeit kosten** (jede mit Anlass, Messwert und Gegenprobe) | [`docs/fallen.md`](docs/fallen.md) | **irgendetwas am Code änderst** |
-| Ein neues Tier ergänzen, der ganze Weg (Infos, Zeichnung, Freischaltung, Stimme, Bild, Tests, Doku) | [`docs/neues-tier.md`](docs/neues-tier.md) | ein Lebewesen ergänzt |
-| Ein Tiermodell zeichnen (Ebenen, Zahnring als Sperrgebiet, Augen setzen, Stil, Prüfreihenfolge) | [`docs/tiermodell-anleitung.md`](docs/tiermodell-anleitung.md) | ein Lebewesen zeichnest oder eine Zeichnung änderst |
-| Rückmeldung an den Nutzer (Ton, Vibration, benannte Anzeigen) | [`docs/rueckmeldung.md`](docs/rueckmeldung.md) | Ton, Vibration oder eine Anzeige anfasst |
-| Freischaltung der Tiere (Sterne, Schwellen, Bonusfiguren) | [`docs/freischaltung.md`](docs/freischaltung.md) | an Sternen, Schwellen oder `UNLOCK_STEPS` drehst |
-| Tests & Nachweise (Gate, Testzahlen, Sonden, Mindeststichprobe) | [`docs/testing.md`](docs/testing.md) | einen Test oder eine Sonde ergänzt |
-| Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git) | [`docs/workflow.md`](docs/workflow.md) | planst, baust, prüfst oder committest |
-| Tierstimmen ergänzen oder tauschen, Tier-Sätze, alle Skripte | [`docs/workflow.md`](docs/workflow.md) | eine Stimme oder ein Skript änderst |
-| Herkunft und Lizenz der Tierstimmen | [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md) | eine Stimme auslieferst |
-| Spielstand sichern, wenn das Gerät ihn wegwirft (Regeln in Kürze, Anleitung zum Nachbauen, auch für andere Projekte) | [`docs/sicherung-anleitung.md`](docs/sicherung-anleitung.md) | am Worker, am Abgleich oder an `public/sw.js` arbeitest |
-| Nachweisakte der Prüfläufe | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) | einen Nachweis behauptest |
-| Warum das Spiel so ist (Charter) | [`README.md`](README.md) | eine Regel des Spiels in Frage stellst |
-| Belege der Tier-Sätze und Zahnzahlen | [`docs/tier-quellen.md`](docs/tier-quellen.md) | einen `fact` oder eine Zahnzahl einträgst |
-| Arbeitsdatei: Plan des gerade laufenden Features (sonst leer) | [`docs/plan.md`](docs/plan.md) | ein Feature beginnst |
-| Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | `../kroko-doc/README.md` | mit dem echten Spielzeug vergleichst |
-| Projektgedächtnis (generiert, mit Quellen je Seite) | [`openwiki/quickstart.md`](openwiki/quickstart.md) | einen Überblick brauchst, ohne Dateien zu lesen |
+| Thema | Art | Datei | Lies das, bevor du … |
+|---|---|---|---|
+| Sprache (Englisch im Code, Deutsch in Kommentar und UI) | Regel | [`docs/language-guidelines.md`](docs/language-guidelines.md) | Code, Kommentar oder UI-Text schreibst |
+| Architektur (Schichten, Importregel, Schicht-Tabelle, Fehlerarten) | Regel | [`docs/architecture.md`](docs/architecture.md) | ein Modul anlegst oder eine Schichtgrenze überschreitest |
+| Fachmodell & Dramaturgie (Runde, scharfe Zähne, Spannung, Ehrlichkeitsregeln) | Regel | [`docs/domain-model.md`](docs/domain-model.md) | eine Regel der Runde, der Spannung oder der Auswertung änderst |
+| **Fallen, die Zeit kosten** (jede mit Anlass, Messwert und Gegenprobe) | Regel | [`docs/fallen.md`](docs/fallen.md) | **irgendetwas am Code änderst** |
+| Ein neues Tier ergänzen, der ganze Weg (Infos, Zeichnung, Freischaltung, Stimme, Bild, Tests, Doku) | Rezept | [`docs/neues-tier.md`](docs/neues-tier.md) | ein Lebewesen ergänzt |
+| Ein Tiermodell zeichnen (Ebenen, Zahnring als Sperrgebiet, Augen setzen, Stil, Prüfreihenfolge) | Rezept | [`docs/tiermodell-anleitung.md`](docs/tiermodell-anleitung.md) | ein Lebewesen zeichnest oder eine Zeichnung änderst |
+| Rückmeldung an den Nutzer (Ton, Vibration, benannte Anzeigen) | Regel | [`docs/rueckmeldung.md`](docs/rueckmeldung.md) | Ton, Vibration oder eine Anzeige anfasst |
+| Freischaltung der Tiere (Sterne, Schwellen, Bonusfiguren) | Regel | [`docs/freischaltung.md`](docs/freischaltung.md) | an Sternen, Schwellen oder `UNLOCK_STEPS` drehst |
+| Tests & Nachweise (Gate, Testzahlen, Sonden, Mindeststichprobe) | Regel | [`docs/testing.md`](docs/testing.md) | einen Test oder eine Sonde ergänzt |
+| Arbeiten im Baum (Sparring vor der Planung, Befehle, Zeichnung prüfen, Doku prüfen, Git) | Rezept | [`docs/workflow.md`](docs/workflow.md) | planst, baust, prüfst oder committest |
+| Tierstimmen ergänzen oder tauschen, Tier-Sätze, alle Skripte | Rezept | [`docs/workflow.md`](docs/workflow.md) | eine Stimme oder ein Skript änderst |
+| Herkunft und Lizenz der Tierstimmen | Nachweis | [`public/sounds/voices/QUELLEN.md`](public/sounds/voices/QUELLEN.md) | eine Stimme auslieferst |
+| Spielstand sichern, wenn das Gerät ihn wegwirft (Regeln in Kürze, Anleitung zum Nachbauen, auch für andere Projekte) | Rezept | [`docs/sicherung-anleitung.md`](docs/sicherung-anleitung.md) | am Worker, am Abgleich oder an `public/sw.js` arbeitest |
+| Nachweisakte der Prüfläufe | Aufzeichnung | [`docs/e2e-nachweise.md`](docs/e2e-nachweise.md) | einen Nachweis behauptest |
+| Unabhängige Prüfung mit fremder Methode — und was sie gefunden hat | Rezept | [`docs/pruefung-unabhaengig.md`](docs/pruefung-unabhaengig.md) | eine Prüfung von außen ansetzt oder ihr Ergebnis einordnest |
+| Warum das Spiel so ist (Charter) | Karte | [`README.md`](README.md) | eine Regel des Spiels in Frage stellst |
+| Belege der Tier-Sätze und Zahnzahlen | Nachweis | [`docs/tier-quellen.md`](docs/tier-quellen.md) | einen `fact` oder eine Zahnzahl einträgst |
+| Arbeitsdatei: Plan des gerade laufenden Features (sonst leer) | Aufzeichnung | [`docs/plan.md`](docs/plan.md) | ein Feature beginnst |
+| Zahlen des echten Spielzeugs (Analyse-Werkzeug, Python) | Aufzeichnung | `../kroko-doc/README.md` | mit dem echten Spielzeug vergleichst |
+| Projektgedächtnis (generiert, mit Quellen je Seite) | Karte | [`openwiki/quickstart.md`](openwiki/quickstart.md) | einen Überblick brauchst, ohne Dateien zu lesen |
 
 ## Befehle
 

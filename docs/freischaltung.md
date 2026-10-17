@@ -1,5 +1,8 @@
 # Tiere freischalten
 
+> **Art:** Regel — Zweck: Sterne, Schwellen und `UNLOCK_STEPS`: wann welches Lebewesen wählbar wird.
+> **Verwandt:** [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), [`docs/domain-model.md`](domain-model.md)
+
 Welche Tiere offen sind, was eine Schwelle kosten darf und was eine Sperre sagen muss. Bis zum
 14.10.2026 stand dieser Abschnitt in [`AGENTS.md`](../AGENTS.md). Das Zeichnen eines neuen Tiers steht in
 [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), die Regeln der Runde in [`docs/domain-model.md`](domain-model.md).

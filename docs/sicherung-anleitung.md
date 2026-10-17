@@ -1,5 +1,8 @@
 # Spielstand sichern, wenn das Gerät ihn wegwirft
 
+> **Art:** Rezept — Zweck: Spielstand sichern, wenn das Gerät ihn wegwirft — Regeln in Kürze und die Anleitung zum Nachbauen.
+> **Verwandt:** [`docs/workflow.md`](workflow.md)
+
 Eine Anleitung zum Nachbauen — für dieses Projekt geschrieben, für andere gedacht. Sie beschreibt,
 was am 13.10.2026 für Zahn Agent gebaut wurde, in der Reihenfolge, in der man es wieder tun würde,
 und sagt bei jedem Schritt, ob er **gefahren** wurde oder nur beschrieben ist.

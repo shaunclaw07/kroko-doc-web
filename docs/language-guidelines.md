@@ -1,5 +1,8 @@
 # Sprache
 
+> **Art:** Regel — Zweck: Bezeichner englisch, Kommentare und Doku deutsch.
+> **Verwandt:** [`docs/workflow.md`](workflow.md), [`docs/fallen.md`](fallen.md)
+
 | Ort | Sprache |
 |---|---|
 | Bezeichner, Typen, Funktionsnamen, Meldungen im Code | **Englisch** |

@@ -1,5 +1,8 @@
 # Rückmeldung an den Nutzer (Ton, Vibration)
 
+> **Art:** Regel — Zweck: Ton, Vibration und benannte Anzeigen: was das Spiel zurückmeldet.
+> **Verwandt:** [`docs/architecture.md`](architecture.md), [`docs/domain-model.md`](domain-model.md), [`docs/workflow.md`](workflow.md)
+
 Was der Spieler hört und spürt — und wie eine Anzeige zu sprechen hat. Bis zum 14.10.2026 stand
 dieser Abschnitt in [`AGENTS.md`](../AGENTS.md); dort war er in jeder Sitzung im Blick, hier liest ihn, wer dem
 Index folgt. Die Nähte nach außen (`SoundPort`, `HapticsPort`) stehen in [`docs/architecture.md`](architecture.md).

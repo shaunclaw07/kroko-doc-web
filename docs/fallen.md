@@ -1,8 +1,18 @@
 # Fallen, die Zeit kosten
 
+> **Art:** Regel — Zweck: 37 Fallen mit Anlass, Messwert und Gegenprobe, nach Bereichen gruppiert — vor jeder Änderung am Code lesen.
+> **Verwandt:** [`docs/tiermodell-anleitung.md`](tiermodell-anleitung.md), [`docs/e2e-nachweise.md`](e2e-nachweise.md), [`docs/testing.md`](testing.md)
+
 Jede Falle nennt ihren Anlass, den Messwert und die Gegenprobe — sie stammt aus einem echten Lauf,
 nicht aus einer Vermutung. Bis zum 14.10.2026 stand diese Liste in [`AGENTS.md`](../AGENTS.md); dort war sie in
 jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderung am Code lesen.**
+
+## Offline und Bau
+
+| Falle | Wächter oder Messung |
+|---|---|
+| Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet | `scripts/pruefen-offline.py` |
+| Eine `.test.ts` in `src/pages/` bricht den Bau | `auswahl.test.ts` |
 
 - **Ein Vorrat, der gefüllt ist, ist noch kein Vorrat, der antwortet.** Der Service Worker
   (`public/sw.js`) bestand alle Fälle seiner nachgestellten Umgebung — und im echten Browser lud die
@@ -16,16 +26,25 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   und fährt die Sonde; der Entwicklungsserver meldet ihn gar nicht an. Und: kommt eine Tierstimme
   dazu, gehört sie auch in `VOICES` in `public/sw.js` (ein Test hält die Listen gleich).
 
-- **Eine Geste, die mit der Maus geprüft ist, ist am Finger nicht geprüft.** Das Halten eines Zahns
-  bestand alle Fälle der Sonde — mit Maus und mit einem Finger-Tipp ohne Weg. Ein Finger, der beim
-  Halten wackelt, ist für den Browser aber der Anfang eines Wischens: nach rund 10 px kam
-  `pointercancel`, der Zahn federte zurück und der Druck zählte nicht (gemessen am 12.10.2026 mit
-  echter Berührung über `Input.dispatchTouchEvent`: 14 px Weg auf 65 px Trefferfläche, kein Zug —
-  obwohl die Seite gar nicht scrollte). `touch-action: none` am Zahn hilft **nicht**: Chromium
-  wertet es an Teilen einer SVG-Zeichnung nicht aus (der berechnete Stil sagt `none`, das Verhalten
-  bleibt). Deshalb hält die Steuerung `touchstart` des **gehaltenen** Zahns an (`preventDefault`,
-  nicht passiv). Wer eine Zeigergeste baut, die länger dauert als ein Tipp, prüft sie mit
-  Berührung **und** Weg (`scripts/pruefen-halten.py`, Fälle 8 und 9).
+- **Eine `.test.ts` in `src/pages/` bricht den Bau.** Astro baut jede Datei in `src/pages/` als
+  eigene Seite; ein Test dort wird zum Seitenmodul, importiert `vitest` und lässt `pnpm build` mit
+  „Vitest failed to access its internal state" abbrechen, während `pnpm test` grün bleibt. Tests,
+  die das Seiten-Markup prüfen, liegen **neben** `src/pages/`, z. B. `src/auswahl.test.ts`.
+
+## Zeichnung und Anzeige
+
+| Falle | Wächter oder Messung |
+|---|---|
+| Das Gesicht liegt über den Zähnen — der Zahnring ist für Augen und Wangen Sperrgebiet | `creatureViews.test.ts`, `scripts/pruefen-zahnsicht.py` |
+| Ein gespiegelter Teilpfad in der Silhouette schneidet Löcher ins Gesicht | — |
+| Eine Kachel darf keine Klasse tragen, die die Steuerung abfragt | `creatureViews.test.ts` |
+| Die Zeichnung hat zwei Wahrheiten | — |
+| Eine Vorgabe, die nur für eine Beispielbreite geprüft wird, ist keine Vorgabe | `scripts/pruefen-zoom.py` |
+| Eine Zustandsklasse muss den Kasten enthalten, den sie färbt | `scripts/pruefen-anzeige.py` |
+| Eine Anzeige muss verstummen, wenn ihre Frage wegfällt | — |
+| Dekoration darf keinen Tipp abfangen | `scripts/pruefen-trefferflaeche.py` |
+| Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört auf die gebaute Seite | — |
+| Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch | `scripts/artwork-png.py` |
 
 - **Das Gesicht liegt über den Zähnen — der Zahnring ist für Augen und Wangen Sperrgebiet.** Die
   Gesichtsebene wird zuletzt gemalt, und die Augen saßen bei allen zehn Tieren auf dem Ring. Welcher
@@ -60,24 +79,6 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Laufrichtung umdreht, muss das Ohr nachprüfen. Die `clip-rule` ist dabei gleichgültig: die SVGs
   tragen keine Angabe (nonzero), und eine evenodd-Fassung rendert pixelgleich (0 Unterschiede).
 
-- **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
-  gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
-  dabei **alle** offenen Blätter schließt (`dialog.sheet[open]`), macht genau das Blatt zu, in dem der
-  Nutzer gerade stellt (gemeldet: „wenn ich auf das Minus klicke, schließt sich das Modal"). Geschlossen
-  wird nur, was der Neustart wirklich wegräumen soll (damals das Ergebnis-Blatt; seit dem
-  12.10.2026 steht das Ergebnis auf der Seite und der Neustart blendet es aus). Und beim Schließen den
-  **Rückfall** für Umgebungen ohne `dialog.close` mitnehmen: jsdom kennt die Schnittstelle nicht, ein
-  Aufruf ohne Prüfung wirft dort.
-
-- **Jedes Blatt braucht einen Ausgang, der ohne Tastatur und ohne Scrollen erreichbar ist.** Ein
-  `dialog` schließt von sich aus nur über die **Escape-Taste** — die hat kein Tablet. Gemessen:
-  das Einstellungsblatt ist 793 px hoch, sichtbar sind auf 390 × 844 nur 692 px, ein Knopf am Fuß
-  lag bei 871–919 px, also außerhalb. Deshalb: ✕ im Blattkopf (`position: sticky`, 44 × 44 px,
-  bleibt auch nach dem Scrollen stehen), zusätzlich am Fuß und ein Tipp **neben** das Blatt. Für den
-  Tipp daneben die **Geometrie** prüfen (`getBoundingClientRect` gegen `clientX/clientY`) — bei einem
-  Dialog ist `event.target` auch der Innenabstand, „Ziel ist der Dialog" schlösse also bei jedem Tipp
-  daneben im Blatt selbst.
-
 - **Eine Kachel darf keine Klasse tragen, die die Steuerung abfragt.** Die Kopfbilder der
   Tier-Auswahl stehen **vor** der Bühne im Dokument. Trüge eine Kachel `.creature` oder `.tooth`,
   griffe `document.querySelector('.creature')` die Kachel statt der Bühne ab; und zwei gleiche
@@ -85,67 +86,11 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Spielfeld wäre kaputt, ohne dass ein Test es merkt). Deshalb `portrait(suffix)` mit eigener
   Kennung je Verwendung und Zähne als `rest-tooth` — `creatureViews.test.ts` hält beides fest.
 
-- **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
-  das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
-  `localStorage`, `navigator` und `new Date(` auskommt. Eine neue Mappe braucht einen Eintrag
-  in `FOLDER_LAYER` — sonst schlägt der Lauf fehl.
-- **Niemals `git add -A`** — explizite Pfade. Vor dem Commit `git status --short | grep '^ D'`.
 - **Die Zeichnung hat zwei Wahrheiten:** Formen, Farben und Zahnprofile stehen in
   `presentation/game/creatures/<tier>.ts`, nur Zustände im CSS (`is-held`, `is-pressed`, `is-snapped`,
   `is-live`, `is-twitching`, `is-pressing`, `is-settling`, `is-clenching`, `is-wary`, `is-trembling`). Geometrie (Ring,
   Schließweg, Trefferflächen) wird berechnet,
   nicht gesetzt — wer einen Wert hart einträgt, umgeht die Prüfung.
-- **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
-- **Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s** — der
-  Werkzeugaufruf wandert dann in den Hintergrund und man sieht die Ausgabe nicht mehr.
-- **Eine Zufallsebene darf nichts über den Ausgang verraten.** Die Pause vor der Auflösung wird
-  **unabhängig vom Ausgang** gezogen (`pressBeatMs` bekommt `willSnap` gar nicht gereicht), damit
-  die Stille kein Signal ist. Der Test vergleicht beide Ausgänge bei gleichem Startwert — so eine
-  Regel ist beweisbar, nicht nur behauptet.
-- **Eine Kennzahl, die aufaddiert wird, sättigt — und sagt dann nichts mehr.** Die Spannung war
-  `+0,18 + 0,35 × Knappheit + 0,02 × Position` und stand bei 10 Zähnen ab dem 4. Druck auf 100 %.
-  Regel: Anzeigewerte aus dem Modell **ableiten** (`probabilities.ts`), nicht den Zustand
-  hochzählen. Dann bleibt die Zahl eine Aussage (Biss-Wahrscheinlichkeit des nächsten Drucks,
-  genau 1 beim letzten Zahn) und der Kern hat eine Wahrheit weniger.
-- **Eine Test-Attrappe, die alle Wartezeiten sofort ausführt, verschluckt jeden langen Hinweis.**
-  Die Attrappe der Bedienung komprimiert den Drama-Takt (`ms < 1000` läuft sofort), damit Tests
-  nicht 700 ms warten müssen. Ein 4-Sekunden-Hinweis wurde dadurch im selben Moment gezeigt und
-  wieder versteckt — der Test fiel aus einem Grund, der nichts mit dem Produkt zu tun hatte.
-  Wer lange Wartezeiten prüft, reicht eine eigene Uhr herein und führt die Rückrufe selbst aus.
-- **Ein Feature, dessen Wirkung nur am echten Tisch prüfbar ist, wird nicht heimlich gebaut.** Das
-  „Weitergeben" (Zug abgeben statt drücken) sollte dem Balken einen Zweck geben. Beim Nachrechnen
-  fiel auf: es verschiebt die Zugreihenfolge, die der Kern aus `pressOrder` ableitet, und ob das
-  Spiel dadurch besser wird, zeigt sich erst mit zwei oder mehr Spielern an einem echten Tisch —
-  meist wird allein gespielt. Also **abgesagt** und durch die kleine, prüfbare Variante ersetzt
-  (`survivedDanger`, der Mut der Runde), die den Balken ebenfalls handelbar macht. Eine Absage mit
-  Begründung ist ein Ergebnis, kein Versäumnis.
-- **Rezepte in der Doku sind ungeprüfter Code.** Ein Befehl, der auf eine verschwundene Datei
-  zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
-  Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
-  fahren und die **Ausgabe ansehen**, nicht nur den Exit-Code.
-
-- **Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt.** Der Herzschlag (seit dem 12.10.2026 entfernt) hing an
-  `window.setTimeout`. Die Testumgebung baut am Ende ab und entfernt das globale Fenster, die
-  Zeitgeber der Umgebung laufen aber weiter: der späte Schlag stirbt als **unbehandelter
-  `ReferenceError: window is not defined`** (Jsdom-Zeitgeber nach entferntem Global, nachgestellt in
-  `scripts/pruefen-zeitgeber.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
-  fachlich rot war — gemessen vom fremden Prüfer: 1 von 7 Läufen. Deshalb: `this.doc.defaultView`
-  statt `window` (auch als Vorgabe der Wartefunktion), und `dispose()` in der Steuerung, das die
-  Sonde nach **jedem** Fall aufruft. Wer eine Wartezeit der Steuerung selbst prüfen will, reicht eine eigene Uhr
-  herein (`vi.useFakeTimers()`) statt auf echte Millisekunden zu warten.
-
-- **Ein Modell, das Sonderfälle wegfallen lässt, lügt bei kleinen Zahlen.** Die Vorhersage der
-  Zuschnapp-Position ließ jedes `k` über der Zahnzahl ganz weg (`if (k > teeth) continue`). Solange
-  das kleinste Gebiss 4 Zähne hatte, fiel das nie auf; seit „1 Zahn" möglich ist, zeigte die
-  Statistik „Erwartet (Modell) 0,33" und einen Balken von 33 %, während Beobachtung und Gefahr-Kurve
-  100 % sagten. Die Auswahl der scharfen Zähne **kappt** auf die Zahnzahl
-  (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — das Modell muss dasselbe tun. Gefunden hat das der
-  fremde Prüfer, nicht die Tests: prüfe jede Regel auch am **Rand** ihrer neuen Grenze.
-  **Und zum zweiten Mal dieselbe Falle** (12.10.2026): das Kappen allein genügte nicht. Die Auswahl
-  kappt die **Grenzen** und zieht dann gleichverteilt, das Modell zog erst und kappte dann — bei
-  2 Zähnen und Grenzen 1–3 zeigte die Anzeige 83,3 % Bissgefahr, gezogen wurde mit 75,0 %. Seitdem
-  gibt es **eine** Rechenstelle für beide (`liveCountRange` in `core/domain/teeth.ts`), und ein Test
-  vergleicht Anzeige und Auswahl für **jede** Zahnzahl von 1 bis 12 statt für Beispielwerte.
 
 - **Eine Vorgabe, die nur für eine Beispielbreite geprüft wird, ist keine Vorgabe.** Die Trefferfläche
   eines Zahns war gegen 358 px Bühnenbreite nachgerechnet — dem „üblichen" Handy. Ein 320-px-Gerät hat
@@ -183,6 +128,73 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Zähnen `pointer-events: none` (`presentation/styles/stage.css`); `pointer-events: all` bleibt allein
   am Trefferkreis. Ein unsichtbares Element, das Tipps schluckt, ist ein Bedienfehler.
 
+- **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
+  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" ([`AGENTS.md`](../AGENTS.md)) sagte
+  früher „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
+  hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
+  13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
+  sind gleich groß ([(65, 87), (65, 100)])" (gemessen am 14.10.2026). Die wirkliche Grenze sind
+  **zwölf** Zeichen. Beim Suchen half die eigene Zählung der Sonde nicht: `pruefen-tiere.py` zählt den
+  Katalog im **ausgelieferten Bündel** und meldet im Entwicklungsmodus leer („Kennungen im Buendel:
+  []"), weil Astro dort einzelne Module statt eines Bündels liefert — derselbe Lauf gegen die gebaute
+  Seite war grün. Eine Sonde, deren Ausgabe nicht zur Umgebung passt, schickt einen auf die falsche
+  Spur; die Adresse gehört zum Rezept (hier: `pnpm preview --port 4322`).
+
+- **Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch.**
+  `app.css` ist seit dem 14.10.2026 nur noch die **Reihenfolge** (`@import`), die Regeln stehen je
+  Bauteil unter `src/presentation/styles/`. Die Reihenfolge *ist* die Kaskade: von zwei Regeln mit
+  demselben Ziel entscheidet die spätere (eine Klassenregel verlor schon einmal gegen einen
+  Element-Klassen-Selektor aus demselben Block, siehe die Falle „Eine Breite, die nur fürs Handy
+  gedacht war" im Abschnitt „Bedienung, Blätter und Gesten", letzter Absatz). Wer ein Bauteil einfügt oder Regeln
+  verschiebt, hängt es an der richtigen Stelle ein — und `scripts/artwork-png.py` liest **dieselbe**
+  Liste, sonst fehlten die Regeln im Rasterbild, während der Browser sie zeigt. Der Beweis, dass
+  nichts verrutscht ist, ist nicht das Auge, sondern der Bau: `pnpm build` und die erzeugte
+  `dist/_astro/*.css` gegen die Fassung von vorher vergleichen (beim Aufteilen am 14.10.2026:
+  gleiche Bytes, gleiche SHA256, derselbe Dateiname).
+
+## Bedienung, Blätter und Gesten
+
+| Falle | Wächter oder Messung |
+|---|---|
+| Eine Geste, die mit der Maus geprüft ist, ist am Finger nicht geprüft | `scripts/pruefen-halten.py` |
+| Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen | — |
+| Jedes Blatt braucht einen Ausgang, der ohne Tastatur und ohne Scrollen erreichbar ist | — |
+| Eine Breite, die nur fürs Handy gedacht war, klebt auf dem Tablet am Rand | `scripts/pruefen-blattbreite.py` |
+| Kein `transform` auf einem modalen `dialog`, wenn dort ein Knopf erreichbar bleiben muss | — |
+| Ein `display` in einer Autoren-Regel hebt `dialog:not([open]) { display: none }` der Browser-Regel auf | `scripts/pruefen-blattbreite.py` |
+| Ein Auswahlblatt wählt mit dem Tipp und schließt sich — und trägt dann kein „Abbrechen" | — |
+| „Daneben" ist keine Frage der Koordinaten allein | `scripts/pruefen-blaetter.py` |
+| Was oft gebraucht wird, gehört nicht hinter ein Blatt | `scripts/pruefen-bedienung.py` |
+
+- **Eine Geste, die mit der Maus geprüft ist, ist am Finger nicht geprüft.** Das Halten eines Zahns
+  bestand alle Fälle der Sonde — mit Maus und mit einem Finger-Tipp ohne Weg. Ein Finger, der beim
+  Halten wackelt, ist für den Browser aber der Anfang eines Wischens: nach rund 10 px kam
+  `pointercancel`, der Zahn federte zurück und der Druck zählte nicht (gemessen am 12.10.2026 mit
+  echter Berührung über `Input.dispatchTouchEvent`: 14 px Weg auf 65 px Trefferfläche, kein Zug —
+  obwohl die Seite gar nicht scrollte). `touch-action: none` am Zahn hilft **nicht**: Chromium
+  wertet es an Teilen einer SVG-Zeichnung nicht aus (der berechnete Stil sagt `none`, das Verhalten
+  bleibt). Deshalb hält die Steuerung `touchstart` des **gehaltenen** Zahns an (`preventDefault`,
+  nicht passiv). Wer eine Zeigergeste baut, die länger dauert als ein Tipp, prüft sie mit
+  Berührung **und** Weg (`scripts/pruefen-halten.py`, Fälle 8 und 9).
+
+- **Ein Blatt, in dem gestellt wird, darf sich nicht selbst schließen.** Der Neustart der Runde
+  gehört zu jeder Änderung an Spielerzahl, Modus, Gebiss und Zahnzahl — aber ein Aufräumschritt, der
+  dabei **alle** offenen Blätter schließt (`dialog.sheet[open]`), macht genau das Blatt zu, in dem der
+  Nutzer gerade stellt (gemeldet: „wenn ich auf das Minus klicke, schließt sich das Modal"). Geschlossen
+  wird nur, was der Neustart wirklich wegräumen soll (damals das Ergebnis-Blatt; seit dem
+  12.10.2026 steht das Ergebnis auf der Seite und der Neustart blendet es aus). Und beim Schließen den
+  **Rückfall** für Umgebungen ohne `dialog.close` mitnehmen: jsdom kennt die Schnittstelle nicht, ein
+  Aufruf ohne Prüfung wirft dort.
+
+- **Jedes Blatt braucht einen Ausgang, der ohne Tastatur und ohne Scrollen erreichbar ist.** Ein
+  `dialog` schließt von sich aus nur über die **Escape-Taste** — die hat kein Tablet. Gemessen:
+  das Einstellungsblatt ist 793 px hoch, sichtbar sind auf 390 × 844 nur 692 px, ein Knopf am Fuß
+  lag bei 871–919 px, also außerhalb. Deshalb: ✕ im Blattkopf (`position: sticky`, 44 × 44 px,
+  bleibt auch nach dem Scrollen stehen), zusätzlich am Fuß und ein Tipp **neben** das Blatt. Für den
+  Tipp daneben die **Geometrie** prüfen (`getBoundingClientRect` gegen `clientX/clientY`) — bei einem
+  Dialog ist `event.target` auch der Innenabstand, „Ziel ist der Dialog" schlösse also bei jedem Tipp
+  daneben im Blatt selbst.
+
 - **Eine Breite, die nur fürs Handy gedacht war, klebt auf dem Tablet am Rand.** Das
   Einstellungsblatt war `width: 100%` **mit** `max-width: 620px`; ein Dialog mit `inset: auto 0 0 0`
   und `margin: 0` wächst nach links, nicht zur Mitte — gemessen bei 1180 × 820: 0 px Luft links,
@@ -195,6 +207,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   — `.sheet--columns { width: … }` wurde von `dialog.sheet` aus demselben Block überstimmt (0-1-1
   gegen 0-1-0) und die Breite blieb still bei 620 px, obwohl die Spalten schon griffen. Zwei Regeln
   mit demselben Ziel im selben Block immer gegeneinander prüfen.
+
 - **Kein `transform` auf einem modalen `dialog`, wenn dort ein Knopf erreichbar bleiben muss.** Die
   Mitte des Blattes kam aus `left: 50%` + `translateX(-50%)`. Ein `transform` ist die Stelle, an der
   ein Browser Fläche und Zeichnung unterschiedlich rechnen kann — dann trifft der Tipp nicht das
@@ -202,6 +215,7 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Abweichung von der Fenstermitte 0 px). Und einen Rückweg **nie** von einer einzigen Zustellung
   abhängig machen: „Tipp neben das Blatt" entscheidet auch am Dokument, nicht nur am Dialog
   (`event.target` ist dort der Dialog; die öffnenden Knöpfe sind ausgenommen).
+
 - **Ein `display` in einer Autoren-Regel hebt `dialog:not([open]) { display: none }` der Browser-Regel
   auf.** Das Einstellungsblatt war auf jedem Tablet **schon beim Laden sichtbar und ließ sich nicht
   schließen** (gemeldet; gemessen beim Laden vor jedem Tipp: 1180 px → `display: grid`, 1132 × 525
@@ -211,11 +225,6 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   bei einem geschlossenen Dialog nichts tut. Rasterregeln für ein Blatt gehören deshalb an `[open]`
   (`dialog.sheet.sheet--columns[open]`), und die Sonde prüft den Zustand **vor** dem ersten Tipp
   (`scripts/pruefen-blattbreite.py`, erwartet in jeder Zeile `beim Laden none`).
-
-- **Eine `.test.ts` in `src/pages/` bricht den Bau.** Astro baut jede Datei in `src/pages/` als
-  eigene Seite; ein Test dort wird zum Seitenmodul, importiert `vitest` und lässt `pnpm build` mit
-  „Vitest failed to access its internal state" abbrechen, während `pnpm test` grün bleibt. Tests,
-  die das Seiten-Markup prüfen, liegen **neben** `src/pages/`, z. B. `src/auswahl.test.ts`.
 
 - **Ein Auswahlblatt wählt mit dem Tipp und schließt sich — und trägt dann kein „Abbrechen".**
   Die Tier-Auswahl war bewusst eine Vorschau (`pending` + „Damit spielen"), damit die Kurzinfo
@@ -235,6 +244,75 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   entschieden in der **Einfangphase** (bevor ein Knopf sein Blatt schließt). Seitenskripte in
   `.astro` lädt jsdom nicht: Bedienlogik gehört in ein Modul mit Test, das Skript verdrahtet nur.
   Nachmessen: `uv run --with playwright python scripts/pruefen-blaetter.py`.
+
+- **Was oft gebraucht wird, gehört nicht hinter ein Blatt.** Tier, Zahnzahl und „Neue Runde" lagen
+  hinter dem Zahnrad: gemessen am 12.10.2026 vier Tipps für ein anderes Tier, drei für die Zahnzahl,
+  und das Blatt scrollte auf jedem Handy (821 px Inhalt in 466–750 px). Seitdem stehen sie in der
+  Leiste der Spielseite; das Zahnrad trägt nur, was je **Sitzung** gestellt wird. Nachmessen:
+  `uv run --with playwright python scripts/pruefen-bedienung.py` (erwartet: 0 Auffälligkeiten).
+  Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
+
+## Fachlogik, Modell und Statistik
+
+| Falle | Wächter oder Messung |
+|---|---|
+| Eine Zufallsebene darf nichts über den Ausgang verraten | — |
+| Eine Kennzahl, die aufaddiert wird, sättigt — und sagt dann nichts mehr | — |
+| Eine Test-Attrappe, die alle Wartezeiten sofort ausführt, verschluckt jeden langen Hinweis | — |
+| Ein Feature, dessen Wirkung nur am echten Tisch prüfbar ist, wird nicht heimlich gebaut | — |
+| Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt | `scripts/pruefen-zeitgeber.cjs` |
+| Ein Modell, das Sonderfälle wegfallen lässt, lügt bei kleinen Zahlen | — |
+| Ein Test gegen ein Modell gilt nur für Daten aus diesem Modell | — |
+| Wer eine Ablage zurückschreibt, liest sie vorher | — |
+| Ein Zeitgeber trägt die Runde, zu der er gehört | — |
+
+- **Eine Zufallsebene darf nichts über den Ausgang verraten.** Die Pause vor der Auflösung wird
+  **unabhängig vom Ausgang** gezogen (`pressBeatMs` bekommt `willSnap` gar nicht gereicht), damit
+  die Stille kein Signal ist. Der Test vergleicht beide Ausgänge bei gleichem Startwert — so eine
+  Regel ist beweisbar, nicht nur behauptet.
+
+- **Eine Kennzahl, die aufaddiert wird, sättigt — und sagt dann nichts mehr.** Die Spannung war
+  `+0,18 + 0,35 × Knappheit + 0,02 × Position` und stand bei 10 Zähnen ab dem 4. Druck auf 100 %.
+  Regel: Anzeigewerte aus dem Modell **ableiten** (`probabilities.ts`), nicht den Zustand
+  hochzählen. Dann bleibt die Zahl eine Aussage (Biss-Wahrscheinlichkeit des nächsten Drucks,
+  genau 1 beim letzten Zahn) und der Kern hat eine Wahrheit weniger.
+
+- **Eine Test-Attrappe, die alle Wartezeiten sofort ausführt, verschluckt jeden langen Hinweis.**
+  Die Attrappe der Bedienung komprimiert den Drama-Takt (`ms < 1000` läuft sofort), damit Tests
+  nicht 700 ms warten müssen. Ein 4-Sekunden-Hinweis wurde dadurch im selben Moment gezeigt und
+  wieder versteckt — der Test fiel aus einem Grund, der nichts mit dem Produkt zu tun hatte.
+  Wer lange Wartezeiten prüft, reicht eine eigene Uhr herein und führt die Rückrufe selbst aus.
+
+- **Ein Feature, dessen Wirkung nur am echten Tisch prüfbar ist, wird nicht heimlich gebaut.** Das
+  „Weitergeben" (Zug abgeben statt drücken) sollte dem Balken einen Zweck geben. Beim Nachrechnen
+  fiel auf: es verschiebt die Zugreihenfolge, die der Kern aus `pressOrder` ableitet, und ob das
+  Spiel dadurch besser wird, zeigt sich erst mit zwei oder mehr Spielern an einem echten Tisch —
+  meist wird allein gespielt. Also **abgesagt** und durch die kleine, prüfbare Variante ersetzt
+  (`survivedDanger`, der Mut der Runde), die den Balken ebenfalls handelbar macht. Eine Absage mit
+  Begründung ist ein Ergebnis, kein Versäumnis.
+
+- **Zeitgeber nie am globalen `window`, und jede Steuerung wird abgehängt.** Der Herzschlag (seit dem 12.10.2026 entfernt) hing an
+  `window.setTimeout`. Die Testumgebung baut am Ende ab und entfernt das globale Fenster, die
+  Zeitgeber der Umgebung laufen aber weiter: der späte Schlag stirbt als **unbehandelter
+  `ReferenceError: window is not defined`** (Jsdom-Zeitgeber nach entferntem Global, nachgestellt in
+  `scripts/pruefen-zeitgeber.cjs`) und das Gate endet mit Code 1, ohne dass ein Test
+  fachlich rot war — gemessen vom fremden Prüfer: 1 von 7 Läufen. Deshalb: `this.doc.defaultView`
+  statt `window` (auch als Vorgabe der Wartefunktion), und `dispose()` in der Steuerung, das die
+  Sonde nach **jedem** Fall aufruft. Wer eine Wartezeit der Steuerung selbst prüfen will, reicht eine eigene Uhr
+  herein (`vi.useFakeTimers()`) statt auf echte Millisekunden zu warten.
+
+- **Ein Modell, das Sonderfälle wegfallen lässt, lügt bei kleinen Zahlen.** Die Vorhersage der
+  Zuschnapp-Position ließ jedes `k` über der Zahnzahl ganz weg (`if (k > teeth) continue`). Solange
+  das kleinste Gebiss 4 Zähne hatte, fiel das nie auf; seit „1 Zahn" möglich ist, zeigte die
+  Statistik „Erwartet (Modell) 0,33" und einen Balken von 33 %, während Beobachtung und Gefahr-Kurve
+  100 % sagten. Die Auswahl der scharfen Zähne **kappt** auf die Zahnzahl
+  (`Math.min(min, teeth, MAX_LIVE_TEETH)`) — das Modell muss dasselbe tun. Gefunden hat das der
+  fremde Prüfer, nicht die Tests: prüfe jede Regel auch am **Rand** ihrer neuen Grenze.
+  **Und zum zweiten Mal dieselbe Falle** (12.10.2026): das Kappen allein genügte nicht. Die Auswahl
+  kappt die **Grenzen** und zieht dann gleichverteilt, das Modell zog erst und kappte dann — bei
+  2 Zähnen und Grenzen 1–3 zeigte die Anzeige 83,3 % Bissgefahr, gezogen wurde mit 75,0 %. Seitdem
+  gibt es **eine** Rechenstelle für beide (`liveCountRange` in `core/domain/teeth.ts`), und ein Test
+  vergleicht Anzeige und Auswahl für **jede** Zahnzahl von 1 bis 12 statt für Beispielwerte.
 
 - **Ein Test gegen ein Modell gilt nur für Daten aus diesem Modell.** Die Statistik warf alle Runden
   zusammen (Zahnzahl = Maximum, Tier und Modus aus der ersten Runde). 300 **faire** Runden aus
@@ -266,24 +344,34 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   `resolvePress` (`presentation/game/gameController.ts`) merkt sich den Rundenstand, und die
   Rückrufe laufen ins Leere, wenn er nicht mehr gilt. Jeder verzögerte Rückruf prüft, ob sein Anlass noch besteht.
 
-- **Was oft gebraucht wird, gehört nicht hinter ein Blatt.** Tier, Zahnzahl und „Neue Runde" lagen
-  hinter dem Zahnrad: gemessen am 12.10.2026 vier Tipps für ein anderes Tier, drei für die Zahnzahl,
-  und das Blatt scrollte auf jedem Handy (821 px Inhalt in 466–750 px). Seitdem stehen sie in der
-  Leiste der Spielseite; das Zahnrad trägt nur, was je **Sitzung** gestellt wird. Nachmessen:
-  `uv run --with playwright python scripts/pruefen-bedienung.py` (erwartet: 0 Auffälligkeiten).
-  Wer einen Griff ergänzt, fragt zuerst: je Runde oder je Sitzung?
+## Werkzeug, Git und Prüfungen
 
-- **Ein Name auf der Kachel darf höchstens zwölf Zeichen haben — und die Sonde, die das meldet, gehört
-  auf die gebaute Seite.** Die Regel unter „Ein neues Lebewesen ergänzen" ([`AGENTS.md`](../AGENTS.md)) sagte
-  früher „mehr als rund vierzehn Buchstaben"; „Säbelzahntiger"
-  hat vierzehn und brach damit auf der 65-px-Kachel in die **dritte** Zeile — seine Reihe stand
-  13,2 px tiefer als die anderen, und `pruefen-freischaltung.py` meldete „gesperrte und offene Kacheln
-  sind gleich groß ([(65, 87), (65, 100)])" (gemessen am 14.10.2026). Die wirkliche Grenze sind
-  **zwölf** Zeichen. Beim Suchen half die eigene Zählung der Sonde nicht: `pruefen-tiere.py` zählt den
-  Katalog im **ausgelieferten Bündel** und meldet im Entwicklungsmodus leer („Kennungen im Buendel:
-  []"), weil Astro dort einzelne Module statt eines Bündels liefert — derselbe Lauf gegen die gebaute
-  Seite war grün. Eine Sonde, deren Ausgabe nicht zur Umgebung passt, schickt einen auf die falsche
-  Spur; die Adresse gehört zum Rezept (hier: `pnpm preview --port 4322`).
+| Falle | Wächter oder Messung |
+|---|---|
+| Der Schichten-Wächter ist nie rot | `architecture.test.ts` |
+| Niemals `git add -A` | — |
+| Exit-Code nie über eine Pipe prüfen | — |
+| Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s | — |
+| Rezepte in der Doku sind ungeprüfter Code | — |
+| Eine Doku-Prüfung, die nur jeden siebten Pfad ansieht, meldet trotzdem „alles in Ordnung“ | `scripts/doku-pfade-pruefen.py` |
+| Eine Sonde, die einen Wortlaut fest eingetragen hat, wird beim Umtexten mitgezogen | `scripts/pruefen-bedienung.py` |
+
+- **Der Schichten-Wächter ist nie rot.** `src/architecture.test.ts` erzwingt die Importrichtung,
+  das Verbot von `node:*` außerhalb der Infrastruktur und dass der Kern ohne `document`, `window`,
+  `localStorage`, `navigator` und `new Date(` auskommt. Eine neue Mappe braucht einen Eintrag
+  in `FOLDER_LAYER` — sonst schlägt der Lauf fehl.
+
+- **Niemals `git add -A`** — explizite Pfade. Vor dem Commit `git status --short | grep '^ D'`.
+
+- **Exit-Code nie über eine Pipe prüfen** — `cmd | tail; echo $?` prüft `tail`.
+
+- **Nicht `astro dev` im Hintergrund starten und dann Befehle mit Timeout > 600 s** — der
+  Werkzeugaufruf wandert dann in den Hintergrund und man sieht die Ausgabe nicht mehr.
+
+- **Rezepte in der Doku sind ungeprüfter Code.** Ein Befehl, der auf eine verschwundene Datei
+  zeigt — oder der durchläuft und dabei nichts tut — ist schlimmer als kein Befehl. Nach jeder
+  Umbenennung oder Verschiebung die Rezepte aus README, AGENTS und `docs/` einmal wirklich
+  fahren und die **Ausgabe ansehen**, nicht nur den Exit-Code.
 
 - **Eine Doku-Prüfung, die nur jeden siebten Pfad ansieht, meldet trotzdem „alles in Ordnung“.**
   `scripts/doku-pfade-pruefen.py` paart die Backticks der Reihe nach; ein Code-Zaun (```) verschiebt
@@ -295,17 +383,6 @@ jeder Sitzung im Blick, hier liest sie, wer dem Index folgt. **Vor jeder Änderu
   Seit dem 15.10.2026 entfernt die Prüfung die Zäune vorher und paart je Zeile (779 statt 179
   Angaben). Die Lehre bleibt: die erste Zeile der Ausgabe („Pfad-Angaben geprueft: …“) ansehen —
   eine Prüfung, die wenig sieht, meldet genauso „alles in Ordnung“ wie eine, die alles sieht.
-
-- **Ein Bauteil, das nicht in der Liste steht, ist unsichtbar — und im Rasterbild auch.**
-  `app.css` ist seit dem 14.10.2026 nur noch die **Reihenfolge** (`@import`), die Regeln stehen je
-  Bauteil unter `src/presentation/styles/`. Die Reihenfolge *ist* die Kaskade: von zwei Regeln mit
-  demselben Ziel entscheidet die spätere (eine Klassenregel verlor schon einmal gegen einen
-  Element-Klassen-Selektor aus demselben Block, siehe oben). Wer ein Bauteil einfügt oder Regeln
-  verschiebt, hängt es an der richtigen Stelle ein — und `scripts/artwork-png.py` liest **dieselbe**
-  Liste, sonst fehlten die Regeln im Rasterbild, während der Browser sie zeigt. Der Beweis, dass
-  nichts verrutscht ist, ist nicht das Auge, sondern der Bau: `pnpm build` und die erzeugte
-  `dist/_astro/*.css` gegen die Fassung von vorher vergleichen (beim Aufteilen am 14.10.2026:
-  gleiche Bytes, gleiche SHA256, derselbe Dateiname).
 
 - **Eine Sonde, die einen Wortlaut fest eingetragen hat, wird beim Umtexten mitgezogen.** Die
   Bedien-Sonde setzt den Ergebnis-Kasten auf die **längste** Fassung des Ergebnistexts, weil der

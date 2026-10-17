@@ -1,5 +1,8 @@
 # Unabhängige Prüfung
 
+> **Art:** Rezept — Zweck: Das Verfahren der unabhängigen Prüfung mit fremder Methode — und was es gefunden hat.
+> **Verwandt:** [`docs/e2e-nachweise.md`](e2e-nachweise.md)
+
 **Zwei Prüfungen liegen vor.**
 
 ## 11.10.2026 — die Behauptungen des Baums und der Umgebung
